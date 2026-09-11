@@ -45,6 +45,8 @@ function applyTeamAliasFix(files) {
   replace(manifest, JSON.stringify(metadata, null, 2) + '\n');
 }
 
+// Keep the login brand consistent with the public YJ體育分析 identity. Render
+// builds the verified bundled source, so this must be applied during restore.
 function applyLoginBrandFix(files) {
   const page = files.find(file => file.path === 'app/login/page.tsx');
   const manifest = files.find(file => file.path === 'release-manifest.json');
@@ -73,6 +75,7 @@ function applyAdminOnlyAccountFix(files) {
   const expected = new Map([
     ['server/auth.mjs', '1a1d70ac2e2a890b4b3b064bdbd3992437bb810e02481e75c9cbe6ef01e3be0a'],
     ['app/login/form.tsx', '6caf989dd247776549defade5217b615e20a4acd090659229ba8e5155061cb2e'],
+    ['app/login/page.tsx', 'd32dac57796c3e90d2e5ae890c86d1a71f1db05129d869923d8c24ef5352bdd3'],
     ['app/api/meta/route.ts', '5f3c0effb5a4cb602a4a2f4465b74b14039481d3c5d617263229e2deaa9f63f8'],
     ['app/admin/tools.tsx', 'f5a67b716752b25f05d852adb2e45cd902162d5842da9e72072b61d6dd93c7c8'],
     ['app/page.tsx', '204a4c3698ecf2d972903a6f7e2bc96f825ae1182ce7a4933c875bd2aaaeea8a'],

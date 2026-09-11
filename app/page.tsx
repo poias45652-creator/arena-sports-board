@@ -52,7 +52,6 @@ export default function Home(){
 
   const filteredGames=liveGames.filter(g=>scoreFilter==='all'||scoreFilter==='live'&&g.live||scoreFilter==='final'&&g.final||scoreFilter==='upcoming'&&!g.live&&!g.final);
   return <main className="arena-shell min-h-screen text-slate-100">
-    <video className="arena-video-bg" autoPlay muted loop playsInline aria-hidden="true"><source src="/0912-bg.mp4" type="video/mp4"/></video><div className="arena-video-shade" aria-hidden="true"/>
     <header className="sticky top-0 z-20 border-b border-white/8 bg-[#081522]/95 backdrop-blur"><div className="mx-auto flex min-h-16 max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3 lg:px-7">
       <div className="grid size-9 place-items-center rounded-xl bg-[#ffd538] font-black italic text-[#06101b]">YJ</div><div className="font-black text-[#ffd538]">YJ體育分析</div>
       <div className="ml-auto flex items-center gap-2 text-sm text-slate-400"><TimerReset className="size-4 shrink-0"/><span>最後更新時間：{updatedAt?updatedAt.toLocaleString("zh-TW",{timeZone:"Asia/Taipei",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}):"等待同步"}</span></div>
