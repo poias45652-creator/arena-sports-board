@@ -161,10 +161,10 @@ try {
     renameSync(temporary, target);
     if (digest(readFileSync(target)) !== file.sha256) throw new Error(`Restored file verification failed: ${file.path}`);
   }
-  const backgroundSource = resolve(root, 'public/0912-bg.mp4');
+  const backgroundSource = resolve(root, 'public/0912-bg.mp4.b64');
   const backgroundTarget = resolve(targetRoot, 'public/0912-bg.mp4');
   mkdirSync(dirname(backgroundTarget), {recursive:true});
-  writeFileSync(backgroundTarget, readFileSync(backgroundSource));
+  writeFileSync(backgroundTarget, Buffer.from(readFileSync(backgroundSource, 'utf8'), 'base64'));
   console.log('Arena source restored and verified: 255 / 255 files.');
 } catch (error) {
   console.error(`Arena preparation failed: ${error.message}`);
