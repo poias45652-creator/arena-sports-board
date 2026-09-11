@@ -4,16 +4,16 @@ services:
     runtime: node
     plan: free
     region: singapore
-    autoDeploy: true
-    buildCommand: npm install
+    autoDeployTrigger: commit
+    buildCommand: npm ci --ignore-scripts && npm run build
     startCommand: npm start
-    healthCheckPath: /health
+    healthCheckPath: /api/health
     envVars:
       - key: NODE_VERSION
-        value: 20
-      - key: CONNECTOR_URL
-        value: https://arena-connector.onrender.com
-      - key: CONNECTOR_ORIGIN
-        value: https://arena-sports-board.poias45652.chatgpt.site
-      - key: CONNECTOR_KEY
+        value: "24"
+      - key: DATABASE_URL
+        sync: false
+      - key: TZ_BINDING_KEY
+        sync: false
+      - key: ARENA_SETUP_TOKEN
         sync: false
