@@ -85,10 +85,21 @@ async function loadMe() {
   try { const data = await request("/api/me"); state.user = data.user; state.binding = data.binding; }
   catch (e) { if (e.status === 401) { state.user = null; state.binding = null; } else throw e; }
   renderSession();
+  // Keep setup available to existing members, and hide it immediately after bootstrap succeeds.
+  const meta = await request("/api/meta");
+  show(el.setupCard, meta.setupRequired);
 }
 async function submitAuth(form, endpoint) {
+  const button = form.querySelector('button[type="submit"]');
+  if (button.disabled) return;
+  button.disabled = true;
   try { const data = formData(form); await request(endpoint,{method:"POST",body:JSON.stringify(data)}); form.reset(); await loadMe(); setNotice(); }
-  catch (e) { alert(e.message); }
+  catch (e) {
+    alert(e.message);
+    if (endpoint === "/api/setup-admin" && e.status === 409) {
+      try { await loadMe(); } catch {}
+    }
+  } finally { button.disabled = false; }
 }
 async function refresh() {
   el.refresh.disabled = true; setNotice("正在連線 SUPER…");
@@ -102,7 +113,7 @@ async function refresh() {
 el.loginForm.addEventListener("submit", e => { e.preventDefault(); submitAuth(e.currentTarget,"/api/login"); });
 el.registerForm.addEventListener("submit", e => { e.preventDefault(); submitAuth(e.currentTarget,"/api/register"); });
 el.setupForm.addEventListener("submit", e => { e.preventDefault(); submitAuth(e.currentTarget,"/api/setup-admin"); });
-el.logout.addEventListener("click", async () => { await request("/api/logout",{method:"POST",body:"{}"}); state.user=null; state.binding=null; state.raw=null; renderSession(); });
+el.logout.addEventListener("click", async () => { await request("/api/logout",{method:"POST",body:"{}"}); state.user=null; state.binding=null; state.raw=null; await loadMe(); });
 el.toggleBind.addEventListener("click", () => show(el.bindForm, el.bindForm.classList.contains("hidden")));
 el.bindForm.addEventListener("submit", async e => { e.preventDefault(); try { await request("/api/source/bind",{method:"POST",body:JSON.stringify(formData(e.currentTarget))}); e.currentTarget.reset(); show(el.bindForm,false); await loadMe(); setNotice("SUPER 綁定已加密保存。"); } catch(err) { setNotice(err.message,"error"); } });
 el.unbind.addEventListener("click", async () => { try { await request("/api/source/unbind",{method:"POST",body:"{}"}); state.raw=null; show(el.bindForm,false); await loadMe(); setNotice("已解除 SUPER 綁定。"); } catch(e) { setNotice(e.message,"error"); } });
@@ -110,6 +121,6 @@ el.refresh.addEventListener("click", refresh);
 for (const tab of el.tabs) tab.addEventListener("click",() => { state.scope=tab.dataset.scope; for (const t of el.tabs) t.classList.toggle("active",t===tab); renderMarkets(); });
 
 (async function init(){
-  try { const meta = await request("/api/meta"); show(el.setupCard,meta.setupRequired); await loadMe(); }
+  try { await loadMe(); }
   catch(e) { alert(`Arena 尚未完成 Render 設定：${e.message}`); }
 })();

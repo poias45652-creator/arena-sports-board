@@ -43,18 +43,19 @@
           <button class="primary" type="submit">註冊</button>
         </form>
       </article>
-
-      <article id="setupCard" class="card auth-card hidden">
-        <p class="eyebrow">FIRST SETUP</p>
-        <h2>建立第一位管理員</h2>
-        <form id="setupForm" class="form-stack">
-          <label>Arena 帳號<input name="username" required minlength="3" maxlength="32" /></label>
-          <label>Arena 密碼<input name="password" type="password" required minlength="10" /></label>
-          <label>管理員設定碼<input name="setupToken" type="password" required /></label>
-          <button class="primary" type="submit">建立管理員</button>
-        </form>
-      </article>
     </section>
+
+    <article id="setupCard" class="card auth-card hidden" style="margin-bottom:18px">
+      <p class="eyebrow">FIRST SETUP</p>
+      <h2>建立第一位管理員</h2>
+      <p class="muted">已有一般會員仍可設定。請選擇尚未使用的管理員帳號，不會自動升級既有會員。設定碼請至 Render 的 ARENA_SETUP_TOKEN 複製，勿對外分享。</p>
+      <form id="setupForm" class="form-stack">
+        <label>Arena 管理員帳號<input name="username" autocomplete="username" required minlength="3" maxlength="32" /></label>
+        <label>Arena 管理員密碼<input name="password" type="password" autocomplete="new-password" required minlength="10" maxlength="1024" /></label>
+        <label>管理員設定碼<input name="setupToken" type="password" autocomplete="off" required /></label>
+        <button class="primary" type="submit">建立管理員</button>
+      </form>
+    </article>
 
     <section id="appView" class="hidden">
       <section class="toolbar card">
@@ -114,6 +115,6 @@
       </details>
     </section>
   </main>
-  <script type="module" src="/app.js"></script>
+  <script type="module" src="/app.js?v=admin-setup-2"></script>
 </body>
 </html>
