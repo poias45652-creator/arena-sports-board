@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: arena-sports-board
+    runtime: node
+    plan: free
+    region: singapore
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: CONNECTOR_URL
+        value: https://arena-connector.onrender.com
+      - key: CONNECTOR_ORIGIN
+        value: https://arena-sports-board.poias45652.chatgpt.site
+      - key: CONNECTOR_KEY
+        sync: false
