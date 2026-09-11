@@ -78,6 +78,9 @@ function applyAdminOnlyAccountFix(files) {
     ['app/page.tsx', '204a4c3698ecf2d972903a6f7e2bc96f825ae1182ce7a4933c875bd2aaaeea8a'],
     ['app/globals.css', '81f1e82a01031312f4d9d1a06bdc5adac9bb04ca6817215f88bfee1a14682094'],
     ['app/source-markets.tsx', '106c8dcf4360c75a9eca1e4d7b996a6e6c89cb207905a9a4d7ead0cf01adcf21'],
+    ['app/operations-panel.tsx', 'ed77dd9a2bf0d5a42a4b3028a4d7061086121c337d837cceebddb0ccfefcaab8'],
+    ['app/settlement-calculator.tsx', 'e53569467fbd6ab1adf20ce7bea6065585aeec8244be053a0d99e2a944f83b5b'],
+    ['app/markets.tsx', '9492514c077c6b52af8eec862ad605e5cb3cf54a3495428152a2d1ae580093ec'],
   ]);
   const manifest = files.find(file => file.path === 'release-manifest.json');
   if (!manifest) throw new Error('Missing release manifest for admin-only account patch.');
