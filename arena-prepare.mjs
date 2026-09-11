@@ -75,6 +75,9 @@ function applyAdminOnlyAccountFix(files) {
     ['app/login/form.tsx', '6caf989dd247776549defade5217b615e20a4acd090659229ba8e5155061cb2e'],
     ['app/api/meta/route.ts', '5f3c0effb5a4cb602a4a2f4465b74b14039481d3c5d617263229e2deaa9f63f8'],
     ['app/admin/tools.tsx', 'f5a67b716752b25f05d852adb2e45cd902162d5842da9e72072b61d6dd93c7c8'],
+    ['app/page.tsx', '204a4c3698ecf2d972903a6f7e2bc96f825ae1182ce7a4933c875bd2aaaeea8a'],
+    ['app/globals.css', '81f1e82a01031312f4d9d1a06bdc5adac9bb04ca6817215f88bfee1a14682094'],
+    ['app/source-markets.tsx', '106c8dcf4360c75a9eca1e4d7b996a6e6c89cb207905a9a4d7ead0cf01adcf21'],
   ]);
   const manifest = files.find(file => file.path === 'release-manifest.json');
   if (!manifest) throw new Error('Missing release manifest for admin-only account patch.');
@@ -158,6 +161,10 @@ try {
     renameSync(temporary, target);
     if (digest(readFileSync(target)) !== file.sha256) throw new Error(`Restored file verification failed: ${file.path}`);
   }
+  const backgroundSource = resolve(root, 'public/0912-bg.mp4');
+  const backgroundTarget = resolve(targetRoot, 'public/0912-bg.mp4');
+  mkdirSync(dirname(backgroundTarget), {recursive:true});
+  writeFileSync(backgroundTarget, readFileSync(backgroundSource));
   console.log('Arena source restored and verified: 255 / 255 files.');
 } catch (error) {
   console.error(`Arena preparation failed: ${error.message}`);
