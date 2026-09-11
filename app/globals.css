@@ -15,8 +15,11 @@ button,input { font:inherit; }
 .stat svg { width:1.1rem; height:1.1rem; }
 
 /* League overview: compact navigation, separated fixtures, consistent working surfaces. */
-.arena-shell { background:#080f19; }
-.arena-shell header { background:#0b1420; }
+.arena-shell { position:relative; isolation:isolate; background:#080f19; }
+.arena-video-bg { position:fixed; inset:0; z-index:-3; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.arena-video-shade { position:fixed; inset:0; z-index:-2; background:linear-gradient(180deg,rgba(3,9,16,.82),rgba(5,12,21,.9)); pointer-events:none; }
+.arena-shell header { background:rgba(7,17,29,.9); }
+.arena-content { position:relative; z-index:1; }
 .league-heading { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.5rem 0 1.5rem; }
 .league-eyebrow { color:#8e9eaf; font-size:.875rem; margin-bottom:.5rem; }
 .league-heading h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; letter-spacing:-.03em; }
@@ -30,7 +33,7 @@ button,input { font:inherit; }
 .league-summary span { display:block; font-size:.875rem; color:#9aaabd; margin-bottom:.5rem; }
 .league-summary strong { font-size:1.4rem; font-variant-numeric:tabular-nums; }
 .league-summary small { font-size:.875rem; font-weight:400; color:#9aaabd; }
-.arena-shell .panel { background:#101b2a; border-color:#263243; border-radius:.625rem; }
+.arena-shell .panel { background:rgba(9,22,36,.94); border-color:#33465e; border-radius:.625rem; box-shadow:0 12px 30px rgba(0,0,0,.28); }
 .score-filters { display:flex; flex-wrap:wrap; gap:.25rem; padding:.75rem 1.25rem; border-bottom:1px solid #263243; }
 .score-filters button { color:#a8b7c9; min-height:2.5rem; }
 .score-filters button[aria-pressed=true] { background:#253348; color:white; }
@@ -59,6 +62,7 @@ button,input { font:inherit; }
 .recent-results>span { display:grid; place-items:center; min-width:1.5rem; height:1.6rem; border-radius:.25rem; font-size:.875rem; }
 .result-win { color:#6ee7b7; background:#10b98118; }.result-loss { color:#fda4af; background:#f43f5e18; }
 .league-tabs { overflow-x:auto; justify-content:flex-start; flex-shrink:0; }
+.league-workspace { max-height:calc(100dvh - 9.5rem); overflow-y:auto; overscroll-behavior:contain; padding-right:.2rem; }
 .team-page-nav { max-width:1440px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:1.25rem 1.5rem; font-size:.875rem; border-bottom:1px solid #263243; }
 .team-page-nav a:hover { color:#ffd538; }
 .team-page-container { max-width:1320px; margin:auto; padding:1.5rem; }
@@ -74,6 +78,7 @@ button,input { font:inherit; }
 .team-player-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }.team-player-card { border-top:3px solid #ffd538; border-bottom:1px solid #263243; padding:1.25rem .75rem; text-align:center; }.team-player-card img { margin:0 auto .75rem; border-radius:.5rem; background:#1d2a3c; object-fit:contain; }.team-player-card h3 { font-size:1rem; font-weight:700; overflow-wrap:anywhere; }.team-player-card p { margin-top:.4rem; font-size:.875rem; color:#9aaabd; }
 @media(max-width:1000px) { .team-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); }.team-directory { grid-template-columns:repeat(2,minmax(0,1fr)); }.team-player-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
 @media(max-width:640px) { .team-page-container { padding:1rem; }.team-detail-grid { grid-template-columns:minmax(0,1fr); }.team-directory { grid-template-columns:minmax(0,1fr); }.team-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }.team-player-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.team-filters { gap:.75rem; }.team-filter { min-width:120px; }.team-identity { gap:.75rem; flex-wrap:wrap; }.team-calendar-heading>div { flex-wrap:wrap; }.team-identity img { width:48px; height:48px; } }
+@media(max-width:767px) { .league-workspace { max-height:none; overflow:visible; } }
 
 /* Keep scrolling available without visible browser scrollbars. */
 html, body, body * { scrollbar-width: none; }
