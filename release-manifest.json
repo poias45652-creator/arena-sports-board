@@ -43,8 +43,8 @@
     },
     {
       "path": "DEPLOY_RENDER_ZH.md",
-      "bytes": 7563,
-      "sha256": "c99d75595addde8c6c4f6683c2c32c512330ce2b8dbf5c293f4f7fc0a0c44de3"
+      "bytes": 3120,
+      "sha256": "c1dd40b09d900d52c47edbd563a093d8cd7ff885f62e3a308d4d893b40d72ab4"
     },
     {
       "path": "README.md",
@@ -53,13 +53,13 @@
     },
     {
       "path": "README_FIX.md",
-      "bytes": 2047,
-      "sha256": "6d82c985b6f767e9af371501edb38c1c87627b76d4c8abb2ccadc9a89fe4d112"
+      "bytes": 550,
+      "sha256": "666d1dd7364f8807bc5b7f298dbdd6b61727d306317eef93751c714bf7130be1"
     },
     {
       "path": "VALIDATION_ZH.md",
-      "bytes": 1775,
-      "sha256": "1b05f3b8bfa71d6f28f1c1de57ed16fd7faf217d4f69a752690a7e79834584c1"
+      "bytes": 1681,
+      "sha256": "81c95059462835cb69610c88ae129d4c287ab7f4d87ba47b8d959fedeb3a53a5"
     },
     {
       "path": "app/account-menu.tsx",
@@ -1277,5 +1277,16 @@
       "sha256": "2ed36d7fa996e946d9d7695c5925e7760246f6bf8fa35c06f1bc515c087dc450"
     }
   ],
-  "release_revision": "render-build-fix-20260911"
+  "release_revision": "single-complete-validated-20260911",
+  "file_count": 255,
+  "validation": {
+    "node": "24.19.0",
+    "clean_install_packages": 534,
+    "source_tests": 27,
+    "analysis_tests": 15,
+    "production_build": "passed",
+    "typescript": "passed",
+    "postgres_integration": "not_run",
+    "render_deployment": "not_verified"
+  }
 }
