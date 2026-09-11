@@ -16,7 +16,7 @@ export default function LoginForm(){
    location.assign(safe);
   }catch(e){setError(e instanceof Error?e.message:'連線中斷，請重試。');}finally{setBusy(false);}
  }
- const title=mode==='login'?'登入 Arena':mode==='register'?'建立 Arena 帳號':'建立第一位管理員';
+ const title=mode==='login'?'登入 Arena':'建立第一位管理員';
  return <><h1 className="mb-2 text-2xl font-bold">{title}</h1><p className="mb-6 text-sm text-slate-400">登入後，使用自己的 tz 帳號連接 SUPER 盤口。</p>
  <form onSubmit={submit} className="space-y-5">
  <label className="block space-y-2"><span>Arena 帳號</span><Input name="username" autoComplete="username" required minLength={3} maxLength={32} pattern="[A-Za-z0-9_.\-]{3,32}" disabled={busy}/></label>
@@ -24,5 +24,5 @@ export default function LoginForm(){
  {mode==='setup'&&<label className="block space-y-2"><span>管理員設定碼</span><Input name="setupToken" type="password" autoComplete="off" required disabled={busy}/><span className="text-sm text-slate-400">使用 Render 中的 ARENA_SETUP_TOKEN。</span></label>}
  {error&&<p role="alert" className="text-sm text-amber-200">{error}</p>}
  <Button className="w-full" disabled={busy}>{busy?'處理中…':title}</Button></form>
- <div className="mt-6 flex flex-wrap gap-4 text-sm">{['login','register',...(setup?['setup']:[])].filter(m=>m!==mode).map(m=><button key={m} disabled={busy} className="text-slate-300 underline" onClick={()=>{setMode(m);setError('');}}>{m==='login'?'返回登入':m==='register'?'建立帳號':'首次管理員設定'}</button>)}</div></>;
+ <div className="mt-6 flex flex-wrap gap-4 text-sm">{['login',...(setup?['setup']:[])].filter(m=>m!==mode).map(m=><button key={m} disabled={busy} className="text-slate-300 underline" onClick={()=>{setMode(m);setError('');}}>{m==='login'?'返回登入':'首次管理員設定'}</button>)}</div></>;
 }
