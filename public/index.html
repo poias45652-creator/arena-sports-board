@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07111f" />
+  <title>Arena Sports Board</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">ARENA SPORTS BOARD</p>
+        <h1>MLB 盤口</h1>
+        <p id="subline" class="muted">SUPER ・ 賽前盤</p>
+      </div>
+      <div class="actions">
+        <span id="statusPill" class="pill">尚未更新</span>
+        <button id="refreshBtn" class="primary">更新盤口</button>
+      </div>
+    </header>
+
+    <section class="toolbar card">
+      <div class="tabs" role="tablist" aria-label="盤口區間">
+        <button class="tab active" data-scope="full">全場</button>
+        <button class="tab" data-scope="half">上半場</button>
+      </div>
+      <div class="toolbar-copy">
+        <strong>SUPER 主盤</strong>
+        <span>僅展示 MLB 全場與上半場主要盤口，不顯示滾球。</span>
+      </div>
+    </section>
+
+    <section id="notice" class="notice hidden"></section>
+
+    <section class="summary-grid">
+      <article class="metric card">
+        <span>資料來源</span>
+        <strong>SUPER</strong>
+      </article>
+      <article class="metric card">
+        <span>目前區間</span>
+        <strong id="scopeMetric">全場</strong>
+      </article>
+      <article class="metric card">
+        <span>盤口筆數</span>
+        <strong id="countMetric">0</strong>
+      </article>
+      <article class="metric card">
+        <span>最後更新</span>
+        <strong id="updatedMetric">--:--:--</strong>
+      </article>
+    </section>
+
+    <section class="board card">
+      <div class="section-head">
+        <div>
+          <h2>主要盤口</h2>
+          <p class="muted">讓分、大小、獨贏。分盤結果文字使用「中洞贏／中洞輸」，不顯示走盤。</p>
+        </div>
+      </div>
+      <div id="markets" class="markets empty-state">
+        <div>
+          <strong>等待 SUPER 資料</strong>
+          <p>按「更新盤口」取得最新來源資料。</p>
+        </div>
+      </div>
+    </section>
+
+    <details class="raw card">
+      <summary>查看來源回傳資料</summary>
+      <pre id="rawJson">尚未取得資料</pre>
+    </details>
+  </main>
+
+  <script type="module" src="/app.js"></script>
+</body>
+</html>
