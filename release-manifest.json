@@ -52,9 +52,14 @@
       "sha256": "e295cc1ebe772412ca30e542a79c0178b555173cb8af19121966bfeff1940a10"
     },
     {
+      "path": "README_FIX.md",
+      "bytes": 2047,
+      "sha256": "6d82c985b6f767e9af371501edb38c1c87627b76d4c8abb2ccadc9a89fe4d112"
+    },
+    {
       "path": "VALIDATION_ZH.md",
-      "bytes": 2503,
-      "sha256": "1127f8bce5b692fb02ea9d902ee071206822a504ef2ef97a4ac741c200506a7c"
+      "bytes": 1775,
+      "sha256": "1b05f3b8bfa71d6f28f1c1de57ed16fd7faf217d4f69a752690a7e79834584c1"
     },
     {
       "path": "app/account-menu.tsx",
@@ -878,13 +883,13 @@
     },
     {
       "path": "package-lock.json",
-      "bytes": 384999,
-      "sha256": "73fda9ebc4fbe834ab7b66cb4a0662fe609f2c4211dbc3a29260e7d90963b465"
+      "bytes": 384913,
+      "sha256": "a9aec8169eb60aaaa56db2d1adef50b4d4dee8645207e06262703ba45c8a50c6"
     },
     {
       "path": "package.json",
-      "bytes": 1791,
-      "sha256": "774c0dbb8c7327e168316ef513cf06a9dfb827aa181e9fb22f899b225b73e4bd"
+      "bytes": 1817,
+      "sha256": "994e585c35a1348d99bd4f16a82b79350213d4fb4b055662cf01a6dbdd2d9acd"
     },
     {
       "path": "postcss.config.mjs",
@@ -1271,5 +1276,6 @@
       "bytes": 1731,
       "sha256": "2ed36d7fa996e946d9d7695c5925e7760246f6bf8fa35c06f1bc515c087dc450"
     }
-  ]
+  ],
+  "release_revision": "render-build-fix-20260911"
 }
