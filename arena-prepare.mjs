@@ -45,6 +45,58 @@ function applyTeamAliasFix(files) {
   replace(manifest, JSON.stringify(metadata, null, 2) + '\n');
 }
 
+function applyLoginBrandFix(files) {
+  const page = files.find(file => file.path === 'app/login/page.tsx');
+  const manifest = files.find(file => file.path === 'release-manifest.json');
+  if (!page || page.sha256 !== '462d9d2ef47dd12fad2786930ab2999c6a89b435cc4541f345abc71535f6706b' || !manifest) {
+    throw new Error('Login brand patch does not match the bundled source version.');
+  }
+  const replace = (file, text) => {
+    const bytes = Buffer.from(text, 'utf8');
+    file.data = bytes.toString('base64');
+    file.bytes = bytes.length;
+    file.sha256 = digest(bytes);
+  };
+  const original = Buffer.from(page.data, 'base64').toString('utf8');
+  if (original.split('>ARENA</div>').length !== 2) throw new Error('Expected login brand was not found exactly once.');
+  replace(page, original.replace('>ARENA</div>', '>YJ體育分析</div>'));
+  const metadata = JSON.parse(Buffer.from(manifest.data, 'base64').toString('utf8'));
+  const record = metadata.files.find(file => file.path === page.path);
+  if (!record) throw new Error(`Missing patched file in release manifest: ${page.path}`);
+  record.bytes = page.bytes;
+  record.sha256 = page.sha256;
+  metadata.source_patches = [...new Set([...(metadata.source_patches || []), 'login-brand-yj-20260911'])];
+  replace(manifest, JSON.stringify(metadata, null, 2) + '\n');
+}
+
+function applyAdminOnlyAccountFix(files) {
+  const expected = new Map([
+    ['server/auth.mjs', '1a1d70ac2e2a890b4b3b064bdbd3992437bb810e02481e75c9cbe6ef01e3be0a'],
+    ['app/login/form.tsx', '6caf989dd247776549defade5217b615e20a4acd090659229ba8e5155061cb2e'],
+    ['app/api/meta/route.ts', '5f3c0effb5a4cb602a4a2f4465b74b14039481d3c5d617263229e2deaa9f63f8'],
+    ['app/admin/tools.tsx', 'f5a67b716752b25f05d852adb2e45cd902162d5842da9e72072b61d6dd93c7c8'],
+  ]);
+  const manifest = files.find(file => file.path === 'release-manifest.json');
+  if (!manifest) throw new Error('Missing release manifest for admin-only account patch.');
+  const metadata = JSON.parse(Buffer.from(manifest.data, 'base64').toString('utf8'));
+  const replace = (file, bytes) => {
+    file.data = bytes.toString('base64');
+    file.bytes = bytes.length;
+    file.sha256 = digest(bytes);
+  };
+  for (const [path, expectedHash] of expected) {
+    const file = files.find(candidate => candidate.path === path);
+    if (!file || file.sha256 !== expectedHash) throw new Error(`Admin-only account patch does not match bundled source: ${path}`);
+    replace(file, readFileSync(resolve(root, path)));
+    const record = metadata.files.find(candidate => candidate.path === path);
+    if (!record) throw new Error(`Missing patched file in release manifest: ${path}`);
+    record.bytes = file.bytes;
+    record.sha256 = file.sha256;
+  }
+  metadata.source_patches = [...new Set([...(metadata.source_patches || []), 'admin-only-accounts-20260911'])];
+  replace(manifest, Buffer.from(JSON.stringify(metadata, null, 2) + '\n', 'utf8'));
+}
+
 function existing(path) {
   try { return lstatSync(path); }
   catch (error) { if (error.code === 'ENOENT') return null; throw error; }
@@ -96,6 +148,8 @@ try {
     }
   }
   applyTeamAliasFix(payload.files);
+  applyLoginBrandFix(payload.files);
+  applyAdminOnlyAccountFix(payload.files);
   for (const file of payload.files) {
     const target = checkedTarget(file.path);
     mkdirSync(dirname(target), {recursive: true});
