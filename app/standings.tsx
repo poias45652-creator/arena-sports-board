@@ -1,0 +1,20 @@
+'use client';
+import Link from 'next/link';
+import {useState} from 'react';
+import {Button} from '@/components/ui/button';
+import {Select,SelectTrigger,SelectValue,SelectContent,SelectItem} from '@/components/ui/select';
+import {Table,TableHeader,TableBody,TableRow,TableHead,TableCell} from '@/components/ui/table';
+import {useSource} from './use-source';
+import {teamZh} from './zh';
+import {divisions} from '@/lib/standings';
+export default function Standings(){
+ const [scope,setScope]=useState('all');const {data,error,loading,refresh}=useSource<any>('standings',5*60000);
+ const mode=scope==='all'?'all':scope==='103'||scope==='104'?'league':'division';
+ const title=scope==='all'?'全 MLB':scope==='103'?'美國聯盟':scope==='104'?'國家聯盟':divisions[+scope];
+ const rows=(data?.rows||[]).filter((r:any)=>scope==='all'||mode==='league'&&r.leagueId===+scope||mode==='division'&&r.divisionId===+scope).sort((a:any,b:any)=>a.rank[mode]-b.rank[mode]||a.id-b.id);
+ return <section className="panel standings-panel" aria-label="MLB 球隊戰績排名"><div className="standings-heading"><h2>戰績排名</h2><div className="flex flex-wrap items-center gap-2"><Select value={scope} onValueChange={setScope}><SelectTrigger aria-label="戰績排名範圍"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="all">全部 30 隊</SelectItem><SelectItem value="103">美國聯盟</SelectItem><SelectItem value="104">國家聯盟</SelectItem>{Object.entries(divisions).map(([id,name])=><SelectItem key={id} value={id}>{name}</SelectItem>)}</SelectContent></Select><Button variant="ghost" onClick={()=>void refresh()} disabled={loading}>{loading?'更新中…':'更新戰績'}</Button></div></div>
+ <div className="standings-meta"><span>{data?.season||new Date().getFullYear()} 例行賽 · 勝差與{title}第一名比較</span><span>近 5 場由左至右：舊 → 新</span></div>
+ {error&&<p role="status" className="px-5 py-2 text-sm text-amber-200">{error}</p>}
+ {!data?<p role="status" className="p-5 text-slate-400">{loading?'正在取得 MLB 30 隊戰績…':'戰績暫時無法取得'}</p>:<Table className="standings-table"><TableHeader><TableRow><TableHead>排名</TableHead><TableHead>球隊</TableHead><TableHead>勝－敗</TableHead><TableHead className="text-right">勝率</TableHead><TableHead className="text-right">勝差</TableHead><TableHead>連勝／敗</TableHead><TableHead>近 5 場</TableHead></TableRow></TableHeader><TableBody>{rows.map((r:any)=><TableRow key={r.id}><TableCell><span className={`rank-chip ${r.rank[mode]===1?'rank-first':''}`}>{r.rank[mode]}</span></TableCell><TableCell><div className="flex items-center gap-3"><img src={`https://www.mlbstatic.com/team-logos/${r.id}.svg`} alt="" width={28} height={28} loading="lazy" onError={e=>{e.currentTarget.style.visibility='hidden';}}/><Link href={`/teams/${r.id}`} className="font-bold whitespace-nowrap hover:text-[#ffd538]">{teamZh(r)}</Link></div></TableCell><TableCell><div className="record-line"><span className="text-emerald-300">{r.wins}</span>－<span className="text-rose-300">{r.losses}</span></div><div className="win-track" aria-hidden="true"><span style={{width:`${(r.pct||0)*100}%`}}/></div></TableCell><TableCell className="text-right font-bold tabular-nums">{r.pct===null?'—':r.pct.toFixed(3).replace(/^0/,'')}</TableCell><TableCell className="text-right tabular-nums">{r.back[mode]??'—'}</TableCell><TableCell><span className={r.streak?.startsWith('W')?'text-emerald-300':'text-rose-300'}>{r.streak? r.streak.replace('W','勝 ').replace('L','敗 '):'—'}</span></TableCell><TableCell><div className="recent-results">{r.lastFive.map((g:any)=><span key={g.gameId} className={g.result==='W'?'result-win':g.result==='L'?'result-loss':''} title={`${g.date} · ${g.score}：${g.against}`} aria-label={`${g.date} ${g.result==='W'?'勝':g.result==='L'?'敗':'和'} ${g.score}比${g.against}`}>{g.result==='W'?'勝':g.result==='L'?'敗':'和'}</span>)}{!r.lastFive.length&&<span>—</span>}</div></TableCell></TableRow>)}</TableBody></Table>}
+ <div className="standings-meta"><span>{data?`更新：${new Date(data.fetchedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}（台灣）`:'等待同步'}</span>{data&&!data.recentAvailable&&<span className="text-amber-200">近況暫時無法取得</span>}</div></section>;
+}
