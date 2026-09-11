@@ -124,27 +124,63 @@ async function connectorRefresh(credentials) {
   } finally { clearTimeout(timer); }
 }
 
+// Check administrator roles, not total membership. Use the transaction's client when supplied.
+async function adminExists(db = pool) {
+  const { rows } = await db.query("SELECT EXISTS (SELECT 1 FROM arena_users WHERE role = 'admin') AS exists");
+  return rows[0].exists;
+}
+async function setupAdmin(req, res) {
+  if (req.headers.origin !== APP_ORIGIN) return json(res, 403, { ok: false, error: "請從 Arena 網站建立管理員" });
+  let d;
+  try { d = await body(req); }
+  catch (e) { if (e.message === "invalid_json") return json(res, 400, { ok: false, error: "請傳送有效的 JSON" }); throw e; }
+  if (!d || typeof d !== "object" || Array.isArray(d)) return json(res, 400, { ok: false, error: "管理員資料格式不正確" });
+  if (SETUP_TOKEN.length < 32) return json(res, 503, { ok: false, error: "管理員設定碼尚未安全設定" });
+  const submittedToken = typeof d.setupToken === "string" ? d.setupToken : "";
+  if (!crypto.timingSafeEqual(Buffer.from(sha256(submittedToken), "hex"), Buffer.from(sha256(SETUP_TOKEN), "hex"))) {
+    return json(res, 403, { ok: false, error: "管理員設定碼不正確" });
+  }
+  const username = typeof d.username === "string" ? normalizeUsername(d.username) : "";
+  const password = typeof d.password === "string" ? d.password : "";
+  if (!validArenaUsername(username) || password.length < 10 || password.length > 1024) {
+    return json(res, 400, { ok: false, error: "帳號需 3-32 個英文、數字或 _.-；密碼需 10-1024 字元" });
+  }
+  const salt = crypto.randomBytes(16).toString("hex"), hash = await passwordHash(password, salt);
+  const id = crypto.randomUUID(), token = crypto.randomBytes(32).toString("base64url");
+  const client = await pool.connect();
+  let inTransaction = false, releaseError;
+  try {
+    await client.query("BEGIN ISOLATION LEVEL READ COMMITTED");
+    inTransaction = true;
+    await client.query("SET LOCAL lock_timeout = '5s'");
+    // Serialize bootstrap requests across processes; the lock is released on commit/rollback.
+    await client.query("SELECT pg_advisory_xact_lock($1::int, $2::int)", [1095910734, 1]);
+    if (await adminExists(client)) {
+      await client.query("ROLLBACK"); inTransaction = false;
+      return json(res, 409, { ok: false, error: "管理員已建立，請使用登入功能" });
+    }
+    await client.query("INSERT INTO arena_users(id,username,password_salt,password_hash,role) VALUES($1,$2,$3,$4,'admin')", [id, username, salt, hash]);
+    // Commit the account and its session together; failed session creation cannot strand an admin.
+    await client.query("INSERT INTO arena_sessions(token_hash,user_id,expires_at) VALUES($1,$2,now()+interval '14 days')", [sha256(token), id]);
+    await client.query("COMMIT"); inTransaction = false;
+    res.setHeader("Set-Cookie", sessionCookie(token));
+    return json(res, 201, { ok: true, user: { id, username, role: "admin" } });
+  } catch (e) {
+    if (inTransaction) {
+      try { await client.query("ROLLBACK"); } catch (rollbackError) { releaseError = rollbackError; }
+    }
+    if (e.code === "23505") return json(res, 409, { ok: false, error: "此帳號已存在，請另選管理員帳號；既有會員不會自動升權" });
+    if (e.code === "55P03") return json(res, 503, { ok: false, error: "管理員設定忙碌中，請稍後重試" });
+    throw e;
+  } finally { client.release(releaseError); }
+}
+
 async function api(req, res, url) {
   if (!pool) return json(res, 503, { ok: false, error: "DATABASE_URL 尚未設定" });
   if (url.pathname === "/api/meta" && req.method === "GET") {
-    const count = Number((await pool.query("SELECT count(*)::int AS n FROM arena_users")).rows[0].n);
-    return json(res, 200, { ok: true, setupRequired: count === 0, source: "SUPER" });
+    return json(res, 200, { ok: true, setupRequired: !(await adminExists()), source: "SUPER", adminSetupVersion: 2 });
   }
-  if (url.pathname === "/api/setup-admin" && req.method === "POST") {
-    const d = await body(req), username = normalizeUsername(d.username), password = String(d.password || "");
-    if (!SETUP_TOKEN || String(d.setupToken || "") !== SETUP_TOKEN) return json(res, 403, { ok: false, error: "管理員設定碼不正確" });
-    if (!validArenaUsername(username) || password.length < 10) return json(res, 400, { ok: false, error: "帳號需 3-32 字元；密碼至少 10 字元" });
-    const client = await pool.connect();
-    try {
-      await client.query("BEGIN");
-      const count = Number((await client.query("SELECT count(*)::int AS n FROM arena_users")).rows[0].n);
-      if (count) { await client.query("ROLLBACK"); return json(res, 409, { ok: false, error: "管理員已建立" }); }
-      const salt = crypto.randomBytes(16).toString("hex"), hash = await passwordHash(password, salt), id = crypto.randomUUID();
-      await client.query("INSERT INTO arena_users(id,username,password_salt,password_hash,role) VALUES($1,$2,$3,$4,'admin')", [id, username, salt, hash]);
-      await client.query("COMMIT"); await createSession(res, id);
-      return json(res, 201, { ok: true, user: { id, username, role: "admin" } });
-    } finally { client.release(); }
-  }
+  if (url.pathname === "/api/setup-admin" && req.method === "POST") return setupAdmin(req, res);
   if (url.pathname === "/api/register" && req.method === "POST") {
     const d = await body(req), username = normalizeUsername(d.username), password = String(d.password || "");
     if (!validArenaUsername(username) || password.length < 10) return json(res, 400, { ok: false, error: "帳號需 3-32 字元；密碼至少 10 字元" });
@@ -195,12 +231,13 @@ async function serve(req, res, url) {
 }
 
 await migrate();
+if (pool) console.log(`Admin setup v2 ready; setupRequired=${!(await adminExists())}`);
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, "http://localhost");
   try {
     if (url.pathname === "/health") {
       let database = false; try { if (pool) { await pool.query("SELECT 1"); database = true; } } catch {}
-      return json(res, database ? 200 : 503, { ok: database, service: "arena-sports-board", database, connectorConfigured: Boolean(CONNECTOR_KEY), bindingKeyConfigured: (() => { try { return bindingKey().length === 32; } catch { return false; } })() });
+      return json(res, database ? 200 : 503, { ok: database, service: "arena-sports-board", database, adminSetupVersion: 2, connectorConfigured: Boolean(CONNECTOR_KEY), bindingKeyConfigured: (() => { try { return bindingKey().length === 32; } catch { return false; } })() });
     }
     if (url.pathname.startsWith("/api/")) return await api(req, res, url);
     if (req.method === "GET") return await serve(req, res, url);
