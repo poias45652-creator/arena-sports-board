@@ -31,6 +31,7 @@ export async function authAction(request,action,pool=getPool()){
   const token=sessionToken(request);if(token)await pool.query('DELETE FROM arena_sessions WHERE token_hash=$1',[sha256(token)]);
   return reply({ok:true},200,sessionCookie('',request,0));
  }
+ if(action==='register')return reply({error:'已關閉自行註冊，請由管理員建立帳號。'},403);
  let data;try{data=await readBody(request);}catch{return reply({error:'輸入格式不正確。'},400);}
  const username=typeof data?.username==='string'?data.username.trim().toLowerCase():'';
  const password=typeof data?.password==='string'?data.password:'';
@@ -49,7 +50,7 @@ export async function authAction(request,action,pool=getPool()){
   const hash=await passwordHash(password,saved?.password_salt||'arena-invalid-user');
   if(!saved||!crypto.timingSafeEqual(Buffer.from(hash,'hex'),Buffer.from(saved.password_hash,'hex')))return reply({error:'帳號或密碼錯誤。'},401);
   user=publicUser(saved);
- }else if(!['register','setup'].includes(action))return reply({error:'找不到此操作。'},404);
+ }else if(action!=='setup')return reply({error:'找不到此操作。'},404);
  const salt=crypto.randomBytes(16).toString('hex'),hash=user?null:await passwordHash(password,salt),token=crypto.randomBytes(32).toString('base64url');
  const client=await pool.connect();
  try{
