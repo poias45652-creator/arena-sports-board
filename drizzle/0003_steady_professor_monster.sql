@@ -1,0 +1,1 @@
+ALTER TABLE `tz_bindings` ADD `game_url` text;

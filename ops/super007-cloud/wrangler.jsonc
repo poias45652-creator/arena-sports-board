@@ -1,0 +1,8 @@
+{
+  "name": "arena-super007-cloud",
+  "main": "worker.mjs",
+  "compatibility_date": "2026-09-10",
+  "triggers": { "crons": ["* * * * *"] }
+  // Deploy through the dashboard and bind KV as ODDS there,
+  // or add the actual kv_namespaces binding before using Wrangler.
+}

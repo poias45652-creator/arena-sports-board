@@ -1,17 +1,17 @@
-name: Admin setup regression
+name: Arena Render verification
 on:
+  workflow_dispatch:
   push:
-    branches: [main, fix/admin-setup-20260911]
+    branches: [main, migration/v63-original, render-release]
   pull_request:
     branches: [main]
-  workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  postgres-integration:
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    container: node:20-bookworm
+    timeout-minutes: 15
+    container: node:24-bookworm
     services:
       postgres:
         image: postgres:18
@@ -26,14 +26,12 @@ jobs:
           --health-retries 10
     env:
       TEST_DATABASE_URL: postgresql://postgres:postgres-test-only@postgres:5432/arena_admin_setup_test?sslmode=disable
+      NEXT_TELEMETRY_DISABLED: "1"
     steps:
       - uses: actions/checkout@v6
-      - name: Install existing application dependencies
-        run: npm install --ignore-scripts --no-audit --no-fund
-      - name: Check JavaScript syntax
-        run: node --check server.mjs && node --check public/app.js
-      - name: Run regression tests against disposable PostgreSQL 18
-        run: node --test test/admin-setup.integration.test.mjs
-      - name: Verify production using GET requests only
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: node scripts/smoke-admin.mjs
+        with:
+          persist-credentials: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run test:source && npm run test:analysis
+      - run: npm run build
+      - run: npm run test:render

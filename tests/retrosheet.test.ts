@@ -1,0 +1,8 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import archive from '../data/retrosheet.json';
+import {retrosheetRecords,retrosheetSummary,retrosheetMatch} from '../lib/retrosheet';
+const games:any[]=archive.games;
+test('archive identity, counts, and game log field mapping',()=>{assert.equal(games.length,7289);assert.equal(new Set(games.map(g=>g.id)).size,games.length);for(const g of games){assert.equal(g.awayLineup.length,9);assert.equal(g.homeLineup.length,9);assert.notEqual(g.awayId,g.homeId);assert.ok(g.result.away>=0&&g.result.home>=0);}assert.equal(retrosheetRecords(2024,0).total,2429);assert.equal(retrosheetRecords(2024,0).rows.length,100);assert.equal(retrosheetSummary().advancedModelTrained,false);});
+test('prior-day aggregates independently match only earlier eligible games, including doubleheaders',()=>{const sample=[...games.filter(g=>g.doubleheader==='2').slice(0,15),...games.filter((_,i)=>i%167===0)];for(const g of sample){for(const side of ['away','home']){const id=g[side+'Id'];const prev=games.filter(p=>p.season===g.season&&p.trainingEligible&&p.completionDate<g.date&&(p.awayId===id||p.homeId===id));assert.equal(g.pregame[side].games,prev.length);const runs=prev.reduce((n,p)=>n+p.result[p.awayId===id?'away':'home'],0);assert.equal(g.pregame[side].runsFor,runs);}}});
+test('history query respects exclusive cutoff; archive count is not evaluated forecasts',()=>{const h=retrosheetMatch(147,111,'2023-01-01');assert.equal(h.away.games,0);assert.equal(h.headToHead.length,0);assert.equal(h.modelApplied,false);assert.equal(h.historicalOddsAvailable,false);});
