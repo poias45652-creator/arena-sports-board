@@ -51,7 +51,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,odds,o
   </div>
   <div className="flex flex-wrap items-center gap-3"><Select value={mode} onValueChange={v=>{setMode(v);setPicks([]);setNotice('已切換模式，請重新選關。');}}><SelectTrigger aria-label="盤口來源"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="super007">{sourceName} 盤口</SelectItem><SelectItem value="manual">自訂盤口試算</SelectItem></SelectContent></Select><Button variant="outline" disabled={oddsLoading} onClick={()=>void refreshOdds()}>{oddsLoading?'讀取中…':'更新盤口'}</Button><span className="text-sm text-slate-400">抓取：{odds?.fetchedAt?new Date(odds.fetchedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}):'尚未取得'}（台灣）・來源可能延遲</span></div>
   {automatic&&!oddsOK&&<p role="status" className="text-sm text-amber-200">{oddsError||'盤口尚未取得或已過期，暫停推薦。'} 舊資料不參與推薦。</p>}
-  <p className="text-sm text-slate-400">{sourceName} 原始主盤每分鐘讀取；支援整分、半分、拆分盤與加減比例。全贏、中洞贏與中洞輸分開計算。</p>
+  <p className="text-sm text-slate-400">{sourceName} 原始主盤每分鐘讀取；支援整分、半分、拆分盤與加減比例。全贏、中洞贏、走盤與中洞輸分開計算。</p>
   {!dataOK&&<p role="status" className="text-sm text-amber-200">{error||'正在取得球隊得失分資料，暫停推薦。'}</p>}
   <div className="grid items-start gap-5 xl:grid-cols-[minmax(0,1fr)_340px]"><div className="space-y-4">
    {!fixtures.length&&<p className="panel p-5 text-slate-400">這個日期沒有可分析的未開賽場次，請切換上方日期。</p>}

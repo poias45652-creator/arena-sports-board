@@ -1,0 +1,28 @@
+{
+  "gpt_version": 74,
+  "gpt_commit": "53be8a1dd616a42fcad20f87e7810af56c7d0b0d",
+  "file_count": 289,
+  "archive_sha256": "d9f95061f6e77b746ddf10e4e5edf16de776c7eaa206c3e25bab996131ccdceb",
+  "parts": [
+    {
+      "name": "arena-source-1.bin",
+      "bytes": 20971520,
+      "sha256": "5a586836737db0961b8e95692df09ca10f289150e2680cf82dc985d8f1ff734a"
+    },
+    {
+      "name": "arena-source-2.bin",
+      "bytes": 20971520,
+      "sha256": "17e313a1a899416d471ee24df1c7700e9f8fb40656fc480f6df875720588dcce"
+    },
+    {
+      "name": "arena-source-3.bin",
+      "bytes": 20971520,
+      "sha256": "ed4fc61a743b3826645c0afa85e40939dbf8629d9a0609e1c59d908df527899c"
+    },
+    {
+      "name": "arena-source-4.bin",
+      "bytes": 16385935,
+      "sha256": "6715b7291e0f04c839ddba30269b74773819382e89c3c9c5837e1412aee2d009"
+    }
+  ]
+}

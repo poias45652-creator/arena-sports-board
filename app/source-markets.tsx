@@ -10,18 +10,15 @@ const periods=[{id:'full',label:'全場'},{id:'firstHalf',label:'上半場'}] as
 const types=[{id:103,label:'讓分'},{id:104,label:'大小'},{id:111,label:'獨贏'}];
 const text=(v:unknown)=>v===null||v===undefined||v===''?'—':String(v);
 const teamName=(s:string)=>s.replace(/\(主\)|（主）/g,'');
-const unsigned=(v:unknown)=>String(v??'').trim().replace(/^[+-]/,'');
-const flipBoundary=(v:unknown)=>{const raw=String(v??'').trim();if(!raw)return '—';const match=raw.match(/^(.*?)([+-])(\d+)$/);return match?`${match[1]}${match[2]==='+'?'-':'+'}${match[3]}`:raw;};
 
 function Quote({quote:q,type}:{quote:HrDisplayQuote;type:number}){
  return <div className="space-y-2 border-t border-white/10 py-3 text-sm">
   <p className={q.open?'text-slate-400':'text-amber-200'}>{q.primary?'主盤':'其他盤'}{!q.open?'・封盤／暫停':''}</p>
   {!q.open?<p className="text-slate-400">暫不顯示盤口與賠率</p>:type===104?<>
-   <p className="text-base font-black text-[#ffd538]">大分 {text(q.total)}</p>
-   <p className="text-base font-black text-emerald-300">小分 {flipBoundary(q.total)}</p>
+   <p className="text-base font-bold">大小 {text(q.total)}</p>
    <p className="tabular-nums">大 @{text(q.over)} ／ 小 @{text(q.under)}</p>
   </>:<>
-   {type===103&&(q.homeLine!==''?<><p className="text-base font-black text-[#ffd538]">主讓 -{unsigned(q.homeLine)}</p><p className="text-base font-black text-emerald-300">客 +{unsigned(q.homeLine)}</p></>:q.awayLine!==''?<><p className="text-base font-black text-[#ffd538]">主 +{unsigned(q.awayLine)}</p><p className="text-base font-black text-emerald-300">客讓 -{unsigned(q.awayLine)}</p></>:<p>盤口未提供</p>)}
+   {type===103&&<p className="text-base font-bold">{q.homeLine!==''?`主讓 ${q.homeLine}`:q.awayLine!==''?`客讓 ${q.awayLine}`:'盤口未提供'}</p>}
    <p className="tabular-nums">主 @{text(q.homePrice)} ／ 客 @{text(q.awayPrice)}</p>
   </>}
  </div>;
