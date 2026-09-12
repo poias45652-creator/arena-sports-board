@@ -53,6 +53,7 @@
     "start": "node scripts/render-start.mjs",
     "test:source": "node --test tests/tz-binding.test.mjs tests/hr9988-connection.test.mjs tests/super007-settlement.test.mjs",
     "test:render": "node --import ./tests/register-typescript.mjs --test tests/render-auth.test.mjs",
-    "test:analysis": "node --import ./tests/register-typescript.mjs --test tests/*.test.ts"
+    "test:analysis": "node --import ./tests/register-typescript.mjs --test tests/*.test.ts",
+    "test:accounts": "node tests/account-restoration-smoke.mjs"
   }
 }

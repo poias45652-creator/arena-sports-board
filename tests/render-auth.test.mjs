@@ -57,6 +57,14 @@ async function request(path, data, { origin = origins[0], cookie, requestOrigin 
   return { status: response.status, data: payload, cookie: response.headers.get('set-cookie')?.split(';')[0], headers: response.headers };
 }
 function setup(username, options = {}) { return request('/api/setup-admin', { username, password, setupToken }, options); }
+// Seed only legacy-member fixtures directly in this disposable test database.
+// Public registration is disabled; live account creation is tested via /api/meta.
+async function legacyMember(username){
+ const {passwordHash}=await import('../server/auth.mjs');
+ const salt=randomBytes(16).toString('hex');
+ await pool.query("INSERT INTO arena_users(id,username,password_salt,password_hash,role) VALUES($1,$2,$3,$4,'member')",[randomBytes(16).toString('hex'),username,salt,await passwordHash(password,salt)]);
+ return request('/api/login',{username,password});
+}
 async function counts() {
   return (await pool.query(`SELECT count(*)::int AS users, count(*) FILTER (WHERE role='admin')::int AS admins,
     (SELECT count(*)::int FROM arena_sessions) AS sessions FROM arena_users`)).rows[0];
@@ -84,9 +92,9 @@ test('empty database exposes setup and a healthy database', async () => {
   assert.equal(meta.status, 200); assert.equal(meta.data.setupRequired, true); assert.equal(meta.data.adminSetupVersion, 3);
   assert.equal((await request('/health')).data.database, true);
 });
-test('registering a member first does not block administrator setup', async () => {
-  const member = await request('/api/register', { username: 'existing.member', password });
-  assert.equal(member.status, 201); assert.equal(member.data.user.role, 'member');
+test('an existing member does not block administrator setup', async () => {
+  const member = await legacyMember('existing.member');
+  assert.equal(member.status, 200); assert.equal(member.data.user.role, 'member');
   assert.equal((await request('/api/meta')).data.setupRequired, true);
   const admin = await setup('owner.admin');
   assert.equal(admin.status, 201); assert.equal(admin.data.user.role, 'admin');
@@ -94,10 +102,23 @@ test('registering a member first does not block administrator setup', async () =
   assert.equal((await request('/api/me', undefined, { cookie: member.cookie })).data.user.role, 'member');
   assert.deepEqual(await counts(), { users: 2, admins: 1, sessions: 2 });
 });
-test('ordinary registration cannot assign itself an administrator role', async () => {
+test('public registration is closed and cannot assign an administrator role', async () => {
   const result = await request('/api/register', { username: 'regular.user', password, role: 'admin', setupToken });
-  assert.equal(result.status, 201); assert.equal(result.data.user.role, 'member');
-  assert.equal((await counts()).admins, 0);
+  assert.equal(result.status, 403);
+  assert.deepEqual(await counts(), {users:0,admins:0,sessions:0});
+});
+test('only an administrator can create members; the administrator session is preserved',async()=>{
+ const input={username:'new.member',password,role:'admin'};
+ assert.equal((await request('/api/meta',input)).status,403);
+ const member=await legacyMember('ordinary.member');
+ assert.equal((await request('/api/meta',input,{cookie:member.cookie})).status,403);
+ const admin=await setup('owner.admin');
+ assert.equal((await request('/api/meta',input,{cookie:admin.cookie,requestOrigin:'https://different.invalid'})).status,403);
+ const created=await request('/api/meta',input,{cookie:admin.cookie});
+ assert.equal(created.status,201);assert.equal(created.cookie,undefined);
+ assert.equal((await request('/api/me',undefined,{cookie:admin.cookie})).data.user.role,'admin');
+ assert.equal((await request('/api/login',{username:'new.member',password})).data.user.role,'member');
+ assert.equal((await request('/api/meta',input,{cookie:admin.cookie})).status,409);
 });
 test('wrong or absent setup tokens are rejected without creating accounts', async () => {
   for (const token of ['', 'not-the-token', null]) {
@@ -124,7 +145,7 @@ test('invalid usernames, passwords and payloads are rejected', async () => {
   assert.equal((await counts()).users, 0);
 });
 test('an existing member username is not overwritten or promoted; a different name succeeds', async () => {
-  const member = await request('/api/register', { username: 'already.taken', password });
+  const member = await legacyMember('already.taken');
   assert.equal((await setup('already.taken')).status, 409);
   assert.deepEqual(await counts(), { users: 1, admins: 0, sessions: 1 });
   assert.equal((await request('/api/me', undefined, { cookie: member.cookie })).data.user.role, 'member');
@@ -170,14 +191,14 @@ test('administrator sessions, password login, logout and password hashing work',
   assert.equal((await request('/api/me', undefined, { cookie: logged.cookie })).status, 401);
 });
 test('existing member source bindings are preserved when an administrator is added', async () => {
-  const member = await request('/api/register', { username: 'bound.member', password });
+  const member = await legacyMember('bound.member');
   await pool.query('INSERT INTO source_bindings VALUES($1,$2,$3,$4)',[member.data.user.id,'legacy-username-ciphertext','legacy-password-ciphertext','legacy-device-ciphertext']);
   const before = (await pool.query('SELECT * FROM source_bindings')).rows;
   assert.equal((await setup('separate.owner')).status, 201);
   assert.deepEqual((await pool.query('SELECT * FROM source_bindings')).rows, before);
 });
 test('current Arena pages are preserved and account setup remains available after member login', async () => {
- const member=await request('/api/register',{username:'view.member',password});
+ const member=await legacyMember('view.member');
  const response=await fetch(`${origins[0]}/`,{headers:{Cookie:member.cookie}});
  assert.equal(response.status,200);const html=await response.text();
  for(const label of ['MLB 美國職棒','概覽','戰績排名','球隊一覽','即時比分','賽前分析'])assert.ok(html.includes(label),label);
@@ -203,8 +224,8 @@ test('legacy credentials still log in after repeat migrations, and forged Sites 
 });
 
 test('PostgreSQL adapter preserves verified source login, automatic device ID and private odds',async()=>{
- const member=await request('/api/register',{username:'source.member',password});
- const other=await request('/api/register',{username:'source.other',password});
+ const member=await legacyMember('source.member');
+ const other=await legacyMember('source.other');
  const id=member.data.user.id,db=createDatabase(pool),secret=randomBytes(32).toString('base64');
  const token=['test',Buffer.from(JSON.stringify({exp:Math.floor(Date.now()/1000)+3600})).toString('base64url'),'signature'].join('.');
  const bindingRequest=new Request(origins[0]+'/api/tz-binding',{method:'POST',headers:{origin:origins[0],'content-type':'application/json'},body:JSON.stringify({username:'fixture-user',password:'fixture-password'})});
