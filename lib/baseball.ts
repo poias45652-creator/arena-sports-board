@@ -18,7 +18,7 @@ export function parseStats(text:string,kind:Kind):StatRow[]{
   const result=rows.map(row=>({id:at(row,identity)||'',name:at(row,kind==='pitcher'?'last_name, first_name':'team')||'',teamId:kind==='pitcher'?null:teamIds[at(row,'team_id')||'']??null,attempts:num(row,'attempts')??0,ev:num(row,'avg_hit_speed'),maxEv:num(row,'max_hit_speed'),hardHit:rate(row,'ev95percent'),barrel:rate(row,'brl_percent'),barrelPa:rate(row,'brl_pa'),sweetSpot:rate(row,'anglesweetspotpercent')})).filter(r=>r.id&&r.name&&r.attempts>0);
   if(!result.length)throw new Error('來源沒有有效資料');return result;
 }
-export type TeamSide={id:number;name:string;wins:number|null;losses:number|null;pitcherId:number|null;pitcherName:string};
+export type TeamSide={id:number;name:string;wins:number|null;losses:number|null;pitcherId:number|null;pitcherName:string;pitcherEra?:number|null;pitcherWhip?:number|null};
 export type Match={id:number;date:string;season:number;gameType:string;state:string;status:string;startTimeTBD:boolean;away:TeamSide;home:TeamSide};
 export type Schedule={games:Match[];fetchedAt:string;source:string};
 export function taipeiDay(time:number|string=Date.now()){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(time));}

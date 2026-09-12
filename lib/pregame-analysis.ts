@@ -1,11 +1,12 @@
 import {matchCoversOdds} from './covers-odds';
 import {baseProbability,fresh,isPregame,type Match} from './baseball';
 import {matchLineup} from './rotowire';
+import {resolveOfficialLineup} from './lineup-authority';
 import {expectedRuns,scoreGrid,settle,type MarketPick} from './markets';
 import {matchOdds} from './pinnacle';
 import {superOdds} from './super007';
 import {teamZh} from '../app/zh';
-export const ANALYSIS_VERSION='pregame-super007-v2';
+export const ANALYSIS_VERSION='pregame-super007-v3';
 export type AnalysisReport={version:string;game:Match;capturedAt:string;issues:string[];notes:string[];features:Record<string,number|null>;context:any;baseline:any;candidate:{status:'waiting_data'|'untrained';probabilities:null;modelApplied:false};sources:Record<string,{fetchedAt:string|null;source:string|null;usable:boolean}>;storage?:{saved:boolean;reason?:string}};
 const norm=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+(?:jr\.?|sr\.?|ii|iii|iv)$/, '').replace(/[^a-z0-9]/g,'');
 const num=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v:null;
@@ -14,11 +15,15 @@ export function assembleAnalysis(g:Match,input:Record<string,any>,now=Date.now()
  const gameDay=new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(g.date));
  const issues:string[]=[],notes:string[]=[],sources:AnalysisReport['sources']={};
  const get=(key:string,ttl:number)=>{const s=input[key];const usable=!!s&&!s.error&&fresh(s.fetchedAt,now,ttl)&&(s.year===undefined||s.year===g.season)&&(s.season===undefined||s.season===g.season);sources[key]={fetchedAt:s?.fetchedAt??null,source:s?.source??null,usable};return usable?s:null;};
- const lineupSnapshot=get('lineups',180000),lineup=matchLineup(g,lineupSnapshot);
- if(!lineup)issues.push('打線／天氣尚未對應本場日期與開賽時間');
+ const lineupSnapshot=get('lineups',180000),resolution=resolveOfficialLineup(g,matchLineup(g,lineupSnapshot)),lineup=resolution.lineup;
+ if(resolution.conflicts.length){
+  notes.push(...resolution.conflicts,'已排除先發不同的打線來源；基本試算仍使用官方賽程與球隊本季資料');
+  issues.push('打線來源先發與 MLB 官方不同，該打線尚未採用');
+  sources.lineups.usable=false;
+ }else if(!lineup)issues.push('打線／天氣尚未對應本場日期與開賽時間');
  const bullpen=get('bullpen',15*60000),injuries=get('fg-injuries',75*60000);
  if(!bullpen)issues.push('牛棚用量未取得或過期');if(!injuries)issues.push('傷兵資料未取得或過期');
- const features:Record<string,number|null>={},context:any={sides:{},weather:null};
+ const features:Record<string,number|null>={},context:any={sides:{},weather:null,lineupResolution:{authority:'MLB',conflicts:resolution.conflicts,secondaryLineupExcluded:resolution.conflicts.length>0}};
  context.statcastHistory={away:input['statcast-away']??null,home:input['statcast-home']??null,modelApplied:false};
  context.retrosheet=input.retrosheet&&!input.retrosheet.error?input.retrosheet:null;
  const parks=get('fg-park',25*3600000);
@@ -46,7 +51,6 @@ export function assembleAnalysis(g:Match,input:Record<string,any>,now=Date.now()
   features[side+'_lineup_wrc_plus']=sufficient?lineupPlayers.reduce((s:number,p:any)=>s+p.wrcPlus,0)/9:null;
   features[side+'_lineup_woba']=sufficient?lineupPlayers.reduce((s:number,p:any)=>s+p.woba,0)/9:null;
   const ownSP=people.find(p=>p.id===own.pitcherId);
-  if(ls?.pitcher&&ownSP&&norm(ls.pitcher)!==norm(ownSP.name))issues.push(label+'先發投手來源不一致');
   const left=get('fg-pit-left',75*60000),right=get('fg-pit-right',75*60000);
   const split=(s:any)=>{const rows=s?.rows.filter((r:any)=>r.playerId===own.pitcherId)??[];return rows.length===1?rows[0]:null;};
   const pl=split(left),pr=split(right);

@@ -90,3 +90,136 @@ test('hr9988 rejects missing grouped data and duplicate events, allows a valid e
  const input=hrFixture();input.data[0].Items.List[0].Team.push(input.data[0].Items.List[0].Team[0]);assert.throws(()=>parseHrGameDetail(input,'2026-09-10T19:58:00Z'));
  assert.deepEqual(parseHrGameDetail({code:200,data:[]},'2026-09-10T19:58:00Z').games,[]);
 });
+
+// Regression inputs transcribed from the user's 2026-09-12 SUPER screenshots.
+// Event IDs below are synthetic; no account data or source credentials are fixtures.
+function aliasFixture(which='white-sox') {
+ const cards=which==='white-sox';
+ const g={id:cards?9101:9102,date:cards?'2026-09-12T00:15:00Z':'2026-09-12T01:40:00Z',
+  home:{id:cards?138:133,name:cards?'St. Louis Cardinals':'Athletics',zh:cards?'聖路易紅雀':'運動家'},
+  away:{id:cards?145:136,name:cards?'Chicago White Sox':'Seattle Mariners',zh:cards?'芝加哥白襪':'西雅圖水手'}};
+ const r={id:cards?9201:9202,home:cards?'聖路易斯紅雀(主)':'奧克蘭運動家(主)',away:g.away.zh,
+  start:cards?'2026/09/12 08:15:00':'2026/09/12 09:40:00',live:false,
+  markets:[{type:103,quotes:[{primary:true,homeLine:'',awayLine:cards?'1+90':'1-80',homePrice:'0.950',awayPrice:'0.950'}]},
+   {type:104,quotes:[{primary:true,total:cards?'8-30':'10-55',over:'0.940',under:'0.940'}]}]};
+ return {g,r,snapshot:{source:'hr9988',fetchedAt:'2026-09-11T18:20:00Z',games:[r]}};
+}
+for(const which of ['white-sox','mariners']) {
+ test(`SUPER alias pairs ${which} without changing handicap, total, prices or identifiers`,()=>{
+  const {g,r,snapshot}=aliasFixture(which),before=JSON.stringify(snapshot);
+  const rows=superOdds(snapshot,[g],t=>t.zh).games;
+  assert.equal(rows.length,1);
+  const out=rows[0];
+  assert.equal(out.id,r.id);assert.equal(out.home,g.home.name);assert.equal(out.away,g.away.name);assert.equal(out.start,g.date);
+  assert.equal(out.spread.line,1);assert.equal(out.spread.first,.95);assert.equal(out.spread.second,.95);
+  assert.equal(out.spread.boundary,which==='white-sox'?-.9:.8);
+  assert.equal(out.spread.display,which==='white-sox'?'客讓 1+90':'客讓 1-80');
+  assert.equal(out.total.line,which==='white-sox'?8:10);assert.equal(out.total.boundary,which==='white-sox'?-.3:-.55);
+  assert.equal(out.total.first,.94);assert.equal(out.total.second,.94);
+  assert.equal(JSON.stringify(snapshot),before);
+ });
+}
+test('aliases work in either home/away position and preserve existing whitespace/host-marker normalization',()=>{
+ const {g,r,snapshot}=aliasFixture();
+ [g.home,g.away]=[g.away,g.home];[r.home,r.away]=[r.away,r.home];
+ r.away=' 聖路易斯紅雀（主） ';
+ assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,1);
+});
+test('alias matching still rejects reversed teams, wrong opponents and unknown variants',()=>{
+ for(const change of [r=>{[r.home,r.away]=[r.away,r.home];},r=>{r.away='芝加哥小熊';},r=>{r.home='其他運動家(主)';}]){
+  const {g,r,snapshot}=aliasFixture('mariners');change(r);
+  assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,0);
+ }
+});
+test('alias matching keeps the ten-minute window, live-game exclusion and unique-schedule requirement',()=>{
+ const {g,r,snapshot}=aliasFixture();
+ g.date='2026-09-12T00:25:00Z';assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,1);
+ g.date='2026-09-12T00:25:01Z';assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,0);
+ g.date='2026-09-13T00:15:00Z';assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,0);
+ g.date='2026-09-12T00:15:00Z';r.live=true;assert.equal(superOdds(snapshot,[g],t=>t.zh).games.length,0);r.live=false;
+ assert.equal(superOdds(snapshot,[g,{...g,id:9103}],t=>t.zh).games.length,0);
+});
+test('matched aliases still reject alternate-only or missing primary markets',()=>{
+ const {g,r,snapshot}=aliasFixture();
+ r.markets[0].quotes[0].primary=false;r.markets[1].quotes=[];
+ const rows=superOdds(snapshot,[g],t=>t.zh).games;
+ assert.equal(rows.length,1);assert.equal(rows[0].spread,null);assert.equal(rows[0].total,null);
+ assert.match(rows[0].issues.spread,/主盤/);assert.match(rows[0].issues.total,/主盤/);
+});
+
+const {formatSpreadLine,formatTotalLine,formatPickLine}=await import(url(code('market-display.ts')));
+function displayQuote(rawLine,favorite='home'){
+ const g={id:1,date:'2026-09-12T00:15:00Z',home:{name:'Detroit Tigers',zh:'底特律老虎'},away:{name:'Colorado Rockies',zh:'科羅拉多洛磯'}};
+ const raw={source:'Super007',fetchedAt:g.date,games:[{id:8,home:g.home.zh,away:g.away.zh,start:'2026/09/12 08:15:00',live:false,markets:[{type:103,quotes:[{primary:true,homeLine:favorite==='home'?rawLine:'',awayLine:favorite==='away'?rawLine:'',homePrice:'.95',awayPrice:'.95'}]}]}]};
+ return superOdds(raw,[g],t=>t.zh).games[0].spread;
+}
+test('each team sees its own spread and opposite percentage sign',()=>{
+ for(const [raw,home,away,fraction] of [
+  ['1-35','主讓 -1-35','客受讓 +1+35',-.35],
+  ['1+35','主讓 -1+35','客受讓 +1-35',.35],
+  ['2-50','主讓 -2-50','客受讓 +2+50',-.5],
+ ]){
+  const q=displayQuote(raw),before=structuredClone(q);
+  assert.equal(formatSpreadLine(q,'home'),home);
+  assert.equal(formatSpreadLine(q,'away'),away);
+  assert.equal(formatPickLine({...q,market:'spread',side:'away'}),away);
+  assert.equal(scoreFraction({home:1-q.line,away:1},{...q,market:'spread',side:'home'}),fraction);
+  assert.equal(scoreFraction({home:1-q.line,away:1},{...q,market:'spread',side:'away'}),-fraction);
+  assert.deepEqual(q,before);
+ }
+});
+test('away favorites invert both sides, including fractional zero spreads',()=>{
+ for(const [raw,home,away] of [
+  ['1-35','主受讓 +1+35','客讓 -1-35'],
+  ['1+35','主受讓 +1-35','客讓 -1+35'],
+  ['0-55','主受讓 +0+55','客讓 -0-55'],
+ ]){
+  const q=displayQuote(raw,'away');
+  assert.equal(formatSpreadLine(q,'home'),home);
+  assert.equal(formatSpreadLine(q,'away'),away);
+ }
+ const q=displayQuote('0+50');
+ assert.equal(formatSpreadLine(q,'home'),'主讓 -0+50');
+ assert.equal(formatSpreadLine(q,'away'),'客受讓 +0-50');
+});
+test('split, quarter, half-run and PK spreads keep their original meaning',()=>{
+ for(const [raw,home,away] of [
+  ['0.5/1','主讓 -0.5/-1','客受讓 +0.5/+1'],
+  ['1.25','主讓 -1.25','客受讓 +1.25'],
+  ['1.5','主讓 -1.5','客受讓 +1.5'],
+  ['PK','主平手 PK','客平手 PK'],
+ ]){
+  const q=displayQuote(raw);
+  assert.equal(formatSpreadLine(q,'home'),home);
+  assert.equal(formatSpreadLine(q,'away'),away);
+ }
+});
+test('manual spreads follow each team',()=>{
+ assert.equal(formatSpreadLine({line:-1.5},'away'),'客受讓 +1.5');
+ assert.equal(formatSpreadLine({line:1.5},'away'),'客讓 -1.5');
+});
+
+test('total labels reverse percentage signs for under and agree with settlement',()=>{
+ for(const [raw,under,fraction] of [
+  ['8+65','8-65',.65],['8-65','8+65',-.65],
+  ['7+5','7-5',.05],['9+100','9-100',1],['10-100','10+100',-1],
+ ]){
+  const parsed=parseSourceLine(raw),q={...parsed,display:raw},before=structuredClone(q);
+  const overPick={...q,gameId:1,market:'total',side:'over'},underPick={...overPick,side:'under'};
+  assert.equal(formatTotalLine(q,'over'),raw);
+  assert.equal(formatTotalLine(q,'under'),under);
+  assert.equal(formatPickLine(overPick),raw);
+  assert.equal(formatPickLine(underPick),under);
+  assert.equal(scoreFraction({home:q.line-3,away:3},overPick),fraction);
+  assert.equal(scoreFraction({home:q.line-3,away:3},underPick),-fraction);
+  assert.deepEqual(q,before);
+ }
+});
+test('integer, half, quarter and split totals preserve the score threshold',()=>{
+ for(const raw of ['8','8.5','8.25','7.5/8','8平']){
+  const q={...parseSourceLine(raw),display:raw};
+  for(const side of ['over','under'])assert.equal(formatTotalLine(q,side),raw);
+ }
+ assert.equal(formatTotalLine({line:8,boundary:.65},'over'),'8+65');
+ assert.equal(formatTotalLine({line:8,boundary:.65},'under'),'8-65');
+});

@@ -1,0 +1,10 @@
+{
+  "project": "arena-sports-board",
+  "title": "YJ體育分析",
+  "version": 91,
+  "commit_sha": "b7f9047e951239f41540381c123d5364a83f1674",
+  "export_date": "2026-09-12",
+  "site_url": "https://arena-sports-board.poias45652.chatgpt.site",
+  "change": "移除頁面上的分析權重按鈕",
+  "contents": "完整原始碼；不含線上會員資料、真實環境變數與登入工作階段"
+}

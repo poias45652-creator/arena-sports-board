@@ -1,12 +1,11 @@
-import {getArenaUser} from '@/lib/arena-user';
-import {loadSource} from '@/lib/load-analysis-source';
+import {GET as sourceGET} from '../baseball/route';
 import {assembleAnalysis,type AnalysisReport} from '@/lib/pregame-analysis';
 import {isPregame,type Match} from '@/lib/baseball';
 import {getRawDb} from '@/db';
 export const dynamic='force-dynamic';
-const pending=new Map<string,Promise<AnalysisReport>>(),reports=new Map<string,{until:number;data:AnalysisReport}>();
+const pending=new Map<number,Promise<AnalysisReport>>(),reports=new Map<number,{until:number;data:AnalysisReport}>();
 const rosters=new Map<number,{until:number;value:any}>();
-
+export async function loadSource(kind:string){const r=await sourceGET(new Request('https://arena.internal/api/baseball?kind='+kind));if(!r.ok)throw new Error('來源不可用');return r.json();}
 async function roster(id:number){
  const cached=rosters.get(id);if(cached&&cached.until>Date.now())return cached.value;
  const source=`https://statsapi.mlb.com/api/v1/teams/${id}/roster?rosterType=40Man&hydrate=person`;
@@ -32,13 +31,12 @@ export async function POST(request:Request){
  const origin=request.headers.get('origin');if(origin&&new URL(origin).host!==new URL(request.url).host)return Response.json({error:'來源不符'},{status:403});
  try{
   const body=await request.json(),id=body?.gameId;if(!Number.isInteger(id)||id<=0)return Response.json({error:'無效賽事'},{status:400});
-  const user=await getArenaUser();if(!user)return Response.json({error:'請先登入 Arena。'},{status:401});const cacheKey=user.id+':'+id;
-  const c=reports.get(cacheKey);let report:AnalysisReport;
+  const c=reports.get(id);let report:AnalysisReport;
   if(c&&c.until>Date.now()&&isPregame(c.data.game,Date.now()))report=c.data;
-  else {let task=pending.get(cacheKey);if(!task){task=build(id).finally(()=>pending.delete(cacheKey));pending.set(cacheKey,task);}report=await task;if(reports.size>=40)reports.delete(reports.keys().next().value!);reports.set(cacheKey,{until:Date.now()+60000,data:report});}
+  else {let task=pending.get(id);if(!task){task=build(id).finally(()=>pending.delete(id));pending.set(id,task);}report=await task;if(reports.size>=40)reports.delete(reports.keys().next().value!);reports.set(id,{until:Date.now()+60000,data:report});}
   let storage:AnalysisReport['storage']={saved:false,reason:'已到開賽時間'};
   if(isPregame(report.game,Date.now())){
-   try{const db=getRawDb(),slot=Math.floor(Date.parse(report.capturedAt)/300000);await db.prepare('INSERT INTO analysis_snapshots (id,member_id,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET start_time=excluded.start_time,captured_at=excluded.captured_at,version=excluded.version,payload=excluded.payload WHERE excluded.captured_at>analysis_snapshots.captured_at').bind(`${user.id}:${id}:${slot}`,user.id,id,report.game.date,report.capturedAt,report.version,JSON.stringify(report)).run();storage={saved:true};}
+   try{const db=getRawDb(),slot=Math.floor(Date.parse(report.capturedAt)/300000);await db.prepare('INSERT INTO analysis_snapshots (id,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET start_time=excluded.start_time,captured_at=excluded.captured_at,version=excluded.version,payload=excluded.payload WHERE excluded.captured_at>analysis_snapshots.captured_at').bind(`${id}:${slot}`,id,report.game.date,report.capturedAt,report.version,JSON.stringify(report)).run();storage={saved:true};}
    catch{storage={saved:false,reason:'分析已完成，但雲端紀錄儲存失敗，稍後重試'};}
   }
   return Response.json({...report,storage},{headers:{'Cache-Control':'no-store'}});

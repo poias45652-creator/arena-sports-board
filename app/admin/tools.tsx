@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import OperationsPanel from '../operations-panel';
 import SettlementCalculator from '../settlement-calculator';
+import MatchComparison from './match-comparison';
 
 export default function AdminTools() {
   const [evaluation, setEvaluation] = useState<any>(null);
@@ -24,5 +25,5 @@ export default function AdminTools() {
     const timer = setInterval(update, 600000);
     return () => { controller.abort(); clearInterval(timer); };
   }, []);
-  return <div className="space-y-4"><OperationsPanel evaluation={evaluation}/><SettlementCalculator/></div>;
+  return <div className="space-y-4"><MatchComparison/><OperationsPanel evaluation={evaluation}/><SettlementCalculator/></div>;
 }

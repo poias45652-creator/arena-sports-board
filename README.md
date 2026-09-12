@@ -1,50 +1,93 @@
-# YJ體育分析：GPT 第 74 版同步包
+# vinext-starter
 
-這是給 arena-sports-board 的 Render 上傳包。以 GPT 網站實際發布的第 74 版為來源，不再使用第 63 版的介面。
+A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
 
-來源： https://arena-sports-board.poias45652.chatgpt.site
+## Prerequisites
 
-來源版本：74
+- Node.js `>=22.13.0`
+- Linux with `flock`, `curl`, and GNU `timeout`
 
-來源提交：53be8a1dd616a42fcad20f87e7810af56c7d0b0d
+## Sites Lifecycle
 
-## 怎麼上傳
+The Sites lifecycle CLI runs the locked dependency install before returning this checkout. Edit the source under `app/`, then checkpoint when a coherent milestone is ready to inspect or share. The remote Sites builder runs `npm run build` against the pushed commit. Do not repeat install or build as a normal pre-checkpoint step.
 
-1. 解壓這份 ZIP。
-2. GitHub Desktop 選 arena-sports-board，點 Show in Explorer。
-3. 把解壓後的**全部檔案**複製到專案資料夾，選擇取代同名檔案。不要只複製 ZIP，也不要多套一層資料夾。
-4. 回 GitHub Desktop，填入「同步 GPT 第 74 版」，按 Commit to main，再按 Push origin。
-5. 等 Render 建置完成後開啟網站，按 Ctrl + F5 重新載入。
+This starter does not use `wrangler.jsonc`.
 
-不用刪除帳號、資料庫、舊資料夾或重新設定金鑰；也不要上傳 .env、帳密或金鑰。
+`install:ci` is intentionally a single, non-retrying `npm ci`. It refuses a concurrent install for the same project, consumes a matching image-seeded npm cache with `--prefer-offline` while retaining registry fallback for a missing cache object, otherwise downloads and verifies the complete vinext tarball recorded in `package-lock.json`, limits npm to one socket, and terminates a stalled install. `build` applies a short timeout. These helpers target Linux and use GNU `timeout`; they are not native macOS scripts.
 
-## 這份包包含什麼
+Scripts that need writable project-scoped home, npm, XDG, and temporary paths use `scripts/sites-env.sh`. The `dev` and `start` scripts honor the caller's runtime environment and keep Wrangler logs inside the checkout. The generated `.sites-runtime/` directory is disposable and ignored by Git.
 
-- GPT 第 74 版的球場背景、YJ Logo、球隊圖示、導覽框線與完整字體樣式。
-- 概覽、排名、球隊列表與各隊頁面、即時比分、每日對戰勝率與盤口。
-- 合併的賽事卡片、先發投手 ERA／WHIP、讓分／大小和勝負串關雙分頁。
-- 新版各方向盤口正負號、全贏／中洞贏／中洞輸／全輸顏色與排列。
-- 右側串關區獨立捲動，以及後台的新增比賽對照功能。
-- 保留 Render 登入與管理員新增會員，前台不提供自行註冊。
-- 登入頁使用你提供的影片；分析頁使用 GPT 新版球場照片，兩者不混用。
+## Included Shape
 
-平台必要差別：Render 使用原本的 PostgreSQL、會員登入與環境變數，不使用 GPT 的 Cloudflare 綁定或 ChatGPT 登入標頭。來源授權與即時數值仍取決於各站會員自己的有效連線，不會複製另一站的登入權杖或會員資料。
+- edit site code under `app/`
+- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
+- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
+- `vite.config.ts` simulates declared bindings for local development
+- `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
+- `db/schema.ts` starts intentionally empty
+- `examples/d1/` contains an optional D1 example surface
+- `drizzle.config.ts` supports local migration generation when needed
 
-## 保持既有 Render 設定
+## Workspace Auth Headers
 
-- Root Directory：留空
-- Build Command：`npm ci --ignore-scripts && npm run build`
-- Start Command：`npm start`
-- Node：24
-- Health Check：`/api/health`
-- 保留既有 DATABASE_URL、TZ_BINDING_KEY、ARENA_SETUP_TOKEN 與其他 Environment 值。
+OpenAI workspace sites can read the current user's email from `oai-authenticated-user-email`.
 
-成功建置會顯示 `YJ GPT v74 source restored and verified`。根目錄既有的舊 app/lib 程式不會被拿來組裝新版，避免只改到一半。任何封裝檔遺漏或混用舊版，都會在建置前停止。
+SIWC-authenticated workspace sites may also receive `oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty `name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by `oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
 
-## 原始碼與驗證
+Treat the full name as optional and fall back to email when it is absent:
 
-所有可編輯原始碼包含在 arena-source 檔案中；執行 `node arena-prepare.mjs` 可完整還原到 `.arena-app`。逐檔來源比對與版本資訊也在包內。另一份 Arena_GPT_latest_source.zip 是真正的 GPT 第 74 版原始碼備份，**不是 Render 上傳包**。
+```tsx
+import { headers } from "next/headers";
 
-本地已完成正式建置、TypeScript、39 項來源與盤口測試、15 項分析測試、6 項 ERA／WHIP 測試，並逐檔核對 GPT 第 74 版。185 個共用產品檔案完全相同，其餘為平台登入／資料庫／帳號功能及先前要求的品牌文字調整。
+export default async function Home() {
+  const requestHeaders = await headers();
+  const email = requestHeaders.get("oai-authenticated-user-email");
+  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
+  const fullName =
+    encodedFullName &&
+    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
+      "percent-encoded-utf-8"
+      ? decodeURIComponent(encodedFullName)
+      : null;
 
-未直接推送 GitHub 或更新線上網站。此環境沒有 PostgreSQL，正式會員資料庫與實際授權盤口仍須在你上傳後驗證；未將這些項目標示為已通過。新版沒有用假資料填補缺少的來源。
+  const displayName = fullName ?? email;
+  // ...
+}
+```
+
+## Optional Dispatch-Owned ChatGPT Sign-In
+
+Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs optional or required ChatGPT sign-in:
+
+- Use `getChatGPTUser()` for optional signed-in UI.
+- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send anonymous visitors through Sign in with ChatGPT.
+- In a Server Component, start sign-in with `<a href={chatGPTSignInPath(returnTo)} target="_top">`. The auth helper module is server-only; do not import it into a Client Component.
+- Do not use `fetch`, XHR, a client-side router, or a framework link that can prefetch the sign-in route. SIWC must start as a top-level navigation.
+- Never request the AuthAPI authorization endpoint directly. The dispatch-owned `/signin-with-chatgpt` route must start the SIWC flow.
+- Use `chatGPTSignOutPath(returnTo)` for browser sign-out links or actions.
+- Pass a same-origin relative `returnTo` path for the destination after sign-in or sign-out. The helper validates and safely encodes it.
+- Mark protected pages with `export const dynamic = "force-dynamic"` because they depend on per-request identity headers.
+
+Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the OAuth cookies, and identity header injection. Do not implement app routes for those reserved paths. Routes that do not import and call the helper remain anonymous-compatible.
+
+SIWC establishes identity only; it does not prove workspace membership. Use the Sites hosting platform's access policy controls for workspace-wide restrictions, or enforce explicit server-side membership or allowlist checks.
+
+Use SIWC for account pages, user-specific dashboards, saved records, and write actions tied to the current ChatGPT user. Leave public content anonymous.
+
+## Diagnostic Commands
+
+- `npm run install:ci`: perform the one bounded lockfile install
+- `npm run dev`: start the Vite/Vinext development server
+- `npm run build`: build the deployable Sites artifact
+- `npm run start`: start the built Vinext application
+- `npm test`: build and verify the rendered development-preview metadata
+- `npm run db:generate`: generate Drizzle migrations after schema changes
+
+Use build commands for targeted diagnosis after a remote failure, not as part of the normal checkpoint path.
+
+The timeout defaults can be overridden for a controlled canary with `SITES_INSTALL_TIMEOUT`, `SITES_INSTALL_KILL_AFTER`, `SITES_BUILD_TIMEOUT`, and `SITES_BUILD_KILL_AFTER`. A timeout fails the command; the helpers never retry an unchanged install or build.
+
+## Learn More
+
+- [vinext Documentation](https://github.com/cloudflare/vinext)
+- [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
