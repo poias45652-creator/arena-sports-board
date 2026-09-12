@@ -2,7 +2,8 @@ import {GET as super007GET} from '../super007/route';
 import {parseStandings} from '@/lib/standings';
 import validation from '@/data/model-validation.json';
 import historicalOdds from '@/data/historical-odds.json';
-import {env} from "cloudflare:workers";
+import {readFile} from "node:fs/promises";
+import {resolve,sep} from "node:path";
 import {statcastHistorySummary,statcastHistoryRecords,historicalPitcher} from '@/lib/statcast-history';
 import {retrosheetSummary,retrosheetMatch,retrosheetRecords} from '@/lib/retrosheet';
 import {parkFactorsUrl,parseParkFactors} from '@/lib/park-factors';
@@ -65,7 +66,7 @@ export async function GET(request:Request){
     if(kind==='statcast-records'||kind==='statcast-pitcher'){
       const pitcherId=url.searchParams.has('pitcherId')?Number(url.searchParams.get('pitcherId')):undefined,gameId=url.searchParams.has('gameId')?Number(url.searchParams.get('gameId')):undefined,offset=Number(url.searchParams.get('offset')||0),before=url.searchParams.get('before');
       if(!before||!/^\d{4}-\d{2}-\d{2}$/.test(before)||!Number.isFinite(Date.parse(before))||!Number.isInteger(offset)||offset<0||offset>200000||[pitcherId,gameId].some(v=>v!==undefined&&(!Number.isInteger(v)||v<=0))||kind==='statcast-pitcher'&&!pitcherId)return Response.json({error:'無效逐球查詢'},{status:400});
-      return Response.json(kind==='statcast-pitcher'?historicalPitcher(pitcherId!,before):await statcastHistoryRecords({pitcherId,gameId,before,offset},async path=>{const r=await env.ASSETS.fetch(new Request(new URL(path,request.url)));if(!r.ok)throw new Error("歷史資料分檔讀取失敗");return r.json() as Promise<any[]>;}));
+      return Response.json(kind==='statcast-pitcher'?historicalPitcher(pitcherId!,before):await statcastHistoryRecords({pitcherId,gameId,before,offset},async path=>{const base=resolve(process.cwd(),'public'),file=resolve(base,'.'+path);if(!file.startsWith(base+sep)||!file.endsWith('.json'))throw new Error('歷史資料路徑錯誤');return JSON.parse(await readFile(file,'utf8')) as any[];}));
     }
     if(kind==='retrosheet'){
       const away=Number(url.searchParams.get('awayId')),home=Number(url.searchParams.get('homeId')),before=url.searchParams.get('before');

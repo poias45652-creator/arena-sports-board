@@ -1,0 +1,12 @@
+{
+  "project": "arena-sports-board",
+  "platform": "Render / Next.js / PostgreSQL",
+  "gpt_base_version": 91,
+  "git_commit": "4e479a9b45bd1dfdbb5d3ab5d8c742eb2c5bf38b",
+  "git_tree": "dfa952516433fd133a3c2f04d706c20f7d23ea54",
+  "branch": "fix/render-v91-runtime",
+  "pull_request": "https://github.com/poias45652-creator/arena-sports-board/pull/2",
+  "source_files": 295,
+  "build_verified": true,
+  "render_deployed": false
+}

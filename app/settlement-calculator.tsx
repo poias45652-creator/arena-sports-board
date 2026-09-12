@@ -14,7 +14,7 @@ export default function SettlementCalculator(){
  if(valid){if(market==='void')fraction=0;else if(market==='moneyline')fraction=Math.sign(h-a)*(first?1:-1);else if(market==='parity')fraction=((h+a)%2===(first?1:0))?1:-1;else if(parsed)fraction=scoreFraction({home:h,away:a},{gameId:0,market:market==='total'?'total':'spread',side:market==='total'?(first?'over':'under'):(first?'home':'away'),line:parsed.line*(market==='spread'?-1:1),boundary:parsed.boundary,parts:parsed.parts?.map(n=>n*(market==='spread'?-1:1))});}
  const result=fraction===null?null:amount*netProfit(fraction,odds),combo=valid?parlayReturn(amount,legs):null;
  const options=market==='total'?['大分','小分']:market==='parity'?['單','雙']:['主隊','客隊'];
- return <details className="panel p-5"><summary className="cursor-pointer font-bold">盤口與串關結算試算</summary><p className="my-3 text-sm text-slate-400">依 Super007 盤口對照與棒球過關範例計算。輸入已確認有效的賽果；試算不會送出投注。讓分欄以主隊讓分為基準，賠率不含本金。</p>
+ return <details className="panel p-5"><summary className="cursor-pointer font-bold">串關結算試算</summary><p className="my-3 text-sm text-slate-400">依 Super007 盤口對照與棒球過關範例計算。輸入已確認有效的賽果；試算不會送出投注。讓分欄以主隊讓分為基準，賠率不含本金。</p>
  <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
  <Select value={market} onValueChange={setMarket}><SelectTrigger aria-label="試算玩法"><SelectValue/></SelectTrigger><SelectContent>{[['spread','讓分'],['total','大小'],['moneyline','獨贏（和局退回）'],['parity','總分單雙'],['void','取消／退回']].map(([v,t])=><SelectItem value={v} key={v}>{t}</SelectItem>)}</SelectContent></Select>
  <Select value={side} onValueChange={setSide}><SelectTrigger aria-label="試算方向"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="first">{options[0]}</SelectItem><SelectItem value="second">{options[1]}</SelectItem></SelectContent></Select>
