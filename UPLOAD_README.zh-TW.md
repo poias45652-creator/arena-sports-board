@@ -1,4 +1,4 @@
-# Render 修正版：GPT v127 完整同步 + 管理員復原（R5）
+# Render 修正版：GPT v127 完整同步 + 管理員復原（R6）
 
 此包取自 GPT d502240ad7901fde4c64b50e23c2c700295fcbcc。
 包含最新版版面、獨贏手動選取、多因素分析、國際聯盟解析、立即更新與後台資料檢查。
@@ -10,7 +10,7 @@ Render Build Command：npm ci --ignore-scripts && npm run build
 Start Command：npm start
 等待部署 Live。
 四個 .bin 是完整原始碼的分片，建置前會驗證雜湊並還原。不要單獨上傳 ZIP。
-/api/health 的 release 應為 render-v127-r5。
+/api/health 的 release 應為 render-v127-r6。
 
 ## 免費方案重設管理員密碼
 新版上線後：Render → arena-sports-board → Environment → Edit，新增：
@@ -42,3 +42,9 @@ ARENA_RECOVERY_ID：自己填入至少 16 個字元的一次性識別字，例�
 ## R5 更新
 登入頁與管理後台共用的新 Site Key：0x4AAAAAAE0JqmkLF68QSRXN。
 請在此小工具的主機名稱加入 arena-sports-board.onrender.com，並在網站後台填入同一小工具的 Secret Key，完成驗證後儲存啟用。
+
+## R6 免費防大量抓取
+資料 API 每帳號每分鐘最多 600 次；SUPER 手動連接每分鐘 6 次；分析提交與其他寫入各每分鐘 60 次。超過回傳 HTTP 429 與 Retry-After，時間到自動恢復。
+同帳號多個登入共用限制，計數保存在 PostgreSQL；不依賴可偽造的 User-Agent 或用戶端 IP 標頭。
+現有登入驗證、會員資料隔離、來源更新鎖及 robots.txt 保留。這不是 Cloudflare 全站防火牆，也不能杜絕低速或多帳號抓取。
+不必新增環境變數或升級方案。部署時自動建立限速資料表。

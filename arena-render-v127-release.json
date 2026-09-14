@@ -3,27 +3,27 @@
   "gpt_version": 127,
   "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
   "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
-  "archive_sha256": "a559ee16b47d5c2e48d174d663455cd361d6cfd3ae132198d96e2a0a8955e95a",
+  "archive_sha256": "7bf3a0424c6ff690dca6c27843cd3f8a973910790d0df71118022d12d4af20be",
   "parts": [
     {
       "name": "arena-render-v127-source-1.bin",
       "bytes": 20971520,
-      "sha256": "1668c763bc57c27e751a4d4b4ae1639ac5370bd50b6cf965327e256e4d2681ee"
+      "sha256": "84abe483bea9b036d21256f71e76ce04981133cec72e0bb87ad6b5b556b8e7a1"
     },
     {
       "name": "arena-render-v127-source-2.bin",
       "bytes": 20971520,
-      "sha256": "2bd65bb2ae4b9acee746299f5585ad0e9a51594f508fd62bc8bb0e948e0003ac"
+      "sha256": "ecb2cc005f9a6c4a9e9f8d49d7fb42d927a3b5b92440a2883ce83327379f7405"
     },
     {
       "name": "arena-render-v127-source-3.bin",
       "bytes": 20971520,
-      "sha256": "30fc417b620d5cfe40f2ea46a9044595316579dcb9a601a6f4a383dce7cc5ad8"
+      "sha256": "f2602dbb045280747db3fb8576932ee5fff30d0f260eeb77f3c9d6153cb338c3"
     },
     {
       "name": "arena-render-v127-source-4.bin",
-      "bytes": 13305561,
-      "sha256": "c0dcd3dd3c1ddb4e6192366dc154a7c45e3d520f56b83ba19e36a36d6124a03e"
+      "bytes": 13307475,
+      "sha256": "23d60e9ce53143cad057416d7291c361c447b2a666af1bf2afc094cf3376c48a"
     }
   ],
   "files": [
@@ -39,13 +39,13 @@
     },
     {
       "path": "UPLOAD_README.zh-TW.md",
-      "bytes": 2829,
-      "sha256": "8ee5391f2ba0cec8fabe8a61e7e1e23ffd47e61a64fb10a62fe7ec924ec618e6"
+      "bytes": 3423,
+      "sha256": "8d6269c88c88c9518065d10d2579fd54c52d7ad689330a8aa31c28d66847f22b"
     },
     {
       "path": "VALIDATION-v127.md",
-      "bytes": 1305,
-      "sha256": "21c3419b600b9aed90d4de3a4e60d0d2d047c5f430a9b6a44b6077cf3ca8c785"
+      "bytes": 1590,
+      "sha256": "4c41beecae794ef1898612be6f38c10c76a17f180032fd0d273bd1369c89e340"
     },
     {
       "path": "app/account-menu.tsx",
@@ -150,7 +150,7 @@
     {
       "path": "app/api/health/route.ts",
       "bytes": 437,
-      "sha256": "2dd97da297880b6c0a8d97e606af71f45eb0919f35b495ff9ae41e21e6f90d1a"
+      "sha256": "71fd295c0a49423506b6637c77298ce73cd4115884406c33d3957668ebb19388"
     },
     {
       "path": "app/api/hr9988/route.ts",
@@ -744,8 +744,8 @@
     },
     {
       "path": "db/render-schema.sql",
-      "bytes": 2940,
-      "sha256": "68bfd4895203df80a6e78f3ed828b540e2757b8fd942d0d3225836dfc87dc2f1"
+      "bytes": 3243,
+      "sha256": "4dea57bae2c1f4af87015033d685adbf1095fed9a18846cf5afc95208060d186"
     },
     {
       "path": "db/schema.ts",
@@ -1019,8 +1019,8 @@
     },
     {
       "path": "proxy.ts",
-      "bytes": 1108,
-      "sha256": "b9bc8999e13533c7e540b4a56b43b476dfde2f34ca04fae1bef59285fd406303"
+      "bytes": 1597,
+      "sha256": "0ee43b1005a5148a1a8088e972c1af52fbc095708a8d8cf58340e1ed4845f0f5"
     },
     {
       "path": "public/0912-bg.mp4",
@@ -1433,6 +1433,11 @@
       "sha256": "3540e5791430dce6452d32073a1042b34b3b6cecd65030a5c422f051666b2c1a"
     },
     {
+      "path": "server/request-limits.mjs",
+      "bytes": 1450,
+      "sha256": "7df0a680edd24ff366e6f7e4f9fb962ca78e0895c30f45f0623877afea9b728b"
+    },
+    {
       "path": "tests/account-restoration-smoke.mjs",
       "bytes": 7944,
       "sha256": "8be6a73b0672357e6e4f242933de6088c94bef113eb45a8c395b12a9c0895ddf"
@@ -1531,6 +1536,11 @@
       "path": "tests/rendered-html.test.mjs",
       "bytes": 967,
       "sha256": "eae1d187870ad9a4b3f0c37b40589b25c1a2090dcbee19964555cf70c136b118"
+    },
+    {
+      "path": "tests/request-limits-check.mjs",
+      "bytes": 1532,
+      "sha256": "38abc6863652426542ef73437c2c14b21dcd94b7489944d46501a696c0f2252a"
     },
     {
       "path": "tests/retrosheet.test.ts",
