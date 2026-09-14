@@ -3,27 +3,27 @@
   "gpt_version": 127,
   "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
   "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
-  "archive_sha256": "17705d2a32c56f0e3d97e083152269f8efd92bade3de4610e245a5642c016f61",
+  "archive_sha256": "c6258a86999859b722d53c5c67d625603d4097afeacb01caba2913becde1ebdf",
   "parts": [
     {
       "name": "arena-render-v127-source-1.bin",
       "bytes": 20971520,
-      "sha256": "148e5d8b4e5526592feaeaccb5fbeae9908e5a43ced2bbbfb1820aaaa47b90bb"
+      "sha256": "e463a731b893d4d486adb1b2d0fe41d42c15962cd141543af46f506d92bb9032"
     },
     {
       "name": "arena-render-v127-source-2.bin",
       "bytes": 20971520,
-      "sha256": "0ea574cca2a9d29a7b30a8cedfecf2d3b8c09e42a23db237deb6e96c54a73b74"
+      "sha256": "d646d21b1339235779b7e221341949ec1f484d9511e58cdf93f337e4a82dba0a"
     },
     {
       "name": "arena-render-v127-source-3.bin",
       "bytes": 20971520,
-      "sha256": "57793f02f7607579eb08bfb1ed67a72eefd5d2fb2f57f3afb57453410d61c358"
+      "sha256": "63448cc564b9e9262b84cbc073bd27a865be2af1a2cb44bf83f837f2942c28d7"
     },
     {
       "name": "arena-render-v127-source-4.bin",
-      "bytes": 13297491,
-      "sha256": "114a44e66fe5dfe4cd79da12d30f87258d172cdcaa387ba30859952ce97d5837"
+      "bytes": 13304174,
+      "sha256": "9210dfe57df7bb3cb3f9960fb7e39d7a496585e40e065e7e149df985b78ee3a3"
     }
   ],
   "files": [
@@ -39,13 +39,13 @@
     },
     {
       "path": "UPLOAD_README.zh-TW.md",
-      "bytes": 1658,
-      "sha256": "fada3d5e4eb9135a367bf2e268523420fdb9bcd30926e1bcd7b91a46fbf7de93"
+      "bytes": 2068,
+      "sha256": "fd1f71d78bd717dbb7394fa3080a9f5d62650a34aaf95da55eb579aace01335a"
     },
     {
       "path": "VALIDATION-v127.md",
-      "bytes": 1165,
-      "sha256": "d48fb0b42820cc19616b3bc0f27a40fe6c2ad5b0317f7aadadd906f8263cb345"
+      "bytes": 1111,
+      "sha256": "a6211316942b014234c4d70c0f3b917e3b1ce8e039a9edc1036f83724ae05dba"
     },
     {
       "path": "app/account-menu.tsx",
@@ -69,8 +69,8 @@
     },
     {
       "path": "app/admin/match-comparison.tsx",
-      "bytes": 4263,
-      "sha256": "6264e1e0a005c741a121acd5fe0c56020b38c64258ffb297c08e67fbc81ff3be"
+      "bytes": 4444,
+      "sha256": "0d812e60f7db7e365bbd17227320a8d4ba84aecfda622c9b6e24a4544b7ea3d5"
     },
     {
       "path": "app/admin/page.tsx",
@@ -84,8 +84,8 @@
     },
     {
       "path": "app/admin/tools.tsx",
-      "bytes": 3050,
-      "sha256": "99d455387af980b2701a2d576241572b6677cee5ed759735ac4e737f140c1c91"
+      "bytes": 2923,
+      "sha256": "6cc922b54f7787a6363b85177d1e3b76d1edb7202da00d84f516010c59856174"
     },
     {
       "path": "app/admin/turnstile-settings.tsx",
@@ -149,8 +149,8 @@
     },
     {
       "path": "app/api/health/route.ts",
-      "bytes": 418,
-      "sha256": "34eca688936b517924d99a9d0bc90ed6f01acffa9e0876ec0821969017610644"
+      "bytes": 437,
+      "sha256": "61c0d09bd28b0aa0cb5d91bb3a40648a39a89593d466141aa3a722acf6502bf9"
     },
     {
       "path": "app/api/hr9988/route.ts",
@@ -209,13 +209,13 @@
     },
     {
       "path": "app/game-context.tsx",
-      "bytes": 2786,
-      "sha256": "b95affea33651130d8541d93cbd697bb3d260646f73c0b178b96f90693450acc"
+      "bytes": 2893,
+      "sha256": "e492529a78f42d2facd0d279feb14950f14afc10d227517fb7d69e54ae4afe08"
     },
     {
       "path": "app/globals.css",
-      "bytes": 37109,
-      "sha256": "7fe24fecf34a5a81f31693af77ae40f30e27671224ef1fa9c9a42de2c1181113"
+      "bytes": 48186,
+      "sha256": "03e3129cf104a7b401a86d6a5565342ff31f2cf0e155a73ba921ea0ed37d4dc3"
     },
     {
       "path": "app/health/route.ts",
@@ -279,18 +279,18 @@
     },
     {
       "path": "app/markets.tsx",
-      "bytes": 16729,
-      "sha256": "a101bf7829b1dea707fec008da7975d607b06427170ecc0f9b8dff6736b2c459"
+      "bytes": 16601,
+      "sha256": "ff3e8d5a22cceac33fcac9bd89e701e20d2b6307bdf7b4994619b292a4ec4345"
     },
     {
       "path": "app/match-inning-board.tsx",
       "bytes": 832,
-      "sha256": "4f9bdd6dc36ff3a13b44a3746bdff67178fa674ac8a22bed33b5cffd0b038a2b"
+      "sha256": "50817f26535c1ffd99f0e97cb98a33b37477a5c22fa9c962ed3ac4d498229fbc"
     },
     {
       "path": "app/operations-panel.tsx",
       "bytes": 3522,
-      "sha256": "ed77dd9a2bf0d5a42a4b3028a4d7061086121c337d837cceebddb0ccfefcaab8"
+      "sha256": "2b7a99bf49258adbf3be5f0ca7e3fede7ef61c7686c6d012bedb5662346832e6"
     },
     {
       "path": "app/page.tsx",
@@ -314,8 +314,8 @@
     },
     {
       "path": "app/pregame.tsx",
-      "bytes": 14454,
-      "sha256": "928fe4420b81f20ca390ba91011206c3e69bc4e331bb08bd0cbda028a66527d8"
+      "bytes": 15947,
+      "sha256": "cf4a0e71d1f27ba3214f1e4e55cdaf021c6f0fe710f7b83011891c3942f78084"
     },
     {
       "path": "app/session-account.tsx",
@@ -325,7 +325,7 @@
     {
       "path": "app/settlement-calculator.tsx",
       "bytes": 5011,
-      "sha256": "695470e23a979f8e9f54b7880e8917acdb38c473002057cecea4752e3028dffb"
+      "sha256": "8a429913e1932f8dfc4a1c45c98c984fc8bcd0fe0548273efabf860cc45d7d07"
     },
     {
       "path": "app/signin-with-chatgpt/route.ts",
@@ -339,8 +339,8 @@
     },
     {
       "path": "app/source-markets.tsx",
-      "bytes": 4852,
-      "sha256": "bca944fb4a8e9091f971561616e96d143712ad4b3c3a8c1f3c34ee9f701fdb00"
+      "bytes": 4846,
+      "sha256": "0c2598f69c6f5005866cbe7d7fcbb3ed41df15881a5427673bb5fefb055c4163"
     },
     {
       "path": "app/standings.tsx",
@@ -350,7 +350,7 @@
     {
       "path": "app/super007.tsx",
       "bytes": 1430,
-      "sha256": "7a2b9ccfd2fa89a5eca56839ed4e8814f41aecaa2bac6a43d24c0d43fc6f412d"
+      "sha256": "e5bff06fdfd9acb843eff1c9b5ce2a8c45bec73905c5e72982b70c7a68a25098"
     },
     {
       "path": "app/team-name.tsx",
@@ -379,13 +379,13 @@
     },
     {
       "path": "app/tz-binding.tsx",
-      "bytes": 9051,
-      "sha256": "bf64605a8d3456dc9bc5d0e49452c71c68475a552b7435c94c775e84aed5cd59"
+      "bytes": 10286,
+      "sha256": "d52149d21e3d7e116ceada35a06d6e8f44707845e521435d6cd4845222c83ea2"
     },
     {
       "path": "app/use-source.ts",
-      "bytes": 1778,
-      "sha256": "c186c282f46094dd2f3ae42223b50a15fa9c25d207e8501ced78fc42afdfbfd2"
+      "bytes": 2017,
+      "sha256": "8b5ad67cfaa7c206b568c203fb8a6d0642b828205af9b0e28d2071b6c35c3735"
     },
     {
       "path": "app/zh.ts",
@@ -744,8 +744,8 @@
     },
     {
       "path": "db/render-schema.sql",
-      "bytes": 2762,
-      "sha256": "2b353e662af8e69bb43c622fa58626fe84193bc7154d2f11a99d1709b3eea54b"
+      "bytes": 2940,
+      "sha256": "68bfd4895203df80a6e78f3ed828b540e2757b8fd942d0d3225836dfc87dc2f1"
     },
     {
       "path": "db/schema.ts",
@@ -800,7 +800,7 @@
     {
       "path": "lib/covers-odds.ts",
       "bytes": 7526,
-      "sha256": "1c2ed0366669baab2e0913eded2ca2672b924941bfdbc6d754b0a80884b37c60"
+      "sha256": "5e5ded808726dbc4f67a552a788cdbf09f87fd8fcfb2ed8086ac5f5bcaf37012"
     },
     {
       "path": "lib/covers.ts",
@@ -814,13 +814,13 @@
     },
     {
       "path": "lib/hr9988-connection.ts",
-      "bytes": 11201,
-      "sha256": "cfc9fc6359fafa84df6c528e50e0820424e4e3ba1920126efcd499afb56879fb"
+      "bytes": 11195,
+      "sha256": "f8d12d8bf43b194676948d0bda9ad9ed3a5d85bc89994d17a83ab89110d995c4"
     },
     {
       "path": "lib/hr9988.ts",
-      "bytes": 2901,
-      "sha256": "7589ed40c8738722ec6640815cc8c8ae7c169bc19de8a034cfa3a524c3969fab"
+      "bytes": 3409,
+      "sha256": "c8e40bb1ab1737dd12deb4a825e79ea59fdcfbc225da386285ab80cd68688f53"
     },
     {
       "path": "lib/international-teams.ts",
@@ -890,7 +890,7 @@
     {
       "path": "lib/pinnacle.ts",
       "bytes": 3653,
-      "sha256": "ad61f3ab1761f4331c764a6f35b860252615e662c30e18c84b3e24a55db91863"
+      "sha256": "064c17bf9c051a49a8aef786a4775d4b2dc874e63e2d9eea665426750e5a85a4"
     },
     {
       "path": "lib/pitcher-era.ts",
@@ -909,8 +909,8 @@
     },
     {
       "path": "lib/pregame-analysis.ts",
-      "bytes": 10128,
-      "sha256": "ccc3982b8c6421265793c682000f5d72edb4a53ea3f3978c3f0b9c9424f94b57"
+      "bytes": 10306,
+      "sha256": "a1d1a40ebe688603b22253e1df026387976aae4f80df2b8517344c2091b016f0"
     },
     {
       "path": "lib/pregame-readiness.ts",
@@ -954,8 +954,8 @@
     },
     {
       "path": "lib/super007.ts",
-      "bytes": 3429,
-      "sha256": "1e9930762a02e9bff1e36048ac0106b35a102eaffab3780f56a42b4f23ef12b7"
+      "bytes": 3455,
+      "sha256": "b37edadaee969782f0a7c202d3996cc46015476d9e0e85eff8c82ae664d2295d"
     },
     {
       "path": "lib/team-groups.ts",
@@ -985,7 +985,7 @@
     {
       "path": "lib/tz-binding-service.ts",
       "bytes": 8764,
-      "sha256": "ca68a3fc36bc2f61f3378daf8526fd3a6d4427e8edd674cb26a621f3bb7c39ce"
+      "sha256": "1666132b711d47a885efd1467856c0115eebae0c2b66f71eca5395a6f6f47a61"
     },
     {
       "path": "lib/tz-credentials.ts",
@@ -1414,8 +1414,13 @@
     },
     {
       "path": "scripts/render-start.mjs",
-      "bytes": 778,
-      "sha256": "00b1bbcb1505cd1ca65d628d05256d7e7e7da51b3304c4ebc7c797ac7932c88d"
+      "bytes": 1022,
+      "sha256": "883bf1e965a148d30cc05ceac6365b3cc4099672dad394f2947b490697a7d7d1"
+    },
+    {
+      "path": "server/admin-recovery.mjs",
+      "bytes": 2736,
+      "sha256": "e07045e5192ab51bee5cc237eae35026ce703cf6fa11f5930f4143e7e876cdd8"
     },
     {
       "path": "server/auth.mjs",
@@ -1431,6 +1436,11 @@
       "path": "tests/account-restoration-smoke.mjs",
       "bytes": 7944,
       "sha256": "8be6a73b0672357e6e4f242933de6088c94bef113eb45a8c395b12a9c0895ddf"
+    },
+    {
+      "path": "tests/admin-recovery-check.mjs",
+      "bytes": 1926,
+      "sha256": "b2bb7fb307541137082d97180e0e046f14812cf43d41dd8271379b0844265d4f"
     },
     {
       "path": "tests/analysis-readiness.test.ts",

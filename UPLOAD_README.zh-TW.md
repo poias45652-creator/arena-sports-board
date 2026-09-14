@@ -1,23 +1,33 @@
-# 最新 Render v127 覆蓋包
+# Render 修正版：GPT v127 完整同步 + 管理員復原（R2）
 
-把 ZIP 解壓縮後「所有檔案」一次上傳到 GitHub arena-sports-board 儲存庫根目錄，覆蓋同名檔案並提交。不要再套一層資料夾，也不要只上傳 ZIP 本身。
+此包取自 GPT d502240ad7901fde4c64b50e23c2c700295fcbcc。
+包含最新版版面、獨贏手動選取、多因素分析、國際聯盟解析、立即更新與後台資料檢查。
+保留 Render PostgreSQL、獨立帳號、會員資料隔離、登入影片及管理員建立會員。
 
-這些 .bin 是完整原始碼及媒體的分段封裝，不是缺少原始碼。每份小於 25 MB，適合 GitHub 網頁上傳；建置會先驗證並還原完整專案。必須全部上傳，不能與舊版混用。
+## 上傳
+將此 ZIP 解壓縮後的全部 10 個檔案覆蓋 GitHub 專案根目錄，Commit / Push。
+Render Build Command：npm ci --ignore-scripts && npm run build
+Start Command：npm start
+等待部署 Live。
+四個 .bin 是完整原始碼的分片，建置前會驗證雜湊並還原。不要單獨上傳 ZIP。
+/api/health 的 release 應為 render-v127-r2。
 
-Render 設定維持：
-Build Command: npm ci --ignore-scripts && npm run build
-Start Command: npm start
-Health Check Path: /api/health
-Node: 24
+## 免費方案重設管理員密碼
+新版上線後：Render → arena-sports-board → Environment → Edit，新增：
 
-保留既有 DATABASE_URL、TZ_BINDING_KEY、ARENA_SETUP_TOKEN。
-若 APP_ORIGIN 有設定，改為實際 Render 網址 https://arena-sports-board.onrender.com；未設定則使用 Render 自動提供的 RENDER_EXTERNAL_URL。
+ARENA_RECOVERY_USERNAME：dvp03002
+ARENA_RECOVERY_PASSWORD：自行輸入的新密碼（不要傳給其他人）
+ARENA_RECOVERY_ID：自己填入至少 16 個字元的一次性識別字，例如 recovery-20260914-first
 
-包含 GPT v127 畫面、MLB／CPBL／NPB／KBO 現有功能、最新獨贏手動選取修正；保留 Render 的帳密登入、會員建立、管理員與來源綁定，新增帳號使用權和 Turnstile。
+保留原本其他環境變數，按 Save, rebuild, and deploy（或儲存後手動部署）。
+此功能只接受已有管理員；若資料庫完全沒有管理員，才建立或復原指定帳號為首位管理員。
+若指定帳號不是管理員且資料庫已有其他管理員，會拒絕操作，不會擅自升權。
+成功日誌：Arena administrator recovery: completed。
+同一識別字再次啟動：already-applied，不會反覆重設密碼或踢出登入。
+成功後刪除上述三個環境變數並儲存部署，再使用新密碼登入。
+登入成功後仍需用「連接 SUPER」輸入你自己的來源站帳號。
 
-Turnstile 的私密設定不會從 GPT 自動搬移：先在 Cloudflare 同一小工具的主機名稱加入 arena-sports-board.onrender.com，再於 Render 管理後台輸入 Secret Key、完成驗證並儲存。
+密碼重設會撤銷該帳號舊登入、清除登入嘗試限制，恢复管理員使用權。
+不會停用 Turnstile 或改動其他會員；沒有預設密碼。若日誌拒絕操作，請提供該錯誤文字，不要提供密碼或資料庫連線字串。
 
-已完成正式建置與本機獨立資料庫測試。既有資料採附加式遷移保留；未包含私密金鑰或會員資料，未直接部署線上 Render。
-完整 README 與驗證紀錄會在建置還原後出現在專案根目錄。
-
-密碼規則更新：登入、首次管理員設定、建立會員皆取消至少 10 字要求；可使用 1–1024 字元，不能留空。既有密碼不會被更改。
+目前完成程式及隔離資料庫測試；尚未替你的正式資料庫實際變更密碼。
