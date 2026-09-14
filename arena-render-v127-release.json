@@ -3,27 +3,27 @@
   "gpt_version": 127,
   "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
   "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
-  "archive_sha256": "afeb113f73b9ee187470dd3d638919be63c0d2cf6c669491a66869d0a691524d",
+  "archive_sha256": "17705d2a32c56f0e3d97e083152269f8efd92bade3de4610e245a5642c016f61",
   "parts": [
     {
       "name": "arena-render-v127-source-1.bin",
       "bytes": 20971520,
-      "sha256": "f6322a18e469aad51282994ce0a353df46ee2c25429d6916cfc0d984d9b85a64"
+      "sha256": "148e5d8b4e5526592feaeaccb5fbeae9908e5a43ced2bbbfb1820aaaa47b90bb"
     },
     {
       "name": "arena-render-v127-source-2.bin",
       "bytes": 20971520,
-      "sha256": "7465dd97520638e3ae84a46977d0c17087db68c751454b5ca8b2a57114f9a681"
+      "sha256": "0ea574cca2a9d29a7b30a8cedfecf2d3b8c09e42a23db237deb6e96c54a73b74"
     },
     {
       "name": "arena-render-v127-source-3.bin",
       "bytes": 20971520,
-      "sha256": "b307bdf663ea89801c8236e6846146e419f1ea4804de0d0bc8d89fbf7fd2750e"
+      "sha256": "57793f02f7607579eb08bfb1ed67a72eefd5d2fb2f57f3afb57453410d61c358"
     },
     {
       "name": "arena-render-v127-source-4.bin",
-      "bytes": 13297151,
-      "sha256": "ada27ef48a0afc4a53998914929a69cf9b4c69873d378dcacf7384ed13b6db76"
+      "bytes": 13297491,
+      "sha256": "114a44e66fe5dfe4cd79da12d30f87258d172cdcaa387ba30859952ce97d5837"
     }
   ],
   "files": [
@@ -34,13 +34,13 @@
     },
     {
       "path": "README.md",
-      "bytes": 2530,
-      "sha256": "357a58f8bb8ec2e2d396964e9aed64ed9259dc2e153c5557d10b64fefcda822d"
+      "bytes": 2702,
+      "sha256": "28fb8bc83282ad74ccec6d448b95c2a07b2561debe7eb31c78ff232be764e88f"
     },
     {
       "path": "UPLOAD_README.zh-TW.md",
-      "bytes": 1486,
-      "sha256": "0174f482b690cb538a188323930ad4944bb2f5ce117601a9022999c7ff8b6d38"
+      "bytes": 1658,
+      "sha256": "fada3d5e4eb9135a367bf2e268523420fdb9bcd30926e1bcd7b91a46fbf7de93"
     },
     {
       "path": "VALIDATION-v127.md",
@@ -59,8 +59,8 @@
     },
     {
       "path": "app/admin/create-account.tsx",
-      "bytes": 1385,
-      "sha256": "26de9003ce9f462f54998f9284c2c6b7f0277127acabdec5c1612b579f46d271"
+      "bytes": 1384,
+      "sha256": "9cc5fb3ee2851b423bd5cc256ea544104a5fc0653191edd905fd824f3d00e2bf"
     },
     {
       "path": "app/admin/error.tsx",
@@ -84,8 +84,8 @@
     },
     {
       "path": "app/admin/tools.tsx",
-      "bytes": 3070,
-      "sha256": "333f42992997a2c12347bb3777a884080babb10e739d798db47f2d837aa17017"
+      "bytes": 3050,
+      "sha256": "99d455387af980b2701a2d576241572b6677cee5ed759735ac4e737f140c1c91"
     },
     {
       "path": "app/admin/turnstile-settings.tsx",
@@ -169,8 +169,8 @@
     },
     {
       "path": "app/api/meta/route.ts",
-      "bytes": 1816,
-      "sha256": "a7ff39da39f993441a63ba0c05fd0b87fe0470f871d6e05384644a2aa0e572b1"
+      "bytes": 1828,
+      "sha256": "6f4d184ee12ab70d8600dad2c1f97ced96df6b92e88e307ec98b0f73a1e6467b"
     },
     {
       "path": "app/api/operations/route.ts",
@@ -249,8 +249,8 @@
     },
     {
       "path": "app/login/form.tsx",
-      "bytes": 3397,
-      "sha256": "43b7dba4cd16c0c5351953498201aa620a42e345ac8e0408704872dae9a6338f"
+      "bytes": 3396,
+      "sha256": "703a0e19e7acaf26b2f46ab98c03f75d73327a35d5301cfe229f676ceb92bc42"
     },
     {
       "path": "app/login/login.css",
@@ -1419,8 +1419,8 @@
     },
     {
       "path": "server/auth.mjs",
-      "bytes": 6877,
-      "sha256": "3c726b875e134236dbcca447fa5ca5b7247c8c0684b1509681fcd703f72e2e19"
+      "bytes": 6889,
+      "sha256": "7598323fac0acff4383007cc4f8d5d910d5ec8485df0c04a6fcb2d4d5eee9f23"
     },
     {
       "path": "server/database.mjs",
@@ -1514,8 +1514,8 @@
     },
     {
       "path": "tests/render-auth.test.mjs",
-      "bytes": 19337,
-      "sha256": "973e2b13bd889d2a45e7e8c03ebccb8afbd9307f5c951ea0e9dc05a456fcf16b"
+      "bytes": 20235,
+      "sha256": "6b63bd80c636e58a26dd0a6832e6c9e4b92df1901a6245dd823d9b6a48ca5664"
     },
     {
       "path": "tests/rendered-html.test.mjs",
