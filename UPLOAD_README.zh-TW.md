@@ -1,4 +1,4 @@
-# Render 修正版：GPT v127 完整同步 + 管理員復原（R4）
+# Render 修正版：GPT v127 完整同步 + 管理員復原（R5）
 
 此包取自 GPT d502240ad7901fde4c64b50e23c2c700295fcbcc。
 包含最新版版面、獨贏手動選取、多因素分析、國際聯盟解析、立即更新與後台資料檢查。
@@ -10,7 +10,7 @@ Render Build Command：npm ci --ignore-scripts && npm run build
 Start Command：npm start
 等待部署 Live。
 四個 .bin 是完整原始碼的分片，建置前會驗證雜湊並還原。不要單獨上傳 ZIP。
-/api/health 的 release 應為 render-v127-r4。
+/api/health 的 release 應為 render-v127-r5。
 
 ## 免費方案重設管理員密碼
 新版上線後：Render → arena-sports-board → Environment → Edit，新增：
@@ -38,3 +38,7 @@ ARENA_RECOVERY_ID：自己填入至少 16 個字元的一次性識別字，例�
 
 ## R4 更新
 網站登入過期會保留連接 SUPER 的操作，登入成功後自動繼續。tz 驗證成功後自動設定來源網址、連接並更新，成功後關閉視窗。來源失敗仍顯示錯誤，不假裝已連接。
+
+## R5 更新
+登入頁與管理後台共用的新 Site Key：0x4AAAAAAE0JqmkLF68QSRXN。
+請在此小工具的主機名稱加入 arena-sports-board.onrender.com，並在網站後台填入同一小工具的 Secret Key，完成驗證後儲存啟用。

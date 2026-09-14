@@ -3,27 +3,27 @@
   "gpt_version": 127,
   "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
   "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
-  "archive_sha256": "34405a3957369cd33b49b130f096d8fd964f379c49e0e65070ce0f00f68946f9",
+  "archive_sha256": "a559ee16b47d5c2e48d174d663455cd361d6cfd3ae132198d96e2a0a8955e95a",
   "parts": [
     {
       "name": "arena-render-v127-source-1.bin",
       "bytes": 20971520,
-      "sha256": "ca8358c51c2150b9d6806827d281fbba2d119c143fd559f737e818ed95b64b73"
+      "sha256": "1668c763bc57c27e751a4d4b4ae1639ac5370bd50b6cf965327e256e4d2681ee"
     },
     {
       "name": "arena-render-v127-source-2.bin",
       "bytes": 20971520,
-      "sha256": "bf7609071afe3a8eb9220f235cafdb937a0bbc086979a324f92cb528d3a9bca4"
+      "sha256": "2bd65bb2ae4b9acee746299f5585ad0e9a51594f508fd62bc8bb0e948e0003ac"
     },
     {
       "name": "arena-render-v127-source-3.bin",
       "bytes": 20971520,
-      "sha256": "38addee2e6deca3bca9cafbc36ca1a847c2cb8f9620d21b1f9c9f9152c291e5a"
+      "sha256": "30fc417b620d5cfe40f2ea46a9044595316579dcb9a601a6f4a383dce7cc5ad8"
     },
     {
       "name": "arena-render-v127-source-4.bin",
-      "bytes": 13305415,
-      "sha256": "6589ee2547a499dce396d58f3c32ec0ea58108832d50f316bd8a36cac3040767"
+      "bytes": 13305561,
+      "sha256": "c0dcd3dd3c1ddb4e6192366dc154a7c45e3d520f56b83ba19e36a36d6124a03e"
     }
   ],
   "files": [
@@ -39,8 +39,8 @@
     },
     {
       "path": "UPLOAD_README.zh-TW.md",
-      "bytes": 2578,
-      "sha256": "581f882d31e1856cc29303075e95a0843233213630ee98b2fa47a7c88252fb50"
+      "bytes": 2829,
+      "sha256": "8ee5391f2ba0cec8fabe8a61e7e1e23ffd47e61a64fb10a62fe7ec924ec618e6"
     },
     {
       "path": "VALIDATION-v127.md",
@@ -150,7 +150,7 @@
     {
       "path": "app/api/health/route.ts",
       "bytes": 437,
-      "sha256": "1e22b790b0d9ddcb377d66b63dcecda537b41a7eb0bd2bd1eaa54c8e32c66d62"
+      "sha256": "2dd97da297880b6c0a8d97e606af71f45eb0919f35b495ff9ae41e21e6f90d1a"
     },
     {
       "path": "app/api/hr9988/route.ts",
@@ -980,7 +980,7 @@
     {
       "path": "lib/turnstile.ts",
       "bytes": 971,
-      "sha256": "ba8c34db9805b33cd5006e0286b51504d75533d12f4886147e75c69305414c99"
+      "sha256": "dc5189d12977a08cb35c5e2cfa2269608b2383b3186e4a713d5e0f9d13961a78"
     },
     {
       "path": "lib/tz-binding-service.ts",
