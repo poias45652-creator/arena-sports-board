@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 # Render 修正版：GPT v127 完整同步 + 管理員復原（R4）
-=======
-# Render 修正版：GPT v127 完整同步 + 管理員復原（R2）
->>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
 
 此包取自 GPT d502240ad7901fde4c64b50e23c2c700295fcbcc。
 包含最新版版面、獨贏手動選取、多因素分析、國際聯盟解析、立即更新與後台資料檢查。
@@ -14,11 +10,7 @@ Render Build Command：npm ci --ignore-scripts && npm run build
 Start Command：npm start
 等待部署 Live。
 四個 .bin 是完整原始碼的分片，建置前會驗證雜湊並還原。不要單獨上傳 ZIP。
-<<<<<<< HEAD
 /api/health 的 release 應為 render-v127-r4。
-=======
-/api/health 的 release 應為 render-v127-r2。
->>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
 
 ## 免費方案重設管理員密碼
 新版上線後：Render → arena-sports-board → Environment → Edit，新增：
@@ -39,7 +31,6 @@ ARENA_RECOVERY_ID：自己填入至少 16 個字元的一次性識別字，例�
 不會停用 Turnstile 或改動其他會員；沒有預設密碼。若日誌拒絕操作，請提供該錯誤文字，不要提供密碼或資料庫連線字串。
 
 目前完成程式及隔離資料庫測試；尚未替你的正式資料庫實際變更密碼。
-<<<<<<< HEAD
 
 ## R3 更新
 頁首重新連接整合至「立即更新」。授權缺漏或過期會開啟來源驗證視窗；更新提示內可選擇重新驗證 tz 帳密。
@@ -47,5 +38,3 @@ ARENA_RECOVERY_ID：自己填入至少 16 個字元的一次性識別字，例�
 
 ## R4 更新
 網站登入過期會保留連接 SUPER 的操作，登入成功後自動繼續。tz 驗證成功後自動設定來源網址、連接並更新，成功後關閉視窗。來源失敗仍顯示錯誤，不假裝已連接。
-=======
->>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
