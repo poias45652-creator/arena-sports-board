@@ -1,18 +1,59 @@
 {
   "name": "arena-sports-board",
-  "version": "3.0.74",
+  "version": "3.0.127",
   "private": true,
   "type": "module",
   "engines": {
     "node": ">=24.0.0 <25"
   },
+  "dependencies": {
+    "@base-ui/react": "1.7.0",
+    "@hookform/resolvers": "5.7.1",
+    "@shadcn/react": "0.3.0",
+    "class-variance-authority": "0.7.1",
+    "clsx": "2.1.1",
+    "cmdk": "1.1.1",
+    "date-fns": "4.4.0",
+    "drizzle-orm": "0.45.2",
+    "embla-carousel-react": "8.6.0",
+    "input-otp": "1.4.2",
+    "lucide-react": "1.31.0",
+    "next": "16.2.6",
+    "next-themes": "0.4.6",
+    "pg": "8.16.3",
+    "radix-ui": "1.6.7",
+    "react": "19.2.6",
+    "react-day-picker": "10.0.1",
+    "react-dom": "19.2.6",
+    "react-hook-form": "7.85.0",
+    "react-is": "19.2.6",
+    "react-resizable-panels": "4.12.2",
+    "recharts": "3.8.0",
+    "sonner": "2.0.8",
+    "tailwind-merge": "3.6.0",
+    "vaul": "1.1.2",
+    "zod": "3.25.76"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/pg": "8.15.5",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "tailwindcss": "4.2.1",
+    "tw-animate-css": "1.4.0",
+    "typescript": "5.9.3"
+  },
   "scripts": {
-    "build": "node arena-prepare.mjs && npm --prefix .arena-app ci --ignore-scripts --legacy-peer-deps --include=dev && npm --prefix .arena-app run build",
-    "dev": "node arena-prepare.mjs && npm --prefix .arena-app ci --ignore-scripts --legacy-peer-deps --include=dev && npm --prefix .arena-app run dev",
-    "test:source": "node arena-prepare.mjs && npm --prefix .arena-app ci --ignore-scripts --legacy-peer-deps --include=dev && npm --prefix .arena-app run test:source",
-    "test:analysis": "node arena-prepare.mjs && npm --prefix .arena-app ci --ignore-scripts --legacy-peer-deps --include=dev && npm --prefix .arena-app run test:analysis",
-    "test:render": "node arena-prepare.mjs && npm --prefix .arena-app ci --ignore-scripts --legacy-peer-deps --include=dev && npm --prefix .arena-app run test:render",
-    "start": "npm --prefix .arena-app start",
-    "restore:source": "node arena-prepare.mjs"
+    "dev": "next dev --hostname 0.0.0.0",
+    "build": "node arena-render-v127-prepare.mjs && next build --webpack && node scripts/render-package.mjs",
+    "start": "node scripts/render-start.mjs",
+    "test:source": "node --test tests/tz-binding.test.mjs tests/hr9988-connection.test.mjs tests/super007-settlement.test.mjs",
+    "test:render": "node --import ./tests/register-typescript.mjs --test tests/render-auth.test.mjs",
+    "test:analysis": "node --import ./tests/register-typescript.mjs --test tests/*.test.ts",
+    "test:accounts": "node tests/account-restoration-smoke.mjs"
   }
 }
