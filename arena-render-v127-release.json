@@ -1,0 +1,1576 @@
+{
+  "format": "arena-render-source-v1",
+  "gpt_version": 127,
+  "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
+  "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
+  "archive_sha256": "afeb113f73b9ee187470dd3d638919be63c0d2cf6c669491a66869d0a691524d",
+  "parts": [
+    {
+      "name": "arena-render-v127-source-1.bin",
+      "bytes": 20971520,
+      "sha256": "f6322a18e469aad51282994ce0a353df46ee2c25429d6916cfc0d984d9b85a64"
+    },
+    {
+      "name": "arena-render-v127-source-2.bin",
+      "bytes": 20971520,
+      "sha256": "7465dd97520638e3ae84a46977d0c17087db68c751454b5ca8b2a57114f9a681"
+    },
+    {
+      "name": "arena-render-v127-source-3.bin",
+      "bytes": 20971520,
+      "sha256": "b307bdf663ea89801c8236e6846146e419f1ea4804de0d0bc8d89fbf7fd2750e"
+    },
+    {
+      "name": "arena-render-v127-source-4.bin",
+      "bytes": 13297151,
+      "sha256": "ada27ef48a0afc4a53998914929a69cf9b4c69873d378dcacf7384ed13b6db76"
+    }
+  ],
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 133,
+      "sha256": "f4b99c069a50428cf8692884111c4b967abb073745af90af9a43b4c5f8fbcbf5"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2530,
+      "sha256": "357a58f8bb8ec2e2d396964e9aed64ed9259dc2e153c5557d10b64fefcda822d"
+    },
+    {
+      "path": "UPLOAD_README.zh-TW.md",
+      "bytes": 1486,
+      "sha256": "0174f482b690cb538a188323930ad4944bb2f5ce117601a9022999c7ff8b6d38"
+    },
+    {
+      "path": "VALIDATION-v127.md",
+      "bytes": 1165,
+      "sha256": "d48fb0b42820cc19616b3bc0f27a40fe6c2ad5b0317f7aadadd906f8263cb345"
+    },
+    {
+      "path": "app/account-menu.tsx",
+      "bytes": 748,
+      "sha256": "99ba88f8ba5f148dfe48221e114c7ee282abb10fd6cf312cd5888f0b30783078"
+    },
+    {
+      "path": "app/admin/accounts.tsx",
+      "bytes": 4559,
+      "sha256": "d61ac36d7630cbc1ba61f3f57230bf212f4739d7e8770d90d19e907d9aed9815"
+    },
+    {
+      "path": "app/admin/create-account.tsx",
+      "bytes": 1385,
+      "sha256": "26de9003ce9f462f54998f9284c2c6b7f0277127acabdec5c1612b579f46d271"
+    },
+    {
+      "path": "app/admin/error.tsx",
+      "bytes": 506,
+      "sha256": "0f688906126fd65ab4bab61ad5f13cf7326ab6b2f154a552ae32139f89756230"
+    },
+    {
+      "path": "app/admin/match-comparison.tsx",
+      "bytes": 4263,
+      "sha256": "6264e1e0a005c741a121acd5fe0c56020b38c64258ffb297c08e67fbc81ff3be"
+    },
+    {
+      "path": "app/admin/page.tsx",
+      "bytes": 1973,
+      "sha256": "fa953e5611d75d6ddbb7f383b5ca4f3ec27ae5e665828ea6a2bea6d3ee14e580"
+    },
+    {
+      "path": "app/admin/section-boundary.tsx",
+      "bytes": 592,
+      "sha256": "3e5c3d361255482a5e9b54e4ff68e99146f3e93ad563cd5ae40c45f67442425d"
+    },
+    {
+      "path": "app/admin/tools.tsx",
+      "bytes": 3070,
+      "sha256": "333f42992997a2c12347bb3777a884080babb10e739d798db47f2d837aa17017"
+    },
+    {
+      "path": "app/admin/turnstile-settings.tsx",
+      "bytes": 2569,
+      "sha256": "21bc7303bd2614a051628064c31bb9d21bafa0bc093047babf6a1007242080b8"
+    },
+    {
+      "path": "app/admin/win-breakdown.tsx",
+      "bytes": 3907,
+      "sha256": "166719775db7a4ef63fa9a3c747beb50feeeaab0feea64f3cc912516fa6e7866"
+    },
+    {
+      "path": "app/admin-access.ts",
+      "bytes": 212,
+      "sha256": "3fc7d32a14b0edb256ae2889911940666878463feb07a1845c3ff5ca5f5218ae"
+    },
+    {
+      "path": "app/admin-entry.tsx",
+      "bytes": 900,
+      "sha256": "e635083b444297fcf5406a1e206fc7cf860ca655f9cf189f71427e3b9a7847fd"
+    },
+    {
+      "path": "app/analysis-weights.tsx",
+      "bytes": 8706,
+      "sha256": "e63088c949fe710c367017331e0e2706962117d8cc6693f53371c9632c40e924"
+    },
+    {
+      "path": "app/api/admin/accounts/route.ts",
+      "bytes": 2598,
+      "sha256": "9513bc0965e57403d0d66232065173e1f20681c5368c0707da85d1776c8b54b2"
+    },
+    {
+      "path": "app/api/admin/turnstile/route.ts",
+      "bytes": 2276,
+      "sha256": "b93129d3682ee99951286ac55139dfcb9e48fc34abd0414dd65e33696e84e78a"
+    },
+    {
+      "path": "app/api/admin-access/route.ts",
+      "bytes": 250,
+      "sha256": "fb9591dcd3516dd1def8cf527540e56cfabd7f804352008bc0ddbeba667e02be"
+    },
+    {
+      "path": "app/api/analysis/results/route.ts",
+      "bytes": 4826,
+      "sha256": "1b6752203744cdaffc3a88ced1840a78340e3e5d7f06b859be5e789e2e59ddd5"
+    },
+    {
+      "path": "app/api/analysis/route.ts",
+      "bytes": 4771,
+      "sha256": "1810a89369e9f2c35838cb744e8d811e6a050773204e047bab3fa5bc5927df23"
+    },
+    {
+      "path": "app/api/auth/[action]/route.ts",
+      "bytes": 756,
+      "sha256": "f00412f4238a6df48e80da6860f165a1bbd7dbe1ca22e48e7b64cc1e4950c1cd"
+    },
+    {
+      "path": "app/api/baseball/route.ts",
+      "bytes": 14933,
+      "sha256": "e3bd73fb35d1226793fdd11e1fb2a624ff2ae10559e2f637af358a9ab4f00675"
+    },
+    {
+      "path": "app/api/health/route.ts",
+      "bytes": 418,
+      "sha256": "34eca688936b517924d99a9d0bc90ed6f01acffa9e0876ec0821969017610644"
+    },
+    {
+      "path": "app/api/hr9988/route.ts",
+      "bytes": 1067,
+      "sha256": "022afd36b2c39e2b593038b17dd50c7ef1b319afe3f0374bc9550812a4f1fcfc"
+    },
+    {
+      "path": "app/api/international/route.ts",
+      "bytes": 4774,
+      "sha256": "c2e6e05332b76b287d491b68db70bbc5bb19ea99742bfacfa72bd09022f19076"
+    },
+    {
+      "path": "app/api/member-odds/route.ts",
+      "bytes": 145,
+      "sha256": "0faeb5455cdc010e76738d797e9961ada320f1a3f17f93349323cd86835d4489"
+    },
+    {
+      "path": "app/api/meta/route.ts",
+      "bytes": 1816,
+      "sha256": "a7ff39da39f993441a63ba0c05fd0b87fe0470f871d6e05384644a2aa0e572b1"
+    },
+    {
+      "path": "app/api/operations/route.ts",
+      "bytes": 1138,
+      "sha256": "8732c9819119c122d9923c1049e2b13899e50849c6a2e07d08cf54f56fcc07b7"
+    },
+    {
+      "path": "app/api/player/route.ts",
+      "bytes": 3004,
+      "sha256": "0b4c72f513aaa756f25e25d3fa390b08bf374739a2861ed2cbd8cd8303bd57c8"
+    },
+    {
+      "path": "app/api/session/route.ts",
+      "bytes": 537,
+      "sha256": "9ef9362f423cfe5d7f77326d338cc2381b178d906e5e06ce56c62bed3605c35c"
+    },
+    {
+      "path": "app/api/super007/route.ts",
+      "bytes": 171,
+      "sha256": "ac5df26cf76515ec4ae7e0563b5f0235f3a3296b509cf1c643edd166df478865"
+    },
+    {
+      "path": "app/api/team/route.ts",
+      "bytes": 4581,
+      "sha256": "d00e67f08615055d1b90efec69cff99440814463b35738dbefbf358b1eb27953"
+    },
+    {
+      "path": "app/api/tz-binding/route.ts",
+      "bytes": 785,
+      "sha256": "63812e405405a6ffbb0b23b8fe14cedc2344c5f774968d034af2741b2ebe3f9a"
+    },
+    {
+      "path": "app/chatgpt-auth.ts",
+      "bytes": 777,
+      "sha256": "1f585e5da417e51cde9c064fcbb24f386e43de088f70b6ed1e3683f3256d5495"
+    },
+    {
+      "path": "app/game-context.tsx",
+      "bytes": 2786,
+      "sha256": "b95affea33651130d8541d93cbd697bb3d260646f73c0b178b96f90693450acc"
+    },
+    {
+      "path": "app/globals.css",
+      "bytes": 37109,
+      "sha256": "7fe24fecf34a5a81f31693af77ae40f30e27671224ef1fa9c9a42de2c1181113"
+    },
+    {
+      "path": "app/health/route.ts",
+      "bytes": 49,
+      "sha256": "3922211f17145f6717bebc79ef40a7e437d7b4edf50f1c2e749bdd7a018dda5d"
+    },
+    {
+      "path": "app/home.tsx",
+      "bytes": 14235,
+      "sha256": "8f0ebd3cbae8a19369dd05fe33ad9e46e0f30fb4f03c5d11160a0130a3771923"
+    },
+    {
+      "path": "app/international-board.tsx",
+      "bytes": 16115,
+      "sha256": "928fa9871b5fb8076d89ccbbfd8a7384fccd73bb570e3307a7c8afe64ee51f83"
+    },
+    {
+      "path": "app/international-markets.tsx",
+      "bytes": 7059,
+      "sha256": "99aeaebf733d3639074f748e87b3d36cbfa2767877f98704ecaa9ea719e54719"
+    },
+    {
+      "path": "app/layout.tsx",
+      "bytes": 486,
+      "sha256": "24391f267ede184f86a97f4ba8d00c4c5a61b7d93382195a915be0bb6c9131b3"
+    },
+    {
+      "path": "app/live-scoreboard.tsx",
+      "bytes": 18898,
+      "sha256": "00bc3d55a47a67ffe88a58998d366407eabd1856f5e1972005787fbb95f5f0ef"
+    },
+    {
+      "path": "app/login/form.tsx",
+      "bytes": 3397,
+      "sha256": "43b7dba4cd16c0c5351953498201aa620a42e345ac8e0408704872dae9a6338f"
+    },
+    {
+      "path": "app/login/login.css",
+      "bytes": 318,
+      "sha256": "d70d27ed264b34ee85873275613b96cee0c746e62d77083a5594d50c8008c6d3"
+    },
+    {
+      "path": "app/login/page.tsx",
+      "bytes": 751,
+      "sha256": "ea09b82087fc336067dd9c8ec11ecc5842a1084bc90fc1a62aa66cebc7c7da8b"
+    },
+    {
+      "path": "app/login/turnstile-widget.tsx",
+      "bytes": 1495,
+      "sha256": "716bcc0f20728d283ff02036358d1c1325e807bda8c4c6660e17ed0704de44fe"
+    },
+    {
+      "path": "app/logout-button.tsx",
+      "bytes": 1341,
+      "sha256": "de4f8afc77621a184d13203e0e3fd211ff314a279bbad2ee815c07ac8875968d"
+    },
+    {
+      "path": "app/market-outcomes.tsx",
+      "bytes": 689,
+      "sha256": "b05e0e9fc98645b73d066fab34afbbe3a828f36a58d55e38d7d576f300c6b44d"
+    },
+    {
+      "path": "app/markets.tsx",
+      "bytes": 16729,
+      "sha256": "a101bf7829b1dea707fec008da7975d607b06427170ecc0f9b8dff6736b2c459"
+    },
+    {
+      "path": "app/match-inning-board.tsx",
+      "bytes": 832,
+      "sha256": "4f9bdd6dc36ff3a13b44a3746bdff67178fa674ac8a22bed33b5cffd0b038a2b"
+    },
+    {
+      "path": "app/operations-panel.tsx",
+      "bytes": 3522,
+      "sha256": "ed77dd9a2bf0d5a42a4b3028a4d7061086121c337d837cceebddb0ccfefcaab8"
+    },
+    {
+      "path": "app/page.tsx",
+      "bytes": 16076,
+      "sha256": "062ae540759d9a37a768012c312de8a5e8e75f0a37c3c2e5731f62f550b8bc0a"
+    },
+    {
+      "path": "app/player-link.tsx",
+      "bytes": 470,
+      "sha256": "8498a577c5f5cc8c90b903bfc94981cd48c34996e30d5f52c8f74a46eb758c09"
+    },
+    {
+      "path": "app/player-profile.tsx",
+      "bytes": 9957,
+      "sha256": "4f4ba68a8d981c2680bdf96d6e1f8bfd007831c2aba7fcc923540238561f6158"
+    },
+    {
+      "path": "app/players/[id]/page.tsx",
+      "bytes": 641,
+      "sha256": "9a99fe8ffe4636b4a406f9337e52ed52fbb12dd7b19c4e877059ad1be4199d84"
+    },
+    {
+      "path": "app/pregame.tsx",
+      "bytes": 14454,
+      "sha256": "928fe4420b81f20ca390ba91011206c3e69bc4e331bb08bd0cbda028a66527d8"
+    },
+    {
+      "path": "app/session-account.tsx",
+      "bytes": 997,
+      "sha256": "384b546abe32c5de54f869bf3a46ff7a2d235c2921a9f5289aa8c2ca6aee6dd1"
+    },
+    {
+      "path": "app/settlement-calculator.tsx",
+      "bytes": 5011,
+      "sha256": "695470e23a979f8e9f54b7880e8917acdb38c473002057cecea4752e3028dffb"
+    },
+    {
+      "path": "app/signin-with-chatgpt/route.ts",
+      "bytes": 207,
+      "sha256": "993f09c842f90dbb5e13b2a7425eb55ed76e9a186b80058848d8562a55e6cb86"
+    },
+    {
+      "path": "app/signout-with-chatgpt/page.tsx",
+      "bytes": 275,
+      "sha256": "12099a3e874c79bf6280518f19372443ae5f2340dc3b562a759361d7091e5e68"
+    },
+    {
+      "path": "app/source-markets.tsx",
+      "bytes": 4852,
+      "sha256": "bca944fb4a8e9091f971561616e96d143712ad4b3c3a8c1f3c34ee9f701fdb00"
+    },
+    {
+      "path": "app/standings.tsx",
+      "bytes": 4313,
+      "sha256": "4216902edb55dcbc42ad353cfd7a9418aae405d1e9b27d5da5041ce78db1060a"
+    },
+    {
+      "path": "app/super007.tsx",
+      "bytes": 1430,
+      "sha256": "7a2b9ccfd2fa89a5eca56839ed4e8814f41aecaa2bac6a43d24c0d43fc6f412d"
+    },
+    {
+      "path": "app/team-name.tsx",
+      "bytes": 614,
+      "sha256": "9ba80fab456d59558a2c6cce1233a4e4039c1d40386211a730b6a249a6006e7f"
+    },
+    {
+      "path": "app/team-profile.tsx",
+      "bytes": 17817,
+      "sha256": "f142ccd67789e69584f26cbb86522a31dba9765af52eb73428848322f643e06b"
+    },
+    {
+      "path": "app/teams/[id]/page.tsx",
+      "bytes": 515,
+      "sha256": "d5642257b21b18dfdc4d81c3c4965e741b5da16511a4f66e7f7780987a59e88c"
+    },
+    {
+      "path": "app/teams/page.tsx",
+      "bytes": 354,
+      "sha256": "01fee72a041bd2c63ae5a71c9e2a0a04d2f5020ed80090cde05ed023a2199907"
+    },
+    {
+      "path": "app/teams-directory.tsx",
+      "bytes": 1814,
+      "sha256": "21a67559aea02759b6d859478ed7eb2c1ee8ba952e622effcaaedab80ca9db63"
+    },
+    {
+      "path": "app/tz-binding.tsx",
+      "bytes": 9051,
+      "sha256": "bf64605a8d3456dc9bc5d0e49452c71c68475a552b7435c94c775e84aed5cd59"
+    },
+    {
+      "path": "app/use-source.ts",
+      "bytes": 1778,
+      "sha256": "c186c282f46094dd2f3ae42223b50a15fa9c25d207e8501ced78fc42afdfbfd2"
+    },
+    {
+      "path": "app/zh.ts",
+      "bytes": 1874,
+      "sha256": "b78b01b98900533ea8471f50922e8796921069bba26b96aea6429ee403339ab6"
+    },
+    {
+      "path": "components/ui/accordion.tsx",
+      "bytes": 2048,
+      "sha256": "a4f153089ba886dfcf73fac26b5c01ca933fa12fbe88df6fb723912bfffdfbb0"
+    },
+    {
+      "path": "components/ui/alert-dialog.tsx",
+      "bytes": 5439,
+      "sha256": "9a8d950f2b9b4352d5ebb762fb44d5c28c2d353aa29712071973656a8736e311"
+    },
+    {
+      "path": "components/ui/alert.tsx",
+      "bytes": 1614,
+      "sha256": "2cc59b5f7bda91c1670884b1bf46bfc8a2a6f226cef184f5762acc037188885b"
+    },
+    {
+      "path": "components/ui/aspect-ratio.tsx",
+      "bytes": 274,
+      "sha256": "b1c157886236782cb92d8fbcd4749532aaf6d8aabefd6e157ca40358f902f407"
+    },
+    {
+      "path": "components/ui/attachment.tsx",
+      "bytes": 6002,
+      "sha256": "ae8a25dd1a896d3964e3ef54d97e51221b418cde287dfd794428b89951c5c790"
+    },
+    {
+      "path": "components/ui/avatar.tsx",
+      "bytes": 2916,
+      "sha256": "58a846bf1617b94b9681921db9b8461d0145f311424663d11678a06b6153cb34"
+    },
+    {
+      "path": "components/ui/badge.tsx",
+      "bytes": 1776,
+      "sha256": "46a0de5224f6a5d5d63d45246534288518dce888f031064bff925bbc7fe6ad97"
+    },
+    {
+      "path": "components/ui/breadcrumb.tsx",
+      "bytes": 2350,
+      "sha256": "d4c0831bba2212e778248f54a6ace6ef378df8bba4616d1abf27787a31eabae5"
+    },
+    {
+      "path": "components/ui/bubble.tsx",
+      "bytes": 4699,
+      "sha256": "870cc0c5cfc8a515053f7e41e706a6bd017a909b45f1305fd3b164a52cc4483b"
+    },
+    {
+      "path": "components/ui/button-group.tsx",
+      "bytes": 2202,
+      "sha256": "784c89d8ee683e1bc972ae69e6ea8225a7f63abe22aa1b5fc3423ae8a2a399c0"
+    },
+    {
+      "path": "components/ui/button.tsx",
+      "bytes": 2392,
+      "sha256": "cc36af0f8b5019c33cc039fbf03bb952a513072b15b55b53c592b78af3e5f4c4"
+    },
+    {
+      "path": "components/ui/calendar.tsx",
+      "bytes": 7832,
+      "sha256": "3855fbe0d3f8ad3a4b93071f98b76a9f6782d46ec8b05f5d2ddbee1e4e39bc84"
+    },
+    {
+      "path": "components/ui/card.tsx",
+      "bytes": 1987,
+      "sha256": "c48dd3b96be90a7066f1aebf294f0af9d00ebcdc367d5d4aca55429ade570c1c"
+    },
+    {
+      "path": "components/ui/carousel.tsx",
+      "bytes": 5556,
+      "sha256": "b7ea0dda3903d972c186f739e23da61f547bc83b5a0bf13b16856577846d5fc3"
+    },
+    {
+      "path": "components/ui/chart.tsx",
+      "bytes": 10614,
+      "sha256": "45aa5ea4a386f4fb5b8869ff4bab3a08cf89255190ee322043baf84c3e950b6a"
+    },
+    {
+      "path": "components/ui/checkbox.tsx",
+      "bytes": 1214,
+      "sha256": "b23ab9d4deeedf2ac8f512c368361ede681aa383437ef48563a6f9b7dbe95f27"
+    },
+    {
+      "path": "components/ui/collapsible.tsx",
+      "bytes": 795,
+      "sha256": "c6598e5584f4258b5d9fefadbc5ad6a66888ad58729f4b634a0bb2d9c513188b"
+    },
+    {
+      "path": "components/ui/combobox.tsx",
+      "bytes": 9158,
+      "sha256": "2d68e78b2dc7e38a085f222dede60a80b4f8229a6e91732c484605e204d46735"
+    },
+    {
+      "path": "components/ui/command.tsx",
+      "bytes": 4818,
+      "sha256": "361193df1e3d64a9e9b5048f045264782fcb387aab3f00f2b805fdcbf538b16a"
+    },
+    {
+      "path": "components/ui/context-menu.tsx",
+      "bytes": 8268,
+      "sha256": "2cf1fcf59df0649a3e2a126d1df2f639145f6b6bf5689ee54af1f40ab1245017"
+    },
+    {
+      "path": "components/ui/dialog.tsx",
+      "bytes": 4303,
+      "sha256": "dce39c6adc47d997bd2567f8b7a72f466b0134715105cd42f9194007b8ecdb14"
+    },
+    {
+      "path": "components/ui/direction.tsx",
+      "bytes": 506,
+      "sha256": "84ae2ad658207f0e0f367978e5508cd8027cd00c29c41d3d13db21a708c3d1e6"
+    },
+    {
+      "path": "components/ui/drawer.tsx",
+      "bytes": 4255,
+      "sha256": "cb6eaf58eb0757ca91af284e5d925b89a42ad7eb19cb3f44c575a3487aa9350f"
+    },
+    {
+      "path": "components/ui/dropdown-menu.tsx",
+      "bytes": 8418,
+      "sha256": "98f0dcdae38225b73734aceeb9213dd751fea2c72ea520df31003cd133deac8a"
+    },
+    {
+      "path": "components/ui/empty.tsx",
+      "bytes": 2396,
+      "sha256": "ae95bdcf367a076ae02e7925f14522a148798f72d9651749c6d55497dba584c0"
+    },
+    {
+      "path": "components/ui/field.tsx",
+      "bytes": 6159,
+      "sha256": "ba67d76f017ac059fc86cf8c344e0b2991c4322d3619e125498c19b87f6eefbd"
+    },
+    {
+      "path": "components/ui/form.tsx",
+      "bytes": 3757,
+      "sha256": "315b46bb75ab7d1c6061b5d750aa4bedf6e7a455e15e2d7f9182f053d5972b1e"
+    },
+    {
+      "path": "components/ui/hover-card.tsx",
+      "bytes": 1526,
+      "sha256": "f5d8df42c59370ec14d61bcc54f7d68e9bb7dfa0d6a872b2f7cffc2aafbf23b8"
+    },
+    {
+      "path": "components/ui/input-group.tsx",
+      "bytes": 5065,
+      "sha256": "6afbd58fea4c438e6252dc4568bddc122e84ababead4ad5cee50ace01100c9a0"
+    },
+    {
+      "path": "components/ui/input-otp.tsx",
+      "bytes": 2254,
+      "sha256": "161946daa89f0eda2575b9271c0494e35807c4ffb55598a49f67160c17fec299"
+    },
+    {
+      "path": "components/ui/input.tsx",
+      "bytes": 962,
+      "sha256": "8c4612a7c41319ac5049daa3b34b080f9784b6245c17780eb87c127e58e473db"
+    },
+    {
+      "path": "components/ui/item.tsx",
+      "bytes": 4486,
+      "sha256": "6e2144d6d87142dbbe56d568810bf546318c8aa661447ebb0d76ebbf382cb45f"
+    },
+    {
+      "path": "components/ui/kbd.tsx",
+      "bytes": 862,
+      "sha256": "6088c3a5432338b1719c17e9b5d0e1fa74fd1f66060f248fc88909d33a82cd13"
+    },
+    {
+      "path": "components/ui/label.tsx",
+      "bytes": 606,
+      "sha256": "a476e41f08b9de5bd447de66a33d8bc2ad18f2fa6b96c064778bab4b6f439f4c"
+    },
+    {
+      "path": "components/ui/marker.tsx",
+      "bytes": 1864,
+      "sha256": "3d798763f094b2bb5e7ade2d5cd1b9bab498bc8ca7fd4cfaf4e5835bdedc34a0"
+    },
+    {
+      "path": "components/ui/menubar.tsx",
+      "bytes": 8389,
+      "sha256": "9243af8afcea03703398ccd1c2a8c0a87ad6cbaf2bd272fb609f5b79fe46aebb"
+    },
+    {
+      "path": "components/ui/message-scroller.tsx",
+      "bytes": 3992,
+      "sha256": "bb7660a248e4e9589c3816c7c1c199ea1381a70d2c8476ae895b567a7a4d86cf"
+    },
+    {
+      "path": "components/ui/message.tsx",
+      "bytes": 2232,
+      "sha256": "9d2952bf3b641081f09aa2739535e6bbd1be0a4946789752a2c20d8aaef43185"
+    },
+    {
+      "path": "components/ui/native-select.tsx",
+      "bytes": 1995,
+      "sha256": "007516b111fca8c98a6c40c94ab91bb68cc5b52afce1ed1f5e510c3d86e7347c"
+    },
+    {
+      "path": "components/ui/navigation-menu.tsx",
+      "bytes": 6658,
+      "sha256": "889d358a77de88e9cb6f39ea4895ea4c76eaf01d731b74e44f1c41e97a78a044"
+    },
+    {
+      "path": "components/ui/pagination.tsx",
+      "bytes": 2717,
+      "sha256": "374ad135c3d4ff3ec080a0009cd9745cdd0e12faa89d2b0e86074f11e5127fd1"
+    },
+    {
+      "path": "components/ui/popover.tsx",
+      "bytes": 2357,
+      "sha256": "31c350309ff5d3034e6ecf1b0eda75ba8855bdbf987fc7ad6d71f0ef07c5a447"
+    },
+    {
+      "path": "components/ui/progress.tsx",
+      "bytes": 755,
+      "sha256": "c8c26e8f5f041c3cdf4915347dc1d9c022f9448f149990fadcaf303e952fa57d"
+    },
+    {
+      "path": "components/ui/radio-group.tsx",
+      "bytes": 1460,
+      "sha256": "fe5ce39636d0818c2bf9c4eebddff893d1225fa2c81b5fa4bb8cbb39a8c913ce"
+    },
+    {
+      "path": "components/ui/resizable.tsx",
+      "bytes": 1815,
+      "sha256": "bc63958467aa00557c551bb0d96a5ae4c965c1e1ba2380e595949d933b132f7c"
+    },
+    {
+      "path": "components/ui/scroll-area.tsx",
+      "bytes": 1639,
+      "sha256": "8bd9d986b2844c9a87de825c6de4787b6739b36c3dc9a05ccf3eb107160e4043"
+    },
+    {
+      "path": "components/ui/select.tsx",
+      "bytes": 6353,
+      "sha256": "0b796a108a4eb5ba52d9ad938b7aea36dc56ae66c703a6d0a23dbc24f96daff3"
+    },
+    {
+      "path": "components/ui/separator.tsx",
+      "bytes": 694,
+      "sha256": "6da346505c8629a4668420d2a5ca48891383bbe0b0ceb14163537c671879427e"
+    },
+    {
+      "path": "components/ui/sheet.tsx",
+      "bytes": 4188,
+      "sha256": "63863cf2df8f8973e52b3459ac9bdbf81be1262dbc70eb53d5271ffb03488e16"
+    },
+    {
+      "path": "components/ui/sidebar.tsx",
+      "bytes": 21526,
+      "sha256": "4a8d73e7730a2b1fcecfca31299ed26db65c2307b84197a59c6ec7c01c7ad28e"
+    },
+    {
+      "path": "components/ui/skeleton.tsx",
+      "bytes": 276,
+      "sha256": "ba48dd5be5a6a1378bd4e011028654b5bf419f1e7d20ee4b9f8330c1264e7239"
+    },
+    {
+      "path": "components/ui/slider.tsx",
+      "bytes": 1991,
+      "sha256": "0e37484f4b416e79ac18c655cac961aefacf6e67085cfc2b320ea8af545635a3"
+    },
+    {
+      "path": "components/ui/sonner.tsx",
+      "bytes": 1034,
+      "sha256": "13ccc9b0fe4248e622f83a1d3b2f0566b72b5e04162d7d0c8db8945ecc71b55f"
+    },
+    {
+      "path": "components/ui/spinner.tsx",
+      "bytes": 331,
+      "sha256": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9"
+    },
+    {
+      "path": "components/ui/switch.tsx",
+      "bytes": 1408,
+      "sha256": "386d4d4deb39f34126f9700fe9bf5393d238485dd94018bba9d154dda84c62ae"
+    },
+    {
+      "path": "components/ui/table.tsx",
+      "bytes": 2478,
+      "sha256": "20e5a7f224959c6b75802995706a97e9da171f693d4b6b1b436388fcd9df96f3"
+    },
+    {
+      "path": "components/ui/tabs.tsx",
+      "bytes": 3782,
+      "sha256": "865d0194331b9b2be36723fa79d3575dc83078b4cb941cafee87cb72fc2cff46"
+    },
+    {
+      "path": "components/ui/textarea.tsx",
+      "bytes": 759,
+      "sha256": "253cdeb487c73beaaccdf47fc163e36e7d5b7ae6ddf09a4f64998a109a112979"
+    },
+    {
+      "path": "components/ui/toggle-group.tsx",
+      "bytes": 2308,
+      "sha256": "69f643e889e933f05c1439084480d8646f66a161c7d1cf0730ee926382ade35e"
+    },
+    {
+      "path": "components/ui/toggle.tsx",
+      "bytes": 1565,
+      "sha256": "ba4d0b0a2b2fee75dc36dfc19e32082e721024b919050c97fd5dc70faa924e16"
+    },
+    {
+      "path": "components/ui/tooltip.tsx",
+      "bytes": 1830,
+      "sha256": "a0784eb77831a799fad7991df4f1b666f876201565a80175e1aa68733574a2e4"
+    },
+    {
+      "path": "components.json",
+      "bytes": 420,
+      "sha256": "31f4ca67a4a62572571003d3d5aac85ee6fbfca67a192924bac6b168d95e98fd"
+    },
+    {
+      "path": "data/historical-odds.json",
+      "bytes": 160249,
+      "sha256": "0feaff994c91207096746ff6494fe1af222916a0151b6db4a0c504f5b855cb55"
+    },
+    {
+      "path": "data/historical-test-predictions.json",
+      "bytes": 251126,
+      "sha256": "ae49c7acf3a8ef982cabf294d58f401cbcb34bd5555afda74fd2700bacf084b3"
+    },
+    {
+      "path": "data/model-validation.json",
+      "bytes": 3302,
+      "sha256": "8d9704ba5eeffab0cb8cde5da019b4673223a8b8ecc361786229cf4911f0fe18"
+    },
+    {
+      "path": "data/research-inputs/may-2026-covers.json",
+      "bytes": 287118,
+      "sha256": "cf3db161a00402ba37bef1e0c9821ce05833255987a056198dbc594055c51f9c"
+    },
+    {
+      "path": "data/research-inputs/may-2026-schedule.json",
+      "bytes": 557724,
+      "sha256": "b923368dd944844b671d1e6eeb59620a0c1f7726161d7c3608c93e24f80e912c"
+    },
+    {
+      "path": "data/retrosheet.json",
+      "bytes": 12213890,
+      "sha256": "e14bb4e7d32dea0c58b8bdae4eba89808e6f2b3f036a3f299ab03cc2312b48a1"
+    },
+    {
+      "path": "data/statcast-history.json",
+      "bytes": 1989626,
+      "sha256": "5575c01a85c0914a153563e865d4192cddf6bb9fc34517300d1766851c086860"
+    },
+    {
+      "path": "db/index.ts",
+      "bytes": 108,
+      "sha256": "881d78957da34e6116fa4d41ffa22520b42207b6f149bcac33f45332f83620a7"
+    },
+    {
+      "path": "db/render-schema.sql",
+      "bytes": 2762,
+      "sha256": "2b353e662af8e69bb43c622fa58626fe84193bc7154d2f11a99d1709b3eea54b"
+    },
+    {
+      "path": "db/schema.ts",
+      "bytes": 1749,
+      "sha256": "e1e7675e567b563a63556139bc50192bc793283092d20239bc717c1e85353b28"
+    },
+    {
+      "path": "eslint.config.mjs",
+      "bytes": 846,
+      "sha256": "f22a254df7d934bbf9be499d3c969a13abb7f7f64c03f5967d0095cad81dfe06"
+    },
+    {
+      "path": "hooks/use-mobile.ts",
+      "bytes": 565,
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b"
+    },
+    {
+      "path": "lib/analysis-readiness.ts",
+      "bytes": 2166,
+      "sha256": "b6da10513ac56ac64642595e5d6064b00a1574c4955130916be21accd699fbb5"
+    },
+    {
+      "path": "lib/analysis-weights.ts",
+      "bytes": 3942,
+      "sha256": "be2b863bfd58f54c745627b6abce2b5e7034cf51bbaaa1d39b514b24e4f0c9b9"
+    },
+    {
+      "path": "lib/arena-session.ts",
+      "bytes": 1201,
+      "sha256": "c3b62cb411c985bfc06aa4e65d864966e34173888c057ab022b13ecb2a726224"
+    },
+    {
+      "path": "lib/arena-user.ts",
+      "bytes": 202,
+      "sha256": "5ac0df59c71112b040c0d8f84e1731e3b6ed578af91f892c0caa1922521a7565"
+    },
+    {
+      "path": "lib/baseball.ts",
+      "bytes": 4638,
+      "sha256": "fa0a57cf0d302ba866f5cf5646edb18f7cfbbe3dc2a7b25545c0826aa09f7df7"
+    },
+    {
+      "path": "lib/board-markets.ts",
+      "bytes": 2188,
+      "sha256": "cc9e7270f6d8c00a515edda694eedb8b0ed28e9362a4c94c85801803db026d38"
+    },
+    {
+      "path": "lib/covers-fetch.ts",
+      "bytes": 1501,
+      "sha256": "e8849c9cb278fcba77e74a31fda8033f54f8aca143ee580ab2afe9b6bb755fce"
+    },
+    {
+      "path": "lib/covers-odds.ts",
+      "bytes": 7526,
+      "sha256": "1c2ed0366669baab2e0913eded2ca2672b924941bfdbc6d754b0a80884b37c60"
+    },
+    {
+      "path": "lib/covers.ts",
+      "bytes": 3742,
+      "sha256": "4fa26fd282a90b76784dd0250fc0586d4acf64ecba97153fd738ad21816d2133"
+    },
+    {
+      "path": "lib/fangraphs.ts",
+      "bytes": 2922,
+      "sha256": "5fe8ad039da94f7b4b6d93b4ab0562fddf8d377c0e2d7f929851c655826676a6"
+    },
+    {
+      "path": "lib/hr9988-connection.ts",
+      "bytes": 11201,
+      "sha256": "cfc9fc6359fafa84df6c528e50e0820424e4e3ba1920126efcd499afb56879fb"
+    },
+    {
+      "path": "lib/hr9988.ts",
+      "bytes": 2901,
+      "sha256": "7589ed40c8738722ec6640815cc8c8ae7c169bc19de8a034cfa3a524c3969fab"
+    },
+    {
+      "path": "lib/international-teams.ts",
+      "bytes": 2275,
+      "sha256": "71031e73a3315a88fb0ab01ce09d06c9135a8d9e867cf0ebba332cf6dc6b5954"
+    },
+    {
+      "path": "lib/international.ts",
+      "bytes": 23048,
+      "sha256": "34d82dbe348576998fa10058671b96290864a212700d6e6e4917b825f2055379"
+    },
+    {
+      "path": "lib/lineup-authority.ts",
+      "bytes": 950,
+      "sha256": "8137f85fba3109f38bd3458ce8a97c745f7e05ba160e9c58b944e719f8202498"
+    },
+    {
+      "path": "lib/live-display.ts",
+      "bytes": 2865,
+      "sha256": "9b3b1abf97304ded6e7d5f417c2687e257da17eb854d341712f103d76108c8d9"
+    },
+    {
+      "path": "lib/live-game.ts",
+      "bytes": 6410,
+      "sha256": "80b3715c23a5189e34b7ca971a0ea4a4bca4c69425e8d8bd806a5a409b660908"
+    },
+    {
+      "path": "lib/load-analysis-source.ts",
+      "bytes": 254,
+      "sha256": "ac3c76b4e5e90f7aaa69698e755f283b6bceb46168b53439f1c0c91fc4a77b5a"
+    },
+    {
+      "path": "lib/market-display.ts",
+      "bytes": 2146,
+      "sha256": "52ed2a0f1e9d23d65e2e8d2df0d840e1adca43eae338d220dab2eb7fd4321f46"
+    },
+    {
+      "path": "lib/markets.ts",
+      "bytes": 5155,
+      "sha256": "aa30047177025cc721dd2489a2863db925ac61deda57273925675bdfaa465fe8"
+    },
+    {
+      "path": "lib/match-card-order.ts",
+      "bytes": 930,
+      "sha256": "68039a8ca96a11ebfdf7903f56bc2b1adb476967596d49e84c8cbf89289ee466"
+    },
+    {
+      "path": "lib/match-scoreboard.ts",
+      "bytes": 813,
+      "sha256": "718b037d1bd2575c8ad9c4347a46abe67811e77cbf3a0c337556a3e3bc96f68d"
+    },
+    {
+      "path": "lib/member-identity.ts",
+      "bytes": 124,
+      "sha256": "a12c6b1e29eefd042bd28e2bd05abb4603c11e2d733b982fcd919e81e550b2a0"
+    },
+    {
+      "path": "lib/multifactor-win.ts",
+      "bytes": 3915,
+      "sha256": "ae0580b6632c659e25cdf52690526a0dd4fbc712e1af671065b589328eeab6bf"
+    },
+    {
+      "path": "lib/park-factors.ts",
+      "bytes": 1968,
+      "sha256": "5b41f3bc72811671628cfd71fa387b943e94f6f843aa6d155d7a2506693f18f1"
+    },
+    {
+      "path": "lib/pinnacle.ts",
+      "bytes": 3653,
+      "sha256": "ad61f3ab1761f4331c764a6f35b860252615e662c30e18c84b3e24a55db91863"
+    },
+    {
+      "path": "lib/pitcher-era.ts",
+      "bytes": 1464,
+      "sha256": "62bdad65440e7da1ed206b4fd56989feac2275871656067ba57b5af39bd8fe2d"
+    },
+    {
+      "path": "lib/pitcher-history.ts",
+      "bytes": 5888,
+      "sha256": "11cd19ed0960cdb2394734cc8ffeeba6053c7bb5922510371c20551c3ce700c8"
+    },
+    {
+      "path": "lib/player-profile.ts",
+      "bytes": 6122,
+      "sha256": "53ee4d0e7e2c10f6359b526e18f91f9496a1f1db6d08d2ba9257c7fab38d9fed"
+    },
+    {
+      "path": "lib/pregame-analysis.ts",
+      "bytes": 10128,
+      "sha256": "ccc3982b8c6421265793c682000f5d72edb4a53ea3f3978c3f0b9c9424f94b57"
+    },
+    {
+      "path": "lib/pregame-readiness.ts",
+      "bytes": 3407,
+      "sha256": "05f58dce9efcb5250063c4954da0f484233bcc6dbe897f86ffd3eaccfaba289c"
+    },
+    {
+      "path": "lib/recommendation-ledger.ts",
+      "bytes": 1718,
+      "sha256": "2d8f83a480cdd023099b4aa95c6a989ab83db3f6b2210c85e48804a4d3f74b45"
+    },
+    {
+      "path": "lib/retrosheet.ts",
+      "bytes": 2037,
+      "sha256": "d13ccb1e378e43ff6cab653a4af87ce49778b3b247009274d24e40c67e63188f"
+    },
+    {
+      "path": "lib/rotowire.ts",
+      "bytes": 4703,
+      "sha256": "cee72b014a5f5715e05f8c089fcbbd9385b63fbd0db45a3c53948b8611a4ece6"
+    },
+    {
+      "path": "lib/settlement.ts",
+      "bytes": 1454,
+      "sha256": "21e296cb62052dbb1755429a1f4dc0824535d7d0a4d78b5a75642a62daa9e9c1"
+    },
+    {
+      "path": "lib/source-errors.ts",
+      "bytes": 490,
+      "sha256": "9065afc3848f961be4b05e8fbd9db83529e48348f8a1cf83cd647fbc12e0d1da"
+    },
+    {
+      "path": "lib/standings.ts",
+      "bytes": 2035,
+      "sha256": "ff5768622cdc6cdf7f223f489ba98590248f6cc07f745f1f0114f73044909949"
+    },
+    {
+      "path": "lib/statcast-history.ts",
+      "bytes": 2557,
+      "sha256": "06b233408a69c7372303322afa941801314a7404092064fe24ed77c98f89e176"
+    },
+    {
+      "path": "lib/super007.ts",
+      "bytes": 3429,
+      "sha256": "1e9930762a02e9bff1e36048ac0106b35a102eaffab3780f56a42b4f23ef12b7"
+    },
+    {
+      "path": "lib/team-groups.ts",
+      "bytes": 510,
+      "sha256": "d4cfceaba6b63283e2f981259b198aed1e17b222eccefa25b35b7fcca784cd30"
+    },
+    {
+      "path": "lib/team-profile.ts",
+      "bytes": 5440,
+      "sha256": "1a1bfac9e1bc4b71572a89bf904395660c36bb7c38268c7a38b866b307bfe1ac"
+    },
+    {
+      "path": "lib/turnstile-browser.ts",
+      "bytes": 1971,
+      "sha256": "b93ab715b8542691a19abbc708e8467bf1c864181722f1c12c65a13615416532"
+    },
+    {
+      "path": "lib/turnstile-settings.ts",
+      "bytes": 987,
+      "sha256": "60a5b7ca185a28a39a147f13e18bac097cdfc0659dae7ac3a0b00bd6273fc432"
+    },
+    {
+      "path": "lib/turnstile.ts",
+      "bytes": 971,
+      "sha256": "ba8c34db9805b33cd5006e0286b51504d75533d12f4886147e75c69305414c99"
+    },
+    {
+      "path": "lib/tz-binding-service.ts",
+      "bytes": 8764,
+      "sha256": "ca68a3fc36bc2f61f3378daf8526fd3a6d4427e8edd674cb26a621f3bb7c39ce"
+    },
+    {
+      "path": "lib/tz-credentials.ts",
+      "bytes": 2039,
+      "sha256": "f1793a3abe4a5b08fe59882208358f3cfec71c3ca611deaa8cbe8166e52a48ae"
+    },
+    {
+      "path": "lib/tz-login.ts",
+      "bytes": 5883,
+      "sha256": "59e4e372a5c9bbb470f2cbec36918580529793ce72ba466d99d33cab63a9c5e2"
+    },
+    {
+      "path": "lib/utils.ts",
+      "bytes": 177,
+      "sha256": "53f3d3d070f0a9082934da25b875f9499855c2b0693868dd28be8c23d8730f68"
+    },
+    {
+      "path": "next-env.d.ts",
+      "bytes": 247,
+      "sha256": "7b550dda9686c16f36a17bf9051d5dbf31e98555b30d114ac49fc49a1e712651"
+    },
+    {
+      "path": "next.config.ts",
+      "bytes": 166,
+      "sha256": "81a6def76a8a3e47c7c2e334ca9400514831bf6a13acf3c501d0dd179a022721"
+    },
+    {
+      "path": "postcss.config.mjs",
+      "bytes": 94,
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde"
+    },
+    {
+      "path": "proxy.ts",
+      "bytes": 1108,
+      "sha256": "b9bc8999e13533c7e540b4a56b43b476dfde2f34ca04fae1bef59285fd406303"
+    },
+    {
+      "path": "public/0912-bg.mp4",
+      "bytes": 38723329,
+      "sha256": "e97f8b9f90d8111c55e5ee5c758bfe68af46c658f1993029980d5c5291471321"
+    },
+    {
+      "path": "public/0912-bg.mp4.b64",
+      "bytes": 907160,
+      "sha256": "370663f885477a8b06bb2a39a18e12ba7131cbb2456ef8576fa6a2b0b4cfbd55"
+    },
+    {
+      "path": "public/app.js",
+      "bytes": 9762,
+      "sha256": "daa0db3ae9139c461755bd429e75329ee890305765cf97795d755654ac72a45d"
+    },
+    {
+      "path": "public/backgrounds/yankee-stadium.LICENSE.txt",
+      "bytes": 506,
+      "sha256": "320a4844375b745b3334c971c9b2457b480e7ecc76a2e5c6fa4c778a5ecc3a96"
+    },
+    {
+      "path": "public/backgrounds/yankee-stadium.jpg",
+      "bytes": 4729024,
+      "sha256": "9d8aa4f9ad820b0ddc5948e28ea0cee6ce8cb0b894c0a6336b0c981ed6f30ae8"
+    },
+    {
+      "path": "public/favicon.svg",
+      "bytes": 712,
+      "sha256": "e6d2e59b7b5bbb0342e0fb496dfc262decbfe4426bbb7b047aec8d467d1dc6f7"
+    },
+    {
+      "path": "public/file.svg",
+      "bytes": 392,
+      "sha256": "1e0ae4d1a1ddfa36752988647b731e4abf150c414d069ec83c96fb0aaeff0307"
+    },
+    {
+      "path": "public/globe.svg",
+      "bytes": 1036,
+      "sha256": "d051a8c47936990a9085693d307bb7cea1bc1b6d7ed956bcbaacf674f4ec96b9"
+    },
+    {
+      "path": "public/history/statcast/2026-05-01.json",
+      "bytes": 1119775,
+      "sha256": "6b13d3f8a5095829061f4ba984265f4414c4e31b0e63cbdff683973c9c6a5a8e"
+    },
+    {
+      "path": "public/history/statcast/2026-05-02.json",
+      "bytes": 1077776,
+      "sha256": "758a76459efe05526b5517e26558499f851b30e07e79cef064778eea6bfd9e86"
+    },
+    {
+      "path": "public/history/statcast/2026-05-03.json",
+      "bytes": 1048936,
+      "sha256": "66207ebec0e68a2b3032174ae0701f11a7a3673bdc9436a45cb0bea8a1a445db"
+    },
+    {
+      "path": "public/history/statcast/2026-05-04.json",
+      "bytes": 805536,
+      "sha256": "e0e6ed9cef06d21472f5d3e0c44913ebcd8f1639c51a5e01790b2ed2366f5781"
+    },
+    {
+      "path": "public/history/statcast/2026-05-05.json",
+      "bytes": 909762,
+      "sha256": "d25c4f0614a62fee9f5c159240ee7a86df5bf3a223846cb2687c83e6bc29ac4a"
+    },
+    {
+      "path": "public/history/statcast/2026-05-06.json",
+      "bytes": 1068015,
+      "sha256": "4f784c6bf492c07e8d8f18e157bb33b584ca050d698c23be4bb282a6ad837fe9"
+    },
+    {
+      "path": "public/history/statcast/2026-05-07.json",
+      "bytes": 735014,
+      "sha256": "ba345996ca2651e6aaf57b9f710f0463fadb87e28f1c3e67a16dce78e6c75a66"
+    },
+    {
+      "path": "public/history/statcast/2026-05-08.json",
+      "bytes": 1069253,
+      "sha256": "1fcc36d6cb6a63c72dc76c6ebb9ffb8b9e2540a7aab824dc97834f29b526fbe7"
+    },
+    {
+      "path": "public/history/statcast/2026-05-09.json",
+      "bytes": 1049314,
+      "sha256": "52c52610b89dc4c349a29a0f38db782860623cf75aa5474d9bc8a6c0489ec4c8"
+    },
+    {
+      "path": "public/history/statcast/2026-05-10.json",
+      "bytes": 1055977,
+      "sha256": "52463032407a6ccd6ac686f803c35d3dad32d63be8b52d5e592ea82741e78a98"
+    },
+    {
+      "path": "public/history/statcast/2026-05-11.json",
+      "bytes": 438050,
+      "sha256": "06ac3a08b26be1f7cfc8cbbde362c83da6829f5958d0940bc9c71635f2aaca87"
+    },
+    {
+      "path": "public/history/statcast/2026-05-12.json",
+      "bytes": 1108432,
+      "sha256": "d68ec8b5a7dd35c7de7eae2e9180ec6229b378138fb86993a336eeb4bbf68f94"
+    },
+    {
+      "path": "public/history/statcast/2026-05-13.json",
+      "bytes": 1083770,
+      "sha256": "93af83a2c0f7a7941290e50f02804399fee6e560d49ea84cf68f1b98a56a5bdc"
+    },
+    {
+      "path": "public/history/statcast/2026-05-14.json",
+      "bytes": 788719,
+      "sha256": "a8642d6232939da876fb9c967b1c8a1f2fd9f99c49b373b6674816d9608c6fce"
+    },
+    {
+      "path": "public/history/statcast/2026-05-15.json",
+      "bytes": 1079447,
+      "sha256": "d22d2c6a1cedf56df7061aca9f79c4bfda282352ed8c2846e2cb5d7f598df19a"
+    },
+    {
+      "path": "public/history/statcast/2026-05-16.json",
+      "bytes": 1069597,
+      "sha256": "e8872dbf37463edcf75de1eb9486f18ee91b7d77a4bca37853db39047f7f7c76"
+    },
+    {
+      "path": "public/history/statcast/2026-05-17.json",
+      "bytes": 1106335,
+      "sha256": "62285b0a10f6f161ff383db9cb8236290f3d9beef84f41142194b737960942a8"
+    },
+    {
+      "path": "public/history/statcast/2026-05-18.json",
+      "bytes": 1014916,
+      "sha256": "3b76d84763361a7895f7dd8e99d2db88e5a7b872b7a15f9e97c8320ac76717de"
+    },
+    {
+      "path": "public/history/statcast/2026-05-19.json",
+      "bytes": 1073240,
+      "sha256": "ea4b112d0112edcc0f766e22eb0be43b870e9eef01ecf6d7ba6eea7dbe8ba005"
+    },
+    {
+      "path": "public/history/statcast/2026-05-20.json",
+      "bytes": 1052740,
+      "sha256": "ced5cec7514ea74cb36cc71c27fc0b98d3b82788717c19a0c434d2b7702a9e7a"
+    },
+    {
+      "path": "public/history/statcast/2026-05-21.json",
+      "bytes": 499985,
+      "sha256": "aec2666e545d41ba85380bca3c748eb24262d21d5f26f72e3a7b36ab89c3467c"
+    },
+    {
+      "path": "public/history/statcast/2026-05-22.json",
+      "bytes": 999411,
+      "sha256": "49e536d7900fe809af81921fa44d39f88553c44f02b0397473c960c29d4be066"
+    },
+    {
+      "path": "public/history/statcast/2026-05-23.json",
+      "bytes": 1000020,
+      "sha256": "4b135e3a60a7308d9f5d48002dec22d497781d99c8e70c1f9ed9d434df327d85"
+    },
+    {
+      "path": "public/history/statcast/2026-05-24.json",
+      "bytes": 1063006,
+      "sha256": "3d93566ba29b8e6c5ce9d12ffa5bd4bde4917677641f7ac64036c17c7e7b3a92"
+    },
+    {
+      "path": "public/history/statcast/2026-05-25.json",
+      "bytes": 937132,
+      "sha256": "437bc981a4200f993f6407dc9b29acee607b27f2be611a3159dd2fa762ba29bb"
+    },
+    {
+      "path": "public/history/statcast/2026-05-26.json",
+      "bytes": 1085653,
+      "sha256": "e0da908ef6ac11295342e5749ea794573246e0a6b95b87eeeb4640286dc3a37e"
+    },
+    {
+      "path": "public/history/statcast/2026-05-27.json",
+      "bytes": 1018543,
+      "sha256": "795c70aa9388f0ac063eac315d58fd44628f7cb6916f8674024ac8c01df7b802"
+    },
+    {
+      "path": "public/history/statcast/2026-05-28.json",
+      "bytes": 446896,
+      "sha256": "288a894958c6e11733f6080785ef061fb2c5925b909e5242e28c840cb8baf82e"
+    },
+    {
+      "path": "public/history/statcast/2026-05-29.json",
+      "bytes": 1085162,
+      "sha256": "d55e8cfd1a6aa8b2044ff5c93cde0749959b24f8271d92f8b4fa2b15aecd164e"
+    },
+    {
+      "path": "public/history/statcast/2026-05-30.json",
+      "bytes": 1105986,
+      "sha256": "3b5b53a19a3fca325db8eb4dff441d421aef227855f6bb53209299ac18e38f53"
+    },
+    {
+      "path": "public/history/statcast/2026-05-31.json",
+      "bytes": 1104245,
+      "sha256": "3d13728e022423229d0ed3408b4f96f445e24337ac71725fa2f33cdab8596af7"
+    },
+    {
+      "path": "public/history/statcast-2026-05.csv.gz",
+      "bytes": 23391135,
+      "sha256": "13d40b474605fd79dae0d8f637631295262f6f48e6614fd9382734fdf829ee7f"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 5778,
+      "sha256": "0308bd71c6812f096298bbb4ad397485089d96f090f34fd019d5dd22f537c488"
+    },
+    {
+      "path": "public/line-contact.png",
+      "bytes": 7920,
+      "sha256": "927ba0dd963f5b4731542398ba9170ba02f2e2b490e4a4b0cc36fe0d4ab729ef"
+    },
+    {
+      "path": "public/robots.txt",
+      "bytes": 400,
+      "sha256": "60dac4dec193b10acfb3ef714053079b6975e7301710177fbcbc4f38962f484b"
+    },
+    {
+      "path": "public/styles.css",
+      "bytes": 5884,
+      "sha256": "bc278d0ea1da87ce2beea27f450eeac732684037be2771687ea25eccc4bf9244"
+    },
+    {
+      "path": "public/team-logos/108.svg",
+      "bytes": 3648,
+      "sha256": "0b73a6c9523ac0a35a817516e13c4e96a7908dc0df389f01f8dba5d6c47d21e6"
+    },
+    {
+      "path": "public/team-logos/109.svg",
+      "bytes": 2440,
+      "sha256": "b63b3aaf303ff3bd856c480ef855a0bdab1794e78185e3b791492c860fdf804a"
+    },
+    {
+      "path": "public/team-logos/110.svg",
+      "bytes": 8913,
+      "sha256": "9e6476d34cd2e98e792cb73ef06e99b2c243089b3a7e102465db427ec3d26535"
+    },
+    {
+      "path": "public/team-logos/111.svg",
+      "bytes": 5328,
+      "sha256": "53eb07384a14fcc54efb807581672b793c75cc1bfdc0c6610345051820cd92af"
+    },
+    {
+      "path": "public/team-logos/112.svg",
+      "bytes": 2321,
+      "sha256": "8fe99678c053859b50adbbe769aade0011ed6b2349962a9963dcc0b6db162aef"
+    },
+    {
+      "path": "public/team-logos/113.svg",
+      "bytes": 1432,
+      "sha256": "112b22efe0bb3f7352a0630068977526d2fbaf36c67a10683a8b2c9e966c1618"
+    },
+    {
+      "path": "public/team-logos/114.svg",
+      "bytes": 1383,
+      "sha256": "5fada1700c1622777d64d1971e028ea7aca7729a11537736d4e88c6acada763e"
+    },
+    {
+      "path": "public/team-logos/115.svg",
+      "bytes": 2673,
+      "sha256": "f4ac929c740e482a4c62127cbb0b04c9aa48848f6481dcabfd66f7c064abdd47"
+    },
+    {
+      "path": "public/team-logos/116.svg",
+      "bytes": 1961,
+      "sha256": "90602ddfa5130edf47241fcde4152d7c7421b881af67ed3d66d0b5d700446c39"
+    },
+    {
+      "path": "public/team-logos/117.svg",
+      "bytes": 3263,
+      "sha256": "fd2e9fa1d895e8cb88fb9ee3562acb6a1b9852158aa4793aa3a742097cc5556e"
+    },
+    {
+      "path": "public/team-logos/118.svg",
+      "bytes": 1211,
+      "sha256": "55678f28a752ec5ac86e290b2481b8a5e3d7de7460a3f469412147dc224eb32c"
+    },
+    {
+      "path": "public/team-logos/119.svg",
+      "bytes": 1188,
+      "sha256": "9840fd7c20fb4614a1797f1fcf9613586fb54dac49dbe4b894086aa07555280f"
+    },
+    {
+      "path": "public/team-logos/120.svg",
+      "bytes": 1867,
+      "sha256": "69e019986481b7844b548fe2d1cdc88a58815d0b1b8cbf22bd65fcf17f3458d8"
+    },
+    {
+      "path": "public/team-logos/121.svg",
+      "bytes": 2911,
+      "sha256": "b8214420e8588f91928f45829e9abd8c5ac30df6293a29597b1aa7cc9bc972e0"
+    },
+    {
+      "path": "public/team-logos/133.svg",
+      "bytes": 2853,
+      "sha256": "598538b486eef1fc4834f0a88093fc03b26c558e264afc21f5c3c4b2ba209f0c"
+    },
+    {
+      "path": "public/team-logos/134.svg",
+      "bytes": 846,
+      "sha256": "a88e4a6bd86217dd2e1c66f48de97113a7edde01f03d7a9c280b6b05bd0ddaa3"
+    },
+    {
+      "path": "public/team-logos/135.svg",
+      "bytes": 1286,
+      "sha256": "c0d5f92ef4a58f097c74aedebb9fd1ff4270217d45b75ef7aa6eeded115131da"
+    },
+    {
+      "path": "public/team-logos/136.svg",
+      "bytes": 28186,
+      "sha256": "c9508331d23c9a20493210e9cd23d29978fc5e599efeffe6e180118885ff4d06"
+    },
+    {
+      "path": "public/team-logos/137.svg",
+      "bytes": 1535,
+      "sha256": "04d8deeb9e7dd172edae9c1a202bf91461d89a973dd243edddb99329cfe99f3c"
+    },
+    {
+      "path": "public/team-logos/138.svg",
+      "bytes": 2481,
+      "sha256": "c1f1aa692b825d69521a724ca0848b337bd4fe57120daf3760a4e2eb12e3653d"
+    },
+    {
+      "path": "public/team-logos/139.svg",
+      "bytes": 2639,
+      "sha256": "b50fd02140a8fe66e57eb5c421fc6847a52abfbc7469bc3099a49d1e09ff77fc"
+    },
+    {
+      "path": "public/team-logos/140.svg",
+      "bytes": 1425,
+      "sha256": "775ec1e70b6655e087249f7306c8ea033c2cc5c52bd1da71339df02160190a38"
+    },
+    {
+      "path": "public/team-logos/141.svg",
+      "bytes": 6124,
+      "sha256": "1920a269c4dce0f8f38d338c4a47380144922a7d84f92ad4609188cac0f4d8e3"
+    },
+    {
+      "path": "public/team-logos/142.svg",
+      "bytes": 1124,
+      "sha256": "9f062b8e0a2626babce4f051f2d3f1bee163fa6d74ff12ff3501be2e2767b090"
+    },
+    {
+      "path": "public/team-logos/143.svg",
+      "bytes": 2516,
+      "sha256": "465da43739de56c09d5f8ec3328be11e9318f53959cc05979d3ab3d0a547a3bb"
+    },
+    {
+      "path": "public/team-logos/144.svg",
+      "bytes": 2652,
+      "sha256": "11162237c379e6e6e54916ee4eebe4407961b4d37293b71b21868077d1bead0d"
+    },
+    {
+      "path": "public/team-logos/145.svg",
+      "bytes": 8869,
+      "sha256": "ca1ee0dc0e5a0f848703d0081ba60a12d44b0364da5c3b146985b6fe33f2e994"
+    },
+    {
+      "path": "public/team-logos/146.svg",
+      "bytes": 11468,
+      "sha256": "6a6e50ca9bad01e65aaeb0557d9e7b4dc94647aea42fdd2549643aca35a767df"
+    },
+    {
+      "path": "public/team-logos/147.svg",
+      "bytes": 1506,
+      "sha256": "a9041069f46b033c0ecaa1472fd5a12da22f1f5af53fd8a686687540d5586fdd"
+    },
+    {
+      "path": "public/team-logos/158.svg",
+      "bytes": 3351,
+      "sha256": "9271da480f41d07eaa124a20dd4bc2dfaf879c17721b61bef9c45d8e6cc837d4"
+    },
+    {
+      "path": "public/window.svg",
+      "bytes": 386,
+      "sha256": "decf1cf7bb22b5c99c4857cfcd5718ce5465c4454166317589c83fc73df74b66"
+    },
+    {
+      "path": "public/yj-logo.png",
+      "bytes": 784246,
+      "sha256": "96efc32ef70d667d63f318bddada4044fc5539211b3ac21a0db71dce6e2e2f9f"
+    },
+    {
+      "path": "render.yaml",
+      "bytes": 462,
+      "sha256": "114b3f7a215268c2243dbe62240fadfd95479a86fcb181f0a325410f5b0a3408"
+    },
+    {
+      "path": "scripts/render-package.mjs",
+      "bytes": 237,
+      "sha256": "ee45bd4c0133ca25f569ad72cd919060326d652764023cb858ac76c338c4907f"
+    },
+    {
+      "path": "scripts/render-start.mjs",
+      "bytes": 778,
+      "sha256": "00b1bbcb1505cd1ca65d628d05256d7e7e7da51b3304c4ebc7c797ac7932c88d"
+    },
+    {
+      "path": "server/auth.mjs",
+      "bytes": 6877,
+      "sha256": "3c726b875e134236dbcca447fa5ca5b7247c8c0684b1509681fcd703f72e2e19"
+    },
+    {
+      "path": "server/database.mjs",
+      "bytes": 2330,
+      "sha256": "3540e5791430dce6452d32073a1042b34b3b6cecd65030a5c422f051666b2c1a"
+    },
+    {
+      "path": "tests/account-restoration-smoke.mjs",
+      "bytes": 7944,
+      "sha256": "8be6a73b0672357e6e4f242933de6088c94bef113eb45a8c395b12a9c0895ddf"
+    },
+    {
+      "path": "tests/analysis-readiness.test.ts",
+      "bytes": 1016,
+      "sha256": "9b5afb29b21309d4a7b2d923dbbaa7f0dcf19652964528d84c5395f11fa192b8"
+    },
+    {
+      "path": "tests/analysis-weights.test.mjs",
+      "bytes": 3838,
+      "sha256": "7bbb5f9feb81051eaf1e9caa32cc8f5c86324a9b5f4e4dfbf5760f8f8970eaa8"
+    },
+    {
+      "path": "tests/board-markets.test.mjs",
+      "bytes": 6447,
+      "sha256": "8726ef34f5788a927e137fa619f82084d4a07fd3c17ae23dc03994dec547a195"
+    },
+    {
+      "path": "tests/covers-odds.test.ts",
+      "bytes": 2920,
+      "sha256": "d9b99a4390275243c287d8bcb0b84671e4727dc6c4d599dae570b94504cd6e7f"
+    },
+    {
+      "path": "tests/fixtures/hr9988-game-detail.json",
+      "bytes": 17965,
+      "sha256": "b5f491be8a8cec7c21df206862af2ffd7dbda6031e7e9aa28c1d8e245155fec1"
+    },
+    {
+      "path": "tests/historical-research.test.py",
+      "bytes": 1793,
+      "sha256": "f0ffd4def526e65300ae4a72cf1b9876dc6589a81e9c7f0ada1c8516f7b6901f"
+    },
+    {
+      "path": "tests/hr9988-connection.test.mjs",
+      "bytes": 7666,
+      "sha256": "2ad34724918c9d62133468107d0ead187a384ac0b36acbc159b9053aa96525d7"
+    },
+    {
+      "path": "tests/live-game.test.mjs",
+      "bytes": 7433,
+      "sha256": "e2cc2588562f1199100969a5693f419be1801ad4ee80aa71a1b8435cde1194e5"
+    },
+    {
+      "path": "tests/match-card-order.test.mjs",
+      "bytes": 2227,
+      "sha256": "6274a425129ebc258e64bb78cac49a8f3b1885fb9839fd7d60fd4bb90568f0a4"
+    },
+    {
+      "path": "tests/match-scoreboard.test.mjs",
+      "bytes": 2394,
+      "sha256": "8102cc5a4d77f84aaeafbff1176cdd565779f9411b232a06a766e1811e6540aa"
+    },
+    {
+      "path": "tests/multifactor-win.test.mjs",
+      "bytes": 2405,
+      "sha256": "bb208e640df49bd5b08a73b8d0d180759b1c7199b338afbaef3d99dae41addf6"
+    },
+    {
+      "path": "tests/pitcher-era.test.mjs",
+      "bytes": 2687,
+      "sha256": "08c426778e29e4c8d716dd299a9b51a0e49fa77677760d37191ce59196295877"
+    },
+    {
+      "path": "tests/player-profile.test.mjs",
+      "bytes": 6169,
+      "sha256": "9d65358f9f684b9731d56d6cbbaf9f210c1b36f4e9e878b0765ed40b7b868c97"
+    },
+    {
+      "path": "tests/pregame-analysis.test.ts",
+      "bytes": 3664,
+      "sha256": "82c73909aa446382c275e6f36f7f5fffe1bb282c3be6703bb2b3528335d0bf16"
+    },
+    {
+      "path": "tests/pregame-readiness.test.mjs",
+      "bytes": 6771,
+      "sha256": "e4c3b21125993483e8d625e3b2992a6814c691d02b1a8998e09a695517b95384"
+    },
+    {
+      "path": "tests/register-typescript.mjs",
+      "bytes": 83,
+      "sha256": "56bd611de562b5c636601a4f600de581c8bbbf2c2fb750db8051b831fbc1454e"
+    },
+    {
+      "path": "tests/render-auth.test.mjs",
+      "bytes": 19337,
+      "sha256": "973e2b13bd889d2a45e7e8c03ebccb8afbd9307f5c951ea0e9dc05a456fcf16b"
+    },
+    {
+      "path": "tests/rendered-html.test.mjs",
+      "bytes": 967,
+      "sha256": "eae1d187870ad9a4b3f0c37b40589b25c1a2090dcbee19964555cf70c136b118"
+    },
+    {
+      "path": "tests/retrosheet.test.ts",
+      "bytes": 1618,
+      "sha256": "79f0f7b992359ff9b47d5787d3b455f7c0909e63fb4aaab03e601821f6667893"
+    },
+    {
+      "path": "tests/statcast-history.test.ts",
+      "bytes": 2029,
+      "sha256": "9f04f77e564792b3f5aeb1c154049208d61fbf580f2ed0dbbf35e9e1a964610a"
+    },
+    {
+      "path": "tests/super007-settlement.test.mjs",
+      "bytes": 15518,
+      "sha256": "aa9355931a6ae323954117dde8213086fe6d37d75c50cc726a8d5fb5e8100569"
+    },
+    {
+      "path": "tests/ts-loader.mjs",
+      "bytes": 730,
+      "sha256": "664808d3a8711997d5df092ad77b61c74e192d4b32bf13fa0902824e262c430f"
+    },
+    {
+      "path": "tests/turnstile-browser.test.mjs",
+      "bytes": 2270,
+      "sha256": "8b84de6be6602c034c67a521e6b4b060f9e3f42f0cba3159d2139d701428c351"
+    },
+    {
+      "path": "tests/tz-binding.test.mjs",
+      "bytes": 8564,
+      "sha256": "4c5386d8f84036533658165270cade8e31a7155187afba4d67bf4a493c571a6a"
+    },
+    {
+      "path": "tests/ui-components.test.mjs",
+      "bytes": 2840,
+      "sha256": "08e681a25fe202a00d7d9e790804e4dc115a8a9388bb47a2c2e0211ec810fb02"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 980,
+      "sha256": "e219874b4cb87b8ce524917866972098768d3451dbba02c218a1555ec3c11189"
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+      "bytes": 1063,
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f"
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.css",
+      "bytes": 16041,
+      "sha256": "bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a"
+    }
+  ]
+}

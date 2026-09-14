@@ -1,6 +1,6 @@
 {
   "name": "arena-sports-board",
-  "version": "3.0.91",
+  "version": "3.0.127",
   "private": true,
   "type": "module",
   "engines": {
@@ -49,7 +49,7 @@
   },
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
-    "build": "next build --webpack && node scripts/render-package.mjs",
+    "build": "node arena-render-v127-prepare.mjs && next build --webpack && node scripts/render-package.mjs",
     "start": "node scripts/render-start.mjs",
     "test:source": "node --test tests/tz-binding.test.mjs tests/hr9988-connection.test.mjs tests/super007-settlement.test.mjs",
     "test:render": "node --import ./tests/register-typescript.mjs --test tests/render-auth.test.mjs",
