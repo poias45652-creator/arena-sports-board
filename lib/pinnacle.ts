@@ -1,6 +1,7 @@
 import type { Match } from './baseball';
 export type Quote={line:number;first:number;second:number;signature:string;boundary?:number;parts?:number[];display?:string};
-export type OddsGame={id:number;away:string;home:string;start:string;spread:Quote|null;total:Quote|null;issues?:{spread?:string;total?:string}};
+export type MarketKey='spread'|'total'|'moneyline'|'runline'|'firstHalfSpread'|'firstHalfTotal'|'firstHalfOddEven';
+export type OddsGame={id:number;away:string;home:string;start:string;spread:Quote|null;total:Quote|null;additional?:Partial<Record<Exclude<MarketKey,'spread'|'total'>,Quote|null>>;issues?:Partial<Record<MarketKey,string>>};
 export type OddsSnapshot={games:OddsGame[];fetchedAt:string;source:string};
 export function decimal(price:number){return Number.isFinite(price)&&Math.abs(price)>=100?(price>0?1+price/100:1+100/-price):null;}
 export function parsePinnacle(fixtures:any,markets:any,now=Date.now()):OddsGame[]{

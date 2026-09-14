@@ -24,12 +24,12 @@ export function expectedRuns(g:Match,s:RunSnapshot){
  if([away,home].some(v=>!Number.isFinite(v)||v<=0||v>15))return null;
  return {away,home};
 }
-export function scoreGrid(away:number,home:number):Outcome[]{
+export function scoreGrid(away:number,home:number,resolveTies=true):Outcome[]{
  if([away,home].some(v=>!Number.isFinite(v)||v<=0||v>15))return [];
  const poisson=(lambda:number)=>{const p=[Math.exp(-lambda)];for(let k=1;k<=70;k++)p.push(p[k-1]*lambda/k);return p;};
  const a=poisson(away),h=poisson(home),out:Outcome[]=[];
  // Simplified full-game tie settlement: one extra run, each team equally likely.
- for(let x=0;x<a.length;x++)for(let y=0;y<h.length;y++){const p=a[x]*h[y];if(x===y){out.push({away:x+1,home:y,p:p/2},{away:x,home:y+1,p:p/2});}else out.push({away:x,home:y,p});}
+ for(let x=0;x<a.length;x++)for(let y=0;y<h.length;y++){const p=a[x]*h[y];if(resolveTies&&x===y){out.push({away:x+1,home:y,p:p/2},{away:x,home:y+1,p:p/2});}else out.push({away:x,home:y,p});}
  const mass=out.reduce((s,o)=>s+o.p,0);return out.map(o=>({...o,p:o.p/mass}));
 }
 export function validLine(market:MarketPick['market'],line:number){return Number.isFinite(line)&&Number.isInteger(line*4)&&(market==='spread'?Math.abs(line)<=10:line>=0&&line<=30);}

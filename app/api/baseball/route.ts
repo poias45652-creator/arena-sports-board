@@ -12,6 +12,7 @@ import {COVERS_ODDS_URL,parseCoversOdds} from '@/lib/covers-odds';
 import {coversTeams,coversUrl,parseCoversHistory} from '@/lib/covers';
 import {fangraphsUrl,parseFanGraphs,type FanGraphsKind} from '@/lib/fangraphs';
 import {getPitcherHistory} from '@/lib/pitcher-history';
+import {parsePitcherRates,type PitcherRates} from '@/lib/pitcher-era';
 import {parseLiveGame,mergeLiveGame} from '@/lib/live-game';
 import {parseLineups,parseBullpen} from '@/lib/rotowire';
 import { validateCollectorSnapshot } from '@/lib/pinnacle';
@@ -48,7 +49,10 @@ export async function GET(request:Request){
     if(kind==='historical-odds'){const offset=Number(url.searchParams.get('offset')||0);if(!Number.isInteger(offset)||offset<0||offset>10000)return Response.json({error:'分頁參數錯誤'},{status:400});return Response.json({summary:historicalOdds.summary,games:historicalOdds.games.slice(offset,offset+100),offset,limit:100});}
     if(['pitcher','batter-team','pitcher-team'].includes(kind)){
       const data=await cached(`${year}:${kind}`,20*60000,async()=>{
-        const source=`https://baseballsavant.mlb.com/leaderboard/statcast?type=${kind}&year=${year}&position=&team=&min=q&sort=barrels_per_pa&sortDir=desc`;
+        // Include pitchers below leaderboard qualification; readiness reports
+        // their actual sample size instead of treating them as unpublished.
+        const minimum=kind==='pitcher'?'1':'q';
+        const source=`https://baseballsavant.mlb.com/leaderboard/statcast?type=${kind}&year=${year}&position=&team=&min=${minimum}&sort=barrels_per_pa&sortDir=desc`;
         const r=await sourceFetch(source+'&csv=true');const text=await r.text();if(text.length>3000000)throw new Error('資料量超出上限');
         return {rows:parseStats(text,kind as Kind),fetchedAt:new Date().toISOString(),year,kind,source};
       });return Response.json(data,{headers:{'Cache-Control':'no-store'}});
@@ -126,12 +130,14 @@ export async function GET(request:Request){
       return Response.json(await gameDetail(Number(id)),{headers:{'Cache-Control':'no-store'}});
     }
     if(kind==='scores'){
-      const day=taipeiDay();
+      const requestedDay=url.searchParams.get('date');
+      if(requestedDay&&(!/^\d{4}-\d{2}-\d{2}$/.test(requestedDay)||!Number.isFinite(Date.parse(requestedDay))||new Date(requestedDay).toISOString().slice(0,10)!==requestedDay||requestedDay<'2000-01-01'||requestedDay>'2100-12-31'))return Response.json({error:'無效的比分日期'},{status:400});
+      const today=taipeiDay(),day=requestedDay||today;
       const data=await cached('scores:'+day,10000,async()=>{
         const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${shiftDay(day,-2)}&endDate=${shiftDay(day,1)}&hydrate=linescore,team,probablePitcher`;
         const json=await (await sourceFetch(source)).json();
         if(!Array.isArray(json.dates))throw new Error('比分資料格式錯誤');
-        const games=json.dates.flatMap((d:any)=>d.games||[]).filter((g:any)=>g.status?.abstractGameState==='Live'||taipeiDay(g.gameDate)===day);
+        const games=json.dates.flatMap((d:any)=>d.games||[]).filter((g:any)=>day===today&&g.status?.abstractGameState==='Live'||taipeiDay(g.gameDate)===day);
         // Fetch only active games, with bounded concurrency; a failed feed keeps the schedule score.
         let cursor=0;
         await Promise.all(Array.from({length:Math.min(5,games.length)},async()=>{
@@ -141,7 +147,7 @@ export async function GET(request:Request){
             catch{games[index]={...game,detailError:true};}
           }
         }));
-        return {games,fetchedAt:new Date().toISOString()};
+        return {games,fetchedAt:new Date().toISOString(),date:day};
       });
       return Response.json(data,{headers:{'Cache-Control':'no-store'}});
     }
@@ -150,8 +156,27 @@ export async function GET(request:Request){
       const day=taipeiDay();const data=await cached('schedule:'+day,30000,async()=>{
         const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${shiftDay(day,-1)}&endDate=${shiftDay(day,7)}&hydrate=team,probablePitcher`;
         const r=await sourceFetch(source),json=await r.json();if(!Array.isArray(json.dates))throw new Error('賽程格式錯誤');
-        const side=(s:any):TeamSide=>({id:s.team.id,name:s.team.name,wins:Number.isInteger(s.leagueRecord?.wins)?s.leagueRecord.wins:null,losses:Number.isInteger(s.leagueRecord?.losses)?s.leagueRecord.losses:null,pitcherId:s.probablePitcher?.id??null,pitcherName:s.probablePitcher?.fullName||'先發待公布'});
+        const side=(s:any):TeamSide=>({id:s.team.id,name:s.team.name,wins:Number.isInteger(s.leagueRecord?.wins)?s.leagueRecord.wins:null,losses:Number.isInteger(s.leagueRecord?.losses)?s.leagueRecord.losses:null,pitcherId:s.probablePitcher?.id??null,pitcherName:s.probablePitcher?.fullName||'先發待公布',pitcherEra:null,pitcherWhip:null});
         const games=json.dates.flatMap((d:any)=>d.games||[]).filter((g:any)=>g.teams?.away?.team?.id&&g.teams?.home?.team?.id).map((g:any)=>({id:g.gamePk,date:g.gameDate,season:Number(g.season),gameType:g.gameType,state:g.status?.abstractGameState,status:g.status?.detailedState,startTimeTBD:!!g.status?.startTimeTBD,away:side(g.teams.away),home:side(g.teams.home)}));
+        await Promise.all([...new Set<number>(games.map((g:any)=>g.season))].map(async season=>{
+          const seasonGames=games.filter((g:any)=>g.season===season);
+          const ids=[...new Set<number>(seasonGames.flatMap((g:any)=>[g.away.pitcherId,g.home.pitcherId]).filter((id:any)=>Number.isInteger(id)&&id>0))].sort((a,b)=>a-b);
+          if(!ids.length)return;
+          try{
+            const rates=await cached(`pitcher-rates:${season}:${ids.join(',')}`,20*60000,async()=>{
+              const query=new URLSearchParams({personIds:ids.join(','),hydrate:`stats(group=[pitching],type=[season],season=${season})`});
+              const response=await fetch(`https://statsapi.mlb.com/api/v1/people?${query}`,{signal:AbortSignal.timeout(8000)});
+              if(!response.ok)throw new Error('先發投手數據暫時無法取得');
+              return parsePitcherRates(await response.json(),season);
+            }) as Record<number,PitcherRates>;
+            for(const game of seasonGames)for(const side of [game.away,game.home]){
+              const stats=rates[side.pitcherId];
+              side.pitcherEra=stats?.era??null;side.pitcherWhip=stats?.whip??null;
+            }
+          }catch{
+            // Missing pitching rates must not suppress the schedule or substitute another pitcher.
+          }
+        }));
         return {games,fetchedAt:new Date().toISOString(),source};
       });return Response.json(data,{headers:{'Cache-Control':'no-store'}});
     }

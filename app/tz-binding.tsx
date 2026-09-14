@@ -2,6 +2,7 @@
 
 import {useEffect,useRef,useState} from 'react';
 import {Button} from '@/components/ui/button';
+import {Link2} from 'lucide-react';
 import {Input} from '@/components/ui/input';
 import {Dialog,DialogContent,DialogDescription,DialogFooter,DialogHeader,DialogTitle,DialogTrigger} from '@/components/ui/dialog';
 
@@ -57,7 +58,7 @@ export default function TzBinding(){
  const showGame=bound&&!expired&&!editAccount;
  const notice=message&&<p role="status" className="rounded-md border border-amber-300/20 bg-amber-300/5 p-3 text-sm text-amber-200">{message}</p>;
  return <Dialog open={open} onOpenChange={changeOpen}>
-  <DialogTrigger asChild><Button variant="outline" className="shrink-0">{expired?'tz 授權已到期':bound?'連接 SUPER 盤口':'綁定 tz 帳號'}</Button></DialogTrigger>
+  <DialogTrigger asChild><Button variant="outline" className="super-connect-trigger shrink-0 rounded-lg font-bold"><Link2 className="size-5" aria-hidden="true"/>{expired?'tz 授權已到期':bound?'連接 SUPER 盤口':'綁定 tz 帳號'}</Button></DialogTrigger>
   <DialogContent className="max-h-[90dvh] overflow-y-auto border-[#2c394a] bg-[#0e1a28] text-slate-100" showCloseButton={false}>
    <DialogHeader><DialogTitle>{showGame?'連接 SUPER 盤口':bound?'管理 tz 會員綁定':'綁定 tz 會員帳號'}</DialogTitle><DialogDescription className="text-slate-400">{showGame?'第 2 步：貼上 SUPER 賽事網址，使用你的 tz 授權連接盤口。':'第 1 步：使用自己的 tz 帳號驗證。密碼僅用於本次登入，不會保存。'}</DialogDescription></DialogHeader>
    {loading?<p role="status">正在讀取綁定狀態…</p>:signin?<div className="space-y-4"><p>請先登入 Arena，才能保存與管理自己的 tz 綁定。</p><Button asChild><a href="/signin-with-chatgpt?return_to=%2F" target="_top">登入 Arena</a></Button></div>:showGame?<form className="space-y-4" onSubmit={e=>{e.preventDefault();void mutate('PATCH');}}>

@@ -25,7 +25,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
     const open=team.EvtStatus===1;
     // Observed source menu: group 10 = 全場; group 11 = 上半.
     // Keep closed primary rows for display, but never expose them to the model.
-    const displayMarkets:HrDisplayMarket[]=team.Wager.filter((w:any)=>[10,11].includes(w?.WagerGrpID)&&[103,104,111].includes(w.WagerTypeID)).map((w:any)=>{
+    const displayMarkets:HrDisplayMarket[]=team.Wager.filter((w:any)=>w?.WagerGrpID===10?[103,104,106,111].includes(w.WagerTypeID):w?.WagerGrpID===11&&[103,104,105,111].includes(w.WagerTypeID)).map((w:any)=>{
      if(!Array.isArray(w.Odds))throw new Error('SUPER 賠率格式改變');
      return {period:w.WagerGrpID===10?'full':'firstHalf',type:w.WagerTypeID,quotes:w.Odds.map((q:any,index:number)=>({
       primary:index===0,id:q.GameID,open:open&&q.Status===1,

@@ -12,7 +12,7 @@ export const dynamic='force-dynamic';
 export async function POST(request:Request){
  const origin=request.headers.get('origin');if(origin&&new URL(origin).host!==new URL(request.url).host)return Response.json({error:'來源不符'},{status:403});
  try{
-  const memberId=(await getArenaUser())?.id;if(!memberId)return Response.json({error:'請先登入 Arena。'},{status:401});
+  const memberId=(await getArenaUser())?.id;if(!memberId)return Response.json({error:'請先登入 YJ體育分析。'},{status:401});
   const db=getRawDb();
   const pending=await db.prepare('SELECT s.game_id FROM analysis_snapshots s LEFT JOIN analysis_results r ON r.game_id=s.game_id WHERE s.member_id=? AND s.start_time<? AND r.game_id IS NULL GROUP BY s.game_id ORDER BY MAX(s.start_time) DESC LIMIT 4').bind(memberId,new Date(Date.now()-3*3600000).toISOString()).all();
   let updated=0;

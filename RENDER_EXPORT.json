@@ -1,0 +1,18 @@
+{
+  "project": "arena-sports-board",
+  "platform": "Render / Next.js / PostgreSQL",
+  "gpt_base_version": 91,
+  "patch": "restore-original-admin-account-creation-and-video-login",
+  "source_commit": "917ed22ed6c5bd87fbd62c25ca853f3665928a70",
+  "source_tree": "a13fa4049466ac03b742a4acfd7a0ec273bd5a69",
+  "base_github_commit": "1e523cc112fa55ccebbb04b791bbf675414628f1",
+  "source_files": 299,
+  "build_verified": true,
+  "login_logout_smoke_verified": true,
+  "admin_navigation_smoke_verified": true,
+  "account_creation_and_login_smoke_verified": true,
+  "restored_feature_source_version": 74,
+  "restored_video_sha256": "e97f8b9f90d8111c55e5ee5c758bfe68af46c658f1993029980d5c5291471321",
+  "published_to_github": false,
+  "render_deployed": false
+}

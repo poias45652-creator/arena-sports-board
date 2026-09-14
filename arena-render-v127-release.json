@@ -3,27 +3,48 @@
   "gpt_version": 127,
   "gpt_commit": "d502240ad7901fde4c64b50e23c2c700295fcbcc",
   "render_base_commit": "64d07b32b00852a6e5d585d00db001fd1e3b6ca3",
+<<<<<<< HEAD
   "archive_sha256": "34405a3957369cd33b49b130f096d8fd964f379c49e0e65070ce0f00f68946f9",
+=======
+  "archive_sha256": "c6258a86999859b722d53c5c67d625603d4097afeacb01caba2913becde1ebdf",
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
   "parts": [
     {
       "name": "arena-render-v127-source-1.bin",
       "bytes": 20971520,
+<<<<<<< HEAD
       "sha256": "ca8358c51c2150b9d6806827d281fbba2d119c143fd559f737e818ed95b64b73"
+=======
+      "sha256": "e463a731b893d4d486adb1b2d0fe41d42c15962cd141543af46f506d92bb9032"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "name": "arena-render-v127-source-2.bin",
       "bytes": 20971520,
+<<<<<<< HEAD
       "sha256": "bf7609071afe3a8eb9220f235cafdb937a0bbc086979a324f92cb528d3a9bca4"
+=======
+      "sha256": "d646d21b1339235779b7e221341949ec1f484d9511e58cdf93f337e4a82dba0a"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "name": "arena-render-v127-source-3.bin",
       "bytes": 20971520,
+<<<<<<< HEAD
       "sha256": "38addee2e6deca3bca9cafbc36ca1a847c2cb8f9620d21b1f9c9f9152c291e5a"
     },
     {
       "name": "arena-render-v127-source-4.bin",
       "bytes": 13305415,
       "sha256": "6589ee2547a499dce396d58f3c32ec0ea58108832d50f316bd8a36cac3040767"
+=======
+      "sha256": "63448cc564b9e9262b84cbc073bd27a865be2af1a2cb44bf83f837f2942c28d7"
+    },
+    {
+      "name": "arena-render-v127-source-4.bin",
+      "bytes": 13304174,
+      "sha256": "9210dfe57df7bb3cb3f9960fb7e39d7a496585e40e065e7e149df985b78ee3a3"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     }
   ],
   "files": [
@@ -39,6 +60,7 @@
     },
     {
       "path": "UPLOAD_README.zh-TW.md",
+<<<<<<< HEAD
       "bytes": 2578,
       "sha256": "581f882d31e1856cc29303075e95a0843233213630ee98b2fa47a7c88252fb50"
     },
@@ -46,6 +68,15 @@
       "path": "VALIDATION-v127.md",
       "bytes": 1305,
       "sha256": "21c3419b600b9aed90d4de3a4e60d0d2d047c5f430a9b6a44b6077cf3ca8c785"
+=======
+      "bytes": 2068,
+      "sha256": "fd1f71d78bd717dbb7394fa3080a9f5d62650a34aaf95da55eb579aace01335a"
+    },
+    {
+      "path": "VALIDATION-v127.md",
+      "bytes": 1111,
+      "sha256": "a6211316942b014234c4d70c0f3b917e3b1ce8e039a9edc1036f83724ae05dba"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "app/account-menu.tsx",
@@ -150,7 +181,11 @@
     {
       "path": "app/api/health/route.ts",
       "bytes": 437,
+<<<<<<< HEAD
       "sha256": "1e22b790b0d9ddcb377d66b63dcecda537b41a7eb0bd2bd1eaa54c8e32c66d62"
+=======
+      "sha256": "61c0d09bd28b0aa0cb5d91bb3a40648a39a89593d466141aa3a722acf6502bf9"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "app/api/hr9988/route.ts",
@@ -249,8 +284,13 @@
     },
     {
       "path": "app/login/form.tsx",
+<<<<<<< HEAD
       "bytes": 3498,
       "sha256": "eff149ae2cfadda400cc9250349fce18a020bd59b3364246bc69886edfe05cce"
+=======
+      "bytes": 3396,
+      "sha256": "703a0e19e7acaf26b2f46ab98c03f75d73327a35d5301cfe229f676ceb92bc42"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "app/login/login.css",
@@ -294,8 +334,13 @@
     },
     {
       "path": "app/page.tsx",
+<<<<<<< HEAD
       "bytes": 17080,
       "sha256": "30f52f53888a6311d12deb700cd52923106adbb016bb78e2295fc7d0a33b96e0"
+=======
+      "bytes": 16076,
+      "sha256": "062ae540759d9a37a768012c312de8a5e8e75f0a37c3c2e5731f62f550b8bc0a"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "app/player-link.tsx",
@@ -379,8 +424,13 @@
     },
     {
       "path": "app/tz-binding.tsx",
+<<<<<<< HEAD
       "bytes": 10272,
       "sha256": "6fe7f0dfa6a5ed392d5ff641b09dbbb2615ccef680c0ad7672200a6e55fcfe33"
+=======
+      "bytes": 10286,
+      "sha256": "d52149d21e3d7e116ceada35a06d6e8f44707845e521435d6cd4845222c83ea2"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "app/use-source.ts",
@@ -1414,8 +1464,13 @@
     },
     {
       "path": "scripts/render-start.mjs",
+<<<<<<< HEAD
       "bytes": 1234,
       "sha256": "69d74e8437f6fee4f8727ad2e002614d0dc9b1779ccf38906f8bab4bff35a95b"
+=======
+      "bytes": 1022,
+      "sha256": "883bf1e965a148d30cc05ceac6365b3cc4099672dad394f2947b490697a7d7d1"
+>>>>>>> 76b3ca18f5d3c4d614cfdbc2e60b186142b4dc30
     },
     {
       "path": "server/admin-recovery.mjs",

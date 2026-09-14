@@ -32,7 +32,7 @@ export async function POST(request:Request){
  const origin=request.headers.get('origin');if(origin&&new URL(origin).host!==new URL(request.url).host)return Response.json({error:'來源不符'},{status:403});
  try{
   const body=await request.json(),id=body?.gameId;if(!Number.isInteger(id)||id<=0)return Response.json({error:'無效賽事'},{status:400});
-  const user=await getArenaUser();if(!user)return Response.json({error:'請先登入 Arena。'},{status:401});const cacheKey=user.id+':'+id;
+  const user=await getArenaUser();if(!user)return Response.json({error:'請先登入 YJ體育分析。'},{status:401});const cacheKey=user.id+':'+id;
   const c=reports.get(cacheKey);let report:AnalysisReport;
   if(c&&c.until>Date.now()&&isPregame(c.data.game,Date.now()))report=c.data;
   else {let task=pending.get(cacheKey);if(!task){task=build(id).finally(()=>pending.delete(cacheKey));pending.set(cacheKey,task);}report=await task;if(reports.size>=40)reports.delete(reports.keys().next().value!);reports.set(cacheKey,{until:Date.now()+60000,data:report});}
