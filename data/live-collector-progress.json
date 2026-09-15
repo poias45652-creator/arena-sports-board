@@ -8,38 +8,23 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-15T07:40:36.439Z",
+  "observedAt": "2026-09-15T09:21:53.059Z",
   "dateAsiaTaipei": "2026-09-15",
-  "currentGames": {
-    "NPB": 6,
-    "KBO": 4,
-    "CPBL": 3
-  },
-  "currentStates": {
-    "NPB": "all_pregame",
-    "KBO": "all_pregame",
-    "CPBL": "all_pregame"
-  },
-  "databaseTest": {
-    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "inserted": 13,
-    "readBack": 13,
-    "duplicateInserts": 0,
-    "passed": true,
-    "checkedAt": "2026-09-15T07:40:37.463Z"
-  },
-  "firstStartTaipei": {
-    "NPB": "17:00",
-    "KBO": "17:30",
-    "CPBL": "18:35"
-  },
-  "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
-    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-09-15&toDate=2026-09-15&page=1&pageSize=100",
-    "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/"
-  },
+  "currentGames": {"NPB": 6, "KBO": 4, "CPBL": 3},
+  "currentStates": {"NPB": "live_verified", "KBO": "pre_start_status_unknown", "CPBL": "all_pregame"},
+  "databaseTest": {"environment": "isolated GitHub Actions PostgreSQL 16; not Render", "inserted": 13, "readBack": 13, "duplicateInserts": 0, "passed": true, "checkedAt": "2026-09-15T09:21:54.404Z"},
+  "firstStartTaipei": {"NPB": "17:00", "KBO": "17:30", "CPBL": "18:35"},
+  "sourceURLs": {"NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15", "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-09-15&toDate=2026-09-15&page=1&pageSize=100", "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/"},
   "liveChangeProof": {
-    "NPB": null,
+    "NPB": {
+      "verified": true,
+      "verifiedAt": "2026-09-15T09:21:53.059Z",
+      "source": "sportsnavi",
+      "games": [
+        {"key": "NPB:2021048552", "away": "讀賣巨人", "home": "橫濱DeNA海灣之星", "beforeFetchedAt": "2026-09-15T09:20:40.763Z", "afterFetchedAt": "2026-09-15T09:21:50.332Z", "intervalSeconds": 69.569, "changes": {"awayPitchCounts": {"before": [10], "after": [16]}}},
+        {"key": "NPB:2021048616", "away": "廣島東洋鯉魚", "home": "養樂多燕子", "beforeFetchedAt": "2026-09-15T09:20:41.401Z", "afterFetchedAt": "2026-09-15T09:21:50.976Z", "intervalSeconds": 69.575, "changes": {"awayPitchCounts": {"before": [0], "after": [4]}}}
+      ]
+    },
     "KBO": null,
     "CPBL": null
   },
@@ -47,19 +32,13 @@
   "productionChanged": false,
   "productionDatabaseWritten": false,
   "knownGaps": [
-    "NPB and CPBL ball/strike/base states not verified",
-    "CPBL pitch counts null in checked completed sample",
-    "CPBL source-listed lineup is not proof of officially confirmed lineup",
-    "No live games at the capture time; pregame zero scores normalized to null",
-    "Provider publication timestamp unavailable; captured time is recorded separately"
+    "NPB ball/strike/out/base states are still null in the normalized feed and are not verified; NPB pitch-count changes are verified.",
+    "KBO game-polling returned unknown status at 17:21 Asia/Taipei, before the listed 17:30 first pitch; rerun after start and require two live captures with a real numeric change.",
+    "CPBL games were still pregame at 17:21 Asia/Taipei; first listed start is 18:35.",
+    "CPBL ball/strike/base states remain unverified and pitch counts were null in the checked completed sample.",
+    "CPBL source-listed lineup is not proof of an officially confirmed lineup.",
+    "Provider publication timestamps are unavailable for these checked sources; fetchedAt/httpDate are recorded separately."
   ],
-  "nextAction": "No first-team games were live at 15:40 Asia/Taipei. Rerun during NPB/KBO/CPBL game hours and require two current live captures with a real numerical state change before marking a league verified. Do not deploy main or alter Render during verification.",
-  "latestRun": {
-    "runId": 34927420538,
-    "runAttempt": 5,
-    "jobId": 104295358636,
-    "artifactId": 10386595104,
-    "artifactCreatedAt": "2026-09-15T07:40:38Z",
-    "observationPath": "data/live/2026-09-15T074036Z.json"
-  }
+  "nextAction": "Preserve the verified NPB evidence. Rerun after KBO first pitch at 17:30 Asia/Taipei and again after CPBL first pitch at 18:35; require two live captures at least 65 seconds apart with an actual numeric game-state change before marking each league verified. Do not deploy main or alter Render.",
+  "latestRun": {"runId": 34927420538, "runAttempt": 6, "jobId": 104324744595, "artifactId": 10388979555, "artifactCreatedAt": "2026-09-15T09:21:55Z", "capturedAt": "2026-09-15T09:21:53.059Z", "observationPath": "data/live/2026-09-15T092153Z.json"}
 }
