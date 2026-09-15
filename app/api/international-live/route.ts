@@ -1,12 +1,13 @@
 import {getArenaUser} from '@/lib/arena-user';
 import {getPool} from '@/server/database.mjs';
-import {collectLeague,dayInTaipei} from '@/server/baseball-live-providers.mjs';
+import {collectLeague,dayInTaipei} from '@/server/baseball-current.mjs';
 import {readLiveSnapshot,writeLiveSnapshot} from '@/server/baseball-live-store.mjs';
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 const cached=new Map<string,{expires:number;value:any}>();
 const pending=new Map<string,Promise<any>>();
 const headers={'Cache-Control':'private, no-store'};
+const response=(value:any)=>Response.json(value,{status:value.status==='unavailable'?503:200,headers});
 export async function GET(request:Request){
  const user=await getArenaUser();
  if(!user)return Response.json({error:'請先登入。'},{status:401,headers});
@@ -14,9 +15,9 @@ export async function GET(request:Request){
  if(user.role!=='admin')return Response.json({error:'此資料接入目前由管理員驗證。'},{status:403,headers});
  const url=new URL(request.url),league=(url.searchParams.get('league')||'').toUpperCase(),date=dayInTaipei();
  if(!['NPB','KBO','CPBL'].includes(league))return Response.json({error:'請指定 NPB、KBO 或 CPBL。'},{status:400,headers});
- const key=league+':'+date;
- if(cached.get(key)?.expires!>Date.now())return Response.json(cached.get(key)!.value,{headers});
- if(pending.has(key))return Response.json(await pending.get(key),{headers});
+ const key=league+':'+date,entry=cached.get(key);
+ if(entry&&entry.expires>Date.now())return response(entry.value);
+ if(pending.has(key))return response(await pending.get(key));
  const task=(async()=>{
   try{
    const value=await collectLeague(league,{date});
@@ -36,6 +37,5 @@ export async function GET(request:Request){
   }
  })().finally(()=>pending.delete(key));
  pending.set(key,task);
- const result=await task;
- return Response.json(result,{status:result.status==='unavailable'?503:200,headers});
+ return response(await task);
 }
