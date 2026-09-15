@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-15T05:50:35.869Z",
+  "observedAt": "2026-09-15T07:26:59.291Z",
   "dateAsiaTaipei": "2026-09-15",
   "currentGames": {
     "NPB": 6,
@@ -26,7 +26,7 @@
     "readBack": 13,
     "duplicateInserts": 0,
     "passed": true,
-    "checkedAt": "2026-09-15T05:50:38.155Z"
+    "checkedAt": "2026-09-15T07:27:00.421Z"
   },
   "firstStartTaipei": {
     "NPB": "17:00",
@@ -53,13 +53,13 @@
     "No live games at the capture time; pregame zero scores normalized to null",
     "Provider publication timestamp unavailable; captured time is recorded separately"
   ],
-  "nextAction": "No first-team games were live at 13:50 Asia/Taipei. Rerun during NPB/KBO/CPBL game hours and require two current live captures with a real numerical state change before marking a league verified. Do not deploy main or alter Render during verification.",
+  "nextAction": "No first-team games were live at 15:26 Asia/Taipei. Rerun during NPB/KBO/CPBL game hours and require two current live captures with a real numerical state change before marking a league verified. Do not deploy main or alter Render during verification.",
   "latestRun": {
     "runId": 34927420538,
-    "runAttempt": 3,
-    "jobId": 104268970591,
-    "artifactId": 10382822547,
-    "artifactCreatedAt": "2026-09-15T05:50:39Z",
-    "observationPath": "data/live/2026-09-15T055035Z.json"
+    "runAttempt": 4,
+    "jobId": 104291691173,
+    "artifactId": 10385233674,
+    "artifactCreatedAt": "2026-09-15T07:27:01Z",
+    "observationPath": "data/live/2026-09-15T072659Z.json"
   }
 }
