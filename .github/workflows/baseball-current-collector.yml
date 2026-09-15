@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/baseball-current-collector.yml
       - server/baseball-live-providers.mjs
+      - server/baseball-current.mjs
       - scripts/collect-baseball-live.mjs
   workflow_dispatch:
 permissions:
@@ -16,18 +17,69 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: arena_test
+          POSTGRES_PASSWORD: isolated_ci_only
+          POSTGRES_DB: baseball_probe
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U arena_test -d baseball_probe"
+          --health-interval 5s --health-timeout 3s --health-retries 10
     steps:
       - uses: actions/checkout@v4
         with:
           sparse-checkout: |
             server/baseball-live-providers.mjs
+            server/baseball-current.mjs
+            server/baseball-live-store.mjs
             scripts/collect-baseball-live.mjs
+            app/api/international-live/route.ts
           sparse-checkout-cone-mode: false
           persist-credentials: false
       - name: Check parser syntax
-        run: node --check server/baseball-live-providers.mjs
-      - name: Collect current first-team baseball and validate live changes
+        run: |
+          node --check server/baseball-live-providers.mjs
+          node --check server/baseball-current.mjs
+          node --check server/baseball-live-store.mjs
+      - name: Collect current baseball and verify real in-game changes
         run: node scripts/collect-baseball-live.mjs
+      - name: Install isolated database test driver
+        run: npm install --prefix "$RUNNER_TEMP/pg-test" --ignore-scripts --no-audit --no-fund pg@8.16.3
+      - name: Verify real database writes without contacting production
+        env:
+          TEST_DATABASE_URL: postgresql://arena_test:isolated_ci_only@localhost:5432/baseball_probe
+        run: |
+          node --input-type=module <<'NODE'
+          import {createRequire} from 'node:module';
+          import {readFile,writeFile,copyFile} from 'node:fs/promises';
+          import assert from 'node:assert/strict';
+          import {writeLiveSnapshot,readLiveSnapshot} from './server/baseball-live-store.mjs';
+          const require=createRequire(process.env.RUNNER_TEMP+'/pg-test/package.json');
+          const {Pool}=require('pg');const pool=new Pool({connectionString:process.env.TEST_DATABASE_URL});
+          const capture=JSON.parse(await readFile('baseball-current/current.json','utf8'));
+          const checks=[];
+          try{
+            for(const s of capture.leagues){
+              const first=await writeLiveSnapshot(pool,s);
+              const second=await writeLiveSnapshot(pool,s);
+              const rows=await readLiveSnapshot(pool,s.league,s.date);
+              assert.equal(first.written,s.games.length);
+              assert.equal(second.written,0);
+              assert.equal(rows.length,s.games.length);
+              assert(rows.every(g=>g.date===s.date));
+              assert(rows.filter(g=>g.status==='pregame').every(g=>g.home.score===null&&g.away.score===null));
+              checks.push({league:s.league,written:first.written,duplicateWrites:second.written,readBack:rows.length,passed:true});
+            }
+            await writeFile('baseball-current/database-test.json',JSON.stringify({environment:'isolated GitHub Actions PostgreSQL 16; not Render',productionWritten:false,checkedAt:new Date().toISOString(),checks},null,2));
+            await copyFile('server/baseball-live-store.mjs','baseball-current/baseball-live-store.mjs');
+            await copyFile('server/baseball-current.mjs','baseball-current/baseball-current.mjs');
+            await copyFile('app/api/international-live/route.ts','baseball-current/international-live-route.ts');
+            console.log('DATABASE_TEST '+JSON.stringify(checks));
+          }finally{await pool.end();}
+          NODE
       - name: Retain normalized data and execution evidence
         if: always()
         uses: actions/upload-artifact@v4
