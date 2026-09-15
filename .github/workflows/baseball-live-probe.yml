@@ -1,0 +1,105 @@
+name: Baseball live source probe
+on:
+  push:
+    branches: [data/live-source-probe-20260915]
+    paths: [.github/workflows/baseball-live-probe.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Fetch bounded public baseball samples
+        shell: bash
+        run: |
+          mkdir -p baseball-probe
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const now = new Date();
+          const day = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(now);
+          const year = day.slice(0,4);
+          const prev = new Date(Date.parse(day+'T12:00:00Z')-86400000).toISOString().slice(0,10);
+          const allowed = new Set(['api-gw.sports.naver.com','baseball.yahoo.co.jp','www.cpbl.com.tw','tw.sports.yahoo.com','www.fengyuncai.com']);
+          const results = [];
+          function slim(v,depth=0){
+            if(depth>8) return '[depth limited]';
+            if(typeof v==='string') return v.length>600?v.slice(0,600)+' [truncated]':v;
+            if(Array.isArray(v)) return v.slice(0,16).map(x=>slim(x,depth+1));
+            if(v&&typeof v==='object') return Object.fromEntries(Object.entries(v).filter(([k])=>!/token|cookie|secret|authorization|password/i.test(k)).slice(0,100).map(([k,x])=>[k,slim(x,depth+1)]));
+            return v;
+          }
+          async function probe(id,url,options={}){
+            const row={id,url,requestedAt:new Date().toISOString()};
+            try{
+              if(!allowed.has(new URL(url).hostname)) throw new Error('Host outside fixed allowlist');
+              const response=await fetch(url,{...options,redirect:'manual',headers:{'User-Agent':'YJBaseballSourceCheck/1.0','Accept':'application/json,text/html;q=0.8',...(options.headers||{})},signal:AbortSignal.timeout(18000)});
+              row.httpStatus=response.status;
+              row.contentType=response.headers.get('content-type');
+              row.serverDate=response.headers.get('date');
+              row.age=response.headers.get('age');
+              row.cacheControl=response.headers.get('cache-control');
+              if(!response.ok){row.error='HTTP '+response.status;await response.body?.cancel();return {row};}
+              let bytes=0;const chunks=[];
+              for await(const c of response.body){bytes+=c.byteLength;if(bytes>6000000)throw new Error('Response exceeds 6 MB cap');chunks.push(c);}
+              const text=Buffer.concat(chunks).toString('utf8');row.bytes=bytes;
+              let json;try{json=JSON.parse(text);}catch{}
+              if(json!==undefined){row.json=slim(json);fs.writeFileSync('baseball-probe/'+id+'.json',JSON.stringify(slim(json),null,2));}
+              else{
+                row.title=(text.match(/<title[^>]*>([\s\S]*?)<\/title>/i)||[])[1]||null;
+                const clean=text.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi,' ').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+                row.textExcerpt=clean.slice(0,1600);
+                row.gameIds=[...new Set([...text.matchAll(/\/npb\/game\/(\d+)\//g)].map(m=>m[1]))].slice(0,12);
+                row.dateMarkers=[...new Set([...clean.matchAll(/20\d{2}[\/-]\d{1,2}[\/-]\d{1,2}(?:\s+\d{1,2}:\d{2}(?::\d{2})?)?/g)].map(m=>m[0]))].slice(0,20);
+                fs.writeFileSync('baseball-probe/'+id+'.json',JSON.stringify(row,null,2));
+              }
+              return {row,text,json,cookies:response.headers.getSetCookie?.()||[]};
+            }catch(e){row.error=e.message;return {row};}
+            finally{row.completedAt=new Date().toISOString();results.push(row);console.log('BASEBALL_SAMPLE '+JSON.stringify(row));}
+          }
+          console.log('BASEBALL_PROBE_START '+JSON.stringify({day,startedAt:now.toISOString(),note:'Single bounded sample. Retrieval time is not provider update time; pregame and final are not live.'}));
+          const navBase='https://api-gw.sports.naver.com';
+          const schedule=await probe('kbo-today',navBase+'/schedule/games?upperCategoryId=kbaseball&fromDate='+day+'&toDate='+day+'&page=1&pageSize=100');
+          const findGames=x=>Array.isArray(x)?x:(x?.result?.games||x?.result?.list||x?.result?.data?.games||x?.games||[]);
+          const todays=findGames(schedule.json);
+          const gid=todays.find(g=>g?.gameId)?.gameId;
+          if(gid&&/^[A-Za-z0-9_-]{5,40}$/.test(gid)){
+            await probe('kbo-today-polling',navBase+'/schedule/games/'+gid+'/game-polling');
+            await probe('kbo-today-relay',navBase+'/schedule/games/'+gid+'/relay');
+          }
+          const old=await probe('kbo-previous-day',navBase+'/schedule/games?upperCategoryId=kbaseball&fromDate='+prev+'&toDate='+prev+'&page=1&pageSize=100');
+          const oldid=findGames(old.json).find(g=>g?.gameId)?.gameId;
+          if(oldid&&/^[A-Za-z0-9_-]{5,40}$/.test(oldid))await probe('kbo-previous-relay',navBase+'/schedule/games/'+oldid+'/relay');
+          const npb=await probe('npb-today','https://baseball.yahoo.co.jp/npb/schedule/?date='+day);
+          const nid=npb.row.gameIds?.[0];
+          if(nid){await probe('npb-today-score','https://baseball.yahoo.co.jp/npb/game/'+nid+'/score');await probe('npb-today-stats','https://baseball.yahoo.co.jp/npb/game/'+nid+'/stats');}
+          const cpbl=await probe('cpbl-schedule-page','https://www.cpbl.com.tw/schedule');
+          let games=[];
+          if(cpbl.row.httpStatus===200&&cpbl.text){
+            const token=(cpbl.text.match(/RequestVerificationToken\s*:\s*['"]([^'"]+)['"]/i)||[])[1];
+            if(token){
+              const cookies=cpbl.cookies.map(c=>c.split(';')[0]).join('; ');
+              const cp=await probe('cpbl-schedule-json','https://www.cpbl.com.tw/schedule/getgamedatas',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','RequestVerificationToken':token,'Cookie':cookies,'Referer':'https://www.cpbl.com.tw/schedule'},body:new URLSearchParams({calendar:day.replaceAll('-','/'),location:'',kindCode:'A'}).toString()});
+              const gd=cp.json?.GameDatas;try{games=typeof gd==='string'?JSON.parse(gd):(Array.isArray(gd)?gd:[]);}catch{}
+              const selected=games.filter(g=>String(g.GameDate||'').slice(0,10)===day);
+              console.log('CPBL_TODAY_GAMES '+JSON.stringify(slim(selected)));
+              fs.writeFileSync('baseball-probe/cpbl-today-games.json',JSON.stringify(slim(selected),null,2));
+              const g=selected[0]||games.filter(g=>String(g.GameDate||'').slice(0,10)<day).sort((a,b)=>String(b.GameDate).localeCompare(String(a.GameDate)))[0];
+              if(g?.GameSno){
+                const box=await probe('cpbl-single-game','https://www.cpbl.com.tw/box/getlive',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded','Referer':'https://www.cpbl.com.tw/box'},body:new URLSearchParams({GameSno:String(g.GameSno),Year:year,KindCode:'A'}).toString()});
+                if(box.json){const decoded={};for(const [k,v] of Object.entries(box.json)){try{decoded[k]=typeof v==='string'?JSON.parse(v):v;}catch{decoded[k]=v;}}console.log('CPBL_DECODED '+JSON.stringify(slim(decoded)));fs.writeFileSync('baseball-probe/cpbl-decoded.json',JSON.stringify(slim(decoded),null,2));}
+              }
+            }else console.log('CPBL_TOKEN_MISSING No POST attempted; no access challenge bypassed.');
+          }
+          await probe('cpbl-yahoo','https://tw.sports.yahoo.com/cpbl/');
+          fs.writeFileSync('baseball-probe/results.json',JSON.stringify({day,finishedAt:new Date().toISOString(),results},null,2));
+          console.log('BASEBALL_PROBE_END '+JSON.stringify({day,total:results.length,successfulHttp:results.filter(x=>x.httpStatus===200).length}));
+          NODE
+      - name: Save numeric observations and diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseball-live-probe
+          path: baseball-probe/
+          retention-days: 3
