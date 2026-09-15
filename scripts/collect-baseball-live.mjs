@@ -3,6 +3,23 @@ import {setTimeout as delay} from 'node:timers/promises';
 import {collectLeague,dayInTaipei} from '../server/baseball-current.mjs';
 const output='baseball-current';
 await mkdir(output,{recursive:true});
+const finite=v=>typeof v==='number'&&Number.isFinite(v);
+function materialChanges(old,g){
+ const changes={};
+ const scalars=[
+  ['awayScore',old.away?.score,g.away?.score],['homeScore',old.home?.score,g.home?.score],
+  ['inning',old.inning,g.inning],['balls',old.balls,g.balls],['strikes',old.strikes,g.strikes],['outs',old.outs,g.outs]
+ ];
+ for(const [key,before,after] of scalars)if(finite(before)&&finite(after)&&before!==after)changes[key]={before,after};
+ for(const side of ['away','home']){
+  const before=new Map((old.pitching?.[side]||[]).map(p=>[String(p.id||p.name),p]));
+  for(const p of g.pitching?.[side]||[]){
+   const prior=before.get(String(p.id||p.name));if(!prior)continue;
+   for(const field of ['pitchCount','outsRecorded']){const a=prior[field],b=p[field];if(finite(a)&&finite(b)&&a!==b)(changes[`${side}Pitching`]??={})[`${p.id||p.name}:${field}`]={before:a,after:b};}
+  }
+ }
+ return changes;
+}
 async function capture(){
  const date=dayInTaipei();
  const results=await Promise.all(['NPB','KBO','CPBL'].map(async league=>{
@@ -20,8 +37,10 @@ if(active){
  const before=new Map(first.leagues.flatMap(l=>l.games).map(g=>[g.key,g]));
  for(const g of latest.leagues.flatMap(l=>l.games)){
   const old=before.get(g.key),interval=Date.parse(g.source.fetchedAt)-Date.parse(old?.source.fetchedAt);
-  g.liveChangesVerified=!!old&&old.date===g.date&&old.status==='live'&&g.status==='live'&&old.liveStateObserved&&g.liveStateObserved&&old.stateHash!==g.stateHash&&interval>=60000;
-  if(g.liveChangesVerified)g.liveChangeProof={beforeHash:old.stateHash,afterHash:g.stateHash,beforeFetchedAt:old.source.fetchedAt,afterFetchedAt:g.source.fetchedAt,intervalSeconds:interval/1000};
+  const sameTeams=!!old&&old.away?.id===g.away?.id&&old.home?.id===g.home?.id;
+  const changes=old?materialChanges(old,g):{};
+  g.liveChangesVerified=!!old&&old.date===g.date&&sameTeams&&old.status==='live'&&g.status==='live'&&interval>=60000&&Object.keys(changes).length>0;
+  if(g.liveChangesVerified)g.liveChangeProof={beforeHash:old.stateHash,afterHash:g.stateHash,beforeFetchedAt:old.source.fetchedAt,afterFetchedAt:g.source.fetchedAt,intervalSeconds:interval/1000,changes};
  }
 }
 await writeFile(output+'/current.json',JSON.stringify(latest,null,2));
