@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "task": "Collect actual current NPB KBO CPBL baseball data until live changes are verified for each league",
+  "repository": "poias45652-creator/arena-sports-board",
+  "branch": "data/live-source-probe-20260915",
+  "workflow": "Current baseball collector",
+  "workflowPath": ".github/workflows/baseball-current-collector.yml",
+  "baselineRunId": 34926808234,
+  "baselineJobId": 104246472890,
+  "baselineArtifactId": 10380098816,
+  "observedAt": "2026-09-15T03:55:32.642Z",
+  "dateAsiaTaipei": "2026-09-15",
+  "currentGames": {"NPB": 6, "KBO": 4, "CPBL": 3},
+  "currentStates": {"NPB": "all_pregame", "KBO": "all_pregame", "CPBL": "all_pregame"},
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16, not Render",
+    "inserted": 13,
+    "readBack": 13,
+    "duplicateInserts": 0,
+    "passed": true,
+    "checkedAt": "2026-09-15T03:55:33.972Z"
+  },
+  "firstStartTaipei": {"NPB": "17:00", "KBO": "17:30", "CPBL": "18:35"},
+  "sourceURLs": {
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-09-15&toDate=2026-09-15&page=1&pageSize=100",
+    "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/"
+  },
+  "liveChangeProof": {"NPB": null, "KBO": null, "CPBL": null},
+  "allLeaguesLiveVerified": false,
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "knownGaps": ["NPB and CPBL ball/strike/base states not verified", "CPBL pitch counts null in checked completed sample", "CPBL source-listed lineup is not proof of officially confirmed lineup", "No live games at the capture time; pregame zero scores normalized to null", "Provider publication timestamp unavailable; captured time is recorded separately"],
+  "nextAction": "During first-team game hours rerun the current collector, require two current live captures with a real numerical state change before marking a league verified. Do not deploy main or alter Render during verification."
+}
