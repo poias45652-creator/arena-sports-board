@@ -25,3 +25,5 @@ try{
  console.log(`YJ Render v127: restored and SHA-256 verified ${names.size} source files. GPT ${release.gpt_commit}.`);
 }catch(e){console.error(`Cannot prepare Render v127: ${e.message}. Upload every file from the same ZIP to the repository root.`);process.exitCode=1;}
 finally{if(stage)await rm(stage,{recursive:true,force:true});}
+
+if(!process.exitCode)await import('./arena-live-ui-install.mjs');

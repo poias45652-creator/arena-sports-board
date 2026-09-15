@@ -1,0 +1,23 @@
+name: Baseball live website integration
+on:
+  push:
+    branches: ["feat/baseball-live-website-20260915"]
+  pull_request:
+    paths: ["app/international-live-feed.tsx", "app/api/international-live/**", "server/baseball-*.mjs", "arena-live-ui-install.mjs", "arena-render-v127-prepare.mjs"]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: node --test tests/baseball-live-feed.test.mjs
+      - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: '1'
