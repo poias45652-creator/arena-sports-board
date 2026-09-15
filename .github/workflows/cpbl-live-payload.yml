@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - name: Read current CPBL games and payload structure
+      - name: Read current CPBL game payloads
         run: |
           mkdir -p cpbl-payload
           python3 - <<'PY'
@@ -19,42 +19,57 @@ jobs:
           from pathlib import Path
           out=Path('cpbl-payload'); results=[]
           now=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))); day=now.strftime('%Y-%m-%d'); key=now.strftime('%y%m%d')
+          def save(label,j): (out/(label+'.json')).write_text(json.dumps(j,ensure_ascii=False,indent=2),encoding='utf8')
           def read(label,url):
-              r={'id':label,'url':url,'fetchedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+              url=urllib.parse.quote(url,safe=':/?=&%')
+              r={'id':label,'url':url,'requestedAt':datetime.datetime.now(datetime.timezone.utc).isoformat()}
               try:
+                  if urllib.parse.urlparse(url).hostname!='tw.sports.yahoo.com':raise ValueError('unapproved host')
                   req=urllib.request.Request(url,headers={'User-Agent':'YJBaseballSourceCheck/1.0','Accept':'text/html,application/json'})
                   with urllib.request.urlopen(req,timeout=20) as f:
                       b=f.read(6000001);r.update(httpStatus=f.status,bytes=len(b),serverDate=f.headers.get('Date'),cacheControl=f.headers.get('Cache-Control'))
                       if len(b)>6000000:raise ValueError('response cap')
-                      t=b.decode('utf8');return t
+                      r['fetchedAt']=datetime.datetime.now(datetime.timezone.utc).isoformat();return b.decode('utf8')
               except Exception as e:r['error']=str(e);return ''
               finally:results.append(r);print('REQUEST '+json.dumps(r,ensure_ascii=False),flush=True)
-          def extract(label,t):
-              scripts=[];chunks=[];tables=[]
+          def extract(label,t,gid):
+              chunks=[];tables=[];objects=[];schemas=[];rsc=[]
               for attrs,body in re.findall(r'<script([^>]*)>(.*?)</script>',t,re.S|re.I):
-                  if not body:continue
-                  try:
-                      j=json.loads(body)
-                      scripts.append({'attrs':attrs,'type':type(j).__name__,'keys':list(j)[:40] if isinstance(j,dict) else None})
-                      if isinstance(j,dict) and ('props' in j or 'context' in j):
-                          (out/(label+'-json-script.json')).write_text(json.dumps(j,ensure_ascii=False),encoding='utf8')
-                  except ValueError:scripts.append({'attrs':attrs,'prefix':body[:180],'length':len(body)})
-                  for term in ['cpbl.g.','home_team','away_team','homeTeam','awayTeam','gameid','gameId','game_id','inning','pitch_count','start_time','scoreboard','league_id','leagueId']:
-                      m=re.search(re.escape(term),body,re.I)
-                      if m:chunks.append({'term':term,'excerpt':body[max(0,m.start()-150):m.start()+1400]})
+                  if 'application/ld+json' in attrs:
+                      try:schemas.append(json.loads(body))
+                      except ValueError:pass
+                  m=re.fullmatch(r'self\.__next_f\.push\((\[.*\])\);?',body,re.S)
+                  if m:
+                      try:
+                          parts=json.loads(m[1])
+                          if len(parts)>1 and parts[0]==1 and isinstance(parts[1],str):rsc.append(parts[1])
+                      except ValueError:pass
+              joined=''.join(rsc)
+              def walk(x,path='',depth=0):
+                  if depth>30:return
+                  if isinstance(x,dict):
+                      identity=[x.get(k) for k in ('id','gameId','gameid','game_id')]
+                      if any(isinstance(v,str) and ('cpbl.g.'+gid in v or v==gid) for v in identity):objects.append({'path':path,'data':x})
+                      for k,v in x.items():walk(v,path+'/'+str(k),depth+1)
+                  elif isinstance(x,list):
+                      for i,v in enumerate(x):walk(v,path+'/'+str(i),depth+1)
+              for line in joined.splitlines():
+                  _,_,payload=line.partition(':')
+                  if payload.startswith(('{','[')):
+                      try:walk(json.loads(payload),line.split(':',1)[0])
+                      except ValueError:pass
+              for m in list(re.finditer(re.escape('cpbl.g.'+gid),joined))[:18]:
+                  chunks.append(joined[max(0,m.start()-200):m.start()+2600])
               for table in re.findall(r'<table\b[^>]*>(.*?)</table>',t,re.S|re.I):
                   rows=[]
                   for tr in re.findall(r'<tr\b[^>]*>(.*?)</tr>',table,re.S|re.I):
-                      cells=[html.unescape(re.sub(r'<[^>]+>',' ',x)).strip() for x in re.findall(r'<t[hd]\b[^>]*>(.*?)</t[hd]>',tr,re.S|re.I)]
+                      cells=[re.sub(r'\s+',' ',html.unescape(re.sub(r'<[^>]+>',' ',x))).strip() for x in re.findall(r'<t[hd]\b[^>]*>(.*?)</t[hd]>',tr,re.S|re.I)]
                       if cells:rows.append(cells)
                   if rows:tables.append(rows)
-              clean=html.unescape(re.sub(r'<[^>]+>',' ',re.sub(r'<script\b[^>]*>.*?</script>|<style\b[^>]*>.*?</style>',' ',t,flags=re.S|re.I)))
-              clean=re.sub(r'\s+',' ',clean)
-              facts={'title':re.findall(r'<title[^>]*>(.*?)</title>',t,re.S),'scriptStructures':scripts,'dataShapeExcerpts':chunks[:35],'tables':tables,'scoreArea':clean[clean.find('Advertisement'):][:7000]}
-              (out/(label+'-structure.json')).write_text(json.dumps(facts,ensure_ascii=False,indent=2),encoding='utf8')
-              print('STRUCTURE '+json.dumps({'label':label,'scripts':scripts[:10],'tables':len(tables),'chunks':len(chunks)},ensure_ascii=False)[:7000],flush=True)
-          found={}
-          recent=None
+              facts={'gameId':gid,'title':re.findall(r'<title[^>]*>(.*?)</title>',t,re.S),'schema':schemas,'gameObjects':objects,'gamePayloadExcerpts':chunks,'tables':tables}
+              save(label,facts)
+              print('GAME '+json.dumps({'label':label,'title':facts['title'],'objects':len(objects),'schemas':schemas,'tables':len(tables)},ensure_ascii=False),flush=True)
+          found={};recent=None
           for team in ['富邦','統一','台鋼']:
               u='https://tw.sports.yahoo.com/cpbl/teams/'+urllib.parse.quote(team)+'/'
               t=read('team-'+team,u)
@@ -64,13 +79,10 @@ jobs:
                   if not m:continue
                   if m[1].startswith(key):found[m[1]]=urllib.parse.urljoin(u,a)
                   elif m[1][:6]<key and (recent is None or m[1]>recent[0]):recent=(m[1],urllib.parse.urljoin(u,a))
-          for gid,u in list(found.items())[:3]:
-              t=read('cpbl-'+gid,u);extract('cpbl-'+gid,t)
+          for gid,u in list(found.items())[:3]:extract('cpbl-'+gid,read('cpbl-'+gid,u),gid)
           if recent:
-              gid,u=recent;t=read('cpbl-recent-'+gid,u);extract('cpbl-recent-'+gid,t)
-          (out/'today-games.json').write_text(json.dumps({'date':day,'games':found,'recentSample':recent},ensure_ascii=False,indent=2),encoding='utf8')
-          (out/'requests.json').write_text(json.dumps(results,ensure_ascii=False,indent=2),encoding='utf8')
-          print('CPBL_TODAY_LINKS '+json.dumps(found,ensure_ascii=False),flush=True)
+              gid,u=recent;extract('cpbl-recent-'+gid,read('cpbl-recent-'+gid,u),gid)
+          save('today-games',{'date':day,'games':found,'recentSample':recent});save('requests',results)
           PY
       - uses: actions/upload-artifact@v4
         if: always()
