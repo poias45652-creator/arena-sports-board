@@ -1,0 +1,925 @@
+{
+  "gameId": "cpbl.g.260915282",
+  "season": 2026,
+  "seasonPhase": "REGULAR_SEASON",
+  "startTime": "2026-09-15T03:35:00-07:00",
+  "status": "PREGAME",
+  "homeTeamId": "cpbl.t.5",
+  "awayTeamId": "cpbl.t.7",
+  "homeScore": 0,
+  "awayScore": 0,
+  "homeHits": 0,
+  "awayHits": 0,
+  "homeErrors": 0,
+  "awayErrors": 0,
+  "homeLineScore": [],
+  "awayLineScore": [],
+  "homeTeamLineup": [
+    {
+      "player": {
+        "displayName": "童堉誠",
+        "shortDisplayName": "童堉誠",
+        "playerId": "cpbl.p.3592",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3592/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "00",
+        "positionIds": [
+          "RIGHT_FIELD"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "童堉誠",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 1,
+      "positionId": "RIGHT_FIELD",
+      "position": {
+        "positionId": "RIGHT_FIELD",
+        "name": "右外野手",
+        "abbreviation": "右外野手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "葉子霆",
+        "shortDisplayName": "葉子霆",
+        "playerId": "cpbl.p.3163",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3163/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "6",
+        "positionIds": [
+          "SHORTSTOP"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "葉子霆",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 2,
+      "positionId": "SHORTSTOP",
+      "position": {
+        "positionId": "SHORTSTOP",
+        "name": "游擊手",
+        "abbreviation": "游擊手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "林澤彬",
+        "shortDisplayName": "林澤彬",
+        "playerId": "cpbl.p.3219",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3219/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "2",
+        "positionIds": [
+          "SECOND_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "林澤彬",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 3,
+      "positionId": "SECOND_BASE",
+      "position": {
+        "positionId": "SECOND_BASE",
+        "name": "二壘手",
+        "abbreviation": "二壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "張育成",
+        "shortDisplayName": "張育成",
+        "playerId": "cpbl.p.3483",
+        "alias": null,
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "99",
+        "positionIds": [
+          "SHORTSTOP"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "張育成",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 4,
+      "positionId": "DESIGNATED_HITTER",
+      "position": {
+        "positionId": "DESIGNATED_HITTER",
+        "name": "指定打擊",
+        "abbreviation": "指定打擊"
+      }
+    },
+    {
+      "player": {
+        "displayName": "王苡丞",
+        "shortDisplayName": "王苡丞",
+        "playerId": "cpbl.p.3168",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3168/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "14",
+        "positionIds": [
+          "FIRST_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "王苡丞",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 5,
+      "positionId": "LEFT_FIELD",
+      "position": {
+        "positionId": "LEFT_FIELD",
+        "name": "左外野手",
+        "abbreviation": "左外野手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "董子恩",
+        "shortDisplayName": "董子恩",
+        "playerId": "cpbl.p.3169",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3169/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "78",
+        "positionIds": [
+          "THIRD_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "董子恩",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 6,
+      "positionId": "THIRD_BASE",
+      "position": {
+        "positionId": "THIRD_BASE",
+        "name": "三壘手",
+        "abbreviation": "三壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "范國宸",
+        "shortDisplayName": "范國宸",
+        "playerId": "cpbl.p.3134",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3134/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "46",
+        "positionIds": [
+          "FIRST_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "范國宸",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 7,
+      "positionId": "FIRST_BASE",
+      "position": {
+        "positionId": "FIRST_BASE",
+        "name": "一壘手",
+        "abbreviation": "一壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "戴培峰",
+        "shortDisplayName": "戴培峰",
+        "playerId": "cpbl.p.3149",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3149/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "95",
+        "positionIds": [
+          "CATCHER"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "戴培峰",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 8,
+      "positionId": "CATCHER",
+      "position": {
+        "positionId": "CATCHER",
+        "name": "捕手",
+        "abbreviation": "捕手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "孔念恩",
+        "shortDisplayName": "孔念恩",
+        "playerId": "cpbl.p.3170",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3170/"
+        },
+        "teamId": "cpbl.t.5",
+        "uniformNumber": "82",
+        "positionIds": [
+          "RIGHT_FIELD"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "孔念恩",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 9,
+      "positionId": "CENTER_FIELD",
+      "position": {
+        "positionId": "CENTER_FIELD",
+        "name": "中外野手",
+        "abbreviation": "中外野手"
+      }
+    }
+  ],
+  "awayTeamLineup": [
+    {
+      "player": {
+        "displayName": "郭天信",
+        "shortDisplayName": "郭天信",
+        "playerId": "cpbl.p.3274",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3274/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "2",
+        "positionIds": [
+          "CENTER_FIELD"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "郭天信",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 1,
+      "positionId": "CENTER_FIELD",
+      "position": {
+        "positionId": "CENTER_FIELD",
+        "name": "中外野手",
+        "abbreviation": "中外野手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "劉基鴻",
+        "shortDisplayName": "劉基鴻",
+        "playerId": "cpbl.p.3270",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3270/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "46",
+        "positionIds": [
+          "THIRD_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "劉基鴻",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 2,
+      "positionId": "THIRD_BASE",
+      "position": {
+        "positionId": "THIRD_BASE",
+        "name": "三壘手",
+        "abbreviation": "三壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "張政禹",
+        "shortDisplayName": "張政禹",
+        "playerId": "cpbl.p.3267",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3267/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "25",
+        "positionIds": [
+          "SHORTSTOP"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "張政禹",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 3,
+      "positionId": "SHORTSTOP",
+      "position": {
+        "positionId": "SHORTSTOP",
+        "name": "游擊手",
+        "abbreviation": "游擊手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "朱育賢",
+        "shortDisplayName": "朱育賢",
+        "playerId": "cpbl.p.3188",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3188/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "11",
+        "positionIds": [
+          "FIRST_BASE"
+        ],
+        "throwingHand": "LEFT",
+        "battingSide": "LEFT",
+        "firstName": "朱育賢",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 4,
+      "positionId": "FIRST_BASE",
+      "position": {
+        "positionId": "FIRST_BASE",
+        "name": "一壘手",
+        "abbreviation": "一壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "吉力吉撈．鞏冠",
+        "shortDisplayName": "吉力吉撈．鞏冠",
+        "playerId": "cpbl.p.3254",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3254/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "4",
+        "positionIds": [
+          "FIRST_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "吉力吉撈．鞏冠",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 5,
+      "positionId": "DESIGNATED_HITTER",
+      "position": {
+        "positionId": "DESIGNATED_HITTER",
+        "name": "指定打擊",
+        "abbreviation": "指定打擊"
+      }
+    },
+    {
+      "player": {
+        "displayName": "李凱威",
+        "shortDisplayName": "李凱威",
+        "playerId": "cpbl.p.3265",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3265/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "21",
+        "positionIds": [
+          "SECOND_BASE"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "LEFT",
+        "firstName": "李凱威",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 6,
+      "positionId": "SECOND_BASE",
+      "position": {
+        "positionId": "SECOND_BASE",
+        "name": "二壘手",
+        "abbreviation": "二壘手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "王順和",
+        "shortDisplayName": "王順和",
+        "playerId": "cpbl.p.3284",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3284/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "24",
+        "positionIds": [
+          "CENTER_FIELD"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "王順和",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 7,
+      "positionId": "RIGHT_FIELD",
+      "position": {
+        "positionId": "RIGHT_FIELD",
+        "name": "右外野手",
+        "abbreviation": "右外野手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "蔣少宏",
+        "shortDisplayName": "蔣少宏",
+        "playerId": "cpbl.p.3256",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3256/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "63",
+        "positionIds": [
+          "CATCHER"
+        ],
+        "throwingHand": "RIGHT",
+        "battingSide": "RIGHT",
+        "firstName": "蔣少宏",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 8,
+      "positionId": "CATCHER",
+      "position": {
+        "positionId": "CATCHER",
+        "name": "捕手",
+        "abbreviation": "捕手"
+      }
+    },
+    {
+      "player": {
+        "displayName": "陳子豪",
+        "shortDisplayName": "陳子豪",
+        "playerId": "cpbl.p.3001",
+        "alias": {
+          "url": "https://tw.sports.yahoo.com/cpbl/players/3001/"
+        },
+        "teamId": "cpbl.t.7",
+        "uniformNumber": "1",
+        "positionIds": [
+          "RIGHT_FIELD"
+        ],
+        "throwingHand": "LEFT",
+        "battingSide": "LEFT",
+        "firstName": "陳子豪",
+        "lastName": "",
+        "playerSeasonStats": [],
+        "gameBattingStats": [
+          {
+            "stats": [
+              {
+                "statId": "AT_BATS",
+                "value": "0"
+              },
+              {
+                "statId": "BATTING_AVERAGE",
+                "value": null
+              },
+              {
+                "statId": "HITS",
+                "value": "0"
+              },
+              {
+                "statId": "RBIS",
+                "value": "0"
+              }
+            ]
+          }
+        ],
+        "gamePitchingStats": []
+      },
+      "order": 9,
+      "positionId": "LEFT_FIELD",
+      "position": {
+        "positionId": "LEFT_FIELD",
+        "name": "左外野手",
+        "abbreviation": "左外野手"
+      }
+    }
+  ],
+  "playerStats": {
+    "awayTables": [],
+    "homeTables": []
+  },
+  "currentPeriod": null,
+  "playByPlay": []
+}

@@ -1,0 +1,1365 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-15",
+  "capturedAt": "2026-09-15T03:55:32.642Z",
+  "purpose": "current feed validation; not production deployment",
+  "leagues": [
+    {
+      "schemaVersion": 1,
+      "league": "NPB",
+      "date": "2026-09-15",
+      "collectedAt": "2026-09-15T03:55:31.866Z",
+      "games": [
+        {
+          "key": "NPB:2021048552",
+          "id": "2021048552",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 巨 デ B S O 試合前 試合前 前へ 次へ 球場名： 横浜 自動更新 手動更新 更新 更新情報があります DeNA 13件 コメントで応援しよう！ 巨人 48件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "1",
+            "name": "讀賣巨人",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "3",
+            "name": "橫濱DeNA海灣之星",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "戸郷",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "東",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048552/score",
+            "fetchedAt": "2026-09-15T03:55:29.566Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:29 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048552/stats",
+                "fetchedAt": "2026-09-15T03:55:29.778Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "NPB:2021048553",
+          "id": "2021048553",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 中 神 B S O 試合前 試合前 前へ 次へ 球場名： 甲子園 自動更新 手動更新 更新 更新情報があります 阪神 59件 コメントで応援しよう！ 中日 8件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "4",
+            "name": "中日龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "5",
+            "name": "阪神虎",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "柳",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "ルーカス",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048553/score",
+            "fetchedAt": "2026-09-15T03:55:29.951Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:29 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048553/stats",
+                "fetchedAt": "2026-09-15T03:55:30.129Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "NPB:2021048616",
+          "id": "2021048616",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 広 ヤ B S O 試合前 試合前 前へ 次へ 球場名： 神宮 自動更新 手動更新 更新 更新情報があります ヤクルト 2件 コメントで応援しよう！ 広島 42件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "6",
+            "name": "廣島東洋鯉魚",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "2",
+            "name": "養樂多燕子",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "鈴木",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "吉村",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048616/score",
+            "fetchedAt": "2026-09-15T03:55:30.426Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048616/stats",
+                "fetchedAt": "2026-09-15T03:55:30.648Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "NPB:2021039420",
+          "id": "2021039420",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 ロ 日 B S O 試合前 試合前 前へ 次へ 球場名： エスコンF 自動更新 手動更新 更新 更新情報があります 日本ハム 6件 コメントで応援しよう！ ロッテ 2件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "9",
+            "name": "千葉羅德海洋",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "8",
+            "name": "日本火腿鬥士",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "田中",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "北山",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039420/score",
+            "fetchedAt": "2026-09-15T03:55:30.842Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039420/stats",
+                "fetchedAt": "2026-09-15T03:55:31.055Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "NPB:2021039421",
+          "id": "2021039421",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 西 楽 B S O 試合前 試合前 前へ 次へ 球場名： 楽天モバイル 自動更新 手動更新 更新 更新情報があります 楽天 28件 コメントで応援しよう！ 西武 1件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "7",
+            "name": "西武獅",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "376",
+            "name": "東北樂天金鷲",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "森脇",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "伊藤樹",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039421/score",
+            "fetchedAt": "2026-09-15T03:55:31.253Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039421/stats",
+                "fetchedAt": "2026-09-15T03:55:31.444Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "NPB:2021039422",
+          "id": "2021039422",
+          "league": "NPB",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "rawStatus": "試合前 18:00 開始 ソ オ B S O 試合前 試合前 前へ 次へ 球場名： 京セラD大阪 自動更新 手動更新 更新 更新情報があります オリックス 2件 コメントで応援しよう！ ソフトバンク 9件 略語については こちら をご覧ください。",
+          "away": {
+            "id": "12",
+            "name": "福岡軟銀鷹",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "11",
+            "name": "歐力士猛牛",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "モイネロ",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "ジェリー",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ],
+            "home": [
+              {
+                "id": null,
+                "name": "0",
+                "stats": {
+                  "AT_BATS": 0,
+                  "RUNS": 0,
+                  "HITS": 0,
+                  "RBIS": 0,
+                  "HOME_RUNS": null,
+                  "WALKS": 0,
+                  "STRIKEOUTS": 0
+                }
+              }
+            ]
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039422/score",
+            "fetchedAt": "2026-09-15T03:55:31.674Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039422/stats",
+                "fetchedAt": "2026-09-15T03:55:31.864Z"
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "bso_and_bases_not_verified"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        }
+      ],
+      "errors": [],
+      "status": "ok",
+      "liveLatencyVerified": false
+    },
+    {
+      "schemaVersion": 1,
+      "league": "KBO",
+      "date": "2026-09-15",
+      "collectedAt": "2026-09-15T03:55:30.727Z",
+      "games": [
+        {
+          "key": "KBO:20260915HTSK02026",
+          "id": "20260915HTSK02026",
+          "league": "KBO",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "rawStatus": "BEFORE",
+          "away": {
+            "id": "HT",
+            "name": "起亞虎",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "SK",
+            "name": "SSG登陸者",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "김태형",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "김민준",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915HTSK02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.133Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "KBO:20260915KTHH02026",
+          "id": "20260915KTHH02026",
+          "league": "KBO",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "rawStatus": "BEFORE",
+          "away": {
+            "id": "KT",
+            "name": "KT巫師",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "HH",
+            "name": "韓華鷹",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "고영표",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "왕옌청",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915KTHH02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.333Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "KBO:20260915LGNC02026",
+          "id": "20260915LGNC02026",
+          "league": "KBO",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "rawStatus": "BEFORE",
+          "away": {
+            "id": "LG",
+            "name": "LG雙子",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "NC",
+            "name": "NC恐龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "카라스코",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "송명기",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915LGNC02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.536Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "KBO:20260915LTSS02026",
+          "id": "20260915LTSS02026",
+          "league": "KBO",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "rawStatus": "BEFORE",
+          "away": {
+            "id": "LT",
+            "name": "樂天巨人",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "SS",
+            "name": "三星獅",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": {
+              "id": null,
+              "name": "박세웅",
+              "confirmation": "probable"
+            },
+            "home": {
+              "id": null,
+              "name": "원태인",
+              "confirmation": "probable"
+            }
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915LTSS02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.727Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        }
+      ],
+      "errors": [],
+      "status": "ok",
+      "liveLatencyVerified": false
+    },
+    {
+      "schemaVersion": 1,
+      "league": "CPBL",
+      "date": "2026-09-15",
+      "collectedAt": "2026-09-15T03:55:32.642Z",
+      "games": [
+        {
+          "key": "CPBL:260915282",
+          "id": "260915282",
+          "league": "CPBL",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "rawStatus": "PREGAME",
+          "away": {
+            "id": "cpbl.t.7",
+            "name": "味全龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.5",
+            "name": "富邦悍將",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": null,
+            "home": null
+          },
+          "lineups": {
+            "away": [
+              {
+                "id": "cpbl.p.3274",
+                "name": "郭天信",
+                "order": 1,
+                "position": "CENTER_FIELD",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3270",
+                "name": "劉基鴻",
+                "order": 2,
+                "position": "THIRD_BASE",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3267",
+                "name": "張政禹",
+                "order": 3,
+                "position": "SHORTSTOP",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3188",
+                "name": "朱育賢",
+                "order": 4,
+                "position": "FIRST_BASE",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3254",
+                "name": "吉力吉撈．鞏冠",
+                "order": 5,
+                "position": "DESIGNATED_HITTER",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3265",
+                "name": "李凱威",
+                "order": 6,
+                "position": "SECOND_BASE",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3284",
+                "name": "王順和",
+                "order": 7,
+                "position": "RIGHT_FIELD",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3256",
+                "name": "蔣少宏",
+                "order": 8,
+                "position": "CATCHER",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3001",
+                "name": "陳子豪",
+                "order": 9,
+                "position": "LEFT_FIELD",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              }
+            ],
+            "home": [
+              {
+                "id": "cpbl.p.3592",
+                "name": "童堉誠",
+                "order": 1,
+                "position": "RIGHT_FIELD",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3163",
+                "name": "葉子霆",
+                "order": 2,
+                "position": "SHORTSTOP",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3219",
+                "name": "林澤彬",
+                "order": 3,
+                "position": "SECOND_BASE",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3483",
+                "name": "張育成",
+                "order": 4,
+                "position": "DESIGNATED_HITTER",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3168",
+                "name": "王苡丞",
+                "order": 5,
+                "position": "LEFT_FIELD",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3169",
+                "name": "董子恩",
+                "order": 6,
+                "position": "THIRD_BASE",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3134",
+                "name": "范國宸",
+                "order": 7,
+                "position": "FIRST_BASE",
+                "battingSide": "RIGHT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3149",
+                "name": "戴培峰",
+                "order": 8,
+                "position": "CATCHER",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              },
+              {
+                "id": "cpbl.p.3170",
+                "name": "孔念恩",
+                "order": 9,
+                "position": "CENTER_FIELD",
+                "battingSide": "LEFT",
+                "confirmation": "source_listed_not_officially_verified"
+              }
+            ]
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E5%AF%8C%E9%82%A6-%E6%82%8D%E5%B0%87-260915282/",
+            "fetchedAt": "2026-09-15T03:55:31.927Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "CPBL:260915332",
+          "id": "260915332",
+          "league": "CPBL",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "rawStatus": "PREGAME",
+          "away": {
+            "id": "cpbl.t.6",
+            "name": "樂天桃猿",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.2",
+            "name": "統一獅",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": null,
+            "home": null
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E6%A8%82%E5%A4%A9-%E6%A1%83%E7%8C%BF-%E7%B5%B1%E4%B8%80-%E7%8D%85-260915332/",
+            "fetchedAt": "2026-09-15T03:55:32.307Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:32 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        },
+        {
+          "key": "CPBL:260915331",
+          "id": "260915331",
+          "league": "CPBL",
+          "date": "2026-09-15",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "rawStatus": "PREGAME",
+          "away": {
+            "id": "cpbl.t.1",
+            "name": "中信兄弟",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.8",
+            "name": "台鋼雄鷹",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": null,
+            "home": null
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%8F%B0%E9%8B%BC-%E9%9B%84%E9%B7%B9-260915331/",
+            "fetchedAt": "2026-09-15T03:55:32.635Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:32 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied"
+          ],
+          "stateHash": "ecb16406653ae0ea48890304185e1f0e3ceab2bfee50ae4f1bbc2bf38a63e220",
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        }
+      ],
+      "errors": [],
+      "status": "ok",
+      "liveLatencyVerified": false
+    }
+  ]
+}

@@ -1,0 +1,360 @@
+{
+  "date": "2026-09-15",
+  "checkedAt": "2026-09-15T03:55:32.642Z",
+  "secondCapturePerformed": false,
+  "productionDeployed": false,
+  "leagues": [
+    {
+      "league": "NPB",
+      "games": 6,
+      "status": "ok",
+      "errors": [],
+      "pregame": 6,
+      "live": 0,
+      "final": 0,
+      "liveStateObserved": false,
+      "liveChangesVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "NPB:2021048552",
+          "away": "讀賣巨人",
+          "home": "橫濱DeNA海灣之星",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048552/score",
+            "fetchedAt": "2026-09-15T03:55:29.566Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:29 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048552/stats",
+                "fetchedAt": "2026-09-15T03:55:29.778Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021048553",
+          "away": "中日龍",
+          "home": "阪神虎",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048553/score",
+            "fetchedAt": "2026-09-15T03:55:29.951Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:29 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048553/stats",
+                "fetchedAt": "2026-09-15T03:55:30.129Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021048616",
+          "away": "廣島東洋鯉魚",
+          "home": "養樂多燕子",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021048616/score",
+            "fetchedAt": "2026-09-15T03:55:30.426Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021048616/stats",
+                "fetchedAt": "2026-09-15T03:55:30.648Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021039420",
+          "away": "千葉羅德海洋",
+          "home": "日本火腿鬥士",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039420/score",
+            "fetchedAt": "2026-09-15T03:55:30.842Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039420/stats",
+                "fetchedAt": "2026-09-15T03:55:31.055Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021039421",
+          "away": "西武獅",
+          "home": "東北樂天金鷲",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039421/score",
+            "fetchedAt": "2026-09-15T03:55:31.253Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039421/stats",
+                "fetchedAt": "2026-09-15T03:55:31.444Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021039422",
+          "away": "福岡軟銀鷹",
+          "home": "歐力士猛牛",
+          "startTime": "2026-09-15T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039422/score",
+            "fetchedAt": "2026-09-15T03:55:31.674Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-15",
+                "fetchedAt": "2026-09-15T03:55:29.364Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039422/stats",
+                "fetchedAt": "2026-09-15T03:55:31.864Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        }
+      ]
+    },
+    {
+      "league": "KBO",
+      "games": 4,
+      "status": "ok",
+      "errors": [],
+      "pregame": 4,
+      "live": 0,
+      "final": 0,
+      "liveStateObserved": false,
+      "liveChangesVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "KBO:20260915HTSK02026",
+          "away": "起亞虎",
+          "home": "SSG登陸者",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915HTSK02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.133Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "KBO:20260915KTHH02026",
+          "away": "KT巫師",
+          "home": "韓華鷹",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915KTHH02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.333Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "KBO:20260915LGNC02026",
+          "away": "LG雙子",
+          "home": "NC恐龍",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915LGNC02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.536Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "KBO:20260915LTSS02026",
+          "away": "樂天巨人",
+          "home": "三星獅",
+          "startTime": "2026-09-15T09:30:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20260915LTSS02026/game-polling",
+            "fetchedAt": "2026-09-15T03:55:30.727Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:30 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        }
+      ]
+    },
+    {
+      "league": "CPBL",
+      "games": 3,
+      "status": "ok",
+      "errors": [],
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "liveStateObserved": false,
+      "liveChangesVerified": false,
+      "lineupRows": 18,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "CPBL:260915282",
+          "away": "味全龍",
+          "home": "富邦悍將",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E5%AF%8C%E9%82%A6-%E6%82%8D%E5%B0%87-260915282/",
+            "fetchedAt": "2026-09-15T03:55:31.927Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:31 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "CPBL:260915332",
+          "away": "樂天桃猿",
+          "home": "統一獅",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E6%A8%82%E5%A4%A9-%E6%A1%83%E7%8C%BF-%E7%B5%B1%E4%B8%80-%E7%8D%85-260915332/",
+            "fetchedAt": "2026-09-15T03:55:32.307Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:32 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "CPBL:260915331",
+          "away": "中信兄弟",
+          "home": "台鋼雄鷹",
+          "startTime": "2026-09-15T10:35:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%8F%B0%E9%8B%BC-%E9%9B%84%E9%B7%B9-260915331/",
+            "fetchedAt": "2026-09-15T03:55:32.635Z",
+            "httpDate": "Tue, 15 Sep 2026 03:55:32 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        }
+      ]
+    }
+  ]
+}

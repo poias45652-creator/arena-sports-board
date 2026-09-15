@@ -1,0 +1,38 @@
+{
+  "kind": "additive-collector-and-admin-api-not-a-complete-site",
+  "repository": "poias45652-creator/arena-sports-board",
+  "branch": "data/live-source-probe-20260915",
+  "dataRunId": 34926808234,
+  "dataCapturedAt": "2026-09-15T03:55:32.642Z",
+  "productionDeployed": false,
+  "productionDatabaseWritten": false,
+  "verifiedLiveChanges": {
+    "NPB": false,
+    "KBO": false,
+    "CPBL": false
+  },
+  "apiRouteGitBlobSha": "d2baa0b888cd6896cc8bac31aed70b014ced764f",
+  "files": {
+    "README.zh-TW.md": "fbac52b23938bc667efc2392f96cc532b5ea1a5c0c14b4fa74899abafd86d7d6",
+    "app/api/international-live/route.ts": "b139d3bb7c6e1f17318697ec70217506faec9d462e8b3a840ef747d9f5200d2a",
+    "data/current-observation/cpbl.json": "5a1caf433228cfda825c3db2bffee2852b06c0ccbc4a566e2a833bf2794c38d7",
+    "data/current-observation/current.json": "f67a62a440843807cc69936df1f3bc0f12ff5ee87de4810d76d0ef4b6197ec76",
+    "data/current-observation/kbo.json": "b21dd8ce2fa9fcf718bf17bb9e7a72adca2ce558b44f23a72431ed32bf65a1dd",
+    "data/current-observation/npb.json": "0467c378df8554502eca7979b828083a13c3e31612b95a6a808796e1ea72e986",
+    "evidence/capture-1.json": "f67a62a440843807cc69936df1f3bc0f12ff5ee87de4810d76d0ef4b6197ec76",
+    "evidence/database-test.json": "eccc642af94446414fff7daa8ca45d11c7ffaf45949a54c4293130eeb19b8cc0",
+    "evidence/unit-tests.txt": "1e1eba65c7ee5aeb5484970f66f0cd01f27a8be5a79549297d5e9eff00a5a665",
+    "evidence/verification.json": "749f7c19fc38fd9a2940d6f5cc1fc607fc59286390f3562386aeabf2eb9c02d6",
+    "scripts/collect-baseball-live.mjs": "197c5e6989e2934475523d2797bdf61900bb987460054d06c0e01515ec6d619d",
+    "server/baseball-current.mjs": "5e13397540422368a8e1d6ee3c3f77578cc68c9593331b8243278b686a57a47b",
+    "server/baseball-live-providers.mjs": "cbf4f27e5441e22720cd3a4d31734ca9fb2f829d3c15fdedcb5eab0089c3401e",
+    "server/baseball-live-store.mjs": "468a0df120f9040f46228791b328688aeea1bdbd2d39e71555ecdf867c11f05e",
+    "tests/fixtures/cpbl-260915282.json": "13084debf6d7a7fa8ab54b388079d3c14e13e8225502c15f7f3b13353c424fd4",
+    "tests/fixtures/cpbl-260915331.json": "f2e65c30b05dc19b05dc1da29cac85ccec8f2947525e6e6d6d5a488eb07f91ca",
+    "tests/fixtures/cpbl-260915332.json": "e882f6029933893135a530b672b4acfa1e82133aa5b5e54c93bd5f7841cbe42e",
+    "tests/fixtures/cpbl-final.json": "27d5b7c5fddca71c37932ef6af0f3cc9a7196e263f5d1e66d6f50416c4e0c4a5",
+    "tests/fixtures/kbo-final.json": "3b666ed288d6b641e0a6946128adf003ff90983355f8170b4e0d25ede4308fc9",
+    "tests/fixtures/kbo-pregame.json": "edd06e7c109590531d8e0f8d74b5a1e17f6ffd93ed2087eb0c8f97f52d4fd750",
+    "tests/live-providers.test.mjs": "74c3a0233fd71a8d588b75aeb30748ec24cee22b950de541c62be993e40843d1"
+  }
+}

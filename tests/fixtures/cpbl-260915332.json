@@ -1,0 +1,25 @@
+{
+  "gameId": "cpbl.g.260915332",
+  "season": 2026,
+  "seasonPhase": "REGULAR_SEASON",
+  "startTime": "2026-09-15T03:35:00-07:00",
+  "status": "PREGAME",
+  "homeTeamId": "cpbl.t.2",
+  "awayTeamId": "cpbl.t.6",
+  "homeScore": 0,
+  "awayScore": 0,
+  "homeHits": 0,
+  "awayHits": 0,
+  "homeErrors": 0,
+  "awayErrors": 0,
+  "homeLineScore": [],
+  "awayLineScore": [],
+  "homeTeamLineup": [],
+  "awayTeamLineup": [],
+  "playerStats": {
+    "awayTables": [],
+    "homeTables": []
+  },
+  "currentPeriod": null,
+  "playByPlay": []
+}
