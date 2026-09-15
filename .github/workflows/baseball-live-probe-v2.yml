@@ -1,0 +1,27 @@
+name: Baseball structured live feed probe
+on:
+  push:
+    branches: [data/live-source-probe-20260915]
+    paths: [.github/workflows/baseball-live-probe-v2.yml, scripts/baseball-live-probe.py]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts/baseball-live-probe.py
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Collect bounded current and completed game samples
+        run: python3 scripts/baseball-live-probe.py
+      - name: Retain structured numeric observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: baseball-live-probe-v2
+          path: baseball-probe-v2/
+          retention-days: 7
