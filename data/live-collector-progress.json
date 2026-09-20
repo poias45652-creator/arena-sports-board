@@ -8,11 +8,11 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-20T11:26:34.499Z",
+  "observedAt": "2026-09-20T11:50:49.362Z",
   "dateAsiaTaipei": "2026-09-20",
   "currentGames": {"NPB": 6, "KBO": 5, "CPBL": 3},
   "currentStates": {"NPB": "mixed_live_final_cancelled", "KBO": "all_final", "CPBL": "mixed_live_final"},
-  "databaseTest": {"environment": "isolated GitHub Actions PostgreSQL 16; not Render", "productionWritten": false, "checkedAt": "2026-09-20T11:26:35.747Z", "inserted": 14, "readBack": 14, "duplicateInserts": 0, "passed": true},
+  "databaseTest": {"environment": "isolated GitHub Actions PostgreSQL 16; not Render", "productionWritten": false, "checkedAt": "2026-09-20T11:50:51.888Z", "inserted": 14, "readBack": 14, "duplicateInserts": 0, "passed": true},
   "firstStartTaipei": {"NPB": "13:00", "KBO": "13:00", "CPBL": "15:05"},
   "sourceURLs": {"NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-20", "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-09-20&toDate=2026-09-20&page=1&pageSize=100", "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/"},
   "liveChangeProof": {
@@ -79,10 +79,11 @@
         "verifiedAt": null,
         "source": "yahoo-tw",
         "evidence": [],
-        "attempt21Window": {"before": "2026-09-20T11:25:24.975Z", "after": "2026-09-20T11:26:34.499Z", "intervalSeconds": 69.524, "liveGames": 2, "qualifiedNumericChanges": 0}
+        "attempt21Window": {"before": "2026-09-20T11:25:24.975Z", "after": "2026-09-20T11:26:34.499Z", "intervalSeconds": 69.524, "liveGames": 2, "qualifiedNumericChanges": 0},
+        "attempt22Window": {"before": "2026-09-20T11:49:40.302Z", "after": "2026-09-20T11:50:49.362Z", "intervalSeconds": 69.06, "liveGames": 1, "qualifiedNumericChanges": 0}
       },
       "allVerified": false,
-      "reason": "NPB and KBO are same-day live-verified. CPBL had two live games during attempt 21 and a 69.524-second second capture, but still produced no qualifying numeric live-state change."
+      "reason": "NPB and KBO are same-day live-verified. CPBL had one live game during attempt 22 and a 69.060-second second capture, but still produced no qualifying numeric live-state change."
     }
   },
   "parserFixes": [
@@ -100,7 +101,7 @@
     "CPBL:260920343 final score is 1-2 while parsed inning run sums are 1-1; home inning-by-inning scoring is not authoritative until the source/parser mismatch is resolved."
   ],
   "dataQualityIssues": [
-    {"firstObservedAt": "2026-09-20T11:26:34.499Z", "league": "CPBL", "key": "CPBL:260920343", "away": "味全龍", "home": "中信兄弟", "status": "final", "finalScore": "1-2", "inningRunSum": "1-1", "warning": "home:inning_sum_conflict", "action": "Do not use the parsed CPBL home inning-by-inning total for this game until source/parser cause is resolved."}
+    {"firstObservedAt": "2026-09-20T11:26:34.499Z", "lastObservedAt": "2026-09-20T11:50:49.362Z", "league": "CPBL", "key": "CPBL:260920343", "away": "味全龍", "home": "中信兄弟", "status": "final", "finalScore": "1-2", "inningRunSum": "1-1", "warning": "home:inning_sum_conflict", "action": "Do not use the parsed CPBL home inning-by-inning total for this game until source/parser cause is resolved."}
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-09-20",
@@ -108,9 +109,9 @@
     "KBO": {"verified": true, "verifiedAt": "2026-09-20T08:56:58.261Z", "source": "naver"},
     "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "evidence": []},
     "allVerified": false,
-    "reason": "NPB and KBO are same-day live-verified. CPBL had two live games in attempt 21 but no qualified numeric change across a 69.524-second observation window."
+    "reason": "NPB and KBO are same-day live-verified. CPBL had one live game in attempt 22 but no qualified numeric change across a 69.060-second observation window."
   },
-  "nextAction": "Continue later on 2026-09-20 while CPBL remains live. Re-run the validated Current baseball collector; require a second capture >=65 seconds later and a real numeric change. Keep CPBL pitchCount null. Investigate CPBL:260920343 home inning_sum_conflict in the isolated branch only. Keep main, Render and production database unchanged.",
-  "latestRun": {"runId": 35345918725, "runAttempt": 21, "jobId": 106070371394, "artifactId": 10604831616, "artifactCreatedAt": "2026-09-20T11:26:36Z", "capturedAt": "2026-09-20T11:26:34.499Z", "observationPath": "data/live/2026-09-20T112634Z.json", "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"},
-  "latestObservationCommit": "62ee4ace72283299611a90776e2e0e900a2ffa2b"
+  "nextAction": "Continue later on 2026-09-20 while CPBL remains live. Re-run the validated Current baseball collector; require a second capture >=65 seconds later and a real numeric change. Keep CPBL pitchCount null. Continue investigating CPBL:260920343 home inning_sum_conflict in the isolated branch only. Keep main, Render and production database unchanged.",
+  "latestRun": {"runId": 35345918725, "runAttempt": 22, "jobId": 106073220313, "artifactId": 10603958807, "artifactCreatedAt": "2026-09-20T11:50:53Z", "capturedAt": "2026-09-20T11:50:49.362Z", "observationPath": "data/live/2026-09-20T115049Z.json", "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"},
+  "latestObservationCommit": "b474c38c82a1db56b1071f42d8556918fef97f1c"
 }
