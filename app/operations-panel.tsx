@@ -9,7 +9,7 @@ export default function OperationsPanel({evaluation}:{evaluation:any}){
  <div className="mt-4 space-y-4 text-sm">
  <p className="text-amber-200">{status?.backgroundStatus||'正在查詢背景更新狀態…'}</p>
  {c&&<p>獨立抓盤服務：{c.reachable?`成功 ${c.success} 次／失敗 ${c.failed} 次；觀測 ${Number(c.observedHours||0).toFixed(1)} 小時；最大間隔 ${c.maxGapSeconds??'—'} 秒`:'目前無法讀取狀態'}。這些次數可能包含手動測試。</p>}
- <p>授權失效或來源拒絕存取時，盤口區會顯示原因並停用舊盤推薦。重新連接需由管理者更新來源授權，目前尚未提供網站內的安全更新表單。</p>
+ <p>授權失效或來源拒絕存取時，資料區會顯示原因並停用舊盤推薦。重新連接需由管理者更新來源授權，目前尚未提供網站內的安全更新表單。</p>
  <p>已支援：全場讓分／大小的整分、半分、拆分與比例主盤。局數盤、滾球及特殊裁定尚未接入推薦，不能套用全場模型。</p>
  <p>歷史研究：2023 訓練、2024 校準、2025 測試，共 {validation.split['2025'].games} 場測試。研究候選模型 Brier {validation.test.calibratedLogistic.brier.toFixed(4)}，尚未替換目前推薦模型，也沒有可驗證的歷史 Super007 投注報酬率。</p>
  <p>進階資料已收集投手、打線、傷兵、牛棚、球場與天氣；各場缺項可在「查看分析缺項與保存狀態」查看。收集完成不等於已證實能提高預測準確度。</p>

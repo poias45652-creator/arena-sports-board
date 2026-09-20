@@ -1,7 +1,7 @@
 import type {Match} from './baseball';
 import type {OddsSnapshot,Quote,MarketKey} from './pinnacle';
 import {parseSourceLine} from './settlement';
-export type SuperSnapshot={games:any[];fetchedAt:string;source:string};
+export type SuperSnapshot={games:any[];internationalGames?:any[];sourceLeagues?:{name:string;league:string|null;games:number}[];sourceScope?:{category:'baseball';phase:'pregame';available:boolean};fetchedAt:string;source:string};
 // Exact SUPER aliases observed in the 2026-09-12 source display.
 // Retain team orientation, the ten-minute window and unique-event checks.
 const teamAliases=new Map<string,string>([
@@ -33,7 +33,7 @@ export function superOdds(raw:SuperSnapshot|null,games:Match[],label:(t:Match['h
    const q=primaries[0],isTotal=type===104,isBinary=type===111||type===105;
    const value=isTotal?q.total:q.homeLine||q.awayLine;
    const parsed=isBinary?{line:0,boundary:0,raw:''}:parseSourceLine(value);
-   if(!parsed)return fail('來源盤口格式尚未支援：'+String(value).slice(0,30));
+   if(!parsed)return fail('來源資料格式尚未支援：'+String(value).slice(0,30));
    const direction=isTotal||isBinary?1:q.homeLine?-1:1;
    const line=parsed.line*direction;
    const boundary=parsed.boundary*(isTotal||isBinary||q.homeLine?1:-1);

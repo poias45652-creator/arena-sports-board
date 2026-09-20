@@ -24,32 +24,36 @@ function flow(calls,hook){return async(endpoint,options)=>{
  if(hook){const result=await hook(request);if(result)return result;}
  if(endpoint.includes('/SUPER/login'))return Response.json({code:200,data:{game_method:'GET',game_url:'https://hr9988.net/#/APILogin?MemID=0123456789abcdef0123456789abcdef',game_post:{}}});
  if(endpoint.endsWith('/outApiLogin'))return Response.json(exchange);
- return Response.json(fixture());
+ if(endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[{catid:101,Items:[{WagerTypeKey:7}]}]}}]}});
+ if(endpoint.endsWith('/GameDetail'))return Response.json({code:200,data:fixture().data[0].Items});
+ throw new Error('Unexpected source request');
 };}
-test('observed three-stage protocol yields private parsed odds, encrypts session, and cached refresh skips source calls',async()=>{
+test('authenticated baseball menu yields private parsed odds, encrypts session, and cached refresh skips source calls',async()=>{
  const {db,sql}=await setup(),calls=[];
  const response=await hrConnection('a',db,secret,'connect',flow(calls));assert.equal(response.status,200);
  const result=await response.json();assert.equal(result.connection.status,'connected');assert.equal(result.games.length,4);assert.equal(result.source,'hr9988');assert.match(response.headers.get('cache-control'),/private/);
- assert.equal(calls.length,3);assert.equal(calls[0].headers.Authorization,'Bearer tz-test-a');assert.deepEqual(calls[0].body,{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'});
+ assert.equal(calls.length,4);assert.equal(calls[0].headers.Authorization,'Bearer tz-test-a');assert.deepEqual(calls[0].body,{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'});
  assert.equal(calls[1].endpoint,'https://hr9988.net/api/mb/sin/outApiLogin');assert.equal(calls[1].body.MemID,'0123456789abcdef0123456789abcdef');assert.equal(calls[1].headers.Authorization,undefined);
- assert.deepEqual(calls[2].body,{GameType:3,CatID:888888,WagerTypeKey:888888});assert.equal(calls[2].headers.SSSToken,'test-hr-session');assert.equal(calls[2].headers.SSSMBID,'TEST-MEMBER');
+ assert.equal(calls[2].endpoint,'https://hr9988.net/api/GameInfo/Menu');assert.deepEqual(calls[2].body,{});
+ assert.deepEqual(calls[3].body,{GameType:3,CatID:101,WagerTypeKey:7});assert.equal(calls[3].headers.SSSToken,'test-hr-session');assert.equal(calls[3].headers.SSSMBID,'TEST-MEMBER');
+ assert.deepEqual(result.sourceScope,{category:'baseball',phase:'pregame',available:true});
  const row=sql.prepare('SELECT * FROM hr_connections').get();assert.ok(!JSON.stringify(row).includes('test-hr-session'));assert.equal(JSON.parse(await decryptToken(row.encrypted_session,'a:hr9988',key)).loginID,'test-hr-session');
  await assert.rejects(()=>decryptToken(row.encrypted_session,'b:hr9988',key));
  for(const secretValue of ['test-hr-session','tz-test-a','0123456789abcdef0123456789abcdef','TEST-MEMBER'])assert.ok(!JSON.stringify(result).includes(secretValue));
- await hrConnection('a',db,secret,'read',flow(calls));assert.equal(calls.length,3);
+ await hrConnection('a',db,secret,'read',flow(calls));assert.equal(calls.length,4);
 });
 test('anonymous/unbound/expired members cannot use another member session',async()=>{
  const {db,sql,add}=await setup(),calls=[];await hrConnection('a',db,secret,'connect',flow(calls));
  assert.equal((await hrConnection(null,db,secret,'read',flow(calls))).status,401);
  assert.equal((await hrConnection('b',db,secret,'read',flow(calls))).status,409);
  await add('b');assert.equal((await (await hrConnection('b',db,secret,'status',flow(calls))).json()).status,'not_connected');
- await hrConnection('b',db,secret,'connect',flow(calls));assert.equal(calls[3].headers.Authorization,'Bearer tz-test-b');
- sql.prepare('UPDATE tz_bindings SET expires_at=1 WHERE member_id=?').run('b');assert.equal((await hrConnection('b',db,secret,'read',flow(calls))).status,409);assert.equal(calls.length,6);
+ await hrConnection('b',db,secret,'connect',flow(calls));assert.equal(calls[4].headers.Authorization,'Bearer tz-test-b');
+ sql.prepare('UPDATE tz_bindings SET expires_at=1 WHERE member_id=?').run('b');assert.equal((await hrConnection('b',db,secret,'read',flow(calls))).status,409);assert.equal(calls.length,8);
 });
 test('known session expiry refreshes via tz once; ordinary access denial never retries or returns stale odds',async()=>{
  const {db,sql}=await setup();await hrConnection('a',db,secret,'connect',flow([]));sql.exec('UPDATE hr_connections SET fetched_at=1');
  const calls=[];let reject=true;
- const r=await hrConnection('a',db,secret,'read',flow(calls,request=>{if(request.endpoint.endsWith('/GameDetail')&&reject){reject=false;return Response.json({code:-101});}}));assert.equal(r.status,200);assert.equal(calls.length,4);
+ const r=await hrConnection('a',db,secret,'read',flow(calls,request=>{if(request.endpoint.endsWith('/GameDetail')&&reject){reject=false;return Response.json({code:-101});}}));assert.equal(r.status,200);assert.equal(calls.length,6);
  sql.exec('UPDATE hr_connections SET fetched_at=1');const denied=[];
  const failure=await hrConnection('a',db,secret,'read',flow(denied,()=>new Response('private upstream error',{status:403})));
  assert.equal(failure.status,502);const body=await failure.json();assert.equal(body.code,'source_access_denied');assert.deepEqual(body.games,[]);assert.equal(body.fetchedAt,null);assert.equal(denied.length,1);
@@ -72,4 +76,31 @@ test('parallel connection is locked and a failed exchange never reports connecte
  const task=hrConnection('a',db,secret,'connect',flow([],async request=>{if(request.endpoint.includes('/SUPER/login')){started();await gate;return Response.json({code:200,data:{}});}}));
  await waiting;assert.equal((await hrConnection('a',db,secret,'connect',flow([]))).status,429);release();assert.equal((await task).status,502);
  assert.equal((await (await hrConnection('a',db,secret,'status')).json()).status,'error');
+});
+
+test('missing pregame baseball menu never substitutes hot or live odds',async()=>{
+ const {db}=await setup(),calls=[];
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>request.endpoint.endsWith('/Menu')?Response.json({code:200,data:{list:[{GameType:2,LeftMenu:{item:[{catid:101,Items:[]}]}},{GameType:3,LeftMenu:{item:[{catid:888888,Items:[]}]}}]}}):undefined));
+ const result=await response.json();assert.equal(response.status,200);assert.deepEqual(result.games,[]);assert.deepEqual(result.internationalGames,[]);assert.equal(result.sourceScope.available,false);
+ assert.equal(calls.filter(c=>c.endpoint.endsWith('/GameDetail')).length,0);
+});
+
+test('invalid menu fails closed instead of reporting that CPBL has no games',async()=>{
+ const {db}=await setup(),calls=[];
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>request.endpoint.endsWith('/Menu')?Response.json({code:200,data:{}}):undefined));
+ const result=await response.json();assert.equal(response.status,502);assert.equal(result.code,'odds_menu_changed');assert.equal(result.fetchedAt,null);
+ assert.equal(calls.filter(c=>c.endpoint.endsWith('/GameDetail')).length,0);
+});
+
+test('full-category response retains every reported baseball league without borrowing MLB prices',async()=>{
+ const {db}=await setup();
+ const response=await hrConnection('a',db,secret,'connect',flow([],request=>{
+  if(!request.endpoint.endsWith('/GameDetail'))return;
+  const items=fixture().data[0].Items;
+  // An empty synthetic league tests category normalization, not real CPBL availability.
+  items.List.push({LeagueNameStr:'CPBL 中華職棒',Team:[]});
+  return Response.json({code:200,data:items});
+ }));
+ const result=await response.json();assert.equal(response.status,200);assert.equal(result.games.length,4);assert.deepEqual(result.internationalGames,[]);
+ assert.deepEqual(result.sourceLeagues,[{name:'MLB 美國職棒',league:'MLB',games:4},{name:'CPBL 中華職棒',league:'CPBL',games:0}]);
 });

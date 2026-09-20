@@ -1,0 +1,1573 @@
+{
+  "schemaVersion": 1,
+  "createdAt": "2026-09-20T10:46:45.845270+00:00",
+  "protocolVersion": "20260920-fixed-v1",
+  "scope": "retrospective_team_baseline_only",
+  "productionCalibrated": false,
+  "cutoffExclusive": "2026-09-20",
+  "features": [
+    "home_minus_away_win_share",
+    "home_minus_away_runs_for",
+    "away_minus_home_runs_against",
+    "home_venue_minus_away_venue_runs_for",
+    "away_venue_minus_home_venue_runs_against",
+    "home_recent10_minus_away_recent10_runs_for",
+    "away_recent10_minus_home_recent10_runs_against"
+  ],
+  "classes": [
+    "away",
+    "home",
+    "draw"
+  ],
+  "inputHashes": {
+    "data/cpbl-game-logs-20260920.json": "6702ed00f3920498ef029c25c54a9c2345793908718dfc8f5792621e6ab96335",
+    "data/international-profile-2026.json": "cfa103bc8c19083e608d1c29de39ac72963e8337c90f419d389b6a396ffced3b"
+  },
+  "scriptSha256": "d244113991187211e6424f29707b746676d538d466ae7ce67ad37f1c900da097",
+  "protocolSha256": "053163b5f9b8f31e59f8421fb917375ee277c653b8a4bd4d793f79033f2bd651",
+  "software": {
+    "numpy": "2.3.5",
+    "sklearn": "1.8.0",
+    "scipy": "1.17.0"
+  },
+  "bootstrap": {
+    "samples": 2000,
+    "unit": "date",
+    "seed": 20260920
+  },
+  "unsupported": [
+    "完整先發與牛棚模型回測",
+    "上半場與七種玩法校準",
+    "具賽前時間戳的歷史盤口報酬率",
+    "原始當時來源版本與臨場先發異動"
+  ],
+  "leagues": [
+    {
+      "league": "CPBL",
+      "version": "team-record-softmax-temperature-v1",
+      "source": {
+        "observedAt": "2026-09-20T10:06:46.560Z",
+        "urls": [
+          "https://tw.sports.yahoo.com/cpbl/teams/%E4%B8%AD%E4%BF%A1/",
+          "https://tw.sports.yahoo.com/cpbl/teams/%E7%B5%B1%E4%B8%80/",
+          "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/",
+          "https://tw.sports.yahoo.com/cpbl/teams/%E6%A8%82%E5%A4%A9/",
+          "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+          "https://tw.sports.yahoo.com/cpbl/teams/%E5%8F%B0%E9%8B%BC/"
+        ]
+      },
+      "sourceGames": 324,
+      "eligibleGames": 262,
+      "exclusions": {
+        "warmupUnder20": 62
+      },
+      "split": {
+        "training": {
+          "games": 115,
+          "start": "2026-04-29",
+          "end": "2026-06-30",
+          "results": {
+            "away": 50,
+            "home": 64,
+            "draw": 1
+          }
+        },
+        "calibration": {
+          "games": 80,
+          "start": "2026-07-01",
+          "end": "2026-08-15",
+          "results": {
+            "away": 43,
+            "home": 37,
+            "draw": 0
+          }
+        },
+        "test": {
+          "games": 67,
+          "start": "2026-08-16",
+          "end": "2026-09-19",
+          "results": {
+            "away": 37,
+            "home": 30,
+            "draw": 0
+          }
+        }
+      },
+      "baseline": {
+        "brier": 0.5198647669437931,
+        "logLoss": 0.7302493034556772,
+        "accuracy": 0.44776119402985076,
+        "macroECE": 0.08002361075976054,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 67,
+                "meanPrediction": 0.43220338983050854,
+                "observedRate": 0.5522388059701493
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 67,
+                "meanPrediction": 0.5508474576271187,
+                "observedRate": 0.44776119402985076
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 67,
+                "meanPrediction": 0.016949152542372878,
+                "observedRate": 0.0
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "uncalibrated": {
+        "brier": 0.5355905666149681,
+        "logLoss": 0.7400923772198569,
+        "accuracy": 0.5074626865671642,
+        "macroECE": 0.07268189577703453,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 15,
+                "meanPrediction": 0.3807160869129431,
+                "observedRate": 0.8
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 52,
+                "meanPrediction": 0.46124477251372853,
+                "observedRate": 0.4807692307692308
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 55,
+                "meanPrediction": 0.5311466470581615,
+                "observedRate": 0.509090909090909
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 12,
+                "meanPrediction": 0.6170744488698355,
+                "observedRate": 0.16666666666666666
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 67,
+                "meanPrediction": 0.010247336581418777,
+                "observedRate": 0.0
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "calibrated": {
+        "brier": 0.5320942706650948,
+        "logLoss": 0.7398338800554756,
+        "accuracy": 0.5074626865671642,
+        "macroECE": 0.0709626375439064,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 11,
+                "meanPrediction": 0.3837308310198663,
+                "observedRate": 0.8181818181818182
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 56,
+                "meanPrediction": 0.45798599617176566,
+                "observedRate": 0.5
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 60,
+                "meanPrediction": 0.5317351501263736,
+                "observedRate": 0.5
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 7,
+                "meanPrediction": 0.6148691243712662,
+                "observedRate": 0.0
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 67,
+                "meanPrediction": 0.013784361119124068,
+                "observedRate": 0.0
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "brierDifference95CI": [
+        -0.0066942158817088855,
+        -0.0005206053173238453
+      ],
+      "brierVsBaseline95CI": [
+        -0.008069283169803956,
+        0.034375295779705405
+      ],
+      "temperature": 1.0911290618776504,
+      "model": {
+        "scalerMean": [
+          0.005324240643062837,
+          0.04435585006621987,
+          0.02709236730213756,
+          -0.04855575869583749,
+          -0.05887733571561254,
+          0.059710144927536256,
+          0.042898550724637684
+        ],
+        "scalerScale": [
+          0.10803294996650899,
+          0.5265060158898476,
+          0.591027155801024,
+          0.42731477637559817,
+          0.5357863625474818,
+          0.47172201041977235,
+          0.5011053524450795
+        ],
+        "coefficients": [
+          [
+            0.021648799712514526,
+            -0.15460793615461502,
+            0.00844346763930402,
+            -0.04051449525633909,
+            0.08572601876792715,
+            -0.06569438880015883,
+            -0.03134490400150547
+          ],
+          [
+            0.06853530734706995,
+            0.05337989280647341,
+            0.08238552950282146,
+            -0.036588434597045916,
+            0.1654989640946878,
+            -0.021237200087029676,
+            -0.10061266451166999
+          ],
+          [
+            -0.09018410705958414,
+            0.10122804334814153,
+            -0.09082899714212539,
+            0.07710292985338535,
+            -0.251224982862615,
+            0.08693158888718887,
+            0.13195756851317533
+          ]
+        ],
+        "intercept": [
+          1.2499296763029468,
+          1.5026983898835748,
+          -2.752628066186521
+        ],
+        "classes": [
+          "away",
+          "home",
+          "draw"
+        ]
+      },
+      "gate": {
+        "samplePassed": false,
+        "improvementPassed": false,
+        "productionEquivalent": false,
+        "applied": false,
+        "status": "research_only",
+        "reason": "歷史先發／牛棚快照不齊，研究模型與前台模型不同，校準參數不套入前台。"
+      }
+    },
+    {
+      "league": "NPB",
+      "version": "team-record-softmax-temperature-v1",
+      "source": {
+        "observedAt": "2026-09-19T12:35:14.729Z",
+        "urls": [
+          "https://npb.jp/bis/eng/2026/calendar/index_04.html",
+          "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-19"
+        ]
+      },
+      "sourceGames": 793,
+      "eligibleGames": 670,
+      "exclusions": {
+        "warmupUnder20": 123
+      },
+      "split": {
+        "training": {
+          "games": 307,
+          "start": "2026-04-21",
+          "end": "2026-06-30",
+          "results": {
+            "away": 136,
+            "home": 163,
+            "draw": 8
+          }
+        },
+        "calibration": {
+          "games": 205,
+          "start": "2026-07-01",
+          "end": "2026-08-15",
+          "results": {
+            "away": 94,
+            "home": 109,
+            "draw": 2
+          }
+        },
+        "test": {
+          "games": 158,
+          "start": "2026-08-16",
+          "end": "2026-09-19",
+          "results": {
+            "away": 71,
+            "home": 83,
+            "draw": 4
+          }
+        }
+      },
+      "baseline": {
+        "brier": 0.5215537612455381,
+        "logLoss": 0.791025097779507,
+        "accuracy": 0.5253164556962026,
+        "macroECE": 0.004954403157751493,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 158,
+                "meanPrediction": 0.44193548387096787,
+                "observedRate": 0.44936708860759494
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 158,
+                "meanPrediction": 0.5290322580645164,
+                "observedRate": 0.5253164556962026
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 158,
+                "meanPrediction": 0.029032258064516123,
+                "observedRate": 0.02531645569620253
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "uncalibrated": {
+        "brier": 0.5277391024349829,
+        "logLoss": 0.7971899322407683,
+        "accuracy": 0.4873417721518987,
+        "macroECE": 0.009271796136451613,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 46,
+                "meanPrediction": 0.33781108070298776,
+                "observedRate": 0.34782608695652173
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 109,
+                "meanPrediction": 0.4975824603115619,
+                "observedRate": 0.4954128440366973
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 3,
+                "meanPrediction": 0.6566597194967437,
+                "observedRate": 0.3333333333333333
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 7,
+                "meanPrediction": 0.3563089582882328,
+                "observedRate": 0.5714285714285714
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 116,
+                "meanPrediction": 0.4949265534732239,
+                "observedRate": 0.49137931034482757
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 35,
+                "meanPrediction": 0.6451276613998452,
+                "observedRate": 0.6285714285714286
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 158,
+                "meanPrediction": 0.023855138577885446,
+                "observedRate": 0.02531645569620253
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "calibrated": {
+        "brier": 0.5269688283134536,
+        "logLoss": 0.7961621829094354,
+        "accuracy": 0.4873417721518987,
+        "macroECE": 0.009796682233703297,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 46,
+                "meanPrediction": 0.3419029072263875,
+                "observedRate": 0.34782608695652173
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 109,
+                "meanPrediction": 0.4960286196368338,
+                "observedRate": 0.4954128440366973
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 3,
+                "meanPrediction": 0.6494287978504679,
+                "observedRate": 0.3333333333333333
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 6,
+                "meanPrediction": 0.3530793832564885,
+                "observedRate": 0.5
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 119,
+                "meanPrediction": 0.4943880359551224,
+                "observedRate": 0.5042016806722689
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 33,
+                "meanPrediction": 0.6399651105071295,
+                "observedRate": 0.6060606060606061
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 158,
+                "meanPrediction": 0.02650353866257042,
+                "observedRate": 0.02531645569620253
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "brierDifference95CI": [
+        -0.0019079685539081209,
+        0.0002248442687278081
+      ],
+      "brierVsBaseline95CI": [
+        -0.02009126809000676,
+        0.030981775114188516
+      ],
+      "temperature": 1.039761113088932,
+      "model": {
+        "scalerMean": [
+          0.0002800868344123364,
+          -0.0044480210957857265,
+          -0.010986273490447857,
+          0.12747327715154752,
+          0.1176779523761855,
+          0.01183496199782848,
+          0.0011943539630836079
+        ],
+        "scalerScale": [
+          0.08997535988762287,
+          0.4517629343743003,
+          0.3258187454609251,
+          0.48474372926305004,
+          0.4272876649503499,
+          0.4026347342028929,
+          0.43545627915729734
+        ],
+        "coefficients": [
+          [
+            -0.1723358492193165,
+            0.05609423101597239,
+            0.11245754359642454,
+            -0.058017635606953374,
+            -0.14655924689671532,
+            -0.255228760392238,
+            0.194626680343894
+          ],
+          [
+            -0.04792104528174911,
+            -0.034106842393526855,
+            -0.2205445033215516,
+            0.12481260438593593,
+            0.09552004421824865,
+            -0.036906235438247496,
+            0.2808554871705376
+          ],
+          [
+            0.2202568945010662,
+            -0.021987388622445217,
+            0.10808695972512669,
+            -0.06679496877898254,
+            0.05103920267846626,
+            0.2921349958304858,
+            -0.47548216751443134
+          ]
+        ],
+        "intercept": [
+          0.9528795665189748,
+          1.1442420850655814,
+          -2.097121651584556
+        ],
+        "classes": [
+          "away",
+          "home",
+          "draw"
+        ]
+      },
+      "gate": {
+        "samplePassed": false,
+        "improvementPassed": false,
+        "productionEquivalent": false,
+        "applied": false,
+        "status": "research_only",
+        "reason": "歷史先發／牛棚快照不齊，研究模型與前台模型不同，校準參數不套入前台。"
+      }
+    },
+    {
+      "league": "KBO",
+      "version": "team-record-softmax-temperature-v1",
+      "source": {
+        "observedAt": "2026-09-19T12:35:20.319Z",
+        "urls": [
+          "https://eng.koreabaseball.com/Schedule/DailySchedule.aspx"
+        ]
+      },
+      "sourceGames": 648,
+      "eligibleGames": 547,
+      "exclusions": {
+        "warmupUnder20": 101
+      },
+      "split": {
+        "training": {
+          "games": 287,
+          "start": "2026-04-22",
+          "end": "2026-06-30",
+          "results": {
+            "away": 128,
+            "home": 153,
+            "draw": 6
+          }
+        },
+        "calibration": {
+          "games": 137,
+          "start": "2026-07-01",
+          "end": "2026-08-15",
+          "results": {
+            "away": 70,
+            "home": 62,
+            "draw": 5
+          }
+        },
+        "test": {
+          "games": 123,
+          "start": "2026-08-16",
+          "end": "2026-09-19",
+          "results": {
+            "away": 57,
+            "home": 62,
+            "draw": 4
+          }
+        }
+      },
+      "baseline": {
+        "brier": 0.5312508337925234,
+        "logLoss": 0.815539386440019,
+        "accuracy": 0.5040650406504065,
+        "macroECE": 0.01797962807214287,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 123,
+                "meanPrediction": 0.44482758620689655,
+                "observedRate": 0.4634146341463415
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 123,
+                "meanPrediction": 0.5310344827586209,
+                "observedRate": 0.5040650406504065
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 123,
+                "meanPrediction": 0.02413793103448276,
+                "observedRate": 0.032520325203252036
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "uncalibrated": {
+        "brier": 0.5800941765716741,
+        "logLoss": 0.8668509934099808,
+        "accuracy": 0.5040650406504065,
+        "macroECE": 0.08728791490926668,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 3,
+                "meanPrediction": 0.17748867821407766,
+                "observedRate": 0.3333333333333333
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 45,
+                "meanPrediction": 0.32176955712193883,
+                "observedRate": 0.5555555555555556
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 60,
+                "meanPrediction": 0.4706976444649806,
+                "observedRate": 0.4166666666666667
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 15,
+                "meanPrediction": 0.6649820255334888,
+                "observedRate": 0.4
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 21,
+                "meanPrediction": 0.3385323197295992,
+                "observedRate": 0.5238095238095238
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 66,
+                "meanPrediction": 0.5222736096707598,
+                "observedRate": 0.5303030303030303
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 34,
+                "meanPrediction": 0.683910597496185,
+                "observedRate": 0.4411764705882353
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 2,
+                "meanPrediction": 0.8175354674941258,
+                "observedRate": 0.5
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 123,
+                "meanPrediction": 0.026862167817228375,
+                "observedRate": 0.032520325203252036
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "calibrated": {
+        "brier": 0.5552096951236827,
+        "logLoss": 0.8469413956790874,
+        "accuracy": 0.5040650406504065,
+        "macroECE": 0.060743319151224544,
+        "reliability": [
+          {
+            "outcome": "away",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 44,
+                "meanPrediction": 0.35052369411081485,
+                "observedRate": 0.5681818181818182
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 76,
+                "meanPrediction": 0.47131015228494794,
+                "observedRate": 0.42105263157894735
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 3,
+                "meanPrediction": 0.6252327416799235,
+                "observedRate": 0.0
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "home",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 18,
+                "meanPrediction": 0.37004912113732735,
+                "observedRate": 0.4444444444444444
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 91,
+                "meanPrediction": 0.5022959439038608,
+                "observedRate": 0.5054945054945055
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 14,
+                "meanPrediction": 0.653270364353643,
+                "observedRate": 0.5714285714285714
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          },
+          {
+            "outcome": "draw",
+            "bins": [
+              {
+                "fromProbability": 0.0,
+                "toProbability": 0.2,
+                "games": 123,
+                "meanPrediction": 0.0680169714126351,
+                "observedRate": 0.032520325203252036
+              },
+              {
+                "fromProbability": 0.2,
+                "toProbability": 0.4,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.4,
+                "toProbability": 0.6,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.6,
+                "toProbability": 0.8,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              },
+              {
+                "fromProbability": 0.8,
+                "toProbability": 1.0,
+                "games": 0,
+                "meanPrediction": null,
+                "observedRate": null
+              }
+            ]
+          }
+        ]
+      },
+      "brierDifference95CI": [
+        -0.041193314351504785,
+        -0.0081944325437157
+      ],
+      "brierVsBaseline95CI": [
+        -0.0031736409399043207,
+        0.051502459235917154
+      ],
+      "temperature": 1.5805592037503349,
+      "model": {
+        "scalerMean": [
+          -0.0037030182136616584,
+          -0.04799913377361804,
+          0.0012287514267833716,
+          -0.13217512702131748,
+          -0.08581420368780894,
+          -0.058768873403019756,
+          0.03693379790940766
+        ],
+        "scalerScale": [
+          0.08755879537533727,
+          0.8008327547594294,
+          0.4808707459738313,
+          0.6648129137935288,
+          0.5638031240941701,
+          0.5889414787859161,
+          0.4867013955436097
+        ],
+        "coefficients": [
+          [
+            0.06521971761186428,
+            -0.24253775693691598,
+            -0.14009589056557714,
+            0.07840948655651855,
+            0.019164835609981695,
+            0.09049457894237489,
+            0.2573025314718756
+          ],
+          [
+            -0.12649213660293038,
+            0.15953683732468021,
+            0.22135534058597903,
+            -0.03993706402339193,
+            0.17075972495057903,
+            0.09375096817435744,
+            -0.014630735031449262
+          ],
+          [
+            0.061272418991063865,
+            0.0830009196122355,
+            -0.08125945002040161,
+            -0.03847242253312711,
+            -0.18992456056056134,
+            -0.18424554711673352,
+            -0.2426717964404277
+          ]
+        ],
+        "intercept": [
+          1.0154456835512768,
+          1.1979958222599218,
+          -2.2134415058111916
+        ],
+        "classes": [
+          "away",
+          "home",
+          "draw"
+        ]
+      },
+      "gate": {
+        "samplePassed": true,
+        "improvementPassed": false,
+        "productionEquivalent": false,
+        "applied": false,
+        "status": "research_only",
+        "reason": "歷史先發／牛棚快照不齊，研究模型與前台模型不同，校準參數不套入前台。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+'use client';
+import {useEffect,useState} from 'react';
+import {Button} from '@/components/ui/button';
+import {Input} from '@/components/ui/input';
+import TurnstileWidget from '../login/turnstile-widget';
+export default function TurnstileSettings(){
+ const [showVerification,setShowVerification]=useState(false);const [enabled,setEnabled]=useState<boolean|null>(null),[secret,setSecret]=useState(''),[token,setToken]=useState(''),[attempt,setAttempt]=useState(0),[busy,setBusy]=useState(false),[message,setMessage]=useState('');
+ useEffect(()=>{fetch('/api/admin/turnstile').then(async r=>{const d=await r.json();if(!r.ok)throw new Error(d.error);setEnabled(d.enabled);}).catch(()=>setMessage('無法讀取設定，請重新整理。'));},[]);
+ async function save(enable:boolean){setBusy(true);setMessage('');try{const r=await fetch('/api/admin/turnstile',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(enable?{secret,token}:{enabled:false}),signal:AbortSignal.timeout(20000)});const d=await r.json();if(!r.ok)throw new Error(d.error);setEnabled(d.enabled);setSecret('');setMessage(d.enabled?'已驗證並啟用，下次登入需要完成安全驗證。':'已停用登入安全驗證。');}catch(e){setMessage(e instanceof Error?e.message:'設定失敗');}finally{setBusy(false);setToken('');setAttempt(n=>n+1);}}
+ return <section id="login-security-settings" className="panel p-6 space-y-4"><h2 className="text-xl font-bold">Turnstile 登入安全驗證</h2><p>狀態：{enabled===null?'讀取中':enabled?'已啟用':'尚未啟用'}</p><p className="text-sm text-slate-300">貼上 Cloudflare 小工具的私密金鑰，完成下方驗證，再按儲存。金鑰加密保存，儲存後不會顯示。</p><label className="block">私密金鑰（Secret Key）<Input type="password" autoComplete="off" value={secret} onChange={e=>setSecret(e.target.value)} maxLength={256} disabled={busy}/></label><div>{showVerification?<TurnstileWidget onToken={setToken} attempt={attempt}/>:<Button variant="outline" onClick={()=>setShowVerification(true)}>開始安全驗證</Button>}</div><div className="flex flex-wrap gap-3"><Button disabled={busy||enabled===null||!secret.trim()||!token} onClick={()=>save(true)}>{busy?'處理中…':'驗證並儲存啟用'}</Button>{enabled&&<Button variant="outline" disabled={busy} onClick={()=>save(false)}>停用驗證</Button>}</div>{message&&<p role="status">{message}</p>}<p className="text-sm text-slate-400">保護登入流程；不代表已啟用 Cloudflare 全站 AI 爬蟲封鎖。</p></section>;
+}

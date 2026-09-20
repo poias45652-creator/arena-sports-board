@@ -1,0 +1,633 @@
+{
+  "schemaVersion": 1,
+  "league": "CPBL",
+  "season": 2026,
+  "updatedDate": "2026-09-20",
+  "observedAt": "2026-09-20T08:42:56.122Z",
+  "kind": "daily_statistics_snapshot",
+  "automaticRefresh": false,
+  "source": {
+    "name": "B-ASEBALL.TW",
+    "url": "https://b-aseball.tw/cpbl/leaders/",
+    "observedAt": "2026-09-20T08:42:56.122Z",
+    "updatedDate": "2026-09-20",
+    "contentSha256": "9ae4702f1322808f70d098ff7aa894f7660a77aa463021efe31678ac58c62960"
+  },
+  "notes": [
+    "第三方每日整理資料，非中職逐球即時來源。",
+    "排行榜僅列部分球員，未上榜不表示數值為零。",
+    "來源未列和局，不覆蓋原有和局或推算總出賽數。",
+    "保留原來源與日期；B-ASEBALL 資料未接入投注推薦模型。"
+  ],
+  "teams": [
+    {
+      "team": "台鋼雄鷹",
+      "teamCode": "AKP",
+      "wins": 51,
+      "losses": 56,
+      "ties": null,
+      "home": {
+        "wins": 27,
+        "losses": 25
+      },
+      "away": {
+        "wins": 24,
+        "losses": 31
+      },
+      "streak": 1,
+      "streakResult": "勝",
+      "runsScored": 416,
+      "runsAllowed": 425,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/hawks/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "6831d19c5d3f7dfe9510a190f5f030f99d0cfaa1f559ecab3fd7598a31a04764"
+      }
+    },
+    {
+      "team": "味全龍",
+      "teamCode": "AAA",
+      "wins": 62,
+      "losses": 46,
+      "ties": null,
+      "home": {
+        "wins": 32,
+        "losses": 25
+      },
+      "away": {
+        "wins": 30,
+        "losses": 21
+      },
+      "streak": 1,
+      "streakResult": "敗",
+      "runsScored": 392,
+      "runsAllowed": 333,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/dragons/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "eb66249c655b54d0021030f8f6c9386f0b8fb74a8eb91cf850e77b4181c376bc"
+      }
+    },
+    {
+      "team": "統一獅",
+      "teamCode": "ADD",
+      "wins": 55,
+      "losses": 52,
+      "ties": null,
+      "home": {
+        "wins": 29,
+        "losses": 26
+      },
+      "away": {
+        "wins": 26,
+        "losses": 26
+      },
+      "streak": 1,
+      "streakResult": "勝",
+      "runsScored": 400,
+      "runsAllowed": 357,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/lions/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "2fcccd150d50864f6d51056e45f81d4260ed21d1bf40bf6ef770107b1483981b"
+      }
+    },
+    {
+      "team": "富邦悍將",
+      "teamCode": "AEO",
+      "wins": 55,
+      "losses": 53,
+      "ties": null,
+      "home": {
+        "wins": 28,
+        "losses": 24
+      },
+      "away": {
+        "wins": 27,
+        "losses": 29
+      },
+      "streak": 1,
+      "streakResult": "敗",
+      "runsScored": 396,
+      "runsAllowed": 416,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/guardians/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "dc798b00f4273bba5cb8b0e2f41068267c7d460b3254653b093e6797f8935fc5"
+      }
+    },
+    {
+      "team": "樂天桃猿",
+      "teamCode": "AJL",
+      "wins": 49,
+      "losses": 56,
+      "ties": null,
+      "home": {
+        "wins": 24,
+        "losses": 27
+      },
+      "away": {
+        "wins": 25,
+        "losses": 29
+      },
+      "streak": 3,
+      "streakResult": "敗",
+      "runsScored": 318,
+      "runsAllowed": 376,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/monkeys/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "443139011839704c8359f737ce6d39c195399bc5fedec5d2607fe40756f0402d"
+      }
+    },
+    {
+      "team": "中信兄弟",
+      "teamCode": "ACN",
+      "wins": 49,
+      "losses": 58,
+      "ties": null,
+      "home": {
+        "wins": 21,
+        "losses": 33
+      },
+      "away": {
+        "wins": 28,
+        "losses": 25
+      },
+      "streak": 6,
+      "streakResult": "勝",
+      "runsScored": 429,
+      "runsAllowed": 444,
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/team/brothers/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "a4bb8fd98632b25a1faa0aabffed40db8d3301e1d1e0a0a950944e012ac9e0cc"
+      }
+    }
+  ],
+  "leaderboards": [
+    {
+      "stat": "打擊率",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "王博玄",
+          "team": "台鋼雄鷹",
+          "value": ".321"
+        },
+        {
+          "rank": 2,
+          "name": "潘傑楷",
+          "team": "統一獅",
+          "value": ".307"
+        },
+        {
+          "rank": 3,
+          "name": "張仁瑋",
+          "team": "中信兄弟",
+          "value": ".298"
+        },
+        {
+          "rank": 4,
+          "name": "魔鷹",
+          "team": "台鋼雄鷹",
+          "value": ".292"
+        },
+        {
+          "rank": 5,
+          "name": "陳晨威",
+          "team": "樂天桃猿",
+          "value": ".290"
+        },
+        {
+          "rank": 6,
+          "name": "曾子祐",
+          "team": "台鋼雄鷹",
+          "value": ".286"
+        },
+        {
+          "rank": 7,
+          "name": "張政禹",
+          "team": "味全龍",
+          "value": ".281"
+        },
+        {
+          "rank": 8,
+          "name": "范國宸",
+          "team": "富邦悍將",
+          "value": ".274"
+        },
+        {
+          "rank": 9,
+          "name": "陳文杰",
+          "team": "台鋼雄鷹",
+          "value": ".272"
+        },
+        {
+          "rank": 10,
+          "name": "吳念庭",
+          "team": "台鋼雄鷹",
+          "value": ".264"
+        }
+      ]
+    },
+    {
+      "stat": "全壘打",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "魔鷹",
+          "team": "台鋼雄鷹",
+          "value": "16"
+        },
+        {
+          "rank": 2,
+          "name": "張育成",
+          "team": "富邦悍將",
+          "value": "15"
+        },
+        {
+          "rank": 3,
+          "name": "朱育賢",
+          "team": "味全龍",
+          "value": "12"
+        },
+        {
+          "rank": 4,
+          "name": "范國宸",
+          "team": "富邦悍將",
+          "value": "12"
+        },
+        {
+          "rank": 5,
+          "name": "郭天信",
+          "team": "味全龍",
+          "value": "9"
+        },
+        {
+          "rank": 6,
+          "name": "蘇智傑",
+          "team": "統一獅",
+          "value": "8"
+        },
+        {
+          "rank": 7,
+          "name": "威克",
+          "team": "樂天桃猿",
+          "value": "8"
+        },
+        {
+          "rank": 8,
+          "name": "劉基鴻",
+          "team": "味全龍",
+          "value": "7"
+        },
+        {
+          "rank": 9,
+          "name": "陳晨威",
+          "team": "樂天桃猿",
+          "value": "6"
+        },
+        {
+          "rank": 10,
+          "name": "王念好",
+          "team": "富邦悍將",
+          "value": "6"
+        }
+      ]
+    },
+    {
+      "stat": "安打",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "曾子祐",
+          "team": "台鋼雄鷹",
+          "value": "113"
+        },
+        {
+          "rank": 2,
+          "name": "魔鷹",
+          "team": "台鋼雄鷹",
+          "value": "112"
+        },
+        {
+          "rank": 3,
+          "name": "王博玄",
+          "team": "台鋼雄鷹",
+          "value": "109"
+        },
+        {
+          "rank": 4,
+          "name": "郭天信",
+          "team": "味全龍",
+          "value": "107"
+        },
+        {
+          "rank": 5,
+          "name": "張仁瑋",
+          "team": "中信兄弟",
+          "value": "106"
+        },
+        {
+          "rank": 6,
+          "name": "潘傑楷",
+          "team": "統一獅",
+          "value": "106"
+        },
+        {
+          "rank": 7,
+          "name": "陳晨威",
+          "team": "樂天桃猿",
+          "value": "100"
+        },
+        {
+          "rank": 8,
+          "name": "張政禹",
+          "team": "味全龍",
+          "value": "98"
+        },
+        {
+          "rank": 9,
+          "name": "范國宸",
+          "team": "富邦悍將",
+          "value": "97"
+        },
+        {
+          "rank": 10,
+          "name": "陳文杰",
+          "team": "台鋼雄鷹",
+          "value": "92"
+        }
+      ]
+    },
+    {
+      "stat": "防禦率",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "蔣銲",
+          "team": "味全龍",
+          "value": "1.43"
+        },
+        {
+          "rank": 2,
+          "name": "布雷克",
+          "team": "統一獅",
+          "value": "1.65"
+        },
+        {
+          "rank": 3,
+          "name": "梅賽鍶",
+          "team": "味全龍",
+          "value": "1.78"
+        },
+        {
+          "rank": 4,
+          "name": "黃子鵬",
+          "team": "台鋼雄鷹",
+          "value": "2.20"
+        },
+        {
+          "rank": 5,
+          "name": "鋼龍",
+          "team": "味全龍",
+          "value": "2.27"
+        },
+        {
+          "rank": 6,
+          "name": "艾速特",
+          "team": "台鋼雄鷹",
+          "value": "2.41"
+        },
+        {
+          "rank": 7,
+          "name": "獅帝芬",
+          "team": "統一獅",
+          "value": "2.77"
+        },
+        {
+          "rank": 8,
+          "name": "艾菩樂",
+          "team": "樂天桃猿",
+          "value": "3.05"
+        },
+        {
+          "rank": 9,
+          "name": "羅戈",
+          "team": "中信兄弟",
+          "value": "3.11"
+        },
+        {
+          "rank": 10,
+          "name": "魔力藍",
+          "team": "富邦悍將",
+          "value": "3.16"
+        }
+      ]
+    },
+    {
+      "stat": "勝投",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "羅戈",
+          "team": "中信兄弟",
+          "value": "10"
+        },
+        {
+          "rank": 2,
+          "name": "梅賽鍶",
+          "team": "味全龍",
+          "value": "10"
+        },
+        {
+          "rank": 3,
+          "name": "李東洺",
+          "team": "富邦悍將",
+          "value": "10"
+        },
+        {
+          "rank": 4,
+          "name": "蔣銲",
+          "team": "味全龍",
+          "value": "9"
+        },
+        {
+          "rank": 5,
+          "name": "勝騎士",
+          "team": "中信兄弟",
+          "value": "9"
+        },
+        {
+          "rank": 6,
+          "name": "艾速特",
+          "team": "台鋼雄鷹",
+          "value": "9"
+        },
+        {
+          "rank": 7,
+          "name": "鈴木駿輔",
+          "team": "富邦悍將",
+          "value": "9"
+        },
+        {
+          "rank": 8,
+          "name": "德保拉",
+          "team": "中信兄弟",
+          "value": "9"
+        },
+        {
+          "rank": 9,
+          "name": "威能帝",
+          "team": "樂天桃猿",
+          "value": "8"
+        },
+        {
+          "rank": 10,
+          "name": "獅帝芬",
+          "team": "統一獅",
+          "value": "8"
+        }
+      ]
+    },
+    {
+      "stat": "救援成功",
+      "rows": [
+        {
+          "rank": 1,
+          "name": "鍾允華",
+          "team": "統一獅",
+          "value": "29"
+        },
+        {
+          "rank": 2,
+          "name": "林凱威",
+          "team": "味全龍",
+          "value": "28"
+        },
+        {
+          "rank": 3,
+          "name": "曾峻岳",
+          "team": "富邦悍將",
+          "value": "25"
+        },
+        {
+          "rank": 4,
+          "name": "李振昌",
+          "team": "中信兄弟",
+          "value": "15"
+        },
+        {
+          "rank": 5,
+          "name": "朱承洋",
+          "team": "樂天桃猿",
+          "value": "15"
+        },
+        {
+          "rank": 6,
+          "name": "林詩翔",
+          "team": "台鋼雄鷹",
+          "value": "14"
+        },
+        {
+          "rank": 7,
+          "name": "陳冠宇",
+          "team": "樂天桃猿",
+          "value": "11"
+        },
+        {
+          "rank": 8,
+          "name": "呂彥青",
+          "team": "中信兄弟",
+          "value": "6"
+        },
+        {
+          "rank": 9,
+          "name": "黃群",
+          "team": "台鋼雄鷹",
+          "value": "6"
+        },
+        {
+          "rank": 10,
+          "name": "陳冠偉",
+          "team": "味全龍",
+          "value": "5"
+        }
+      ]
+    }
+  ],
+  "games": [
+    {
+      "id": 342,
+      "season": 2026,
+      "date": "2026-09-19",
+      "start": "2026-09-19T12:00:00+08:00",
+      "homeId": 4,
+      "awayId": 6,
+      "homeScore": 5,
+      "awayScore": 11,
+      "state": "Final",
+      "status": "已完賽",
+      "completed": true,
+      "timeKnown": false,
+      "url": "https://b-aseball.tw/cpbl/game/2026-09-19-342/",
+      "venue": "樂天桃園",
+      "source": {
+        "name": "B-ASEBALL.TW",
+        "url": "https://b-aseball.tw/cpbl/game/2026-09-19-342/",
+        "observedAt": "2026-09-20T08:42:56.122Z",
+        "updatedDate": "2026-09-20",
+        "contentSha256": "46ec9921cc954611721df86bc9def90068db5d7b06b66a2399b2abe3ea15c610"
+      },
+      "inningScores": {
+        "away": [
+          0,
+          3,
+          1,
+          2,
+          1,
+          0,
+          0,
+          0,
+          4
+        ],
+        "home": [
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          1
+        ]
+      },
+      "rhe": {
+        "away": [
+          11,
+          17,
+          0
+        ],
+        "home": [
+          5,
+          16,
+          0
+        ]
+      }
+    }
+  ]
+}

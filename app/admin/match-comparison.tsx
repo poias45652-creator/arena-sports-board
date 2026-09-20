@@ -3,9 +3,10 @@ import {useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
 import {Table,TableHeader,TableRow,TableHead,TableBody,TableCell} from '@/components/ui/table';
-import {isPregame,type Schedule,type Snapshot} from '@/lib/baseball';
+import {fresh,isPregame,type Schedule,type Snapshot} from '@/lib/baseball';
 import {useSource} from '../use-source';
 import TeamName from '../team-name';
+import WinBreakdown from './win-breakdown';
 
 const stamp=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
 const percent=(value:number|null|undefined)=>value==null?'缺資料':`${value.toFixed(1)}%`;
@@ -36,7 +37,8 @@ export default function MatchComparison(){
     {!game?<p role="status" className="text-sm text-slate-400">{schedule.loading?'正在取得賽程…':'目前沒有可查看的賽事。'}</p>:<>
       <p className="text-sm text-slate-400">{game.season} 球季累計資料，非今日打線；投球被擊球率通常越低越佳。比較不等於勝率加權。</p>
       <Table><TableHeader><TableRow><TableHead>指標</TableHead><TableHead><TeamName team={game.away}/>（客）</TableHead><TableHead><TeamName team={game.home}/>（主）</TableHead></TableRow></TableHeader><TableBody>{rows.map(([title,away,home])=><TableRow key={title}><TableCell>{title}</TableCell><TableCell>{percent(away)}</TableCell><TableCell>{percent(home)}</TableCell></TableRow>)}</TableBody></Table>
-      <p className="text-sm text-slate-400">勝率只使用雙方戰績；戰績接近時估算也接近五成。先發與投打指標用於檢查對戰差異。開賽後不使用賽後資料回填勝率。</p>
+      <p className="text-sm text-slate-400">下方另列多因素勝率的實際輸入、權重與影響。上表擊球指標供對照，未直接加入勝率。開賽後不使用賽後資料回填勝率。</p>
+      <WinBreakdown key={game.id} game={game} scheduleFresh={!schedule.error&&fresh(schedule.data?.fetchedAt,Date.now(),120000)}/>
     </>}
   </section>;
 }

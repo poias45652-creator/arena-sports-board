@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import OperationsPanel from '../operations-panel';
 import SettlementCalculator from '../settlement-calculator';
 import MatchComparison from './match-comparison';
+import { Database, Gauge, KeyRound, RefreshCw, Users } from 'lucide-react';
 
 export default function AdminTools() {
   const [evaluation, setEvaluation] = useState<any>(null);
-  const [accountMessage,setAccountMessage]=useState(''),[accountBusy,setAccountBusy]=useState(false);
   useEffect(() => {
     const controller = new AbortController();
     let running = false;
@@ -26,10 +26,11 @@ export default function AdminTools() {
     const timer = setInterval(update, 600000);
     return () => { controller.abort(); clearInterval(timer); };
   }, []);
-  async function createAccount(event:React.FormEvent<HTMLFormElement>){
-    event.preventDefault();if(accountBusy)return;setAccountBusy(true);setAccountMessage('');const form=event.currentTarget;
-    try{const values=Object.fromEntries(new FormData(form)),response=await fetch('/api/meta',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(values)}),data=await response.json();if(!response.ok)throw new Error(data.error||'新增失敗');setAccountMessage(`已新增會員帳號：${data.username}`);form.reset();}
-    catch(e){setAccountMessage(e instanceof Error?e.message:'新增帳號失敗');}finally{setAccountBusy(false);}
-  }
-  return <div className="space-y-4"><section className="panel p-5"><h2 className="mb-1 text-lg font-bold">新增會員帳號</h2><p className="mb-4 text-sm text-slate-400">前台已關閉自行註冊，只有管理員可在此建立帳號。</p><form onSubmit={createAccount} className="grid gap-3 md:grid-cols-[1fr_1fr_auto]"><input name="username" required minLength={3} maxLength={32} pattern="[A-Za-z0-9_.\-]{3,32}" autoComplete="off" placeholder="會員帳號" className="rounded-md border border-white/15 bg-black/20 px-3 py-2"/><input name="password" type="password" required minLength={10} maxLength={1024} autoComplete="new-password" placeholder="密碼（至少 10 碼）" className="rounded-md border border-white/15 bg-black/20 px-3 py-2"/><button disabled={accountBusy} className="rounded-md bg-[#ffd538] px-4 py-2 font-bold text-[#06101b] disabled:opacity-50">{accountBusy?'新增中…':'新增帳號'}</button></form>{accountMessage&&<p role="status" className="mt-3 text-sm text-amber-200">{accountMessage}</p>}</section><MatchComparison/><OperationsPanel evaluation={evaluation}/><SettlementCalculator/></div>;
+  return <div className="space-y-4"><ProviderStatus/><MatchComparison/><OperationsPanel evaluation={evaluation}/><SettlementCalculator/></div>;
+}
+
+function ProviderStatus(){
+ const [rows,setRows]=useState<any[]>([]),[busy,setBusy]=useState(false);
+ async function check(){setBusy(true);try{const kinds=['npb-bat','kbo-bat','npb-schedule'];const values=await Promise.all(kinds.map(async kind=>{try{const r=await fetch('/api/international?kind='+kind);if(!r.ok)throw new Error('HTTP '+r.status);return await r.json();}catch{return {kind,status:'unavailable',error:'網站連線失敗'};}}));setRows(values);}finally{setBusy(false);}}
+ return <section className="panel admin-section"><div className="preview-section-title"><div><Database/><div><h2>棒球外部資料來源</h2><p>實際檢查日韓職球員表與日職賽事；資料源設有快取</p></div></div><button className="admin-refresh" type="button" disabled={busy} onClick={check}><RefreshCw/>{busy?'檢查中…':'檢查連線'}</button></div><div className="space-y-3 p-4">{rows.map(r=><p key={r.kind} className="text-sm">{r.kind}：{r.status==='ready'?'已取得 '+(r.tables?.reduce((n:number,t:any)=>n+t.rows.length,0)||r.games?.length||0)+' 筆':r.error} {r.fetchedAt?' · '+new Date(r.fetchedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'}):''}</p>)}<p className="text-sm text-amber-300">中職：尚無可用的 2026 來源。Goalserve、BetsAPI、LSports 尚缺憑證；免費 API-Sports 無法讀取指定 2026 球季。</p><p className="text-sm text-slate-400">未接通球員逐場歷史、牛棚負荷、完整傷兵與追蹤數據。此處不顯示虛構請求額度。</p></div></section>;
 }

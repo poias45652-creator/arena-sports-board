@@ -1,15 +1,14 @@
-import {trustedOrigin,validOrigin} from '../../../server/auth.mjs';
-import {getArenaUser} from '@/lib/arena-user';
-
+import {memberIdentity} from '@/lib/member-identity';
+import {headers} from 'next/headers';
+import {env} from 'cloudflare:workers';
 import {getRawDb} from '@/db';
 import {handleTzBinding} from '@/lib/tz-binding-service';
 export const dynamic='force-dynamic';
 async function handle(request:Request){
- const memberId=(await getArenaUser())?.id??null;
- const secret=process.env.TZ_BINDING_KEY;
- if(request.method!=='GET'&&!validOrigin(request))return Response.json({error:'請從 YJ體育分析 網站重新操作。'},{status:403});
- const canonical=new Request(new URL(new URL(request.url).pathname,trustedOrigin(request)),request);
- return handleTzBinding(canonical,memberId,getRawDb,secret);
+ const memberId=await memberIdentity();
+ if(memberId?.startsWith('tz:')&&request.method!=='GET')return Response.json({error:'請登出後重新登入以切換帳號',message:'請登出後重新登入以切換帳號'},{status:409});
+ const secret=(env as unknown as Record<string,string>).TZ_BINDING_KEY;
+ return handleTzBinding(request,memberId,getRawDb,secret);
 }
 export const GET=handle;
 export const POST=handle;

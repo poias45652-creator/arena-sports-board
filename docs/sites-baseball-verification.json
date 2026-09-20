@@ -1,0 +1,172 @@
+{
+  "testedAt": "2026-09-15T07:42:54.342Z",
+  "environment": "local source fetch and SQLite adapter; production D1 not modified",
+  "results": [
+    {
+      "league": "CPBL",
+      "date": "2026-09-15",
+      "elapsedMs": 12333,
+      "games": [
+        {
+          "id": "260915282",
+          "away": "味全龍",
+          "home": "富邦悍將",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:31.806Z",
+          "source": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E5%AF%8C%E9%82%A6-%E6%82%8D%E5%B0%87-260915282/"
+        },
+        {
+          "id": "260915332",
+          "away": "樂天桃猿",
+          "home": "統一獅",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:33.255Z",
+          "source": "https://tw.sports.yahoo.com/cpbl/%E6%A8%82%E5%A4%A9-%E6%A1%83%E7%8C%BF-%E7%B5%B1%E4%B8%80-%E7%8D%85-260915332/"
+        },
+        {
+          "id": "260915331",
+          "away": "中信兄弟",
+          "home": "台鋼雄鷹",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:33.688Z",
+          "source": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%8F%B0%E9%8B%BC-%E9%9B%84%E9%B7%B9-260915331/"
+        }
+      ],
+      "errors": [],
+      "written": 3,
+      "readBack": 3,
+      "outageStatus": "stale",
+      "timestampsPreserved": true
+    },
+    {
+      "league": "NPB",
+      "date": "2026-09-15",
+      "elapsedMs": 32948,
+      "games": [
+        {
+          "id": "2021048552",
+          "away": "讀賣巨人",
+          "home": "橫濱DeNA海灣之星",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:32.720Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021048552/score"
+        },
+        {
+          "id": "2021039420",
+          "away": "千葉羅德海洋",
+          "home": "日本火腿鬥士",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:43.483Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021039420/score"
+        },
+        {
+          "id": "2021048616",
+          "away": "廣島東洋鯉魚",
+          "home": "養樂多燕子",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:43.462Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021048616/score"
+        },
+        {
+          "id": "2021039422",
+          "away": "福岡軟銀鷹",
+          "home": "歐力士猛牛",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:43.537Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021039422/score"
+        },
+        {
+          "id": "2021039421",
+          "away": "西武獅",
+          "home": "東北樂天金鷲",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:43.545Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021039421/score"
+        },
+        {
+          "id": "2021048553",
+          "away": "中日龍",
+          "home": "阪神虎",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:43.274Z",
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021048553/score"
+        }
+      ],
+      "errors": [],
+      "written": 6,
+      "readBack": 6,
+      "outageStatus": "stale",
+      "timestampsPreserved": true
+    },
+    {
+      "league": "KBO",
+      "date": "2026-09-15",
+      "elapsedMs": 18411,
+      "games": [
+        {
+          "id": "20260915KTHH02026",
+          "away": "KT巫師",
+          "home": "韓華鷹",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:39.616Z",
+          "source": "https://api-gw.sports.naver.com/schedule/games/20260915KTHH02026/game-polling"
+        },
+        {
+          "id": "20260915HTSK02026",
+          "away": "起亞虎",
+          "home": "SSG登陸者",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:39.789Z",
+          "source": "https://api-gw.sports.naver.com/schedule/games/20260915HTSK02026/game-polling"
+        },
+        {
+          "id": "20260915LTSS02026",
+          "away": "樂天巨人",
+          "home": "三星獅",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:39.800Z",
+          "source": "https://api-gw.sports.naver.com/schedule/games/20260915LTSS02026/game-polling"
+        },
+        {
+          "id": "20260915LGNC02026",
+          "away": "LG雙子",
+          "home": "NC恐龍",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "fetchedAt": "2026-09-15T07:42:39.806Z",
+          "source": "https://api-gw.sports.naver.com/schedule/games/20260915LGNC02026/game-polling"
+        }
+      ],
+      "errors": [],
+      "written": 4,
+      "readBack": 4,
+      "outageStatus": "stale",
+      "timestampsPreserved": true
+    }
+  ]
+}

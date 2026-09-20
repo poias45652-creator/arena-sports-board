@@ -1,5 +1,5 @@
 'use client';
-import {useEffect,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';
 import {ChevronLeft,ChevronRight,RefreshCw,UserRound} from 'lucide-react';
 import {Button} from '@/components/ui/button';
 import {fresh,shiftDay,taipeiDay} from '@/lib/baseball';
@@ -103,19 +103,25 @@ function SelectedGame({game,now,scheduleFetchedAt}:{game:any;now:number;schedule
 export default function LiveScoreboard(){
  const [now,setNow]=useState(Date.now()),[date,setDate]=useState<string|null>(null),[selectedId,setSelectedId]=useState<number|null>(null),[filter,setFilter]=useState('all');
  useEffect(()=>{const timer=setInterval(()=>setNow(Date.now()),10000);return()=>clearInterval(timer);},[]);
+ const strip=useRef<HTMLDivElement>(null);
+ const [scrollState,setScrollState]=useState({left:false,right:false});
+ function updateScroll(){const el=strip.current;if(el)setScrollState({left:el.scrollLeft>2,right:el.scrollLeft+el.clientWidth<el.scrollWidth-2});}
+ function scrollGames(direction:number){const el=strip.current;if(el)el.scrollBy({left:direction*Math.max(232,el.clientWidth-232),behavior:'smooth'});}
  const today=taipeiDay(now),day=date??today;
  const source=useSource<Scores>(`scores&date=${day}`,15000);
  // A date change must not render the preceding date's cached response.
  const data=source.data?.date===day?source.data:null;
  const games=[...(data?.games||[])].sort((a,b)=>Number(gameState(b)==='Live')-Number(gameState(a)==='Live')||Date.parse(a.gameDate)-Date.parse(b.gameDate));
  const shown=games.filter(g=>filter==='all'||filter==='live'&&gameState(g)==='Live'||filter==='final'&&gameState(g)==='Final'||filter==='upcoming'&&!['Live','Final'].includes(gameState(g)));
+ useEffect(()=>{const el=strip.current;if(!el)return;el.scrollLeft=0;updateScroll();const observer=new ResizeObserver(updateScroll);observer.observe(el);return()=>observer.disconnect();},[day,filter,shown.map(g=>g.gamePk).join(',')]);
  const selected=shown.find(g=>g.gamePk===selectedId)||shown[0];
  function changeDay(value:string|null){setDate(value);setSelectedId(null);}
  return <section className="live-center" aria-label="MLB 即時比分與文字轉播">
   <div className="panel live-center-heading"><div><h2>即時比分</h2><p>MLB · 台灣時間 · 每 15 秒更新</p></div><div className="live-date-picker"><Button variant="ghost" aria-label="前一天" onClick={()=>changeDay(shiftDay(day,-1))}><ChevronLeft/></Button><label><span className="sr-only">選擇比分日期</span><input type="date" value={day} min="2000-01-01" max="2100-12-31" onChange={e=>{if(e.target.value)changeDay(e.target.value);}}/></label><Button variant="ghost" aria-label="後一天" onClick={()=>changeDay(shiftDay(day,1))}><ChevronRight/></Button><Button variant="outline" onClick={()=>changeDay(null)} disabled={date===null}>今天</Button></div><Button variant="outline" onClick={source.refresh} disabled={source.loading}><RefreshCw className={source.loading?'animate-spin':''}/>更新比分</Button></div>
   <div className="live-center-filters"><div className="score-filters" role="group" aria-label="篩選比分狀態">{[['all','全部'],['live','進行中'],['upcoming','未開賽'],['final','已完賽']].map(([value,label])=><Button key={value} variant="ghost" aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</Button>)}</div><p>{data?`更新 ${clock(data.fetchedAt)}（台灣）`:'正在同步…'}</p></div>
   {source.error&&<p className="live-data-notice" role="status">比分更新失敗：{source.error}{data?'，目前保留上次取得的資料。':''}</p>}
-  <div className="live-game-strip" role="group" aria-label="選擇比賽">{shown.map(game=><button type="button" className="panel live-game-chip" key={game.gamePk} aria-pressed={selected?.gamePk===game.gamePk} onClick={()=>setSelectedId(game.gamePk)}><span className={gameState(game)==='Live'?'live-chip-status active':'live-chip-status'}>{gameDetailZh(game)}</span><span className="live-chip-teams"><TeamLogo id={game.teams?.away?.team?.id} size={30}/><b>{stat(game.teams?.away?.score)} : {stat(game.teams?.home?.score)}</b><TeamLogo id={game.teams?.home?.team?.id} size={30}/></span><span className="live-chip-names">{teamZh(game.teams?.away?.team)}<br/>對 {teamZh(game.teams?.home?.team)}</span><small>{game.venue?.name||'球場尚未提供'}</small></button>)}</div>
+  {!!shown.length&&<div className="live-strip-controls"><span>共 {shown.length} 場 · 左右滑動查看全部</span><div><Button variant="outline" aria-label="向左查看賽事" disabled={!scrollState.left} onClick={()=>scrollGames(-1)}><ChevronLeft/></Button><Button variant="outline" aria-label="向右查看賽事" disabled={!scrollState.right} onClick={()=>scrollGames(1)}><ChevronRight/></Button></div></div>}
+  <div ref={strip} id="live-game-strip" className="live-game-strip" onScroll={updateScroll} tabIndex={0} role="group" aria-label="全部賽事，可左右滑動" onKeyDown={e=>{if(e.target!==e.currentTarget)return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();scrollGames(e.key==='ArrowRight'?1:-1);}}}>{shown.map(game=><button type="button" className="panel live-game-chip" key={game.gamePk} aria-pressed={selected?.gamePk===game.gamePk} onClick={()=>setSelectedId(game.gamePk)}><span className={gameState(game)==='Live'?'live-chip-status active':'live-chip-status'}>{gameDetailZh(game)}</span><span className="live-chip-teams"><TeamLogo id={game.teams?.away?.team?.id} size={30}/><b>{stat(game.teams?.away?.score)} : {stat(game.teams?.home?.score)}</b><TeamLogo id={game.teams?.home?.team?.id} size={30}/></span><span className="live-chip-names">{teamZh(game.teams?.away?.team)}<br/>對 {teamZh(game.teams?.home?.team)}</span><small>{game.venue?.name||'球場尚未提供'}</small></button>)}</div>
   {selected&&data?<SelectedGame key={`${day}:${selected.gamePk}`} game={selected} now={now} scheduleFetchedAt={data.fetchedAt}/>:<p className="panel live-empty">{!data?source.error?'比分暫時無法取得，請重試。':'正在取得賽程…':games.length?'沒有符合此狀態的比賽。':'這個台灣日期沒有 MLB 賽事。'}</p>}
  </section>;
 }

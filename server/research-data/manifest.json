@@ -1,0 +1,22 @@
+{
+  "preparedAt": "2026-09-15T10:18:38.315421Z",
+  "files": {
+    "README.zh-TW.md": "85f7462bd4aa7d4fe1a6a24bcdaea18e6c72adde2fe3742d52d48cfab7782501",
+    "data/games-archived-clean.json": "aff3465d09e1b8f0c0e1d846c8b2feae8b7124194f71cc21b8befda184fdc0f8",
+    "data/games-original-observation.json": "f67a62a440843807cc69936df1f3bc0f12ff5ee87de4810d76d0ef4b6197ec76",
+    "data/history-original-import.json": "bb93ef2ab02344232b2871a5ab8c93137ad2717459d4bb978799d966e8c78c2d",
+    "data/history-quarantine-import.json": "52c6367413f689ed3a8590670b73421f9c84dab0db823fa4bb333b68bb4c0b3e",
+    "data/history-research-import.json": "f700ae97bef1dcb7c82d2a15199ff198f784e89400147cd82e4045f9f240f058",
+    "data/invalid-player-rows.json": "7498dd3ccf9b78b4611e3fcef5830272e29b9a14377ab2f419e38118ce999fc0",
+    "data/research-field-projection.json": "e6680cc5ee8f9461c4c14168bf986c585e3cda0198f2f07bb37a73b281dc3494",
+    "gap-audit.json": "544cc54b5b5bcb45c4b872d61f6a5e108fd001e896f3b88a2d5687d2f596fe46",
+    "scripts/baseball-import.mjs": "225206aee4efa0de3486e7ce720ff38155069818a13d287f8884aaa03008e64f",
+    "scripts/validate-package.mjs": "5ac8ae56d17ccf45104223a583ad8cfe68656b3a33be616e56124ee70ed70e86",
+    "staging.sqlite": "4b3ef76a7346eec5932878722a64434c69e9a1fdc9e3916848026a1b88012f3a",
+    "validation/import-tests.txt": "302e2f607b3cc315c7f97e522f7e768d3a3845ccfd796069cfa6eedbe981b24f",
+    "validation/package-validation.txt": "4f4fbeb1f31fba3048e41322b283f054d4ace3cf592acb8f9bbfdd6fbf8fdbc1",
+    "validation/provider-tests.txt": "58e5340287d1b7984b1a83c5baf16bc1d699b537e2d824769c515fd92ae95576",
+    "validation/staging-receipt.json": "a215a430628ad329219957951bfff73f804b69786af9a4272f2e1ca6411bbddc",
+    "缺漏清單.zh-TW.md": "bd0eb3df733373711dca4cc267d290b5e962f6278e381a4c4b0d5ad78eb84366"
+  }
+}

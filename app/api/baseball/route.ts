@@ -2,8 +2,7 @@ import {GET as super007GET} from '../super007/route';
 import {parseStandings} from '@/lib/standings';
 import validation from '@/data/model-validation.json';
 import historicalOdds from '@/data/historical-odds.json';
-import {readFile} from "node:fs/promises";
-import {resolve,sep} from "node:path";
+import {env} from "cloudflare:workers";
 import {statcastHistorySummary,statcastHistoryRecords,historicalPitcher} from '@/lib/statcast-history';
 import {retrosheetSummary,retrosheetMatch,retrosheetRecords} from '@/lib/retrosheet';
 import {parkFactorsUrl,parseParkFactors} from '@/lib/park-factors';
@@ -23,6 +22,8 @@ const cache=new Map<string,{data:unknown;expires:number}>();
 const pending=new Map<string,Promise<unknown>>();
 async function cached(key:string,ttl:number,fetcher:()=>Promise<unknown>){
   const current=cache.get(key);if(current&&current.expires>Date.now())return current.data;
+  // Live requests must not inherit unfinished I/O from a canceled Worker request.
+  if(key.startsWith('scores:')||key.startsWith('game:')||key.startsWith('schedule:')||key.startsWith('pitcher-rates:')){const data=await fetcher();if(cache.size>=80)cache.delete(cache.keys().next().value!);cache.set(key,{data,expires:Date.now()+ttl});return data;}
   if(pending.has(key))return pending.get(key)!;
   const task=fetcher().then(data=>{if(cache.size>=80)cache.delete(cache.keys().next().value!);cache.set(key,{data,expires:Date.now()+ttl});return data;}).finally(()=>pending.delete(key));pending.set(key,task);return task;
 }
@@ -66,7 +67,7 @@ export async function GET(request:Request){
     if(kind==='statcast-records'||kind==='statcast-pitcher'){
       const pitcherId=url.searchParams.has('pitcherId')?Number(url.searchParams.get('pitcherId')):undefined,gameId=url.searchParams.has('gameId')?Number(url.searchParams.get('gameId')):undefined,offset=Number(url.searchParams.get('offset')||0),before=url.searchParams.get('before');
       if(!before||!/^\d{4}-\d{2}-\d{2}$/.test(before)||!Number.isFinite(Date.parse(before))||!Number.isInteger(offset)||offset<0||offset>200000||[pitcherId,gameId].some(v=>v!==undefined&&(!Number.isInteger(v)||v<=0))||kind==='statcast-pitcher'&&!pitcherId)return Response.json({error:'無效逐球查詢'},{status:400});
-      return Response.json(kind==='statcast-pitcher'?historicalPitcher(pitcherId!,before):await statcastHistoryRecords({pitcherId,gameId,before,offset},async path=>{const base=resolve(process.cwd(),'public'),file=resolve(base,'.'+path);if(!file.startsWith(base+sep)||!file.endsWith('.json'))throw new Error('歷史資料路徑錯誤');return JSON.parse(await readFile(file,'utf8')) as any[];}));
+      return Response.json(kind==='statcast-pitcher'?historicalPitcher(pitcherId!,before):await statcastHistoryRecords({pitcherId,gameId,before,offset},async path=>{const r=await env.ASSETS.fetch(new Request(new URL(path,request.url)));if(!r.ok)throw new Error("歷史資料分檔讀取失敗");return r.json() as Promise<any[]>;}));
     }
     if(kind==='retrosheet'){
       const away=Number(url.searchParams.get('awayId')),home=Number(url.searchParams.get('homeId')),before=url.searchParams.get('before');
@@ -135,18 +136,12 @@ export async function GET(request:Request){
       const today=taipeiDay(),day=requestedDay||today;
       const data=await cached('scores:'+day,10000,async()=>{
         const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${shiftDay(day,-2)}&endDate=${shiftDay(day,1)}&hydrate=linescore,team,probablePitcher`;
-        const json=await (await sourceFetch(source)).json();
+        const response=await fetch(source,{signal:AbortSignal.timeout(10000)});
+        if(!response.ok)throw new Error(`比分來源回覆 ${response.status}`);
+        const json=await response.json();
         if(!Array.isArray(json.dates))throw new Error('比分資料格式錯誤');
         const games=json.dates.flatMap((d:any)=>d.games||[]).filter((g:any)=>day===today&&g.status?.abstractGameState==='Live'||taipeiDay(g.gameDate)===day);
-        // Fetch only active games, with bounded concurrency; a failed feed keeps the schedule score.
-        let cursor=0;
-        await Promise.all(Array.from({length:Math.min(5,games.length)},async()=>{
-          while(cursor<games.length){const index=cursor++;const game=games[index];
-            if(game.status?.abstractGameState!=='Live')continue;
-            try{games[index]=mergeLiveGame(game,await gameDetail(game.gamePk));}
-            catch{games[index]={...game,detailError:true};}
-          }
-        }));
+        // Return hydrated inning scores immediately. SelectedGame fetches its own play feed.
         return {games,fetchedAt:new Date().toISOString(),date:day};
       });
       return Response.json(data,{headers:{'Cache-Control':'no-store'}});
@@ -155,7 +150,7 @@ export async function GET(request:Request){
     if(kind==='schedule'){
       const day=taipeiDay();const data=await cached('schedule:'+day,30000,async()=>{
         const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${shiftDay(day,-1)}&endDate=${shiftDay(day,7)}&hydrate=team,probablePitcher`;
-        const r=await sourceFetch(source),json=await r.json();if(!Array.isArray(json.dates))throw new Error('賽程格式錯誤');
+        const r=await fetch(source,{signal:AbortSignal.timeout(12000)});if(!r.ok)throw new Error(`賽程來源回覆 ${r.status}`);const json=await r.json();if(!Array.isArray(json.dates))throw new Error('賽程格式錯誤');
         const side=(s:any):TeamSide=>({id:s.team.id,name:s.team.name,wins:Number.isInteger(s.leagueRecord?.wins)?s.leagueRecord.wins:null,losses:Number.isInteger(s.leagueRecord?.losses)?s.leagueRecord.losses:null,pitcherId:s.probablePitcher?.id??null,pitcherName:s.probablePitcher?.fullName||'先發待公布',pitcherEra:null,pitcherWhip:null});
         const games=json.dates.flatMap((d:any)=>d.games||[]).filter((g:any)=>g.teams?.away?.team?.id&&g.teams?.home?.team?.id).map((g:any)=>({id:g.gamePk,date:g.gameDate,season:Number(g.season),gameType:g.gameType,state:g.status?.abstractGameState,status:g.status?.detailedState,startTimeTBD:!!g.status?.startTimeTBD,away:side(g.teams.away),home:side(g.teams.home)}));
         await Promise.all([...new Set<number>(games.map((g:any)=>g.season))].map(async season=>{

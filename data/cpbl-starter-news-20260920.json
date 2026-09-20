@@ -1,0 +1,16 @@
+{
+  "league": "CPBL",
+  "date": "2026-09-20",
+  "source": {
+    "name": "自由體育賽事預告",
+    "url": "https://sports.ltn.com.tw/amp/news/breakingnews/5579409",
+    "publishedAt": "2026-09-20T06:50:00+08:00",
+    "observedAt": "2026-09-20T05:04:00Z"
+  },
+  "games": [
+    {"away": "味全龍", "home": "中信兄弟", "start": "2026-09-20 15:05:00", "awayStarter": "曹祐齊", "homeStarter": "菲力士"},
+    {"away": "富邦悍將", "home": "統一獅", "start": "2026-09-20 16:05:00", "awayStarter": "李東洺", "homeStarter": "喬登"},
+    {"away": "台鋼雄鷹", "home": "樂天桃猿", "start": "2026-09-20 17:05:00", "awayStarter": "艾速特", "homeStarter": "林子崴"}
+  ],
+  "note": "新聞核對先發姓名；開賽時間由原場次賽程核對。不是即時先發確認，不含投手成績。"
+}

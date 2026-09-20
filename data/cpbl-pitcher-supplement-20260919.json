@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "league": "CPBL",
+  "season": 2026,
+  "kind": "archived_season_statistics",
+  "archiveFile": "international-profile-2026.json",
+  "note": "讀取既存檔案；本次未抓取中職官網。按球隊、投手姓名與日期核對，只補空值。",
+  "pitchers": [
+    {
+      "team": "中信兄弟",
+      "teamCode": "ACN",
+      "name": "菲力士",
+      "season": {
+        "wins": "0",
+        "losses": "4",
+        "era": "4.14",
+        "innings": "50.0",
+        "strikeouts": "42",
+        "walks": "26",
+        "whip": "1.54",
+        "opponentAverage": ""
+      },
+      "hits": 51,
+      "earnedRuns": 23,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=ACN",
+        "observedAt": "2026-09-19T12:39:34.089Z",
+        "publishedAt": null
+      }
+    },
+    {
+      "team": "統一獅",
+      "teamCode": "ADD",
+      "name": "喬登",
+      "season": {
+        "wins": "8",
+        "losses": "3",
+        "era": "1.45",
+        "innings": "99.0",
+        "strikeouts": "104",
+        "walks": "40",
+        "whip": "1.00",
+        "opponentAverage": ""
+      },
+      "hits": 59,
+      "earnedRuns": 16,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=ADD",
+        "observedAt": "2026-09-19T12:39:34.095Z",
+        "publishedAt": null
+      }
+    },
+    {
+      "team": "富邦悍將",
+      "teamCode": "AEO",
+      "name": "李東洺",
+      "season": {
+        "wins": "10",
+        "losses": "4",
+        "era": "2.55",
+        "innings": "98.2",
+        "strikeouts": "52",
+        "walks": "41",
+        "whip": "1.29",
+        "opponentAverage": ""
+      },
+      "hits": 86,
+      "earnedRuns": 28,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=AEO",
+        "observedAt": "2026-09-19T12:39:34.099Z",
+        "publishedAt": null
+      }
+    },
+    {
+      "team": "樂天桃猿",
+      "teamCode": "AJL",
+      "name": "林子崴",
+      "season": {
+        "wins": "4",
+        "losses": "2",
+        "era": "1.74",
+        "innings": "67.1",
+        "strikeouts": "33",
+        "walks": "17",
+        "whip": "1.19",
+        "opponentAverage": ""
+      },
+      "hits": 63,
+      "earnedRuns": 13,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=AJL",
+        "observedAt": "2026-09-19T12:39:34.113Z",
+        "publishedAt": null
+      }
+    },
+    {
+      "team": "味全龍",
+      "teamCode": "AAA",
+      "name": "曹祐齊",
+      "season": {
+        "wins": "0",
+        "losses": "1",
+        "era": "6.75",
+        "innings": "4.0",
+        "strikeouts": "3",
+        "walks": "4",
+        "whip": "2.00",
+        "opponentAverage": ""
+      },
+      "hits": 4,
+      "earnedRuns": 3,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=AAA",
+        "observedAt": "2026-09-19T12:39:34.274Z",
+        "publishedAt": null
+      }
+    },
+    {
+      "team": "台鋼雄鷹",
+      "teamCode": "AKP",
+      "name": "艾速特",
+      "season": {
+        "wins": "9",
+        "losses": "8",
+        "era": "2.41",
+        "innings": "123.1",
+        "strikeouts": "108",
+        "walks": "40",
+        "whip": "1.08",
+        "opponentAverage": ""
+      },
+      "hits": 93,
+      "earnedRuns": 33,
+      "source": {
+        "name": "既存球季成績檔案（未重新抓取）",
+        "url": "https://cpbl.com.tw/team/teamscore?ClubNo=AKP",
+        "observedAt": "2026-09-19T12:39:34.281Z",
+        "publishedAt": null
+      }
+    }
+  ]
+}

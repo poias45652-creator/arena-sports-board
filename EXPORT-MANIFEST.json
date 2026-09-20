@@ -1,0 +1,2472 @@
+{
+  "product": "YJ體育分析",
+  "siteVersion": 172,
+  "commit": "d3de8560f62115d693f3ce9329d35a5eb27027d0",
+  "date": "2026-09-20",
+  "kind": "complete-source-export",
+  "renderReady": false,
+  "sourceFileCount": 488,
+  "sanitizedFiles": [
+    "app/admin-access.ts",
+    "lib/arena-session.ts",
+    "ops/baseball-sync.md",
+    "tests/admin-identity.test.mjs",
+    "tests/tz-login.test.mjs",
+    "worker/index.ts"
+  ],
+  "excluded": [
+    "live secrets and .env files",
+    "production database and member records",
+    "node_modules",
+    "dist",
+    ".git",
+    "logs and caches"
+  ],
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "9602f6bb9b0b10f94482ebfc450e355efa2f69cd45f8a715a8f93b3a5602aa5c",
+      "bytes": 499
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "35d940f5e608b2a4ef2a41ecf7263d2d4e3e18aa8aab9a98a57fa57e5607dfa5",
+      "bytes": 498
+    },
+    {
+      "path": ".npmrc",
+      "sha256": "494e64a8818b6158e89321250500ad5ad018e33ad5cfea06a1cacd2cf4da75fa",
+      "bytes": 76
+    },
+    {
+      "path": ".openai/hosting.json",
+      "sha256": "c0bb81c314e602565da924725ebb3ff5b68a7866bcdf633828737ad334d7e975",
+      "bytes": 91
+    },
+    {
+      "path": "README.md",
+      "sha256": "4a852b0fb725e74994dd87ef32cf1c1e62982ff73eca2c4f01df040366c6730f",
+      "bytes": 5689
+    },
+    {
+      "path": "README_EXPORT_先讀.md",
+      "sha256": "1b2f8459e4f428a2ab2e2d0d470eccad7b4e8d38ad4d3ca2afc5157d418d78cb",
+      "bytes": 6486
+    },
+    {
+      "path": "app/admin-access.ts",
+      "sha256": "7d96780fcf6ee9ddc38b6475abd2842542082329a7d96682837befb6fa263cc2",
+      "bytes": 712
+    },
+    {
+      "path": "app/admin-entry.tsx",
+      "sha256": "e635083b444297fcf5406a1e206fc7cf860ca655f9cf189f71427e3b9a7847fd",
+      "bytes": 900
+    },
+    {
+      "path": "app/admin/accounts.tsx",
+      "sha256": "c0dff18d18df1c5ccbb92711b091f718f6315670ae9a11b1443fb4c65d7f7898",
+      "bytes": 7487
+    },
+    {
+      "path": "app/admin/cpbl-data-supplement.tsx",
+      "sha256": "6e858185481ae6aa4b547dfe075d5ffed67dd9f39b81ad59eee6a8015f256f60",
+      "bytes": 3257
+    },
+    {
+      "path": "app/admin/cpbl-game-logs.tsx",
+      "sha256": "49e670dc42d4e3ff15ab346fab81568c2c98905f58a57b0b7de7370e2c5213cf",
+      "bytes": 2132
+    },
+    {
+      "path": "app/admin/cpbl-market-status.tsx",
+      "sha256": "5cb22e8d706e9934aa5deb21632c642f3f0178669b68f91bacf60db3cf6e55bf",
+      "bytes": 4616
+    },
+    {
+      "path": "app/admin/error.tsx",
+      "sha256": "0f688906126fd65ab4bab61ad5f13cf7326ab6b2f154a552ae32139f89756230",
+      "bytes": 506
+    },
+    {
+      "path": "app/admin/international-data.tsx",
+      "sha256": "e3810c30b6fab61b121848c417f5385a46f9792662395e01320e97ee4f497ad2",
+      "bytes": 2450
+    },
+    {
+      "path": "app/admin/international-live-status.tsx",
+      "sha256": "bdb23d918b23477fcce8a8f48ac00c792b847c8f13c6c07f8af38f8dd5e47e96",
+      "bytes": 3392
+    },
+    {
+      "path": "app/admin/international-market-status.tsx",
+      "sha256": "308d6721666e0063a121d633bf98150dfa5e1f57a4b47f92fb8d25b9d15225c8",
+      "bytes": 3537
+    },
+    {
+      "path": "app/admin/international-validation.tsx",
+      "sha256": "69ef1338196adccd83a2e9f4a0b39a02477af269a8098f37e8241bc0e697815b",
+      "bytes": 6873
+    },
+    {
+      "path": "app/admin/match-comparison.tsx",
+      "sha256": "0d812e60f7db7e365bbd17227320a8d4ba84aecfda622c9b6e24a4544b7ea3d5",
+      "bytes": 4444
+    },
+    {
+      "path": "app/admin/page.tsx",
+      "sha256": "8782ce0890d56bd247726f44e222b122505d1e7aca3d69d8baf9ff4234a129d7",
+      "bytes": 2776
+    },
+    {
+      "path": "app/admin/pregame-imports.tsx",
+      "sha256": "5c5699c54e4c1ebf0023e86c169520f210fffe964d55a18fe2382b0a7463c86d",
+      "bytes": 7595
+    },
+    {
+      "path": "app/admin/research-panel.tsx",
+      "sha256": "4deb2a137c0390a08aa98e581c42204c91df7e3ced624ddec1d59440ae5c2c8a",
+      "bytes": 4730
+    },
+    {
+      "path": "app/admin/section-boundary.tsx",
+      "sha256": "3e5c3d361255482a5e9b54e4ff68e99146f3e93ad563cd5ae40c45f67442425d",
+      "bytes": 592
+    },
+    {
+      "path": "app/admin/tools.tsx",
+      "sha256": "6cc922b54f7787a6363b85177d1e3b76d1edb7202da00d84f516010c59856174",
+      "bytes": 2923
+    },
+    {
+      "path": "app/admin/turnstile-settings.tsx",
+      "sha256": "21bc7303bd2614a051628064c31bb9d21bafa0bc093047babf6a1007242080b8",
+      "bytes": 2569
+    },
+    {
+      "path": "app/admin/twtools-reference.tsx",
+      "sha256": "75fbfe3ab6670fe8ecf0a138a44a29b8b7d92582ad66d2f7455aa80eee8ada3c",
+      "bytes": 4384
+    },
+    {
+      "path": "app/admin/win-breakdown.tsx",
+      "sha256": "166719775db7a4ef63fa9a3c747beb50feeeaab0feea64f3cc912516fa6e7866",
+      "bytes": 3907
+    },
+    {
+      "path": "app/analysis-weights.tsx",
+      "sha256": "e63088c949fe710c367017331e0e2706962117d8cc6693f53371c9632c40e924",
+      "bytes": 8706
+    },
+    {
+      "path": "app/api/admin-access/route.ts",
+      "sha256": "fb9591dcd3516dd1def8cf527540e56cfabd7f804352008bc0ddbeba667e02be",
+      "bytes": 250
+    },
+    {
+      "path": "app/api/admin/accounts/route.ts",
+      "sha256": "a21eedf0cbd15aedb333c19d0ec60e1ee2667ef48790b663f67434e50ac3189d",
+      "bytes": 4513
+    },
+    {
+      "path": "app/api/admin/baseball-research/route.ts",
+      "sha256": "60a87920c9f325f5e2394931d9901d31c4a2fdeee726010c52bf3b9bbf9046f1",
+      "bytes": 1144
+    },
+    {
+      "path": "app/api/admin/international-validation/route.ts",
+      "sha256": "7f7166bd33e39ce3c1432e6fa9c26ac8435a5946999c778161a1239f22b68de3",
+      "bytes": 689
+    },
+    {
+      "path": "app/api/admin/turnstile/route.ts",
+      "sha256": "c35c8eb9c263d7b996e0e1565e09ab29e1b392bd8e245be81a8d2e95bc577db6",
+      "bytes": 2391
+    },
+    {
+      "path": "app/api/analysis/results/route.ts",
+      "sha256": "d3808b86d5e8b457f166cfb736f6a8f9d48cefdcdbde7d171d73f7936b2d7ea5",
+      "bytes": 5024
+    },
+    {
+      "path": "app/api/analysis/route.ts",
+      "sha256": "f01bd1ad4a756be4a57baa033eb6fc540ce7e58983eb95cda128b1292ba7c574",
+      "bytes": 4704
+    },
+    {
+      "path": "app/api/baseball/route.ts",
+      "sha256": "50173bfc839712b0cecb99871d720a3b8f675d2d8e4afe102609bdafbdb1e667",
+      "bytes": 14829
+    },
+    {
+      "path": "app/api/hr9988/route.ts",
+      "sha256": "b422519432da4a2ef51c2191d2844f2efff820486dba74483c3f014d20e66cc7",
+      "bytes": 1182
+    },
+    {
+      "path": "app/api/international-live/route.ts",
+      "sha256": "4e0ae8ac580ab2db67c859cfe5e4e59304d286bd02cc134020368d2b2ebc09d0",
+      "bytes": 1245
+    },
+    {
+      "path": "app/api/international-sync/route.ts",
+      "sha256": "b733aee12c2537cdcdb70eb9eee42f406e88bd61989159109efb9d1d890cbbb8",
+      "bytes": 818
+    },
+    {
+      "path": "app/api/international-team/route.ts",
+      "sha256": "a4f5e5dbde27431bb02b0f6091d06b62401f5d60a4cfb09a2e9f38fbdb1140bb",
+      "bytes": 3061
+    },
+    {
+      "path": "app/api/international/route.ts",
+      "sha256": "14d4db015f70cb2e2821c89c5d55a681d71907e6b5015df0f8343fa6c291fb2e",
+      "bytes": 5008
+    },
+    {
+      "path": "app/api/member-odds/route.ts",
+      "sha256": "5519d97fbaec196761bd5b5f3e0dd618e5c4aa0bf4b79936ade434b9f6845b07",
+      "bytes": 1551
+    },
+    {
+      "path": "app/api/operations/route.ts",
+      "sha256": "8732c9819119c122d9923c1049e2b13899e50849c6a2e07d08cf54f56fcc07b7",
+      "bytes": 1138
+    },
+    {
+      "path": "app/api/player/route.ts",
+      "sha256": "0b4c72f513aaa756f25e25d3fa390b08bf374739a2861ed2cbd8cd8303bd57c8",
+      "bytes": 3004
+    },
+    {
+      "path": "app/api/session/route.ts",
+      "sha256": "0670bd9e6ccfb19450fdace59db1c901676a4c3780204ea5ad984f582709d363",
+      "bytes": 936
+    },
+    {
+      "path": "app/api/super007/route.ts",
+      "sha256": "207fbf5b4eef6288b7b557cff503ba1d207a8047cffc8344b79f324fe9204550",
+      "bytes": 4000
+    },
+    {
+      "path": "app/api/team/route.ts",
+      "sha256": "d00e67f08615055d1b90efec69cff99440814463b35738dbefbf358b1eb27953",
+      "bytes": 4581
+    },
+    {
+      "path": "app/api/tz-binding/route.ts",
+      "sha256": "a6aa352dc5eef89a2f0bfd01e88938948ebc468370a63404e7749216f3bcff99",
+      "bytes": 770
+    },
+    {
+      "path": "app/chatgpt-auth.ts",
+      "sha256": "17a965f8948b21510cdf8ecbd70c5fdf58100e10970463f6a8fd2cc4795f8044",
+      "bytes": 2404
+    },
+    {
+      "path": "app/cpbl-model-details.tsx",
+      "sha256": "f0c336ec6ab649b22ef204b5d42fbdca387827f918697be85e585e6daa962dbc",
+      "bytes": 5781
+    },
+    {
+      "path": "app/cpbl-standings.tsx",
+      "sha256": "7269dc20bbc2f7ad2d176d62caa92023b83e8d5990daa7977698a93be3d6dd33",
+      "bytes": 5763
+    },
+    {
+      "path": "app/game-context.tsx",
+      "sha256": "e492529a78f42d2facd0d279feb14950f14afc10d227517fb7d69e54ae4afe08",
+      "bytes": 2893
+    },
+    {
+      "path": "app/globals.css",
+      "sha256": "026d603200d40bfd386963842a14a1e1619b13305b6e898a8f7c76dbd5a9d237",
+      "bytes": 58267
+    },
+    {
+      "path": "app/international-board.tsx",
+      "sha256": "903a661323c685a016870e6251e64b3b14981cc3aefc108a0ffaca77e181e6b9",
+      "bytes": 13628
+    },
+    {
+      "path": "app/international-live-feed.tsx",
+      "sha256": "89a4b8ef2506abdae5daa52c5bd88ec59c29d1851ace72efdbc8bc15be10589e",
+      "bytes": 12320
+    },
+    {
+      "path": "app/international-live-records.tsx",
+      "sha256": "7b77ffb036100e5a014f43f890a383efb3fd003ae424c1236ec3597a16e2e7d4",
+      "bytes": 5766
+    },
+    {
+      "path": "app/international-market-analysis.tsx",
+      "sha256": "25d0fa68213135c51052336a78fe882cecb32a19ab4a9ff0c968270b1fb03394",
+      "bytes": 4453
+    },
+    {
+      "path": "app/international-markets.tsx",
+      "sha256": "3bd992a024897f4e62e13375b22a4c6cf5d23c7e5012d97bc7b2d5b9fcabc977",
+      "bytes": 14201
+    },
+    {
+      "path": "app/international-pregame-details.tsx",
+      "sha256": "358ad2b67b51668e74e374203934a3983611cdd2b81d52cf430648deeb6cbad5",
+      "bytes": 6065
+    },
+    {
+      "path": "app/international-team-logo.tsx",
+      "sha256": "e7b8b402ffb0fb52a547a7cadbd0cd5e208de56ce7845525ec519bf4c99563c5",
+      "bytes": 1288
+    },
+    {
+      "path": "app/international-team-profile.tsx",
+      "sha256": "a2ab9e52dea1406bc2cde69773e4da380cb82d5d16a908653fe817053d1e0f10",
+      "bytes": 15897
+    },
+    {
+      "path": "app/kbo-model-details.tsx",
+      "sha256": "e64c374e81b53fe03f06f27288aa5ee349e643a1150a478e45c012d70a937a12",
+      "bytes": 4197
+    },
+    {
+      "path": "app/kbo-schedule.tsx",
+      "sha256": "6182f816c6af3c522a50c7afc63f9e4c7bdc283cabeccef55657d5c51fdbd73f",
+      "bytes": 2398
+    },
+    {
+      "path": "app/kbo-standings.tsx",
+      "sha256": "dcb5a5d543ee97c80f8671bfc7b509227928b32a055ecb29819f07c73a6c7ac7",
+      "bytes": 4314
+    },
+    {
+      "path": "app/layout.tsx",
+      "sha256": "44c226285f116396a676e858a77a314c915b5296f9091aa0461ba4dcfc0d1ed7",
+      "bytes": 482
+    },
+    {
+      "path": "app/live-scoreboard.tsx",
+      "sha256": "1984c517c03deedc1f0ea361da6536ca75194c3dc19b8314594cea534115f8d5",
+      "bytes": 20221
+    },
+    {
+      "path": "app/login/page.tsx",
+      "sha256": "b1ad5bf71f322bb52b9e7e513d5a9f2d7c8b0e5568710b1773cf8a610ba67f52",
+      "bytes": 3453
+    },
+    {
+      "path": "app/login/turnstile-widget.tsx",
+      "sha256": "716bcc0f20728d283ff02036358d1c1325e807bda8c4c6660e17ed0704de44fe",
+      "bytes": 1495
+    },
+    {
+      "path": "app/market-outcomes.tsx",
+      "sha256": "b05e0e9fc98645b73d066fab34afbbe3a828f36a58d55e38d7d576f300c6b44d",
+      "bytes": 689
+    },
+    {
+      "path": "app/markets.tsx",
+      "sha256": "309ac78bda4a3ed2959697a53aa79bebeb3f663949bad5e7861edb4f707d4f3b",
+      "bytes": 14678
+    },
+    {
+      "path": "app/match-inning-board.tsx",
+      "sha256": "50817f26535c1ffd99f0e97cb98a33b37477a5c22fa9c962ed3ac4d498229fbc",
+      "bytes": 832
+    },
+    {
+      "path": "app/npb-model-details.tsx",
+      "sha256": "0b456b934ef526633da66f1f5f6dfcbc07d6f1b29a8634284c5e44d8b63725c8",
+      "bytes": 3239
+    },
+    {
+      "path": "app/npb-roster.tsx",
+      "sha256": "2ed0d3661ada72dde8f541df54f813ba341ba627f4fb63a91446e346dfc288d2",
+      "bytes": 1738
+    },
+    {
+      "path": "app/npb-standings.tsx",
+      "sha256": "16430840c3cd268ee99b9a4b55fc933bc695b8e211c6761e78327503653a5b34",
+      "bytes": 4545
+    },
+    {
+      "path": "app/operations-panel.tsx",
+      "sha256": "2b7a99bf49258adbf3be5f0ca7e3fede7ef61c7686c6d012bedb5662346832e6",
+      "bytes": 3522
+    },
+    {
+      "path": "app/page.tsx",
+      "sha256": "8f30bc42200d59399f38b1bef0813796030b983b7bec69e88e3201cb75193ac8",
+      "bytes": 16249
+    },
+    {
+      "path": "app/parlay-pane.tsx",
+      "sha256": "6cba9f461e368f4a54b1cc4d0bbb561ac14dfac0cab1d980451d028b7ddfe5d7",
+      "bytes": 2031
+    },
+    {
+      "path": "app/player-link.tsx",
+      "sha256": "8498a577c5f5cc8c90b903bfc94981cd48c34996e30d5f52c8f74a46eb758c09",
+      "bytes": 470
+    },
+    {
+      "path": "app/player-profile.tsx",
+      "sha256": "4f4ba68a8d981c2680bdf96d6e1f8bfd007831c2aba7fcc923540238561f6158",
+      "bytes": 9957
+    },
+    {
+      "path": "app/players/[id]/page.tsx",
+      "sha256": "9a99fe8ffe4636b4a406f9337e52ed52fbb12dd7b19c4e877059ad1be4199d84",
+      "bytes": 641
+    },
+    {
+      "path": "app/pregame.tsx",
+      "sha256": "cf4a0e71d1f27ba3214f1e4e55cdaf021c6f0fe710f7b83011891c3942f78084",
+      "bytes": 15947
+    },
+    {
+      "path": "app/session-account.tsx",
+      "sha256": "384b546abe32c5de54f869bf3a46ff7a2d235c2921a9f5289aa8c2ca6aee6dd1",
+      "bytes": 997
+    },
+    {
+      "path": "app/settlement-calculator.tsx",
+      "sha256": "8a429913e1932f8dfc4a1c45c98c984fc8bcd0fe0548273efabf860cc45d7d07",
+      "bytes": 5011
+    },
+    {
+      "path": "app/source-markets.tsx",
+      "sha256": "0c2598f69c6f5005866cbe7d7fcbb3ed41df15881a5427673bb5fefb055c4163",
+      "bytes": 4846
+    },
+    {
+      "path": "app/standings.tsx",
+      "sha256": "4216902edb55dcbc42ad353cfd7a9418aae405d1e9b27d5da5041ce78db1060a",
+      "bytes": 4313
+    },
+    {
+      "path": "app/super007.tsx",
+      "sha256": "e5bff06fdfd9acb843eff1c9b5ce2a8c45bec73905c5e72982b70c7a68a25098",
+      "bytes": 1430
+    },
+    {
+      "path": "app/team-name.tsx",
+      "sha256": "9ba80fab456d59558a2c6cce1233a4e4039c1d40386211a730b6a249a6006e7f",
+      "bytes": 614
+    },
+    {
+      "path": "app/team-profile.tsx",
+      "sha256": "f142ccd67789e69584f26cbb86522a31dba9765af52eb73428848322f643e06b",
+      "bytes": 17817
+    },
+    {
+      "path": "app/teams-directory.tsx",
+      "sha256": "21a67559aea02759b6d859478ed7eb2c1ee8ba952e622effcaaedab80ca9db63",
+      "bytes": 1814
+    },
+    {
+      "path": "app/teams/[id]/page.tsx",
+      "sha256": "d5642257b21b18dfdc4d81c3c4965e741b5da16511a4f66e7f7780987a59e88c",
+      "bytes": 515
+    },
+    {
+      "path": "app/teams/international/[league]/[code]/page.tsx",
+      "sha256": "c7ccae445234329998150c86abf371fb2ce4a237d8469a33172df92b4de06f08",
+      "bytes": 708
+    },
+    {
+      "path": "app/teams/page.tsx",
+      "sha256": "01fee72a041bd2c63ae5a71c9e2a0a04d2f5020ed80090cde05ed023a2199907",
+      "bytes": 354
+    },
+    {
+      "path": "app/tz-binding.tsx",
+      "sha256": "295aed37f9217e638698d6263f066df1869f6e6de8b30bf771a45ad8bda8ecfd",
+      "bytes": 10231
+    },
+    {
+      "path": "app/use-source.ts",
+      "sha256": "37172358b8b02b9009c38b3beba67380e3f70a06dca2f6d800fc02d8dee13a0f",
+      "bytes": 2190
+    },
+    {
+      "path": "app/zh.ts",
+      "sha256": "b78b01b98900533ea8471f50922e8796921069bba26b96aea6429ee403339ab6",
+      "bytes": 1874
+    },
+    {
+      "path": "build/sites-vite-plugin.ts",
+      "sha256": "81b7cbfaeb970611572256aba0e313425beb3809f6426f63750696c15d9c756b",
+      "bytes": 1254
+    },
+    {
+      "path": "components.json",
+      "sha256": "31f4ca67a4a62572571003d3d5aac85ee6fbfca67a192924bac6b168d95e98fd",
+      "bytes": 420
+    },
+    {
+      "path": "components/ui/accordion.tsx",
+      "sha256": "a4f153089ba886dfcf73fac26b5c01ca933fa12fbe88df6fb723912bfffdfbb0",
+      "bytes": 2048
+    },
+    {
+      "path": "components/ui/alert-dialog.tsx",
+      "sha256": "9a8d950f2b9b4352d5ebb762fb44d5c28c2d353aa29712071973656a8736e311",
+      "bytes": 5439
+    },
+    {
+      "path": "components/ui/alert.tsx",
+      "sha256": "2cc59b5f7bda91c1670884b1bf46bfc8a2a6f226cef184f5762acc037188885b",
+      "bytes": 1614
+    },
+    {
+      "path": "components/ui/aspect-ratio.tsx",
+      "sha256": "b1c157886236782cb92d8fbcd4749532aaf6d8aabefd6e157ca40358f902f407",
+      "bytes": 274
+    },
+    {
+      "path": "components/ui/attachment.tsx",
+      "sha256": "ae8a25dd1a896d3964e3ef54d97e51221b418cde287dfd794428b89951c5c790",
+      "bytes": 6002
+    },
+    {
+      "path": "components/ui/avatar.tsx",
+      "sha256": "58a846bf1617b94b9681921db9b8461d0145f311424663d11678a06b6153cb34",
+      "bytes": 2916
+    },
+    {
+      "path": "components/ui/badge.tsx",
+      "sha256": "46a0de5224f6a5d5d63d45246534288518dce888f031064bff925bbc7fe6ad97",
+      "bytes": 1776
+    },
+    {
+      "path": "components/ui/breadcrumb.tsx",
+      "sha256": "d4c0831bba2212e778248f54a6ace6ef378df8bba4616d1abf27787a31eabae5",
+      "bytes": 2350
+    },
+    {
+      "path": "components/ui/bubble.tsx",
+      "sha256": "870cc0c5cfc8a515053f7e41e706a6bd017a909b45f1305fd3b164a52cc4483b",
+      "bytes": 4699
+    },
+    {
+      "path": "components/ui/button-group.tsx",
+      "sha256": "784c89d8ee683e1bc972ae69e6ea8225a7f63abe22aa1b5fc3423ae8a2a399c0",
+      "bytes": 2202
+    },
+    {
+      "path": "components/ui/button.tsx",
+      "sha256": "cc36af0f8b5019c33cc039fbf03bb952a513072b15b55b53c592b78af3e5f4c4",
+      "bytes": 2392
+    },
+    {
+      "path": "components/ui/calendar.tsx",
+      "sha256": "3855fbe0d3f8ad3a4b93071f98b76a9f6782d46ec8b05f5d2ddbee1e4e39bc84",
+      "bytes": 7832
+    },
+    {
+      "path": "components/ui/card.tsx",
+      "sha256": "c48dd3b96be90a7066f1aebf294f0af9d00ebcdc367d5d4aca55429ade570c1c",
+      "bytes": 1987
+    },
+    {
+      "path": "components/ui/carousel.tsx",
+      "sha256": "b7ea0dda3903d972c186f739e23da61f547bc83b5a0bf13b16856577846d5fc3",
+      "bytes": 5556
+    },
+    {
+      "path": "components/ui/chart.tsx",
+      "sha256": "45aa5ea4a386f4fb5b8869ff4bab3a08cf89255190ee322043baf84c3e950b6a",
+      "bytes": 10614
+    },
+    {
+      "path": "components/ui/checkbox.tsx",
+      "sha256": "b23ab9d4deeedf2ac8f512c368361ede681aa383437ef48563a6f9b7dbe95f27",
+      "bytes": 1214
+    },
+    {
+      "path": "components/ui/collapsible.tsx",
+      "sha256": "c6598e5584f4258b5d9fefadbc5ad6a66888ad58729f4b634a0bb2d9c513188b",
+      "bytes": 795
+    },
+    {
+      "path": "components/ui/combobox.tsx",
+      "sha256": "2d68e78b2dc7e38a085f222dede60a80b4f8229a6e91732c484605e204d46735",
+      "bytes": 9158
+    },
+    {
+      "path": "components/ui/command.tsx",
+      "sha256": "361193df1e3d64a9e9b5048f045264782fcb387aab3f00f2b805fdcbf538b16a",
+      "bytes": 4818
+    },
+    {
+      "path": "components/ui/context-menu.tsx",
+      "sha256": "2cf1fcf59df0649a3e2a126d1df2f639145f6b6bf5689ee54af1f40ab1245017",
+      "bytes": 8268
+    },
+    {
+      "path": "components/ui/dialog.tsx",
+      "sha256": "dce39c6adc47d997bd2567f8b7a72f466b0134715105cd42f9194007b8ecdb14",
+      "bytes": 4303
+    },
+    {
+      "path": "components/ui/direction.tsx",
+      "sha256": "84ae2ad658207f0e0f367978e5508cd8027cd00c29c41d3d13db21a708c3d1e6",
+      "bytes": 506
+    },
+    {
+      "path": "components/ui/drawer.tsx",
+      "sha256": "cb6eaf58eb0757ca91af284e5d925b89a42ad7eb19cb3f44c575a3487aa9350f",
+      "bytes": 4255
+    },
+    {
+      "path": "components/ui/dropdown-menu.tsx",
+      "sha256": "98f0dcdae38225b73734aceeb9213dd751fea2c72ea520df31003cd133deac8a",
+      "bytes": 8418
+    },
+    {
+      "path": "components/ui/empty.tsx",
+      "sha256": "ae95bdcf367a076ae02e7925f14522a148798f72d9651749c6d55497dba584c0",
+      "bytes": 2396
+    },
+    {
+      "path": "components/ui/field.tsx",
+      "sha256": "ba67d76f017ac059fc86cf8c344e0b2991c4322d3619e125498c19b87f6eefbd",
+      "bytes": 6159
+    },
+    {
+      "path": "components/ui/form.tsx",
+      "sha256": "315b46bb75ab7d1c6061b5d750aa4bedf6e7a455e15e2d7f9182f053d5972b1e",
+      "bytes": 3757
+    },
+    {
+      "path": "components/ui/hover-card.tsx",
+      "sha256": "f5d8df42c59370ec14d61bcc54f7d68e9bb7dfa0d6a872b2f7cffc2aafbf23b8",
+      "bytes": 1526
+    },
+    {
+      "path": "components/ui/input-group.tsx",
+      "sha256": "6afbd58fea4c438e6252dc4568bddc122e84ababead4ad5cee50ace01100c9a0",
+      "bytes": 5065
+    },
+    {
+      "path": "components/ui/input-otp.tsx",
+      "sha256": "161946daa89f0eda2575b9271c0494e35807c4ffb55598a49f67160c17fec299",
+      "bytes": 2254
+    },
+    {
+      "path": "components/ui/input.tsx",
+      "sha256": "8c4612a7c41319ac5049daa3b34b080f9784b6245c17780eb87c127e58e473db",
+      "bytes": 962
+    },
+    {
+      "path": "components/ui/item.tsx",
+      "sha256": "6e2144d6d87142dbbe56d568810bf546318c8aa661447ebb0d76ebbf382cb45f",
+      "bytes": 4486
+    },
+    {
+      "path": "components/ui/kbd.tsx",
+      "sha256": "6088c3a5432338b1719c17e9b5d0e1fa74fd1f66060f248fc88909d33a82cd13",
+      "bytes": 862
+    },
+    {
+      "path": "components/ui/label.tsx",
+      "sha256": "a476e41f08b9de5bd447de66a33d8bc2ad18f2fa6b96c064778bab4b6f439f4c",
+      "bytes": 606
+    },
+    {
+      "path": "components/ui/marker.tsx",
+      "sha256": "3d798763f094b2bb5e7ade2d5cd1b9bab498bc8ca7fd4cfaf4e5835bdedc34a0",
+      "bytes": 1864
+    },
+    {
+      "path": "components/ui/menubar.tsx",
+      "sha256": "9243af8afcea03703398ccd1c2a8c0a87ad6cbaf2bd272fb609f5b79fe46aebb",
+      "bytes": 8389
+    },
+    {
+      "path": "components/ui/message-scroller.tsx",
+      "sha256": "bb7660a248e4e9589c3816c7c1c199ea1381a70d2c8476ae895b567a7a4d86cf",
+      "bytes": 3992
+    },
+    {
+      "path": "components/ui/message.tsx",
+      "sha256": "9d2952bf3b641081f09aa2739535e6bbd1be0a4946789752a2c20d8aaef43185",
+      "bytes": 2232
+    },
+    {
+      "path": "components/ui/native-select.tsx",
+      "sha256": "007516b111fca8c98a6c40c94ab91bb68cc5b52afce1ed1f5e510c3d86e7347c",
+      "bytes": 1995
+    },
+    {
+      "path": "components/ui/navigation-menu.tsx",
+      "sha256": "889d358a77de88e9cb6f39ea4895ea4c76eaf01d731b74e44f1c41e97a78a044",
+      "bytes": 6658
+    },
+    {
+      "path": "components/ui/pagination.tsx",
+      "sha256": "374ad135c3d4ff3ec080a0009cd9745cdd0e12faa89d2b0e86074f11e5127fd1",
+      "bytes": 2717
+    },
+    {
+      "path": "components/ui/popover.tsx",
+      "sha256": "31c350309ff5d3034e6ecf1b0eda75ba8855bdbf987fc7ad6d71f0ef07c5a447",
+      "bytes": 2357
+    },
+    {
+      "path": "components/ui/progress.tsx",
+      "sha256": "c8c26e8f5f041c3cdf4915347dc1d9c022f9448f149990fadcaf303e952fa57d",
+      "bytes": 755
+    },
+    {
+      "path": "components/ui/radio-group.tsx",
+      "sha256": "fe5ce39636d0818c2bf9c4eebddff893d1225fa2c81b5fa4bb8cbb39a8c913ce",
+      "bytes": 1460
+    },
+    {
+      "path": "components/ui/resizable.tsx",
+      "sha256": "bc63958467aa00557c551bb0d96a5ae4c965c1e1ba2380e595949d933b132f7c",
+      "bytes": 1815
+    },
+    {
+      "path": "components/ui/scroll-area.tsx",
+      "sha256": "8bd9d986b2844c9a87de825c6de4787b6739b36c3dc9a05ccf3eb107160e4043",
+      "bytes": 1639
+    },
+    {
+      "path": "components/ui/select.tsx",
+      "sha256": "0b796a108a4eb5ba52d9ad938b7aea36dc56ae66c703a6d0a23dbc24f96daff3",
+      "bytes": 6353
+    },
+    {
+      "path": "components/ui/separator.tsx",
+      "sha256": "6da346505c8629a4668420d2a5ca48891383bbe0b0ceb14163537c671879427e",
+      "bytes": 694
+    },
+    {
+      "path": "components/ui/sheet.tsx",
+      "sha256": "63863cf2df8f8973e52b3459ac9bdbf81be1262dbc70eb53d5271ffb03488e16",
+      "bytes": 4188
+    },
+    {
+      "path": "components/ui/sidebar.tsx",
+      "sha256": "4a8d73e7730a2b1fcecfca31299ed26db65c2307b84197a59c6ec7c01c7ad28e",
+      "bytes": 21526
+    },
+    {
+      "path": "components/ui/skeleton.tsx",
+      "sha256": "ba48dd5be5a6a1378bd4e011028654b5bf419f1e7d20ee4b9f8330c1264e7239",
+      "bytes": 276
+    },
+    {
+      "path": "components/ui/slider.tsx",
+      "sha256": "0e37484f4b416e79ac18c655cac961aefacf6e67085cfc2b320ea8af545635a3",
+      "bytes": 1991
+    },
+    {
+      "path": "components/ui/sonner.tsx",
+      "sha256": "13ccc9b0fe4248e622f83a1d3b2f0566b72b5e04162d7d0c8db8945ecc71b55f",
+      "bytes": 1034
+    },
+    {
+      "path": "components/ui/spinner.tsx",
+      "sha256": "3e6e6e8d37fb4069f8e43e55318f8db06fbc36e6c8be0096da3c9337c1c798b9",
+      "bytes": 331
+    },
+    {
+      "path": "components/ui/switch.tsx",
+      "sha256": "386d4d4deb39f34126f9700fe9bf5393d238485dd94018bba9d154dda84c62ae",
+      "bytes": 1408
+    },
+    {
+      "path": "components/ui/table.tsx",
+      "sha256": "20e5a7f224959c6b75802995706a97e9da171f693d4b6b1b436388fcd9df96f3",
+      "bytes": 2478
+    },
+    {
+      "path": "components/ui/tabs.tsx",
+      "sha256": "865d0194331b9b2be36723fa79d3575dc83078b4cb941cafee87cb72fc2cff46",
+      "bytes": 3782
+    },
+    {
+      "path": "components/ui/textarea.tsx",
+      "sha256": "253cdeb487c73beaaccdf47fc163e36e7d5b7ae6ddf09a4f64998a109a112979",
+      "bytes": 759
+    },
+    {
+      "path": "components/ui/toggle-group.tsx",
+      "sha256": "69f643e889e933f05c1439084480d8646f66a161c7d1cf0730ee926382ade35e",
+      "bytes": 2308
+    },
+    {
+      "path": "components/ui/toggle.tsx",
+      "sha256": "ba4d0b0a2b2fee75dc36dfc19e32082e721024b919050c97fd5dc70faa924e16",
+      "bytes": 1565
+    },
+    {
+      "path": "components/ui/tooltip.tsx",
+      "sha256": "a0784eb77831a799fad7991df4f1b666f876201565a80175e1aa68733574a2e4",
+      "bytes": 1830
+    },
+    {
+      "path": "data/cpbl-cao-review-20260920.json",
+      "sha256": "207ded47dce0bdd3d375f65a765048f766114a4d30fdd056d555ffee65ae7dfd",
+      "bytes": 1757
+    },
+    {
+      "path": "data/cpbl-daily-supplement-20260920.json",
+      "sha256": "f2f1e4b606d407ab552238f09e0f167127624803188d990e6ddc0f73ae10ad0f",
+      "bytes": 14117
+    },
+    {
+      "path": "data/cpbl-game-logs-20260920.json",
+      "sha256": "6702ed00f3920498ef029c25c54a9c2345793908718dfc8f5792621e6ab96335",
+      "bytes": 345936
+    },
+    {
+      "path": "data/cpbl-pitcher-supplement-20260919.json",
+      "sha256": "b5fab71ef5f2204cb782a5f4326080ed910efeb76a00988e0bf727949dfd0d02",
+      "bytes": 3863
+    },
+    {
+      "path": "data/cpbl-pitching-20260920.json",
+      "sha256": "255caae7ecec7432fa5174045aae753202fd86833aad759e4482c7e0005ba7fc",
+      "bytes": 8490
+    },
+    {
+      "path": "data/cpbl-pregame-20260920.json",
+      "sha256": "affe9827a0b85ddc70e4e4f1f9a28a0f2bbd6ab48879518b169a8aecc97dcb38",
+      "bytes": 14457
+    },
+    {
+      "path": "data/cpbl-starter-news-20260920.json",
+      "sha256": "dc201ce64d586f58fbcb3291eb852694dbf9bf4bec97114e97ea59cd8d9bdcbc",
+      "bytes": 827
+    },
+    {
+      "path": "data/historical-odds.json",
+      "sha256": "0feaff994c91207096746ff6494fe1af222916a0151b6db4a0c504f5b855cb55",
+      "bytes": 160249
+    },
+    {
+      "path": "data/historical-test-predictions.json",
+      "sha256": "ae49c7acf3a8ef982cabf294d58f401cbcb34bd5555afda74fd2700bacf084b3",
+      "bytes": 251126
+    },
+    {
+      "path": "data/international-profile-2026.json",
+      "sha256": "cfa103bc8c19083e608d1c29de39ac72963e8337c90f419d389b6a396ffced3b",
+      "bytes": 818813
+    },
+    {
+      "path": "data/international-validation.json",
+      "sha256": "5a1f9d1f15bdbb9563aac540a2c0e280c2954bbeaa0dc7234e8da0c76b30c8b4",
+      "bytes": 46325
+    },
+    {
+      "path": "data/kbo-pitcher-review-20260920.json",
+      "sha256": "740d91c0630c7cabe7474e1aa8bd8b6756ed7ce025bf1c86d6f4e88f38b3d9fe",
+      "bytes": 18987
+    },
+    {
+      "path": "data/kbo-pregame-20260920.json",
+      "sha256": "edc9c877d1c94b9c5b8ddd37d9781fc8e6f8ba4719252ae49c0abf726ceeb684",
+      "bytes": 107865
+    },
+    {
+      "path": "data/model-validation.json",
+      "sha256": "8d9704ba5eeffab0cb8cde5da019b4673223a8b8ecc361786229cf4911f0fe18",
+      "bytes": 3302
+    },
+    {
+      "path": "data/npb-pregame-20260920.json",
+      "sha256": "e90ad9d182ee412be75077c6709d061f51b214d6b484cc533701004697640702",
+      "bytes": 133408
+    },
+    {
+      "path": "data/research-inputs/may-2026-covers.json",
+      "sha256": "cf3db161a00402ba37bef1e0c9821ce05833255987a056198dbc594055c51f9c",
+      "bytes": 287118
+    },
+    {
+      "path": "data/research-inputs/may-2026-schedule.json",
+      "sha256": "b923368dd944844b671d1e6eeb59620a0c1f7726161d7c3608c93e24f80e912c",
+      "bytes": 557724
+    },
+    {
+      "path": "data/retrosheet.json",
+      "sha256": "e14bb4e7d32dea0c58b8bdae4eba89808e6f2b3f036a3f299ab03cc2312b48a1",
+      "bytes": 12213890
+    },
+    {
+      "path": "data/statcast-history.json",
+      "sha256": "5575c01a85c0914a153563e865d4192cddf6bb9fc34517300d1766851c086860",
+      "bytes": 1989626
+    },
+    {
+      "path": "data/twtools-reference-20260920.json",
+      "sha256": "22977d555d60687a642b1c4c4c3ca9048fc0f4c2ad3abc8aa55918d5651d0330",
+      "bytes": 53352
+    },
+    {
+      "path": "db/index.ts",
+      "sha256": "f06473712a5f53aa00942ca4e06d0e8619eb5c6cae7dc0dcc65f8f9f51bfa5eb",
+      "bytes": 539
+    },
+    {
+      "path": "db/schema.ts",
+      "sha256": "c7ba5aac98326d5c2fd356529727351b274bd5e4616e274b39b0a718fc6faef0",
+      "bytes": 4469
+    },
+    {
+      "path": "docs/international-validation-protocol.md",
+      "sha256": "053163b5f9b8f31e59f8421fb917375ee277c653b8a4bd4d793f79033f2bd651",
+      "bytes": 3776
+    },
+    {
+      "path": "docs/research-import-verification.json",
+      "sha256": "abc563828930a5fb2db2cd36fd80ff8691088269a8d8ea4f270256f05a89e6f6",
+      "bytes": 1083
+    },
+    {
+      "path": "docs/sites-baseball-verification.json",
+      "sha256": "40a15175016492ee22f70c435d5537b8cbbe18a8c2f10be9838bead528c00b63",
+      "bytes": 5542
+    },
+    {
+      "path": "drizzle.config.ts",
+      "sha256": "af081f7384aaeb0082cf422e29f139d137ca2f6a57c69b2c37b9fb1f8479867b",
+      "bytes": 148
+    },
+    {
+      "path": "drizzle/0000_tired_ben_urich.sql",
+      "sha256": "e680701186f11c6e0a016fd6c604572ea9e7ea2a2873806016563bcc226551f0",
+      "bytes": 601
+    },
+    {
+      "path": "drizzle/0001_tranquil_triathlon.sql",
+      "sha256": "216daf155edd14f977330388fd7435436e5e20248f68e674f2b88b5b0308d6c3",
+      "bytes": 58
+    },
+    {
+      "path": "drizzle/0002_empty_spot.sql",
+      "sha256": "e40351d67adb21a02a68af688aedd6bcbc27b93dec243b1f43947e9d8ca48071",
+      "bytes": 425
+    },
+    {
+      "path": "drizzle/0003_steady_professor_monster.sql",
+      "sha256": "02ddb3e243b01ea9789dc6e7c1d66d619b57d9c675ebeed35bbae92ac30d6f6f",
+      "bytes": 46
+    },
+    {
+      "path": "drizzle/0004_magical_dagger.sql",
+      "sha256": "8b6e63985d6001295100859ee8773c84c53d5f6319f959094111530e3bdd9d40",
+      "bytes": 396
+    },
+    {
+      "path": "drizzle/0005_smiling_wolverine.sql",
+      "sha256": "4707d99e49cca67176752c3124e70bcf887e8d41f3a998deb48c7620d1e24b40",
+      "bytes": 432
+    },
+    {
+      "path": "drizzle/0006_wide_nightcrawler.sql",
+      "sha256": "5ac72c8be31e0ff9054ee7ee599af5d80d1c956befec27c0f409b7d24227894e",
+      "bytes": 168
+    },
+    {
+      "path": "drizzle/0007_huge_stature.sql",
+      "sha256": "86c31bc6a9e4d0b0c5ac62b6554f1af4dd93a170c103f06b6204b8a351744a16",
+      "bytes": 177
+    },
+    {
+      "path": "drizzle/0008_absurd_korg.sql",
+      "sha256": "ef52304e5cee1ff5c28e46a11ad3de5bad582a5c1fe953934f1f5a73b97bb327",
+      "bytes": 307
+    },
+    {
+      "path": "drizzle/0009_heavy_sinister_six.sql",
+      "sha256": "3dbcd869c561351bdcc82582f81e5a20d6875bda27735cb63cf9f966e1c927a2",
+      "bytes": 459
+    },
+    {
+      "path": "drizzle/0010_mixed_blue_shield.sql",
+      "sha256": "c04195f0c0b75d2ea79fa903d9b5a85634cb7560ba3b0ce2950804c122dc1384",
+      "bytes": 283
+    },
+    {
+      "path": "drizzle/0011_smooth_sinister_six.sql",
+      "sha256": "68d658069f57d58cf7b57c444c235d37b163d24de8316298e495c1765bda7da6",
+      "bytes": 185
+    },
+    {
+      "path": "drizzle/0012_curvy_rocket_raccoon.sql",
+      "sha256": "820c82e46db4fe71e09525b12c0bfc70f82f8fa7b6695414b5346fd7b54bc117",
+      "bytes": 526
+    },
+    {
+      "path": "drizzle/meta/0000_snapshot.json",
+      "sha256": "3d40a82250a762c023d153dd6adf8ded4909b1d71ae7712b6d642748dab5cd2f",
+      "bytes": 2937
+    },
+    {
+      "path": "drizzle/meta/0001_snapshot.json",
+      "sha256": "966fd05e876ea92383bb0ecb55732fb5b239d4905f26bbac62fec9b5e927ce50",
+      "bytes": 3132
+    },
+    {
+      "path": "drizzle/meta/0002_snapshot.json",
+      "sha256": "a7e1fc83303a77872008b5b60d26f89eebd3dc34a6fae9ce1344a45ce65a99da",
+      "bytes": 5457
+    },
+    {
+      "path": "drizzle/meta/0003_snapshot.json",
+      "sha256": "e6adeba5afab747e4a3456b66ccb5c38cc7ed9455598f46cf75f05a379e2e6f1",
+      "bytes": 5638
+    },
+    {
+      "path": "drizzle/meta/0004_snapshot.json",
+      "sha256": "a06c509d02902dbb732c01c82113e6b495da4c911c56dbab5f13d211cd50794d",
+      "bytes": 8004
+    },
+    {
+      "path": "drizzle/meta/0005_snapshot.json",
+      "sha256": "79cd3752a6aeb373d5c7493dfce73dcd9806009024b06e305bf33490c53a3efb",
+      "bytes": 9568
+    },
+    {
+      "path": "drizzle/meta/0006_snapshot.json",
+      "sha256": "2c461648b82dd97fb10b7224669144ee8028006f046d442fc8e3e353fb5b1ed4",
+      "bytes": 10559
+    },
+    {
+      "path": "drizzle/meta/0007_snapshot.json",
+      "sha256": "129cdc5c3cf613e1099e8c055b9c78bb1eebe881dbdc55545e9f51bdd0ecb125",
+      "bytes": 11552
+    },
+    {
+      "path": "drizzle/meta/0008_snapshot.json",
+      "sha256": "40ad4ddcd875eb8451d1201d13e466d2d9766ce6aa1b37e49350fc228a486020",
+      "bytes": 13055
+    },
+    {
+      "path": "drizzle/meta/0009_snapshot.json",
+      "sha256": "7aab81c8357dc510779e7ad947e561ea09ac5e14f1ba95b1ab862801b9840a9e",
+      "bytes": 15506
+    },
+    {
+      "path": "drizzle/meta/0010_snapshot.json",
+      "sha256": "0eb5d5ac7466722eff0501787c7f57dd434b730afae1f1638d1d29bb17293a8d",
+      "bytes": 16835
+    },
+    {
+      "path": "drizzle/meta/0011_snapshot.json",
+      "sha256": "918ca90a702a99e7497001ab26d490c10e80906e5bbaf3e1deb0ad616cadd272",
+      "bytes": 17969
+    },
+    {
+      "path": "drizzle/meta/0012_snapshot.json",
+      "sha256": "de45b45c3b90f623995902a1dc20fb0a7036067640f185a9830a60a9808894b9",
+      "bytes": 20105
+    },
+    {
+      "path": "drizzle/meta/_journal.json",
+      "sha256": "48a08b45660119f2fd999f4c09710e2f39465d851b31c59e1e89de6f7b66e11f",
+      "bytes": 1941
+    },
+    {
+      "path": "eslint.config.mjs",
+      "sha256": "f22a254df7d934bbf9be499d3c969a13abb7f7f64c03f5967d0095cad81dfe06",
+      "bytes": 846
+    },
+    {
+      "path": "examples/d1/app/api/notes/route.ts",
+      "sha256": "a3d4a74fd53b7bf53e2df41f169d9d9d44a8b22aeb6d92f4e754956079af8909",
+      "bytes": 1700
+    },
+    {
+      "path": "examples/d1/db/schema.ts",
+      "sha256": "d89eabd95716ce404f5f7ca2a254220435be8ddce7c899d7ef461ff22ec80454",
+      "bytes": 370
+    },
+    {
+      "path": "hooks/use-mobile.ts",
+      "sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
+      "bytes": 565
+    },
+    {
+      "path": "lib/analysis-readiness.ts",
+      "sha256": "b6da10513ac56ac64642595e5d6064b00a1574c4955130916be21accd699fbb5",
+      "bytes": 2166
+    },
+    {
+      "path": "lib/analysis-weights.ts",
+      "sha256": "be2b863bfd58f54c745627b6abce2b5e7034cf51bbaaa1d39b514b24e4f0c9b9",
+      "bytes": 3942
+    },
+    {
+      "path": "lib/arena-session.ts",
+      "sha256": "263d2f988cc19c63570036970af92ce30b9fdc6dac79bd629dc704078ec70a43",
+      "bytes": 1244
+    },
+    {
+      "path": "lib/baseball-run-analysis.ts",
+      "sha256": "43b123159085fc91bbfe35591403ba7ce75152205b760037f1f104afeed76000",
+      "bytes": 16607
+    },
+    {
+      "path": "lib/baseball.ts",
+      "sha256": "fa0a57cf0d302ba866f5cf5646edb18f7cfbbe3dc2a7b25545c0826aa09f7df7",
+      "bytes": 4638
+    },
+    {
+      "path": "lib/board-markets.ts",
+      "sha256": "cc9e7270f6d8c00a515edda694eedb8b0ed28e9362a4c94c85801803db026d38",
+      "bytes": 2188
+    },
+    {
+      "path": "lib/covers-fetch.ts",
+      "sha256": "e8849c9cb278fcba77e74a31fda8033f54f8aca143ee580ab2afe9b6bb755fce",
+      "bytes": 1501
+    },
+    {
+      "path": "lib/covers-odds.ts",
+      "sha256": "5e5ded808726dbc4f67a552a788cdbf09f87fd8fcfb2ed8086ac5f5bcaf37012",
+      "bytes": 7526
+    },
+    {
+      "path": "lib/covers.ts",
+      "sha256": "4fa26fd282a90b76784dd0250fc0586d4acf64ecba97153fd738ad21816d2133",
+      "bytes": 3742
+    },
+    {
+      "path": "lib/cpbl-game-logs-store.ts",
+      "sha256": "4a3c8cb89a427fe13e2888930a2cc6baa7386d268200b393e48bb23de5460065",
+      "bytes": 2352
+    },
+    {
+      "path": "lib/cpbl-game-logs.ts",
+      "sha256": "864bcd9ea4061934dfa5e0334f57e9f61747404251e8f00ff61a4593fb0b9015",
+      "bytes": 8534
+    },
+    {
+      "path": "lib/cpbl-history-supplement.ts",
+      "sha256": "3f6e4f3b3e9a9787fe7f823d64ce0319e314a67fe4e7ef6a15c2b54a5cf09a0e",
+      "bytes": 799
+    },
+    {
+      "path": "lib/cpbl-logos.ts",
+      "sha256": "3072cc22c8099f3e5bc82abb0c8d4e03f5f0cd0d52b84c888332adf2038ec4b2",
+      "bytes": 230
+    },
+    {
+      "path": "lib/cpbl-pitcher-supplement.ts",
+      "sha256": "5c50b3fc86463a983fa93d07e5d73ed1d387b384d86c14b09bfc7a272e8a8e35",
+      "bytes": 2861
+    },
+    {
+      "path": "lib/cpbl-reviewed-pitcher.ts",
+      "sha256": "9b2ba1cb54d8337274bbfd092e23c1827ce21b0bb298c13c197d2997fe26ad4b",
+      "bytes": 1305
+    },
+    {
+      "path": "lib/fangraphs.ts",
+      "sha256": "5fe8ad039da94f7b4b6d93b4ab0562fddf8d377c0e2d7f929851c655826676a6",
+      "bytes": 2922
+    },
+    {
+      "path": "lib/hr9988-connection.ts",
+      "sha256": "fc8243334845d6862c9c55467d4ed0f0d95bf30da857bb03b91f054c4b13a003",
+      "bytes": 13050
+    },
+    {
+      "path": "lib/hr9988.ts",
+      "sha256": "e469cde34a4f490793a0c7ec989a2c38300c8b190806bd501ae13c3d1e0ea3ce",
+      "bytes": 5345
+    },
+    {
+      "path": "lib/international-current-pregame.ts",
+      "sha256": "e34540057b06c6b965ccf715e99ca1652e600b4f92b16f4c2934640d6870cdf6",
+      "bytes": 5781
+    },
+    {
+      "path": "lib/international-feed.ts",
+      "sha256": "a94fe4f7380c7fb3d5d963ace76c3c5a9eec0a856651231c0d1979dd86bfb4eb",
+      "bytes": 5538
+    },
+    {
+      "path": "lib/international-fixtures.ts",
+      "sha256": "44a7042e77106d97899f41ed69887ac2634b455f263ce713087ce0db2952fc2e",
+      "bytes": 2699
+    },
+    {
+      "path": "lib/international-live-display.ts",
+      "sha256": "b01d3c3124499165d1435acca3e400a154732acc5b63f49fe77453daccb0db3e",
+      "bytes": 3735
+    },
+    {
+      "path": "lib/international-market-options.ts",
+      "sha256": "b875b1724da5c22ed0077fed46a92d2fddffe33e1912b69b3ddc5afe67e67b07",
+      "bytes": 2470
+    },
+    {
+      "path": "lib/international-model-audit-store.ts",
+      "sha256": "cd1dfba409a7d4770a9ebe071f9b150145b990e45ea14fe9aec082b67ba3d956",
+      "bytes": 2546
+    },
+    {
+      "path": "lib/international-model-audit.ts",
+      "sha256": "b8cef668f94f9c8074a8c2af8d8c69da42d935abe1f2a3af81458e8315ff1dfd",
+      "bytes": 6847
+    },
+    {
+      "path": "lib/international-pregame.ts",
+      "sha256": "6f38a15e6a028f21c7b69a55ac9c0d5db14eb595653919281b3c39c0586890cd",
+      "bytes": 5356
+    },
+    {
+      "path": "lib/international-profile-source.ts",
+      "sha256": "21fe4966ae3c1ea8ddeb6f7af5bb9597fcd9e016fe4d2fa972aec82d56b52041",
+      "bytes": 10359
+    },
+    {
+      "path": "lib/international-profile.ts",
+      "sha256": "bb8f6e2164ded89fd7f36c74678f7cca13ff449ecf23ce8e84d3b5a0d4a797ad",
+      "bytes": 8971
+    },
+    {
+      "path": "lib/international-teams.ts",
+      "sha256": "9a19ebdf1a81741a953c4425519e9d66ad3e1eb1de8086f7bafd4f4627bcfab7",
+      "bytes": 2835
+    },
+    {
+      "path": "lib/international.ts",
+      "sha256": "10178b4ba78147a287a5158f18cae03cb8422d6573b6d9f5892be163dcfa7bcc",
+      "bytes": 23020
+    },
+    {
+      "path": "lib/kbo-pregame.ts",
+      "sha256": "e683fbaa4e1813225b52601a2d9329de33a8be809ebc2b6a3a01bc858b99f8b6",
+      "bytes": 556
+    },
+    {
+      "path": "lib/kbo-reviewed-pitcher.ts",
+      "sha256": "0e8faa92b8ea488deecdbe4fa407fa5ecd1a74f992fbc5b2189b879b653b872a",
+      "bytes": 1620
+    },
+    {
+      "path": "lib/kbo-run-history.ts",
+      "sha256": "b4bcd4be607297186d29b8f0a2b104eb1e3c9ce3cf3fad098f128d70a6214aa5",
+      "bytes": 998
+    },
+    {
+      "path": "lib/kbo-team-runs.ts",
+      "sha256": "97afac492d7408f3bd381e5c5e0c935c998b9dde525e6dd09ba122d4ed9663e8",
+      "bytes": 3844
+    },
+    {
+      "path": "lib/kbo-teams.ts",
+      "sha256": "efe5a068cde6766c740b2be22c09f18b0e06800a303fab25b7128a57e6f7a8fd",
+      "bytes": 408
+    },
+    {
+      "path": "lib/lineup-authority.ts",
+      "sha256": "8137f85fba3109f38bd3458ce8a97c745f7e05ba160e9c58b944e719f8202498",
+      "bytes": 950
+    },
+    {
+      "path": "lib/live-display.ts",
+      "sha256": "9b3b1abf97304ded6e7d5f417c2687e257da17eb854d341712f103d76108c8d9",
+      "bytes": 2865
+    },
+    {
+      "path": "lib/live-game.ts",
+      "sha256": "80b3715c23a5189e34b7ca971a0ea4a4bca4c69425e8d8bd806a5a409b660908",
+      "bytes": 6410
+    },
+    {
+      "path": "lib/market-display.ts",
+      "sha256": "52ed2a0f1e9d23d65e2e8d2df0d840e1adca43eae338d220dab2eb7fd4321f46",
+      "bytes": 2146
+    },
+    {
+      "path": "lib/markets.ts",
+      "sha256": "aa30047177025cc721dd2489a2863db925ac61deda57273925675bdfaa465fe8",
+      "bytes": 5155
+    },
+    {
+      "path": "lib/match-card-order.ts",
+      "sha256": "68039a8ca96a11ebfdf7903f56bc2b1adb476967596d49e84c8cbf89289ee466",
+      "bytes": 930
+    },
+    {
+      "path": "lib/match-scoreboard.ts",
+      "sha256": "718b037d1bd2575c8ad9c4347a46abe67811e77cbf3a0c337556a3e3bc96f68d",
+      "bytes": 813
+    },
+    {
+      "path": "lib/member-identity.ts",
+      "sha256": "2f1cd616cd5c6a7793ebbead7ce29f432f3185bb22ab235b5ad544e17d8747ba",
+      "bytes": 367
+    },
+    {
+      "path": "lib/member-odds-client.ts",
+      "sha256": "b42f69a12b4ee3fb8a7accd35179a971d4fafc9d48a68db87ca46e1dd2d44ac7",
+      "bytes": 1464
+    },
+    {
+      "path": "lib/multifactor-win.ts",
+      "sha256": "ae0580b6632c659e25cdf52690526a0dd4fbc712e1af671065b589328eeab6bf",
+      "bytes": 3915
+    },
+    {
+      "path": "lib/npb-analysis.ts",
+      "sha256": "459c269fb4eea95b927b965c16638c066dd6ccb894647eb2bad1c0a11c803823",
+      "bytes": 540
+    },
+    {
+      "path": "lib/park-factors.ts",
+      "sha256": "5b41f3bc72811671628cfd71fa387b943e94f6f843aa6d155d7a2506693f18f1",
+      "bytes": 1968
+    },
+    {
+      "path": "lib/pinnacle.ts",
+      "sha256": "064c17bf9c051a49a8aef786a4775d4b2dc874e63e2d9eea665426750e5a85a4",
+      "bytes": 3653
+    },
+    {
+      "path": "lib/pitcher-era.ts",
+      "sha256": "62bdad65440e7da1ed206b4fd56989feac2275871656067ba57b5af39bd8fe2d",
+      "bytes": 1464
+    },
+    {
+      "path": "lib/pitcher-history.ts",
+      "sha256": "11cd19ed0960cdb2394734cc8ffeeba6053c7bb5922510371c20551c3ce700c8",
+      "bytes": 5888
+    },
+    {
+      "path": "lib/player-profile.ts",
+      "sha256": "53ee4d0e7e2c10f6359b526e18f91f9496a1f1db6d08d2ba9257c7fab38d9fed",
+      "bytes": 6122
+    },
+    {
+      "path": "lib/pregame-analysis.ts",
+      "sha256": "a1d1a40ebe688603b22253e1df026387976aae4f80df2b8517344c2091b016f0",
+      "bytes": 10306
+    },
+    {
+      "path": "lib/pregame-imports.ts",
+      "sha256": "a64189f971ea01ef582fe211fc97950050b4229076bf7dc3e4dbcc58516ea8f5",
+      "bytes": 1064
+    },
+    {
+      "path": "lib/pregame-pitching-import.ts",
+      "sha256": "085960eff1e15e82eaa54d8859f3729a2078bf610986abea977efd6703deda98",
+      "bytes": 1879
+    },
+    {
+      "path": "lib/pregame-readiness.ts",
+      "sha256": "05f58dce9efcb5250063c4954da0f484233bcc6dbe897f86ffd3eaccfaba289c",
+      "bytes": 3407
+    },
+    {
+      "path": "lib/recommendation-ledger.ts",
+      "sha256": "2d8f83a480cdd023099b4aa95c6a989ab83db3f6b2210c85e48804a4d3f74b45",
+      "bytes": 1718
+    },
+    {
+      "path": "lib/retrosheet.ts",
+      "sha256": "d13ccb1e378e43ff6cab653a4af87ce49778b3b247009274d24e40c67e63188f",
+      "bytes": 2037
+    },
+    {
+      "path": "lib/rotowire.ts",
+      "sha256": "cee72b014a5f5715e05f8c089fcbbd9385b63fbd0db45a3c53948b8611a4ece6",
+      "bytes": 4703
+    },
+    {
+      "path": "lib/settlement.ts",
+      "sha256": "21e296cb62052dbb1755429a1f4dc0824535d7d0a4d78b5a75642a62daa9e9c1",
+      "bytes": 1454
+    },
+    {
+      "path": "lib/source-errors.ts",
+      "sha256": "9065afc3848f961be4b05e8fbd9db83529e48348f8a1cf83cd647fbc12e0d1da",
+      "bytes": 490
+    },
+    {
+      "path": "lib/standings.ts",
+      "sha256": "ff5768622cdc6cdf7f223f489ba98590248f6cc07f745f1f0114f73044909949",
+      "bytes": 2035
+    },
+    {
+      "path": "lib/statcast-history.ts",
+      "sha256": "06b233408a69c7372303322afa941801314a7404092064fe24ed77c98f89e176",
+      "bytes": 2557
+    },
+    {
+      "path": "lib/super007.ts",
+      "sha256": "253f82dc3b82f9c78be5c24d2e3f28813689aed36ac066b2b9e1284798506344",
+      "bytes": 3587
+    },
+    {
+      "path": "lib/team-groups.ts",
+      "sha256": "d4cfceaba6b63283e2f981259b198aed1e17b222eccefa25b35b7fcca784cd30",
+      "bytes": 510
+    },
+    {
+      "path": "lib/team-profile.ts",
+      "sha256": "1a1bfac9e1bc4b71572a89bf904395660c36bb7c38268c7a38b866b307bfe1ac",
+      "bytes": 5440
+    },
+    {
+      "path": "lib/turnstile-browser.ts",
+      "sha256": "b93ab715b8542691a19abbc708e8467bf1c864181722f1c12c65a13615416532",
+      "bytes": 1971
+    },
+    {
+      "path": "lib/turnstile-settings.ts",
+      "sha256": "60a5b7ca185a28a39a147f13e18bac097cdfc0659dae7ac3a0b00bd6273fc432",
+      "bytes": 987
+    },
+    {
+      "path": "lib/turnstile.ts",
+      "sha256": "bf1373dbe96b18e487b682c3b227d247a9268b658257dd18c03a6ab8f5f06d7d",
+      "bytes": 895
+    },
+    {
+      "path": "lib/tz-binding-service.ts",
+      "sha256": "e674905a84f01a4e5b099a37ed0ce15778c61229cd77c43e9a99067d8b56877e",
+      "bytes": 8730
+    },
+    {
+      "path": "lib/tz-credentials.ts",
+      "sha256": "f1793a3abe4a5b08fe59882208358f3cfec71c3ca611deaa8cbe8166e52a48ae",
+      "bytes": 2039
+    },
+    {
+      "path": "lib/tz-login.ts",
+      "sha256": "91c47a0d3640a744e11cdbeb72e5a7b06312e8386610872ddfff838838ba82c4",
+      "bytes": 6789
+    },
+    {
+      "path": "lib/utils.ts",
+      "sha256": "53f3d3d070f0a9082934da25b875f9499855c2b0693868dd28be8c23d8730f68",
+      "bytes": 177
+    },
+    {
+      "path": "next.config.ts",
+      "sha256": "614bce25b089c3f19b1e17a6346c74b858034040154c6621e7d35303004767cc",
+      "bytes": 133
+    },
+    {
+      "path": "ops/REMAINING_WORK.md",
+      "sha256": "72329db3f550dc5846dd82f0cbcf4d9853412e667d8ffd23d185817faca763da",
+      "bytes": 2211
+    },
+    {
+      "path": "ops/baseball-sync-job.json",
+      "sha256": "dbd3e044d369a5f5f30ce028fce63c1fe43dcceb264aae224e18157dff5fcc7f",
+      "bytes": 1247
+    },
+    {
+      "path": "ops/baseball-sync.md",
+      "sha256": "4bde2e5ca628af27363da774cc817b9a94962930b1ba34f47cafa374d13df458",
+      "bytes": 3076
+    },
+    {
+      "path": "ops/super007-cloud/README.md",
+      "sha256": "320b25a7496349664fd3afc9e48d3d20a232113252847c44b7588225f0cc3650",
+      "bytes": 2564
+    },
+    {
+      "path": "ops/super007-cloud/worker.mjs",
+      "sha256": "3c2c4f936837dbd2855dd9e81dc903c22bb2a4cb63bdd28efea30134bd982776",
+      "bytes": 3909
+    },
+    {
+      "path": "ops/super007-cloud/wrangler.jsonc",
+      "sha256": "5d93427bdb70a6f071aee9a1b3a474a78b5455c026e61491210e1377b03ebea9",
+      "bytes": 270
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "920d21ca287ce8911f9fb9089c2a388d0fcd45ca6a397af13f33787d5c6800a5",
+      "bytes": 498254
+    },
+    {
+      "path": "package.json",
+      "sha256": "a40d92ccb4cfbe9e74755b4f6e95b842e7f5771aceab722739b6b9dcf4d5d929",
+      "bytes": 1911
+    },
+    {
+      "path": "postcss.config.mjs",
+      "sha256": "dfac7ac2d86d326a0e5adb024e7943c181393ed17a5fcb8f0315b24c7da6ddde",
+      "bytes": 94
+    },
+    {
+      "path": "public/backgrounds/yankee-stadium.LICENSE.txt",
+      "sha256": "320a4844375b745b3334c971c9b2457b480e7ecc76a2e5c6fa4c778a5ecc3a96",
+      "bytes": 506
+    },
+    {
+      "path": "public/backgrounds/yankee-stadium.jpg",
+      "sha256": "9d8aa4f9ad820b0ddc5948e28ea0cee6ce8cb0b894c0a6336b0c981ed6f30ae8",
+      "bytes": 4729024
+    },
+    {
+      "path": "public/favicon.svg",
+      "sha256": "e6d2e59b7b5bbb0342e0fb496dfc262decbfe4426bbb7b047aec8d467d1dc6f7",
+      "bytes": 712
+    },
+    {
+      "path": "public/file.svg",
+      "sha256": "1e0ae4d1a1ddfa36752988647b731e4abf150c414d069ec83c96fb0aaeff0307",
+      "bytes": 392
+    },
+    {
+      "path": "public/globe.svg",
+      "sha256": "d051a8c47936990a9085693d307bb7cea1bc1b6d7ed956bcbaacf674f4ec96b9",
+      "bytes": 1036
+    },
+    {
+      "path": "public/history/statcast-2026-05.csv.gz",
+      "sha256": "13d40b474605fd79dae0d8f637631295262f6f48e6614fd9382734fdf829ee7f",
+      "bytes": 23391135
+    },
+    {
+      "path": "public/history/statcast/2026-05-01.json",
+      "sha256": "6b13d3f8a5095829061f4ba984265f4414c4e31b0e63cbdff683973c9c6a5a8e",
+      "bytes": 1119775
+    },
+    {
+      "path": "public/history/statcast/2026-05-02.json",
+      "sha256": "758a76459efe05526b5517e26558499f851b30e07e79cef064778eea6bfd9e86",
+      "bytes": 1077776
+    },
+    {
+      "path": "public/history/statcast/2026-05-03.json",
+      "sha256": "66207ebec0e68a2b3032174ae0701f11a7a3673bdc9436a45cb0bea8a1a445db",
+      "bytes": 1048936
+    },
+    {
+      "path": "public/history/statcast/2026-05-04.json",
+      "sha256": "e0e6ed9cef06d21472f5d3e0c44913ebcd8f1639c51a5e01790b2ed2366f5781",
+      "bytes": 805536
+    },
+    {
+      "path": "public/history/statcast/2026-05-05.json",
+      "sha256": "d25c4f0614a62fee9f5c159240ee7a86df5bf3a223846cb2687c83e6bc29ac4a",
+      "bytes": 909762
+    },
+    {
+      "path": "public/history/statcast/2026-05-06.json",
+      "sha256": "4f784c6bf492c07e8d8f18e157bb33b584ca050d698c23be4bb282a6ad837fe9",
+      "bytes": 1068015
+    },
+    {
+      "path": "public/history/statcast/2026-05-07.json",
+      "sha256": "ba345996ca2651e6aaf57b9f710f0463fadb87e28f1c3e67a16dce78e6c75a66",
+      "bytes": 735014
+    },
+    {
+      "path": "public/history/statcast/2026-05-08.json",
+      "sha256": "1fcc36d6cb6a63c72dc76c6ebb9ffb8b9e2540a7aab824dc97834f29b526fbe7",
+      "bytes": 1069253
+    },
+    {
+      "path": "public/history/statcast/2026-05-09.json",
+      "sha256": "52c52610b89dc4c349a29a0f38db782860623cf75aa5474d9bc8a6c0489ec4c8",
+      "bytes": 1049314
+    },
+    {
+      "path": "public/history/statcast/2026-05-10.json",
+      "sha256": "52463032407a6ccd6ac686f803c35d3dad32d63be8b52d5e592ea82741e78a98",
+      "bytes": 1055977
+    },
+    {
+      "path": "public/history/statcast/2026-05-11.json",
+      "sha256": "06ac3a08b26be1f7cfc8cbbde362c83da6829f5958d0940bc9c71635f2aaca87",
+      "bytes": 438050
+    },
+    {
+      "path": "public/history/statcast/2026-05-12.json",
+      "sha256": "d68ec8b5a7dd35c7de7eae2e9180ec6229b378138fb86993a336eeb4bbf68f94",
+      "bytes": 1108432
+    },
+    {
+      "path": "public/history/statcast/2026-05-13.json",
+      "sha256": "93af83a2c0f7a7941290e50f02804399fee6e560d49ea84cf68f1b98a56a5bdc",
+      "bytes": 1083770
+    },
+    {
+      "path": "public/history/statcast/2026-05-14.json",
+      "sha256": "a8642d6232939da876fb9c967b1c8a1f2fd9f99c49b373b6674816d9608c6fce",
+      "bytes": 788719
+    },
+    {
+      "path": "public/history/statcast/2026-05-15.json",
+      "sha256": "d22d2c6a1cedf56df7061aca9f79c4bfda282352ed8c2846e2cb5d7f598df19a",
+      "bytes": 1079447
+    },
+    {
+      "path": "public/history/statcast/2026-05-16.json",
+      "sha256": "e8872dbf37463edcf75de1eb9486f18ee91b7d77a4bca37853db39047f7f7c76",
+      "bytes": 1069597
+    },
+    {
+      "path": "public/history/statcast/2026-05-17.json",
+      "sha256": "62285b0a10f6f161ff383db9cb8236290f3d9beef84f41142194b737960942a8",
+      "bytes": 1106335
+    },
+    {
+      "path": "public/history/statcast/2026-05-18.json",
+      "sha256": "3b76d84763361a7895f7dd8e99d2db88e5a7b872b7a15f9e97c8320ac76717de",
+      "bytes": 1014916
+    },
+    {
+      "path": "public/history/statcast/2026-05-19.json",
+      "sha256": "ea4b112d0112edcc0f766e22eb0be43b870e9eef01ecf6d7ba6eea7dbe8ba005",
+      "bytes": 1073240
+    },
+    {
+      "path": "public/history/statcast/2026-05-20.json",
+      "sha256": "ced5cec7514ea74cb36cc71c27fc0b98d3b82788717c19a0c434d2b7702a9e7a",
+      "bytes": 1052740
+    },
+    {
+      "path": "public/history/statcast/2026-05-21.json",
+      "sha256": "aec2666e545d41ba85380bca3c748eb24262d21d5f26f72e3a7b36ab89c3467c",
+      "bytes": 499985
+    },
+    {
+      "path": "public/history/statcast/2026-05-22.json",
+      "sha256": "49e536d7900fe809af81921fa44d39f88553c44f02b0397473c960c29d4be066",
+      "bytes": 999411
+    },
+    {
+      "path": "public/history/statcast/2026-05-23.json",
+      "sha256": "4b135e3a60a7308d9f5d48002dec22d497781d99c8e70c1f9ed9d434df327d85",
+      "bytes": 1000020
+    },
+    {
+      "path": "public/history/statcast/2026-05-24.json",
+      "sha256": "3d93566ba29b8e6c5ce9d12ffa5bd4bde4917677641f7ac64036c17c7e7b3a92",
+      "bytes": 1063006
+    },
+    {
+      "path": "public/history/statcast/2026-05-25.json",
+      "sha256": "437bc981a4200f993f6407dc9b29acee607b27f2be611a3159dd2fa762ba29bb",
+      "bytes": 937132
+    },
+    {
+      "path": "public/history/statcast/2026-05-26.json",
+      "sha256": "e0da908ef6ac11295342e5749ea794573246e0a6b95b87eeeb4640286dc3a37e",
+      "bytes": 1085653
+    },
+    {
+      "path": "public/history/statcast/2026-05-27.json",
+      "sha256": "795c70aa9388f0ac063eac315d58fd44628f7cb6916f8674024ac8c01df7b802",
+      "bytes": 1018543
+    },
+    {
+      "path": "public/history/statcast/2026-05-28.json",
+      "sha256": "288a894958c6e11733f6080785ef061fb2c5925b909e5242e28c840cb8baf82e",
+      "bytes": 446896
+    },
+    {
+      "path": "public/history/statcast/2026-05-29.json",
+      "sha256": "d55e8cfd1a6aa8b2044ff5c93cde0749959b24f8271d92f8b4fa2b15aecd164e",
+      "bytes": 1085162
+    },
+    {
+      "path": "public/history/statcast/2026-05-30.json",
+      "sha256": "3b5b53a19a3fca325db8eb4dff441d421aef227855f6bb53209299ac18e38f53",
+      "bytes": 1105986
+    },
+    {
+      "path": "public/history/statcast/2026-05-31.json",
+      "sha256": "3d13728e022423229d0ed3408b4f96f445e24337ac71725fa2f33cdab8596af7",
+      "bytes": 1104245
+    },
+    {
+      "path": "public/line-contact.png",
+      "sha256": "927ba0dd963f5b4731542398ba9170ba02f2e2b490e4a4b0cc36fe0d4ab729ef",
+      "bytes": 7920
+    },
+    {
+      "path": "public/robots.txt",
+      "sha256": "60dac4dec193b10acfb3ef714053079b6975e7301710177fbcbc4f38962f484b",
+      "bytes": 400
+    },
+    {
+      "path": "public/team-logos/108.svg",
+      "sha256": "0b73a6c9523ac0a35a817516e13c4e96a7908dc0df389f01f8dba5d6c47d21e6",
+      "bytes": 3648
+    },
+    {
+      "path": "public/team-logos/109.svg",
+      "sha256": "b63b3aaf303ff3bd856c480ef855a0bdab1794e78185e3b791492c860fdf804a",
+      "bytes": 2440
+    },
+    {
+      "path": "public/team-logos/110.svg",
+      "sha256": "9e6476d34cd2e98e792cb73ef06e99b2c243089b3a7e102465db427ec3d26535",
+      "bytes": 8913
+    },
+    {
+      "path": "public/team-logos/111.svg",
+      "sha256": "53eb07384a14fcc54efb807581672b793c75cc1bfdc0c6610345051820cd92af",
+      "bytes": 5328
+    },
+    {
+      "path": "public/team-logos/112.svg",
+      "sha256": "8fe99678c053859b50adbbe769aade0011ed6b2349962a9963dcc0b6db162aef",
+      "bytes": 2321
+    },
+    {
+      "path": "public/team-logos/113.svg",
+      "sha256": "112b22efe0bb3f7352a0630068977526d2fbaf36c67a10683a8b2c9e966c1618",
+      "bytes": 1432
+    },
+    {
+      "path": "public/team-logos/114.svg",
+      "sha256": "5fada1700c1622777d64d1971e028ea7aca7729a11537736d4e88c6acada763e",
+      "bytes": 1383
+    },
+    {
+      "path": "public/team-logos/115.svg",
+      "sha256": "f4ac929c740e482a4c62127cbb0b04c9aa48848f6481dcabfd66f7c064abdd47",
+      "bytes": 2673
+    },
+    {
+      "path": "public/team-logos/116.svg",
+      "sha256": "90602ddfa5130edf47241fcde4152d7c7421b881af67ed3d66d0b5d700446c39",
+      "bytes": 1961
+    },
+    {
+      "path": "public/team-logos/117.svg",
+      "sha256": "fd2e9fa1d895e8cb88fb9ee3562acb6a1b9852158aa4793aa3a742097cc5556e",
+      "bytes": 3263
+    },
+    {
+      "path": "public/team-logos/118.svg",
+      "sha256": "55678f28a752ec5ac86e290b2481b8a5e3d7de7460a3f469412147dc224eb32c",
+      "bytes": 1211
+    },
+    {
+      "path": "public/team-logos/119.svg",
+      "sha256": "9840fd7c20fb4614a1797f1fcf9613586fb54dac49dbe4b894086aa07555280f",
+      "bytes": 1188
+    },
+    {
+      "path": "public/team-logos/120.svg",
+      "sha256": "69e019986481b7844b548fe2d1cdc88a58815d0b1b8cbf22bd65fcf17f3458d8",
+      "bytes": 1867
+    },
+    {
+      "path": "public/team-logos/121.svg",
+      "sha256": "b8214420e8588f91928f45829e9abd8c5ac30df6293a29597b1aa7cc9bc972e0",
+      "bytes": 2911
+    },
+    {
+      "path": "public/team-logos/133.svg",
+      "sha256": "598538b486eef1fc4834f0a88093fc03b26c558e264afc21f5c3c4b2ba209f0c",
+      "bytes": 2853
+    },
+    {
+      "path": "public/team-logos/134.svg",
+      "sha256": "a88e4a6bd86217dd2e1c66f48de97113a7edde01f03d7a9c280b6b05bd0ddaa3",
+      "bytes": 846
+    },
+    {
+      "path": "public/team-logos/135.svg",
+      "sha256": "c0d5f92ef4a58f097c74aedebb9fd1ff4270217d45b75ef7aa6eeded115131da",
+      "bytes": 1286
+    },
+    {
+      "path": "public/team-logos/136.svg",
+      "sha256": "c9508331d23c9a20493210e9cd23d29978fc5e599efeffe6e180118885ff4d06",
+      "bytes": 28186
+    },
+    {
+      "path": "public/team-logos/137.svg",
+      "sha256": "04d8deeb9e7dd172edae9c1a202bf91461d89a973dd243edddb99329cfe99f3c",
+      "bytes": 1535
+    },
+    {
+      "path": "public/team-logos/138.svg",
+      "sha256": "c1f1aa692b825d69521a724ca0848b337bd4fe57120daf3760a4e2eb12e3653d",
+      "bytes": 2481
+    },
+    {
+      "path": "public/team-logos/139.svg",
+      "sha256": "b50fd02140a8fe66e57eb5c421fc6847a52abfbc7469bc3099a49d1e09ff77fc",
+      "bytes": 2639
+    },
+    {
+      "path": "public/team-logos/140.svg",
+      "sha256": "775ec1e70b6655e087249f7306c8ea033c2cc5c52bd1da71339df02160190a38",
+      "bytes": 1425
+    },
+    {
+      "path": "public/team-logos/141.svg",
+      "sha256": "1920a269c4dce0f8f38d338c4a47380144922a7d84f92ad4609188cac0f4d8e3",
+      "bytes": 6124
+    },
+    {
+      "path": "public/team-logos/142.svg",
+      "sha256": "9f062b8e0a2626babce4f051f2d3f1bee163fa6d74ff12ff3501be2e2767b090",
+      "bytes": 1124
+    },
+    {
+      "path": "public/team-logos/143.svg",
+      "sha256": "465da43739de56c09d5f8ec3328be11e9318f53959cc05979d3ab3d0a547a3bb",
+      "bytes": 2516
+    },
+    {
+      "path": "public/team-logos/144.svg",
+      "sha256": "11162237c379e6e6e54916ee4eebe4407961b4d37293b71b21868077d1bead0d",
+      "bytes": 2652
+    },
+    {
+      "path": "public/team-logos/145.svg",
+      "sha256": "ca1ee0dc0e5a0f848703d0081ba60a12d44b0364da5c3b146985b6fe33f2e994",
+      "bytes": 8869
+    },
+    {
+      "path": "public/team-logos/146.svg",
+      "sha256": "6a6e50ca9bad01e65aaeb0557d9e7b4dc94647aea42fdd2549643aca35a767df",
+      "bytes": 11468
+    },
+    {
+      "path": "public/team-logos/147.svg",
+      "sha256": "a9041069f46b033c0ecaa1472fd5a12da22f1f5af53fd8a686687540d5586fdd",
+      "bytes": 1506
+    },
+    {
+      "path": "public/team-logos/158.svg",
+      "sha256": "9271da480f41d07eaa124a20dd4bc2dfaf879c17721b61bef9c45d8e6cc837d4",
+      "bytes": 3351
+    },
+    {
+      "path": "public/team-logos/cpbl-brothers.png",
+      "sha256": "f2b38005888d50b5a485a3099ade3510f0e6bac43ab177db6aad8abf9bd0bd3d",
+      "bytes": 52134
+    },
+    {
+      "path": "public/team-logos/cpbl-dragon.png",
+      "sha256": "d2e135b432d56b804c6679e89f31880edf28f652075bfeb892f35915a2d2d290",
+      "bytes": 17489
+    },
+    {
+      "path": "public/team-logos/cpbl-fubon.png",
+      "sha256": "769c44f640750da85c16c099f6059feadb8cc9016654c7a2962c5115125ac97c",
+      "bytes": 50713
+    },
+    {
+      "path": "public/team-logos/cpbl-hawks.png",
+      "sha256": "e8f57f53e1647a6e357beccbe1eba630918f0586268edb17b4e763342d16fda7",
+      "bytes": 22219
+    },
+    {
+      "path": "public/team-logos/cpbl-lions.png",
+      "sha256": "7d6cdbfce42ae3a2e3829c5afc8e316bbaaecd8369893466a848540b54d5fb5e",
+      "bytes": 77895
+    },
+    {
+      "path": "public/team-logos/cpbl-monkeys.png",
+      "sha256": "059102cb3fafc8dabc58fa6d2753a29e82e790f583cf1d93438f7354fe22cd0f",
+      "bytes": 81990
+    },
+    {
+      "path": "public/team-logos/kbo-hh.png",
+      "sha256": "322ec45d8b0c81be9ece26a13fc0fd3bb3b62ed54a56184ad179f6d1552207b4",
+      "bytes": 5517
+    },
+    {
+      "path": "public/team-logos/kbo-ht.png",
+      "sha256": "dfd23a6b274ddcccd9199ac57ae6e09aa044da071f52da9c4f2b45bdf4c90aed",
+      "bytes": 1438
+    },
+    {
+      "path": "public/team-logos/kbo-kt.png",
+      "sha256": "9db1c2dbce1e36850eed7721acb21a8e873af8936a57db5a288e794d1103d6d1",
+      "bytes": 2368
+    },
+    {
+      "path": "public/team-logos/kbo-lg.png",
+      "sha256": "2d84d91098f9da01e21f584d67316809e49cb428f6c374aca9b93b82ba4b9378",
+      "bytes": 1669
+    },
+    {
+      "path": "public/team-logos/kbo-lt.png",
+      "sha256": "e84736201505d9c307b2b9d9c9fb8d767087a44b774661659611125f3eddbc4d",
+      "bytes": 5851
+    },
+    {
+      "path": "public/team-logos/kbo-nc.png",
+      "sha256": "343312b2f831bc38896b56219cbeb8d08cba15c99f4392e62a9e2158c2ebfefa",
+      "bytes": 2804
+    },
+    {
+      "path": "public/team-logos/kbo-ob.png",
+      "sha256": "d5dd34d8116b93471ca1cd23f26a5d54efde88a4a1554af9ce5358c13322375d",
+      "bytes": 5496
+    },
+    {
+      "path": "public/team-logos/kbo-sk.png",
+      "sha256": "a118325b059974c33d90df6e5e2067de4e1f5c129b60c958c1561178b41c1571",
+      "bytes": 6160
+    },
+    {
+      "path": "public/team-logos/kbo-sources.json",
+      "sha256": "d397e769e29a1a49cef80aac9d45d84886ebd327fdab3ae92f0c8c95321e00c0",
+      "bytes": 2009
+    },
+    {
+      "path": "public/team-logos/kbo-ss.png",
+      "sha256": "9a2b27d423758d4fd6d192c8173baf84b5bffa4fc057084188f52d947f62467a",
+      "bytes": 2752
+    },
+    {
+      "path": "public/team-logos/kbo-wo.png",
+      "sha256": "ef5acaf7a2744528ed19b5fd5c361a681491c4a6b98920c3d88f5d2eebd442f4",
+      "bytes": 2436
+    },
+    {
+      "path": "public/team-logos/npb-baystars.gif",
+      "sha256": "67c722d548f0dfa9e67647a39fd90e0c69e60e906cffe98e929991aed5b35a4f",
+      "bytes": 6503
+    },
+    {
+      "path": "public/team-logos/npb-buffaloes.gif",
+      "sha256": "10057511d44c1535a5a9b1c0aed6b37f0adf2d8937501541dd4823361c8ee0de",
+      "bytes": 7202
+    },
+    {
+      "path": "public/team-logos/npb-carp.gif",
+      "sha256": "ba6ff498c1c7f187e137060a9a342edea282cc73d114ad1c74a1bda4f907224b",
+      "bytes": 6317
+    },
+    {
+      "path": "public/team-logos/npb-dragons.gif",
+      "sha256": "a93052d2383921c58cac4d209b5a9e5f58c0b7fd4a90d864156cd5326fe9b6f6",
+      "bytes": 4687
+    },
+    {
+      "path": "public/team-logos/npb-eagles.gif",
+      "sha256": "f9fe353b1fb71485a022200d63c89a0a0163e251372f69c89758ec0d4e763106",
+      "bytes": 7359
+    },
+    {
+      "path": "public/team-logos/npb-fighters.gif",
+      "sha256": "01fce24a95d3ed2c729a24578da48de1be18b377f630911a0395ce931bdaf955",
+      "bytes": 4480
+    },
+    {
+      "path": "public/team-logos/npb-giants.gif",
+      "sha256": "5938fc5994c6a4c62009672cae76f548ccfe54ab008b0631fbd24aa9477585b6",
+      "bytes": 4846
+    },
+    {
+      "path": "public/team-logos/npb-hawks.gif",
+      "sha256": "1e85657ae878e88ed9c8dc2441f58a811c119aa49e9c76d8cb1ecec3152820ce",
+      "bytes": 5414
+    },
+    {
+      "path": "public/team-logos/npb-lions.gif",
+      "sha256": "8dbab3b04bbd845e19ae1ffb49e82e124e8e583d3895757c9d8dff9832f811fd",
+      "bytes": 5386
+    },
+    {
+      "path": "public/team-logos/npb-marines.gif",
+      "sha256": "a4348a69fc0c71fcf9c81ad47d30fa31474f178f6d507a8232d80dffdaf23738",
+      "bytes": 5814
+    },
+    {
+      "path": "public/team-logos/npb-swallows.gif",
+      "sha256": "ca61d36eb7f4651c85c5e6d12610c81b358970fb4b07891b153be96aa93d3a1a",
+      "bytes": 5179
+    },
+    {
+      "path": "public/team-logos/npb-tigers.gif",
+      "sha256": "37476c93566598a958e5c34b3e1ae5f35f5544bda7c375c240ed47db922118ae",
+      "bytes": 5678
+    },
+    {
+      "path": "public/window.svg",
+      "sha256": "decf1cf7bb22b5c99c4857cfcd5718ce5465c4454166317589c83fc73df74b66",
+      "bytes": 386
+    },
+    {
+      "path": "public/yj-logo.png",
+      "sha256": "96efc32ef70d667d63f318bddada4044fc5539211b3ac21a0db71dce6e2e2f9f",
+      "bytes": 784246
+    },
+    {
+      "path": "scripts/HISTORICAL_RESEARCH.md",
+      "sha256": "a030a220526ec7ae9dee2821ec52ee2c068d3015d2a7468ec29255339577a98f",
+      "bytes": 3441
+    },
+    {
+      "path": "scripts/build-verified.sh",
+      "sha256": "2ae5329ac860076070c9217a43106a15cb5ecf907a0f7baeb9ef903f76b53c68",
+      "bytes": 661
+    },
+    {
+      "path": "scripts/fetch-statcast-month.py",
+      "sha256": "8e583085004ce675ec787a4719e40a4200504d591f3099586f090cfd637bc71d",
+      "bytes": 1211
+    },
+    {
+      "path": "scripts/import-playsport-pregame.py",
+      "sha256": "c879a42ee4631f04298849230b14dcd757b4751a4cc5a99806a9ab456ea1399a",
+      "bytes": 8181
+    },
+    {
+      "path": "scripts/import-twtools-reference.py",
+      "sha256": "c100a5c5fe482a980cbde6eac1da7797c1e7daaef018359712a47780eea22c05",
+      "bytes": 11742
+    },
+    {
+      "path": "scripts/install-ci.sh",
+      "sha256": "f63e840679ca885f206d17b7f8285199bb6bcd47ebc360008d04d16b8e54f63c",
+      "bytes": 6326
+    },
+    {
+      "path": "scripts/pack-profile-snapshot.mjs",
+      "sha256": "b5d3e5a9cc915cfe4b55be3813701b41d31c76a5133982db86f4e92fcb8c2045",
+      "bytes": 1646
+    },
+    {
+      "path": "scripts/pair-historical-odds.py",
+      "sha256": "489003b7f15f848806ed187c51258ace0944160b0565ca90fb81adf15508344e",
+      "bytes": 3342
+    },
+    {
+      "path": "scripts/prepare-retrosheet.py",
+      "sha256": "fa78818169ae3ca1dbfb062723b696a6267bd45c8202d2f289ba01bae3ad31cd",
+      "bytes": 4088
+    },
+    {
+      "path": "scripts/prepare-statcast-month.py",
+      "sha256": "633d3a62511193fa4b04200b6fcb1c9c77c599609f42306b8ef45a63e96aef10",
+      "bytes": 2585
+    },
+    {
+      "path": "scripts/prepare-statcast.py",
+      "sha256": "05389a60cd62be3305ab1580103a69650f00cc68e65824ed547731673ff92496",
+      "bytes": 2228
+    },
+    {
+      "path": "scripts/sites-env.sh",
+      "sha256": "df86ebfc27d2f00860036658e933ac0ddd7b5f6879aa5d51218f0863c7e1fb60",
+      "bytes": 1530
+    },
+    {
+      "path": "scripts/sync-baseball.mjs",
+      "sha256": "f63436c25a378fe219776b65733193f403199166dce6114d1cf70b79c9de3645",
+      "bytes": 686
+    },
+    {
+      "path": "scripts/train-historical-model.py",
+      "sha256": "7b8947d4a205099ba4a6797595252c44bc952c4e1111d6a5e8bb786a3cc61e26",
+      "bytes": 5694
+    },
+    {
+      "path": "scripts/train-international-models.py",
+      "sha256": "d244113991187211e6424f29707b746676d538d466ae7ce67ad37f1c900da097",
+      "bytes": 9421
+    },
+    {
+      "path": "server/baseball-current.mjs",
+      "sha256": "cf1b5c806116544809536c258a622054c7db7f88ed688a839edd7d686d746b07",
+      "bytes": 2516
+    },
+    {
+      "path": "server/baseball-live-feed.mjs",
+      "sha256": "7205f68bd20978d46ab5bd89bbf75850c4688191a9ad683e0ccca15043d452e9",
+      "bytes": 3265
+    },
+    {
+      "path": "server/baseball-live-providers.mjs",
+      "sha256": "ad2632b2842f48daf7aaf7d378cb05f494aa9d3f6a3d52f83cd5b30a904df585",
+      "bytes": 21119
+    },
+    {
+      "path": "server/baseball-npb-context.mjs",
+      "sha256": "7c08c916c6574eafa402ece1245729019f16f2fc2959708ab197286d887f70cf",
+      "bytes": 2761
+    },
+    {
+      "path": "server/baseball-research.mjs",
+      "sha256": "5b2dc0b45df55727d7aba070a5707055510e1c44a573cd2d24476d5832e87306",
+      "bytes": 4255
+    },
+    {
+      "path": "server/baseball-sites-store.mjs",
+      "sha256": "a862d78d6872990a06069cbce35cd7f8477e87f121422ded7e0718b8bc7dc650",
+      "bytes": 1071
+    },
+    {
+      "path": "server/baseball-sync.mjs",
+      "sha256": "56a57776eb0a819c7e13911db039c7f8c348900abcdfda414cbe5331d5bec894",
+      "bytes": 1255
+    },
+    {
+      "path": "server/cpbl-game-logs-source.mjs",
+      "sha256": "0603aad34be960d93ad7419e517da60d658bf5cdb73c9a9d99a2c14791162ba8",
+      "bytes": 6546
+    },
+    {
+      "path": "server/research-data/games-archived-clean.json",
+      "sha256": "aff3465d09e1b8f0c0e1d846c8b2feae8b7124194f71cc21b8befda184fdc0f8",
+      "bytes": 39773
+    },
+    {
+      "path": "server/research-data/history-quarantine-import.json",
+      "sha256": "52c6367413f689ed3a8590670b73421f9c84dab0db823fa4bb333b68bb4c0b3e",
+      "bytes": 27050
+    },
+    {
+      "path": "server/research-data/history-research-import.json",
+      "sha256": "f700ae97bef1dcb7c82d2a15199ff198f784e89400147cd82e4045f9f240f058",
+      "bytes": 222414
+    },
+    {
+      "path": "server/research-data/international-backtest-predictions.json",
+      "sha256": "83245fc08d13e0e67bc0001288cdd45d4ee4db9793c411da9a72aca288b75f69",
+      "bytes": 141689
+    },
+    {
+      "path": "server/research-data/manifest.json",
+      "sha256": "fc71d72ed3a6d63789515942b6596d49782de527b53d59160cd84d75d0334953",
+      "bytes": 1829
+    },
+    {
+      "path": "server/research-data/normalized-history.json",
+      "sha256": "0ed501707978ac057add127971571a415a415a9b76506d5a3e6da8909c734f82",
+      "bytes": 278055
+    },
+    {
+      "path": "server/research-data/research-field-projection.json",
+      "sha256": "e6680cc5ee8f9461c4c14168bf986c585e3cda0198f2f07bb37a73b281dc3494",
+      "bytes": 282019
+    },
+    {
+      "path": "tests/admin-identity.test.mjs",
+      "sha256": "1f9124da3d2bf1be59566c985b3d2fe499d2246b246384e40d50abc542363dfc",
+      "bytes": 1715
+    },
+    {
+      "path": "tests/all-profile-teams-smoke.mjs",
+      "sha256": "eee7d470d35a8c6766bbe243456bcab4650c13196a46e2dfa82846995ad7c396",
+      "bytes": 1567
+    },
+    {
+      "path": "tests/analysis-readiness.test.ts",
+      "sha256": "9b5afb29b21309d4a7b2d923dbbaa7f0dcf19652964528d84c5395f11fa192b8",
+      "bytes": 1016
+    },
+    {
+      "path": "tests/analysis-weights.test.mjs",
+      "sha256": "7bbb5f9feb81051eaf1e9caa32cc8f5c86324a9b5f4e4dfbf5760f8f8970eaa8",
+      "bytes": 3838
+    },
+    {
+      "path": "tests/baseball-live-feed.test.mjs",
+      "sha256": "04225cac8b526acde52fe0843c61bff9fffc0b4190f672e7455c1106d26a69bd",
+      "bytes": 4325
+    },
+    {
+      "path": "tests/baseball-npb-context.test.mjs",
+      "sha256": "5ab361236788c514c163593fe16614eb02e8acf20f5227b273bfa991ac0e7d86",
+      "bytes": 2090
+    },
+    {
+      "path": "tests/baseball-research.test.mjs",
+      "sha256": "af83d9eabd97bc011d506f9fab3a3a0e11e4aa574e30d865fd521cd3f225befb",
+      "bytes": 3414
+    },
+    {
+      "path": "tests/baseball-sites-store.test.mjs",
+      "sha256": "5f961bca7195ebd8a848de8dd3817cad6cab039fdf94cf63d739f168f7b3d468",
+      "bytes": 1443
+    },
+    {
+      "path": "tests/baseball-sync.test.mjs",
+      "sha256": "b297fe8aa9c079d5675a5a2b98b88013759e28df26c60bcd7b0fe7381fcc31df",
+      "bytes": 1693
+    },
+    {
+      "path": "tests/board-markets.test.mjs",
+      "sha256": "8726ef34f5788a927e137fa619f82084d4a07fd3c17ae23dc03994dec547a195",
+      "bytes": 6447
+    },
+    {
+      "path": "tests/collect-profile-smoke.mjs",
+      "sha256": "9066e2185fa55256f080b21537195ae947be23fce7d4fe6152553897a1d7c35c",
+      "bytes": 1163
+    },
+    {
+      "path": "tests/covers-odds.test.ts",
+      "sha256": "d9b99a4390275243c287d8bcb0b84671e4727dc6c4d599dae570b94504cd6e7f",
+      "bytes": 2920
+    },
+    {
+      "path": "tests/cpbl-analysis.test.mjs",
+      "sha256": "6776d7a72c72a4e29df47c7cc706a9626d42ac9acfd43aa2cbfe2a716edfa797",
+      "bytes": 5386
+    },
+    {
+      "path": "tests/cpbl-game-logs.test.mjs",
+      "sha256": "5623874d9d83fff290018fe5f84624efee9797d4931e9bfd903296f345dc25e0",
+      "bytes": 8403
+    },
+    {
+      "path": "tests/cpbl-market-options.test.mjs",
+      "sha256": "658144c4c8c28042d852ee779636a796e9842cd8a10d2596e4c446be7486d405",
+      "bytes": 4057
+    },
+    {
+      "path": "tests/cpbl-supplement.test.mjs",
+      "sha256": "8ffb90ec63e4d0e5121dcb1a03bd0f685fe4550a2d56821b866274f7cf91229d",
+      "bytes": 4530
+    },
+    {
+      "path": "tests/fixtures/cpbl-yahoo-log-260919341.json",
+      "sha256": "50b6e512864d650b8b0268e05592d2e694eb7bfa3f504c50e9155c0157eef93f",
+      "bytes": 15897
+    },
+    {
+      "path": "tests/fixtures/hr9988-game-detail.json",
+      "sha256": "b5f491be8a8cec7c21df206862af2ffd7dbda6031e7e9aa28c1d8e245155fec1",
+      "bytes": 17965
+    },
+    {
+      "path": "tests/historical-research.test.py",
+      "sha256": "f0ffd4def526e65300ae4a72cf1b9876dc6589a81e9c7f0ada1c8516f7b6901f",
+      "bytes": 1793
+    },
+    {
+      "path": "tests/hr9988-connection.test.mjs",
+      "sha256": "2419f62d5bd6b3c1793efee054a398435b114234ed29b7e71c4fe2edceb7be74",
+      "bytes": 10124
+    },
+    {
+      "path": "tests/international-current-pregame.test.mjs",
+      "sha256": "38b43d8138578c4a3737120590b5c2aea618d1369ffb3bfa72e94d9259839a34",
+      "bytes": 3901
+    },
+    {
+      "path": "tests/international-fixture-dedup.test.mjs",
+      "sha256": "07b4c4f497ace6487640e43dd928bb4bf852f71bdcebd5c93da9f54550afbf72",
+      "bytes": 1758
+    },
+    {
+      "path": "tests/international-live-display.test.mjs",
+      "sha256": "e9f96221f9b30805279d7be0dc5eacdd87bb00a9f088faa48b5320e129e1e93c",
+      "bytes": 2366
+    },
+    {
+      "path": "tests/international-model-audit.test.mjs",
+      "sha256": "5a66b4260e3a3a15e3c71251c0cfa83ed4350498ab476341eef4470a7beaf80d",
+      "bytes": 4926
+    },
+    {
+      "path": "tests/international-odds.test.mjs",
+      "sha256": "5adb8d8120286ede39d5d0a87b7da742e5bc6b06a0bb2d250566b85c5143cf57",
+      "bytes": 2451
+    },
+    {
+      "path": "tests/international-official.test.mjs",
+      "sha256": "4ee1c2050ed857168979cf347523cad593e02d58738bcef21ce587a37e511317",
+      "bytes": 5328
+    },
+    {
+      "path": "tests/international-pregame-import.test.mjs",
+      "sha256": "54dad3b5f17d24006ac621117d7eb5122f3a50248e36c1b89d118c514271905f",
+      "bytes": 4108
+    },
+    {
+      "path": "tests/international-profile-api.test.mjs",
+      "sha256": "390b43de9093cbcaf23f013184e8c291300c30f72ee040841e7fee1bd2d6a50b",
+      "bytes": 1924
+    },
+    {
+      "path": "tests/international-profile-source.test.mjs",
+      "sha256": "8e622093bdce0e5674f89617e8fdd7afeb8b40e26309ae7ef57daec51a9a194b",
+      "bytes": 969
+    },
+    {
+      "path": "tests/international-profile.test.mjs",
+      "sha256": "227908bddb52f8db7e5735cbba24358dd3adff3b57289ce21d4cc1ee5fea4e5f",
+      "bytes": 2517
+    },
+    {
+      "path": "tests/international-validation.test.py",
+      "sha256": "4e45bca4b596b68cedf215abed67dddeb275b07a49ce03dc574525a822e3d71a",
+      "bytes": 4524
+    },
+    {
+      "path": "tests/kbo-analysis.test.mjs",
+      "sha256": "98447ad129e3ca6c4c95057fd1417b5fd96c8dc29ff8780df59df7b8b2fd469c",
+      "bytes": 8479
+    },
+    {
+      "path": "tests/kbo-fixtures.test.mjs",
+      "sha256": "7b81535c0f5e46e719dac8e7c2e5197e82a93da836477da9d68eb803ca756fb6",
+      "bytes": 3787
+    },
+    {
+      "path": "tests/kbo-pitcher-review.test.mjs",
+      "sha256": "deffaa3845425ebcb5f8ea3ab57c263d70c9f3801e6bf070afba041dd74fc0da",
+      "bytes": 3295
+    },
+    {
+      "path": "tests/kbo-pregame.test.mjs",
+      "sha256": "5c27dd268b3b2d05e5239340fe571463cdc3a813081975bef8bedfc90997496d",
+      "bytes": 4095
+    },
+    {
+      "path": "tests/live-game.test.mjs",
+      "sha256": "e2cc2588562f1199100969a5693f419be1801ad4ee80aa71a1b8435cde1194e5",
+      "bytes": 7433
+    },
+    {
+      "path": "tests/match-card-order.test.mjs",
+      "sha256": "6274a425129ebc258e64bb78cac49a8f3b1885fb9839fd7d60fd4bb90568f0a4",
+      "bytes": 2227
+    },
+    {
+      "path": "tests/match-scoreboard.test.mjs",
+      "sha256": "8102cc5a4d77f84aaeafbff1176cdd565779f9411b232a06a766e1811e6540aa",
+      "bytes": 2394
+    },
+    {
+      "path": "tests/member-odds-client.test.mjs",
+      "sha256": "cc28476a1b8b0c9591e772c0796ca6238d8616eaaf192a29ad925618f2c9006d",
+      "bytes": 2847
+    },
+    {
+      "path": "tests/multifactor-win.test.mjs",
+      "sha256": "1e7c917220b5480d8d8f2c47df477120b176a913f6a05f0d541ddfbcd5301c85",
+      "bytes": 2562
+    },
+    {
+      "path": "tests/npb-analysis.test.mjs",
+      "sha256": "bca1c40c674ff48f51bab5d10eefcad14af55c7039a5837fa6b54a8acd963818",
+      "bytes": 6153
+    },
+    {
+      "path": "tests/npb-fixtures.test.mjs",
+      "sha256": "2fd935a5e6f260a5f32e65eb34712a82833c5c35c7e65d11a33375d49143942b",
+      "bytes": 1704
+    },
+    {
+      "path": "tests/pitcher-era.test.mjs",
+      "sha256": "08c426778e29e4c8d716dd299a9b51a0e49fa77677760d37191ce59196295877",
+      "bytes": 2687
+    },
+    {
+      "path": "tests/player-profile.test.mjs",
+      "sha256": "9d65358f9f684b9731d56d6cbbaf9f210c1b36f4e9e878b0765ed40b7b868c97",
+      "bytes": 6169
+    },
+    {
+      "path": "tests/pregame-analysis.test.ts",
+      "sha256": "82c73909aa446382c275e6f36f7f5fffe1bb282c3be6703bb2b3528335d0bf16",
+      "bytes": 3664
+    },
+    {
+      "path": "tests/pregame-pitching-import.test.mjs",
+      "sha256": "7a69145ce547ad099a1c556561ac612bc7080b1756b3cdc4b5ccca5e6470af6e",
+      "bytes": 3105
+    },
+    {
+      "path": "tests/pregame-readiness.test.mjs",
+      "sha256": "e4c3b21125993483e8d625e3b2992a6814c691d02b1a8998e09a695517b95384",
+      "bytes": 6771
+    },
+    {
+      "path": "tests/profile-loader.mjs",
+      "sha256": "82d2471046f66181d36b5b98e1493fef8314637062eb0225c90d80957b492ad7",
+      "bytes": 846
+    },
+    {
+      "path": "tests/rendered-html.test.mjs",
+      "sha256": "eae1d187870ad9a4b3f0c37b40589b25c1a2090dcbee19964555cf70c136b118",
+      "bytes": 967
+    },
+    {
+      "path": "tests/retrosheet.test.ts",
+      "sha256": "79f0f7b992359ff9b47d5787d3b455f7c0909e63fb4aaab03e601821f6667893",
+      "bytes": 1618
+    },
+    {
+      "path": "tests/statcast-history.test.ts",
+      "sha256": "9f04f77e564792b3f5aeb1c154049208d61fbf580f2ed0dbbf35e9e1a964610a",
+      "bytes": 2029
+    },
+    {
+      "path": "tests/super007-settlement.test.mjs",
+      "sha256": "aa9355931a6ae323954117dde8213086fe6d37d75c50cc726a8d5fb5e8100569",
+      "bytes": 15518
+    },
+    {
+      "path": "tests/turnstile-browser.test.mjs",
+      "sha256": "8b84de6be6602c034c67a521e6b4b060f9e3f42f0cba3159d2139d701428c351",
+      "bytes": 2270
+    },
+    {
+      "path": "tests/turnstile-settings.test.mjs",
+      "sha256": "b60ea40f31f642cfbaa543ff3cde2b994aa464f518775380fd831333fb67c92e",
+      "bytes": 2888
+    },
+    {
+      "path": "tests/twtools-reference.test.py",
+      "sha256": "a5c3278dbb7b3864b7efac12ef76cd7a5783d16b97e95c515b4f6f57f54e7ee8",
+      "bytes": 3806
+    },
+    {
+      "path": "tests/tz-binding.test.mjs",
+      "sha256": "4c5386d8f84036533658165270cade8e31a7155187afba4d67bf4a493c571a6a",
+      "bytes": 8564
+    },
+    {
+      "path": "tests/tz-login.test.mjs",
+      "sha256": "be34059869050c8ebd6a66658291f8d3e4c850860d2515a5c8a5bab7f54f4125",
+      "bytes": 17127
+    },
+    {
+      "path": "tests/ui-components.test.mjs",
+      "sha256": "08e681a25fe202a00d7d9e790804e4dc115a8a9388bb47a2c2e0211ec810fb02",
+      "bytes": 2840
+    },
+    {
+      "path": "tsconfig.json",
+      "sha256": "be18523b23b78b6e1a876ddd107d330f0168bddf09d751b57e0b5edce69c66f3",
+      "bytes": 666
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.LICENSE.md",
+      "sha256": "1564074e13439397221ffd522e2e504d56561994a23d371aa5e3ad43e4f5423f",
+      "bytes": 1063
+    },
+    {
+      "path": "vendor/shadcn-tailwind-4.13.0.css",
+      "sha256": "bc7d83425702955b4cb67cb14ede9d603f9d912376d57a2d81d661094d2a782a",
+      "bytes": 16041
+    },
+    {
+      "path": "vite.config.ts",
+      "sha256": "43e5f02f727ca043f08ebf34789f330580a7a0cb90f426c92f4a454d066988fc",
+      "bytes": 1807
+    },
+    {
+      "path": "worker/index.ts",
+      "sha256": "6b6cc119ece4ffeecc07882d4be9b8bc7abcd514a71531278d54c293418cf8bc",
+      "bytes": 3105
+    }
+  ]
+}

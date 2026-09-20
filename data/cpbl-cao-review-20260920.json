@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "fixtureDate": "2026-09-20",
+  "fixtureId": "2026092061001",
+  "team": "味全龍",
+  "pitcher": "曹祐齊",
+  "outingDate": "2026-09-09",
+  "reviewedAt": "2026-09-20T09:04:59.532Z",
+  "originalWarning": "本季四壞為 4 次，但逐場紀錄為 5 次；WHIP 亦與逐場安打及保送合計不一致，投手成績待核對。",
+  "facts": {
+    "innings": "4.0",
+    "hits": 4,
+    "walks": 4,
+    "hitByPitch": 1,
+    "strikeouts": 3,
+    "earnedRuns": 3,
+    "era": 6.75,
+    "whip": 2
+  },
+  "conclusion": "逐場原欄位「保送 5」為四死球合計：4 次四壞＋1 次觸身球。只更正這份單場表的欄名，保留數值及原始檔；WHIP=(4安打+4四壞)/4局=2.00，ERA=3責失×9/4局=6.75。",
+  "sources": [
+    {
+      "name": "野球革命・曹祐齊一軍2026基礎與進階數據",
+      "url": "https://www.rebas.tw/player/qTu2J",
+      "observedAt": "2026-09-20T09:04:59.532Z"
+    },
+    {
+      "name": "野球革命・曹祐齊2026分項（九月四壞4、觸身1）",
+      "url": "https://www.rebas.tw/player/qTu2J?tab=Splits&type=pitcher",
+      "observedAt": "2026-09-20T09:04:59.532Z"
+    },
+    {
+      "name": "緯來體育／Yahoo・9月9日賽後報導（4局、4安、5四死球）",
+      "url": "https://tw.sports.yahoo.com/news/%E4%B8%AD%E8%81%B7-%E5%85%A9%E9%9A%8A4%E6%AC%A1%E8%A7%B8%E8%BA%AB%E7%90%83-%E5%AF%8C%E9%82%A6%E6%82%8D%E5%B0%87%E6%93%8A%E9%80%80%E5%91%B3%E5%85%A8%E9%BE%8D%E4%BF%9D%E4%BD%8F%E5%B9%B4%E5%BA%A6%E6%88%B0%E7%B8%BE%E7%AC%AC2%E5%90%8D-133534113.html",
+      "publishedAt": "2026-09-09T13:35:34Z",
+      "observedAt": "2026-09-20T09:04:59.532Z"
+    }
+  ],
+  "replayNote": "核對時間晚於原快照；歷史回測不得視為當時已完成核對。"
+}

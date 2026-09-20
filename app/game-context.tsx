@@ -13,7 +13,7 @@ export default function GameContext({games,onChange,onResults}:{games:Match[];on
     const r=await fetch('/api/analysis',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({gameId:id}),signal:AbortSignal.any([controller.signal,AbortSignal.timeout(65000)])});if(!r.ok)throw new Error();const report=await r.json();if(!controller.signal.aborted)onChange(id,{report});
    }catch{if(!controller.signal.aborted)onChange(id,{error:'進階資料整合未完成，稍後重試'});}}}));}finally{running=false;}
   }
-  void update();const timer=setInterval(update,120000);return()=>{controller.abort();clearInterval(timer);};
+  void update();window.addEventListener('arena-refresh-all',update);const timer=setInterval(update,120000);return()=>{controller.abort();clearInterval(timer);window.removeEventListener('arena-refresh-all',update);};
  },[key,onChange]);
  useEffect(()=>{
   const controller=new AbortController();let running=false;

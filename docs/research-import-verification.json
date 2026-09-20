@@ -1,0 +1,39 @@
+{
+  "batch": "yj-existing-20260915-v1",
+  "scope": "local SQLite verification only; not production D1",
+  "manifestSha256": "17/17 matched",
+  "localFirstImport": {
+    "inserted": 259,
+    "updated": 0,
+    "skipped": 0,
+    "quarantinedSubset": 29,
+    "failed": 0,
+    "readBack": 259,
+    "research": 217,
+    "archive": 13
+  },
+  "localRepeat": {
+    "inserted": 0,
+    "skipped": 259,
+    "readBack": 259
+  },
+  "newerRecordPreserved": true,
+  "baseballCurrentUnchanged": true,
+  "production": {
+    "written": 0,
+    "readBack": 0,
+    "status": "pending deployment of schema and admin endpoint, then authenticated import"
+  },
+  "remainingGaps": [
+    "current live inning/BSO/bases and change verification",
+    "CPBL starting pitchers",
+    "12 game lineups",
+    "KBO BB/HBP/OBP/OPS",
+    "complete rosters and stable cross-source player IDs",
+    "bullpen last 3–7 days usage",
+    "injuries and registrations",
+    "pitch tracking and batting advanced metrics",
+    "source cutoff timestamps",
+    "STATIZ detailed accessibility and field coverage not verified"
+  ]
+}

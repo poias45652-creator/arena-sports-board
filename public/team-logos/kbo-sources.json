@@ -1,0 +1,56 @@
+{
+  "source": "https://www.koreabaseball.com",
+  "fetchedAt": "2026-09-19T11:04:58.475Z",
+  "logos": [
+    {
+      "file": "kbo-lg.png",
+      "name": "LG 트윈스",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/LG.png"
+    },
+    {
+      "file": "kbo-hh.png",
+      "name": "한화 이글스",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2025/HH.png"
+    },
+    {
+      "file": "kbo-sk.png",
+      "name": "SSG 랜더스",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2024/SK.png"
+    },
+    {
+      "file": "kbo-ss.png",
+      "name": "삼성 라이온즈",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/SS.png"
+    },
+    {
+      "file": "kbo-nc.png",
+      "name": "NC 다이노스",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/NC.png"
+    },
+    {
+      "file": "kbo-kt.png",
+      "name": "kt wiz",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/KT.png"
+    },
+    {
+      "file": "kbo-lt.png",
+      "name": "롯데 자이언츠",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/LT.png"
+    },
+    {
+      "file": "kbo-ht.png",
+      "name": "KIA 타이거즈",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/HT.png"
+    },
+    {
+      "file": "kbo-ob.png",
+      "name": "두산 베어스",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2025/OB.png"
+    },
+    {
+      "file": "kbo-wo.png",
+      "name": "키움 히어로즈",
+      "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/KBOHome/resources/images/emblem/regular/2022/WO.png"
+    }
+  ]
+}

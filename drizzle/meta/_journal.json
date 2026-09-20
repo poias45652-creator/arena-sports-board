@@ -36,6 +36,62 @@
       "when": 1789070959234,
       "tag": "0004_magical_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1789294569700,
+      "tag": "0005_smiling_wolverine",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1789383320549,
+      "tag": "0006_wide_nightcrawler",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1789390442878,
+      "tag": "0007_huge_stature",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1789458005718,
+      "tag": "0008_absurd_korg",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1789468582719,
+      "tag": "0009_heavy_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1789881216832,
+      "tag": "0010_mixed_blue_shield",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1789899338828,
+      "tag": "0011_smooth_sinister_six",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1789901207374,
+      "tag": "0012_curvy_rocket_raccoon",
+      "breakpoints": true
     }
   ]
 }

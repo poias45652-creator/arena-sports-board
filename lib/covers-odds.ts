@@ -9,7 +9,7 @@ function eastern(date:string,hour:number,minute:number){
  return new Date(utc).toISOString();
 }
 export function parseCoversOdds(html:string,now=Date.now()){
- if(html.length>3000000||!html.includes('id="oddsScopeChangeField"')||!/<input\b[^>]*id="oddsScopeChangeField"[^>]*value="1"/.test(html))throw new Error('Covers 非全場盤口或格式改變');
+ if(html.length>3000000||!html.includes('id="oddsScopeChangeField"')||!/<input\b[^>]*id="oddsScopeChangeField"[^>]*value="1"/.test(html))throw new Error('Covers 非全場資料或格式改變');
  const stamp=html.match(/Last updated ([A-Z][a-z]{2}) (\d{1,2}), (\d{4}), (\d{1,2}):(\d{2}) (AM|PM) ET/);
  if(!stamp)throw new Error('Covers 缺少來源更新時間');
  const month=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'].indexOf(stamp[1])+1;
@@ -19,7 +19,7 @@ export function parseCoversOdds(html:string,now=Date.now()){
  const games=new Map<string,{coversGameId:string;awayId:number;homeId:number;start:string;markets:any[]}>();
  for(const market of ['moneyline','spread','total']){
   const table=html.match(new RegExp('<table\\b[^>]*id="'+market+'-table"[^>]*>([\\s\\S]*?)</table>'))?.[1];
-  if(!table)throw new Error('Covers 盤口表格缺漏');
+  if(!table)throw new Error('Covers 資料表格缺漏');
   for(const row of table.matchAll(/<tr\b[^>]*class="oddsGameRow"[^>]*>([\s\S]*?)<\/tr>/g)){
    const cells=[...row[1].matchAll(/<td\b([^>]*)>([\s\S]*?)<\/td>/g)];const left=cells[0]?.[2]||'';
    const teams=[...left.matchAll(/<strong>([A-Z]+)<\/strong>/g)].map(x=>ids[x[1]]);
@@ -53,7 +53,7 @@ export function parseCoversOdds(html:string,now=Date.now()){
     if(market==='spread'&&values[0].line!==-values[1].line!)continue;
     if(market==='total'&&(values[0].line!==values[1].line||values[0].direction!=='o'||values[1].direction!=='u'))continue;
     const previous=game.markets.find(v=>v.market===market&&v.bookmaker===clean(book));
-    if(previous){if(JSON.stringify([previous.first,previous.second])!==JSON.stringify(values))throw new Error('Covers 同場同莊家盤口衝突');continue;}
+    if(previous){if(JSON.stringify([previous.first,previous.second])!==JSON.stringify(values))throw new Error('Covers 同場同莊家資料衝突');continue;}
     game.markets.push({market,bookmaker:clean(book),period:'full_game',settlementVerified:false,feesVerified:false,recommendationEligible:false,first:values[0],second:values[1],firstSide:market==='total'?'over':'away',secondSide:market==='total'?'under':'home',opening:open.length===2?{first:open[0],second:open[1],bookmaker:null}:null,sourceDateRaw:cell[1].match(/data-date="(\d+)"/)?.[1]??null,priceUpdatedAt:null});
    }
    games.set(id,game);
@@ -63,7 +63,7 @@ export function parseCoversOdds(html:string,now=Date.now()){
   const table=html.match(/<table\b[^>]*id="moneyline-table"[^>]*>([\s\S]*?)<\/table>/)?.[1]||'';
   const body=table.split('<tbody')[1]||'';
   console.error('covers-parse',JSON.stringify({sourceUpdatedAt,matchedGames:games.size,gameRows:(body.match(/oddsGameRow/g)||[]).length,bookCells:(body.match(/data-book=/g)||[]).length,americanPrices:(body.match(/American __american/g)||[]).length,sample:clean(body.replace(/<img\b[^>]*>/g,'' )).slice(0,1400)}));
-  throw new Error('Covers 沒有可解析賽前盤口');
+  throw new Error('Covers 沒有可解析賽前資料');
  }
  return {source:COVERS_ODDS_URL,fetchedAt:new Date(now).toISOString(),sourceUpdatedAt,games:rows,status:now-Date.parse(sourceUpdatedAt)>15*60000||Date.parse(sourceUpdatedAt)>now+60000?'stale':'ready',modelApplied:false,usage:'comparison_only',priceTimestampVerified:false};
 }

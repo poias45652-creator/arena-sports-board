@@ -5,7 +5,7 @@ export type OddsGame={id:number;away:string;home:string;start:string;spread:Quot
 export type OddsSnapshot={games:OddsGame[];fetchedAt:string;source:string};
 export function decimal(price:number){return Number.isFinite(price)&&Math.abs(price)>=100?(price>0?1+price/100:1+100/-price):null;}
 export function parsePinnacle(fixtures:any,markets:any,now=Date.now()):OddsGame[]{
- if(!Array.isArray(fixtures)||!Array.isArray(markets))throw new Error('盤口來源格式改變');
+ if(!Array.isArray(fixtures)||!Array.isArray(markets))throw new Error('資料來源格式改變');
  return fixtures.filter(g=>g.league?.id===246&&!g.parentId&&!g.special&&!g.isLive&&g.status==='pending'&&Date.parse(g.startTime)>now).flatMap(g=>{
   const home=g.participants?.find((p:any)=>p.alignment==='home'),away=g.participants?.find((p:any)=>p.alignment==='away');
   if(!home?.name||!away?.name||!Number.isInteger(g.id))return [];

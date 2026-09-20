@@ -1,0 +1,582 @@
+{
+  "schemaVersion": 1,
+  "league": "CPBL",
+  "season": 2026,
+  "date": "2026-09-20",
+  "observedAt": "2026-09-19T20:20:43.526Z",
+  "games": [
+    {
+      "id": "2026092061001",
+      "league": "CPBL",
+      "date": "2026-09-20",
+      "start": "2026-09-20 15:05:00",
+      "kind": "pregame_snapshot",
+      "liveVerified": false,
+      "source": {
+        "name": "玩運彩",
+        "url": "https://www.playsport.cc/gamesData/battle?allianceid=6&gameid=2026092061001",
+        "observedAt": "2026-09-19T20:20:43.526Z",
+        "publishedAt": null,
+        "sourceTitle": "中華職棒 味全 vs. 兄弟 對戰資訊 2026/9/20 - 玩運彩 台灣運動彩券朋友圈",
+        "contentSha256": "42c649d6707a71a16e0e09c3493af2705c1a40f6d0168ac45f6420eec0b9e329"
+      },
+      "away": {
+        "team": "味全龍",
+        "teamCode": "AAA",
+        "sourceTeam": "味全",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".241(5)",
+              ".327(5)",
+              ".635(5)",
+              "3.6 (5)",
+              "51(1)",
+              "309(5)",
+              "686(5)"
+            ]
+          ]
+        },
+        "record": "62-46-0 57%"
+      },
+      "home": {
+        "team": "中信兄弟",
+        "teamCode": "ACN",
+        "sourceTeam": "兄弟",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".266(1)",
+              ".349(1)",
+              ".682(1)",
+              "4 (1)",
+              "39(4)",
+              "351(2)",
+              "631(4)"
+            ]
+          ]
+        },
+        "record": "49-58-2 46%"
+      },
+      "comparison": {
+        "title": "球隊戰績與得失分",
+        "headers": [
+          "類別",
+          "球隊",
+          "勝敗",
+          "主場勝率",
+          "客場勝率",
+          "得/失分",
+          "主場得/失分",
+          "客場得/失分"
+        ],
+        "rows": [
+          [
+            "對戰",
+            "味全龍",
+            "15-8-0 65%",
+            "7-5-0 58%",
+            "8-3-0 73%",
+            "4 / 3.1",
+            "4.3 / 3.5",
+            "3.8 / 2.6"
+          ],
+          [
+            "對戰",
+            "中信兄弟",
+            "8-15-0 35%",
+            "3-8-0 27%",
+            "5-7-0 42%",
+            "3.1 / 4",
+            "2.6 / 3.8",
+            "3.5 / 4.3"
+          ],
+          [
+            "本季",
+            "味全龍",
+            "62-46-0 57%",
+            "32-25-0 56%",
+            "30-21-0 59%",
+            "3.6 / 3.1",
+            "3.3 / 3.3",
+            "4 / 2.8"
+          ],
+          [
+            "本季",
+            "中信兄弟",
+            "49-58-2 46%",
+            "21-33-2 39%",
+            "28-25-0 53%",
+            "4 / 4.1",
+            "3.4 / 4.7",
+            "4.6 / 3.6"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "2026092061002",
+      "league": "CPBL",
+      "date": "2026-09-20",
+      "start": "2026-09-20 16:05:00",
+      "kind": "pregame_snapshot",
+      "liveVerified": false,
+      "source": {
+        "name": "玩運彩",
+        "url": "https://www.playsport.cc/gamesData/battle?allianceid=6&gameid=2026092061002",
+        "observedAt": "2026-09-19T20:20:43.526Z",
+        "publishedAt": null,
+        "sourceTitle": "中華職棒 富邦 vs. 統一 對戰資訊 2026/9/20 - 玩運彩 台灣運動彩券朋友圈",
+        "contentSha256": "6f64b85bc1e96820ef60f7c7b82aabced4b3b52bfedc7ae4ef37290e3bc7df17"
+      },
+      "away": {
+        "team": "富邦悍將",
+        "teamCode": "AEO",
+        "sourceTeam": "富邦",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".246(4)",
+              ".332(4)",
+              ".643(4)",
+              "3.7 (3)",
+              "46(2)",
+              "310(4)",
+              "715(6)"
+            ]
+          ]
+        },
+        "record": "55-53-0 51%"
+      },
+      "home": {
+        "team": "統一獅",
+        "teamCode": "ADD",
+        "sourceTeam": "統一",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".257(3)",
+              ".343(2)",
+              ".663(3)",
+              "3.7 (3)",
+              "43(3)",
+              "316(3)",
+              "630(2)"
+            ]
+          ]
+        },
+        "record": "55-52-1 51%"
+      },
+      "comparison": {
+        "title": "球隊戰績與得失分",
+        "headers": [
+          "類別",
+          "球隊",
+          "勝敗",
+          "主場勝率",
+          "客場勝率",
+          "得/失分",
+          "主場得/失分",
+          "客場得/失分"
+        ],
+        "rows": [
+          [
+            "對戰",
+            "富邦悍將",
+            "14-7-0 67%",
+            "7-3-0 70%",
+            "7-4-0 64%",
+            "4.2 / 3.4",
+            "4.3 / 3.1",
+            "4.1 / 3.6"
+          ],
+          [
+            "對戰",
+            "統一獅",
+            "7-14-0 33%",
+            "4-7-0 36%",
+            "3-7-0 30%",
+            "3.4 / 4.2",
+            "3.6 / 4.1",
+            "3.1 / 4.3"
+          ],
+          [
+            "本季",
+            "富邦悍將",
+            "55-53-0 51%",
+            "28-24-0 54%",
+            "27-29-0 48%",
+            "3.7 / 3.9",
+            "3.5 / 3.5",
+            "3.8 / 4.2"
+          ],
+          [
+            "本季",
+            "統一獅",
+            "55-52-1 51%",
+            "29-26-0 53%",
+            "26-26-1 50%",
+            "3.7 / 3.3",
+            "3.7 / 3.4",
+            "3.8 / 3.3"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "2026092061003",
+      "league": "CPBL",
+      "date": "2026-09-20",
+      "start": "2026-09-20 17:05:00",
+      "kind": "pregame_snapshot",
+      "liveVerified": false,
+      "source": {
+        "name": "玩運彩",
+        "url": "https://www.playsport.cc/gamesData/battle?allianceid=6&gameid=2026092061003",
+        "observedAt": "2026-09-19T20:20:43.526Z",
+        "publishedAt": null,
+        "sourceTitle": "中華職棒 台鋼 vs. 樂天 對戰資訊 2026/9/20 - 玩運彩 台灣運動彩券朋友圈",
+        "contentSha256": "c4310d76e74a7a885dcd8811aff54bb735c35a9eeb39a798da6fd7e39b8a0675"
+      },
+      "away": {
+        "team": "台鋼雄鷹",
+        "teamCode": "AKP",
+        "sourceTeam": "台鋼",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".258(2)",
+              ".337(3)",
+              ".666(2)",
+              "3.9 (2)",
+              "38(5)",
+              "354(1)",
+              "623(1)"
+            ]
+          ]
+        },
+        "record": "51-56-1 48%"
+      },
+      "home": {
+        "team": "樂天桃猿",
+        "teamCode": "AJL",
+        "sourceTeam": "樂天",
+        "starter": {
+          "name": "",
+          "throws": null,
+          "season": {
+            "wins": "",
+            "losses": "",
+            "era": "",
+            "opponentAverage": "",
+            "innings": "",
+            "strikeouts": "",
+            "walks": "",
+            "whip": ""
+          },
+          "splits": {
+            "title": "投手分項成績",
+            "headers": [],
+            "rows": []
+          },
+          "recent": {
+            "title": "逐場出賽紀錄",
+            "headers": [],
+            "rows": []
+          },
+          "quality": "unavailable",
+          "warnings": [
+            "來源尚未公布先發投手與投手成績。"
+          ]
+        },
+        "bullpen": null,
+        "batting": {
+          "title": "團隊打擊",
+          "headers": [
+            "團隊打擊(排名)",
+            "打擊率",
+            "長打率",
+            "OPS",
+            "平均得分",
+            "全壘打",
+            "保送",
+            "三振"
+          ],
+          "rows": [
+            [
+              "本賽季",
+              ".240(6)",
+              ".317(6)",
+              ".617(6)",
+              "3.1 (6)",
+              "38(5)",
+              "257(6)",
+              "630(2)"
+            ]
+          ]
+        },
+        "record": "49-56-2 47%"
+      },
+      "comparison": {
+        "title": "球隊戰績與得失分",
+        "headers": [
+          "類別",
+          "球隊",
+          "勝敗",
+          "主場勝率",
+          "客場勝率",
+          "得/失分",
+          "主場得/失分",
+          "客場得/失分"
+        ],
+        "rows": [
+          [
+            "對戰",
+            "台鋼雄鷹",
+            "9-10-0 47%",
+            "4-6-0 40%",
+            "5-4-0 56%",
+            "4.1 / 3.9",
+            "3.4 / 4.2",
+            "4.8 / 3.7"
+          ],
+          [
+            "對戰",
+            "樂天桃猿",
+            "10-9-0 53%",
+            "4-5-0 44%",
+            "6-4-0 60%",
+            "3.9 / 4.1",
+            "3.7 / 4.8",
+            "4.2 / 3.4"
+          ],
+          [
+            "本季",
+            "台鋼雄鷹",
+            "51-56-1 48%",
+            "27-25-1 52%",
+            "24-31-0 44%",
+            "3.9 / 4",
+            "4.1 / 3.8",
+            "3.7 / 4.1"
+          ],
+          [
+            "本季",
+            "樂天桃猿",
+            "49-56-2 47%",
+            "24-27-0 47%",
+            "25-29-2 46%",
+            "3 / 3.6",
+            "3.2 / 4",
+            "2.8 / 3.1"
+          ]
+        ]
+      }
+    }
+  ]
+}

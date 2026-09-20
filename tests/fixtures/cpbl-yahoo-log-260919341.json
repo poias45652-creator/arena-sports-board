@@ -1,0 +1,632 @@
+{
+  "source": {
+    "url": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-260919341/",
+    "fetchedAt": "2026-09-20T10:07:15.068Z"
+  },
+  "raw": {
+    "gameId": "cpbl.g.260919341",
+    "season": 2026,
+    "seasonPhase": "REGULAR_SEASON",
+    "status": "FINAL",
+    "startTime": "2026-09-19T02:05:00-07:00",
+    "homeTeamId": "cpbl.t.1",
+    "awayTeamId": "cpbl.t.7",
+    "awayScore": 3,
+    "homeScore": 4,
+    "awayHits": 9,
+    "homeHits": 6,
+    "alias": {
+      "url": "https://tw.sports.yahoo.com/cpbl/味全-龍-中信-兄弟-260919341/"
+    },
+    "playerStats": {
+      "awayTables": [
+        {
+          "tableId": "pitching",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3515",
+                "displayName": "梅賽鍶",
+                "order": 1,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "9.0"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "4"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "2"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "2"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "2"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3324",
+                "displayName": "林凱威",
+                "order": 2,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.1"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "2"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "2"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "homeTables": [
+        {
+          "tableId": "pitching",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3339",
+                "displayName": "鄭浩均",
+                "order": 1,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "7.0"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "6"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "7"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3018",
+                "displayName": "江忠城",
+                "order": 2,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.2"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "1"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "3"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3053",
+                "displayName": "余謙",
+                "order": 3,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.1"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "2"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3008",
+                "displayName": "蔡齊哲",
+                "order": 4,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "1.2"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "1"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "1"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3039",
+                "displayName": "呂彥青",
+                "order": 5,
+                "subOrder": 1,
+                "isStarter": true
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.1"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "awayTeamLineup": [
+      {
+        "order": 1,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3515"
+        }
+      },
+      {
+        "order": 2,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3324"
+        }
+      }
+    ],
+    "awayLineScore": [
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第1",
+          "isOvertime": false,
+          "period": 1,
+          "displayName": "Bottom 第1"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第2",
+          "isOvertime": false,
+          "period": 2,
+          "displayName": "Bottom 第2"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第3",
+          "isOvertime": false,
+          "period": 3,
+          "displayName": "Bottom 第3"
+        }
+      },
+      {
+        "score": 1,
+        "period": {
+          "shortDisplayName": "Bot 第4",
+          "isOvertime": false,
+          "period": 4,
+          "displayName": "Bottom 第4"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第5",
+          "isOvertime": false,
+          "period": 5,
+          "displayName": "Bottom 第5"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第6",
+          "isOvertime": false,
+          "period": 6,
+          "displayName": "Bottom 第6"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第7",
+          "isOvertime": false,
+          "period": 7,
+          "displayName": "Bottom 第7"
+        }
+      },
+      {
+        "score": 1,
+        "period": {
+          "shortDisplayName": "Bot 第8",
+          "isOvertime": false,
+          "period": 8,
+          "displayName": "Bottom 第8"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第9",
+          "isOvertime": false,
+          "period": 9,
+          "displayName": "Bottom 第9"
+        }
+      },
+      {
+        "score": 1,
+        "period": {
+          "shortDisplayName": "Bot 第10",
+          "isOvertime": false,
+          "period": 10,
+          "displayName": "Bottom 第10"
+        }
+      }
+    ],
+    "homeTeamLineup": [
+      {
+        "order": 1,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3339"
+        }
+      },
+      {
+        "order": 2,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3018"
+        }
+      },
+      {
+        "order": 3,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3053"
+        }
+      },
+      {
+        "order": 4,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3008"
+        }
+      },
+      {
+        "order": 5,
+        "positionId": "PITCHER",
+        "player": {
+          "playerId": "cpbl.p.3039"
+        }
+      }
+    ],
+    "homeLineScore": [
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第1",
+          "isOvertime": false,
+          "period": 1,
+          "displayName": "Bottom 第1"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第2",
+          "isOvertime": false,
+          "period": 2,
+          "displayName": "Bottom 第2"
+        }
+      },
+      {
+        "score": 2,
+        "period": {
+          "shortDisplayName": "Bot 第3",
+          "isOvertime": false,
+          "period": 3,
+          "displayName": "Bottom 第3"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第4",
+          "isOvertime": false,
+          "period": 4,
+          "displayName": "Bottom 第4"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第5",
+          "isOvertime": false,
+          "period": 5,
+          "displayName": "Bottom 第5"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第6",
+          "isOvertime": false,
+          "period": 6,
+          "displayName": "Bottom 第6"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第7",
+          "isOvertime": false,
+          "period": 7,
+          "displayName": "Bottom 第7"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第8",
+          "isOvertime": false,
+          "period": 8,
+          "displayName": "Bottom 第8"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第9",
+          "isOvertime": false,
+          "period": 9,
+          "displayName": "Bottom 第9"
+        }
+      },
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第10",
+          "isOvertime": false,
+          "period": 10,
+          "displayName": "Bottom 第10"
+        }
+      }
+    ]
+  }
+}

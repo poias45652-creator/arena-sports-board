@@ -1,3 +1,4 @@
+import {multifactorWin} from './multifactor-win';
 import {matchCoversOdds} from './covers-odds';
 import {baseProbability,fresh,isPregame,type Match} from './baseball';
 import {matchLineup} from './rotowire';
@@ -6,8 +7,8 @@ import {expectedRuns,scoreGrid,settle,type MarketPick} from './markets';
 import {matchOdds} from './pinnacle';
 import {superOdds} from './super007';
 import {teamZh} from '../app/zh';
-export const ANALYSIS_VERSION='pregame-super007-v3';
-export type AnalysisReport={version:string;game:Match;capturedAt:string;issues:string[];notes:string[];features:Record<string,number|null>;context:any;baseline:any;candidate:{status:'waiting_data'|'untrained';probabilities:null;modelApplied:false};sources:Record<string,{fetchedAt:string|null;source:string|null;usable:boolean}>;storage?:{saved:boolean;reason?:string}};
+export const ANALYSIS_VERSION='pregame-super007-v4';
+export type AnalysisReport={trialWin?:ReturnType<typeof multifactorWin>;version:string;game:Match;capturedAt:string;issues:string[];notes:string[];features:Record<string,number|null>;context:any;baseline:any;candidate:{status:'waiting_data'|'untrained';probabilities:null;modelApplied:false};sources:Record<string,{fetchedAt:string|null;source:string|null;usable:boolean}>;storage?:{saved:boolean;reason?:string}};
 const norm=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+(?:jr\.?|sr\.?|ii|iii|iv)$/, '').replace(/[^a-z0-9]/g,'');
 const num=(v:unknown)=>typeof v==='number'&&Number.isFinite(v)?v:null;
 export function inningsOuts(v:unknown):number|null{const m=String(v??'').match(/^(\d+)\.([012])$/);return m?+m[1]*3+(+m[2]):/^\d+$/.test(String(v))?+String(v)*3:null;}
@@ -76,11 +77,13 @@ export function assembleAnalysis(g:Match,input:Record<string,any>,now=Date.now()
  }
  if(lineup){context.weather={temperatureF:lineup.temperatureF,windMph:lineup.windMph,windDirection:lineup.windDirection,precipitation:lineup.precipitation,dome:lineup.dome,umpire:lineup.umpire};if(!lineup.dome&&(lineup.temperatureF===null||lineup.windMph===null))issues.push('室外球場天氣資料缺漏');}
  features.temperature_f=lineup?.dome?null:lineup?.temperatureF??null;features.wind_mph=lineup?.dome?null:lineup?.windMph??null;features.dome=lineup?Number(lineup.dome):null;
- notes.push('球場因子需核對本場實際場地，屋頂實際開關狀態與歷史賽前快照仍需補齊','分項平均值與近期用量是模型輸入，尚未轉成勝率權重','抓取時間不等於來源數據更新時間；無來源時間的資料需持續核對');
+ notes.push('球場因子需核對本場實際場地，屋頂實際開關狀態與歷史賽前快照仍需補齊','已取得分項供多因素試算使用；初始權重未經回測校準','抓取時間不等於來源數據更新時間；無來源時間的資料需持續核對');
  const runs=get('runs',25*60000),source=get('super007',150000),odds=source?superOdds(source,[g],teamZh):null,expected=runs?expectedRuns(g,runs):null,quote=matchOdds(g,odds);
  const probabilities:any[]=[];
  if(expected){const grid=scoreGrid(expected.away,expected.home);for(const market of ['spread','total'] as const){const q=quote?.[market];if(!q)continue;for(const side of (market==='spread'?['home','away']:['over','under']) as MarketPick['side'][]){const pick:MarketPick={gameId:g.id,market,side,line:q.line,quote:q.signature,boundary:q.boundary,parts:q.parts,display:q.display};probabilities.push({pick,source:'Super007',quoteFetchedAt:source.fetchedAt,netOdds:side==='home'||side==='over'?q.first:q.second,probability:settle(grid,pick)});}}}
- if(!quote)notes.push('本場即時盤口未對應或過期，無法保存盤口比較');
+ if(!quote)notes.push('本場即時資料未對應或過期，無法保存資料比較');
  if(!isPregame(g,now))issues.push('已開賽或非可分析的例行賽');
- return {version:ANALYSIS_VERSION,game:g,capturedAt:new Date(now).toISOString(),issues:[...new Set(issues)],notes,features,context,baseline:{version:'season-runs-v1',expectedRuns:expected,homeWin:baseProbability(g),markets:probabilities},candidate:{status:issues.length?'waiting_data':'untrained',probabilities:null,modelApplied:false},sources};
+ const report:AnalysisReport={version:ANALYSIS_VERSION,game:g,capturedAt:new Date(now).toISOString(),issues:[...new Set(issues)],notes,features,context,baseline:{version:'season-runs-v1',expectedRuns:expected,homeWin:baseProbability(g),markets:probabilities},candidate:{status:issues.length?'waiting_data':'untrained',probabilities:null,modelApplied:false},sources};
+ report.trialWin=multifactorWin(g,report,now);
+ return report;
 }
