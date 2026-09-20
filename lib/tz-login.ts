@@ -1,3 +1,4 @@
+import {requestOrigin} from './request-origin';
 import {verifyTurnstile} from './turnstile';
 import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME} from './arena-session';
 import {handleTzBinding} from './tz-binding-service';
@@ -6,7 +7,7 @@ const response=(d:any,status=200,cookie?:string)=>Response.json(d,{status,header
 export async function tzLogin(request:Request,db:any,secret:string|undefined,fetcher:typeof fetch=fetch,turnstileSecret?:string,requireTurnstile=false){
  try{
  if(request.method==='GET'){const s=await readSession(db,request.headers.get('cookie'));return response(s?{signedIn:true,username:s.username,expiresAt:s.expiresAt}:{signedIn:false});}
- if(request.headers.get('origin')!==new URL(request.url).origin||request.headers.get('sec-fetch-site')==='cross-site')return response({error:'請從網站登入頁操作'},403);
+ if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return response({error:'請從網站登入頁操作'},403);
  if(request.method==='DELETE'){const token=sessionToken(request.headers.get('cookie'));if(token)await db.prepare('DELETE FROM arena_sessions WHERE token_hash=?').bind(await hash(token)).run();return response({signedIn:false},200,sessionCookie('',0));}
  if(request.method!=='POST')return response({error:'不支援此操作'},405);
  if(!secret)return response({error:'登入服務尚未設定'},503);
@@ -24,7 +25,7 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  const candidate='login-candidate:'+crypto.randomUUID();
  try{
  const body=JSON.stringify({username,password:input.password});input.password='';
- const verified=await handleTzBinding(new Request(request.url,{method:'POST',headers:{'Origin':new URL(request.url).origin,'Content-Type':'application/json'},body}),candidate,()=>db,secret,fetcher);
+ const verified=await handleTzBinding(new Request(request.url,{method:'POST',headers:{'Origin':requestOrigin(request),'Content-Type':'application/json'},body}),candidate,()=>db,secret,fetcher);
  if(!verified.ok){const d=await verified.json();return response({error:d.message||'登入失敗'},verified.status);}
  const binding=await db.prepare('SELECT * FROM tz_bindings WHERE member_id=?').bind(candidate).first();if(!binding)throw new Error();
  // Identity comes only from tz's authenticated server response, never submitted username.

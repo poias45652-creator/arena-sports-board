@@ -1,0 +1,16 @@
+[
+  "app/account-menu.tsx",
+  "app/api/auth/[action]/route.ts",
+  "app/api/meta/route.ts",
+  "app/health/route.ts",
+  "app/home.tsx",
+  "app/login/form.tsx",
+  "app/login/login.css",
+  "app/logout-button.tsx",
+  "app/signin-with-chatgpt/route.ts",
+  "app/signout-with-chatgpt/page.tsx",
+  "lib/arena-user.ts",
+  "lib/load-analysis-source.ts",
+  "server/auth.mjs",
+  "server/baseball-live-store.mjs"
+]

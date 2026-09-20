@@ -1,4 +1,4 @@
-import {env} from 'cloudflare:workers';
+import {env} from '@/server/runtime';
 import {getRawDb} from '@/db';
 import {tzLogin} from '@/lib/tz-login';
 import {readTurnstileSettings} from '@/lib/turnstile-settings';

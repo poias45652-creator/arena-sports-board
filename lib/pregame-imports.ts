@@ -10,5 +10,5 @@ import cpblSeason from '@/data/cpbl-pitcher-supplement-20260919.json';
 import {supplementCpblPitchers} from './cpbl-pitcher-supplement';
 import {applyCpblPitcherReview} from './cpbl-reviewed-pitcher';
 import {applyKboPitcherReview} from './kbo-reviewed-pitcher';
-export const pregameImports:PregameData[]=[npb,applyKboPitcherReview(kbo),supplementCpblPitchers(addNewsStarters(applyCpblPitcherReview(applyPitchingImports(cpbl,cpblPitching)),cpblNews),cpblSeason)];
+export const pregameImports:PregameData[]=[npb,applyKboPitcherReview(kbo as PregameData),supplementCpblPitchers(addNewsStarters(applyCpblPitcherReview(applyPitchingImports(cpbl,cpblPitching)),cpblNews),cpblSeason)];
 export const pregameImportsByLeague:Record<string,PregameData>=Object.fromEntries(pregameImports.map(data=>[data.league,data]));

@@ -1,3 +1,4 @@
+import {requestOrigin} from '@/lib/request-origin';
 import {isSiteAdmin} from '@/app/admin-access';
 import {gradeSavedMarkets} from '@/lib/recommendation-ledger';
 import validation from '@/data/model-validation.json';
@@ -9,10 +10,10 @@ import {getRawDb} from '@/db';
 import {loadSource} from '../route';
 export const dynamic='force-dynamic';
 export async function POST(request:Request){
- const origin=request.headers.get('origin');if(origin&&new URL(origin).host!==new URL(request.url).host)return Response.json({error:'來源不符'},{status:403});
+ const origin=request.headers.get('origin');if(origin&&origin!==requestOrigin(request))return Response.json({error:'來源不符'},{status:403});
  try{
   const db=getRawDb();
-  const pending=await db.prepare('SELECT DISTINCT s.game_id FROM analysis_snapshots s LEFT JOIN analysis_results r ON r.game_id=s.game_id WHERE s.start_time<? AND r.game_id IS NULL ORDER BY s.start_time DESC LIMIT 4').bind(new Date(Date.now()-3*3600000).toISOString()).all();
+  const pending=await db.prepare('SELECT s.game_id FROM analysis_snapshots s LEFT JOIN analysis_results r ON r.game_id=s.game_id WHERE s.start_time<? AND r.game_id IS NULL GROUP BY s.game_id ORDER BY MAX(s.start_time) DESC LIMIT 4').bind(new Date(Date.now()-3*3600000).toISOString()).all();
   let updated=0;
   for(const row of pending.results??[]){try{
    const game=await loadSource('game&gamePk='+row.game_id);const a=game.linescore?.teams?.away?.runs,h=game.linescore?.teams?.home?.runs;

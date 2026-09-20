@@ -1,3 +1,4 @@
+import {requestOrigin} from './request-origin';
 import {credentialKey,encryptToken,loginExpiry} from './tz-credentials';
 
 type Statement={bind(...values:unknown[]):Statement;first<T=Record<string,unknown>>():Promise<T|null>;run():Promise<unknown>};
@@ -13,7 +14,7 @@ export async function handleTzBinding(request:Request, memberId:string|null, get
  if(!['GET','POST','PATCH','DELETE'].includes(request.method))return fail('method_not_allowed','不支援此操作。',405);
  if(request.method!=='GET'){
   const origin=request.headers.get('origin');
-  if(!origin||origin!==new URL(request.url).origin||request.headers.get('sec-fetch-site')==='cross-site')return fail('invalid_origin','請從 Arena 網站重新操作。',403);
+  if(!origin||origin!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return fail('invalid_origin','請從 Arena 網站重新操作。',403);
  }
  try{
   const db=getDatabase();

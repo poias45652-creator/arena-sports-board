@@ -1,4 +1,4 @@
-import {env} from 'cloudflare:workers';
+import {env} from '@/server/runtime';
 import {authorizeBaseballSync,syncBaseball} from '@/server/baseball-sync.mjs';
 import {getInternationalLive,getInternationalPregame} from '@/lib/international-feed';
 export const dynamic='force-dynamic';

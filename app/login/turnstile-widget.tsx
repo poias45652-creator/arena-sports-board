@@ -7,6 +7,7 @@ export default function TurnstileWidget({onToken,attempt}:{onToken:(token:string
  useEffect(()=>{
   setError('');let disposed=false,id:string|undefined,api:TurnstileApi|undefined;
   const fail=(message:string)=>{if(!disposed){onToken('');setError(message);}};
+  if(!TURNSTILE_SITE_KEY){fail('安全驗證尚未設定，請聯繫管理員。');return;}
   void loadTurnstile().then(loaded=>{
    if(disposed||!container.current)return;api=loaded;
    id=api.render(container.current,{sitekey:TURNSTILE_SITE_KEY,action:'login',theme:'dark',size:'flexible',

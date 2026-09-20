@@ -1,18 +1,9 @@
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
-import * as schema from "./schema";
-
-export function getDb() {
-  if (!env.DB) {
-    throw new Error(
-      "Cloudflare D1 binding `DB` is unavailable. Set the `d1` field in .openai/hosting.json to `DB` or let your control plane inject the real binding values before using the database."
-    );
-  }
-
-  return drizzle(env.DB, { schema });
+import {createDatabase} from '../server/database.mjs';
+export interface Statement {
+ bind(...values:unknown[]):Statement;
+ first<T=Record<string,any>>():Promise<T|null>;
+ all<T=Record<string,any>>():Promise<{results:T[];success:boolean;meta:{changes:number}}>;
+ run():Promise<{success:boolean;meta:{changes:number}}>;
 }
-
-export function getRawDb(){
- if(!env.DB)throw new Error('分析紀錄儲存服務尚未就緒');
- return env.DB;
-}
+export interface Database {prepare(sql:string):Statement;batch(statements:Statement[]):Promise<{success:boolean;results:any[];meta:{changes:number}}[]>;}
+export function getRawDb():Database {return createDatabase() as Database;}

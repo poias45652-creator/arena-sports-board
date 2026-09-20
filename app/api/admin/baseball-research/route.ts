@@ -1,3 +1,4 @@
+import {requestOrigin} from '@/lib/request-origin';
 import {getRawDb} from '@/db';
 import {isSiteAdmin} from '@/app/admin-access';
 import {importExistingResearch,listResearch} from '@/server/baseball-research.mjs';
@@ -11,7 +12,7 @@ export async function GET(request:Request){
 }
 export async function POST(request:Request){
  if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- if(request.headers.get('origin')!==new URL(request.url).origin||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
+ if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
  try{return reply(await importExistingResearch(getRawDb()));}
  catch(error){return reply({error:'補入或讀回尚未完成，可安全重試。',receipt:(error as any)?.receipt??null},503);}
 }

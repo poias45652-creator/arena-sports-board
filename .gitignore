@@ -40,3 +40,8 @@ next-env.d.ts
 /.sites-runtime/
 /outputs/
 /work/
+
+# Render migration backups and build metadata
+/.render-legacy-backup/
+*.tsbuildinfo
+!.env.example

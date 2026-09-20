@@ -1,10 +1,14 @@
+process.env.PLATFORM_ADMIN_USERNAME='render-test-admin';
+process.env.APP_ORIGIN='https://site.test';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {DatabaseSync} from 'node:sqlite';
 import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 const url=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
-const code=f=>ts.transpileModule(readFileSync('lib/'+f,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const baseCode=f=>ts.transpileModule(readFileSync('lib/'+f,'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+const originModule=url(baseCode('request-origin.ts'));
+const code=f=>baseCode(f).replace("'./request-origin'",JSON.stringify(originModule));
 const credentials=url(code('tz-credentials.ts')),session=url(code('arena-session.ts')),binding=url(code('tz-binding-service.ts').replace("'./tz-credentials'",JSON.stringify(credentials)));
 const {tzLogin}=await import(url(code('tz-login.ts').replace("'./turnstile'",JSON.stringify(url(code('turnstile.ts')))).replace("'./arena-session'",JSON.stringify(session)).replace("'./tz-binding-service'",JSON.stringify(binding)).replace("'./tz-credentials'",JSON.stringify(credentials))));
 const {readSession}=await import(session);
@@ -31,7 +35,7 @@ test('usage expiry is independent of source authorization and can be extended',a
 const adminStub=url('export async function isSiteAdmin(){return globalThis.accountTestAdmin===true}');
 const dbStub=url('export function getRawDb(){return globalThis.accountTestDb}');
 const adminSource=ts.transpileModule(readFileSync('app/api/admin/accounts/route.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
-const adminRoute=await import(url(adminSource.replace("'@/app/admin-access'",JSON.stringify(adminStub)).replace("'@/db'",JSON.stringify(dbStub)).replace("'@/lib/arena-session'",JSON.stringify(session))));
+const adminRoute=await import(url(adminSource.replace("'@/lib/request-origin'",JSON.stringify(originModule)).replace("'@/app/admin-access'",JSON.stringify(adminStub)).replace("'@/db'",JSON.stringify(dbStub)).replace("'@/lib/arena-session'",JSON.stringify(session))));
 test('account management rejects non-admin users and cross-site changes',async()=>{
  globalThis.accountTestAdmin=false;globalThis.accountTestDb=undefined;
  assert.equal((await adminRoute.GET()).status,403);
@@ -48,7 +52,7 @@ test('admin disable persists and revokes only the targeted member sessions',asyn
 test('Turnstile rejects missing tokens and missing configuration before contacting tz',async()=>{const d=db();const fetcher=async()=>{throw new Error('must not contact source')};assert.equal((await tzLogin(request(),d,secret,fetcher,'private-key',true)).status,403);assert.equal((await tzLogin(request(),d,secret,fetcher,undefined,true)).status,503);assert.equal(d.sql.prepare('SELECT * FROM arena_sessions').all().length,0);});
 const {verifyTurnstile}=await import(url(code('turnstile.ts')));
 test('Turnstile requires successful verification, exact hostname and login action',async()=>{
- const good={success:true,hostname:'arena-sports-board.poias45652.chatgpt.site',action:'login'};
+ const good={success:true,hostname:'site.test',action:'login'};
  assert.equal(await verifyTurnstile('token','secret',async()=>Response.json(good)),true);
  for(const result of [{...good,success:false},{...good,hostname:'attacker.test'},{...good,action:'signup'}])assert.equal(await verifyTurnstile('token','secret',async()=>Response.json(result)),false);
  assert.equal(await verifyTurnstile('token','secret',async()=>{throw new Error('offline')}),false);
@@ -105,8 +109,8 @@ test('authorization follows the verified platform ID and cannot transfer by matc
 
 test('primary administrator bootstrap requires upstream verification and cannot overwrite explicit restrictions',async()=>{
  const d=db({approved:false});
- const ownerRequest=()=>new Request('https://site.test/api/session',{method:'POST',headers:{origin:'https://site.test','Content-Type':'application/json'},body:JSON.stringify({username:'your_admin_username',password:'synthetic-owner-password'})});
- const ownerSource=async()=>Response.json({code:200,data:{...(await source().then(r=>r.json())).data,user_id:456,username:'your_admin_username'}});
+ const ownerRequest=()=>new Request('https://site.test/api/session',{method:'POST',headers:{origin:'https://site.test','Content-Type':'application/json'},body:JSON.stringify({username:'render-test-admin',password:'synthetic-owner-password'})});
+ const ownerSource=async()=>Response.json({code:200,data:{...(await source().then(r=>r.json())).data,user_id:456,username:'render-test-admin'}});
  assert.equal((await tzLogin(ownerRequest(),d,secret,source)).status,502);
  assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM account_access').get().n,0);
  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
@@ -131,8 +135,8 @@ test('account deletion requires admin, same-origin confirmation, and protects pr
  assert.equal((await adminRoute.DELETE(deleteRequest('tz:123','wrong-user'))).status,409);
  assert.equal((await adminRoute.DELETE(deleteRequest('tz:999','test-user'))).status,404);
  assert.equal((await adminRoute.DELETE(deleteRequest('login-candidate:123','test-user'))).status,400);
- d.sql.prepare('UPDATE tz_bindings SET username=? WHERE member_id=?').run('your_admin_username','tz:123');
- assert.equal((await adminRoute.DELETE(deleteRequest('tz:123','your_admin_username'))).status,409);
+ d.sql.prepare('UPDATE tz_bindings SET username=? WHERE member_id=?').run('render-test-admin','tz:123');
+ assert.equal((await adminRoute.DELETE(deleteRequest('tz:123','render-test-admin'))).status,409);
  assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM tz_bindings').get().n,1);
 });
 

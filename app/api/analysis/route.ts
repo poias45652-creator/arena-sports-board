@@ -1,3 +1,4 @@
+import {requestOrigin} from '@/lib/request-origin';
 import {GET as sourceGET} from '../baseball/route';
 import {assembleAnalysis,type AnalysisReport} from '@/lib/pregame-analysis';
 import {isPregame,type Match} from '@/lib/baseball';
@@ -28,7 +29,7 @@ async function build(id:number){
  return report;
 }
 export async function POST(request:Request){
- const origin=request.headers.get('origin');if(origin&&new URL(origin).host!==new URL(request.url).host)return Response.json({error:'來源不符'},{status:403});
+ const origin=request.headers.get('origin');if(origin&&origin!==requestOrigin(request))return Response.json({error:'來源不符'},{status:403});
  try{
   const body=await request.json(),id=body?.gameId;if(!Number.isInteger(id)||id<=0)return Response.json({error:'無效賽事'},{status:400});
   const c=reports.get(id);let report:AnalysisReport;

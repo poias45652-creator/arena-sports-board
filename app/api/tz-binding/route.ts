@@ -1,6 +1,6 @@
 import {memberIdentity} from '@/lib/member-identity';
 import {headers} from 'next/headers';
-import {env} from 'cloudflare:workers';
+import {env} from '@/server/runtime';
 import {getRawDb} from '@/db';
 import {handleTzBinding} from '@/lib/tz-binding-service';
 export const dynamic='force-dynamic';

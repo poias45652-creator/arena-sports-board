@@ -1,5 +1,5 @@
 import {validateCollectorSnapshot} from '@/lib/pinnacle';
-import {env} from 'cloudflare:workers';
+import {env} from '@/server/runtime';
 import {SourceError,sourceFailure} from '@/lib/source-errors';
 export const dynamic='force-dynamic';
 let snapshot:any=null;

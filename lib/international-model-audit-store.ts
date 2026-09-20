@@ -15,7 +15,7 @@ export async function readInternationalForecastAudit(){
  const db=getRawDb(),now=Date.now(),cutoff=new Date(now-90*86400000).toISOString();
  // Select one immutable pregame forecast per fixture/version before reading payloads.
  const [saved,finals,count]=await Promise.all([
-  db.prepare(`SELECT payload FROM (SELECT payload,ROW_NUMBER() OVER (PARTITION BY league,fixture_key,version ORDER BY captured_at DESC) AS position FROM international_forecasts WHERE captured_at<=strftime('%Y-%m-%dT%H:%M:%fZ',start_time,'-60 seconds') AND start_time>=?) WHERE position=1 ORDER BY json_extract(payload,'$.startTime') DESC LIMIT 2001`).bind(cutoff).all(),
+  db.prepare(`SELECT payload FROM (SELECT payload,ROW_NUMBER() OVER (PARTITION BY league,fixture_key,version ORDER BY captured_at DESC) AS position FROM international_forecasts WHERE captured_at<=strftime('%Y-%m-%dT%H:%M:%fZ',start_time,'-60 seconds') AND start_time>=?) AS ranked_forecasts WHERE position=1 ORDER BY json_extract(payload,'$.startTime') DESC LIMIT 2001`).bind(cutoff).all(),
   db.prepare("SELECT payload FROM baseball_current WHERE date>=? AND status='final' ORDER BY fetched_at DESC LIMIT 4001").bind(cutoff.slice(0,10)).all(),
   db.prepare('SELECT COUNT(*) AS snapshots,MIN(captured_at) AS firstCapturedAt,MAX(captured_at) AS latestCapturedAt FROM international_forecasts').first()
  ]);

@@ -1,3 +1,4 @@
+import {requestOrigin} from '@/lib/request-origin';
 import {isSiteAdmin} from '@/app/admin-access';
 import {getRawDb} from '@/db';
 import {PLATFORM_ADMIN_USERNAME} from '@/lib/arena-session';
@@ -9,7 +10,7 @@ export async function GET(){
 }
 export async function PATCH(request:Request){
  if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- if(request.headers.get('origin')!==new URL(request.url).origin||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
+ if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
  try{
   const raw=await request.text();if(raw.length>2048)return reply({error:'輸入過長'},400);const body=JSON.parse(raw);
   const {memberId,enabled,expiresAt}=body;
@@ -25,7 +26,7 @@ export async function PATCH(request:Request){
 }
 export async function DELETE(request:Request){
  if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- if(request.headers.get('origin')!==new URL(request.url).origin||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
+ if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return reply({error:'請從管理後台操作'},403);
  try{
   const raw=await request.text();if(raw.length>2048)return reply({error:'輸入過長'},400);
   const {memberId,confirmUsername}=JSON.parse(raw);

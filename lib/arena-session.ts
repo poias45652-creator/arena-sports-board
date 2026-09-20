@@ -1,5 +1,5 @@
 export const SESSION_COOKIE='__Host-arena_tz';
-export const PLATFORM_ADMIN_USERNAME='your_admin_username';
+export const PLATFORM_ADMIN_USERNAME=(process.env.PLATFORM_ADMIN_USERNAME||'').trim().toLowerCase();
 export async function hash(value:string){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)))].map(n=>n.toString(16).padStart(2,'0')).join('');}
 export function sessionToken(cookie:string|null){const values=(cookie||'').split(';').map(s=>s.trim()).filter(s=>s.startsWith(SESSION_COOKIE+'='));if(values.length!==1)return null;const token=values[0].slice(SESSION_COOKIE.length+1);return /^[a-f0-9]{64}$/.test(token)?token:null;}
 export async function readSession(db:any,cookie:string|null){const token=sessionToken(cookie);if(!token)return null;return db.prepare('SELECT s.member_id AS memberId, b.username, s.expires_at AS expiresAt FROM arena_sessions s JOIN tz_bindings b ON b.member_id=s.member_id JOIN account_access a ON a.member_id=s.member_id WHERE s.token_hash=? AND s.expires_at>? AND b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?)').bind(await hash(token),Date.now(),Date.now(),Date.now()).first();}
