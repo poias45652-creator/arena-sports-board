@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-20T13:44:20.384Z",
+  "observedAt": "2026-09-20T15:36:16.501Z",
   "dateAsiaTaipei": "2026-09-20",
   "currentGames": {
     "NPB": 6,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-09-20T13:44:21.649Z",
+    "checkedAt": "2026-09-20T15:36:18.914Z",
     "inserted": 14,
     "readBack": 14,
     "duplicateInserts": 0,
@@ -268,6 +268,22 @@
           "secondCapturePerformed": false,
           "qualifiedNumericChanges": 0
         },
+        "attempt25Observation": {
+          "capturedAt": "2026-09-20T15:34:40.502Z",
+          "liveGames": 0,
+          "secondCapturePerformed": false,
+          "qualifiedNumericChanges": 0,
+          "sourceErrors": [
+            "NPB:2021039440 HTTP 500 from baseball.yahoo.co.jp"
+          ]
+        },
+        "attempt26Observation": {
+          "capturedAt": "2026-09-20T15:36:16.501Z",
+          "liveGames": 0,
+          "secondCapturePerformed": false,
+          "qualifiedNumericChanges": 0,
+          "sourceErrors": []
+        },
         "dayClosedWithoutSameDayLiveVerification": true
       },
       "allVerified": false,
@@ -306,7 +322,7 @@
   "dataQualityIssues": [
     {
       "firstObservedAt": "2026-09-20T11:26:34.499Z",
-      "lastObservedAt": "2026-09-20T13:44:20.384Z",
+      "lastObservedAt": "2026-09-20T15:36:16.501Z",
       "league": "CPBL",
       "key": "CPBL:260920343",
       "away": "味全龍",
@@ -316,6 +332,18 @@
       "inningRunSum": "1-1",
       "warning": "home:inning_sum_conflict",
       "action": "Do not use the parsed CPBL home inning-by-inning total for this game until source/parser cause is resolved."
+    }
+  ],
+  "transientSourceIncidents": [
+    {
+      "firstObservedAt": "2026-09-20T15:34:40.502Z",
+      "recoveredAt": "2026-09-20T15:36:16.501Z",
+      "league": "NPB",
+      "key": "NPB:2021039440",
+      "error": "HTTP 500 from baseball.yahoo.co.jp; no access challenge bypassed",
+      "attemptFailed": 25,
+      "attemptRecovered": 26,
+      "persistent": false
     }
   ],
   "currentDayLiveChangeProof": {
@@ -340,16 +368,16 @@
     "allVerified": false,
     "reason": "NPB and KBO are same-day live-verified. CPBL is all final and closed 2026-09-20 without a qualifying >=65 second numeric live-change proof."
   },
-  "nextAction": "Do not retroactively mark CPBL verified for 2026-09-20. On the next Taipei date, begin a fresh same-day collection and require two live captures >=65 seconds apart with a real numeric change. Keep CPBL pitchCount null. Continue investigating CPBL:260920343 home inning_sum_conflict in the isolated branch only. Keep main, Render and production database unchanged.",
+  "nextAction": "Do not retroactively mark CPBL verified for 2026-09-20. On the next Taipei date, begin a fresh same-day collection and require two live captures >=65 seconds apart with a real numeric change. Keep CPBL pitchCount null. Continue investigating CPBL:260920343 home inning_sum_conflict in the isolated branch only. Treat the NPB attempt-25 HTTP 500 as transient unless it recurs. Keep main, Render and production database unchanged.",
   "latestRun": {
     "runId": 35345918725,
-    "runAttempt": 24,
-    "jobId": 106087661884,
-    "artifactId": 10606596145,
-    "artifactCreatedAt": "2026-09-20T13:44:22Z",
-    "capturedAt": "2026-09-20T13:44:20.384Z",
-    "observationPath": "data/live/2026-09-20T134420Z.json",
+    "runAttempt": 26,
+    "jobId": 106102528113,
+    "artifactId": 10607334485,
+    "artifactCreatedAt": "2026-09-20T15:36:20Z",
+    "capturedAt": "2026-09-20T15:36:16.501Z",
+    "observationPath": "data/live/2026-09-20T153616Z.json",
     "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"
   },
-  "latestObservationCommit": "010aafb1cf45bb21d27bd8bd70e36976b4839eaf"
+  "latestObservationCommit": "05493ef4484342062d55eafa5610b8efdcf1481a"
 }
