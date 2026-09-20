@@ -8,11 +8,11 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-20T11:50:49.362Z",
+  "observedAt": "2026-09-20T12:37:52.943Z",
   "dateAsiaTaipei": "2026-09-20",
   "currentGames": {"NPB": 6, "KBO": 5, "CPBL": 3},
-  "currentStates": {"NPB": "mixed_live_final_cancelled", "KBO": "all_final", "CPBL": "mixed_live_final"},
-  "databaseTest": {"environment": "isolated GitHub Actions PostgreSQL 16; not Render", "productionWritten": false, "checkedAt": "2026-09-20T11:50:51.888Z", "inserted": 14, "readBack": 14, "duplicateInserts": 0, "passed": true},
+  "currentStates": {"NPB": "mixed_live_final_cancelled", "KBO": "all_final", "CPBL": "all_final"},
+  "databaseTest": {"environment": "isolated GitHub Actions PostgreSQL 16; not Render", "productionWritten": false, "checkedAt": "2026-09-20T12:37:53.991Z", "inserted": 14, "readBack": 14, "duplicateInserts": 0, "passed": true},
   "firstStartTaipei": {"NPB": "13:00", "KBO": "13:00", "CPBL": "15:05"},
   "sourceURLs": {"NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-20", "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-09-20&toDate=2026-09-20&page=1&pageSize=100", "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%AF%8C%E9%82%A6/"},
   "liveChangeProof": {
@@ -22,68 +22,37 @@
   },
   "allLeaguesLiveVerified": true,
   "dailyLiveChangeProofHistory": {
-    "2026-09-17": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-17T10:08:08.165Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "naver"},
-      "CPBL": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "yahoo-tw"},
-      "allVerified": true,
-      "evidenceRetainedIn": "data/live/"
-    },
-    "2026-09-18": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-18T10:37:18.144Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-18T12:48:53.735Z", "source": "naver"},
-      "CPBL": {"verified": true, "verifiedAt": "2026-09-18T12:37:57.880Z", "source": "yahoo-tw"},
-      "allVerified": true,
-      "evidenceRetainedIn": "data/live/"
-    },
-    "2026-09-19": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-19T12:04:31.236Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-19T10:59:28.751Z", "source": "naver"},
-      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw"},
-      "allVerified": false,
-      "reason": "NPB and KBO had valid same-day live numeric-change proof; CPBL reached final without a qualifying >=65 second numeric-change window.",
-      "evidenceRetainedIn": "data/live/"
-    },
+    "2026-09-17": {"NPB": {"verified": true, "verifiedAt": "2026-09-17T10:08:08.165Z", "source": "sportsnavi"}, "KBO": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "naver"}, "CPBL": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "yahoo-tw"}, "allVerified": true, "evidenceRetainedIn": "data/live/"},
+    "2026-09-18": {"NPB": {"verified": true, "verifiedAt": "2026-09-18T10:37:18.144Z", "source": "sportsnavi"}, "KBO": {"verified": true, "verifiedAt": "2026-09-18T12:48:53.735Z", "source": "naver"}, "CPBL": {"verified": true, "verifiedAt": "2026-09-18T12:37:57.880Z", "source": "yahoo-tw"}, "allVerified": true, "evidenceRetainedIn": "data/live/"},
+    "2026-09-19": {"NPB": {"verified": true, "verifiedAt": "2026-09-19T12:04:31.236Z", "source": "sportsnavi"}, "KBO": {"verified": true, "verifiedAt": "2026-09-19T10:59:28.751Z", "source": "naver"}, "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw"}, "allVerified": false, "reason": "NPB and KBO had valid same-day live numeric-change proof; CPBL reached final without a qualifying >=65 second numeric-change window.", "evidenceRetainedIn": "data/live/"},
     "2026-09-20": {
-      "NPB": {
-        "verified": true,
-        "verifiedAt": "2026-09-20T10:13:31.335Z",
-        "source": "sportsnavi",
-        "evidence": [
-          {"key": "NPB:2021039440", "away": "歐力士猛牛", "home": "日本火腿鬥士", "intervalSeconds": 70.381, "change": "homeScore 1->2; away pitcher 髙島 泰都 pitchCount 33->36"},
-          {"key": "NPB:2021039441", "away": "福岡軟銀鷹", "home": "東北樂天金鷲", "intervalSeconds": 70.38, "change": "away pitcher 大津 亮介 pitchCount 46->49"},
-          {"key": "NPB:2021039438", "away": "廣島東洋鯉魚", "home": "中日龍", "intervalSeconds": 71.199, "change": "away pitcher 森 翔平 pitchCount 64->67; outsRecorded 11->12"}
-        ]
-      },
-      "KBO": {
-        "verified": true,
-        "verifiedAt": "2026-09-20T08:56:58.261Z",
-        "source": "naver",
-        "evidence": [
-          {"key": "KBO:20260920HHLG02026", "away": "韓華鷹", "home": "LG雙子", "intervalSeconds": 70.507, "change": "outs 0->1; home pitcher pitchCount 47->50; outsRecorded 9->10"},
-          {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 70.546, "change": "B/S/O 3-2-1->0-0-2; home pitcher pitchCount 49->50; outsRecorded 10->11"},
-          {"key": "KBO:20260920OBKT02026", "away": "斗山熊", "home": "KT巫師", "intervalSeconds": 70.527, "change": "balls 0->1; away pitcher pitchCount 20->22"},
-          {"key": "KBO:20260920SSLT02026", "away": "三星獅", "home": "樂天巨人", "intervalSeconds": 70.632, "change": "B/S 0-0->1-1; away pitcher pitchCount 44->46"},
-          {"key": "KBO:20260920WOSK02026", "away": "培證英雄", "home": "SSG登陸者", "intervalSeconds": 70.63, "change": "B/S/O 1-1-0->0-0-1; home pitcher pitchCount 62->65; outsRecorded 9->10"},
-          {"key": "KBO:20260920HHLG02026", "away": "韓華鷹", "home": "LG雙子", "intervalSeconds": 69.456, "change": "outs 1->2; away pitcher 황준서 pitchCount 78->80; outsRecorded 13->14"},
-          {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 69.479, "change": "awayScore 1->2; B/S 1-1->0-0; home pitcher 토다 pitchCount 86->88"},
-          {"key": "KBO:20260920OBKT02026", "away": "斗山熊", "home": "KT巫師", "intervalSeconds": 69.49, "change": "outs 1->2; away pitcher 이용찬 pitchCount 7->10; outsRecorded 1->2"},
-          {"key": "KBO:20260920WOSK02026", "away": "培證英雄", "home": "SSG登陸者", "intervalSeconds": 69.554, "change": "homeScore 5->6; B/S 3-2->0-0; away pitcher 하영민 pitchCount 80->81"},
-          {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 69.956, "change": "balls 2->0; home pitcher 51948 pitchCount 12->14"},
-          {"key": "KBO:20260920SSLT02026", "away": "三星獅", "home": "樂天巨人", "intervalSeconds": 69.621, "change": "B/S/O 2-2-0->0-0-2; home pitcher 63543 pitchCount 4->7; outsRecorded 0->2"},
-          {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 70.272, "change": "away pitcher 곽도규 pitchCount 11->14"}
-        ]
-      },
-      "CPBL": {
-        "verified": false,
-        "verifiedAt": null,
-        "source": "yahoo-tw",
-        "evidence": [],
+      "NPB": {"verified": true, "verifiedAt": "2026-09-20T10:13:31.335Z", "source": "sportsnavi", "evidence": [
+        {"key": "NPB:2021039440", "away": "歐力士猛牛", "home": "日本火腿鬥士", "intervalSeconds": 70.381, "change": "homeScore 1->2; away pitcher 髙島 泰都 pitchCount 33->36"},
+        {"key": "NPB:2021039441", "away": "福岡軟銀鷹", "home": "東北樂天金鷲", "intervalSeconds": 70.38, "change": "away pitcher 大津 亮介 pitchCount 46->49"},
+        {"key": "NPB:2021039438", "away": "廣島東洋鯉魚", "home": "中日龍", "intervalSeconds": 71.199, "change": "away pitcher 森 翔平 pitchCount 64->67; outsRecorded 11->12"}
+      ]},
+      "KBO": {"verified": true, "verifiedAt": "2026-09-20T08:56:58.261Z", "source": "naver", "evidence": [
+        {"key": "KBO:20260920HHLG02026", "away": "韓華鷹", "home": "LG雙子", "intervalSeconds": 70.507, "change": "outs 0->1; home pitcher pitchCount 47->50; outsRecorded 9->10"},
+        {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 70.546, "change": "B/S/O 3-2-1->0-0-2; home pitcher pitchCount 49->50; outsRecorded 10->11"},
+        {"key": "KBO:20260920OBKT02026", "away": "斗山熊", "home": "KT巫師", "intervalSeconds": 70.527, "change": "balls 0->1; away pitcher pitchCount 20->22"},
+        {"key": "KBO:20260920SSLT02026", "away": "三星獅", "home": "樂天巨人", "intervalSeconds": 70.632, "change": "B/S 0-0->1-1; away pitcher pitchCount 44->46"},
+        {"key": "KBO:20260920WOSK02026", "away": "培證英雄", "home": "SSG登陸者", "intervalSeconds": 70.63, "change": "B/S/O 1-1-0->0-0-1; home pitcher pitchCount 62->65; outsRecorded 9->10"},
+        {"key": "KBO:20260920HHLG02026", "away": "韓華鷹", "home": "LG雙子", "intervalSeconds": 69.456, "change": "outs 1->2; away pitcher 황준서 pitchCount 78->80; outsRecorded 13->14"},
+        {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 69.479, "change": "awayScore 1->2; B/S 1-1->0-0; home pitcher 토다 pitchCount 86->88"},
+        {"key": "KBO:20260920OBKT02026", "away": "斗山熊", "home": "KT巫師", "intervalSeconds": 69.49, "change": "outs 1->2; away pitcher 이용찬 pitchCount 7->10; outsRecorded 1->2"},
+        {"key": "KBO:20260920WOSK02026", "away": "培證英雄", "home": "SSG登陸者", "intervalSeconds": 69.554, "change": "homeScore 5->6; B/S 3-2->0-0; away pitcher 하영민 pitchCount 80->81"},
+        {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 69.956, "change": "balls 2->0; home pitcher 51948 pitchCount 12->14"},
+        {"key": "KBO:20260920SSLT02026", "away": "三星獅", "home": "樂天巨人", "intervalSeconds": 69.621, "change": "B/S/O 2-2-0->0-0-2; home pitcher 63543 pitchCount 4->7; outsRecorded 0->2"},
+        {"key": "KBO:20260920HTNC02026", "away": "起亞虎", "home": "NC恐龍", "intervalSeconds": 70.272, "change": "away pitcher 곽도규 pitchCount 11->14"}
+      ]},
+      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "evidence": [],
         "attempt21Window": {"before": "2026-09-20T11:25:24.975Z", "after": "2026-09-20T11:26:34.499Z", "intervalSeconds": 69.524, "liveGames": 2, "qualifiedNumericChanges": 0},
-        "attempt22Window": {"before": "2026-09-20T11:49:40.302Z", "after": "2026-09-20T11:50:49.362Z", "intervalSeconds": 69.06, "liveGames": 1, "qualifiedNumericChanges": 0}
+        "attempt22Window": {"before": "2026-09-20T11:49:40.302Z", "after": "2026-09-20T11:50:49.362Z", "intervalSeconds": 69.06, "liveGames": 1, "qualifiedNumericChanges": 0},
+        "attempt23Window": {"before": "2026-09-20T12:36:43.427Z", "after": "2026-09-20T12:37:52.943Z", "intervalSeconds": 69.516, "liveGames": 0, "qualifiedNumericChanges": 0},
+        "dayClosedWithoutSameDayLiveVerification": true
       },
       "allVerified": false,
-      "reason": "NPB and KBO are same-day live-verified. CPBL had one live game during attempt 22 and a 69.060-second second capture, but still produced no qualifying numeric live-state change."
+      "reason": "NPB and KBO are same-day live-verified. CPBL is now all final and closed 2026-09-20 without a qualifying >=65 second numeric live-change proof."
     }
   },
   "parserFixes": [
@@ -101,17 +70,17 @@
     "CPBL:260920343 final score is 1-2 while parsed inning run sums are 1-1; home inning-by-inning scoring is not authoritative until the source/parser mismatch is resolved."
   ],
   "dataQualityIssues": [
-    {"firstObservedAt": "2026-09-20T11:26:34.499Z", "lastObservedAt": "2026-09-20T11:50:49.362Z", "league": "CPBL", "key": "CPBL:260920343", "away": "味全龍", "home": "中信兄弟", "status": "final", "finalScore": "1-2", "inningRunSum": "1-1", "warning": "home:inning_sum_conflict", "action": "Do not use the parsed CPBL home inning-by-inning total for this game until source/parser cause is resolved."}
+    {"firstObservedAt": "2026-09-20T11:26:34.499Z", "lastObservedAt": "2026-09-20T12:37:52.943Z", "league": "CPBL", "key": "CPBL:260920343", "away": "味全龍", "home": "中信兄弟", "status": "final", "finalScore": "1-2", "inningRunSum": "1-1", "warning": "home:inning_sum_conflict", "action": "Do not use the parsed CPBL home inning-by-inning total for this game until source/parser cause is resolved."}
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-09-20",
     "NPB": {"verified": true, "verifiedAt": "2026-09-20T10:13:31.335Z", "source": "sportsnavi"},
     "KBO": {"verified": true, "verifiedAt": "2026-09-20T08:56:58.261Z", "source": "naver"},
-    "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "evidence": []},
+    "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "evidence": [], "dayClosedWithoutSameDayLiveVerification": true},
     "allVerified": false,
-    "reason": "NPB and KBO are same-day live-verified. CPBL had one live game in attempt 22 but no qualified numeric change across a 69.060-second observation window."
+    "reason": "NPB and KBO are same-day live-verified. CPBL is all final and closed 2026-09-20 without a qualifying >=65 second numeric live-change proof."
   },
-  "nextAction": "Continue later on 2026-09-20 while CPBL remains live. Re-run the validated Current baseball collector; require a second capture >=65 seconds later and a real numeric change. Keep CPBL pitchCount null. Continue investigating CPBL:260920343 home inning_sum_conflict in the isolated branch only. Keep main, Render and production database unchanged.",
-  "latestRun": {"runId": 35345918725, "runAttempt": 22, "jobId": 106073220313, "artifactId": 10603958807, "artifactCreatedAt": "2026-09-20T11:50:53Z", "capturedAt": "2026-09-20T11:50:49.362Z", "observationPath": "data/live/2026-09-20T115049Z.json", "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"},
-  "latestObservationCommit": "b474c38c82a1db56b1071f42d8556918fef97f1c"
+  "nextAction": "Do not retroactively mark CPBL verified for 2026-09-20. On the next Taipei date, begin a fresh same-day collection and require two live captures >=65 seconds apart with a real numeric change. Keep CPBL pitchCount null. Continue investigating CPBL:260920343 home inning_sum_conflict in the isolated branch only. Keep main, Render and production database unchanged.",
+  "latestRun": {"runId": 35345918725, "runAttempt": 23, "jobId": 106079008939, "artifactId": 10605616588, "artifactCreatedAt": "2026-09-20T12:37:55Z", "capturedAt": "2026-09-20T12:37:52.943Z", "observationPath": "data/live/2026-09-20T123752Z.json", "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"},
+  "latestObservationCommit": "e946fde6343fc8dad49a6dcb9525a1d5cf32f273"
 }
