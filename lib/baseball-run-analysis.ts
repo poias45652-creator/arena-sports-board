@@ -7,7 +7,8 @@ import type {MarketKey} from './pinnacle';
 import type {HrDisplayMarket} from './hr9988';
 
 export type ModelLeague='NPB'|'CPBL'|'KBO';
-export const MODEL_VERSION={NPB:'npb-runs-poisson-v1',CPBL:'cpbl-game-logs-poisson-v2',KBO:'kbo-runs-poisson-v1'} as const;
+export const MODEL_VERSION={NPB:'npb-runs-poisson-v2-sp60',CPBL:'cpbl-game-logs-poisson-v3-sp60',KBO:'kbo-runs-poisson-v2-sp60'} as const;
+export const RUN_MODEL_WEIGHTS=Object.freeze({starter:.6,offense:.2,defense:.1,bullpen:.1});
 export const MODEL_NOTE='模型估算，尚未經歷史回測校準。';
 export const isModelLeague=(league:string):league is ModelLeague=>league==='NPB'||league==='CPBL'||league==='KBO';
 const MAX_SOURCE_AGE=36*3600000;
@@ -15,6 +16,14 @@ const sides=['away','home'] as const;
 type Side=typeof sides[number];
 type Fixture={start:string;away:string;home:string;live?:boolean;starters?:{away?:string;home?:string}};
 export type RunModelInput={team:string;starter:string;scored:number;allowed:number;games:number;splitGames:number;offense:number;defense:number;starterEra:number;bullpenEra:number;starterInnings:number;recentStarts:number;starterObservedAt:string;teamObservedAt:string;bullpenObservedAt:string;bullpenMode:'reported'|'game_logs'|'team_defense'};
+/** Fixed weights apply to the regulation run projection after sample-size shrinkage.
+ * They are input coefficients, not percentage-point win bonuses or fitted importance.
+ * Extra innings exclude the starter and normalize the remaining factors to 100%. */
+export function inningRunRate(bat:RunModelInput,pit:RunModelInput,inning:number):number{
+ const w=RUN_MODEL_WEIGHTS;
+ const other=w.offense*bat.offense+w.defense*pit.defense+w.bullpen*pit.bullpenEra;
+ return (inning<=9?w.starter*pit.starterEra+other:other/(w.offense+w.defense+w.bullpen))/9;
+}
 export type RunAnalysis={version:string;status:'ready'|'waiting_data'|'started';reason:string;fixture:Fixture;capturedAt:string;inputs:Partial<Record<Side,RunModelInput>>;notes:string[];expected:{away:number;home:number}|null;win:{away:number;home:number;draw:number}|null;grids:{full:Outcome[];firstHalf:Outcome[]}|null};
 const number=(value:unknown,max=30):number|null=>{const s=String(value??'').trim();if(!/^\d+(?:\.\d+)?$/.test(s))return null;const n=Number(s);return Number.isFinite(n)&&n>=0&&n<=max?n:null;};
 const innings=(value:unknown)=>{const m=String(value??'').trim().match(/^(\d+)(?:\.([012]))?$/);return m?Number(m[1])+Number(m[2]||0)/3:null;};
@@ -65,11 +74,11 @@ function modelInput(g:PregameGame,side:Side,now:number,notes:string[],league:Mod
   seen.add(date);return true;
  }).sort((a,b)=>b[di].localeCompare(a[di])).slice(0,5).map(r=>innings(r[ii])).filter((n):n is number=>n!==null&&n>0&&n<=9);
  const starterInnings=prior.length>=3?Math.max(3,Math.min(7,prior.reduce((a,b)=>a+b,0)/prior.length)):5;
- if(prior.length<3)notes.push(label+'先發近 60 日不足 3 場，投球負荷以 5 局估算');
- if(logStarter)notes.push(label+`先發 ERA／WHIP 由${logs!.starter?'本季':`球隊最近 ${logs!.recentWindow} 場期間的`} ${logStarter.games} 次登板重算；負荷只取先發登板。`);
+ if(prior.length<3)notes.push(label+'先發近 60 日不足 3 場，參考局數暫設 5 局；不影響固定先發權重');
+ if(logStarter)notes.push(label+`先發 ERA／WHIP 由${logs!.starter?'本季':`球隊最近 ${logs!.recentWindow} 場期間的`} ${logStarter.games} 次登板重算；參考局數只取先發登板。`);
  if(logs?.bullpen)notes.push(label+`牛棚由${logs.bullpenScope==='season'?'本季':`最近 ${logs.recentWindow} 場`}後援紀錄重算，共 ${logs.bullpen.games} 場；先合計出局數與責失再計算 ERA。`);
  if(logs)notes.push(...logs.notes.map(n=>label+n));
- if(!hasBullpen)notes.push(label+'缺完整牛棚局數，後援階段使用已觀測的團隊失分均值；不是牛棚實測成績');
+ if(!hasBullpen)notes.push(label+'缺完整牛棚局數，牛棚項使用已觀測的團隊失分均值；不是牛棚實測成績');
  if(t.battingWarnings?.length)notes.push(label+'團隊打擊表有待核對欄位，未納入計算；得失分採本季戰績表');
  return {team:t.team,starter:t.starter.name,scored:season[0],allowed:season[1],games,splitGames,offense,defense,
   starterEra:(era*ip+season[1]*20)/(ip+20),bullpenEra:hasBullpen?(bullpen!*bpIp!+season[1]*60)/(bpIp!+60):defense,starterInnings,recentStarts:prior.length,starterObservedAt,teamObservedAt,bullpenObservedAt,bullpenMode:hasBullpen?(logs?.bullpen?'game_logs':'reported'):'team_defense'};
@@ -123,14 +132,8 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  }
  for(const side of sides){const input=modelInput(g,side,now,report.notes,league);if(typeof input==='string')return stop(input);report.inputs[side]=input;}
  const a=report.inputs.away!,h=report.inputs.home!;
- const rate=(bat:RunModelInput,pit:RunModelInput,inning:number)=>{
-  const starterShare=inning<=9?Math.max(0,Math.min(1,pit.starterInnings-inning+1)):0;
-  const pitching=pit.starterEra*starterShare+pit.bullpenEra*(1-starterShare);
-  // Transparent baseline weights, no fitted coefficients or synthetic missing data.
-  return (.5*bat.offense+.25*pit.defense+.25*pitching)/9;
- };
  const cap=league==='KBO'?11:12;
- const away=Array.from({length:cap},(_,i)=>rate(a,h,i+1)),home=Array.from({length:cap},(_,i)=>rate(h,a,i+1));
+ const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1));
  const expected={away:away.slice(0,9).reduce((a,b)=>a+b,0),home:home.slice(0,9).reduce((a,b)=>a+b,0)};
  if(Object.values(expected).some(n=>n<=0||n>15))return stop('預期得分超出可計算範圍');
  const full=scoreDistribution(away,home,league==='CPBL'?.6:0),firstHalf=scoreGrid(away.slice(0,5).reduce((a,b)=>a+b,0),home.slice(0,5).reduce((a,b)=>a+b,0),false);

@@ -11,7 +11,8 @@
     "start": "node scripts/render-start.mjs",
     "test:render": "node --test tests/render-*.test.mjs",
     "test:accounts": "node --test tests/tz-login.test.mjs tests/tz-binding.test.mjs tests/hr9988-connection.test.mjs tests/admin-identity.test.mjs",
-    "test": "npm run test:accounts && npm run test:render"
+    "test": "npm run test:accounts && npm run test:render && npm run test:models",
+    "test:models": "node --test tests/multifactor-win.test.mjs tests/starter-weight.test.mjs tests/npb-analysis.test.mjs tests/kbo-analysis.test.mjs tests/cpbl-analysis.test.mjs tests/international-model-audit.test.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
