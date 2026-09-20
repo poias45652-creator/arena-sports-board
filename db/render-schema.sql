@@ -75,6 +75,7 @@ CREATE TABLE IF NOT EXISTS "turnstile_settings" (
 	"enabled" bigint DEFAULT 0 NOT NULL,
 	"updated_at" bigint NOT NULL
 );
+ALTER TABLE "turnstile_settings" ADD COLUMN IF NOT EXISTS "site_key" text;
 CREATE TABLE IF NOT EXISTS "baseball_current" (
 	"key" text PRIMARY KEY NOT NULL,
 	"league" text NOT NULL,
