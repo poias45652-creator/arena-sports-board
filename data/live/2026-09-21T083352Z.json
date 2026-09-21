@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-21",
+  "capturedAt": "2026-09-21T08:33:52.124Z",
+  "purpose": "same-day live verification evidence; not production deployment",
+  "run": {
+    "runId": 35345918725,
+    "runAttempt": 30,
+    "jobId": 106265434101,
+    "artifactId": 10629051825,
+    "artifactCreatedAt": "2026-09-21T08:33:54Z",
+    "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"
+  },
+  "captureWindow": {
+    "before": "2026-09-21T08:32:43.440Z",
+    "after": "2026-09-21T08:33:52.124Z",
+    "intervalSeconds": 68.684,
+    "secondCapturePerformed": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "pregame": 0,
+      "live": 1,
+      "final": 2,
+      "cancelled": 2,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 29,
+      "knownGaps": ["balls", "strikes", "outs", "bases"],
+      "gamesSummary": [
+        {"key":"NPB:2021039443","away":"廣島東洋鯉魚","home":"中日龍","status":"final","awayScore":0,"homeScore":10,"inning":null,"half":null},
+        {"key":"NPB:2021039444","away":"橫濱DeNA海灣之星","home":"阪神虎","status":"live","awayScore":2,"homeScore":2,"inning":9,"half":"bottom"},
+        {"key":"NPB:2021039446","away":"福岡軟銀鷹","home":"東北樂天金鷲","status":"cancelled","awayScore":null,"homeScore":null,"inning":null,"half":null},
+        {"key":"NPB:2021039445","away":"歐力士猛牛","home":"日本火腿鬥士","status":"final","awayScore":3,"homeScore":5,"inning":null,"half":null},
+        {"key":"NPB:2021039447","away":"西武獅","home":"千葉羅德海洋","status":"cancelled","awayScore":null,"homeScore":null,"inning":null,"half":null}
+      ]
+    },
+    "KBO": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false
+    },
+    "CPBL": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "unverifiedFields": ["inning", "half", "balls", "strikes", "outs", "bases", "pitchCount"]
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-21T08:33:53.710Z",
+    "inserted": 5,
+    "readBack": 5,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "notes": [
+    "Run attempt 30 and artifact 10629051825 are new for this observation; artifact createdAt and capturedAt are both on 2026-09-21.",
+    "One NPB first-team game remained live, so a second capture was performed 68.684 seconds after the first.",
+    "No qualifying numeric score, inning, B/S/O, base, pitch-count or pitcher-outs change was observed during the window; NPB same-day live verification remains false for 2026-09-21.",
+    "KBO and CPBL returned zero first-team games with status ok and no source errors.",
+    "CPBL pitchCount remains null and source-listed lineups are not official confirmation.",
+    "main, Render, production database, login, accounts and environment variables were not modified."
+  ]
+}
