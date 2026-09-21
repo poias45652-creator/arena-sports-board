@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-21",
+  "capturedAt": "2026-09-21T09:10:27.409Z",
+  "purpose": "same-day live verification evidence; not production deployment",
+  "run": {
+    "runId": 35345918725,
+    "runAttempt": 31,
+    "jobId": 106275611126,
+    "artifactId": 10629909292,
+    "artifactCreatedAt": "2026-09-21T09:10:30Z",
+    "headSha": "b7fba284bf6ba5cde1d5020377cded812782e39f"
+  },
+  "captureWindow": {
+    "before": "2026-09-21T09:09:19.699Z",
+    "after": "2026-09-21T09:10:27.409Z",
+    "intervalSeconds": 67.71,
+    "secondCapturePerformed": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "pregame": 0,
+      "live": 1,
+      "final": 2,
+      "cancelled": 2,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": true,
+      "sameDayLiveVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 31,
+      "knownGaps": ["balls", "strikes", "outs", "bases"],
+      "liveEvidence": [
+        {
+          "key": "NPB:2021039444",
+          "away": "橫濱DeNA海灣之星",
+          "home": "阪神虎",
+          "status": "live",
+          "awayScore": 2,
+          "homeScore": 2,
+          "inning": 11,
+          "beforeFetchedAt": "2026-09-21T09:09:17.680Z",
+          "afterFetchedAt": "2026-09-21T09:10:25.784Z",
+          "intervalSeconds": 68.104,
+          "changes": {
+            "homePitching": {
+              "石井 大智:pitchCount": {
+                "before": 12,
+                "after": 13
+              }
+            }
+          }
+        }
+      ],
+      "gamesSummary": [
+        {"key":"NPB:2021039443","away":"廣島東洋鯉魚","home":"中日龍","status":"final","awayScore":0,"homeScore":10,"inning":null,"half":null},
+        {"key":"NPB:2021039444","away":"橫濱DeNA海灣之星","home":"阪神虎","status":"live","awayScore":2,"homeScore":2,"inning":11,"half":null},
+        {"key":"NPB:2021039446","away":"福岡軟銀鷹","home":"東北樂天金鷲","status":"cancelled","awayScore":null,"homeScore":null,"inning":null,"half":null},
+        {"key":"NPB:2021039445","away":"歐力士猛牛","home":"日本火腿鬥士","status":"final","awayScore":3,"homeScore":5,"inning":null,"half":null},
+        {"key":"NPB:2021039447","away":"西武獅","home":"千葉羅德海洋","status":"cancelled","awayScore":null,"homeScore":null,"inning":null,"half":null}
+      ]
+    },
+    "KBO": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false
+    },
+    "CPBL": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "unverifiedFields": ["inning", "half", "balls", "strikes", "outs", "bases", "pitchCount"]
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-21T09:10:28.656Z",
+    "inserted": 5,
+    "readBack": 5,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "notes": [
+    "Run attempt 31 and artifact 10629909292 are new for this observation; artifact createdAt and capturedAt are both on 2026-09-21.",
+    "One NPB first-team game remained live and a qualifying numeric live change was captured across 68.104 seconds.",
+    "For NPB:2021039444, Hanshin pitcher 石井 大智 pitchCount changed from 12 to 13 while the game remained live at 2-2 in the 11th inning.",
+    "NPB same-day live verification is now true for 2026-09-21.",
+    "KBO and CPBL returned zero first-team games with status ok and no source errors.",
+    "CPBL pitchCount remains null and source-listed lineups are not official confirmation.",
+    "main, Render, production database, login, accounts and environment variables were not modified."
+  ]
+}
