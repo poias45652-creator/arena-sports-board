@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-21",
+  "capturedAt": "2026-09-21T13:10:24.174Z",
+  "purpose": "same-day collector evidence and data-quality validation; not production deployment",
+  "run": {
+    "runId": 35589830427,
+    "runAttempt": 4,
+    "jobId": 106346068412,
+    "artifactId": 10641350288,
+    "artifactCreatedAt": "2026-09-21T13:10:28Z",
+    "headSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03"
+  },
+  "captureWindow": {
+    "secondCapturePerformed": false,
+    "reason": "No first-team game was live in this successful capture."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "cancelled": 2,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": true,
+      "sameDayLiveEvidenceRetainedIn": "data/live/2026-09-21T091027Z.json",
+      "gamesSummary": [
+        {"key":"NPB:2021039443","away":"廣島東洋鯉魚","home":"中日龍","status":"final","awayScore":0,"homeScore":10},
+        {"key":"NPB:2021039444","away":"橫濱DeNA海灣之星","home":"阪神虎","status":"final","awayScore":2,"homeScore":3},
+        {"key":"NPB:2021039446","away":"福岡軟銀鷹","home":"東北樂天金鷲","status":"cancelled","awayScore":null,"homeScore":null},
+        {"key":"NPB:2021039445","away":"歐力士猛牛","home":"日本火腿鬥士","status":"final","awayScore":3,"homeScore":5},
+        {"key":"NPB:2021039447","away":"西武獅","home":"千葉羅德海洋","status":"cancelled","awayScore":null,"homeScore":null}
+      ]
+    },
+    "KBO": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false
+    },
+    "CPBL": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "unverifiedFields": ["inning","half","balls","strikes","outs","bases","pitchCount"]
+    }
+  },
+  "dataQualityIssues": [
+    {
+      "firstObservedAt": "2026-09-21T10:32:44.643Z",
+      "lastObservedAt": "2026-09-21T13:10:24.174Z",
+      "league": "NPB",
+      "keys": ["NPB:2021039446","NPB:2021039447"],
+      "statuses": ["cancelled","cancelled"],
+      "warning": "unplayed_stats_zero_placeholder_rows",
+      "observed": "Cancelled games still contain a synthetic-looking batting row named '0' with zero-valued batting stats for both sides.",
+      "action": "Do not use batting/stat rows from cancelled or otherwise unplayed NPB games as website-authoritative data until the parser is safely fixed and revalidated."
+    }
+  ],
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-21T13:10:26.538Z",
+    "inserted": 5,
+    "readBack": 5,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "notes": [
+    "Artifact 10641350288 was created at 2026-09-21T13:10:28Z and matches capturedAt 2026-09-21T13:10:24.174Z on run attempt 4.",
+    "No live game existed in this capture, so a second >=65 second capture was not required.",
+    "NPB same-day live verification remains valid from data/live/2026-09-21T091027Z.json where Hanshin pitcher 石井 大智 pitchCount changed 12 to 13 across 68.104 seconds.",
+    "KBO and CPBL returned zero first-team games with status ok and no source errors.",
+    "CPBL pitchCount remains null and source-listed lineups remain unverified.",
+    "The cancelled-game NPB placeholder batting-row issue persists unchanged from the previous observation.",
+    "main, Render, production database, login, accounts and environment variables were not modified."
+  ]
+}
