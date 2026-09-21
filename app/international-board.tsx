@@ -15,6 +15,7 @@ import type {SourceTable} from '@/lib/international';
 import {useSource} from './use-source';
 import {profileCode,profileHref,profileTeams} from '@/lib/international-profile';
 import type {PregameData} from '@/lib/international-pregame';
+import {taipeiFixtureDay} from '@/lib/international-board-fixtures';
 const names={CPBL:'中華職棒',NPB:'日本職棒',KBO:'韓國職棒'};
 type League=keyof typeof names;
 type Data={tables?:SourceTable[];games?:{id:string;label:string;url?:string;date?:string}[];status?:string;error?:string;fetchedAt?:string;scope?:string;pregame?:PregameData};
@@ -23,13 +24,13 @@ const teamRows=(data:Data|undefined,team:string)=>(data?.tables||[]).map(t=>({..
 export default function InternationalBoard({league,initialView="analysis"}:{league:League;initialView?:string}){
  const [view,setView]=useState('analysis'),[search,setSearch]=useState('');
  const [data,setData]=useState<Record<string,Data>>({}),[loading,setLoading]=useState(false),[revision,setRevision]=useState(0);
- const [analysisDate,setAnalysisDate]=useState('');
+ const [analysisDate,setAnalysisDate]=useState(()=>taipeiFixtureDay(Date.now()));
  const [scheduleDate,setScheduleDate]=useState(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()));
  const [game,setGame]=useState(''),[gameData,setGameData]=useState<Data>(),[gameLoading,setGameLoading]=useState(false),[liveTab,setLiveTab]=useState('score');
  const superData=useSource<any>(`member-odds&league=${league}`,60000);
  const year=new Date().getUTCFullYear();
  useEffect(()=>{const refresh=()=>setRevision(v=>v+1);window.addEventListener('arena-refresh-all',refresh);return()=>window.removeEventListener('arena-refresh-all',refresh)},[]);
- useEffect(()=>{setGame('');setData({});setAnalysisDate('');setView(['analysis','overview','teams','standings','live'].includes(initialView)?initialView:'analysis')},[league,initialView]);
+ useEffect(()=>{setGame('');setData({});setAnalysisDate(taipeiFixtureDay(Date.now()));setView(['analysis','overview','teams','standings','live'].includes(initialView)?initialView:'analysis')},[league,initialView]);
  useEffect(()=>{
   const c=new AbortController();setLoading(true);
   const kinds=league==='CPBL'?['standings','schedule']:['bat','pit','standings','schedule',...(league==='NPB'?['starters']:[])];
