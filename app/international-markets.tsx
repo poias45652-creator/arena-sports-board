@@ -24,7 +24,7 @@ function scheduleGame(g:{id:string;label:string;date?:string}){
  const match=g.label.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+·\s+(.+?)（客）\s+(?:vs|\d+：\d+)\s+(.+?)（主）/);
  return match?{id:`schedule-${g.id}`,sourceId:g.id,start:`${match[1]} ${match[2]}:00`,away:match[3],home:match[4],live:false,displayMarkets:[]}:null;
 }
-export default function InternationalMarkets({league,schedule,standings,starters,pregame,odds,dataLoading,onRefreshData}:{dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string};pregame?:PregameData}){
+export default function InternationalMarkets({league,schedule,standings,starters,pregame,odds,dataLoading,onRefreshData,onDateChange}:{onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string};pregame?:PregameData}){
  const {data,error,loading:busy,refresh}=odds;
  const [now,setNow]=useState(Date.now());
  const [day,setDay]=useState('auto'),[count,setCount]=useState(3),[parlayMode,setParlayMode]=useState('markets'),[notice,setNotice]=useState('');
@@ -37,14 +37,17 @@ export default function InternationalMarkets({league,schedule,standings,starters
  const options=(g:any,selectedPeriod='full',selectedType='103')=>internationalMarketOptions(g,league,selectedPeriod,selectedType);
  const hasOptions=(g:any)=>BOARD_MARKETS.some(({key})=>{const s=INTERNATIONAL_MARKET_SOURCE[key];return options(g,s.period,s.type).length>0;});
  const teamName=(name:string)=>internationalTeam(cleanTeam(name),league);
- const sourceGames=(data?.games||[]).map((g:any)=>({...g,oddsSource:true,home:teamName(g.home),away:teamName(g.away)}));
+ const excluded=(g:{start:string;home:string;away:string})=>(pregame?.excludedFixtures||[]).some(x=>teamName(x.home)===teamName(g.home)&&teamName(x.away)===teamName(g.away)&&Date.parse(x.start.replace(' ','T')+'+08:00')===Date.parse(g.start.replaceAll('/','-').replace(' ','T')+'+08:00'));
+ const sourceGames=(data?.games||[]).filter((g:any)=>!excluded(g)).map((g:any)=>({...g,oddsSource:true,home:teamName(g.home),away:teamName(g.away)}));
  const currentFixtures=(league==='NPB'?announcedNpbGames(starters?.tables):league==='KBO'?upcomingKboGames(schedule?.tables,now):(schedule?.games||[]).map(scheduleGame).filter(Boolean)) as any[];
- const listed=mergePregameFixtures(currentFixtures,pregame,league,league==='KBO'?scheduledKboGames(schedule?.tables):currentFixtures) as any[];
- const listedCandidates=listed.filter(g=>(league==='NPB'&&!g.pregame)||Date.parse(g.start.replace(' ','T')+'+08:00')>now).sort((a,b)=>a.start.localeCompare(b.start));
+ const listed=mergePregameFixtures(currentFixtures.filter(g=>!excluded(g)),pregame,league,league==='KBO'?scheduledKboGames(schedule?.tables):currentFixtures) as any[];
+ const listedCandidates=listed.filter(g=>Date.parse(g.start.replace(' ','T')+'+08:00')>now).sort((a,b)=>a.start.localeCompare(b.start));
  const futureSource=sourceGames.filter((g:any)=>!g.live&&Date.parse(g.start.replaceAll('/','-').replace(' ','T')+'+08:00')>now).sort((a:any,b:any)=>a.start.localeCompare(b.start));
  const automaticDay=(league==='KBO'?[listedCandidates[0]?.start,futureSource[0]?.start].filter(Boolean).map(s=>s.replaceAll('/','-')).sort()[0]||'':(league==='NPB'?listedCandidates[0]?.start:undefined)||futureSource[0]?.start||listedCandidates[0]?.start||'').slice(0,10).replaceAll('/','-');
  const days=[...new Set<string>([...listedCandidates,...futureSource].map(g=>g.start.replaceAll('/','-').slice(0,10)))].sort();
  const targetDay=day==='auto'?automaticDay:day;
+ useEffect(()=>{if(targetDay)onDateChange?.(targetDay)},[targetDay,onDateChange]);
+ useEffect(()=>{setDay('auto');setPicks([]);setMarketTabs({})},[league]);
  const listedDay=listedCandidates.filter(g=>g.start.startsWith(targetDay));
  const sourceDay=futureSource.filter((g:any)=>g.start.replaceAll('/','-').startsWith(targetDay));
  const used=new Set<any>();

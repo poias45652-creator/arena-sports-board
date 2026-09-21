@@ -23,18 +23,32 @@ const teamRows=(data:Data|undefined,team:string)=>(data?.tables||[]).map(t=>({..
 export default function InternationalBoard({league,initialView="analysis"}:{league:League;initialView?:string}){
  const [view,setView]=useState('analysis'),[search,setSearch]=useState('');
  const [data,setData]=useState<Record<string,Data>>({}),[loading,setLoading]=useState(false),[revision,setRevision]=useState(0);
+ const [analysisDate,setAnalysisDate]=useState('');
  const [scheduleDate,setScheduleDate]=useState(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()));
  const [game,setGame]=useState(''),[gameData,setGameData]=useState<Data>(),[gameLoading,setGameLoading]=useState(false),[liveTab,setLiveTab]=useState('score');
  const superData=useSource<any>(`member-odds&league=${league}`,60000);
  const year=new Date().getUTCFullYear();
  useEffect(()=>{const refresh=()=>setRevision(v=>v+1);window.addEventListener('arena-refresh-all',refresh);return()=>window.removeEventListener('arena-refresh-all',refresh)},[]);
- useEffect(()=>{setGame('');setData({});setView(['analysis','overview','teams','standings','live'].includes(initialView)?initialView:'analysis')},[league,initialView]);
+ useEffect(()=>{setGame('');setData({});setAnalysisDate('');setView(['analysis','overview','teams','standings','live'].includes(initialView)?initialView:'analysis')},[league,initialView]);
  useEffect(()=>{
   const c=new AbortController();setLoading(true);
-  const kinds=league==='CPBL'?['standings','schedule','pregame']:['bat','pit','standings','schedule','pregame',...(league==='NPB'?['starters']:[])];
+  const kinds=league==='CPBL'?['standings','schedule']:['bat','pit','standings','schedule',...(league==='NPB'?['starters']:[])];
   let busy=false;async function load(){if(busy||document.hidden)return;busy=true;try{await Promise.all(kinds.map(async kind=>{try{const r=await fetch(`/api/international?kind=${league.toLowerCase()}-${kind}`,{signal:AbortSignal.any([c.signal,AbortSignal.timeout(45000)]),cache:'no-store'});if(!r.ok)throw new Error();const value=await r.json();if(!c.signal.aborted)setData(old=>({...old,[kind]:value}));}catch{if(!c.signal.aborted)setData(old=>({...old,[kind]:{...old[kind],error:'來源暫時無法取得',status:old[kind]?'stale':'unavailable'}}))}}));}finally{busy=false;if(!c.signal.aborted)setLoading(false)}}
   const resume=()=>{if(!document.hidden)void load();};void load();const timer=setInterval(()=>void load(),300000);document.addEventListener('visibilitychange',resume);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',resume);c.abort();};
  },[league,revision]);
+ useEffect(()=>{
+  if(!analysisDate)return;
+  const c=new AbortController();let busy=false;
+  // The selected fixture day can be tomorrow even while the local date is today.
+  setData(old=>({...old,pregame:old.pregame?.pregame?.date===analysisDate?old.pregame:{}}));
+  async function load(){if(busy||document.hidden)return;busy=true;try{
+   const r=await fetch(`/api/international?kind=${league.toLowerCase()}-pregame&date=${encodeURIComponent(analysisDate)}`,{cache:'no-store',signal:AbortSignal.any([c.signal,AbortSignal.timeout(45000)])});
+   if(!r.ok)throw new Error();const value=await r.json();
+   if(!c.signal.aborted&&value.pregame?.date===analysisDate)setData(old=>({...old,pregame:value}));
+  }catch{if(!c.signal.aborted)setData(old=>({...old,pregame:{...old.pregame,error:'來源暫時無法取得',status:'stale'}}))}finally{busy=false}}
+  const resume=()=>{if(!document.hidden)void load()};void load();const timer=setInterval(()=>void load(),300000);document.addEventListener('visibilitychange',resume);
+  return()=>{c.abort();clearInterval(timer);document.removeEventListener('visibilitychange',resume)};
+ },[league,analysisDate,revision]);
  useEffect(()=>{setGameData(undefined);if(!game||!['NPB','CPBL'].includes(league))return;const c=new AbortController();setGameLoading(true);fetch(league==='CPBL'?`/api/international?kind=cpbl-game&url=${encodeURIComponent(data.schedule?.games?.find(g=>g.id===game)?.url||'')}`:`/api/international?kind=${liveTab==='preview'?'npb-preview':'npb-game'}&id=${encodeURIComponent(game)}`,{signal:c.signal}).then(async r=>{if(!r.ok)throw new Error();return r.json()}).then(value=>{if(!c.signal.aborted)setGameData(value)}).catch(()=>{if(!c.signal.aborted)setGameData({error:'單場紀錄讀取失敗'})}).finally(()=>{if(!c.signal.aborted)setGameLoading(false)});return()=>c.abort()},[game,league,revision,liveTab]);
  const directory=Object.values(profileTeams[league]);
  const record=(name:string)=>{for(const t of data.standings?.tables||[]){const r=t.rows.find(r=>r[t.headers.indexOf('球隊')]===name);if(r)return {wins:r[t.headers.indexOf('勝')],losses:r[t.headers.indexOf('敗')],ties:r[t.headers.indexOf('和')],rate:r[t.headers.indexOf('勝率')]};}return null;};
@@ -51,7 +65,7 @@ export default function InternationalBoard({league,initialView="analysis"}:{leag
  return <section>
  <div className="league-heading arena-league-heading" data-view={view}><div><h1><span className="league-title-code">{league}</span> <span>{names[league]}</span></h1></div></div>
  <Tabs value={view} onValueChange={v=>{setView(v);setGame('');setSearch('')}} className={`league-workspace ${league.toLowerCase()}-workspace`} data-view={view}><TabsList className="league-tabs" aria-label={`${names[league]}頁面`}>{[['overview','概覽'],['standings','戰績排名'],['teams','球隊一覽'],['live','即時比分'],['analysis','賽前分析・串關']].map(([v,label])=><TabsTrigger key={v} value={v}>{label}</TabsTrigger>)}</TabsList><TabsContent value={view} className="space-y-6">
- {view==='analysis'&&<><InternationalMarkets dataLoading={loading} onRefreshData={()=>setRevision(v=>v+1)} odds={superData} league={league} schedule={data.schedule} standings={data.standings} starters={data.starters} pregame={data.pregame?.pregame}/></>}
+ {view==='analysis'&&<><InternationalMarkets onDateChange={setAnalysisDate} dataLoading={loading} onRefreshData={()=>setRevision(v=>v+1)} odds={superData} league={league} schedule={data.schedule} standings={data.standings} starters={data.starters} pregame={data.pregame?.pregame}/></>}
  {view==='overview'&&<><div className="league-summary"><div><span>球季</span><strong>{year}</strong></div><div><span>已取得球隊分類</span><strong>{directory.length||'—'}</strong></div><div><span>球員成績筆數</span><strong>{allPlayers||'—'}</strong></div><div><span>SUPER 賽事</span><strong>{superData.error?'—':superData.data?.games?.length??'—'}</strong></div></div><div className="grid gap-4 md:grid-cols-3">{[['teams','球隊與球員',Users],['standings','戰績排名',Trophy],['live','比賽紀錄',Activity]].map(([v,label,Icon]:any)=><button key={v} className="panel p-5 text-left" onClick={()=>setView(v)}><Icon className="mb-3 text-yellow-300"/><h2 className="font-bold">{label}</h2><p className="mt-2 text-sm text-slate-400">查看 {names[league]} →</p></button>)}</div><h2 className="text-xl font-bold">球隊一覽</h2>{directoryCards}{!directory.length&&empty('球隊資料待更新',league==='CPBL'?'尚無中職球員資料；連接 SUPER 後，可列出來源提供的參賽球隊。':'來源尚未回傳球隊分類。')}<p className="text-xs text-slate-400">球隊分類取自目前來源，非完整官方名冊；球員成績筆數可能包含同一人的投打紀錄。</p></>}
  {view==='standings'&&(league==='CPBL'?<CpblStandings data={data.standings} year={year} loading={loading} onRefresh={()=>setRevision(v=>v+1)} onTeamSelect={goTeam}/>:league==='NPB'?<NpbStandings data={data.standings} year={year} loading={loading} onRefresh={()=>setRevision(v=>v+1)} onTeamSelect={goTeam}/>:<KboStandings data={data.standings} year={year} loading={loading} onRefresh={()=>setRevision(v=>v+1)} onTeamSelect={goTeam}/>)}
 

@@ -1,9 +1,9 @@
+import {pitcherIdentity} from './international-pitcher-identity';
 import {internationalTeam} from './international-teams';
-import type {PregameData,PregameGame,PregameSide} from './international-pregame';
+import type {PregameData,PregameGame,PregameSide,PregameExclusion} from './international-pregame';
 import {displayPitcherStat} from './international-pregame';
 const fields=['wins','losses','era','opponentAverage','innings','strikeouts','walks','whip'] as const;
 const emptyTable=(title:string)=>({title,headers:[],rows:[]});
-const nameKey=(v:string)=>v.replace(/[\s・·]/g,'');
 const taipeiStart=(v:string)=>new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(new Date(v));
 export function addNewsStarters(snapshot:PregameData,news:any):PregameData{
  if(snapshot.league!==news.league||snapshot.date!==news.date)return snapshot;
@@ -18,9 +18,17 @@ export function addNewsStarters(snapshot:PregameData,news:any):PregameData{
 // pitcher's statistics. Static fields retain their own original provenance.
 export function currentPregame(league:string,date:string,feed:any,archives:PregameData[]):PregameData{
  const byFixture=new Map<string,PregameGame>();
- const key=(g:PregameGame)=>`${g.start}|${g.away.team}|${g.home.team}`;
+ const excluded=new Map<string,PregameExclusion>();
+ const excludedKey=(g:{start:string;away:string;home:string})=>`${g.start}|${internationalTeam(g.away,league)}|${internationalTeam(g.home,league)}`;
+ for(const a of archives)if(a.league===league&&a.date===date)for(const x of a.excludedFixtures||[])if(x.start.startsWith(date+' '))excluded.set(excludedKey(x),x);
+ const key=(g:PregameGame)=>`${g.start}|${internationalTeam(g.away.team,league)}|${internationalTeam(g.home.team,league)}`;
  for(const archive of archives){if(archive?.league!==league||archive.date!==date)continue;for(const g of archive.games){const old=byFixture.get(key(g));if(!old||Date.parse(g.source.observedAt)>Date.parse(old.source.observedAt))byFixture.set(key(g),g);}}
  for(const live of feed.games||[]){
+  if(live.league===league&&live.date===date&&!live.sourceStale&&Number.isFinite(Date.parse(live.startTime))&&Number.isFinite(Date.parse(live.source?.fetchedAt))){
+   const x={start:taipeiStart(live.startTime),away:live.away.name,home:live.home.name,status:live.status,observedAt:live.source.fetchedAt,sourceUrl:live.source.url},k=excludedKey(x),old=excluded.get(k);
+   if(['cancelled','postponed','suspended'].includes(live.status))excluded.set(k,x);
+   else if(live.status==='pregame'&&old&&Date.parse(x.observedAt)>Date.parse(old.observedAt))excluded.delete(k);
+  }
   if(live.league!==league||live.date!==date||!live.startTime||live.sourceStale||live.status!=='pregame')continue;
   const captured=Date.parse(live.source?.fetchedAt),startTime=Date.parse(live.startTime);if(!Number.isFinite(captured)||!Number.isFinite(startTime)||captured>=startTime)continue;
   const start=taipeiStart(live.startTime),away=internationalTeam(live.away.name,league),home=internationalTeam(live.home.name,league),k=`${start}|${away}|${home}`,previous=byFixture.get(k);
@@ -28,7 +36,7 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
   const source={name:live.source.provider,url:live.source.url,observedAt:live.source.fetchedAt,publishedAt:null,sourceTitle:`${date} ${away} vs ${home}`,contentSha256:''};
   const sideData=(side:'away'|'home'):PregameSide=>{
    const old=previous?.[side],person=live.starters?.[side],name=person?.name||old?.starter.name||'';
-   const same=!!person?.name&&!!old?.starter.name&&nameKey(person.name)===nameKey(old.starter.name);
+   const same=!!person?.name&&!!old?.starter.name&&pitcherIdentity(person.name,league,old.team)===pitcherIdentity(old.starter.name,league,old.team);
    const preserve=!!old&&(!person?.name||same);
    const starter:PregameSide['starter']=preserve?{...old.starter}:{name,throws:person?.throws||null,season:Object.fromEntries(fields.map(f=>[f,''])) as PregameSide['starter']['season'],splits:emptyTable('投手分項成績'),recent:emptyTable('逐場出賽紀錄'),quality:'unavailable',warnings:[]};
    if(person?.name){
@@ -44,8 +52,8 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
   };
   byFixture.set(k,{id:previous?.id||live.id,league,date,start,kind:'pregame_snapshot',liveVerified:false,source,away:sideData('away'),home:sideData('home'),...(previous?.comparison?{comparison:previous.comparison,comparisonSource:previous.comparisonSource,rules:previous.rules}:{})});
  }
- const games=[...byFixture.values()].sort((a,b)=>a.start.localeCompare(b.start));
- return {schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||'',games};
+ const games=[...byFixture.values()].filter(g=>!excluded.has(key(g))).sort((a,b)=>a.start.localeCompare(b.start));
+ return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||'',games};
 }
 export function pregameMissing(snapshot:PregameData){
  const teams=snapshot.games.flatMap(g=>[g.away,g.home]);

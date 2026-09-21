@@ -1,3 +1,5 @@
+import {pitcherIdentity} from './international-pitcher-identity';
+import {internationalTeam} from './international-teams';
 import type {SourceTable} from './international';
 import type {CpblLogMetrics} from './cpbl-game-logs';
 export type PitchingImportSource={name:string;url:string;receivedAt:string;capturedAt:string|null;contentSha256:string;sourceTitle:string};
@@ -19,7 +21,8 @@ export type PregameGame = {
  comparisonSource?:{name:string;url:string;observedAt:string;throughDate:string;games:number};
  rules?:{league:'KBO';season:number;phase:'regular';maxInnings:11;sourceUrl:string;fixtureObservedAt:string};
 };
-export type PregameData = {schemaVersion:number;league:string;season:number;date:string;observedAt:string;games:PregameGame[]};
+export type PregameExclusion={start:string;away:string;home:string;status:string;observedAt:string;sourceUrl:string};
+export type PregameData = {excludedFixtures?:PregameExclusion[];schemaVersion:number;league:string;season:number;date:string;observedAt:string;games:PregameGame[]};
 export type PregameFixture = {id:string;start:string;home:string;away:string;live:boolean;displayMarkets:unknown[];starters?:{home?:string;away?:string};pregame?:PregameGame};
 const normalizedStart=(s:string)=>s.replaceAll('/','-');
 const key=(g:PregameFixture)=>`${normalizedStart(g.start)}|${g.away}|${g.home}`;
@@ -27,19 +30,20 @@ const pairing=(g:PregameFixture)=>`${normalizedStart(g.start).slice(0,10)}|${g.a
 
 // Each import belongs only to its original dated fixture. Preserve newer schedules and imports.
 export function mergePregameFixtures(fixtures:PregameFixture[],snapshot:PregameData|undefined,league:string,knownSchedule:PregameFixture[]=[]):PregameFixture[]{
- const result=fixtures.map(g=>({...g}));
+ const normalize=(g:PregameFixture)=>({...g,home:internationalTeam(g.home,league),away:internationalTeam(g.away,league)});
+ const result=fixtures.map(normalize);
  if(!snapshot||snapshot.league!==league||!['CPBL','NPB','KBO'].includes(league))return result;
- const knownPairs=new Set(knownSchedule.map(pairing));
+ const knownPairs=new Set(knownSchedule.map(normalize).map(pairing));
  for(const data of snapshot.games){
   if(data.league!==league||data.kind!=='pregame_snapshot'||data.date!==snapshot.date||!data.start.startsWith(data.date+' ')||Number(data.date.slice(0,4))!==snapshot.season)continue;
   const startTime=Date.parse(data.start.replace(' ','T')+'+08:00'),captured=Date.parse(data.source.observedAt);
   if(!Number.isFinite(startTime)||!Number.isFinite(captured)||captured>=startTime)continue;
-  const imported:PregameFixture={id:`playsport-${league}-${data.id}`,start:data.start,away:data.away.team,home:data.home.team,live:false,displayMarkets:[]};
+  const imported:PregameFixture={id:`playsport-${league}-${data.id}`,start:data.start,away:internationalTeam(data.away.team,league),home:internationalTeam(data.home.team,league),live:false,displayMarkets:[]};
   const index=result.findIndex(g=>key(g)===key(imported));
   if(index<0&&knownPairs.has(pairing(imported)))continue;
   const previous=index>=0?result[index]:imported;
   if(previous.live||previous.pregame&&Date.parse(previous.pregame.source.observedAt)>captured)continue;
-  if(previous.starters&&(['away','home'] as const).some(side=>previous.starters?.[side]&&data[side].starter.name&&previous.starters[side]!.replace(/\s/g,'')!==data[side].starter.name.replace(/\s/g,'')))continue;
+  if(previous.starters&&(['away','home'] as const).some(side=>previous.starters?.[side]&&data[side].starter.name&&pitcherIdentity(previous.starters[side]!,league,data[side].team)!==pitcherIdentity(data[side].starter.name,league,data[side].team)))continue;
   const enriched={...previous,pregame:data,starters:{away:previous.starters?.away||data.away.starter.name,home:previous.starters?.home||data.home.starter.name}};
   if(index>=0)result[index]=enriched;else result.push(enriched);
  }

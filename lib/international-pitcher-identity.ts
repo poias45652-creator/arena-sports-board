@@ -1,0 +1,10 @@
+import {internationalTeam} from './international-teams';
+const compact=(s:string)=>s.normalize('NFKC').replace(/[\s・·.]/g,'').toLowerCase();
+// Explicit, team-scoped pairs checked against the NPB announcement and the
+// matching Playsport fixture. Do not fuzzy-match surnames across rosters.
+export function pitcherIdentity(name:string,league:string,team:string){
+ const n=compact(name),t=internationalTeam(team,league);
+ if(league==='NPB'&&t==='阪神虎'&&['lucas','eルーカス'].includes(n))return 'npb-t-lucas';
+ if(league==='NPB'&&t==='千葉羅德海洋'&&['jackson','aジャクソン'].includes(n))return 'npb-m-jackson';
+ return n;
+}

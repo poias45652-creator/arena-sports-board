@@ -1,3 +1,4 @@
+import {pitcherIdentity} from './international-pitcher-identity';
 import {scoreGrid,settle,type Outcome,type Settlement} from './markets';
 import {internationalTeam} from './international-teams';
 import {INTERNATIONAL_MARKET_SOURCE,internationalMarketOptions,internationalMarketQuote,type InternationalPick} from './international-market-options';
@@ -30,7 +31,6 @@ const innings=(value:unknown)=>{const m=String(value??'').trim().match(/^(\d+)(?
 const countGames=(s:string)=>{const m=s?.match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/);return m?Number(m[1])+Number(m[2])+Number(m[3]):null;};
 const rates=(s:string)=>{const m=s?.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/);if(!m)return null;const a=number(m[1],15),b=number(m[2],15);return a!==null&&b!==null&&a>0&&b>0?[a,b]:null;};
 const team=(s:string,league:ModelLeague)=>internationalTeam(s.replace(/\s*[（(](?:主|客)[）)]\s*/g,'').trim(),league);
-const person=(s:string)=>s.replace(/[\s・·]/g,'');
 export const analysisStartTime=(start:string)=>Date.parse(start.replaceAll('/','-').replace(' ','T')+'+08:00');
 export const analysisFixtureKey=(g:Fixture,league:ModelLeague='NPB')=>JSON.stringify([league,analysisStartTime(g.start),team(g.away,league),team(g.home,league)]);
 const validObserved=(at:string,start:number,now:number)=>{const time=Date.parse(at);return Number.isFinite(time)&&time<=now&&time<start&&now-time<=MAX_SOURCE_AGE;};
@@ -145,7 +145,7 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
 export function matchingRunAnalysis(game:Fixture,reports:Map<string,RunAnalysis>,now:number,league:ModelLeague='NPB'):RunAnalysis|null{
  const r=reports.get(analysisFixtureKey(game,league));if(!r||r.version!==MODEL_VERSION[league])return null;
  if(game.live||now>=analysisStartTime(game.start))return {...r,status:'started',reason:'已開賽，停止賽前估算',win:null,expected:null,grids:null};
- if(sides.some(side=>game.starters?.[side]&&person(game.starters[side]!)!==person(r.fixture.starters?.[side]||'')))return {...r,status:'waiting_data',reason:'先發已變更，等待新投手成績',win:null,expected:null,grids:null};
+ if(sides.some(side=>game.starters?.[side]&&pitcherIdentity(game.starters[side]!,league,game[side])!==pitcherIdentity(r.fixture.starters?.[side]||'',league,game[side])))return {...r,status:'waiting_data',reason:'先發已變更，等待新投手成績',win:null,expected:null,grids:null};
  if(Object.values(r.inputs).some(s=>!validObserved(s.teamObservedAt,analysisStartTime(game.start),now)||!validObserved(s.starterObservedAt,analysisStartTime(game.start),now)||(s.bullpenMode!=='team_defense'&&!validObserved(s.bullpenObservedAt,analysisStartTime(game.start),now))))return {...r,status:'waiting_data',reason:'分析資料已過期，等待來源更新',win:null,expected:null,grids:null};
  return r;
 }
