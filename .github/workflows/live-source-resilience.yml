@@ -1,0 +1,65 @@
+name: Three league source resilience
+on:
+  push:
+    branches: ['fix/live-source-resilience-20260922', 'fix/live-source-resilience-integrated-20260922']
+permissions:
+  contents: read
+concurrency:
+  group: source-resilience-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  diagnose:
+    strategy:
+      fail-fast: false
+      matrix:
+        league: [CPBL, NPB, KBO]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node scripts/live-source-resilience-probe.mjs ${{ matrix.league }}
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_PASSWORD: ci-only-not-a-production-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: node --test tests/international-repair*.test.mjs
+      - run: npm run build
+      - name: Verify actual production startup and three background feeds
+        env:
+          DATABASE_URL: postgresql://postgres:ci-only-not-a-production-password@127.0.0.1:5432/postgres
+          PLATFORM_ADMIN_USERNAME: ci-only-admin
+          PORT: '10000'
+          YJ_BACKGROUND_REFRESH: '1'
+        run: |
+          export TZ_BINDING_KEY="$(node -e 'console.log(require("crypto").randomBytes(32).toString("base64"))')"
+          node scripts/render-start.mjs > /tmp/yj-runtime-smoke.log 2>&1 &
+          app_pid=$!
+          trap 'kill "$app_pid" 2>/dev/null || true' EXIT
+          node scripts/baseball-runtime-smoke.mjs
