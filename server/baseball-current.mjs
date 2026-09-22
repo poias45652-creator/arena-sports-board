@@ -1,10 +1,8 @@
-import {npbGameStart} from './baseball-npb-start.mjs';
+import {npbGameStart,recoverNpbPregameState} from './baseball-npb-start.mjs';
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb} from './baseball-live-providers.mjs';
 import {addNpbContext} from './baseball-npb-context.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
-/** NPB's selected-game detail page omits that game's sidebar identity card.
- * Match the exact opaque game ID from the dated schedule, not team-name guesses.
- */
+/** Match the exact opaque game ID from the dated schedule, not team-name guesses. */
 export async function collectLeague(league,options={}){
  const deadline=AbortSignal.timeout(35000),original=options.fetcher||fetch;
  options={...options,fetcher:(url,init={})=>original(url,{...init,signal:init.signal?AbortSignal.any([deadline,init.signal]):deadline})};
@@ -24,9 +22,9 @@ export async function collectLeague(league,options={}){
    if(requests[0].status!=='fulfilled')throw requests[0].reason;
    const page=requests[0].value,stats=requests[1].status==='fulfilled'?requests[1].value:null;
    if(!stats)errors.push(id+':stats unavailable');
-   // Append only this game's factual card, never unrelated sidebar scores.
    const g=parseNpb(page.text+'\n'+card[0],stats?.text||'',id,page);
    g.startTime=npbGameStart(page.text,id,g.date,g.startTime);
+   recoverNpbPregameState(g);
    if(g.date!==date)throw new Error('Requested date differs from game date: '+g.date);
    try{addNpbContext(g,page);}catch(e){errors.push(id+':starters '+e.message);}
    g.source.supportingSources=[{url:schedule.url,fetchedAt:schedule.fetchedAt},...(stats?[{url:stats.url,fetchedAt:stats.fetchedAt}]:[])];

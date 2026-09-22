@@ -11,3 +11,11 @@ export function npbGameStart(html,id,date,previous=null){
  if(!Number.isFinite(ms)||new Date(ms+9*3600000).toISOString().slice(0,10)!==date)throw Error('日職日期無效');
  if(previous&&Date.parse(previous)!==ms)throw Error('日職開賽時間欄位不一致');return new Date(ms).toISOString();
 }
+export function recoverNpbPregameState(game){
+ const start=Date.parse(game.startTime),observed=Date.parse(game.source?.fetchedAt);
+ // Sportsnavi changes the pregame link from preview to lineup after lineups publish.
+ if(game.status==='unknown'&&Number.isFinite(start)&&Number.isFinite(observed)&&observed<start&&/スタメン|見どころ|試合前|開始前/.test(game.rawStatus||'')&&!/試合終了|中止|中断|\d+回[表裏]/.test(game.rawStatus||'')){
+  game.status='pregame';for(const side of ['away','home'])if(game[side]){game[side].score=null;game[side].hits=null;game[side].errors=null;}
+ }
+ return game;
+}

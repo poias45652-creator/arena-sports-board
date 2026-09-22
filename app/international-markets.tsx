@@ -45,6 +45,14 @@ export default function InternationalMarkets({league,schedule,standings,starters
  useEffect(()=>{if(targetDay)onDateChange?.(targetDay)},[targetDay,onDateChange]);
  useEffect(()=>{setDay('auto');setPicks([]);setMarketTabs({})},[league]);
  const record=(name:string)=>{for(const table of standings?.tables||[]){const hi=table.headers.indexOf('球隊'),wi=table.headers.indexOf('勝'),li=table.headers.indexOf('敗');const row=table.rows.find(r=>hi>=0&&teamName(r[hi])===teamName(name));if(row)return wi>=0&&li>=0?`${row[wi]} 勝 ${row[li]} 敗`:'';}return '';};
+ const gameRecord=(g:any,side:'home'|'away')=>{
+  const fromStandings=record(g[side]);if(fromStandings)return fromStandings;
+  const table=g.pregame?.comparison as SourceTable|undefined;
+  const row=table?.rows.find(r=>r[table.headers.indexOf('類別')]==='本季'&&teamName(r[table.headers.indexOf('球隊')]||'')===teamName(g[side]));
+  const raw=g.pregame?.[side].record||(row&&row[table!.headers.indexOf('勝敗')]);
+  const m=String(raw||'').match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/);
+  return m?`${m[1]} 勝 ${m[2]} 敗 ${m[3]} 和`:raw?`來源戰績 ${raw}`:'本季戰績尚未取得';
+ };
  const valid=picks.length>0&&fresh&&picks.every(p=>{const g=games.find((g:any)=>g.id===p.event);return g&&!g.live&&Date.parse(g.start.replaceAll('/','-').replace(' ','T')+'+08:00')>now&&options(g,p.period,p.type).some(o=>o.key===p.key&&o.signature===p.signature);});
  const amount=Number(stake),net=picks.reduce((v,p)=>v*(1+p.price),1);
  function recommend(){
@@ -89,8 +97,8 @@ export default function InternationalMarkets({league,schedule,standings,starters
      const marketStatus=started?'已開賽，暫停賽前選關。':error?'盤口連線失敗，請更新資料。':busy&&!fresh?'正在讀取本場盤口…':!fresh?'盤口資料等待更新。':opts.length?'':!g.oddsSource?'本次尚未取得可配對的盤口。':!(g.displayMarkets||[]).some((m:any)=>m.period===currentPeriod&&m.type===Number(currentType))?'本次未取得本玩法盤口，請更新資料。':'本玩法目前封盤，或主盤報價尚不完整。';
      const analysis=hasModel?matchingRunAnalysis(g,analysisReports,now,modelLeague):null;
      return <article key={g.id} className="panel international-match-card overflow-hidden">
-     <div className="flex flex-wrap justify-between gap-2 px-5 pt-4 text-sm text-slate-400"><span>{g.start}（台灣）{g.venue?` · ${g.venue}`:''}</span><span>{analysis?.expected?`九局得分期望：客 ${analysis.expected.away.toFixed(1)}／主 ${analysis.expected.home.toFixed(1)}，合計 ${(analysis.expected.away+analysis.expected.home).toFixed(1)} 分${analysis.win?` · 和局 ${(analysis.win.draw*100).toFixed(1)}%`:''}`:'得分期望：等待有效資料'}</span></div>
-     <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name">{league!=='CPBL'&&<InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/>}<h2>{cleanTeam(g[side])}<small>（{side==='home'?'主':'客'}）</small></h2><span><small>勝率</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{record(g[side])||(g.pregame?.[side].record?`來源戰績 ${g.pregame[side].record}`:'戰績資料更新中')}</p><p>預計先發：<strong>{g.starters?.[side]||'尚未公布'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
+     <div className="flex flex-wrap justify-between gap-2 px-5 pt-4 text-sm text-slate-400"><span>{g.start}（台灣）{g.venue?` · ${g.venue}`:''}</span><span>{analysis?.expected?`九局得分期望：客 ${analysis.expected.away.toFixed(1)}／主 ${analysis.expected.home.toFixed(1)}，合計 ${(analysis.expected.away+analysis.expected.home).toFixed(1)} 分${analysis.win?` · 和局 ${(analysis.win.draw*100).toFixed(1)}%`:''}`:started?'已開賽，停止賽前估算':`得分期望：${analysis?.reason||'本場賽前統計尚未取得'}`}</span></div>
+     <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2>{cleanTeam(g[side])}<small>（{side==='home'?'主':'客'}）</small></h2><span><small>勝率</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
     {!games.length&&<div className="panel p-5">{dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`}</div>}

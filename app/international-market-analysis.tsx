@@ -37,7 +37,7 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
         onClick={()=>pick&&onPick(pick)}>
         <span className="block w-full">
          <span className="market-pick-title flex w-full flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold">
-          <span className="inline-flex min-w-0 flex-wrap items-center gap-2">{league!=='CPBL'&&!total&&!oddEven&&<InternationalTeamLogo league={league} name={game[side]} size={24}/>}<span>{title}</span>{preferred===side&&<span className="text-sm text-emerald-400">推薦</span>}{active&&<span aria-label="已選取">✓</span>}</span>
+          <span className="inline-flex min-w-0 flex-wrap items-center gap-2">{!total&&!oddEven&&<InternationalTeamLogo league={league} name={game[side]} size={24}/>}<span>{title}</span>{preferred===side&&<span className="text-sm text-emerald-400">推薦</span>}{active&&<span aria-label="已選取">✓</span>}</span>
           <span className="ml-auto whitespace-nowrap text-right tabular-nums">{pick?`${pick.lineLabel}${pick.lineLabel?' ':''}@${pick.price.toFixed(3)}`:'—'}</span>
          </span>
          <span className="mt-3 block text-sm"><span className="market-outcomes">{(['win','partialWin','partialLoss','loss'] as const).map((key,index)=>{const label=['全贏','中洞贏','中洞輸','全輸'][index];return <span className="market-outcome" data-tone={index<2?'win':'loss'} key={key}><span>{label}</span><strong aria-label={result?`${label}估算機率 ${(result[key]*100).toFixed(1)}%`:`${label}機率尚未取得`}>{result?`${(result[key]*100).toFixed(1)}%`:'—'}</strong></span>;})}</span></span>
@@ -46,6 +46,7 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
        </Button>;
       })}</div>
       {status&&<p role="status" className="text-sm text-amber-200">{status}</p>}
+      {isModelLeague(league)&&analysis?.status!=='ready'&&<p role="status" className="text-sm text-amber-200">分析資料：{analysis?.reason||'本場賽前統計尚未取得或尚未完成配對；不以空值產生機率。'}</p>}
       {!isModelLeague(league)&&<p className="text-sm text-slate-400">分析資料待齊，機率尚未產生。</p>}
      </section>
     </TabsContent>
