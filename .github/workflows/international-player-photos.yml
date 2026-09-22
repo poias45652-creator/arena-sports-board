@@ -1,0 +1,50 @@
+name: International player photos
+on:
+  push:
+    branches: ['fix/international-player-photos-20260923']
+    paths:
+      - 'app/international-team-profile.tsx'
+      - 'app/globals.css'
+      - 'lib/international-profile-source.ts'
+      - '.github/workflows/international-player-photos.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+      - name: Verify official NPB and KBO photo sources
+        run: |
+          node --input-type=module <<'JS'
+          const npb=await fetch('https://npb.jp/bis/players/51155155.html',{headers:{'User-Agent':'YJBaseballStats/1.0'}});
+          const npbHtml=await npb.text();
+          if(!npb.ok||!/players_photo\/2026\/[^"'<>\s]+\.jpg/i.test(npbHtml))throw new Error('NPB official player photo not found');
+          const base=await fetch('https://eng.koreabaseball.com/Teams/PlayerSearch.aspx',{headers:{'User-Agent':'YJBaseballStats/1.0'}});
+          const html=await base.text();
+          const fields={};for(const m of html.matchAll(/<input\b[^>]*type="hidden"[^>]*>/gi)){const n=m[0].match(/name="([^"]+)"/)?.[1],v=m[0].match(/value="([^"]*)"/)?.[1];if(n)fields[n]=v||'';}
+          fields.__EVENTTARGET='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$lbtnSearch';
+          fields.__EVENTARGUMENT='';
+          fields['ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfTeam']='lg';
+          fields['ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfPosition']='3,4,5,6';
+          const body=new URLSearchParams(fields);
+          const cookie=base.headers.get('set-cookie')?.split(';')[0]||'';
+          const roster=await fetch('https://eng.koreabaseball.com/Teams/PlayerSearch.aspx',{method:'POST',body,headers:{'User-Agent':'YJBaseballStats/1.0','Content-Type':'application/x-www-form-urlencoded',Cookie:cookie}});
+          const rosterHtml=await roster.text();
+          if(!roster.ok||!/PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=\d+/i.test(rosterHtml))throw new Error('KBO official roster player codes not found');
+          const pcode=rosterHtml.match(/PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=(\d+)/i)?.[1];
+          const photo='https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/2026/'+pcode+'.jpg';
+          const image=await fetch(photo,{method:'HEAD'});
+          if(!image.ok)throw new Error('KBO official player photo not reachable: '+photo);
+          console.log(JSON.stringify({npb:true,kbo:true,pcode,photo}));
+          JS
