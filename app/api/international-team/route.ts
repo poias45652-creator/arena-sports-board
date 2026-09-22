@@ -14,7 +14,7 @@ export async function GET(request:Request){
  if(league==='CPBL'&&action==='games'&&baseline&&cpblDaily.season===year)baseline={...baseline,games:supplementCpblHistory(baseline.games,cpblDaily.games,year),sources:[...baseline.sources,{label:'B-ASEBALL 已完賽資料補充',url:cpblDaily.games[0].url}],supplementObservedAt:cpblDaily.observedAt};
  if(old&&old.until>Date.now())return Response.json(old.data,{headers:{'Cache-Control':'no-store'}});
  if(!pending.has(key))pending.set(key,(async()=>{try{
-  let data=action==='players'?await collectProfilePlayers(league,code,year):action==='upcoming'?await collectUpcoming(code,year):await collectProfileGames(league,year);
+  let data:any=action==='players'?await collectProfilePlayers(league,code,year):action==='upcoming'?await collectUpcoming(code,year):await collectProfileGames(league,year);
   if(action==='players'&&baseline){
    const merged={...data,bat:data.bat||baseline.bat,pit:data.pit||baseline.pit},photos={...(data.photos||{})},index=data.photoIndex||{};
    for(const table of [merged.bat,merged.pit])for(const row of table?.rows||[]){const src=index[photoKey(row[0])];if(src&&!photos[row[0]])photos[row[0]]=src;}
