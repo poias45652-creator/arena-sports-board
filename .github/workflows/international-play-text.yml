@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - run: node scripts/international-play-text-probe.mjs ${{ matrix.league }}
+      - run: node scripts/play-text-detail-probe.mjs ${{ matrix.league }}
