@@ -48,5 +48,11 @@ jobs:
           const photo='https://6ptotvmi5753.edge.naverncp.com/'+expected;
           const image=await fetch(photo,{method:'HEAD',headers});
           if(!image.ok)throw new Error('KBO official player photo not reachable: '+photo);
-          console.log(JSON.stringify({npb:true,kbo:true,pcode:person.pcode,photo}));
+          const sportsnavi='https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/portrait/5/2110351.jpg';
+          const sImg=await fetch(sportsnavi,{method:'HEAD',headers});
+          if(!sImg.ok)throw new Error('Sportsnavi fallback player photo unavailable');
+          const mykbo='https://mykbostats.com/photos/player/2451/53123.jpg';
+          const mImg=await fetch(mykbo,{method:'HEAD',headers});
+          if(!mImg.ok)throw new Error('MyKBO fallback player photo unavailable');
+          console.log(JSON.stringify({npb:true,kbo:true,sportsnavi:true,mykbo:true,pcode:person.pcode,photo}));
           JS
