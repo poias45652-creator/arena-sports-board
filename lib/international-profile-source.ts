@@ -22,6 +22,18 @@ function hidden(html:string){const p=new URLSearchParams();for(const m of html.m
 async function kboStep(page:Page,direction:'Before'|'Next'){
  const p=hidden(page.html),name=page.html.match(new RegExp(`name="([^"]*\\$btn${direction})"`))?.[1];if(!name)throw Error('韓職月份控制欄位缺漏');p.set(name+'.x','1');p.set(name+'.y','1');const next=await getPage('https://eng.koreabaseball.com/Schedule/DailySchedule.aspx',p,page.cookie);return {...next,cookie:next.cookie||page.cookie};
 }
+
+const photoKey=(name:string)=>String(name||'').normalize('NFKC').replace(/^\s*[*＊]\s*/,'').replace(/[.,'’·・]/g,' ').replace(/\s+/g,' ').trim().toLowerCase().split(' ').filter(Boolean).sort().join('|');
+async function parallelMap<T,R>(items:T[],fn:(item:T)=>Promise<R>,limit=8){let cursor=0;const out:R[]=[];await Promise.all(Array.from({length:Math.min(limit,items.length)},async()=>{while(cursor<items.length){const i=cursor++;out[i]=await fn(items[i]);}}));return out;}
+function npbPlayerLinks(html:string){const seen=new Map<string,{name:string;url:string}>();for(const m of html.matchAll(/<a\b[^>]*href=["'](\/bis\/players\/(\d+)\.html)["'][^>]*>([\s\S]*?)<\/a>/gi)){const name=plain(m[3]);if(name)seen.set(m[2],{name,url:'https://npb.jp'+m[1]});}return [...seen.values()];}
+async function npbPhotos(pages:string[]){const links=new Map<string,{name:string;url:string}>();for(const html of pages)for(const row of npbPlayerLinks(html))links.set(row.url,row);const photos=new Map<string,string>();await parallelMap([...links.values()].slice(0,80),async row=>{try{const html=(await getPage(row.url)).html;const src=html.match(/(?:https?:)?\/\/p\.npb\.jp\/players_photo\/[^"'<>\s]+\.jpg/i)?.[0];if(src)photos.set(photoKey(row.name),src.startsWith('//')?'https:'+src:src);}catch{}return null;},8);return photos;}
+const KBO_SEARCH='https://eng.koreabaseball.com/Teams/PlayerSearch.aspx';
+const KBO_EVENT='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$lbtnSearch';
+const KBO_TEAM='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfTeam';
+const KBO_POSITION='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfPosition';
+async function kboRosterPage(base:Page,team:string,position:string){const p=hidden(base.html);p.set('__EVENTTARGET',KBO_EVENT);p.set('__EVENTARGUMENT','');p.set(KBO_TEAM,team.toLowerCase());p.set(KBO_POSITION,position);const page=await fetchPage(KBO_SEARCH,p,base.cookie);return {...page,cookie:page.cookie||base.cookie};}
+async function kboPhotos(code:string,year:number){const base=await getPage(KBO_SEARCH),pages=await Promise.all(['1','2','3,4,5,6','7,8,9'].map(pos=>kboRosterPage(base,code,pos)));const photos=new Map<string,string>();for(const page of pages)for(const m of page.html.matchAll(/<a\b[^>]*href=["'][^"']*PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=(\d+)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)){const name=plain(m[2]),pcode=m[1];if(name)photos.set(photoKey(name),`https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/${year}/${pcode}.jpg`);}return photos;}
+function attachPhotos(result:{bat:any;pit:any},photos:Map<string,string>){const out:Record<string,string>={};for(const table of [result.bat,result.pit])for(const row of table?.rows||[]){const src=photos.get(photoKey(row[0]));if(src)out[row[0]]=src;}return out;}
 export async function collectProfileGames(league:ProfileLeague,year:number){
  let games:ProfileGame[]=[];const warnings:string[]=[],sources:{label:string;url:string}[]=[];
  if(league==='CPBL'){
@@ -57,16 +69,18 @@ export async function collectProfileGames(league:ProfileLeague,year:number){
  return {games,warnings,sources,fetchedAt:new Date().toISOString()};
 }
 export async function collectProfilePlayers(league:ProfileLeague,code:string,year:number){
- const warnings:string[]=[],sources:{label:string;url:string}[]=[],result:{bat:any;pit:any}={bat:null,pit:null};
+ const warnings:string[]=[],sources:{label:string;url:string}[]=[],result:{bat:any;pit:any}={bat:null,pit:null};let photos:Record<string,string>={};
  if(league==='CPBL'){
   // Yahoo's public CPBL stats page currently says No Data Available. Keep any
   // dated archive stale; never fetch the official site as a hidden fallback.
   throw Error('中職官網抓取已停用；非官網完整球員成績來源尚未提供資料');
  }else if(league==='NPB'){
-  await Promise.all((['bat','pit'] as const).map(async kind=>{const url=`https://npb.jp/bis/${year}/stats/id${kind==='bat'?'b':'p'}1_${code}.html`;try{result[kind]=npbPlayers((await getPage(url)).html,year,kind);sources.push({label:`NPB 官方${kind==='bat'?'打者':'投手'}成績`,url});}catch{warnings.push(`${kind==='bat'?'打者':'投手'}成績暫時無法讀取`);}}));
+  const pages:string[]=[];await Promise.all((['bat','pit'] as const).map(async kind=>{const url=`https://npb.jp/bis/${year}/stats/id${kind==='bat'?'b':'p'}1_${code}.html`;try{const page=await getPage(url);pages.push(page.html);result[kind]=npbPlayers(page.html,year,kind);sources.push({label:`NPB 官方${kind==='bat'?'打者':'投手'}成績`,url});}catch{warnings.push(`${kind==='bat'?'打者':'投手'}成績暫時無法讀取`);}}));
+  try{photos=attachPhotos(result,await npbPhotos(pages));sources.push({label:'NPB 官方球員照片',url:'https://npb.jp/bis/players/'});}catch{warnings.push('部分球員照片暫時無法讀取');}
  }else{
   await Promise.all((['bat','pit'] as const).map(async kind=>{const url=`https://www.fangraphs.com/leaders/international/kbo?stats=${kind}&season=${year}&season1=${year}&qual=0&pageitems=2000&pagenum=1`;try{const data=parseInternational((await getPage(url)).html,`kbo-${kind}`,year),table=data.tables[0],index=table.headers.indexOf('球隊');result[kind]={...table,rows:table.rows.filter(r=>r[index]===profileTeams.KBO[code])};sources.push({label:`FanGraphs 韓職${kind==='bat'?'打者':'投手'}成績`,url});}catch{warnings.push(`${kind==='bat'?'打者':'投手'}成績暫時無法讀取`);}}));
+  try{photos=attachPhotos(result,await kboPhotos(code,year));sources.push({label:'KBO 官方球員照片',url:KBO_SEARCH});}catch{warnings.push('部分球員照片暫時無法讀取');}
  }
- if(!result.bat&&!result.pit)throw Error('球員資料暫時無法讀取');return {...result,warnings,sources,fetchedAt:new Date().toISOString()};
+ if(!result.bat&&!result.pit)throw Error('球員資料暫時無法讀取');return {...result,photos,warnings,sources,fetchedAt:new Date().toISOString()};
 }
 export async function collectUpcoming(code:string,year:number){const names:Record<string,string>={ACN:'中信',ADD:'統一',AEO:'富邦',AJL:'樂天',AAA:'味全',AKP:'台鋼'},url=`https://tw.sports.yahoo.com/cpbl/teams/${encodeURIComponent(names[code])}/`;return {games:cpblUpcoming((await getPage(url)).html,year),sources:[{label:'Yahoo 中職待賽與進行中賽程',url}],fetchedAt:new Date().toISOString(),warnings:[]};}
