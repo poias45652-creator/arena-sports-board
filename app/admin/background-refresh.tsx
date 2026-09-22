@@ -1,0 +1,10 @@
+'use client';
+import {useEffect,useState} from 'react';
+type Row={league:string;running:boolean;checkedAt:string|null;succeededAt:string|null;nextCheckAt:string|null;status:string;games:number;error:string|null};
+type State={enabled:boolean;mode:string;continuousAcrossHostingSleep:boolean;leagues:Row[]};
+const stamp=(s:string|null|undefined)=>s&&Number.isFinite(Date.parse(s))?new Date(s).toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour12:false}):'尚未取得';
+export default function BackgroundRefresh(){
+ const [data,setData]=useState<State>(),[error,setError]=useState('');
+ useEffect(()=>{const c=new AbortController();let busy=false;async function load(){if(busy||document.hidden)return;busy=true;try{const r=await fetch('/api/health',{cache:'no-store',signal:AbortSignal.any([c.signal,AbortSignal.timeout(15000)])});const d=await r.json();if(!r.ok||!d.ok)throw Error();if(!c.signal.aborted){setData(d.refresh);setError('');}}catch{if(!c.signal.aborted)setError('背景狀態暫時無法讀取');}finally{busy=false;}}void load();const timer=setInterval(()=>void load(),30000);return()=>{c.abort();clearInterval(timer);};},[]);
+ return <section className="panel admin-section p-5 space-y-3"><h2 className="text-lg font-bold">三聯盟背景更新</h2><p className="text-sm">{data?.enabled?'伺服器內三路採集已啟動；場中及開賽前 30 分鐘約每 60 秒檢查，賽前統計每 5 分鐘。':'背景程序尚未啟動或正在載入狀態。'}</p><p className="text-sm text-amber-200">不需停留在各聯盟頁面。免費 Render 主機休眠或重新部署時會停止，不能當成全天候不中斷服務。更新頻率不是逐球傳輸延遲。</p>{error&&<p className="text-rose-300 text-sm">{error}</p>}<div className="grid gap-3 md:grid-cols-3">{(data?.leagues||[]).map(row=><div key={row.league} className="rounded-lg border border-slate-600 p-3 text-sm"><h3 className="font-bold">{row.league} · {row.running?'檢查中':row.status==='ok'?'場況來源已更新':row.status==='partial'?'部分場況已更新':row.status==='unavailable'?'來源待重試':'等待檢查'}</h3><p>場況 {row.games} 場</p><p>最近檢查：{stamp(row.checkedAt)}</p><p>最近成功：{stamp(row.succeededAt)}</p><p>下次檢查：{stamp(row.nextCheckAt)}</p>{row.error&&<p className="text-amber-200">{row.error}</p>}<p className="mt-2 text-slate-400">場況成功不代表投手、牛棚與分析資料完整。</p></div>)}</div></section>;
+}

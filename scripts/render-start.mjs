@@ -6,7 +6,7 @@ if (missing.length) {console.error('Missing Render environment settings: ' + mis
 if (Buffer.from(process.env.TZ_BINDING_KEY, 'base64').length !== 32) {console.error('TZ_BINDING_KEY must contain a base64-encoded 32-byte key.'); process.exit(1);}
 try {await migrate(); await getPool().end();}
 catch (error) {console.error('Database migration failed. Check DATABASE_URL and schema creation permissions. Code: ' + (error.code || 'unavailable')); process.exit(1);}
-const child = spawn(process.execPath, ['node_modules/next/dist/bin/next','start','--hostname','0.0.0.0','--port',process.env.PORT || '10000'], {stdio:'inherit',env:process.env});
+const child = spawn(process.execPath, ['node_modules/next/dist/bin/next','start','--hostname','0.0.0.0','--port',process.env.PORT || '10000'], {stdio:'inherit',env:{...process.env,YJ_BACKGROUND_REFRESH:process.env.YJ_BACKGROUND_REFRESH||'1'}});
 for (const signal of ['SIGTERM','SIGINT']) process.on(signal, () => child.kill(signal));
 child.on('error', () => {console.error('Unable to start the web server.'); process.exit(1);});
 child.on('exit', (code, signal) => process.exit(code ?? (signal === 'SIGTERM' ? 0 : 1)));

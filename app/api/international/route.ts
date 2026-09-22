@@ -1,9 +1,9 @@
 import {parseInternational,sourceLinks} from '@/lib/international';
 import {getInternationalPregame} from '@/lib/international-feed';
+import {baseballBackgroundStatus} from '@/server/baseball-background-state.mjs';
 export const dynamic='force-dynamic';
 type Entry={data:any;until:number};
 const memory=new Map<string,Entry>();
-
 const lastGood=new Map<string,any>();
 export async function GET(request:Request){
  const u=new URL(request.url),kind=u.searchParams.get('kind')||'sources',year=new Date().getUTCFullYear();
@@ -11,7 +11,8 @@ export async function GET(request:Request){
  if(/^(npb|kbo|cpbl)-pregame$/.test(kind)){
   const date=u.searchParams.get('date')||undefined;
   if(date&&(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date))||new Date(date).toISOString().slice(0,10)!==date))return Response.json({error:'無效的賽事日期'},{status:400});
-  return Response.json(await getInternationalPregame(kind.split('-')[0].toUpperCase(),date),{headers:{'Cache-Control':'no-store'}});
+  const data=await getInternationalPregame(kind.split('-')[0].toUpperCase(),date),background=baseballBackgroundStatus();
+  return Response.json({...data,automaticBackgroundSync:background.enabled,background,scope:background.enabled?'伺服器運行期間背景更新；休眠與重啟仍會中斷。歷史欄位保留原時間。':data.scope},{headers:{'Cache-Control':'no-store'}});
  }
  if(kind==='cpbl-schedule'){
   const key=`cpbl-schedule-${year}`,cached=memory.get(key);if(cached&&cached.until>Date.now())return Response.json(cached.data);
