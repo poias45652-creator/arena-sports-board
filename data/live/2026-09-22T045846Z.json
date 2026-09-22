@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-22",
+  "capturedAt": "2026-09-22T04:58:46.881Z",
+  "purpose": "same-day collector evidence and parser-fix validation; not production deployment",
+  "run": {
+    "runId": 35688889561,
+    "runAttempt": 1,
+    "jobId": 106621465110,
+    "artifactId": 10678246243,
+    "artifactCreatedAt": "2026-09-22T04:58:48Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "captureWindow": {
+    "secondCapturePerformed": false,
+    "reason": "All 13 first-team games were pregame in this successful capture; no live game existed to justify a >=65 second second capture."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 6,
+      "pregame": 6,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "placeholderBattingRows": 0,
+      "firstStartTaipei": "14:00"
+    },
+    "KBO": {
+      "games": 4,
+      "pregame": 4,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "firstStartTaipei": "17:30"
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "firstStartTaipei": "18:35",
+      "unverifiedFields": ["inning","half","balls","strikes","outs","bases","pitchCount"]
+    }
+  },
+  "parserFix": {
+    "commit": "57f2c4959eaa49a28ea773e5485b07c29c2d9232",
+    "file": "server/baseball-live-providers.mjs",
+    "change": "Skip NPB stats-table parsing unless game status is live, final, or suspended.",
+    "reason": "The pre-fix 2026-09-22 artifact showed synthetic batting rows named '0' with zero-valued stats in all six NPB pregame games, expanding the previously observed cancelled-game placeholder issue.",
+    "validation": {
+      "syntaxCheck": true,
+      "collectorPassed": true,
+      "databasePassed": true,
+      "npbPlaceholderBattingRowsAfterFix": 0,
+      "verifiedByRun": 35688889561,
+      "verifiedByArtifact": 10678246243
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-22T04:58:48.142Z",
+    "inserted": 13,
+    "readBack": 13,
+    "duplicateInserts": 0,
+    "passed": true,
+    "perLeague": {
+      "NPB": {"written": 6, "readBack": 6, "duplicateWrites": 0, "passed": true},
+      "KBO": {"written": 4, "readBack": 4, "duplicateWrites": 0, "passed": true},
+      "CPBL": {"written": 3, "readBack": 3, "duplicateWrites": 0, "passed": true}
+    }
+  },
+  "notes": [
+    "Artifact 10678246243 was created at 2026-09-22T04:58:48Z and matches capturedAt 2026-09-22T04:58:46.881Z on run attempt 1 of the fix-validation run.",
+    "The immediately preceding pre-fix rerun (run 35589830427 attempt 7, artifact 10677831704) was created at 2026-09-22T04:56:07Z and exposed NPB placeholder batting rows in all six pregame fixtures; it is not being used as the post-fix observation.",
+    "No live game existed in this capture, so no >=65 second live-change comparison was performed.",
+    "CPBL pitchCount remains null and source-listed lineups remain unverified.",
+    "main, Render, production database, login, accounts and environment variables were not modified."
+  ]
+}
