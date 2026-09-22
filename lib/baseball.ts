@@ -19,8 +19,12 @@ export function parseStats(text:string,kind:Kind):StatRow[]{
   if(!result.length)throw new Error('來源沒有有效資料');return result;
 }
 export type TeamSide={id:number;name:string;wins:number|null;losses:number|null;pitcherId:number|null;pitcherName:string;pitcherEra?:number|null;pitcherWhip?:number|null};
-export type Match={id:number;date:string;season:number;gameType:string;state:string;status:string;startTimeTBD:boolean;away:TeamSide;home:TeamSide};
+export type Match={id:number;date:string;season:number;gameType:string;state:string;status:string;startTimeTBD:boolean;doubleHeader?:string;gameNumber?:number;away:TeamSide;home:TeamSide};
 export type Schedule={games:Match[];fetchedAt:string;source:string};
+export function doubleheaderLabel(g:Pick<Match,'doubleHeader'|'gameNumber'>):'G1'|'G2'|null {
+  if(g.doubleHeader!=='Y'&&g.doubleHeader!=='S')return null;
+  return g.gameNumber===1?'G1':g.gameNumber===2?'G2':null;
+}
 export function taipeiDay(time:number|string=Date.now()){return new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(time));}
 export function shiftDay(date:string,days:number){return new Date(Date.parse(date+'T12:00:00Z')+days*86400000).toISOString().slice(0,10);}
 export function log5(aw:number,al:number,hw:number,hl:number):number|null {

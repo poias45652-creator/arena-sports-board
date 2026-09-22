@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button';
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select';
 import { RefreshCw } from 'lucide-react';
-import { fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
+import { doubleheaderLabel,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
 import Markets from './markets';
 import {multifactorWin} from '@/lib/multifactor-win';
 import MatchInningBoard from './match-inning-board';
@@ -88,9 +88,13 @@ export default function Pregame(){
   function matchHeader(g:Match,expectedRunsInfo:ReactNode){
     const h=probability(g),pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
     const score=matchScore(g,scores.data,day),showScoreboard=showMatchScoreboard(g,score);
+    const gameLabel=doubleheaderLabel(g);
     return <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm">
-        <span className="text-slate-400">{stamp(g.date)}（台灣）</span>
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-slate-400">{stamp(g.date)}（台灣）</span>
+          {gameLabel&&<span className="inline-flex items-center rounded border border-[#ffd538]/50 bg-[#ffd538]/10 px-2 py-0.5 font-bold text-[#ffd538]" aria-label={`雙重賽第 ${g.gameNumber} 場`} title={`雙重賽第 ${g.gameNumber} 場`}>{gameLabel}</span>}
+        </div>
         <div className="ml-auto min-w-0 text-right text-slate-400">{expectedRunsInfo}{!pre&&<span className="text-amber-200">{g.state==='Final'?'已完賽 不提供回填預測':g.state==='Live'?'進行中 不再提供賽前選擇':'賽事狀態待確認／已到開賽時間'}</span>}</div>
       </div>
       <div className="match-header-teams grid gap-4 sm:grid-cols-2" data-scoreboard={showScoreboard}>
