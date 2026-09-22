@@ -28,11 +28,19 @@ async function parallelMap<T,R>(items:T[],fn:(item:T)=>Promise<R>,limit=8){let c
 function npbPlayerLinks(html:string){const seen=new Map<string,{name:string;url:string}>();for(const m of html.matchAll(/<a\b[^>]*href=["'](\/bis\/players\/(\d+)\.html)["'][^>]*>([\s\S]*?)<\/a>/gi)){const name=plain(m[3]);if(name)seen.set(m[2],{name,url:'https://npb.jp'+m[1]});}return [...seen.values()];}
 async function npbPhotos(pages:string[]){const links=new Map<string,{name:string;url:string}>();for(const html of pages)for(const row of npbPlayerLinks(html))links.set(row.url,row);const photos=new Map<string,string>();await parallelMap([...links.values()].slice(0,80),async row=>{try{const html=(await getPage(row.url)).html;const src=html.match(/(?:https?:)?\/\/p\.npb\.jp\/players_photo\/[^"'<>\s]+\.jpg/i)?.[0];if(src)photos.set(photoKey(row.name),src.startsWith('//')?'https:'+src:src);}catch{}return null;},8);return photos;}
 const KBO_SEARCH='https://eng.koreabaseball.com/Teams/PlayerSearch.aspx';
-const KBO_EVENT='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$lbtnSearch';
-const KBO_TEAM='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfTeam';
-const KBO_POSITION='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfPosition';
-async function kboRosterPage(base:Page,team:string,position:string){const p=hidden(base.html);p.set('__EVENTTARGET',KBO_EVENT);p.set('__EVENTARGUMENT','');p.set(KBO_TEAM,team.toLowerCase());p.set(KBO_POSITION,position);const page=await fetchPage(KBO_SEARCH,p,base.cookie);return {...page,cookie:page.cookie||base.cookie};}
-async function kboPhotos(code:string,year:number){const base=await getPage(KBO_SEARCH),pages=await Promise.all(['1','2','3,4,5,6','7,8,9'].map(pos=>kboRosterPage(base,code,pos)));const photos=new Map<string,string>();for(const page of pages)for(const m of page.html.matchAll(/<a\b[^>]*href=["'][^"']*PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=(\d+)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)){const name=plain(m[2]),pcode=m[1];if(name)photos.set(photoKey(name),`https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/${year}/${pcode}.jpg`);}return photos;}
+const ymd=(time:number)=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(time));
+function kboProfileName(html:string){return plain(html.match(/<b>\s*Name\s*<\/b>\s*:\s*([^<]+)/i)?.[1]||'');}
+async function kboPhotos(code:string,year:number){
+ const end=ymd(Date.now()),start=ymd(Date.now()-30*86400000),scheduleUrl=`https://api-gw.sports.naver.com/schedule/games?categoryId=kbo&fromDate=${start}&toDate=${end}&page=1&size=100`;
+ const raw=JSON.parse((await getPage(scheduleUrl)).html),games=(raw.result?.games||[]).filter((g:any)=>g.categoryId==='kbo'&&(g.homeTeamCode===code||g.awayTeamCode===code)).sort((a:any,b:any)=>String(b.gameDateTime||b.gameDate).localeCompare(String(a.gameDateTime||a.gameDate))).slice(0,8);
+ if(!games.length)throw Error('韓職近期賽事名單暫缺');
+ const people=new Map<string,'bat'|'pit'>();
+ await parallelMap(games,async(g:any)=>{try{const page=await getPage(`https://api-gw.sports.naver.com/schedule/games/${g.gameId}/game-polling`),json=JSON.parse(page.html),relay=json.result?.textRelayData,side=g.homeTeamCode===code?'home':'away',lineup=relay?.[side+'Lineup'];for(const p of lineup?.batter||[])if(p.pcode)people.set(String(p.pcode),'bat');for(const p of lineup?.pitcher||[])if(p.pcode)people.set(String(p.pcode),'pit');}catch{}return null;},4);
+ if(!people.size)throw Error('韓職球員代碼暫缺');
+ const photos=new Map<string,string>();
+ await parallelMap([...people],async([pcode,kind])=>{try{const url=`https://eng.koreabaseball.com/Teams/PlayerInfo${kind==='pit'?'Pitcher':'Hitter'}/Summary.aspx?pcode=${pcode}`,html=(await getPage(url)).html,name=kboProfileName(html),src=html.match(/(?:https?:)?\/\/6ptotvmi5753\.edge\.naverncp\.com\/KBO_IMAGE\/person\/middle\/${year}\/${pcode}\.jpg/i)?.[0]||`https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/${year}/${pcode}.jpg`;if(name)photos.set(photoKey(name),src.startsWith('//')?'https:'+src:src);}catch{}return null;},8);
+ return photos;
+}
 function attachPhotos(result:{bat:any;pit:any},photos:Map<string,string>){const out:Record<string,string>={};for(const table of [result.bat,result.pit])for(const row of table?.rows||[]){const src=photos.get(photoKey(row[0]));if(src)out[row[0]]=src;}return out;}
 export async function collectProfileGames(league:ProfileLeague,year:number){
  let games:ProfileGame[]=[];const warnings:string[]=[],sources:{label:string;url:string}[]=[];
