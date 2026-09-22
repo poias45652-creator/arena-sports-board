@@ -1,0 +1,23 @@
+name: International play text
+on:
+  push:
+    branches: ['fix/international-play-text-20260923']
+permissions:
+  contents: read
+jobs:
+  source-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    strategy:
+      fail-fast: false
+      matrix:
+        league: [CPBL, NPB, KBO]
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node scripts/international-play-text-probe.mjs ${{ matrix.league }}
