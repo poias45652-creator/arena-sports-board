@@ -1,0 +1,42 @@
+name: Moneyline analysis stages
+on:
+  push:
+    branches: ['fix/moneyline-analysis-20260923', 'main']
+    paths:
+      - 'app/pregame.tsx'
+      - 'lib/winner-analysis.ts'
+      - 'lib/multifactor-win.ts'
+      - 'lib/baseball.ts'
+      - 'tests/winner-analysis*.test.mjs'
+      - '.github/workflows/winner-analysis.yml'
+permissions:
+  contents: read
+concurrency:
+  group: moneyline-analysis-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node --test tests/winner-analysis*.test.mjs
+      - run: npm test
+      - run: npm run build
+      - name: Record compiled moneyline client asset
+        run: |
+          node --input-type=module <<'JS'
+          import {readdirSync,readFileSync} from 'node:fs';
+          import {createHash} from 'node:crypto';
+          const walk=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);
+          const matches=walk('.next/static').filter(p=>p.endsWith('.js')&&readFileSync(p,'utf8').includes('初步傾向'));
+          if(!matches.length)throw new Error('Compiled moneyline UI is missing');
+          for(const p of matches)console.log(JSON.stringify({asset:p.replace('.next/','/_next/'),sha256:createHash('sha256').update(readFileSync(p)).digest('hex')}));
+          JS
