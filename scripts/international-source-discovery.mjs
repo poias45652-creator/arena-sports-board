@@ -1,14 +1,12 @@
-// Bounded public-source diagnostics. Only public sports fields and sort controls are logged.
-import {plain,tableData,dayInTaipei,collectLeague} from '../server/baseball-live-providers.mjs';
-const date=dayInTaipei();
-const get=async url=>{const r=await fetch(url,{redirect:'manual',headers:{'User-Agent':'YJBaseballSourceCheck/1.0',Accept:'text/html,application/json'},signal:AbortSignal.timeout(12000)});if(!r.ok){await r.body?.cancel();throw Error('HTTP '+r.status)}const b=new Uint8Array(await r.arrayBuffer());if(b.length>5_000_000)throw Error('oversize');return new TextDecoder().decode(b);};
-const hrefs=html=>[...html.matchAll(/<a\b[^>]*href=(['"])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi)].map(m=>({text:plain(m[3]),href:m[2]}));
-console.log('ENV',JSON.stringify({environment:'GitHub Actions, not Render',date,observedAt:new Date().toISOString()}));
-for(const url of ['https://www.nownews.com/news/6877106','https://www.nownews.com/tag?q=%E4%B8%AD%E8%81%B7%E6%90%B6%E5%85%88%E5%A0%B1','https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx','https://nf3.sakura.ne.jp/Stats/team_etc.htm'])try{
- const html=await get(url),text=plain(html);
- if(url.includes('6877106'))console.log('CPBL_NEWS',JSON.stringify({url,publishedAt:html.match(/"datePublished"\s*:\s*"([^"]+)"/)?.[1],sections:[...text.matchAll(/.{0,45}(?:羅戈|瑪帝斯|江承諺|邱駿威|江少慶|鋼龍).{0,220}/g)].slice(0,16).map(m=>m[0])}));
- else if(url.includes('nownews'))console.log('CPBL_DISCOVERY',JSON.stringify({url,links:hrefs(html).filter(x=>x.text.includes('中職搶先報')&&/\/news\/\d+/.test(x.href)).slice(0,8)}));
- else if(url.includes('koreabaseball'))console.log('KBO_SORT',JSON.stringify({url,links:hrefs(html).filter(x=>['G','IP','ERA'].includes(x.text)),sortFunction:html.match(/function\s+sort\s*\([^)]*\)\s*\{[\s\S]{0,1300}?\}/)?.[0]||null,publicJs:[...html.matchAll(/<script[^>]*src=(['"])(.*?)\1/gi)].map(m=>m[2]).filter(x=>/record|pitcher/i.test(x))}));
- else console.log('NPB_SPLITS_LINKS',JSON.stringify({url,links:hrefs(html).filter(x=>/阪神|日本ハム|救援|先発|投手/.test(x.text)).slice(0,18)}));
-}catch(e){console.log('FAIL',JSON.stringify({url,error:e.message}));}
-try{const r=await collectLeague('KBO',{date});console.log('KBO_CURRENT',JSON.stringify({games:r.games.map(g=>({id:g.id,source:g.source.url,status:g.status,home:g.home.name,away:g.away.name,lineups:[g.lineups.away.length,g.lineups.home.length],starters:g.starters,outs:g.outs,balls:g.balls,strikes:g.strikes,bases:g.bases,currentPitcher:!!g.currentPitcher,currentBatter:!!g.currentBatter})),errors:r.errors}));}catch(e){console.log('FAIL',JSON.stringify({league:'KBO',error:e.message}));}
+// Narrow public profile verification, using player IDs observed in today's exact Naver fixtures.
+import {plain,tableData,dayInTaipei} from '../server/baseball-live-providers.mjs';
+const people=[['65516','배제성','KT'],['56801','아빌라','SSG'],['52043','벤자민','두산'],['54362','전준표','키움'],['56939','클레빈저','NC'],['56459','페덱','삼성']];
+const get=async url=>{const r=await fetch(url,{redirect:'manual',headers:{'User-Agent':'YJBaseballSourceCheck/1.0',Accept:'text/html'},signal:AbortSignal.timeout(10000)});if(!r.ok){await r.body?.cancel();throw Error('HTTP '+r.status)}const b=new Uint8Array(await r.arrayBuffer());if(b.length>4_000_000)throw Error('oversize');return new TextDecoder().decode(b);};
+console.log('ENV',JSON.stringify({environment:'GitHub Actions, not Render',date:dayInTaipei(),observedAt:new Date().toISOString()}));
+for(let i=0;i<people.length;i+=3)await Promise.all(people.slice(i,i+3).map(async([id,name,team])=>{
+ const url=`https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=${id}`;
+ try{const html=await get(url),text=plain(html),tables=tableData(html).filter(t=>t.rows[0]?.includes('ERA')||t.rows[0]?.includes('IP'));
+ console.log('KBO_PROFILE',JSON.stringify({url,requested:{id,name,team},namePresent:text.includes(name),teamPresent:text.includes(team),title:plain(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||''),tables:tables.map(t=>({headers:t.rows[0],count:t.rows.length-1,rows:t.rows.filter((r,j)=>j>0&&(r.includes('2026')||tables.length<=2)).slice(0,8)})),profileLinks:[...html.matchAll(/<a\b[^>]*href=(['"])(.*?)\1[^>]*>([\s\S]*?)<\/a>/gi)].map(m=>({text:plain(m[3]),href:m[2]})).filter(x=>/경기별|상황별/.test(x.text)).slice(0,8)}));}
+ catch(e){console.log('KBO_PROFILE',JSON.stringify({url,name,error:e.message}));}
+}));
+const url='https://npb.jp/games/2026/schedule_09_detail.html';try{const html=await get(url),table=tableData(html)[0];let day='';const rows=[];for(const row of table.rows){if(/^9\/\d+/.test(row[0]||''))day=row[0];if(day.startsWith('9/22'))rows.push(row);}console.log('NPB_SCHEDULE',JSON.stringify({url,date:'2026-09-22',rows}));}catch(e){console.log('NPB_SCHEDULE',JSON.stringify({url,error:e.message}));}
