@@ -2,6 +2,7 @@ name: Missing baseball source discovery
 on:
   push:
     branches: ['research/missing-sources-20260922']
+    paths: ['scripts/international-source-discovery.mjs']
 permissions:
   contents: read
 jobs:
