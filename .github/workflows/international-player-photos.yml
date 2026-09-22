@@ -27,24 +27,25 @@ jobs:
       - name: Verify official NPB and KBO photo sources
         run: |
           node --input-type=module <<'JS'
-          const npb=await fetch('https://npb.jp/bis/players/51155155.html',{headers:{'User-Agent':'YJBaseballStats/1.0'}});
+          const headers={'User-Agent':'YJBaseballStats/1.0'};
+          const npb=await fetch('https://npb.jp/bis/players/51155155.html',{headers});
           const npbHtml=await npb.text();
           if(!npb.ok||!/players_photo\/2026\/[^"'<>\s]+\.jpg/i.test(npbHtml))throw new Error('NPB official player photo not found');
-          const base=await fetch('https://eng.koreabaseball.com/Teams/PlayerSearch.aspx',{headers:{'User-Agent':'YJBaseballStats/1.0'}});
-          const html=await base.text();
-          const fields={};for(const m of html.matchAll(/<input\b[^>]*type="hidden"[^>]*>/gi)){const n=m[0].match(/name="([^"]+)"/)?.[1],v=m[0].match(/value="([^"]*)"/)?.[1];if(n)fields[n]=v||'';}
-          fields.__EVENTTARGET='ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$lbtnSearch';
-          fields.__EVENTARGUMENT='';
-          fields['ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfTeam']='lg';
-          fields['ctl00$ctl00$ctl00$ctl00$cphContainer$cphContainer$cphContent$cphContent$hfPosition']='3,4,5,6';
-          const body=new URLSearchParams(fields);
-          const cookie=base.headers.get('set-cookie')?.split(';')[0]||'';
-          const roster=await fetch('https://eng.koreabaseball.com/Teams/PlayerSearch.aspx',{method:'POST',body,headers:{'User-Agent':'YJBaseballStats/1.0','Content-Type':'application/x-www-form-urlencoded',Cookie:cookie}});
-          const rosterHtml=await roster.text();
-          if(!roster.ok||!/PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=\d+/i.test(rosterHtml))throw new Error('KBO official roster player codes not found');
-          const pcode=rosterHtml.match(/PlayerInfo(?:Hitter|Pitcher)\/Summary\.aspx\?pcode=(\d+)/i)?.[1];
-          const photo='https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/2026/'+pcode+'.jpg';
-          const image=await fetch(photo,{method:'HEAD'});
+
+          const ymd=t=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(t));
+          const end=ymd(Date.now()),start=ymd(Date.now()-30*86400000);
+          const schedule=await fetch('https://api-gw.sports.naver.com/schedule/games?categoryId=kbo&fromDate='+start+'&toDate='+end+'&page=1&size=100',{headers});
+          const scheduleJson=await schedule.json();
+          const games=(scheduleJson.result?.games||[]).filter(g=>g.categoryId==='kbo'&&(g.homeTeamCode==='LG'||g.awayTeamCode==='LG')).sort((a,b)=>String(b.gameDateTime||b.gameDate).localeCompare(String(a.gameDateTime||a.gameDate)));
+          if(!games.length)throw new Error('No recent LG game found');
+          const game=games[0],poll=await fetch('https://api-gw.sports.naver.com/schedule/games/'+game.gameId+'/game-polling',{headers}),pollJson=await poll.json(),side=game.homeTeamCode==='LG'?'home':'away',lineup=pollJson.result?.textRelayData?.[side+'Lineup'];
+          const batter=(lineup?.batter||[]).find(p=>p.pcode),pitcher=(lineup?.pitcher||[]).find(p=>p.pcode),person=batter||pitcher;
+          if(!person)throw new Error('No KBO player code in recent LG roster');
+          const kind=batter?'Hitter':'Pitcher',profileUrl='https://eng.koreabaseball.com/Teams/PlayerInfo'+kind+'/Summary.aspx?pcode='+person.pcode,profile=await fetch(profileUrl,{headers}),profileHtml=await profile.text();
+          const expected='KBO_IMAGE/person/middle/2026/'+person.pcode+'.jpg';
+          if(!profile.ok||!profileHtml.includes(expected)||!/<b>\s*Name\s*<\/b>\s*:\s*[^<]+/i.test(profileHtml))throw new Error('KBO official profile/photo not found');
+          const photo='https://6ptotvmi5753.edge.naverncp.com/'+expected;
+          const image=await fetch(photo,{method:'HEAD',headers});
           if(!image.ok)throw new Error('KBO official player photo not reachable: '+photo);
-          console.log(JSON.stringify({npb:true,kbo:true,pcode,photo}));
+          console.log(JSON.stringify({npb:true,kbo:true,pcode:person.pcode,photo}));
           JS
