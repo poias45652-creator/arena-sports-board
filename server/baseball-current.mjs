@@ -1,3 +1,4 @@
+import {npbGameStart} from './baseball-npb-start.mjs';
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb} from './baseball-live-providers.mjs';
 import {addNpbContext} from './baseball-npb-context.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
@@ -25,6 +26,7 @@ export async function collectLeague(league,options={}){
    if(!stats)errors.push(id+':stats unavailable');
    // Append only this game's factual card, never unrelated sidebar scores.
    const g=parseNpb(page.text+'\n'+card[0],stats?.text||'',id,page);
+   g.startTime=npbGameStart(page.text,id,g.date,g.startTime);
    if(g.date!==date)throw new Error('Requested date differs from game date: '+g.date);
    try{addNpbContext(g,page);}catch(e){errors.push(id+':starters '+e.message);}
    g.source.supportingSources=[{url:schedule.url,fetchedAt:schedule.fetchedAt},...(stats?[{url:stats.url,fetchedAt:stats.fetchedAt}]:[])];

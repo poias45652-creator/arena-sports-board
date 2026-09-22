@@ -1,3 +1,4 @@
+import {internationalFixtureTime} from './international-fixture-time';
 import type {SourceTable} from './international';
 import {internationalTeam} from './international-teams';
 import {kboTeamCodes} from './kbo-teams';
@@ -8,7 +9,7 @@ export function uniqueInternationalFixtures<T extends {start:string;home:string;
  const seen=new Set<string>();
  const team=(name:string)=>internationalTeam(name.replace(/\s*[（(](?:主|客)[）)]\s*/g,'').trim(),league);
  return games.filter(game=>{
-  const time=Date.parse(game.start.replaceAll('/','-').replace(' ','T')+'+08:00');
+  const time=internationalFixtureTime(game.start);
   const away=team(game.away),home=team(game.home);
   if(!Number.isFinite(time)||!away||!home)return true;
   const key=JSON.stringify([league,time,away,home]);
