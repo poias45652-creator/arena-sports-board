@@ -1,7 +1,7 @@
 name: Moneyline analysis stages
 on:
   push:
-    branches: ['fix/moneyline-analysis-20260923', 'main']
+    branches: ['fix/moneyline-analysis-20260923', 'fix/moneyline-card-labels-20260923', 'main']
     paths:
       - 'app/pregame.tsx'
       - 'lib/winner-analysis.ts'
@@ -36,7 +36,11 @@ jobs:
           import {readdirSync,readFileSync} from 'node:fs';
           import {createHash} from 'node:crypto';
           const walk=dir=>readdirSync(dir,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(dir+'/'+e.name):[dir+'/'+e.name]);
-          const matches=walk('.next/static').filter(p=>p.endsWith('.js')&&readFileSync(p,'utf8').includes('初步傾向'));
+          const matches=walk('.next/static').filter(p=>p.endsWith('.js')&&readFileSync(p,'utf8').includes('data-winner-recommendation'));
           if(!matches.length)throw new Error('Compiled moneyline UI is missing');
-          for(const p of matches)console.log(JSON.stringify({asset:p.replace('.next/','/_next/'),sha256:createHash('sha256').update(readFileSync(p)).digest('hex')}));
+          for(const p of matches){
+            const code=readFileSync(p,'utf8');
+            for(const removed of ['初步傾向','分析依據與缺少項目','傾向方向不等於賠率價值判斷'])if(code.includes(removed))throw new Error('Removed moneyline copy remains in '+p);
+            console.log(JSON.stringify({asset:p.replace('.next/','/_next/'),sha256:createHash('sha256').update(readFileSync(p)).digest('hex')}));
+          }
           JS

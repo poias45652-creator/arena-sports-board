@@ -81,7 +81,8 @@ test('the page separates estimate rendering, manual quotes, automatic eligibilit
  assert.match(source,/winnerAnalysis\(g,analysis\[g\.id\]\?\.report,now,scheduleOK\)/);
  assert.match(source,/eligible=selectedGames\.filter\(g=>!unavailable\(g\)&&model\(g\)\.canRecommend\)/);
  assert.match(source,/r=!reason&&state\.canEstimate&&probability!==null\?binaryOutcome\(probability\):null/);
- assert.match(source,/state\.canRecommend\?'分析推薦':'初步傾向'/);
+ assert.match(source,/data-winner-recommendation=\{state\.status\}/);
+ assert.match(source,/state\.status==='preliminary'\?'初步分析':'多因素試算'/);
  assert.match(source,/disabled=\{!!reason\}/);
  assert.match(source,/allValid=chosen\.length===count&&chosen\.every\(x=>x\.g&&!unavailable\(x\.g\)&&!analysisUnavailable\(x\.g\)&&x\.leg\.quote===moneyline\(x\.g\)\?\.signature\)/);
  assert.ok(source.includes('const gameLabel=doubleheaderLabel(g)'));

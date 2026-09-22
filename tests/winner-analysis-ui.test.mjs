@@ -25,29 +25,45 @@ function render(report,{marketReason='',legs=[],g=game,scheduleOK=true}={}){
 }
 function nodes(tree){return Array.isArray(tree)?tree.flatMap(nodes):tree&&typeof tree==='object'?[tree,...tree.children.flatMap(nodes)]:[];}
 function text(tree){return Array.isArray(tree)?tree.map(text).join(''):tree&&typeof tree==='object'?tree.children.map(text).join(''):typeof tree==='string'||typeof tree==='number'?String(tree):'';}
+const badges=tree=>nodes(tree).filter(node=>node.props['data-winner-recommendation']);
 function report(){const features={};for(const side of ['home','away'])Object.assign(features,{[side+'_starter_recent_era']:4,[side+'_lineup_wrc_plus']:100,[side+'_bullpen_last3_pitches']:100,[side+'_bullpen_back_to_back']:2});return {game:structuredClone(game),capturedAt:new Date(now).toISOString(),features,issues:[],context:{sides:{home:{lineupStatus:'confirmed'},away:{lineupStatus:'confirmed'}}}};}
-test('preliminary cards render both model outcomes and exactly one provisional direction, and remain manually selectable',()=>{
+test('preliminary cards show one green recommendation label, retain their analysis stage and remain manually selectable',()=>{
  const tree=render(undefined),all=nodes(tree);assert.equal(tree.props['data-analysis-status'],'preliminary');
- assert.equal(all.filter(n=>n.type==='outcomes').length,2);assert.equal((text(tree).match(/初步傾向/g)||[]).length,1);assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('分析推薦'));
+ assert.equal(all.filter(n=>n.type==='outcomes').length,2);assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);
+ assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('初步傾向'));assert.ok(!text(tree).includes('分析推薦'));assert.match(badges(tree)[0].props.title,/分項未齊/);
  const buttons=all.filter(n=>n.type==='button');assert.equal(buttons.length,2);assert.ok(buttons.every(n=>n.props.disabled===false));
  assert.ok(text(tree).includes('@1.458'));assert.ok(text(tree).includes('@0.604'));
 });
-test('full current inputs render one recommendation instead of the provisional badge',()=>{
- const tree=render(report());assert.equal(tree.props['data-analysis-status'],'ready');assert.equal((text(tree).match(/分析推薦/g)||[]).length,1);assert.ok(!text(tree).includes('初步傾向'));assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);
+test('full current inputs use the same visible recommendation label without changing the ready state',()=>{
+ const tree=render(report());assert.equal(tree.props['data-analysis-status'],'ready');assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);
 });
-test('unconfirmed lineup and missing coverage still render outcomes without masquerading as automatic picks',()=>{
+test('unconfirmed lineup and missing coverage retain preliminary status and do not become automatic picks',()=>{
  const r=report();r.context.sides.home.lineupStatus='expected';r.features.home_starter_recent_era=null;
- const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.ok(text(tree).includes('九棒打線尚未確認'));assert.ok(text(tree).includes('先發近期 ERA'));assert.ok(text(tree).includes('未達自動推薦條件'));
+ const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.equal(tree.props['data-analysis-status'],'preliminary');assert.ok(text(tree).includes('初步分析'));assert.equal(winnerAnalysis(game,r,now,true).canRecommend,false);
 });
-test('an expired quote has no selectable cards, outcomes or direction badge',()=>{
- const tree=render(report(),{marketReason:'獨贏資料尚未取得或已過期'});assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.ok(nodes(tree).filter(n=>n.type==='button').every(n=>n.props.disabled));assert.ok(!text(tree).includes('分析推薦'));assert.ok(!text(tree).includes('初步傾向'));
+test('an expired quote has no selectable cards, outcomes or recommendation badge',()=>{
+ const tree=render(report(),{marketReason:'獨贏資料尚未取得或已過期'});assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.ok(nodes(tree).filter(n=>n.type==='button').every(n=>n.props.disabled));assert.equal(badges(tree).length,0);
 });
-test('a conflict or expired report cannot leave a misleading win probability on the card',()=>{
+test('a conflict or expired report cannot leave a misleading win probability or badge on the card',()=>{
  for(const change of [r=>r.issues=['傷兵衝突'],r=>r.capturedAt=new Date(now-300001).toISOString()]){
-  const r=report();change(r);const tree=render(r);assert.equal(tree.props['data-analysis-status'],'blocked');assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.ok(text(tree).includes('不參與自動推薦或串關機率試算'));
+  const r=report();change(r);const tree=render(r);assert.equal(tree.props['data-analysis-status'],'blocked');assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.equal(badges(tree).length,0);assert.ok(text(tree).includes('不參與自動推薦或串關機率試算'));
  }
 });
-test('manual selection retains its check mark only for the same quote signature',()=>{
- const current=render(undefined,{legs:[{gameId:1,side:'home',quote:quote.signature}]});assert.equal(nodes(current).filter(n=>n.type==='button'&&n.props['aria-pressed']).length,1);
- const old=render(undefined,{legs:[{gameId:1,side:'home',quote:'old-quote'}]});assert.equal(nodes(old).filter(n=>n.type==='button'&&n.props['aria-pressed']).length,0);
+test('manual selection retains its check mark only for the same quote signature and uses dark green on yellow',()=>{
+ const current=render(undefined,{legs:[{gameId:1,side:'home',quote:quote.signature}]});assert.equal(nodes(current).filter(n=>n.type==='button'&&n.props['aria-pressed']).length,1);assert.match(badges(current)[0].props.className,/text-green-700/);assert.equal(text(badges(current)[0]),'推薦');assert.equal(nodes(current).filter(n=>n.props['aria-label']==='已選取').length,1);
+ const old=render(undefined,{legs:[{gameId:1,side:'home',quote:'old-quote'}]});assert.equal(nodes(old).filter(n=>n.type==='button'&&n.props['aria-pressed']).length,0);assert.match(badges(old)[0].props.className,/text-green-400/);
+});
+test('the requested explanatory block is removed from both preliminary and ready cards without empty details or paragraphs',()=>{
+ for(const tree of [render(undefined),render(report())]){
+  for(const phrase of ['初步分析：','分析依據與缺少項目','模型試算尚未回測校準，不代表實際命中率','可手動選取，未達自動推薦條件','傾向方向不等於賠率價值判斷'])assert.ok(!text(tree).includes(phrase),phrase);
+  assert.equal(nodes(tree).filter(n=>['details','summary','p'].includes(n.type)).length,0);
+ }
+});
+test('equal model estimates never acquire a recommendation badge',()=>{
+ const g=structuredClone(game);g.home.pitcherEra=g.away.pitcherEra;const tree=render(undefined,{g});assert.equal(badges(tree).length,0);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);
+});
+test('the recommendation stays beside the actual favored team rather than a selected opposing side',()=>{
+ const g=structuredClone(game);g.away.pitcherEra=2;
+ const tree=render(undefined,{g,legs:[{gameId:1,side:'home',quote:quote.signature}]});const buttons=nodes(tree).filter(n=>n.type==='button');
+ assert.equal(badges(buttons[0]).length,1);assert.equal(badges(buttons[1]).length,0);assert.equal(buttons[1].props['aria-pressed'],true);
 });

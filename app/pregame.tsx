@@ -122,17 +122,12 @@ export default function Pregame(){
       const probability=h===null?null:side==='home'?h:1-h,r=!reason&&state.canEstimate&&probability!==null?binaryOutcome(probability):null;
       const active=legs.some(l=>l.gameId===g.id&&l.side===side&&l.quote===q?.signature);
       return <Button key={side} aria-pressed={active} variant={active?'default':'outline'} disabled={!!reason} onClick={()=>choose(g,side)} className="market-option-card h-auto w-full items-start whitespace-normal p-3 text-left"><span className="block w-full">
-        <span className="market-pick-title flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold"><span className="min-w-0"><TeamName team={g[side]}/>{r&&state.favoredSide===side&&<span className={`ml-2 ${state.canRecommend?(active?'text-green-700':'text-green-400'):'text-amber-200'}`}>{state.canRecommend?'分析推薦':'初步傾向'}</span>}{active&&<span className="ml-1 text-green-700" aria-label="已選取">✓</span>}</span><span className="ml-auto whitespace-nowrap tabular-nums">獨贏{q?` @${(side==='home'?q.first:q.second).toFixed(3)}`:''}</span></span>
+        <span className="market-pick-title flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold"><span className="min-w-0"><TeamName team={g[side]}/>{r&&state.favoredSide===side&&<span data-winner-recommendation={state.status} className={`ml-2 ${active?'text-green-700':'text-green-400'}`} title={state.status==='preliminary'?'依目前可用資料試算；分項未齊，僅供初步參考':'依多因素試算；尚未回測校準'}>推薦</span>}{active&&<span className="ml-1 text-green-700" aria-label="已選取">✓</span>}</span><span className="ml-auto whitespace-nowrap tabular-nums">獨贏{q?` @${(side==='home'?q.first:q.second).toFixed(3)}`:''}</span></span>
         <span className="mt-3 block text-sm">{r?<><span className="mb-1 block">{state.status==='preliminary'?'初步分析':'多因素試算'}</span><MarketOutcomes outcome={r}/></>:!isPregame(g,now)?(g.state==='Final'?'已完賽':'賽前選擇已關閉'):reason||state.reason}</span>
       </span></Button>;
     })}</div>
     {reason&&<p className="text-sm text-amber-200">{`不可加入獨贏串關：${reason}`}</p>}
     {!reason&&state.status==='blocked'&&<p className="text-sm text-amber-200">暫停分析推薦：{state.reason}。報價有效時仍可手動選取，不參與自動推薦或串關機率試算。</p>}
-    {!reason&&state.canEstimate&&<>
-      <p className="text-sm text-slate-400">{state.status==='preliminary'?`初步分析：${state.reason}。可手動選取，未達自動推薦條件。`:state.favoredSide?'分析資料已達推薦條件；依試算勝率較高的一方標示。':state.reason}</p>
-      <details className="text-sm text-slate-400"><summary className="cursor-pointer">分析依據與缺少項目</summary><p className="mt-2">已採用：{state.factors.filter(f=>f.score!==null).map(f=>f.name).join('、')}。</p>{state.missing.length>0&&<p className="mt-1">尚未納入：{state.missing.join('、')}。缺項不補值，也不把權重轉給其他項。</p>}</details>
-      <p className="text-xs text-slate-400">模型試算尚未回測校準，不代表實際命中率；傾向方向不等於賠率價值判斷。</p>
-    </>}
     </section>;
   }
   function chosenAnalysis(g:Match,side:'away'|'home'){
