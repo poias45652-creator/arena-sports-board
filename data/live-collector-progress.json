@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-22T07:22:06.691Z",
+  "observedAt": "2026-09-22T07:45:33.036Z",
   "dateAsiaTaipei": "2026-09-22",
   "currentGames": {
     "NPB": 6,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-09-22T07:22:09.815Z",
+    "checkedAt": "2026-09-22T07:45:34.380Z",
     "inserted": 13,
     "readBack": 13,
     "duplicateInserts": 0,
@@ -59,39 +59,100 @@
   "allLeaguesLiveVerified": true,
   "dailyLiveChangeProofHistory": {
     "2026-09-17": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-17T10:08:08.165Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "naver"},
-      "CPBL": {"verified": true, "verifiedAt": "2026-09-17T12:27:40.905Z", "source": "yahoo-tw"},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-17T10:08:08.165Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": true,
+        "verifiedAt": "2026-09-17T12:27:40.905Z",
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": true,
+        "verifiedAt": "2026-09-17T12:27:40.905Z",
+        "source": "yahoo-tw"
+      },
       "allVerified": true,
       "evidenceRetainedIn": "data/live/"
     },
     "2026-09-18": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-18T10:37:18.144Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-18T12:48:53.735Z", "source": "naver"},
-      "CPBL": {"verified": true, "verifiedAt": "2026-09-18T12:37:57.880Z", "source": "yahoo-tw"},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-18T10:37:18.144Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": true,
+        "verifiedAt": "2026-09-18T12:48:53.735Z",
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": true,
+        "verifiedAt": "2026-09-18T12:37:57.880Z",
+        "source": "yahoo-tw"
+      },
       "allVerified": true,
       "evidenceRetainedIn": "data/live/"
     },
     "2026-09-19": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-19T12:04:31.236Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-19T10:59:28.751Z", "source": "naver"},
-      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw"},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-19T12:04:31.236Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": true,
+        "verifiedAt": "2026-09-19T10:59:28.751Z",
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "yahoo-tw"
+      },
       "allVerified": false,
       "reason": "NPB and KBO had valid same-day live numeric-change proof; CPBL reached final without a qualifying >=65 second numeric-change window.",
       "evidenceRetainedIn": "data/live/"
     },
     "2026-09-20": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-20T10:13:31.335Z", "source": "sportsnavi"},
-      "KBO": {"verified": true, "verifiedAt": "2026-09-20T08:56:58.261Z", "source": "naver"},
-      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "dayClosedWithoutSameDayLiveVerification": true},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-20T10:13:31.335Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": true,
+        "verifiedAt": "2026-09-20T08:56:58.261Z",
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "yahoo-tw",
+        "dayClosedWithoutSameDayLiveVerification": true
+      },
       "allVerified": false,
       "reason": "NPB and KBO are same-day live-verified. CPBL closed 2026-09-20 without a qualifying >=65 second numeric live-change proof.",
       "evidenceRetainedIn": "data/live/"
     },
     "2026-09-21": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-21T09:10:27.409Z", "source": "sportsnavi"},
-      "KBO": {"verified": false, "verifiedAt": null, "source": "naver"},
-      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw"},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-21T09:10:27.409Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "yahoo-tw"
+      },
       "allVerified": false,
       "reason": "NPB is same-day live-verified from the 09:10Z observation. Latest successful capture has no live first-team games; KBO and CPBL returned zero games with status ok.",
       "evidenceRetainedIn": "data/live/",
@@ -110,24 +171,36 @@
       }
     },
     "2026-09-22": {
-      "NPB": {"verified": true, "verifiedAt": "2026-09-22T07:22:03.873Z", "source": "sportsnavi"},
-      "KBO": {"verified": false, "verifiedAt": null, "source": "naver"},
-      "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw"},
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-09-22T07:22:03.873Z",
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "yahoo-tw"
+      },
       "allVerified": false,
-      "reason": "NPB is now same-day live-verified from a >=65 second live window with pitcher pitch-count and outs-recorded changes. KBO and CPBL remain pregame in the latest capture.",
+      "reason": "NPB remains same-day live-verified from the earlier >=65 second pitcher pitch-count/outs change. The latest >=65 second live window produced no additional qualifying numeric change; KBO and CPBL remain pregame.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-09-22T07:22:06.691Z",
+        "capturedAt": "2026-09-22T07:45:33.036Z",
         "liveGames": 1,
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 68.984,
-        "qualifiedNumericChanges": 2,
-        "artifactId": 10681319371,
-        "artifactCreatedAt": "2026-09-22T07:22:11Z",
+        "captureIntervalSeconds": 69.149,
+        "qualifiedNumericChanges": 0,
+        "artifactId": 10681993940,
+        "artifactCreatedAt": "2026-09-22T07:45:36Z",
         "runId": 35688889561,
-        "runAttempt": 3,
-        "jobId": 106652635458,
-        "observationPath": "data/live/2026-09-22T072206Z.json",
+        "runAttempt": 4,
+        "jobId": 106658996758,
+        "observationPath": "data/live/2026-09-22T074533Z.json",
         "parserFixLiveStatsPreserved": true
       }
     }
@@ -249,28 +322,44 @@
           "home": "廣島東洋鯉魚",
           "intervalSeconds": 70.204,
           "changes": {
-            "戸郷 翔征:pitchCount": {"before": 80, "after": 86},
-            "戸郷 翔征:outsRecorded": {"before": 14, "after": 15}
+            "戸郷 翔征:pitchCount": {
+              "before": 80,
+              "after": 86
+            },
+            "戸郷 翔征:outsRecorded": {
+              "before": 14,
+              "after": 15
+            }
           },
           "observationPath": "data/live/2026-09-22T072206Z.json"
         }
       ]
     },
-    "KBO": {"verified": false, "verifiedAt": null, "source": "naver", "evidence": []},
-    "CPBL": {"verified": false, "verifiedAt": null, "source": "yahoo-tw", "evidence": []},
+    "KBO": {
+      "verified": false,
+      "verifiedAt": null,
+      "source": "naver",
+      "evidence": []
+    },
+    "CPBL": {
+      "verified": false,
+      "verifiedAt": null,
+      "source": "yahoo-tw",
+      "evidence": []
+    },
     "allVerified": false,
-    "reason": "NPB has qualifying same-day numeric live-change proof. KBO and CPBL remain pregame and have no same-day live-change proof yet."
+    "reason": "NPB has qualifying same-day numeric live-change proof from the earlier 07:22Z observation. The latest 07:45Z window was also >=65 seconds but produced no additional qualifying numeric change. KBO and CPBL remain pregame and have no same-day live-change proof yet."
   },
   "nextAction": "Continue same-day collection. Re-check KBO and CPBL after live play begins and require a >=65 second numeric change before marking either verified. Continue monitoring NPB final-state stats after the parser fix. Keep CPBL pitchCount null and source-listed lineups unverified. Do not modify main, Render or production database.",
   "latestRun": {
     "runId": 35688889561,
-    "runAttempt": 3,
-    "jobId": 106652635458,
-    "artifactId": 10681319371,
-    "artifactCreatedAt": "2026-09-22T07:22:11Z",
-    "capturedAt": "2026-09-22T07:22:06.691Z",
-    "observationPath": "data/live/2026-09-22T072206Z.json",
+    "runAttempt": 4,
+    "jobId": 106658996758,
+    "artifactId": 10681993940,
+    "artifactCreatedAt": "2026-09-22T07:45:36Z",
+    "capturedAt": "2026-09-22T07:45:33.036Z",
+    "observationPath": "data/live/2026-09-22T074533Z.json",
     "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
   },
-  "latestObservationCommit": "92e0d0a9e75eb17c49332185bd894148fda7870f"
+  "latestObservationCommit": "17e263a0d8b01748149ad4b7a93c57e3643940c8"
 }
