@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-22",
+  "capturedAt": "2026-09-22T09:12:38.221Z",
+  "purpose": "same-day collector evidence and continued live verification; not production deployment",
+  "run": {
+    "runId": 35688889561,
+    "runAttempt": 5,
+    "jobId": 106684513301,
+    "artifactId": 10685952436,
+    "artifactCreatedAt": "2026-09-22T09:12:41Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "captureWindow": {
+    "secondCapturePerformed": true,
+    "firstCapturedAt": "2026-09-22T09:11:29.461Z",
+    "secondCapturedAt": "2026-09-22T09:12:38.221Z",
+    "intervalSeconds": 68.76,
+    "qualifiedNumericChanges": 2,
+    "reason": "NPB had six live first-team games. Two source game windows exceeded 65 seconds and showed pitcher pitch-count changes; KBO and CPBL remained pregame."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 6,
+      "pregame": 0,
+      "live": 6,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": true,
+      "sameDayLiveVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 20,
+      "gamesSummary": [
+        {
+          "key": "NPB:2021039450",
+          "away": "讀賣巨人",
+          "home": "廣島東洋鯉魚",
+          "status": "live",
+          "score": "1-1",
+          "inning": 9,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021039448",
+          "away": "阪神虎",
+          "home": "養樂多燕子",
+          "status": "live",
+          "score": "4-0",
+          "inning": 1,
+          "source": "sportsnavi",
+          "liveChangeProof": {
+            "beforeHash": "227aec17cbd0653ceb9f3c142eb83ead40b08e109638fca5ea6aa39fbadc99fa",
+            "afterHash": "6f344a5c16cd2c3f9d4aa863f38d69c1c35f5877eab05c5bafe563d6bf512403",
+            "beforeFetchedAt": "2026-09-22T09:11:26.105Z",
+            "afterFetchedAt": "2026-09-22T09:12:35.491Z",
+            "intervalSeconds": 69.386,
+            "changes": {
+              "homePitching": {
+                "松本 健吾:pitchCount": {
+                  "before": 15,
+                  "after": 20
+                }
+              }
+            }
+          }
+        },
+        {
+          "key": "NPB:2021039449",
+          "away": "中日龍",
+          "home": "橫濱DeNA海灣之星",
+          "status": "live",
+          "score": "0-0",
+          "inning": 1,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021039451",
+          "away": "東北樂天金鷲",
+          "home": "日本火腿鬥士",
+          "status": "live",
+          "score": "1-0",
+          "inning": 1,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021039452",
+          "away": "西武獅",
+          "home": "福岡軟銀鷹",
+          "status": "live",
+          "score": "0-0",
+          "inning": 1,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021043588",
+          "away": "歐力士猛牛",
+          "home": "千葉羅德海洋",
+          "status": "live",
+          "score": "0-0",
+          "inning": 1,
+          "source": "sportsnavi",
+          "liveChangeProof": {
+            "beforeHash": "771dd68fb0bf81a197df4d2c9f125d15a87455bf9a75e75d2216c8f200e1da8d",
+            "afterHash": "9c06b58f0c4259ed241eabdd972bcaa7c54693d32eb8cc9b24de8a805f74ebba",
+            "beforeFetchedAt": "2026-09-22T09:11:27.077Z",
+            "afterFetchedAt": "2026-09-22T09:12:36.440Z",
+            "intervalSeconds": 69.363,
+            "changes": {
+              "awayPitching": {
+                "東松 快征:pitchCount": {
+                  "before": 1,
+                  "after": 5
+                }
+              }
+            }
+          }
+        }
+      ],
+      "parserFixLiveStatsPreserved": true,
+      "zeroNameBattingRows": 0
+    },
+    "KBO": {
+      "games": 4,
+      "pregame": 4,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {"key":"KBO:20260922KTSK02026","away":"KT巫師","home":"SSG登陸者","status":"pregame","score":null,"inning":null,"source":"naver"},
+        {"key":"KBO:20260922LTHH02026","away":"樂天巨人","home":"韓華鷹","status":"pregame","score":null,"inning":null,"source":"naver"},
+        {"key":"KBO:20260922NCSS02026","away":"NC恐龍","home":"三星獅","status":"pregame","score":null,"inning":null,"source":"naver"},
+        {"key":"KBO:20260922OBWO02026","away":"斗山熊","home":"培證英雄","status":"pregame","score":null,"inning":null,"source":"naver"}
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {"key":"CPBL:260922196","away":"中信兄弟","home":"富邦悍將","status":"pregame","score":null,"inning":null,"source":"yahoo-tw"},
+        {"key":"CPBL:260922287","away":"味全龍","home":"統一獅","status":"pregame","score":null,"inning":null,"source":"yahoo-tw"},
+        {"key":"CPBL:260922197","away":"台鋼雄鷹","home":"樂天桃猿","status":"pregame","score":null,"inning":null,"source":"yahoo-tw"}
+      ],
+      "pitchCountPolicy": "unverified pitch counts remain null; never synthesize zero",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-22T09:12:39.717Z",
+    "inserted": 13,
+    "readBack": 13,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "dataQuality": {
+    "npbZeroNameBattingRows": 0,
+    "parserFixLiveStatsPreserved": true,
+    "cpblPitchCountUnknownValuesRemainNull": true,
+    "cpblSourceListedLineupsOfficiallyConfirmed": false
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false
+}
