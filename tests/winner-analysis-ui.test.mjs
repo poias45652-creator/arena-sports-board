@@ -30,7 +30,7 @@ function report(){const features={};for(const side of ['home','away'])Object.ass
 test('preliminary cards show one green recommendation label, retain their analysis stage and remain manually selectable',()=>{
  const tree=render(undefined),all=nodes(tree);assert.equal(tree.props['data-analysis-status'],'preliminary');
  assert.equal(all.filter(n=>n.type==='outcomes').length,2);assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);
- assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('初步傾向'));assert.ok(!text(tree).includes('分析推薦'));assert.match(badges(tree)[0].props.title,/分項未齊/);
+ assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('初步傾向'));assert.equal(badges(tree)[0].props['data-winner-recommendation'],'preliminary');assert.match(badges(tree)[0].props.title,/分項未齊/);
  const buttons=all.filter(n=>n.type==='button');assert.equal(buttons.length,2);assert.ok(buttons.every(n=>n.props.disabled===false));
  assert.ok(text(tree).includes('@1.458'));assert.ok(text(tree).includes('@0.604'));
 });
