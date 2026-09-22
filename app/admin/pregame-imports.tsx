@@ -5,6 +5,7 @@ import {summarizePregameImport} from '@/lib/international-pregame';
 import type {PregameData} from '@/lib/international-pregame';
 import InternationalPregameDetails from '../international-pregame-details';
 import CpblGameLogs from './cpbl-game-logs';
+const stamp=(at?:string)=>at&&Number.isFinite(Date.parse(at))?new Date(at).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',hour12:false}):'尚未取得';
 
 export default function PregameImports(){
  const [date,setDate]=useState(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date()));
@@ -14,14 +15,14 @@ export default function PregameImports(){
  return <section className="panel admin-section" aria-label="賽前資料匯入與缺漏">
   <details><summary className="cursor-pointer p-5 text-lg font-bold">賽前資料、自動更新與缺漏 · {pregameImports.reduce((n,d)=>n+d.games.length,0)} 場</summary>
    <div className="space-y-5 px-4 pb-5"><label className="flex items-center gap-3 text-sm">檢查賽事日期<input type="date" value={date} onChange={e=>{if(e.target.value)setDate(e.target.value)}} className="rounded border border-slate-600 bg-slate-900 p-2"/></label>
-    <p className="text-sm text-slate-300">網頁開啟時：盤口及場中比分約每 60 秒更新，賽前資料每 5 分鐘检查。中職使用非官網来源；日職使用 Sportsnavi，韓職使用 Naver，另依所選日期更新玩運彩賽前統計。更新失敗保留最後成功紀錄，補入的歷史欄位保留原始時間。</p>
+    <p className="text-sm text-slate-300">網頁開啟時：盤口及場中比分約每 60 秒更新，賽前資料每 5 分鐘檢查。中職使用非官網來源；日職使用 Sportsnavi，韓職使用 Naver，另依所選日期更新玩運彩賽前統計。日職與韓職新增官方投手成績備援；只補入通過球季、球隊與欄位核對的資料，不以全隊投手總計冒充牛棚。更新失敗保留最後成功紀錄，歷史欄位保留原始時間。</p>
     <p className="text-sm text-amber-200">關閉所有網頁後的背景排程尚未啟用；排程接收介面已準備完成，等待指定服務。</p>
-    <div className="grid gap-3 md:grid-cols-3">{['CPBL','NPB','KBO'].map(league=>{const d=feeds[league];return <div key={league} className="rounded-lg border border-slate-600 p-3 text-sm"><h3 className="font-bold">{league} · {d?d.status==='ready'?'本次來源已更新':d.status==='partial'?'部分來源已更新':d.status==='stale'?'保留上次資料':'資料待補':'正在檢查'}</h3><p className="mt-2 text-slate-300">檢查時間：{d?.checkedAt?new Date(d.checkedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',hour12:false}):'—'}</p>{d?.live&&<p className="mt-2">比分 {d.live.games} 場 · 先發 {d.live.starters} 位 · 完整打序 {d.live.lineups} 隊</p>}{d?.coverage&&<p>賽前 ERA {d.coverage.era}/{d.coverage.teams} · WHIP {d.coverage.whip}/{d.coverage.teams}</p>}{(d?.error||d?.storageError)&&<p className="mt-2 text-amber-200">{d.error||d.storageError}</p>}{!!d?.playsport?.errors?.length&&<p className="mt-2 text-amber-200">賽前統計：{[...new Set<string>(d.playsport.errors)].join('；')}</p>}{!!d?.pregame?.excludedFixtures?.length&&<p className="mt-2 text-slate-300">取消／延賽：{d.pregame.excludedFixtures.map((x:any)=>`${x.away} vs ${x.home}`).join('、')}</p>}{d?.forecastStorage?.error&&<p className="mt-2 text-amber-200">{d.forecastStorage.error}</p>}</div>})}</div>
+    <div className="grid gap-3 md:grid-cols-3">{['CPBL','NPB','KBO'].map(league=>{const d=feeds[league];return <div key={league} className="rounded-lg border border-slate-600 p-3 text-sm"><h3 className="font-bold">{league} · {d?d.status==='ready'?'本次資料已更新':d.status==='partial'?'部分資料已取得，仍有缺漏':d.status==='stale'?'保留上次資料':'資料待補':'正在檢查'}</h3><p className="mt-2 text-slate-300">檢查時間：{stamp(d?.checkedAt)}</p>{d?.live&&<p className="mt-2">賽事 {d.live.games} 場 · 先發 {d.live.starters} 位 · 完整打序 {d.live.lineups} 隊</p>}{d?.coverage&&<p>賽前 ERA {d.coverage.era}/{d.coverage.teams} · WHIP {d.coverage.whip}/{d.coverage.teams}</p>}{(d?.error||d?.storageError)&&<p className="mt-2 text-amber-200">{d.error||d.storageError}</p>}{!!d?.playsport?.errors?.length&&<p className="mt-2 text-amber-200">賽前統計：{[...new Set<string>(d.playsport.errors)].join('；')}</p>}{d?.statsFallback&&<div className="mt-2"><p>官方投手備援：{d.statsFallback.rows} 筆通過核對（未必是本場先發）</p>{!!d.statsFallback.errors?.length&&<p className="text-amber-200">{[...new Set<string>(d.statsFallback.errors)].join('；')}</p>}{!!d.statsFallback.sources?.length&&<details className="mt-1"><summary className="cursor-pointer">備援來源明細</summary>{d.statsFallback.sources.map((s:any)=><p key={s.url} className="mt-1 break-all text-xs text-slate-300">{s.url} · {s.rows} 筆 · {stamp(s.observedAt)}{s.error?' · '+s.error:''}</p>)}</details>}</div>}{!!d?.pregame?.excludedFixtures?.length&&<p className="mt-2 text-slate-300">取消／延賽：{d.pregame.excludedFixtures.map((x:any)=>`${x.away} vs ${x.home}`).join('、')}</p>}{d?.forecastStorage?.error&&<p className="mt-2 text-amber-200">{d.forecastStorage.error}</p>}</div>})}</div>
     <div className="overflow-x-auto"><table className="w-full text-sm"><caption className="pb-3 text-left font-bold">本次資料涵蓋範圍</caption><thead><tr>{['聯盟','場次','先發姓名','可顯示先發成績','完整牛棚成績','團隊打擊','投手逐場紀錄'].map(h=><th key={h} className="whitespace-nowrap border-b border-slate-600 p-3 text-left">{h}</th>)}</tr></thead><tbody>{pregameImports.map(data=>{const s=summarizePregameImport(data);return <tr key={data.league}>{[s.league,s.games,`${s.pitchers}/${s.teams}`,`${s.usablePitchers}/${s.teams}`,`${s.completeBullpens}/${s.teams}`,`${s.batting}/${s.teams}`,s.appearances].map((v,i)=><td key={i} className="border-b border-slate-700 p-3">{v}</td>)}</tr>})}</tbody></table></div>
     <div className="rounded-lg border border-amber-300/30 bg-amber-300/5 p-4 text-sm"><h3 className="mb-3 font-bold text-amber-200">尚缺資料與功能</h3><ul className="list-disc space-y-2 pl-5">
      <li>三聯盟：團隊研究模型已完成首輪時間切分回測與校準，尚未通過上線門檻；結果見上方「三聯盟回測與機率校準」。完整模型已接入賽前預測留存。</li>
      <li>三聯盟：當日確認打線、傷停與臨時更換先發；日職與韓職仍缺近期牛棚用量。</li>
-     <li>中職：已接 Yahoo 非官網逐場日誌，自行彙算團隊得失分、先發與後援成績；投手表涵蓋率見下方。仍缺完整投球數與未公布的先發，新聞先發只適用指定日期。</li>
+     <li>中職：已接 Yahoo 非官網逐場日誌，自行彙算團隊得失分、先發與後援成績；投手表涵蓋率見下方。仍缺完整投球數與未取得的先發，新聞先發只適用指定日期。</li>
      <li>逐球資料：只顯示來源實際提供的球數、出局與壘包；目前尚未驗證傳輸延遲。</li>
      <li>背景更新：關閉網頁後持續執行的排程仍待啟用。</li>
      <li>日職：已接上勝率、九局得分與七種玩法的統計估算；資料更新時重新計算，仍待歷史回測與機率校準。各場公式與使用欄位見下方日職分析計算。</li>
@@ -31,7 +32,7 @@ export default function PregameImports(){
     </ul></div>
     <CpblGameLogs data={feeds.CPBL?.gameLogs}/>
     {pregameImports.map(data=>{const s=summarizePregameImport(data);return <details key={data.league} className="rounded-lg border border-slate-600"><summary className="cursor-pointer p-4 font-bold">{data.league} · {data.date} · {s.games} 場資料明細</summary><div className="space-y-3 px-4 pb-4">
-     <p className="text-sm text-slate-300">擷取 {new Date(data.observedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',hour12:false})}（台灣）</p>
+     <p className="text-sm text-slate-300">擷取 {stamp(data.observedAt)}（台灣）</p>
      {s.pitchers<s.teams&&<p className="text-sm text-amber-200">缺少 {s.teams-s.pitchers} 位先發姓名及投手成績。</p>}
      {s.completeBullpens<s.teams&&<p className="text-sm text-amber-200">缺少 {s.teams-s.completeBullpens} 隊本季完整牛棚成績（含局數、ERA、WHIP、三振、四壞）；中職近期推算範圍另見逐場日誌。</p>}
      {!!s.reviewPitchers.length&&<p className="text-sm text-amber-200">投手成績待核對：{s.reviewPitchers.join('、')}。</p>}
