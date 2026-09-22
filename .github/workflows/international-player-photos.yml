@@ -6,6 +6,7 @@ on:
       - 'app/international-team-profile.tsx'
       - 'app/globals.css'
       - 'lib/international-profile-source.ts'
+      - 'app/api/international-team/route.ts'
       - '.github/workflows/international-player-photos.yml'
 permissions:
   contents: read
