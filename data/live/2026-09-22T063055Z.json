@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-22",
+  "capturedAt": "2026-09-22T06:30:55.076Z",
+  "purpose": "same-day collector evidence and live parser-fix monitoring; not production deployment",
+  "run": {
+    "runId": 35688889561,
+    "runAttempt": 2,
+    "jobId": 106639973412,
+    "artifactId": 10680346791,
+    "artifactCreatedAt": "2026-09-22T06:30:57Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "captureWindow": {
+    "secondCapturePerformed": true,
+    "firstCapturedAt": "2026-09-22T06:29:45.239Z",
+    "secondCapturedAt": "2026-09-22T06:30:55.076Z",
+    "intervalSeconds": 69.837,
+    "qualifiedNumericChanges": 0,
+    "reason": "NPB had one live first-team game, so a second observation was taken >=65 seconds later. No tracked numeric game-state field changed in this window, so same-day live-change verification remains false."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 6,
+      "pregame": 5,
+      "live": 1,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 2,
+      "liveGame": {
+        "key": "NPB:2021039450",
+        "away": "讀賣巨人",
+        "home": "廣島東洋鯉魚",
+        "score": "0-0",
+        "inning": 2,
+        "half": "bottom",
+        "firstObservation": {
+          "capturedAt": "2026-09-22T06:29:45.239Z",
+          "awayPitcher": {
+            "name": "戸郷 翔征",
+            "pitchCount": 32,
+            "outsRecorded": 5
+          },
+          "homePitcher": {
+            "name": "玉村 昇悟",
+            "pitchCount": 28,
+            "outsRecorded": 6
+          }
+        },
+        "secondObservation": {
+          "capturedAt": "2026-09-22T06:30:55.076Z",
+          "awayPitcher": {
+            "name": "戸郷 翔征",
+            "pitchCount": 32,
+            "outsRecorded": 5
+          },
+          "homePitcher": {
+            "name": "玉村 昇悟",
+            "pitchCount": 28,
+            "outsRecorded": 6
+          }
+        },
+        "numericChangeObserved": false,
+        "source": "sportsnavi"
+      },
+      "parserFixLiveStatsPreserved": true
+    },
+    "KBO": {
+      "games": 4,
+      "pregame": 4,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "firstStartTaipei": "17:30"
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "firstStartTaipei": "18:35",
+      "unverifiedFields": [
+        "inning",
+        "half",
+        "balls",
+        "strikes",
+        "outs",
+        "bases",
+        "pitchCount"
+      ]
+    }
+  },
+  "parserFixMonitoring": {
+    "commit": "57f2c4959eaa49a28ea773e5485b07c29c2d9232",
+    "change": "Skip NPB stats-table parsing unless game status is live, final, or suspended.",
+    "newValidation": "First observed live NPB game after the fix still produced two legitimate pitching rows while pregame games produced none; no synthetic zero placeholder batting rows were reintroduced in this capture.",
+    "liveStatsPreserved": true,
+    "verifiedByRunAttempt": 2,
+    "verifiedByArtifact": 10680346791
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-22T06:30:56.312Z",
+    "inserted": 13,
+    "readBack": 13,
+    "duplicateInserts": 0,
+    "passed": true,
+    "perLeague": {
+      "NPB": {
+        "written": 6,
+        "readBack": 6,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      "KBO": {
+        "written": 4,
+        "readBack": 4,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      "CPBL": {
+        "written": 3,
+        "readBack": 3,
+        "duplicateWrites": 0,
+        "passed": true
+      }
+    }
+  },
+  "notes": [
+    "Artifact 10680346791 was created at 2026-09-22T06:30:57Z and belongs to run 35688889561 attempt 2, matching the 2026-09-22 capture.",
+    "The NPB live game was observed twice 69.837 seconds apart, but score, inning, pitcher pitch counts and pitcher outs recorded were unchanged, so it is not counted as numeric live-change proof.",
+    "The 2026-09-22 NPB parser fix continues to suppress pregame placeholder stat rows while preserving legitimate live pitching data.",
+    "CPBL pitchCount remains null and source-listed lineups remain unverified.",
+    "main, Render, production database, login, accounts and environment variables were not modified."
+  ]
+}
