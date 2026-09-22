@@ -1,0 +1,41 @@
+name: Three league source resilience
+on:
+  push:
+    branches: ['fix/live-source-resilience-20260922']
+permissions:
+  contents: read
+concurrency:
+  group: source-resilience-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  diagnose:
+    strategy:
+      fail-fast: false
+      matrix:
+        league: [CPBL, NPB, KBO]
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: node scripts/live-source-resilience-probe.mjs ${{ matrix.league }}
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm test
+      - run: node --test tests/international-repair*.test.mjs
+      - run: npm run build
