@@ -1,4 +1,5 @@
 import {npbGameStart,recoverNpbPregameState} from './baseball-npb-start.mjs';
+import {recoverKboPregameState} from './baseball-pregame-state.mjs';
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb} from './baseball-live-providers.mjs';
 import {addNpbContext} from './baseball-npb-context.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
@@ -6,7 +7,11 @@ export {dayInTaipei} from './baseball-live-providers.mjs';
 export async function collectLeague(league,options={}){
  const deadline=AbortSignal.timeout(35000),original=options.fetcher||fetch;
  options={...options,fetcher:(url,init={})=>original(url,{...init,signal:init.signal?AbortSignal.any([deadline,init.signal]):deadline})};
- if(league!=='NPB')return collectBase(league,options);
+ if(league!=='NPB'){
+  const result=await collectBase(league,options);
+  if(league==='KBO')result.games.forEach(recoverKboPregameState);
+  return result;
+ }
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
  const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
