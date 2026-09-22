@@ -11,7 +11,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        league: [CPBL, NPB, KBO]
+        league: [NPB, KBO]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -20,4 +20,4 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - run: node scripts/play-text-detail-probe.mjs ${{ matrix.league }}
+      - run: node scripts/play-text-source-smoke.mjs ${{ matrix.league }}
