@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-22",
+  "capturedAt": "2026-09-22T07:45:33.036Z",
+  "purpose": "same-day collector evidence and continued live verification; not production deployment",
+  "run": {
+    "runId": 35688889561,
+    "runAttempt": 4,
+    "jobId": 106658996758,
+    "artifactId": 10681993940,
+    "artifactCreatedAt": "2026-09-22T07:45:36Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "captureWindow": {
+    "secondCapturePerformed": true,
+    "firstCapturedAt": "2026-09-22T07:44:23.887Z",
+    "secondCapturedAt": "2026-09-22T07:45:33.036Z",
+    "intervalSeconds": 69.149,
+    "qualifiedNumericChanges": 0,
+    "reason": "NPB had one live first-team game. Two collector observations were captured more than 65 seconds apart, but score, inning, normalized B/S/O/base state, pitcher pitch counts and pitcher outs recorded produced no new qualifying numeric change in this window. Earlier same-day NPB live proof remains valid."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 6,
+      "pregame": 5,
+      "live": 1,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 3,
+      "liveGame": {
+        "key": "NPB:2021039450",
+        "away": "讀賣巨人",
+        "home": "廣島東洋鯉魚",
+        "score": "0-1",
+        "inning": 6,
+        "half": "bottom",
+        "firstObservation": {
+          "capturedAt": "2026-09-22T07:44:23.887Z",
+          "pitchers": [
+            {"team": "away", "name": "戸郷 翔征", "pitchCount": 86, "outsRecorded": 15},
+            {"team": "away", "name": "則本 昂大", "pitchCount": 18, "outsRecorded": 2},
+            {"team": "home", "name": "玉村 昇悟", "pitchCount": 76, "outsRecorded": 18}
+          ]
+        },
+        "secondObservation": {
+          "capturedAt": "2026-09-22T07:45:33.036Z",
+          "pitchers": [
+            {"team": "away", "name": "戸郷 翔征", "pitchCount": 86, "outsRecorded": 15},
+            {"team": "away", "name": "則本 昂大", "pitchCount": 18, "outsRecorded": 2},
+            {"team": "home", "name": "玉村 昇悟", "pitchCount": 76, "outsRecorded": 18}
+          ]
+        },
+        "sourceFetchIntervalSeconds": 70.147,
+        "numericChangeObserved": false,
+        "numericChanges": {},
+        "source": "sportsnavi"
+      },
+      "parserFixLiveStatsPreserved": true,
+      "unplayedZeroPlaceholderBattingRows": 0
+    },
+    "KBO": {
+      "games": 4,
+      "pregame": 4,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "sameDayLiveVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "pitchCountPolicy": "unverified pitch counts remain null; never synthesize zero",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-22T07:45:34.380Z",
+    "inserted": 13,
+    "readBack": 13,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "dataQuality": {
+    "npbPregamePlaceholderRows": 0,
+    "parserFixLiveStatsPreserved": true,
+    "cpblPitchCountUnknownValuesRemainNull": true,
+    "cpblSourceListedLineupsOfficiallyConfirmed": false
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false
+}
