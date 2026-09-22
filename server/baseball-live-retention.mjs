@@ -1,5 +1,7 @@
-/** Retain a known scheduled start, never a score, from the exact same fixture. */
+import {retainGamePlayText} from './baseball-play-text.mjs';
+/** Retain exact-fixture start/text provenance, never overwrite current scores. */
 export function retainFixtureStart(fresh, previous) {
+  fresh = retainGamePlayText(fresh, previous);
   if (fresh.startTime || !previous?.startTime) return fresh;
   const same = !!fresh.id && !!fresh.home?.id && !!fresh.away?.id && fresh.league === previous.league && fresh.date === previous.date &&
     fresh.id === previous.id && fresh.key === previous.key &&

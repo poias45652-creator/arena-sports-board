@@ -4,6 +4,9 @@ on:
     branches: ['fix/international-play-text-20260923']
 permissions:
   contents: read
+concurrency:
+  group: international-play-text-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   source-probe:
     runs-on: ubuntu-latest
@@ -11,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        league: [NPB, KBO]
+        league: [NPB, KBO, CPBL]
     steps:
       - uses: actions/checkout@v6
         with:
@@ -20,4 +23,29 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
-      - run: node scripts/play-text-source-smoke.mjs ${{ matrix.league }}
+      - run: node scripts/play-text-collector-smoke.mjs ${{ matrix.league }}
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node --test tests/international-play-text.test.mjs tests/international-live-display.test.mjs tests/baseball-live-feed.test.mjs tests/international-repair*.test.mjs
+      - run: npm test
+      - run: node --test tests/winner-analysis*.test.mjs
+      - run: npm run build
+      - name: Verify compiled narrative renderer
+        run: |
+          node --input-type=module <<'JS'
+          import {readdirSync,readFileSync} from 'node:fs';
+          const walk=d=>readdirSync(d,{withFileTypes:true}).flatMap(e=>e.isDirectory()?walk(d+'/'+e.name):[d+'/'+e.name]);
+          const paths=walk('.next/static').filter(p=>p.endsWith('.js')&&readFileSync(p,'utf8').includes('data-play-text-version'));
+          if(!paths.length)throw new Error('Narrative renderer missing from production bundle');
+          for(const p of paths){const s=readFileSync(p,'utf8');if(s.includes('本局得分：'))throw new Error('Old inning summary remains');console.log('NARRATIVE_ASSET',p);}
+          JS

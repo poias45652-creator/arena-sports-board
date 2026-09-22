@@ -2,6 +2,7 @@ import {npbGameStart,recoverNpbPregameState} from './baseball-npb-start.mjs';
 import {recoverKboPregameState} from './baseball-pregame-state.mjs';
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb} from './baseball-live-providers.mjs';
 import {addNpbContext} from './baseball-npb-context.mjs';
+import {enrichLeaguePlayText} from './baseball-play-text.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
 /** Match the exact opaque game ID from the dated schedule, not team-name guesses. */
 export async function collectLeague(league,options={}){
@@ -10,7 +11,7 @@ export async function collectLeague(league,options={}){
  if(league!=='NPB'){
   const result=await collectBase(league,options);
   if(league==='KBO')result.games.forEach(recoverKboPregameState);
-  return result;
+  return enrichLeaguePlayText(result,options);
  }
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
@@ -36,5 +37,5 @@ export async function collectLeague(league,options={}){
    games.push(g);
   }catch(e){errors.push(id+': '+e.message);}
  }));
- return {schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games,errors,status:errors.length?'partial':'ok',liveLatencyVerified:false};
+ return enrichLeaguePlayText({schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games,errors,status:errors.length?'partial':'ok',liveLatencyVerified:false},options);
 }
