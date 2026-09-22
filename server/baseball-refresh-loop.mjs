@@ -1,7 +1,7 @@
 /** Independent request-bounded refresh loops; hosting sleep still stops this process. */
 export const BASEBALL_LEAGUES = Object.freeze(['CPBL', 'NPB', 'KBO']);
 export function createBaseballRefreshLoops({getLive, getPregame, day,
-  now=Date.now, schedule=setTimeout, cancel=clearTimeout, onTick=()=>{}, staggerMs=15000}) {
+  now=Date.now, schedule=setTimeout, cancel=clearTimeout, onTick=(_state)=>{}, staggerMs=15000}) {
   let stopped=true;
   const timers=new Map(), busy=new Set(), statsAt=new Map(), failures=new Map();
   const states=Object.fromEntries(BASEBALL_LEAGUES.map(league=>[league,
