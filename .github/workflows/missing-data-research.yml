@@ -1,0 +1,53 @@
+name: Missing baseball data research
+on:
+  push:
+    branches: ['research/missing-baseball-data-20260922']
+    paths: ['.github/workflows/missing-data-research.yml']
+permissions:
+  contents: read
+jobs:
+  read-public-records:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Verify selected public records without production access
+        shell: bash
+        run: |
+          node --input-type=module <<'JS'
+          import {plain,tableData} from './server/baseball-live-providers.mjs';
+          const read=async url=>{
+            const r=await fetch(url,{redirect:'manual',headers:{'User-Agent':'YJBaseballSourceAudit/1.0',Accept:'text/html'},signal:AbortSignal.timeout(12000)});
+            if(!r.ok){await r.body?.cancel();throw Error('HTTP '+r.status);}
+            let size=0;const chunks=[];for await(const c of r.body){size+=c.byteLength;if(size>4000000)throw Error('response_too_large');chunks.push(c);}
+            const html=Buffer.concat(chunks).toString('utf8');if(/challenge-platform|<title>Just a moment/i.test(html))throw Error('public_access_challenge');
+            return {html,observedAt:new Date().toISOString()};
+          };
+          const players=[['65516','배제성','KT'],['56801','아빌라','SSG'],['52043','벤자민','두산'],['54362','전준표','키움'],['56459','페덱','삼성']];
+          console.log('ENV',JSON.stringify({execution:'GitHub Actions, not Render',observedAt:new Date().toISOString(),productionChanged:false}));
+          for(let i=0;i<players.length;i+=2)await Promise.all(players.slice(i,i+2).map(async([id,name,team])=>{
+            const url='https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId='+id;
+            try{const {html,observedAt}=await read(url),tables=tableData(html),year=plain(html).match(/(20\d{2})\s+성적/)?.[1];
+              const one=tables.find(t=>['팀명','ERA','NP','IP','H'].every(k=>t.rows[0]?.includes(k)));
+              const two=tables.find(t=>['BB','SO','ER','WHIP'].every(k=>t.rows[0]?.includes(k))&&!t.rows[0]?.includes('팀명'));
+              const row=one?.rows.find((r,j)=>j>0&&r[0]===team),extra=two?.rows[1];
+              const allowed=['팀명','ERA','G','W','L','NP','IP','H','BB','SO','R','ER','WHIP'];const stats={};
+              if(row)one.rows[0].forEach((k,j)=>{if(allowed.includes(k))stats[k]=row[j];});
+              if(extra)two.rows[0].forEach((k,j)=>{if(allowed.includes(k))stats[k]=extra[j];});
+              const n=plain(html).includes('선수명: '+name);
+              console.log('KBO_PROFILE',JSON.stringify({url,id,name,team,observedAt,year,identityVerified:n,stats,lastGameDates:plain(html).match(/\b09\.\d{2}\b/g)?.slice(0,10)||[]}));
+            }catch(e){console.log('SOURCE_ERROR',JSON.stringify({url,error:e.message}));}
+          }));
+          const daily='https://www.koreabaseball.com/Record/Player/PitcherDetail/Daily.aspx?playerId=54362';
+          try{const {html,observedAt}=await read(daily);console.log('KBO_DAILY',JSON.stringify({url:daily,observedAt,tables:tableData(html).filter(t=>t.rows[0]?.includes('구분')&&t.rows[0]?.includes('IP')).map(t=>({headers:t.rows[0],rows:t.rows.filter(r=>/^\d{2}\.\d{2}$/.test(r[0])),roles:[...new Set(t.rows.slice(1).map(r=>r[t.rows[0].indexOf('구분')]).filter(x=>/선발|구원/.test(x||'')))]}))}));}catch(e){console.log('SOURCE_ERROR',JSON.stringify({url:daily,error:e.message}));}
+          const url='https://baseball.yahoo.co.jp/npb/game/2021039451/top';
+          try{const {html,observedAt}=await read(url),text=plain(html);const publicContexts=[];for(const m of html.matchAll(/bb-game(?:Outline|Info|Round|Card)__[^"'<>\s]+/g)){const s=plain(html.slice(Math.max(0,m.index-50),m.index+650));if(/\d{1,2}:\d{2}|試合開始|プレイボール/.test(s))publicContexts.push({class:m[0],text:s.slice(0,300)});}
+            console.log('NPB_CLOCK',JSON.stringify({url,observedAt,title:plain(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||''),contexts:publicContexts.slice(0,8),startDate:html.match(/"startDate"\s*:\s*"([^"]+)"/)?.[1]||null,clockContexts:[...text.matchAll(/.{0,30}\d{1,2}:\d{2}.{0,40}/g)].slice(0,8).map(x=>x[0])}));
+          }catch(e){console.log('SOURCE_ERROR',JSON.stringify({url,error:e.message}));}
+          JS
