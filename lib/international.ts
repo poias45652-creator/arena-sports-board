@@ -89,7 +89,11 @@ export function parseInternational(html:string,kind:string,year:number){
   const names:Record<string,string>={'龍':'味全龍','獅':'統一獅','悍將':'富邦悍將','雄鷹':'台鋼雄鷹','桃猿':'樂天桃猿','兄弟':'中信兄弟'};
   const seen=new Set<string>();
   const rows=selected[0].rows.map((r,i)=>{
-   if(r.length!==7||Number(r[0])!==i+1||!names[r[1]]||seen.has(r[1])||[r[2],r[3],r[6]].some(v=>!/^\d+$/.test(v))||! /^(?:0)?\.\d{3}$/.test(r[4])||!/^\d+(?:\.\d+)?$/.test(r[5]))throw new Error('中職排名欄位未能核對');
+   const rank=Number(r[0]),previous=i?Number(selected[0].rows[i-1][0]):1;
+   const gap=/^\d+(?:\.\d+)?$/.test(r[5])||rank===1&&/^[-—]$/.test(r[5]);
+   // Equal win percentages can have tied ranks; the leader's games-behind
+   // value is a dash, not a missing statistic for all six teams.
+   if(r.length!==7||!Number.isInteger(rank)||rank<1||rank>i+1||rank<previous||!names[r[1]]||seen.has(r[1])||[r[2],r[3],r[6]].some(v=>!/^\d+$/.test(v))||! /^(?:0)?\.\d{3}$/.test(r[4])||!gap)throw new Error('中職排名欄位未能核對');
    seen.add(r[1]);return [r[0],names[r[1]],String(Number(r[2])+Number(r[3])+Number(r[6])),r[2],r[3],r[6],r[4],r[5]];
   });
   return {games:[],tables:[{title:'CPBL 全年戰績 · Yahoo 運動',headers:['排名','球隊','出賽','勝','敗','和','勝率','勝差'],rows}],scope:`${year} Yahoo 運動全年排名；非上下半季排名，勝率依來源原值，來源發布時間未提供`};
