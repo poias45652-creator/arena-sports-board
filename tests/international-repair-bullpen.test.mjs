@@ -25,3 +25,12 @@ test('KBO completed logs exclude starter innings and preserve thirds',()=>{
  const switched=structuredClone(relay);switched.awayLineup.pitcher[0].name='different';assert.throws(()=>kboReliefGame(raw,switched,page,'2026-09-23'));
 });
 test('bullpen collector never backfills current stats into historical fixtures',async()=>{let calls=0;const collect=createBullpenCollector({now:()=>Date.parse('2026-09-23T05:00:00Z'),fetcher:async()=>{calls++;throw Error('not expected');}});const r=await collect('NPB','2026-09-22',['讀賣巨人']);assert.equal(r.rows.length,0);assert.equal(calls,0);});
+test('KBO collector visits each historical date and matches team codes with spaced display names',async()=>{
+ const dates=[],details=[];const game=(date)=>({...raw,gameId:date.replaceAll('-','')+'LTNC02026',gameDate:date,gameDateTime:date+'T18:30:00',homeTeamCode:'NC'});
+ const collect=createBullpenCollector({now:()=>Date.parse('2026-09-23T05:00:00Z'),fetcher:async url=>{
+  const u=new URL(url);if(u.pathname.endsWith('/game-polling')){const id=u.pathname.split('/').at(-2),date=id.slice(0,4)+'-'+id.slice(4,6)+'-'+id.slice(6,8);details.push(id);return Response.json({success:true,result:{game:game(date),textRelayData:relay}});}
+  const from=u.searchParams.get('fromDate');assert.equal(from,u.searchParams.get('toDate'));dates.push(from);return Response.json({success:true,result:{games:[game(from)]}});
+ }});
+ const r=await collect('KBO','2026-09-23',['樂天巨人','NC 恐龍']);assert.equal(r.errors.length,0);assert.equal(new Set(dates).size,28);assert.equal(details.length,10);assert.equal(r.rows.length,2);
+ const nc=r.rows.find(r=>r.team==='NC 恐龍');assert.equal(nc.source.games,10);assert.equal(nc.stats.innings,'30');assert.equal(nc.stats.era,'0.00');assert.equal(nc.source.throughDate,'2026-09-22');
+});

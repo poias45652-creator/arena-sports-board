@@ -42,7 +42,7 @@ export function kboReliefGame(raw,relay,page,date){
   const all=(key)=>rows.reduce((s,p)=>s+p.stats[key],0),outs=rows.reduce((s,p)=>s+p.outsRecorded,0);
   if(outs<15||outs>36||all('RUNS_ALLOWED')!==g[other].score||(g[other].hits!==null&&all('HITS_ALLOWED')!==g[other].hits))throw Error('韓職逐場投手與終場比分不符');
   const relief=rows.filter((p,i)=>Number(listed[i].seqno)>1),sum=k=>relief.reduce((s,p)=>s+p.stats[k],0);
-  teams.push({team:g[side].name,outs:relief.reduce((s,p)=>s+p.outsRecorded,0),er:sum('EARNED_RUNS'),hits:sum('HITS_ALLOWED'),bb:sum('WALKS_ALLOWED'),k:sum('STRIKEOUTS_THROWN')});
+  teams.push({team:KBO[raw[side+'TeamCode']],outs:relief.reduce((s,p)=>s+p.outsRecorded,0),er:sum('EARNED_RUNS'),hits:sum('HITS_ALLOWED'),bb:sum('WALKS_ALLOWED'),k:sum('STRIKEOUTS_THROWN')});
  }
  return {id:g.id,date:g.date,teams,url:page.url,observedAt:page.fetchedAt};
 }
