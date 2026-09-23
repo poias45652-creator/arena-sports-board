@@ -62,6 +62,6 @@ export function summarizePregameImport(snapshot:PregameData){
   pitchers:teams.filter(t=>t.starter.name).length,usablePitchers:teams.filter(t=>t.gameLogs?.starter||t.starter.quality==='source_reported').length,
   reviewPitchers:teams.filter(t=>!t.gameLogs?.starter&&t.starter.quality==='needs_review').map(t=>`${t.team} ${t.starter.name}`),
   reviewBatting:teams.filter(t=>t.battingWarnings?.length).map(t=>t.team),
-  bullpens:teams.filter(t=>t.gameLogs?.bullpen||t.bullpen).length,completeBullpens:teams.filter(t=>t.gameLogs?.bullpenScope==='season'||t.bullpen&&['era','innings','whip','strikeouts','walks'].every(k=>/^\d+(?:\.\d+)?$/.test(t.bullpen![k as keyof PregamePitchingStats]))&&Number(t.bullpen.innings)>0).length,batting:teams.filter(t=>t.batting.rows.length).length,
+  bullpens:teams.filter(t=>t.gameLogs?.bullpen||t.bullpen).length,completeBullpens:teams.filter(t=>t.gameLogs?.bullpenScope==='season'||t.bullpenSource?.scope!=='recent'&&t.bullpen&&['era','innings','whip','strikeouts','walks'].every(k=>/^\d+(?:\.\d+)?$/.test(t.bullpen![k as keyof PregamePitchingStats]))&&Number(t.bullpen.innings)>0).length,batting:teams.filter(t=>t.batting.rows.length).length,
   appearances:teams.reduce((sum,t)=>sum+(t.gameLogs?.starter?.games??t.starter.recent.rows.length),0),observedAt:snapshot.observedAt};
 }

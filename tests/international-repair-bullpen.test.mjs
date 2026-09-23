@@ -34,3 +34,13 @@ test('KBO collector visits each historical date and matches team codes with spac
  const r=await collect('KBO','2026-09-23',['樂天巨人','NC 恐龍']);assert.equal(r.errors.length,0);assert.equal(new Set(dates).size,28);assert.equal(details.length,10);assert.equal(r.rows.length,2);
  const nc=r.rows.find(r=>r.team==='NC 恐龍');assert.equal(nc.source.games,10);assert.equal(nc.stats.innings,'30');assert.equal(nc.stats.era,'0.00');assert.equal(nc.source.throughDate,'2026-09-22');
 });
+test('KBO uses a complete last-five window when an older last-ten log conflicts, never skips a recent missing game',async()=>{
+ const collectWith=(badDay)=>createBullpenCollector({now:()=>Date.parse('2026-09-23T05:00:00Z'),fetcher:async url=>{
+  const u=new URL(url),detail=u.pathname.endsWith('/game-polling'),id=detail?u.pathname.split('/').at(-2):'',date=detail?id.slice(0,4)+'-'+id.slice(4,6)+'-'+id.slice(6,8):u.searchParams.get('fromDate');
+  const g={...raw,gameId:date.replaceAll('-','')+'LTHH02026',gameDate:date,gameDateTime:date+'T18:30:00'};
+  if(detail&&date===badDay)g.homeTeamScore=99;
+  return Response.json({success:true,result:detail?{game:g,textRelayData:relay}:{games:[g]}});
+ }});
+ const usable=await collectWith('2026-09-15')('KBO','2026-09-23',['樂天巨人']);assert.equal(usable.rows[0].source.games,5);assert.equal(usable.rows[0].source.throughDate,'2026-09-22');assert.equal(usable.rows[0].source.gameIds.length,5);
+ const blocked=await collectWith('2026-09-20')('KBO','2026-09-23',['樂天巨人']);assert.equal(blocked.rows.length,0);
+});
