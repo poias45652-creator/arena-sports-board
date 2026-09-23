@@ -205,9 +205,14 @@ export function marketOutcomes(game:{id:number|string;home:string;away:string;di
 
 export function suggestedPicks(games:any[],reports:Map<string,RunAnalysis>,now:number,fresh:boolean,winnerOnly=false,league:ModelLeague='NPB'):InternationalPick[]{
  if(!fresh)return [];
- return games.flatMap(game=>{
+ const candidates=games.flatMap(game=>{
   const report=matchingRunAnalysis(game,reports,now,league);
-  const choices=BOARD_MARKETS.filter(({key})=>!winnerOnly||key==='moneyline').flatMap(({key})=>marketOutcomes(game,key,report,true,league)).filter(c=>c.expectedProfit>0).sort((a,b)=>b.expectedProfit-a.expectedProfit);
-  return choices[0]?[choices[0]]:[];
- }).sort((a,b)=>b.expectedProfit-a.expectedProfit).map(c=>c.pick);
+  return BOARD_MARKETS.filter(({key})=>winnerOnly?key==='moneyline':key!=='moneyline')
+   .flatMap(({key})=>marketOutcomes(game,key,report,true,league))
+   .filter(c=>c.result.win+c.result.partialWin>c.result.loss+c.result.partialLoss+.000001)
+   .map(c=>({...c,game}));
+ }).sort((a,b)=>(b.result.win+b.result.partialWin)-(a.result.win+a.result.partialWin)||String(a.game.id).localeCompare(String(b.game.id)));
+ const used=new Set<string>(),selected:InternationalPick[]=[];
+ for(const c of candidates){const names=[team(c.game.away,league),team(c.game.home,league)];if(names.some(n=>used.has(n)))continue;selected.push(c.pick);names.forEach(n=>used.add(n));}
+ return selected;
 }

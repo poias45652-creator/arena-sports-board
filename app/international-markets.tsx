@@ -1,7 +1,7 @@
 'use client';
 import {useEffect,useMemo,useState} from 'react';
 import {Button} from '@/components/ui/button';
-import {Input} from '@/components/ui/input';
+import MarketOutcomes from './market-outcomes';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
 import {RefreshCw} from 'lucide-react';
@@ -11,7 +11,7 @@ import type {MarketKey} from '@/lib/pinnacle';
 import {INTERNATIONAL_MARKET_SOURCE,internationalMarketOptions,type InternationalPick} from '@/lib/international-market-options';
 import InternationalMarketAnalysis from './international-market-analysis';
 import InternationalTeamLogo from './international-team-logo';
-import {buildRunAnalysis,matchingRunAnalysis,analysisFixtureKey,suggestedPicks,isModelLeague} from '@/lib/baseball-run-analysis';
+import {buildRunAnalysis,matchingRunAnalysis,analysisFixtureKey,suggestedPicks,isModelLeague,marketOutcomes} from '@/lib/baseball-run-analysis';
 import {announcedNpbGames,scheduledKboGames} from '@/lib/international-fixtures';
 import {selectInternationalBoardFixtures} from '@/lib/international-board-fixtures';
 import {internationalTeam} from '@/lib/international-teams';
@@ -29,7 +29,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
  const {data,error,loading:busy,refresh}=odds;
  const [now,setNow]=useState(Date.now());
  const [day,setDay]=useState('auto'),[count,setCount]=useState(3),[parlayMode,setParlayMode]=useState('markets'),[notice,setNotice]=useState('');
- const [picks,setPicks]=useState<Pick[]>([]),[stake,setStake]=useState('100');
+ const [picks,setPicks]=useState<Pick[]>([]);
  const [marketTabs,setMarketTabs]=useState<Record<string,MarketKey>>({});
  useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t);},[]);
  const modelLeague=isModelLeague(league)?league:'NPB',hasModel=isModelLeague(league);
@@ -54,17 +54,26 @@ export default function InternationalMarkets({league,schedule,standings,starters
   return m?`${m[1]} 勝 ${m[2]} 敗 ${m[3]} 和`:raw?`來源戰績 ${raw}`:'本季戰績尚未取得';
  };
  const valid=picks.length>0&&fresh&&picks.every(p=>{const g=games.find((g:any)=>g.id===p.event);return g&&!g.live&&Date.parse(g.start.replaceAll('/','-').replace(' ','T')+'+08:00')>now&&options(g,p.period,p.type).some(o=>o.key===p.key&&o.signature===p.signature);});
- const amount=Number(stake),net=picks.reduce((v,p)=>v*(1+p.price),1);
+ function pickOutcome(p:Pick){
+  const g=games.find(g=>g.id===p.event);
+  const key=BOARD_MARKETS.find(({key})=>INTERNATIONAL_MARKET_SOURCE[key].period===p.period&&INTERNATIONAL_MARKET_SOURCE[key].type===p.type)?.key;
+  if(!g||!key||!options(g,p.period,p.type).some(o=>o.key===p.key&&o.signature===p.signature))return null;
+  const report=matchingRunAnalysis(g,analysisReports,now,modelLeague);
+  return marketOutcomes(g,key,report,fresh,modelLeague).find(o=>o.pick.key===p.key)?.result||null;
+ }
+ const outcomes=picks.map(pickOutcome);
+ const combined=valid&&picks.length===count&&outcomes.every(Boolean)?outcomes.reduce((n,r)=>n*r!.win,1):null;
  function recommend(){
   const selected=suggestedPicks(games,analysisReports,now,fresh,parlayMode==='winner',modelLeague).slice(0,count);
-  if(selected.length<count){setNotice(`目前只有 ${selected.length} 場可推薦，未滿 ${count} 關。`);return;}
-  setPicks(selected);setNotice('已選取，每場一項；標示模擬的場次含假設參數。');
+  setPicks(selected);setNotice(selected.length<count?`符合條件只有 ${selected.length} 場，不勉強湊滿。`:'已按模型獲利機率（含中洞贏）排序；模擬場次含假設參數。');
  }
  function changeMode(value:string){setParlayMode(value);setMarketTabs({});setPicks([]);setNotice('');}
  function addPick(p:Pick){
   if(picks.some(x=>x.key===p.key)){setPicks(picks.filter(x=>x.key!==p.key));setNotice('');return;}
   const next=picks.filter(x=>x.event!==p.event);
   if(next.length>=count){setNotice(`已選滿 ${count} 關，請先移除。`);return;}
+  const chosen=games.find(g=>g.id===p.event);
+  if(chosen&&next.some(x=>{const other=games.find(g=>g.id===x.event);return other&&[teamName(other.away),teamName(other.home)].some(t=>[teamName(chosen.away),teamName(chosen.home)].includes(t));})){setNotice('同一隊不能跨場重複串，請改選其他比賽。');return;}
   setPicks([...next,p]);setNotice('');
  }
  return <section className="mb-6 space-y-5" aria-label="賽前分析與自選串關">
@@ -83,10 +92,10 @@ export default function InternationalMarkets({league,schedule,standings,starters
     <Tabs value={parlayMode} onValueChange={changeMode}><TabsList className="mb-3 h-auto min-h-10 w-full" aria-label="選擇串關玩法"><TabsTrigger value="markets">分析</TabsTrigger><TabsTrigger value="winner">獨贏</TabsTrigger></TabsList>
      <TabsContent value={parlayMode} className="parlay-compact-content space-y-2">
       <div className="parlay-compact-controls"><Select value={String(count)} onValueChange={value=>{setCount(Number(value));setPicks(old=>old.slice(0,Number(value)));setNotice('');}}><SelectTrigger aria-label="串關數量" className="w-full"><SelectValue/></SelectTrigger><SelectContent>{[3,4,5].map(n=><SelectItem key={n} value={String(n)}>{n} 關</SelectItem>)}</SelectContent></Select><Button className="w-full" disabled={!hasModel||!fresh||!games.some(g=>!g.live&&Date.parse(g.start.replace(' ','T')+'+08:00')>now)} onClick={recommend} aria-describedby={`${league}-recommend-status`}>推薦 {count} 關</Button></div>
-      <details className="parlay-explanation"><summary>試算說明</summary><div className="mt-2 space-y-3"><p id={`${league}-recommend-status`}>{hasModel?'每場限一項；選項不足時不會湊滿關數。':'分析資料未齊，暫停自動推薦。可使用來源開放的報價手動選關，每場限一項。'}</p><label className="block text-sm">試算金額<Input type="number" min="0" value={stake} onChange={e=>setStake(e.target.value)}/></label><p>全贏返還包含本金；不含走盤、輸贏半或百分比結算。此處僅試算，不會送出投注。</p></div></details>
+      <details className="parlay-explanation"><summary>試算說明</summary><div className="mt-2 space-y-3"><p id={`${league}-recommend-status`}>{hasModel?'依模型獲利機率（含中洞贏）排序；每場限一項，同隊不重複串，選項不足不勉強湊滿。':'分析資料未齊，暫停自動推薦。可使用來源開放的報價手動選關，每場限一項。'}</p><p>全關全贏機率以各關全贏機率相乘，採獨立假設；未包含中洞贏及退回，不代表實際命中保證。</p></div></details>
       <p className="parlay-notice text-sm text-amber-200" aria-live="polite">{notice}</p><p className="font-bold">已選 {picks.length}／{count} 關</p>
-      {picks.map(p=><div key={p.key} className="rounded-lg border border-white/10 p-3"><p className="mb-1 text-sm text-slate-400">{BOARD_MARKETS.find(({key})=>INTERNATIONAL_MARKET_SOURCE[key].period===p.period&&INTERNATIONAL_MARKET_SOURCE[key].type===p.type)?.label}</p><div className="flex justify-between gap-2"><strong>{p.label} · {p.price}</strong><button className="text-sm underline" onClick={()=>setPicks(old=>old.filter(x=>x.key!==p.key))}>移除</button></div></div>)}
-      <div className="parlay-compact-result rounded-lg bg-[#ffd538]/10 p-4"><p className="text-sm">全關全贏 試算返還</p><p className="my-2 text-3xl font-black text-[#ffd538]">{valid&&picks.length===count&&amount>=0&&Number.isFinite(amount)?`NT$ ${(amount*net).toFixed(2)}`:'—'}</p></div>
+      {picks.map((p,index)=>{const g=games.find(g=>g.id===p.event),r=outcomes[index];const title=BOARD_MARKETS.find(({key})=>INTERNATIONAL_MARKET_SOURCE[key].period===p.period&&INTERNATIONAL_MARKET_SOURCE[key].type===p.type)?.label;const report=g?matchingRunAnalysis(g,analysisReports,now,modelLeague):null;return <div key={p.key} className="rounded-lg border border-white/10 p-3"><div className="flex justify-between gap-2"><strong>{g?`${title} · ${p.label}`:'賽事已失效'}</strong><button className="text-sm underline" onClick={()=>setPicks(old=>old.filter(x=>x.key!==p.key))}>移除</button></div>{g&&<p className="mt-2 flex flex-wrap items-center gap-1 text-sm text-slate-400"><InternationalTeamLogo league={league} name={g.away} size={20}/><span>{g.away}</span><span>vs</span><InternationalTeamLogo league={league} name={g.home} size={20}/><span>{g.home}</span></p>}{report?.mode==='simulation'&&<p className="mt-2 text-sm text-amber-200">模擬推演</p>}<div className="mt-2 text-sm text-amber-200">{r?<MarketOutcomes outcome={r}/>:report?.reason||'資料或賠率已變動，請移除並重新選擇'}</div></div>;})}
+      <div className="parlay-compact-result rounded-lg bg-[#ffd538]/10 p-4"><p className="text-sm">全關全贏 獨立試算</p><p className="my-2 text-3xl font-black text-[#ffd538]">{combined===null?'—':`${(combined*100).toFixed(1)}%`}</p></div>
       {picks.length>0&&!valid&&<p className="text-amber-200 text-sm">選項已過期、變盤或開賽，請重新選取。</p>}
       <Button variant="outline" className="w-full" disabled={!picks.length} onClick={()=>{setPicks([]);setNotice('已清空。');}}>清空組合</Button>
      </TabsContent>

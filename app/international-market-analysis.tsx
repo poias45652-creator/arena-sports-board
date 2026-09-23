@@ -49,7 +49,7 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
        </Button>;
       })}</div>
       {tied&&<p className="text-sm text-amber-200">兩側預期收益接近，暫無明顯推薦方向。</p>}
-      {!tied&&belowThreshold&&<p className="text-sm text-amber-200">兩側預期收益均未大於 0，僅標示相對較有利的一側；不納入自動串關推薦。</p>}
+      {!tied&&belowThreshold&&<p className="text-sm text-amber-200">兩側預期收益均未大於 0，僅標示相對較有利的一側。串關另按獲利機率排序，不代表正預期收益。</p>}
       {!outcomes.length&&!status&&<p className="text-sm text-amber-200">{analysis?.reason||'分析或報價資料尚未齊全，暫無推薦。'}</p>}
       {status&&<p role="status" className="text-sm text-amber-200">{status}</p>}
       {!isModelLeague(league)&&<p className="text-sm text-slate-400">分析資料待齊，機率尚未產生。</p>}
