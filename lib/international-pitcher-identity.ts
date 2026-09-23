@@ -4,7 +4,7 @@ const compact=(s:string)=>s.normalize('NFKC').replace(/[\s・·.]/g,'').toLowerC
 // matching Playsport fixture. Do not fuzzy-match surnames across rosters.
 export function pitcherIdentity(name:string,league:string,team:string){
  const n=compact(name),t=internationalTeam(team,league);
- if(league==='NPB'&&t==='阪神虎'&&['lucas','eルーカス'].includes(n))return 'npb-t-lucas';
+ if(league==='NPB'&&t==='阪神虎'&&['lucas','eルーカス','ルーカス'].includes(n))return 'npb-t-lucas';
  if(league==='NPB'&&t==='千葉羅德海洋'&&['jackson','aジャクソン','ジャクソン'].includes(n))return 'npb-m-jackson';
  // NPB announcement/season table uses ルケーシー; Sportsnavi uses J・ルケーシー.
  if(league==='NPB'&&t==='千葉羅德海洋'&&['ルケーシー','jルケーシー'].includes(n))return 'npb-m-lucchesi';

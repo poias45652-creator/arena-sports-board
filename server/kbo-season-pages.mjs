@@ -1,7 +1,7 @@
 import {plain} from './baseball-live-providers.mjs';
 const URL_BASE='https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx?sort=INN2_CN';
 const TEAMS={LT:'樂天巨人',HH:'韓華鷹',HT:'起亞虎',OB:'斗山熊',NC:'NC 恐龍',KT:'KT 巫師',LG:'LG 雙子',SS:'三星獅',SK:'SSG 登陸者',WO:'培證英雄'};
-const attr=(s,key)=>plain(s.match(new RegExp(`\\b${key}=["']([^"']*)["']`,'i'))?.[1]||'');
+const attr=(s,key)=>plain(s.match(new RegExp(`\\b${key}=(["'])([\\s\\S]*?)\\1`,'i'))?.[2]||'');
 export function kboPageTargets(html){
  const out=new Map();for(const m of html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/gi)){
   const label=plain(m[2]),target=attr(m[1],'href').match(/__doPostBack\('([^']*\$ucPager\$btnNo\d+)'\s*,\s*''\)/)?.[1];
@@ -37,10 +37,11 @@ export function createKboSeasonPages({fetcher=fetch,now=Date.now,parse}){
   const codes=Object.keys(TEAMS).filter(c=>!teams.length||teams.includes(TEAMS[c]));
   const key=date+':'+codes.sort().join(',');const cached=cache.get(key);if(cached?.until>now())return cached.value;if(pending.has(key))return pending.get(key);
   const task=(async()=>{
-   const deadline=AbortSignal.timeout(25000),results=[];
+   const deadline=AbortSignal.timeout(25000),results=[];let cookie='';
    const read=async(body)=>{
-    const r=await fetcher(URL_BASE,{method:body?'POST':'GET',...(body?{body:body.toString()}:{}),redirect:'manual',cache:'no-store',headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html',...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{})},signal:AbortSignal.any([deadline,AbortSignal.timeout(9000)])});
-    if(!r.ok){await r.body?.cancel();throw Error('HTTP '+r.status);}
+    const r=await fetcher(URL_BASE,{method:body?'POST':'GET',...(body?{body:body.toString()}:{}),redirect:'manual',cache:'no-store',headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html',...(cookie?{Cookie:cookie}:{}),...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{})},signal:AbortSignal.any([deadline,AbortSignal.timeout(9000)])});
+    if(!r.ok){await r.body?.cancel();let target='';if(r.status>=300&&r.status<400&&r.headers.get('location'))target=' → '+new URL(r.headers.get('location'),URL_BASE).pathname;throw Error('HTTP '+r.status+target);}
+    if(!body)cookie=(r.headers.getSetCookie?.()||[]).map(s=>s.split(';')[0]).join('; ');
     let size=0;const chunks=[];for await(const part of r.body){size+=part.byteLength;if(size>4_000_000)throw Error('來源內容超出上限');chunks.push(part);}
     const html=Buffer.concat(chunks).toString('utf8');if(/challenge-platform|<title>Just a moment/i.test(html))throw Error('來源要求瀏覽器驗證');return html;
    };
