@@ -3,9 +3,9 @@ import type {PregameGame} from '@/lib/international-pregame';
 
 export default function CpblModelDetails({game}:{game:PregameGame}){
  if(game.league!=='CPBL')return null;
- const r=buildRunAnalysis(game,Date.now(),'CPBL');
+ const r=buildRunAnalysis(game,Date.now(),'CPBL',true);
  return <details className="rounded-lg border border-slate-600 bg-slate-900/50">
-  <summary className="cursor-pointer p-4 font-bold">中職分析計算 · {r.status==='ready'?'已產生基準估算':r.reason}</summary>
+  <summary className="cursor-pointer p-4 font-bold">中職分析計算 · {r.mode==='simulation'?'資料不足・模擬推演':r.status==='ready'?'已產生基準估算':r.reason}</summary>
   <div className="space-y-3 px-4 pb-4 text-sm text-slate-300">
    <p>版本 {MODEL_VERSION.CPBL}。以非官網逐場比賽日誌（Game Logs）推算九局得分、全場勝／和機率與七種玩法。這是未回測、未校準的統計基準模型，資料涵蓋率不是預測準確率。</p>
    <p>球隊得失分由本場日期之前的例行賽完賽紀錄加總，含和局；同場去重，當日、未完賽、熱身賽不納入。先發球季成績須該隊全部完賽投手明細齊全才重算；不足時保留原先已核對的成績；原先成績也不可用時，以最近 10 或 5 場連續完整賽程中的投手紀錄作收縮估計，不標示成本季成績。</p>

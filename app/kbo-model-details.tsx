@@ -3,9 +3,9 @@ import type {PregameGame} from '@/lib/international-pregame';
 
 export default function KboModelDetails({game}:{game:PregameGame}){
  if(game.league!=='KBO')return null;
- const report=buildRunAnalysis(game,Date.now(),'KBO');
+ const report=buildRunAnalysis(game,Date.now(),'KBO',true);
  return <details className="rounded-lg border border-slate-600 bg-slate-900/50">
-  <summary className="cursor-pointer p-4 font-bold">韓職分析計算 · {report.status==='ready'?'已產生估算':report.reason}</summary>
+  <summary className="cursor-pointer p-4 font-bold">韓職分析計算 · {report.mode==='simulation'?'資料不足・模擬推演':report.status==='ready'?'已產生估算':report.reason}</summary>
   <div className="space-y-3 px-4 pb-4 text-sm text-slate-300">
    <p>版本 {MODEL_VERSION.KBO}。本站自行計算客勝、主勝、和局、九局得分期望及七種玩法機率。使用統計基準模型，尚未經韓職歷史回測與校準。</p>
    <p>球隊得失分由本場日期以前的例行賽完賽紀錄加總，再除以實際出賽場數；和局也計入場數。同場紀錄去重，未完賽、當日和未來比賽不納入。</p>

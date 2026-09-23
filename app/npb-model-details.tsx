@@ -4,9 +4,9 @@ import type {PregameGame} from '@/lib/international-pregame';
 
 export default function NpbModelDetails({game}:{game:PregameGame}){
  if(game.league!=='NPB')return null;
- const report=buildNpbAnalysis(game);
+ const report=buildNpbAnalysis(game,Date.now(),'NPB',true);
  return <details className="rounded-lg border border-slate-600 bg-slate-900/50">
-  <summary className="cursor-pointer p-4 font-bold">日職分析計算 · {report.status==='ready'?'已產生估算':report.reason}</summary>
+  <summary className="cursor-pointer p-4 font-bold">日職分析計算 · {report.mode==='simulation'?'資料不足・模擬推演':report.status==='ready'?'已產生估算':report.reason}</summary>
   <div className="space-y-3 px-4 pb-4 text-sm text-slate-300">
    <p>版本 {NPB_MODEL_VERSION}。確定性統計基準模型；未經歷史回測、訓練或勝率校準。資料涵蓋率不代表預測準確率。</p>
    <p>前九局每局得分率＝（對方先發 ERA × {RUN_MODEL_WEIGHTS.starter*100}% ＋ 己方得分能力 × {RUN_MODEL_WEIGHTS.offense*100}% ＋ 對方團隊失分 × {RUN_MODEL_WEIGHTS.defense*100}% ＋ 對方牛棚 ERA × {RUN_MODEL_WEIGHTS.bullpen*100}%）÷ 9。權重為初始假設，未由歷史比賽擬合。</p>

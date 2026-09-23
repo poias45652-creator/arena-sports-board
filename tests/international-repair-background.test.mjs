@@ -38,10 +38,10 @@ test('source failures back off in only that league, and stop cancels pending che
  const retry=h.jobs.find(j=>j.delay===60000);h.advance(60000);retry.fn();await flush();
  assert.ok(h.jobs.some(j=>j.delay===120000));h.loop.stop();assert.ok(h.cancelled.size>=3);
 });
-test('pregame statistics refresh on their own cadence and never run for live-only games',async()=>{
- const calls=[];const h=harness(async league=>({...feed(league),games:league==='NPB'?[{status:'pregame',startTime:'2026-09-22T06:10:00Z'}]:feed(league).games}),async league=>calls.push(league));
- h.loop.start();for(const job of h.jobs.splice(0))job.fn();await flush();assert.deepEqual(calls,['NPB']);
- h.advance(60000);for(const job of h.jobs.splice(0))job.fn();await flush();assert.deepEqual(calls,['NPB']);h.loop.stop();
+test('Today pregame and tomorrow refresh separately, without refreshing live-only stats',async()=>{
+ const calls=[];const h=harness(async league=>({...feed(league),games:league==='NPB'?[{status:'pregame',startTime:'2026-09-22T06:10:00Z'}]:feed(league).games}),async(league,date)=>calls.push(league+':'+date));
+ h.loop.start();for(const job of h.jobs.splice(0))job.fn();await flush();assert.deepEqual(calls.slice().sort(),['CPBL:2026-09-23','KBO:2026-09-23','NPB:2026-09-22','NPB:2026-09-23']);
+ h.advance(60000);for(const job of h.jobs.splice(0))job.fn();await flush();assert.deepEqual(calls.slice().sort(),['CPBL:2026-09-23','KBO:2026-09-23','NPB:2026-09-22','NPB:2026-09-23']);h.loop.stop();
 });
 test('today and tomorrow caches coexist, and retained clocks are persisted',async()=>{
  let calls=0,saved;const now=Date.parse('2026-09-22T06:00:00Z');

@@ -27,7 +27,7 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       if((nextDate||feed.games.some(g=>g.status==='pregame'&&!g.sourceStale))&&
           (!statsAt.has(statKey)||now()-statsAt.get(statKey)>=300000)) {
         statsAt.set(statKey,now());
-        try {await getPregame(league,statsDate);} catch {state.error='場況已更新；賽前統計暫時失敗';}
+        try {await getPregame(league,statsDate);} catch {statsAt.delete(statKey);state.error='場況已更新；賽前統計暫時失敗';}
       }
       if(statsAt.size>12)for(const key of statsAt.keys())if(!key.endsWith(':'+date)&&key!==statKey)statsAt.delete(key);
       const nearStart=feed.games.some(g=>g.status==='pregame'&&
@@ -38,6 +38,13 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       state.status='unavailable';state.error='本聯盟來源更新失敗，其他聯盟繼續';
       delay=Math.min(900000,60000*2**Math.min(n-1,4));
     } finally {
+      // Warm tomorrow even when today's sources fail or today's games have ended.
+      const tomorrow=new Date(Date.parse(date+'T00:00:00Z')+86400000).toISOString().slice(0,10);
+      const upcomingKey=league+':'+tomorrow;
+      if(!stopped&&(!statsAt.has(upcomingKey)||now()-statsAt.get(upcomingKey)>=300000)){
+        try{await getPregame(league,tomorrow);statsAt.set(upcomingKey,now());}
+        catch{state.error=(state.error?state.error+'；':'')+'明日資料待重試';}
+      }
       busy.delete(league);state.running=false;
       try {onTick({...state,nextDelayMs:delay});} catch {}
       queue(league,delay);

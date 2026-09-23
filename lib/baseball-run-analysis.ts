@@ -25,7 +25,7 @@ export function inningRunRate(bat:RunModelInput,pit:RunModelInput,inning:number)
  const other=w.offense*bat.offense+w.defense*pit.defense+w.bullpen*pit.bullpenEra;
  return (inning<=9?w.starter*pit.starterEra+other:other/(w.offense+w.defense+w.bullpen))/9;
 }
-export type RunAnalysis={version:string;status:'ready'|'waiting_data'|'started';reason:string;fixture:Fixture;capturedAt:string;inputs:Partial<Record<Side,RunModelInput>>;notes:string[];expected:{away:number;home:number}|null;win:{away:number;home:number;draw:number}|null;grids:{full:Outcome[];firstHalf:Outcome[]}|null};
+export type RunAnalysis={mode?:'simulation';assumptions?:string[];version:string;status:'ready'|'waiting_data'|'started';reason:string;fixture:Fixture;capturedAt:string;inputs:Partial<Record<Side,RunModelInput>>;notes:string[];expected:{away:number;home:number}|null;win:{away:number;home:number;draw:number}|null;grids:{full:Outcome[];firstHalf:Outcome[]}|null};
 const number=(value:unknown,max=30):number|null=>{const s=String(value??'').trim();if(!/^\d+(?:\.\d+)?$/.test(s))return null;const n=Number(s);return Number.isFinite(n)&&n>=0&&n<=max?n:null;};
 const innings=(value:unknown)=>{const m=String(value??'').trim().match(/^(\d+)(?:\.([012]))?$/);return m?Number(m[1])+Number(m[2]||0)/3:null;};
 const countGames=(s:string)=>{const m=s?.match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/);return m?Number(m[1])+Number(m[2])+Number(m[3]):null;};
@@ -119,7 +119,7 @@ export function scoreDistribution(away:number[],home:number[],automaticRunnerSco
  return mass>0?result.map(o=>({...o,p:o.p/mass})):[];
 }
 
-export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague='NPB'):RunAnalysis{
+export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague='NPB',allowSimulation=false):RunAnalysis{
  const fixture={start:g.start,away:g.away.team,home:g.home.team,starters:{away:g.away.starter.name,home:g.home.starter.name}};
  const report:RunAnalysis={version:MODEL_VERSION[league],status:'waiting_data',reason:'',fixture,capturedAt:new Date(now).toISOString(),inputs:{},notes:[MODEL_NOTE,...(league==='CPBL'?['10 局起突破僵局的二壘跑者，額外得分機率暫設 60%；為未校準假設，非來源統計。']:[])],expected:null,win:null,grids:null};
  const stop=(reason:string,status:RunAnalysis['status']='waiting_data')=>({...report,status,reason});
@@ -131,7 +131,17 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
   if(g.rules?.league!=='KBO'||g.rules.season!==2026||Number(g.date.slice(0,4))!==2026||g.rules.phase!=='regular'||g.rules.maxInnings!==11||!validObserved(g.rules.fixtureObservedAt,start,now))return stop('韓職例行賽場次／延長局數尚未核對');
   report.notes.push('一般例行賽最多 11 局，11 局後保留和局；未套用中職突破僵局跑者。雙重賽與季後賽暫不估算。','團隊得失分由本場日期之前的已完賽紀錄彙算，沒有把當日比分納入。');
  }
- for(const side of sides){const input=modelInput(g,side,now,report.notes,league);if(typeof input==='string')return stop(input);report.inputs[side]=input;}
+ for(const side of sides){
+  let input=modelInput(g,side,now,report.notes,league);
+  if(typeof input==='string'){
+   if(!allowSimulation)return stop(input);
+   report.mode='simulation';report.version=MODEL_VERSION[league]+'-simulation-v1';
+   report.assumptions??=[];report.assumptions.push(input);
+   input=simulationInput(g,side,now,league,report.assumptions);
+  }
+  report.inputs[side]=input;
+ }
+ if(report.mode==='simulation')report.notes.push('資料不足・模擬推演：替代參數不是投手實測成績；未校準，不代表實際勝率。',...report.assumptions!);
  const a=report.inputs.away!,h=report.inputs.home!;
  const cap=league==='KBO'?11:12;
  const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1));
@@ -143,8 +153,32 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  return {...report,status:'ready',expected,win,grids:{full,firstHalf},notes:[...new Set(report.notes)]};
 }
 
+
+export const validAnalysisVersion=(r:RunAnalysis,league:ModelLeague)=>r.version===MODEL_VERSION[league]&&r.mode!=='simulation'||r.mode==='simulation'&&r.version===MODEL_VERSION[league]+'-simulation-v1';
+// Fallback parameters live only in an analysis report, never in source stats.
+function simulationInput(g:PregameGame,side:Side,now:number,league:ModelLeague,assumptions:string[]):RunModelInput{
+ const t=g[side],table=g.comparison,start=analysisStartTime(g.start);
+ const observed=g.comparisonSource?.observedAt||g.source.observedAt;
+ const row=table?.rows.filter(r=>r[table.headers.indexOf('類別')]==='本季'&&team(r[table.headers.indexOf('球隊')]||'',league)===team(t.team,league));
+ const read=(label:string)=>row?.length===1?row[0][table!.headers.indexOf(label)]||'':'';
+ const parsed=rates(read('得/失分')),n=countGames(read('勝敗'));
+ const measured=!!parsed&&n!==null&&n>=20&&validObserved(observed,start,now);
+ const offense=measured?parsed![0]:4.5,defense=measured?parsed![1]:4.5;
+ const at=measured?observed:g.source.observedAt;
+ if(!measured)assumptions.push(t.team+'：缺可用團隊樣本，攻守暫設每九局 4.5 分的中性假設，並非本季成績。');
+ const era=number(t.starter.season.era),ip=innings(t.starter.season.innings);
+ const starterTimes=['era','innings'].map(field=>t.starter.statSources?.[field as 'era'|'innings']?.observedAt||t.retainedSource?.observedAt||g.source.observedAt);
+ const known=!!t.starter.name&&t.starter.quality==='source_reported'&&era!==null&&ip!==null&&ip>0&&starterTimes.every(at=>validObserved(at,start,now))&&(!t.starter.source||validObserved(t.starter.source.observedAt,start,now))&&(!t.starter.review||Date.parse(t.starter.review.reviewedAt)<=now);
+ if(!known)assumptions.push(t.team+'：先發項以團隊失分或中性假設推演，保留 60% 權重。');
+ const bp=t.gameLogs?.bullpen,bpAt=bp?t.gameLogs!.observedAt:t.bullpenSource?.observedAt||g.source.observedAt;
+ const bpEra=bp?number(bp.era):number(t.bullpen?.era),bpIp=bp?bp.outs/3:innings(t.bullpen?.innings);
+ const usable=bpEra!==null&&bpIp!==null&&bpIp>0&&validObserved(bpAt,start,now);
+ if(!usable)assumptions.push(t.team+'：牛棚項以團隊失分或中性假設替代。');
+ return {team:t.team,starter:t.starter.name||'先發未公布',scored:offense,allowed:defense,games:measured?n!:0,splitGames:0,offense,defense,starterEra:known?(era!*ip!+defense*20)/(ip!+20):defense,bullpenEra:usable?(bpEra!*bpIp!+defense*60)/(bpIp!+60):defense,starterInnings:5,recentStarts:0,starterObservedAt:known?starterTimes.sort()[0]:at,teamObservedAt:at,bullpenObservedAt:usable?bpAt:at,bullpenMode:usable?(bp?'game_logs':'reported'):'team_defense'};
+}
+
 export function matchingRunAnalysis(game:Fixture,reports:Map<string,RunAnalysis>,now:number,league:ModelLeague='NPB'):RunAnalysis|null{
- const r=reports.get(analysisFixtureKey(game,league));if(!r||r.version!==MODEL_VERSION[league])return null;
+ const r=reports.get(analysisFixtureKey(game,league));if(!r||!validAnalysisVersion(r,league))return null;
  if(game.live||now>=analysisStartTime(game.start))return {...r,status:'started',reason:'已開賽，停止賽前估算',win:null,expected:null,grids:null};
  if(sides.some(side=>game.starters?.[side]&&pitcherIdentity(game.starters[side]!,league,game[side])!==pitcherIdentity(r.fixture.starters?.[side]||'',league,game[side])))return {...r,status:'waiting_data',reason:'先發已變更，等待新投手成績',win:null,expected:null,grids:null};
  if(Object.values(r.inputs).some(s=>!validObserved(s.teamObservedAt,analysisStartTime(game.start),now)||!validObserved(s.starterObservedAt,analysisStartTime(game.start),now)||(s.bullpenMode!=='team_defense'&&!validObserved(s.bullpenObservedAt,analysisStartTime(game.start),now))))return {...r,status:'waiting_data',reason:'分析資料已過期，等待來源更新',win:null,expected:null,grids:null};
@@ -152,7 +186,7 @@ export function matchingRunAnalysis(game:Fixture,reports:Map<string,RunAnalysis>
 }
 
 export function marketOutcomes(game:{id:number|string;home:string;away:string;displayMarkets?:HrDisplayMarket[]},key:MarketKey,report:RunAnalysis|null,quotesFresh:boolean,league:ModelLeague='NPB'):{pick:InternationalPick;result:Settlement;expectedProfit:number}[]{
- if(!quotesFresh||report?.version!==MODEL_VERSION[league]||report?.status!=='ready'||!report.grids)return [];
+ if(!quotesFresh||(!report||!validAnalysisVersion(report,league))||report?.status!=='ready'||!report.grids)return [];
  const source=INTERNATIONAL_MARKET_SOURCE[key],q=internationalMarketQuote(game,source.period,source.type);
  if(!q)return [];
  const grid=source.period==='firstHalf'?report.grids.firstHalf:report.grids.full;

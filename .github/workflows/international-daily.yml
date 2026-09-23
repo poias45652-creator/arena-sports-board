@@ -1,0 +1,34 @@
+name: Daily CPBL NPB KBO refresh
+on:
+  schedule:
+    # Taiwan 08:17, 14:17, 17:17, 23:17; independent of Render sleep.
+    - cron: '17 0,6,9,15 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/international-daily.yml'
+      - 'scripts/international-daily.mjs'
+permissions:
+  contents: read
+  id-token: write
+concurrency:
+  group: international-daily-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Allow the first Render deployment to finish
+        if: github.event_name == 'push'
+        run: sleep 240
+      - name: Refresh today and tomorrow with retries
+        run: node scripts/international-daily.mjs

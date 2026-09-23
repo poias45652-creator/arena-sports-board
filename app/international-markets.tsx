@@ -33,7 +33,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
  const [marketTabs,setMarketTabs]=useState<Record<string,MarketKey>>({});
  useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t);},[]);
  const modelLeague=isModelLeague(league)?league:'NPB',hasModel=isModelLeague(league);
- const analysisReports=useMemo(()=>new Map(hasModel?(pregame?.games||[]).map(g=>{const report=buildRunAnalysis(g,Date.now(),modelLeague);return [analysisFixtureKey(report.fixture,modelLeague),report] as const;}):[]),[hasModel,modelLeague,pregame]);
+ const analysisReports=useMemo(()=>new Map(hasModel?(pregame?.games||[]).map(g=>{const report=buildRunAnalysis(g,Date.now(),modelLeague,true);return [analysisFixtureKey(report.fixture,modelLeague),report] as const;}):[]),[hasModel,modelLeague,pregame]);
  const fresh=!!data?.fetchedAt&&now-Date.parse(data.fetchedAt)<=150000&&now-Date.parse(data.fetchedAt)>=-60000&&!error;
  const options=(g:any,selectedPeriod='full',selectedType='103')=>internationalMarketOptions(g,league,selectedPeriod,selectedType);
  const hasOptions=(g:any)=>BOARD_MARKETS.some(({key})=>{const s=INTERNATIONAL_MARKET_SOURCE[key];return options(g,s.period,s.type).length>0;});
@@ -58,7 +58,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
  function recommend(){
   const selected=suggestedPicks(games,analysisReports,now,fresh,parlayMode==='winner',modelLeague).slice(0,count);
   if(selected.length<count){setNotice(`目前只有 ${selected.length} 場可推薦，未滿 ${count} 關。`);return;}
-  setPicks(selected);setNotice('已選取，每場一項。');
+  setPicks(selected);setNotice('已選取，每場一項；標示模擬的場次含假設參數。');
  }
  function changeMode(value:string){setParlayMode(value);setMarketTabs({});setPicks([]);setNotice('');}
  function addPick(p:Pick){
@@ -98,7 +98,8 @@ export default function InternationalMarkets({league,schedule,standings,starters
      const analysis=hasModel?matchingRunAnalysis(g,analysisReports,now,modelLeague):null;
      return <article key={g.id} className="panel international-match-card overflow-hidden">
      <div className="flex flex-wrap justify-between gap-2 px-5 pt-4 text-sm text-slate-400"><span>{g.start}（台灣）{g.venue?` · ${g.venue}`:''}</span><span>{analysis?.expected?`九局得分期望：客 ${analysis.expected.away.toFixed(1)}／主 ${analysis.expected.home.toFixed(1)}，合計 ${(analysis.expected.away+analysis.expected.home).toFixed(1)} 分${analysis.win?` · 和局 ${(analysis.win.draw*100).toFixed(1)}%`:''}`:started?'已開賽，停止賽前估算':'得分期望：—'}</span></div>
-     <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2>{cleanTeam(g[side])}<small>（{side==='home'?'主':'客'}）</small></h2><span><small>勝率</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
+     <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2>{cleanTeam(g[side])}<small>（{side==='home'?'主':'客'}）</small></h2><span><small>{analysis?.mode==='simulation'?'模擬勝率':'勝率'}</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
+     {analysis?.mode==='simulation'&&<div className="mx-5 mb-4 rounded border border-amber-500/60 p-3 text-sm text-amber-200"><strong>資料不足・模擬推演</strong><p>取得可核對資料後自動重算；以下替代值不會寫成投手實際成績。</p>{analysis.assumptions?.map(note=><p key={note}>{note}</p>)}</div>}
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
     {!games.length&&<div className="panel p-5">{dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`}</div>}

@@ -36,12 +36,12 @@ test('CPBL verified empty day is healthy; blank, stale, partial and contradictor
  const stored={league:'CPBL',date,key:'CPBL:known',source:{fetchedAt:at}};assert.equal((await feed(verified(),[stored])('CPBL')).status,'stale');
  assert.equal((await feed({...verified(),league:'NPB'})('NPB')).status,'unavailable');
 });
-test('CPBL background warms next game date on a verified empty day; other leagues unchanged',async()=>{
+test('All leagues warm tomorrow; CPBL off-day prefetch is deduplicated',async()=>{
  const jobs=[],calls=[];let clock=Date.parse(at);
  const loop=createBaseballRefreshLoops({day:()=>date,now:()=>clock,schedule:(fn,delay)=>{const j={fn,delay};jobs.push(j);return j;},cancel:()=>{},
  getLive:async league=>league==='CPBL'?{...verified(),noGames:true}:{league,date,games:[{status:'live'}],status:'ok'},getPregame:async(...a)=>calls.push(a)});
- loop.start();for(const j of jobs.splice(0))j.fn();await new Promise(r=>setImmediate(r));assert.deepEqual(calls,[['CPBL','2026-09-24']]);
- clock+=300001;for(const j of jobs.splice(0))j.fn();await new Promise(r=>setImmediate(r));assert.equal(calls.length,2);loop.stop();
+ loop.start();for(const j of jobs.splice(0))j.fn();await new Promise(r=>setImmediate(r));assert.deepEqual(calls.sort(),[['CPBL','2026-09-24'],['KBO','2026-09-24'],['NPB','2026-09-24']]);
+ clock+=300001;for(const j of jobs.splice(0))j.fn();await new Promise(r=>setImmediate(r));assert.equal(calls.length,6);loop.stop();
 });
 test('unpublished future detail keeps schedule without inventing a starter or score',async()=>{
  let index=0;const all=pages();
