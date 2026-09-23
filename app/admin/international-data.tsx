@@ -15,6 +15,7 @@ export function InternationalDataPanels({data,loading,onRefresh}:{data:Records;l
  return <section className="space-y-4" aria-label="日韓職公告與賽程管理">
   <div className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-xl font-bold">日韓職公告與賽程</h2><Button variant="outline" disabled={loading} onClick={onRefresh}><RefreshCw className={loading?'animate-spin':''}/>{loading?'讀取中…':'更新公告與賽程'}</Button></div>
   <NpbRoster data={data['npb-roster']} loading={loading}/>
+  <details className="rounded-lg border border-slate-600 p-4"><summary className="cursor-pointer font-bold">韓職球隊紀錄來源</summary><a className="mt-2 inline-block text-sm underline" href="https://eng.koreabaseball.com/Schedule/DailySchedule.aspx" target="_blank" rel="noreferrer">KBO 官方逐月例行賽紀錄 ↗</a></details>
   <KboSchedule data={data['kbo-schedule']} loading={loading}/>
  </section>;
 }

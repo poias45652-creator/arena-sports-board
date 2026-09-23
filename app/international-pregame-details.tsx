@@ -1,3 +1,4 @@
+import {buildRunAnalysis,isModelLeague} from '@/lib/baseball-run-analysis';
 import type {PregameGame} from '@/lib/international-pregame';
 import type {SourceTable} from '@/lib/international';
 import NpbModelDetails from './npb-model-details';
@@ -8,8 +9,10 @@ function DataTable({table}:{table:SourceTable}){
  return <div className="overflow-x-auto"><table className="w-full text-sm"><caption className="pb-2 text-left font-bold">{table.title}</caption><thead><tr>{table.headers.map((h,i)=><th key={i} scope="col" className="whitespace-nowrap border-b border-slate-600 px-3 py-2 text-left text-slate-300">{h}</th>)}</tr></thead><tbody>{table.rows.map((row,i)=><tr key={i}>{row.map((cell,j)=><td key={j} className="whitespace-nowrap border-b border-slate-700/60 px-3 py-2">{cell||'—'}</td>)}</tr>)}</tbody></table></div>;
 }
 export default function InternationalPregameDetails({game}:{game:PregameGame}){
+ const analysis=isModelLeague(game.league)?buildRunAnalysis(game,Date.now(),game.league,true):null;
  const captured=new Date(game.source.observedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',hour12:false});
  return <div className="space-y-4 p-4">
+  {analysis?.mode==='simulation'&&<section className="rounded border border-amber-500/60 p-3 text-sm text-amber-200"><h4 className="font-bold">資料不足・模擬推演</h4><p>取得可核對資料後自動重算；以下替代值不會寫成投手實際成績。</p>{analysis.assumptions?.map(note=><p key={note}>{note}</p>)}</section>}
   <NpbModelDetails game={game}/><CpblModelDetails game={game}/><KboModelDetails game={game}/>
   <p className="text-sm text-slate-300">{game.date} 賽前資料 · <a className="underline underline-offset-4" href={game.source.url} target="_blank" rel="noreferrer">{game.source.name}</a> · 擷取 {captured}（台灣）。先發以來源後續更新為準。</p>
   <div className="grid min-w-0 gap-4 lg:grid-cols-2">{(['away','home'] as const).map(side=>{
