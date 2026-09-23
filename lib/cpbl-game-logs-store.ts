@@ -1,5 +1,5 @@
 import {getRawDb} from '@/db';
-import archive from '@/data/cpbl-game-logs-20260920.json';
+import archive from '@/data/cpbl-game-logs-20260923.json';
 import {collectCpblGameLogs} from '@/server/cpbl-game-logs-source.mjs';
 import type {CpblLogSnapshot} from './cpbl-game-logs';
 

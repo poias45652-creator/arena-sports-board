@@ -22,7 +22,20 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
    }
    try{
     const fresh=await collect(league,{date});
-    if(fresh?.league!==league||fresh.date!==date||!Array.isArray(fresh.games)||!fresh.games.length)throw new Error('No verified current-date games');
+    if(fresh?.league!==league||fresh.date!==date||!Array.isArray(fresh.games))throw new Error('No verified current-date games');
+    if(!fresh.games.length){
+     const proof=fresh.scheduleProof,ids=new Set(['cpbl.t.1','cpbl.t.2','cpbl.t.5','cpbl.t.6','cpbl.t.7','cpbl.t.8']);
+     const verified=league==='CPBL'&&proof?.date===date&&proof.listedGames===0&&
+      proof.teams?.length===6&&new Set(proof.teams.map(t=>t.teamId)).size===6&&
+      proof.teams.every(t=>ids.has(t.teamId)&&t.from<=date&&t.through>=date&&
+       Number.isFinite(Date.parse(t.fetchedAt))&&now()-Date.parse(t.fetchedAt)>=-60000&&now()-Date.parse(t.fetchedAt)<=900000)&&
+      fresh.status==='ok'&&Array.isArray(fresh.errors)&&fresh.errors.length===0&&older.size===0;
+     if(!verified)throw new Error('No verified current-date games');
+     const value={schemaVersion:1,league,date,games:[],status:'ok',stale:false,noGames:true,
+      scheduleProof:proof,nextGameDate:fresh.nextGameDate,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,
+      pollAfterMs:300000,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus()};
+     cache.set(key,{value,until:now()+300000});return value;
+    }
     if(fresh.games.length>20||fresh.games.some(g=>!matches(g)))throw new Error('Game identity mismatch');
     for(const g of fresh.games){
      const age=now()-Date.parse(g.source.fetchedAt);

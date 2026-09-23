@@ -22,13 +22,14 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       state.status=feed.status;state.games=feed.games.length;
       if(feed.stale||feed.status==='unavailable')throw Error('來源暫時無法更新');
       failures.set(league,0);state.succeededAt=new Date(now()).toISOString();state.error=null;
-      const statKey=league+':'+date;
-      if(feed.games.some(g=>g.status==='pregame'&&!g.sourceStale)&&
+      const nextDate=league==='CPBL'&&feed.noGames&&/^\d{4}-\d{2}-\d{2}$/.test(feed.nextGameDate||'')&&feed.nextGameDate>date&&Date.parse(feed.nextGameDate)-Date.parse(date)<=7*86400000?feed.nextGameDate:null;
+      const statsDate=nextDate||date,statKey=league+':'+statsDate;
+      if((nextDate||feed.games.some(g=>g.status==='pregame'&&!g.sourceStale))&&
           (!statsAt.has(statKey)||now()-statsAt.get(statKey)>=300000)) {
         statsAt.set(statKey,now());
-        try {await getPregame(league,date);} catch {state.error='場況已更新；賽前統計暫時失敗';}
+        try {await getPregame(league,statsDate);} catch {state.error='場況已更新；賽前統計暫時失敗';}
       }
-      if(statsAt.size>12)for(const key of statsAt.keys())if(!key.endsWith(':'+date))statsAt.delete(key);
+      if(statsAt.size>12)for(const key of statsAt.keys())if(!key.endsWith(':'+date)&&key!==statKey)statsAt.delete(key);
       const nearStart=feed.games.some(g=>g.status==='pregame'&&
         Date.parse(g.startTime)-now()>=0&&Date.parse(g.startTime)-now()<=1800000);
       delay=feed.games.some(g=>g.status==='live')||nearStart||feed.status==='partial'?60000:300000;
