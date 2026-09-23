@@ -46,7 +46,6 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
        </Button>;
       })}</div>
       {status&&<p role="status" className="text-sm text-amber-200">{status}</p>}
-      {isModelLeague(league)&&analysis?.status!=='ready'&&<p role="status" className="text-sm text-amber-200">分析資料：{analysis?.reason||'本場賽前統計尚未取得或尚未完成配對；不以空值產生機率。'}</p>}
       {!isModelLeague(league)&&<p className="text-sm text-slate-400">分析資料待齊，機率尚未產生。</p>}
      </section>
     </TabsContent>

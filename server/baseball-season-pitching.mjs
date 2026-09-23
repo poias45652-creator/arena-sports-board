@@ -1,4 +1,5 @@
 import {plain,tableData,dayInTaipei} from './baseball-live-providers.mjs';
+import {createKboSeasonPages} from './kbo-season-pages.mjs';
 const NPB={g:['讀賣巨人','読売ジャイアンツ'],t:['阪神虎','阪神タイガース'],db:['橫濱 DeNA 海灣之星','横浜DeNAベイスターズ'],d:['中日龍','中日ドラゴンズ'],c:['廣島東洋鯉魚','広島東洋カープ'],s:['東京養樂多燕子','東京ヤクルトスワローズ'],h:['福岡軟銀鷹','福岡ソフトバンクホークス'],f:['北海道日本火腿鬥士','北海道日本ハムファイターズ'],b:['歐力士猛牛','オリックス・バファローズ'],e:['東北樂天金鷲','東北楽天ゴールデンイーグルス'],l:['埼玉西武獅','埼玉西武ライオンズ'],m:['千葉羅德海洋','千葉ロッテマリーンズ']};
 const KBO={'두산':'斗山熊','한화':'韓華鷹','삼성':'三星獅','롯데':'樂天巨人','키움':'培證英雄',KT:'KT 巫師',SSG:'SSG 登陸者',KIA:'起亞虎',NC:'NC 恐龍',LG:'LG 雙子'};
 const integer=v=>/^\d+$/.test(String(v??''))?Number(v):null;
@@ -48,6 +49,7 @@ export function parseKboSeasonPitching(html,date,observedAt,url){
 }
 export function createSeasonPitchingCollector({fetcher=fetch,now=Date.now}={}){
  const cache=new Map(),pending=new Map();
+ const kboPages=createKboSeasonPages({fetcher,now,parse:parseKboSeasonPitching});
  async function read(url,parse,deadline){
   const old=cache.get(url);if(old&&old.until>now())return old.value;if(pending.has(url))return pending.get(url);
   const task=(async()=>{try{
@@ -62,6 +64,7 @@ export function createSeasonPitchingCollector({fetcher=fetch,now=Date.now}={}){
  }
  return async function collect(league,date,teams=[]){
   if(!['NPB','KBO'].includes(league)||date!==dayInTaipei(new Date(now())))return {rows:[],sources:[],errors:[],scope:'僅補入當日賽前成績，不回填歷史預測'};
+  if(league==='KBO')return kboPages(date,teams);
   const deadline=AbortSignal.timeout(9000);
   const jobs=league==='NPB'?Object.entries(NPB).filter(([,v])=>teams.includes(v[0])).map(([code])=>{const url=`https://npb.jp/bis/${date.slice(0,4)}/stats/idp1_${code}.html`;return ()=>read(url,(html,at)=>parseNpbSeasonPitching(html,code,date,at,url),deadline);}):[()=>{const url='https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx';return read(url,(html,at)=>parseKboSeasonPitching(html,date,at,url),deadline);}];
   const results=[];for(let i=0;i<jobs.length;i+=4)results.push(...await Promise.all(jobs.slice(i,i+4).map(job=>job())));
