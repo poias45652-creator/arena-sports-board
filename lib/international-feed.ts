@@ -6,6 +6,8 @@ import {createLiveFeed} from '@/server/baseball-live-feed.mjs';
 import {readLiveSnapshot,writeLiveSnapshot} from '@/server/baseball-sites-store.mjs';
 import {collectSeasonPitching} from '@/server/baseball-season-pitching.mjs';
 import {supplementSeasonPitching} from './international-season-pitching';
+import {collectBullpens} from '@/server/international-bullpen.mjs';
+import {supplementBullpens} from './international-bullpen';
 import {internationalTeam} from './international-teams';
 import {pregameImportsByLeague} from './pregame-imports';
 import {currentPregame,pregameMissing} from './international-current-pregame';
@@ -45,13 +47,15 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   try{const stored=await getRawDb().prepare('SELECT payload FROM baseball_pregame WHERE league=? AND date=? LIMIT 1').bind(league,date).first<{payload:string}>();if(stored)archives.push(JSON.parse(stored.payload));}catch{storageError='賽前資料儲存服務暫時無法讀取';}
   const liveTask=getInternationalLive(league,date);
   const publicTask=liveTask.then((feed:any)=>collectSeasonPitching(league,date,feed.games.filter((g:any)=>g.status==='pregame'&&!g.sourceStale).flatMap((g:any)=>[internationalTeam(g.away.name,league),internationalTeam(g.home.name,league)])));
-  const [feed,playsport,kboHistory,cpblLogs,publicPitching]=await Promise.all([liveTask,fetchPlaysportPregame(league,date),league==='KBO'?getKboRunHistory():null,league==='CPBL'?getCpblGameLogs(Number(date.slice(0,4))):null,publicTask]);
+  const bullpenTask=liveTask.then((feed:any)=>collectBullpens(league,date,feed.games.filter((g:any)=>g.status==='pregame'&&!g.sourceStale).flatMap((g:any)=>[internationalTeam(g.away.name,league),internationalTeam(g.home.name,league)])));
+  const [feed,playsport,kboHistory,cpblLogs,publicPitching,publicBullpen]=await Promise.all([liveTask,fetchPlaysportPregame(league,date),league==='KBO'?getKboRunHistory():null,league==='CPBL'?getCpblGameLogs(Number(date.slice(0,4))):null,publicTask,bullpenTask]);
   if(playsport.snapshot.games.length)archives.push(playsport.snapshot);
   let pregame=supplementCpblPitchers(applyCpblPitcherReview(currentPregame(league,date,feed,archives)),cpblSeason);
   pregame=applyKboPitcherReview(pregame);
   pregame=supplementSeasonPitching(pregame,publicPitching);
   if(kboHistory)pregame=supplementKboTeamRuns(pregame,kboHistory);
   if(cpblLogs)pregame=supplementCpblGameLogs(pregame,cpblLogs.snapshot);
+  pregame=supplementBullpens(pregame,publicBullpen);
   if(pregame.games.length)try{
    await getRawDb().prepare(`INSERT INTO baseball_pregame (key,league,date,observed_at,payload) VALUES (?,?,?,?,?)
     ON CONFLICT(key) DO UPDATE SET observed_at=excluded.observed_at,payload=excluded.payload WHERE excluded.observed_at>=baseball_pregame.observed_at`)
@@ -65,7 +69,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const data={kind:league.toLowerCase()+'-pregame',status:pregame.games.length?status:'unavailable',pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
    scope:'開啟網站時每 5 分鐘檢查公開來源；保存最後成功資料。歷史補充欄位保留原時間。',error:feed.error||null,storageError,forecastStorage,
    playsport:{games:playsport.snapshot.games.length,errors:playsport.errors},
-   statsFallback:{rows:publicPitching.rows.length,sources:publicPitching.sources,errors:publicPitching.errors,scope:publicPitching.scope},
+   statsFallback:{rows:publicPitching.rows.length,sources:[...publicPitching.sources,...publicBullpen.sources],errors:[...publicPitching.errors,...publicBullpen.errors],scope:publicPitching.scope},
    excludedFixtures:feed.games.filter((g:any)=>!g.sourceStale&&['cancelled','postponed','suspended','live','final'].includes(g.status)).map((g:any)=>({start:g.startTime,home:g.home.name,away:g.away.name,status:g.status})),
    coverage,analysisCoverage,live:{games:feed.games.length,status:feed.status,starters:feed.games.reduce((n:number,g:any)=>n+Number(!!g.starters?.away?.name)+Number(!!g.starters?.home?.name),0),lineups:feed.games.reduce((n:number,g:any)=>n+Number(g.lineups?.away?.length===9)+Number(g.lineups?.home?.length===9),0),pollAfterMs:feed.pollAfterMs},
    ...(cpblLogs?{gameLogs:{...cpblLogCoverage(cpblLogs.snapshot,date),error:cpblLogs.error}}:{}),

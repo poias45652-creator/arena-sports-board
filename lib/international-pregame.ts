@@ -8,7 +8,7 @@ export type PregamePitchingStats = Record<'wins'|'losses'|'era'|'opponentAverage
 export type PregameSide = {
  team:string;teamCode:string;sourceTeam:string;record?:string;
  starter:{review?:{reviewedAt:string;note:string;sources:{name:string;url:string;observedAt:string}[]};name:string;throws:string|null;season:PregamePitchingStats;splits:SourceTable;recent:SourceTable;quality:string;warnings:string[];source?:{name:string;url:string;observedAt:string;publishedAt:string|null};statSources?:Partial<Record<keyof PregamePitchingStats,{name:string;url:string;observedAt:string;publishedAt:string|null}>>};
- bullpen:PregamePitchingStats|null;batting:SourceTable;battingWarnings?:string[];
+ bullpen:PregamePitchingStats|null;bullpenSource?:{name:string;url:string;observedAt:string;throughDate:string;scope:'season'|'recent';games:number;note:string;gameIds?:string[]};batting:SourceTable;battingWarnings?:string[];
  pitchingSource?:PitchingImportSource;
  gameLogs?:CpblLogMetrics;
  retainedSource?:PregameGame['source'];

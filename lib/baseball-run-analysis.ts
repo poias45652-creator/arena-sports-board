@@ -53,7 +53,7 @@ function modelInput(g:PregameGame,side:Side,now:number,notes:string[],league:Mod
  const era=logStarter?number(logStarter.era):number(t.starter.season.era),ip=logStarter?logStarter.outs/3:innings(t.starter.season.innings);
  const bullpen=logs?.bullpen?number(logs.bullpen.era):number(t.bullpen?.era),bpIp=logs?.bullpen?logs.bullpen.outs/3:innings(t.bullpen?.innings);
  if(era===null||ip===null||ip<=0)return label+'先發 ERA／投球局數不足';
- const bullpenObservedAt=logs?.bullpen?logs.observedAt:t.retainedSource?.observedAt||g.source.observedAt;
+ const bullpenObservedAt=logs?.bullpen?logs.observedAt:t.bullpenSource?.observedAt||t.retainedSource?.observedAt||g.source.observedAt;
  const hasBullpen=bullpen!==null&&bpIp!==null&&bpIp>0&&validObserved(bullpenObservedAt,start,now);
  if(!hasBullpen&&league!=='CPBL')return label+'牛棚 ERA／投球局數不足';
  const rows=table?.rows.filter(r=>r[table.headers.indexOf('類別')]==='本季'&&team(r[table.headers.indexOf('球隊')]||'',league)===team(t.team,league))||[];
@@ -77,6 +77,7 @@ function modelInput(g:PregameGame,side:Side,now:number,notes:string[],league:Mod
  if(prior.length<3)notes.push(label+'先發近 60 日不足 3 場，參考局數暫設 5 局；不影響固定先發權重');
  if(logStarter)notes.push(label+`先發 ERA／WHIP 由${logs!.starter?'本季':`球隊最近 ${logs!.recentWindow} 場期間的`} ${logStarter.games} 次登板重算；參考局數只取先發登板。`);
  if(logs?.bullpen)notes.push(label+`牛棚由${logs.bullpenScope==='season'?'本季':`最近 ${logs.recentWindow} 場`}後援紀錄重算，共 ${logs.bullpen.games} 場；先合計出局數與責失再計算 ERA。`);
+ if(t.bullpenSource)notes.push(label+t.bullpenSource.note);
  if(logs)notes.push(...logs.notes.map(n=>label+n));
  if(!hasBullpen)notes.push(label+'缺完整牛棚局數，牛棚項使用已觀測的團隊失分均值；不是牛棚實測成績');
  if(t.battingWarnings?.length)notes.push(label+'團隊打擊表有待核對欄位，未納入計算；得失分採本季戰績表');
