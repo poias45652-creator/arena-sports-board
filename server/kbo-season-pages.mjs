@@ -37,28 +37,31 @@ export function createKboSeasonPages({fetcher=fetch,now=Date.now,parse}){
   const codes=Object.keys(TEAMS).filter(c=>!teams.length||teams.includes(TEAMS[c]));
   const key=date+':'+codes.sort().join(',');const cached=cache.get(key);if(cached?.until>now())return cached.value;if(pending.has(key))return pending.get(key);
   const task=(async()=>{
-   const deadline=AbortSignal.timeout(25000),results=[];let cookie='';
-   const read=async(body)=>{
-    const r=await fetcher(URL_BASE,{method:body?'POST':'GET',...(body?{body:body.toString()}:{}),redirect:'manual',cache:'no-store',headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html',...(cookie?{Cookie:cookie}:{}),...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{})},signal:AbortSignal.any([deadline,AbortSignal.timeout(9000)])});
+   const deadline=AbortSignal.timeout(25000),results=[],initialSession={cookie:''};
+   const read=async(body,session)=>{
+    const r=await fetcher(URL_BASE,{method:body?'POST':'GET',...(body?{body:body.toString()}:{}),redirect:'manual',cache:'no-store',headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html',...(session.cookie?{Cookie:session.cookie}:{}),...(body?{'Content-Type':'application/x-www-form-urlencoded'}:{})},signal:AbortSignal.any([deadline,AbortSignal.timeout(9000)])});
     if(!r.ok){await r.body?.cancel();let target='';if(r.status>=300&&r.status<400&&r.headers.get('location'))target=' → '+new URL(r.headers.get('location'),URL_BASE).pathname;throw Error('HTTP '+r.status+target);}
-    if(!body)cookie=(r.headers.getSetCookie?.()||[]).map(s=>s.split(';')[0]).join('; ');
+    if(!body)session.cookie=(r.headers.getSetCookie?.()||[]).map(s=>s.split(';')[0]).join('; ');
     let size=0;const chunks=[];for await(const part of r.body){size+=part.byteLength;if(size>4_000_000)throw Error('來源內容超出上限');chunks.push(part);}
     const html=Buffer.concat(chunks).toString('utf8');if(/challenge-platform|<title>Just a moment/i.test(html))throw Error('來源要求瀏覽器驗證');return html;
    };
-   let first;try{first=await read();}catch(e){return {rows:[],sources:[],errors:['KBO 官方投手紀錄：'+e.message],scope:'官方全投手名單；未取得者保留缺值'};}
-   // Three team filters at a time; read a second page when the team has >30
+   let first;try{first=await read(undefined,initialSession);}catch(e){return {rows:[],sources:[],errors:['KBO 官方投手紀錄：'+e.message],scope:'官方全投手名單；未取得者保留缺值'};}
+   // Isolate public form sessions per team so concurrent filters cannot overwrite
+   // another team's pagination. Read a second page when the team has >30
    // pitchers. This includes pitchers excluded by the qualified-ERA ranking.
    for(let offset=0;offset<codes.length;offset+=3)await Promise.all(codes.slice(offset,offset+3).map(async code=>{
     const url=URL_BASE+'#team='+code;const rows=[];let observedAt=null,error=null;
     try{
-     let html=await read(kboPublicForm(first,code));
+     const session=code===codes[0]?initialSession:{cookie:''};
+     const state=code===codes[0]?first:await read(undefined,session);
+     let html=await read(kboPublicForm(state,code),session);
      for(let page=1;page<=5;page++){
       observedAt=new Date(now()).toISOString();const parsed=parse(html,date,observedAt,url+'&page='+page);
       if(!parsed.length||parsed.some(r=>r.team!==TEAMS[code]))throw Error('韓職球隊篩選未生效');
       rows.push(...parsed);
       if(!kboPageTargets(html).has(page+1))break;
       if(page===5)throw Error('韓職投手分頁超出上限');
-      html=await read(kboPublicForm(html,code,page+1));
+      html=await read(kboPublicForm(html,code,page+1),session);
      }
     }catch(e){error=`KBO ${code}：${e.name==='TimeoutError'||e.name==='AbortError'?'讀取逾時':e.message}`;}
     results.push({url,rows,observedAt,error});

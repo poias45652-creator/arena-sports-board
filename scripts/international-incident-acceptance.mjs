@@ -26,7 +26,7 @@ for(const league of ['NPB','KBO']){
  const coverage=pregameMissing(pregame);
  const model=pregame.games.map(g=>{const r=buildRunAnalysis(g,Date.now(),league);return {away:g.away.team,home:g.home.team,status:r.status,reason:r.reason,expected:r.expected,win:r.win};});
  console.log('STARTER_ACCEPTANCE',JSON.stringify({league,date,coverage,errors:stats.errors,model,scope:'Live starting pitchers, measured relief statistics and model readiness'}));
- if(eligible.length){assert.ok(stats.rows.length,'season statistics missing');assert.equal(coverage.era,coverage.starters,'starter ERA coverage');assert.equal(coverage.whip,coverage.starters,'starter WHIP coverage');}
+ if(eligible.length){assert.ok(stats.rows.length,'season statistics missing');assert.equal(coverage.era,coverage.starters,'starter ERA coverage');assert.equal(coverage.whip,coverage.starters,'starter WHIP coverage');assert.equal(coverage.bullpens,coverage.teams,'bullpen coverage');assert.ok(model.every(g=>g.status==='ready'),JSON.stringify(model));}
 }
 const p=await fetchPublic('https://tw.sports.yahoo.com/cpbl/standings/?season='+date.slice(0,4));
 const standings=parseInternational(p.text,'cpbl-standings',Number(date.slice(0,4)));assert.equal(standings.tables[0].rows.length,6);
