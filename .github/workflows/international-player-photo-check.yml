@@ -1,0 +1,23 @@
+name: Check international player photo sources
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/international-player-photos.json'
+      - 'scripts/check-international-player-photos.mjs'
+      - '.github/workflows/international-player-photo-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: node scripts/check-international-player-photos.mjs
