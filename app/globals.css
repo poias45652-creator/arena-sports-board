@@ -397,3 +397,5 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, body *::-webkit-scrollbar { di
 .international-lineup-details { border-top:1px solid #304158; }
 .international-lineup-details>summary { padding:1rem 1.25rem; color:#cbd5e1; cursor:pointer; font-weight:700; font-size:.875rem; }
 .international-lineup-details>summary small { color:#9dadc1; margin-left:.5rem; font-size:.7rem; }
+
+.international-player-ai{position:relative;display:block;width:82px;height:98px}.international-player-ai small{position:absolute;bottom:0;left:0;right:0;padding:2px 0;border-radius:0 0 .5rem .5rem;background:rgba(7,17,29,.88);color:#ffdf42;font-size:10px;line-height:14px;text-align:center}

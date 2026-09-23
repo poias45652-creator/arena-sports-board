@@ -14,7 +14,7 @@ import InternationalTeamLogo from './international-team-logo';
 function PlayerPhoto({src,alternatives,league,name,team}:{src?:string;alternatives?:string[];league:ProfileLeague;name:string;team:string}){
  const urls=useMemo(()=>[...new Set([...(alternatives||[]),src].filter((u):u is string=>Boolean(u)))],[src,alternatives]);
  const [index,setIndex]=useState(0);useEffect(()=>setIndex(0),[src,alternatives]);
- return <span className="international-player-photo">{urls[index]?<img key={urls[index]} src={urls[index]} alt={`${name} 球員照片`} width={84} height={98} loading="lazy" onError={()=>setIndex(i=>i+1)}/>:<InternationalTeamLogo league={league} name={team} size={64}/>}</span>;
+ return <span className="international-player-photo">{urls[index]?<img key={urls[index]} src={urls[index]} alt={`${name} 球員照片`} width={84} height={98} loading="lazy" onError={()=>setIndex(i=>i+1)}/>:<span className="international-player-ai" title="AI 通用示意，非球員本人肖像"><img src="/player-photos/ai-illustration.webp" alt={`${name} 暫缺本人照片，AI 通用示意`} width={84} height={98} loading="lazy"/><small>AI 示意</small></span>}</span>;
 }
 const fmt=(v:unknown,d=2)=>typeof v==='number'&&Number.isFinite(v)?v.toFixed(d):'—';
 const percent=(v:unknown)=>typeof v==='number'?`${(v*100).toFixed(1)}%`:'—';

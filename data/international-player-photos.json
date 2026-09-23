@@ -1,6 +1,6 @@
 {
   "season": 2026,
-  "checkedAt": "2026-09-23T11:32:13.483Z",
+  "checkedAt": "2026-09-23T11:38:23.494Z",
   "teams": {
     "CPBL:ACN": {
       "岳政華": {
@@ -825,6 +825,81 @@
         "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/20130906%E6%9C%B1%E4%BF%8A%E7%A5%A5.jpg/330px-20130906%E6%9C%B1%E4%BF%8A%E7%A5%A5.jpg?utm_source=zh.wikipedia.org&utm_campaign=api&utm_content=thumbnail",
         "source": "https://zh.wikipedia.org/wiki/%E6%9C%B1%E6%89%BF%E6%B4%8B",
         "alternatives": []
+      },
+      "宋嘉翔": {
+        "url": "https://cdn.taronews.tw/files/2023/04/20230413PHO0179l.jpg",
+        "source": "https://taronews.tw/2023/04/13/906983/",
+        "alternatives": []
+      },
+      "林政華": {
+        "url": "https://imgs.tsna.com/article/1716626833_e2nbU.jpg",
+        "source": "https://tsna.com/article/89303",
+        "alternatives": []
+      },
+      "林智平": {
+        "url": "https://imgs.tsna.com/article/1745675188_NgDyY.jpg",
+        "source": "https://tsna.com/article/105424",
+        "alternatives": []
+      },
+      "劉子杰": {
+        "url": "https://storage.googleapis.com/hhg-images/players/16/info_56_4_V2qe.png",
+        "source": "https://monkeys.rakuten.com.tw/players_info/391",
+        "alternatives": []
+      },
+      "何品室融": {
+        "url": "https://imgcdn.cna.com.tw/www/WebPhotos/800/20260327/1013x768_wmky_0_C20260327000190.jpg",
+        "source": "https://www.cna.com.tw/news/aspt/202603270244.aspx",
+        "alternatives": []
+      },
+      "成晉": {
+        "url": "https://imgs.tsna.com/article/1775896261_OTNj6.jpg",
+        "source": "https://tsna.com/article/125271",
+        "alternatives": []
+      },
+      "嚴宏鈞": {
+        "url": "https://storage.googleapis.com/hhg-images/players/16/info_62_3_pzH0.png",
+        "source": "https://monkeys.rakuten.com.tw/players_info/63",
+        "alternatives": []
+      },
+      "林承飛": {
+        "url": "https://bucket-image.inkmaginecms.com/version/social/9dde7c0f-a597-445c-80dd-9a93db8a4006/image/2025/10/ea93d773-a472-489a-bcf1-8ff9eb17597a.jpg",
+        "source": "https://www.sportsv.net/articles/122910",
+        "alternatives": []
+      },
+      "余德龍": {
+        "url": "https://pgw.udn.com.tw/gw/photo.php?exp=3600&fw=800&sh=0&sl=W&sw=0&u=https%3A%2F%2Fuc.udn.com.tw%2Fphoto%2F2025%2F06%2F19%2F1%2F32335341.jpg&x=0&y=0",
+        "source": "https://udn.com/news/story/7001/8818673",
+        "alternatives": []
+      },
+      "陳佳樂": {
+        "url": "https://s.yimg.com/ny/api/res/1.2/fJnVrRXIHD9Vu.BpuEBAKg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTQyNA--/https%3A/media.zenfs.com/ko/tsna.com.tw/46d42a4eb4436569be309adb3d73c89d",
+        "source": "https://tw.sports.yahoo.com/news/%E5%86%AC%E7%9B%9F-%E9%99%B3%E7%91%9E%E6%98%8C%E5%9C%A8%E8%81%B7%E6%A3%92%E7%94%9F%E5%AD%9814%E5%B9%B4-%E5%AE%8C%E5%85%A8%E4%B8%8D%E6%83%B3%E8%A6%81%E9%99%B3%E4%BD%B3%E6%A8%82%E9%80%B2%E8%81%B7%E6%A3%92-105154274.html",
+        "alternatives": []
+      },
+      "董順傑": {
+        "url": "https://pgw.udn.com.tw/gw/photo.php?exp=3600&fw=800&sh=0&sl=W&sw=0&u=https%3A%2F%2Fuc.udn.com.tw%2Fphoto%2F2025%2F06%2F25%2F1%2F32373365.jpg&x=0&y=0",
+        "source": "https://udn.com/news/story/7001/8831016",
+        "alternatives": []
+      },
+      "蘇俊璋": {
+        "url": "https://img.ltn.com.tw/Upload/sports/page/800/2023/08/08/phpsUR5dj.jpg",
+        "source": "https://sports.ltn.com.tw/news/breakingnews/4390218",
+        "alternatives": []
+      },
+      "賴胤豪": {
+        "url": "https://imgcdn.cna.com.tw/www/WebPhotos/1024/20240329/1024x768_wmky_0_C20240329000183.jpg",
+        "source": "https://www.cna.com.tw/news/aspt/202403290326.aspx",
+        "alternatives": []
+      },
+      "呂詠臻": {
+        "url": "https://media.nownews.com/nn_media/thumbnail/2025/04/1744171431103-c39c132d19b943cca9d3876aa40efa6a-800x632.webp?unShow=false",
+        "source": "https://www.nownews.com/news/6668835",
+        "alternatives": []
+      },
+      "陳克羿": {
+        "url": "https://img.ltn.com.tw/Upload/sports/page/800/2023/11/08/php6gk8Oh.jpg",
+        "source": "https://sports.ltn.com.tw/news/breakingnews/4483537",
+        "alternatives": []
       }
     },
     "CPBL:AAA": {
@@ -1641,6 +1716,11 @@
         "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/1/1960444.jpg",
         "source": "https://baseball.yahoo.co.jp/npb/teams/1/players",
         "alternatives": []
+      },
+      "楽人若林": {
+        "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/7/2000070.jpg",
+        "source": "https://baseball.yahoo.co.jp/npb/teams/7/players",
+        "alternatives": []
       }
     },
     "NPB:t": {
@@ -2264,6 +2344,21 @@
       "レイノルズ": {
         "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/3/2117433.jpg",
         "source": "https://baseball.yahoo.co.jp/npb/teams/3/players",
+        "alternatives": []
+      },
+      "ビシエド": {
+        "url": "https://asset.baystars.co.jp/images/news/2025/img/07/250722_05_01.jpg",
+        "source": "https://sp.baystars.co.jp/news/2025/07/0722_05.php",
+        "alternatives": []
+      },
+      "デュプランティエ": {
+        "url": "https://i.daily.jp/baseball/2026/02/03/Images/f_19979586.jpg",
+        "source": "https://www.daily.co.jp/baseball/2026/02/03/0019979585.shtml",
+        "alternatives": []
+      },
+      "山本祐大": {
+        "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/12/1700066.jpg",
+        "source": "https://baseball.yahoo.co.jp/npb/teams/12/players",
         "alternatives": []
       }
     },
@@ -3432,6 +3527,11 @@
       "ラトリッジ": {
         "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/12/2117128.jpg",
         "source": "https://baseball.yahoo.co.jp/npb/teams/12/players",
+        "alternatives": []
+      },
+      "尾形崇斗": {
+        "url": "https://sports-baseball.west.edge.storage-yahoo.jp/npb/images/player/square/3/1700134.jpg",
+        "source": "https://baseball.yahoo.co.jp/npb/teams/3/players",
         "alternatives": []
       }
     },
@@ -5082,9 +5182,11 @@
         "alternatives": []
       },
       "gyunhwangjae": {
-        "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/2026/76313.jpg",
-        "source": "https://eng.koreabaseball.com/Teams/PlayerInfoHitter/Summary.aspx?pcode=76313",
-        "alternatives": []
+        "url": "https://image.xportsnews.com/contents/images/upload/article/2017/1127/mb_1511762643328084.jpg",
+        "source": "https://www.xportsnews.com/article/917991",
+        "alternatives": [
+          "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/2026/76313.jpg"
+        ]
       },
       "kopyoyoung": {
         "url": "https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/person/middle/2026/64001.jpg",
