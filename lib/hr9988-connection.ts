@@ -11,7 +11,7 @@ type Session={origin:string;loginID:string;mbID:string};
 export class HrError extends Error{constructor(public code:string,message:string,public status=502){super(message);}}
 const headers={'Cache-Control':'private, no-store','Vary':'Cookie','X-Content-Type-Options':'nosniff'};
 const reply=(value:unknown,status=200)=>Response.json(value,{status,headers});
-const allowedHosts=new Set(['hr9988.net','www.hr9988.net','m.hr9988.net']);
+const allowedHosts=new Set(['hr9988.net','www.hr9988.net','m.hr9988.net','sp1788.net']);
 const authCodes=new Set([-101,-102,-105]);
 const text=(v:unknown)=>typeof v==='string'&&v.length>0&&v.length<16384&&!/[\r\n]/.test(v);
 function hrOrigin(url:URL){if(url.protocol!=='https:'||!allowedHosts.has(url.hostname)||url.port||url.username||url.password)throw new HrError('wrong_game_destination','回傳的體育館不是允許的 SUPER 網址，尚未連接。');return url.origin;}
@@ -31,14 +31,17 @@ async function post(url:string,body:unknown,extra:Record<string,string>,fetcher:
  return result;
 }
 async function openSession(binding:Binding,key:CryptoKey,fetcher:typeof fetch):Promise<Session>{
+ const isOfa=binding.member_id.startsWith('ofa:');
  const token=await decryptToken(binding.encrypted_token,binding.member_id,key);
  let launched:any;
- try{launched=await post('https://www.tz6868.com/api/v2/game/SUPER/login',{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'},{Authorization:`Bearer ${token}`},fetcher);}
+ try{launched=await post(isOfa?'https://www.ofa1188.net/api/v2/game/SUPER/login':'https://www.tz6868.com/api/v2/game/SUPER/login',isOfa?{game_return_url:'https://www.ofa1188.net',game_kind:'SPORT',game_device:'Desktop',game_money:''}:{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'},{Authorization:`Bearer ${token}`},fetcher);}
  catch(e){if(e instanceof HrError&&e.code==='source_auth_expired')throw new HrError('tz_auth_expired','授權已失效，請重新驗證帳號。',409);if(e instanceof HrError)throw new HrError(e.code,'體育館登入：'+e.message,e.status);throw e;}
  const data=launched.data;
  if(data?.game_method!=='GET'||typeof data?.game_url!=='string'||data.game_url.length>4096)throw new HrError('launch_format_changed','未回傳可辨識的體育館登入入口。');
  let url:URL;try{url=new URL(data.game_url);}catch{throw new HrError('launch_format_changed','回傳的體育館網址無效。');}
- const origin=hrOrigin(url),fragment=url.hash.slice(1),split=fragment.indexOf('?');
+ const origin=hrOrigin(url),fragment=url.hash.slice(1);
+ if(url.hostname!==(isOfa?'sp1788.net':'hr9988.net')&&!(!isOfa&&url.hostname==='m.hr9988.net')&&!(!isOfa&&url.hostname==='www.hr9988.net'))throw new HrError('wrong_game_destination','SUPER 入口與登入來源不符。');
+ const split=fragment.indexOf('?');
  if(url.pathname!=='/'||url.search||fragment.slice(0,split)!=='/APILogin')throw new HrError('launch_format_changed','回傳的體育館登入格式已改變。');
  const params=new URLSearchParams(fragment.slice(split+1)),memID=params.get('MemID');
  if(params.getAll('MemID').length!==1||!memID||!/^[a-f0-9]{32}$/i.test(memID))throw new HrError('launch_format_changed','未回傳有效的體育館登入憑證。');
@@ -102,8 +105,10 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
   let row=await db.prepare('SELECT * FROM hr_connections WHERE member_id = ?').bind(memberId).first<Connection>();
   if(mode==='status')return reply(publicStatus(row,binding));
   if(binding.expires_at<=Date.now())throw new HrError('tz_auth_expired','授權已到期，請重新驗證帳號。',409);
-  if(!binding.game_url)throw new HrError('game_url_required','請先設定 SUPER 賽事網址。',409);
-  hrOrigin(new URL(binding.game_url));
+  if(!binding.game_url&&!memberId.startsWith('ofa:'))throw new HrError('game_url_required','請先設定 SUPER 賽事網址。',409);
+  const gameUrl=binding.game_url||(memberId.startsWith('ofa:')?'https://sp1788.net/#/Games':'');
+  hrOrigin(new URL(gameUrl));
+  if(new URL(gameUrl).hostname!==(memberId.startsWith('ofa:')?'sp1788.net':'hr9988.net'))throw new HrError('wrong_game_destination','設定的 SUPER 來源與登入帳號不符。');
   if(!secret)throw new HrError('service_unavailable','會員資料服務尚未就緒。',503);
   const sameVersion=row?.binding_version===binding.verified_at;
   if(mode==='read'&&sameVersion&&row?.snapshot&&!row.last_error&&row.fetched_at&&Date.now()-row.fetched_at>=0&&Date.now()-row.fetched_at<60000)return reply({...JSON.parse(row.snapshot),connection:publicStatus(row,binding)});
