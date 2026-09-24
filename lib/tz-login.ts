@@ -14,8 +14,8 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  if(!request.headers.get('content-type')?.startsWith('application/json'))return response({error:'輸入格式有誤'},415);
  const reader=request.body?.getReader();if(!reader)return response({error:'請輸入帳密'},400);let text='',size=0;const decoder=new TextDecoder();for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>4096){await reader.cancel();return response({error:'輸入過長'},413);}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();
  let input:any;try{input=JSON.parse(text);}catch{return response({error:'輸入格式有誤'},400);}text='';
- if(input.source!==undefined&&input.source!=='tz'&&input.source!=='ofa')return response({error:'登入來源無效'},400);
- const source=input.source==='ofa'?'ofa':'tz';
+ if(input.source!==undefined)return response({error:'登入來源由系統判定'},400);
+ const source=['dvp0322','dvp038'].includes(String(input.username||'').trim().toLowerCase())?'ofa':'tz';
  if(typeof input.username!=='string'||typeof input.password!=='string'||!input.username.trim()||!input.password||input.username.length>128||input.password.length>256)return response({error:'請輸入有效帳號密碼'},400);
  if(requireTurnstile){
   if(!turnstileSecret)return response({error:'登入驗證服務尚未設定，請聯絡管理員'},503);
