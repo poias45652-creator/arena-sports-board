@@ -1,3 +1,4 @@
+import {claimSuperSession,releaseSuperSession} from './super-session-lock';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 import {hrBaseballRequest,parseHrGameDetail} from './hr9988';
 import type {SuperSnapshot} from './super007';
@@ -94,7 +95,7 @@ function publicStatus(row:Connection|null,binding:Binding){
 /** Per-member durable credentials and snapshots. No singleton or shared-member fallback. */
 export async function hrConnection(memberId:string|null,db:HrDatabase,secret:string|undefined,mode:'status'|'connect'|'read',fetcher:typeof fetch=fetch):Promise<Response>{
  if(!memberId)return reply({error:'請先登入 Arena，再連接自己的資料。',code:'signin_required'},401);
- let binding:Binding|null=null,operationId:string|undefined;
+ let binding:Binding|null=null,operationId:string|undefined,sourceOwner:string|undefined;
  try{
   binding=await db.prepare('SELECT member_id, encrypted_token, expires_at, verified_at, game_url FROM tz_bindings WHERE member_id = ?').bind(memberId).first<Binding>();
   if(!binding)return reply({error:'請先綁定帳號。',code:'binding_required'},409);
@@ -111,13 +112,16 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
   const key=await credentialKey(secret),now=Date.now();operationId=crypto.randomUUID();
   const lease=await db.prepare('INSERT INTO hr_connections (member_id,binding_version,busy_until,operation_id) SELECT ?,?,?,? WHERE EXISTS (SELECT 1 FROM tz_bindings WHERE member_id=? AND verified_at=? AND expires_at>?) ON CONFLICT(member_id) DO UPDATE SET busy_until=excluded.busy_until,operation_id=excluded.operation_id,binding_version=excluded.binding_version WHERE hr_connections.busy_until<=? OR hr_connections.binding_version<>excluded.binding_version RETURNING operation_id').bind(memberId,binding.verified_at,now+45000,operationId,memberId,binding.verified_at,now,now).first();
   if(!lease)throw new HrError('connection_busy','帳號狀態已更新或連線正在進行，請稍後重試。',409);
+  if(mode==='connect'){
+   const owner='collector:'+operationId;
+   if(!await claimSuperSession(db,memberId,owner,45000))throw new HrError('super_in_use','SUPER 正在使用中，已保留目前連線。',409);
+   sourceOwner=owner;
+  }
   let session:Session;
   if(mode==='connect'||!sameVersion||!row?.encrypted_session)session=await openSession(binding,key,fetcher);
   else session=JSON.parse(await decryptToken(row.encrypted_session,memberId+':hr9988',key));
-  let snapshot:SuperSnapshot;
-  try{snapshot=await collect(session,fetcher);}catch(e){
-   if(mode==='read'&&e instanceof HrError&&e.code==='source_auth_expired'){session=await openSession(binding,key,fetcher);snapshot=await collect(session,fetcher);}else throw e;
-  }
+  // Never silently log in again: that can invalidate the user's browser session.
+  const snapshot=await collect(session,fetcher);
   const encrypted=await encryptToken(JSON.stringify(session),memberId+':hr9988',key),fetchedAt=Date.parse(snapshot.fetchedAt);
   const saved=await db.prepare('UPDATE hr_connections SET encrypted_session=?,snapshot=?,fetched_at=?,last_error=NULL,error_code=NULL,busy_until=0 WHERE member_id=? AND operation_id=? AND EXISTS (SELECT 1 FROM tz_bindings WHERE member_id=? AND verified_at=? AND expires_at>?) RETURNING operation_id').bind(encrypted,JSON.stringify(snapshot),fetchedAt,memberId,operationId,memberId,binding.verified_at,Date.now()).first();
   if(!saved)throw new HrError('binding_changed','綁定已變更，請重新連接。',409);
@@ -126,5 +130,5 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
   const error=e instanceof HrError?e:new HrError('service_unavailable','會員資料服務暫時無法使用，請稍後重試。',503);
   if(operationId&&binding){try{await db.prepare('UPDATE hr_connections SET last_error=?,error_code=?,busy_until=? WHERE member_id=? AND operation_id=? AND binding_version=?').bind(error.message,error.code,Date.now()+15000,memberId,operationId,binding.verified_at).run();}catch{}}
   return reply({error:error.message,code:error.code,source:'hr9988',games:[],fetchedAt:null},error.status);
- }
+ }finally{if(sourceOwner)await releaseSuperSession(db,memberId,sourceOwner).catch(()=>{});}
 }

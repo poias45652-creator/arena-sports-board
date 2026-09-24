@@ -14,17 +14,21 @@ export default function SuperWorkspace({children,league}:{children:ReactNode;lea
  const ballDrag=useFloatingDrag<HTMLButtonElement>(visible),panelDrag=useFloatingDrag<HTMLElement>(visible&&panel);
  const [frameVersion,setFrameVersion]=useState(0);
  const [url,setUrl]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[loadingFrame,setLoadingFrame]=useState(false),[slow,setSlow]=useState(false);
+ const session=useRef<string|null>(null);
+ const release=useCallback((owner:string)=>{void fetch('/api/super-entry',{method:'POST',headers:{'X-Super-Action':'release','X-Super-Session':owner},keepalive:true,cache:'no-store'}).catch(()=>{});},[]);
  const cached=useRef<Entry|null>(null),pending=useRef<Promise<Entry>|null>(null),mounted=useRef(true),generation=useRef(0),returnFocus=useRef<HTMLElement|null>(null),closeButton=useRef<HTMLButtonElement>(null);
  const ball=ballDrag.ref,contentRoot=useRef<HTMLDivElement>(null);
  const acquire=useCallback(()=>{
   if(pending.current)return pending.current;
+  const owner=session.current||(session.current='browser:'+crypto.randomUUID());
   const mobile=/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
-  pending.current=(async()=>{const r=await fetch('/api/super-entry',{method:'POST',headers:{'X-Super-Device':mobile?'mobile':'desktop'},cache:'no-store',signal:AbortSignal.timeout(20000)}),d=await r.json();if(!r.ok)throw Error(d.error||'無法取得 SUPER 入口');const valid=superDeviceEntryUrl(d.url,mobile);if(!valid||!Number.isFinite(d.reuseUntil))throw Error('SUPER 入口格式無效');const next={url:valid,reuseUntil:d.reuseUntil};cached.current=next;return next;})().finally(()=>{pending.current=null;});
+  pending.current=(async()=>{const r=await fetch('/api/super-entry',{method:'POST',headers:{'X-Super-Device':mobile?'mobile':'desktop','X-Super-Session':owner},cache:'no-store',signal:AbortSignal.timeout(20000)}),d=await r.json();if(!r.ok)throw Error(d.error||'無法取得 SUPER 入口');const valid=superDeviceEntryUrl(d.url,mobile);if(!valid||!Number.isFinite(d.reuseUntil))throw Error('SUPER 入口格式無效');const next={url:valid,reuseUntil:d.reuseUntil};if(session.current!==owner){release(owner);throw Error('SUPER 已關閉');}cached.current=next;return next;})().finally(()=>{pending.current=null;});
   return pending.current;
- },[]);
- useEffect(()=>{mounted.current=true;void acquire().catch(()=>{});return()=>{mounted.current=false;generation.current++;cached.current=null;};},[acquire]);
+ },[release]);
+ useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;generation.current++;cached.current=null;if(session.current)release(session.current);session.current=null;};},[release]);
+ useEffect(()=>{if(!visible||!url)return;const heartbeat=()=>{const owner=session.current;if(owner)void fetch('/api/super-entry',{method:'POST',headers:{'X-Super-Action':'heartbeat','X-Super-Session':owner},cache:'no-store',signal:AbortSignal.timeout(10000)}).then(r=>{if(!r.ok&&mounted.current&&session.current===owner)setError('SUPER 連線保護已到期，請按重新登入 SUPER。');}).catch(()=>{});};const timer=setInterval(heartbeat,30000);const resume=()=>{if(document.visibilityState==='visible')heartbeat();};document.addEventListener('visibilitychange',resume);window.addEventListener('online',heartbeat);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',resume);window.removeEventListener('online',heartbeat);};},[visible,url]);
  const load=useCallback(async(force=false)=>{const version=++generation.current;setBusy(true);setError('');try{const next=!force&&cached.current&&cached.current.reuseUntil>Date.now()?cached.current:await acquire();if(!mounted.current||generation.current!==version)return;cached.current=null;setUrl(next.url);setFrameVersion(v=>v+1);setSlow(false);setLoadingFrame(true);}catch(e){if(mounted.current&&generation.current===version)setError(e instanceof Error?e.message:'SUPER 連線失敗，請重試。');}finally{if(mounted.current&&generation.current===version)setBusy(false);}},[acquire]);
- const close=useCallback(()=>{generation.current++;setVisible(false);setPanel(false);setUrl('');setActivePane(null);setBusy(false);setLoadingFrame(false);setSlow(false);setError('');requestAnimationFrame(()=>returnFocus.current?.focus());},[]);
+ const close=useCallback(()=>{if(session.current)release(session.current);session.current=null;cached.current=null;generation.current++;setVisible(false);setPanel(false);setUrl('');setActivePane(null);setBusy(false);setLoadingFrame(false);setSlow(false);setError('');requestAnimationFrame(()=>returnFocus.current?.focus());},[release]);
  const open=useCallback(()=>{returnFocus.current=document.activeElement as HTMLElement;const root=document.querySelector(`[data-super-league="${league}"]`),pane=root?.querySelector('[data-super-parlay]');setActivePane(pane?.getAttribute('data-super-parlay')||null);setVisible(true);setPanel(false);void load();},[league,load]);
  // A schedule/date change can remount the source pane while SUPER stays open.
  useEffect(()=>{

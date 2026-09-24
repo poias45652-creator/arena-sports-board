@@ -7,7 +7,8 @@ const url=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
 const code=f=>ts.transpileModule(readFileSync(new URL('../lib/'+f,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const credentialUrl=url(code('tz-credentials.ts')),parserUrl=url(code('hr9988.ts'));
 const {credentialKey,encryptToken,decryptToken}=await import(credentialUrl);
-const {hrConnection}=await import(url(code('hr9988-connection.ts').replace("'./tz-credentials'",JSON.stringify(credentialUrl)).replace("'./hr9988'",JSON.stringify(parserUrl))));
+const {moduleUrl}=await import('./profile-loader.mjs');
+const {hrConnection}=await import(moduleUrl('lib/hr9988-connection.ts'));
 const secret=Buffer.alloc(32,9).toString('base64'),key=await credentialKey(secret);
 const fixture=()=>JSON.parse(readFileSync(new URL('./fixtures/hr9988-game-detail.json',import.meta.url),'utf8'));
 async function setup(){
@@ -50,11 +51,11 @@ test('anonymous/unbound/expired members cannot use another member session',async
  await hrConnection('b',db,secret,'connect',flow(calls));assert.equal(calls[4].headers.Authorization,'Bearer tz-test-b');
  sql.prepare('UPDATE tz_bindings SET expires_at=1 WHERE member_id=?').run('b');assert.equal((await hrConnection('b',db,secret,'read',flow(calls))).status,409);assert.equal(calls.length,8);
 });
-test('known session expiry refreshes via tz once; ordinary access denial never retries or returns stale odds',async()=>{
+test('expired background session never logs in again or kicks out the browser; access denial never retries',async()=>{
  const {db,sql}=await setup();await hrConnection('a',db,secret,'connect',flow([]));sql.exec('UPDATE hr_connections SET fetched_at=1');
  const calls=[];let reject=true;
- const r=await hrConnection('a',db,secret,'read',flow(calls,request=>{if(request.endpoint.endsWith('/GameDetail')&&reject){reject=false;return Response.json({code:-101});}}));assert.equal(r.status,200);assert.equal(calls.length,6);
- sql.exec('UPDATE hr_connections SET fetched_at=1');const denied=[];
+ const r=await hrConnection('a',db,secret,'read',flow(calls,request=>{if(request.endpoint.endsWith('/GameDetail')&&reject){reject=false;return Response.json({code:-101});}}));assert.equal(r.status,502);assert.equal(calls.length,2);assert.equal((await r.json()).code,'source_auth_expired');assert.ok(calls.every(c=>!c.endpoint.includes('/SUPER/login')));
+ sql.exec('UPDATE hr_connections SET fetched_at=1,busy_until=0');const denied=[];
  const failure=await hrConnection('a',db,secret,'read',flow(denied,()=>new Response('private upstream error',{status:403})));
  assert.equal(failure.status,502);const body=await failure.json();assert.equal(body.code,'source_access_denied');assert.deepEqual(body.games,[]);assert.equal(body.fetchedAt,null);assert.equal(denied.length,1);
  assert.equal((await (await hrConnection('a',db,secret,'status')).json()).status,'error');
@@ -103,4 +104,50 @@ test('full-category response retains every reported baseball league without borr
  }));
  const result=await response.json();assert.equal(response.status,200);assert.equal(result.games.length,4);assert.deepEqual(result.internationalGames,[]);
  assert.deepEqual(result.sourceLeagues,[{name:'MLB 美國職棒',league:'MLB',games:4},{name:'CPBL 中華職棒',league:'CPBL',games:0}]);
+});
+
+const {superEntry}=await import(moduleUrl('lib/super-entry.ts'));
+const browser='browser:12345678-1234-1234-1234-123456789abc';
+const entryRequest=(action='open',owner=browser)=>new Request('https://arena.test/api/super-entry',{method:'POST',headers:{origin:'https://arena.test','x-super-session':owner,'x-super-action':action}});
+test('browser ownership blocks collector and other tabs; heartbeat and close never log in',async()=>{
+ const {db,sql}=await setup(),calls=[];
+ assert.equal((await superEntry(entryRequest(),'a',db,secret,flow(calls))).status,200);
+ assert.equal(calls.length,1);
+ const blocked=await hrConnection('a',db,secret,'connect',flow(calls));assert.equal((await blocked.json()).code,'super_in_use');assert.equal(calls.length,1);
+ sql.exec("UPDATE tz_binding_attempts SET allowed_at=0 WHERE member_id='super-entry:a'");
+ const other='browser:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+ assert.equal((await superEntry(entryRequest('open',other),'a',db,secret,flow(calls))).status,409);
+ assert.equal((await superEntry(entryRequest('heartbeat'),'a',db,secret,flow(calls))).status,200);
+ await superEntry(entryRequest('release',other),'a',db,secret,flow(calls));
+ assert.equal((await superEntry(entryRequest('heartbeat'),'a',db,secret,flow(calls))).status,200);
+ await superEntry(entryRequest('release'),'a',db,secret,flow(calls));
+ assert.equal((await superEntry(entryRequest('heartbeat'),'a',db,secret,flow(calls))).status,409);
+ assert.equal(calls.length,1);
+ sql.exec('UPDATE hr_connections SET busy_until=0');
+ assert.equal((await hrConnection('a',db,secret,'connect',flow(calls))).status,200);
+});
+test('in-flight collector login prevents a concurrent browser login until collection ends',async()=>{
+ const {db,sql}=await setup();let started,release;const waiting=new Promise(r=>started=r),gate=new Promise(r=>release=r);
+ const task=hrConnection('a',db,secret,'connect',flow([],async request=>{if(request.endpoint.includes('/SUPER/login')){started();await gate;}}));
+ await waiting;const browserCalls=[];
+ assert.equal((await superEntry(entryRequest(),'a',db,secret,flow(browserCalls))).status,409);assert.equal(browserCalls.length,0);
+ release();assert.equal((await task).status,200);
+ sql.exec("UPDATE tz_binding_attempts SET allowed_at=0 WHERE member_id='super-entry:a'");
+ assert.equal((await superEntry(entryRequest(),'a',db,secret,flow(browserCalls))).status,200);
+});
+test('abandoned browser lease expires and delayed old close cannot release a new owner',async()=>{
+ const {db,sql}=await setup();await superEntry(entryRequest(),'a',db,secret,flow([]));
+ sql.exec('UPDATE tz_binding_attempts SET allowed_at=0');
+ const other='browser:aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa';
+ assert.equal((await superEntry(entryRequest('open',other),'a',db,secret,flow([]))).status,200);
+ await superEntry(entryRequest('release'),'a',db,secret,flow([]));
+ assert.equal((await superEntry(entryRequest('heartbeat'),'a',db,secret,flow([]))).status,409);
+ assert.equal((await superEntry(entryRequest('heartbeat',other),'a',db,secret,flow([]))).status,200);
+});
+test('browser protection still permits data reads with an existing valid source session',async()=>{
+ const {db,sql}=await setup();await hrConnection('a',db,secret,'connect',flow([]));
+ sql.exec('UPDATE hr_connections SET fetched_at=1');
+ await superEntry(entryRequest(),'a',db,secret,flow([]));
+ const calls=[];const result=await hrConnection('a',db,secret,'read',flow(calls));
+ assert.equal(result.status,200);assert.equal(calls.length,2);assert.ok(calls.every(c=>!c.endpoint.includes('/SUPER/login')));
 });
