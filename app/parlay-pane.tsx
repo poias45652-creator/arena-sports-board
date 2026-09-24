@@ -1,7 +1,10 @@
 'use client';
-import {useLayoutEffect,useRef,type ReactNode} from 'react';
+import {useId,useLayoutEffect,useRef,type ReactNode} from 'react';
+import {createPortal} from 'react-dom';
+import {useSuperWorkspace} from './super-workspace';
 
 export default function ParlayPane({children}:{children:ReactNode}){
+ const id=useId(),superWorkspace=useSuperWorkspace(),docked=superWorkspace?.activePane===id&&!!superWorkspace.host;
  const ref=useRef<HTMLDivElement>(null);
  useLayoutEffect(()=>{
   const pane=ref.current;
@@ -32,7 +35,7 @@ export default function ParlayPane({children}:{children:ReactNode}){
   changes.observe(workspace,{attributes:true,attributeFilter:['data-view']});
   observeLayout();measure();window.addEventListener('resize',schedule);
   return()=>{cancelAnimationFrame(frame);resize.disconnect();changes.disconnect();window.removeEventListener('resize',schedule);};
- },[]);
- return <div ref={ref} className="arena-parlay-pane arena-parlay-top" role="region" aria-label="串關組合，可獨立捲動" tabIndex={0}>{children}</div>;
+ },[docked]);
+ return <div ref={ref} data-super-parlay={id} className="arena-parlay-pane arena-parlay-top" role="region" aria-label="串關組合，可獨立捲動" tabIndex={0}>{docked?createPortal(children,superWorkspace!.host!):children}</div>;
 }
 

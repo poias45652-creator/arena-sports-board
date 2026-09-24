@@ -15,6 +15,7 @@ import LiveScoreboard from './live-scoreboard';
 import SessionAccount from './session-account';
 import AdminEntry from './admin-entry';
 import InternationalBoard from './international-board';
+import SuperWorkspace,{SuperEntryButton} from './super-workspace';
 
 type Player = { name:string; playerId:string; attempts:number; avgHitSpeed:number; maxHitSpeed:number; sweetSpot:number; hardHit:number; barrels:number; barrelRate:number };
 type LiveGame = { id:number; awayId?:number; homeId?:number; away:string; home:string; awayScore:number|null; homeScore:number|null; status:string; detail:string; start:string; live:boolean; final:boolean; line:any; pitchCount:number|null; detailError:boolean; detailFetchedAt:string|null };
@@ -76,12 +77,13 @@ export default function Home(){
   }
 
   const filteredGames=liveGames.filter(g=>scoreFilter==='all'||scoreFilter==='live'&&g.live||scoreFilter==='final'&&g.final||scoreFilter==='upcoming'&&!g.live&&!g.final);
-  return <main className="arena-shell min-h-screen text-slate-100">
+  return <SuperWorkspace league={league}><main className="arena-shell min-h-screen text-slate-100">
     <header className="sticky top-0 z-20 border-b border-white/8 bg-[#081522]/95 backdrop-blur"><div className="mx-auto flex min-h-16 max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3 lg:px-7">
       <div className="flex shrink-0 items-center gap-3"><a href="https://line.me/ti/p/ZuZetvA6NY" target="_blank" rel="noopener noreferrer" aria-label="透過 LINE 聯絡 YJ（另開視窗）" className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffd538]"><img src="/yj-logo.png" alt="YJ" width={40} height={40} className="size-10 object-contain"/></a><span className="whitespace-nowrap text-lg font-black">YJ體育分析</span></div>
       <div className="ml-auto flex items-center gap-2 text-sm text-slate-400"><TimerReset className="size-4 shrink-0"/><span>最後更新時間：{updatedAt?updatedAt.toLocaleString("zh-TW",{timeZone:"Asia/Taipei",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}):"等待同步"}</span></div>
       <div className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1.5 text-xs font-bold text-emerald-300">{error?<WifiOff className="size-3.5"/>:<Wifi className="size-3.5"/>}{error?"連線異常":loading?"正在同步":"資料已連線"}</div>
       <Button onClick={()=>void updateAll()} disabled={updatingAll} className="bg-[#ffd538] font-black text-[#06101b] hover:bg-[#ffe36f]"><RefreshCw className={updatingAll?"animate-spin":""}/>{updatingAll?"更新中":"立即更新"}</Button>
+      <SuperEntryButton/>
       <AdminEntry/>
       <SessionAccount/>
       <a href="https://line.me/ti/p/ZuZetvA6NY" target="_blank" rel="noopener noreferrer" aria-label="LINE 聯絡我們（另開視窗）" title="LINE 聯絡我們" className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffd538]"><img src="/line-contact.png" alt="LINE" width={36} height={36} className="size-9 object-contain" style={{clipPath:'inset(0 round 25%)'}}/></a>
@@ -90,8 +92,8 @@ export default function Home(){
       <nav className="league-switcher" aria-label="棒球聯盟切換">
         {LEAGUES.map(item=><button key={item.code} type="button" aria-pressed={league===item.code} onClick={()=>setLeague(item.code)}><b>{item.label}</b><span>{item.name}</span>{item.code==='MLB'&&<i>LIVE</i>}</button>)}
       </nav>
-      {league!=='MLB'&&<InternationalBoard key={league} league={league} initialView={view}/>}
-      <div hidden={league!=='MLB'}>
+      {league!=='MLB'&&<div data-super-league={league}><InternationalBoard key={league} league={league} initialView={view}/></div>}
+      <div data-super-league="MLB" hidden={league!=='MLB'}>
       <div className="league-heading arena-league-heading" data-view={view}><div><h1><span className="league-title-code">MLB</span> <span>美國職棒</span></h1></div></div>
       <Tabs value={view} onValueChange={setView} className="league-workspace" data-view={view}>
         <TabsList className="league-tabs" aria-label="美國職棒頁面"><TabsTrigger value="overview">概覽</TabsTrigger><TabsTrigger value="standings">戰績排名</TabsTrigger><TabsTrigger value="teams">球隊一覽</TabsTrigger><TabsTrigger value="live">即時比分</TabsTrigger><TabsTrigger value="analysis">賽前分析・串關</TabsTrigger></TabsList>
@@ -113,7 +115,7 @@ export default function Home(){
 
     </div>
 
-  </main>;
+  </main></SuperWorkspace>;
 }
 
 function LiveDetails({game}:{game:LiveGame}){
