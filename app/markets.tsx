@@ -1,5 +1,5 @@
 "use client";
-import {useMemo,useState,type ReactNode} from 'react';
+import {useMemo,useState,useEffect,useRef,type ReactNode} from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
@@ -15,6 +15,7 @@ import type {AnalysisState} from './game-context';
 import TeamName from './team-name';
 import MarketOutcomes from './market-outcomes';
 import ParlayPane from './parlay-pane';
+import {useSuperWorkspace} from './super-workspace';
 import {winnerAnalysis} from '@/lib/winner-analysis';
 
 const pct=(p:number)=>(p*100).toFixed(1)+'%';
@@ -24,6 +25,9 @@ function label(g:Match,p:BoardPick){return <>{boardMarketLabel(p.key)} · {optio
 export default function Markets({analysis,games,now,data,error,scheduleOK,scheduleMessage,odds,oddsError,oddsLoading,refreshOdds,renderMatchHeader,renderWinnerOptions,winnerPanel,parlayMode,onParlayModeChange}:{analysis:Record<number,AnalysisState>;games:Match[];now:number;data:RunSnapshot|null;error:string;scheduleOK:boolean;scheduleMessage:string;odds:OddsSnapshot|null;oddsError:string;oddsLoading:boolean;refreshOdds:()=>Promise<void>;renderMatchHeader:(game:Match,expectedRunsInfo:ReactNode)=>ReactNode;renderWinnerOptions:(game:Match)=>ReactNode;winnerPanel:ReactNode;parlayMode:'markets'|'winner';onParlayModeChange:(mode:'markets'|'winner')=>void}){
  const [mode,setMode]=useState('super007');
  const [showSingles,setShowSingles]=useState(false);
+ const superWorkspace=useSuperWorkspace();
+ useEffect(()=>{if(superWorkspace?.activePane)setShowSingles(true);},[superWorkspace?.activePane]);
+ const savedSingles=useRef<{scope:string;at:number;cards:{id:number;start:string;node:ReactNode}[]}|null>(null);
  const [inputs,setInputs]=useState<Record<number,{spread:string;total:string}>>({});
  const [marketTabs,setMarketTabs]=useState<Record<number,MarketKey>>({});
  const [count,setCount]=useState(3),[picks,setPicks]=useState<BoardPick[]>([]),[notice,setNotice]=useState('');
@@ -101,7 +105,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
    {blocked&&q&&<p className="text-sm text-amber-200">{blocked}</p>}
   </section>;
  }
- function singleRecommendations(){
+ function buildSingleRecommendations(){
   const cards=orderedGames.flatMap(g=>{
    const items:ReactNode[]=[];
    for(const {key} of BOARD_MARKETS){
@@ -115,10 +119,20 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
     const rows=options(g,key),pick=preferred(rows),outcome=pick?rows.find(row=>row.pick===pick)?.result:null,q=quote(g,key);
     if(pick&&outcome&&q)items.push(<div key={key} className="space-y-3 rounded-lg border border-white/10 p-3"><div className="flex flex-wrap justify-between gap-2 font-bold"><span>{label(g,pick)}</span>{automatic&&<span className="tabular-nums">@{(pick.side==='home'||pick.side==='over'?q.first:q.second).toFixed(3)}</span>}</div><MarketOutcomes outcome={outcome}/></div>);
    }
-   return items.length?[<section key={g.id} className="space-y-3" aria-label={`${g.away.name} 對 ${g.home.name} 單場推薦`}><h4 className="flex flex-wrap items-center gap-2 text-sm font-bold"><TeamName team={g.away} size={20}/> vs <TeamName team={g.home} size={20}/></h4>{items}</section>]:[];
+   return items.length?[{id:g.id,start:g.date,node:<section key={g.id} className="space-y-3" aria-label={`${g.away.name} 對 ${g.home.name} 單場推薦`}><h4 className="flex flex-wrap items-center gap-2 text-sm font-bold"><TeamName team={g.away} size={20}/> vs <TeamName team={g.home} size={20}/></h4>{items}</section>}]:[];
   });
-  return cards.length?cards:<p className="py-4 text-sm text-slate-400" role="status">目前沒有可顯示的單場推薦。</p>;
+  return cards;
  }
+ const singleCards=buildSingleRecommendations();
+ const singleScope=JSON.stringify(games.map(g=>[g.id,g.date,g.home.pitcherId,g.away.pitcherId]));
+ useEffect(()=>{
+  if(savedSingles.current?.scope!==singleScope)savedSingles.current=null;
+  if(scheduleOK&&oddsOK&&dataOK)savedSingles.current={scope:singleScope,at:now,cards:singleCards};
+ });
+ const previousSingles=savedSingles.current;
+ const retainingSingles=(!scheduleOK||!oddsOK||!dataOK)&&previousSingles?.scope===singleScope&&now-previousSingles.at<=300000;
+ const visibleSingles=retainingSingles?previousSingles.cards.filter(c=>games.some(g=>g.id===c.id&&isPregame(g,now))):singleCards;
+ function singleRecommendations(){return <>{retainingSingles&&visibleSingles.length>0&&<p className="text-xs text-slate-400" role="status">更新中 · {new Date(previousSingles!.at).toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour:'2-digit',minute:'2-digit'})}</p>}{visibleSingles.length?visibleSingles.map(c=>c.node):<div className="space-y-3 py-4"><p className="text-sm text-slate-400" role="status">推薦資料同步中</p><Button variant="outline" disabled={oddsLoading} onClick={()=>void refreshOdds()}>更新推薦</Button></div>}</>;}
  return <section className="arena-analysis-board" aria-label="每日對戰勝率分析">
   <div className="arena-analysis-controls space-y-4">
   <h3 className="text-xl font-black">每日對戰 勝率分析</h3>

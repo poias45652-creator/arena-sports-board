@@ -6,3 +6,8 @@ export function superEntryUrl(value:unknown):string|null{
   return u.href;
  }catch{return null;}
 }
+
+export function superDeviceEntryUrl(value:unknown,mobile:boolean):string|null{
+ const valid=superEntryUrl(value);if(!valid)return null;
+ const url=new URL(valid);url.hostname=mobile?'m.hr9988.net':'hr9988.net';return url.href;
+}

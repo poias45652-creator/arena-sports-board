@@ -3,7 +3,7 @@ import {requestOrigin} from './request-origin';
 import type {HrDatabase} from './hr9988-connection';
 const privacy={'Cache-Control':'private, no-store, max-age=0','Vary':'Cookie','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 const reply=(body:unknown,status=200)=>Response.json(body,{status,headers:privacy});
-import {superEntryUrl} from './super-entry-url';
+import {superDeviceEntryUrl} from './super-entry-url';
 export {superEntryUrl} from './super-entry-url';
 /** Issue an unconsumed, owner-specific browser entry. Never exchange its MemID on the server. */
 export async function superEntry(request:Request,memberId:string|null,db:HrDatabase,secret:string|undefined,fetcher:typeof fetch=fetch){
@@ -17,14 +17,15 @@ export async function superEntry(request:Request,memberId:string|null,db:HrDatab
   const now=Date.now(),operationId=crypto.randomUUID();
   const lease=await db.prepare('INSERT INTO tz_binding_attempts (member_id,allowed_at,operation_id) VALUES (?,?,?) ON CONFLICT(member_id) DO UPDATE SET allowed_at=excluded.allowed_at,operation_id=excluded.operation_id WHERE tz_binding_attempts.allowed_at<=? RETURNING operation_id').bind('super-entry:'+memberId,now+10000,operationId,now).first();
   if(!lease)return reply({error:'SUPER 入口正在更新，請等 10 秒後重試。',code:'rate_limited'},429);
+  const mobile=request.headers.get('x-super-device')==='mobile'||request.headers.get('sec-ch-ua-mobile')==='?1'||/Mobile|Android|iPhone|iPad/i.test(request.headers.get('user-agent')||'');
   const key=await credentialKey(secret),token=await decryptToken(binding.encrypted_token,memberId,key);
-  const r=await fetcher('https://www.tz6868.com/api/v2/game/SUPER/login',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:/Mobile|Android|iPhone|iPad/i.test(request.headers.get('user-agent')||'')?'Mobile':'Desktop'}),redirect:'manual',cache:'no-store',signal:AbortSignal.timeout(15000)});
+  const r=await fetcher('https://www.tz6868.com/api/v2/game/SUPER/login',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:mobile?'Mobile':'Desktop'}),redirect:'manual',cache:'no-store',signal:AbortSignal.timeout(15000)});
   if(r.status===401)return reply({error:'TZ 授權失效，請重新登入網站。',code:'tz_auth_expired'},409);
   if(r.status===403||r.status>=300&&r.status<400)return reply({error:'TZ 拒絕這次連線，尚未取得 SUPER 入口。請在來源完成所需驗證後重試。',code:'source_access_denied'},502);
   if(!r.ok)return reply({error:'SUPER 登入服務暫時無法使用，請稍後重試。',code:'source_unavailable'},502);
   const reader=r.body?.getReader();if(!reader)throw Error();let size=0,raw='';const decoder=new TextDecoder();
   for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw Error();}raw+=decoder.decode(value,{stream:true});}raw+=decoder.decode();
-  const data=JSON.parse(raw),url=superEntryUrl(data?.data?.game_url);
+  const data=JSON.parse(raw),url=superDeviceEntryUrl(data?.data?.game_url,mobile);
   if(String(data?.code)!=='200'||data?.data?.game_method!=='GET'||!url)return reply({error:'來源未提供有效的 SUPER 登入入口，請確認體育館權限。',code:'invalid_entry'},502);
   const current=await db.prepare('SELECT encrypted_token,verified_at,expires_at FROM tz_bindings WHERE member_id=?').bind(memberId).first<{encrypted_token:string;verified_at:number;expires_at:number}>();
   if(!current||current.encrypted_token!==binding.encrypted_token||current.verified_at!==binding.verified_at||current.expires_at<=Date.now())return reply({error:'登入狀態已變更，請重新開啟 SUPER。',code:'binding_changed'},409);

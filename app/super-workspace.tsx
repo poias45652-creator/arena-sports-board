@@ -2,7 +2,7 @@
 import {createContext,useCallback,useContext,useEffect,useRef,useState,type ReactNode} from 'react';
 import {Button} from '@/components/ui/button';
 import {ArrowLeft,LoaderCircle,RefreshCw,X} from 'lucide-react';
-import {superEntryUrl} from '@/lib/super-entry-url';
+import {superDeviceEntryUrl} from '@/lib/super-entry-url';
 type Entry={url:string;reuseUntil:number};
 type Workspace={open:()=>void;busy:boolean;activePane:string|null;host:HTMLDivElement|null};
 const Context=createContext<Workspace|null>(null);
@@ -15,7 +15,8 @@ export default function SuperWorkspace({children,league}:{children:ReactNode;lea
  const cached=useRef<Entry|null>(null),pending=useRef<Promise<Entry>|null>(null),mounted=useRef(true),generation=useRef(0),returnFocus=useRef<HTMLElement|null>(null),closeButton=useRef<HTMLButtonElement>(null),ball=useRef<HTMLButtonElement>(null);
  const acquire=useCallback(()=>{
   if(pending.current)return pending.current;
-  pending.current=(async()=>{const r=await fetch('/api/super-entry',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(20000)}),d=await r.json();if(!r.ok)throw Error(d.error||'無法取得 SUPER 入口');const valid=superEntryUrl(d.url);if(!valid||!Number.isFinite(d.reuseUntil))throw Error('SUPER 入口格式無效');const next={url:valid,reuseUntil:d.reuseUntil};cached.current=next;return next;})().finally(()=>{pending.current=null;});
+  const mobile=/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
+  pending.current=(async()=>{const r=await fetch('/api/super-entry',{method:'POST',headers:{'X-Super-Device':mobile?'mobile':'desktop'},cache:'no-store',signal:AbortSignal.timeout(20000)}),d=await r.json();if(!r.ok)throw Error(d.error||'無法取得 SUPER 入口');const valid=superDeviceEntryUrl(d.url,mobile);if(!valid||!Number.isFinite(d.reuseUntil))throw Error('SUPER 入口格式無效');const next={url:valid,reuseUntil:d.reuseUntil};cached.current=next;return next;})().finally(()=>{pending.current=null;});
   return pending.current;
  },[]);
  useEffect(()=>{mounted.current=true;void acquire().catch(()=>{});return()=>{mounted.current=false;generation.current++;cached.current=null;};},[acquire]);
