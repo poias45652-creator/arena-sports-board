@@ -15,6 +15,7 @@ import LiveScoreboard from './live-scoreboard';
 import SessionAccount from './session-account';
 import AdminEntry from './admin-entry';
 import InternationalBoard from './international-board';
+import {useLeagueLive} from './use-league-live';
 import SuperWorkspace,{SuperEntryButton} from './super-workspace';
 
 type Player = { name:string; playerId:string; attempts:number; avgHitSpeed:number; maxHitSpeed:number; sweetSpot:number; hardHit:number; barrels:number; barrelRate:number };
@@ -50,6 +51,7 @@ function mapGame(game:any):LiveGame{
 }
 
 export default function Home(){
+  const leagueLive=useLeagueLive();
   const [updatingAll,setUpdatingAll]=useState(false),[updateNotice,setUpdateNotice]=useState('');
   const updateLock=useRef(false);
   const [league,setLeague]=useState<LeagueCode>('MLB');
@@ -90,7 +92,7 @@ export default function Home(){
     </div>{updateNotice&&<p role="status" className="mx-auto max-w-[1440px] px-4 pb-2 text-xs text-amber-200">{updateNotice}</p>}</header>
     <div className="mx-auto max-w-[1440px] px-4 py-6 lg:px-7">
       <nav className="league-switcher" aria-label="棒球聯盟切換">
-        {LEAGUES.map(item=><button key={item.code} type="button" aria-pressed={league===item.code} onClick={()=>setLeague(item.code)}><b>{item.label}</b><span>{item.name}</span>{item.code==='MLB'&&<i>LIVE</i>}</button>)}
+        {LEAGUES.map(item=><button key={item.code} type="button" aria-pressed={league===item.code} onClick={()=>setLeague(item.code)}><b>{item.label}</b><span>{item.name}</span>{(item.code==='MLB'?(!scoreError&&!!scoreUpdatedAt&&leagueLive.now-scoreUpdatedAt.getTime()<120000&&liveGames.some(game=>game.live)):leagueLive[item.code])&&<i>LIVE</i>}</button>)}
       </nav>
       {league!=='MLB'&&<div data-super-league={league}><InternationalBoard key={league} league={league} initialView={view}/></div>}
       <div data-super-league="MLB" hidden={league!=='MLB'}>
