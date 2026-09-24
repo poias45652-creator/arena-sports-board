@@ -54,3 +54,15 @@ export function winnerAnalysis(
     reason: model.ready ? (favoredSide ? '' : '雙方試算相同，沒有明確傾向') :
       !report ? '分項分析取得中，先依本季戰績與先發 ERA／WHIP 試算' : model.reason.replace('暫停自動推薦','僅供初步試算')};
 }
+
+/** Independent estimate from every selected leg, including usable partial analyses. */
+export function winnerParlayProbability(legs:{analysis:Pick<WinnerAnalysis,'canEstimate'|'homeWin'>;side:'away'|'home'}[],count:number):number|null{
+ if(!Number.isInteger(count)||count<1||legs.length!==count)return null;
+ let combined=1;
+ for(const {analysis,side} of legs){
+  const p=analysis.homeWin;
+  if(!analysis.canEstimate||p===null||!Number.isFinite(p)||p<0||p>1)return null;
+  combined*=side==='home'?p:1-p;
+ }
+ return combined;
+}

@@ -5,7 +5,7 @@ import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/com
 import { RefreshCw } from 'lucide-react';
 import { doubleheaderLabel,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
 import Markets from './markets';
-import {winnerAnalysis} from '@/lib/winner-analysis';
+import {winnerAnalysis,winnerParlayProbability} from '@/lib/winner-analysis';
 import MatchInningBoard from './match-inning-board';
 import {matchScore,showMatchScoreboard,type MatchScoreSnapshot} from '@/lib/match-scoreboard';
 import {superOdds,type SuperSnapshot} from '@/lib/super007';
@@ -40,7 +40,7 @@ export default function Pregame(){
   const dateOptions=Array.from({length:8},(_,i)=>shiftDay(today,i));
   const previousDay=useRef(day);
   useEffect(()=>{
-    if(previousDay.current!==day){setLegs([]);setNotice('日期已更新，請重新選擇組合。');previousDay.current=day;}
+    if(previousDay.current!==day){setLegs([]);setNotice('');previousDay.current=day;}
   },[day]);
   useEffect(()=>{
     setDateMode('auto');
@@ -51,7 +51,7 @@ export default function Pregame(){
     document.addEventListener('visibilitychange',resume);window.addEventListener('focus',resume);
     return()=>{document.removeEventListener('visibilitychange',resume);window.removeEventListener('focus',resume);};
   },[schedule.refresh]);
-  const datePicker=<Select value={dateMode<today&&dateMode!=='auto'?'auto':dateMode} onValueChange={v=>{setDateMode(v);setLegs([]);setNotice('切換日期已清空組合。');}}><SelectTrigger aria-label="選擇台灣賽事日期"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="auto">自動 {autoDay}（台灣）</SelectItem>{dateOptions.map(d=><SelectItem key={d} value={d}>{d}（台灣）</SelectItem>)}</SelectContent></Select>;
+  const datePicker=<Select value={dateMode<today&&dateMode!=='auto'?'auto':dateMode} onValueChange={v=>{setDateMode(v);setLegs([]);setNotice('');}}><SelectTrigger aria-label="選擇台灣賽事日期"><SelectValue/></SelectTrigger><SelectContent><SelectItem value="auto">自動 {autoDay}（台灣）</SelectItem>{dateOptions.map(d=><SelectItem key={d} value={d}>{d}（台灣）</SelectItem>)}</SelectContent></Select>;
   const odds={...primaryOdds,data:superOdds(primaryOdds.data,schedule.data?.games||[],teamZh)};
   const selectedGames=(schedule.data?.games||[]).filter(g=>taipeiDay(g.date)===day).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
   const scheduleOK=!schedule.error&&fresh(schedule.data?.fetchedAt,now,120000);
@@ -68,12 +68,11 @@ export default function Pregame(){
     if(!event)return '尚未對應到本場來源資料';
     return !moneyline(g)?(event.issues?.moneyline==='尚未開盤'?'來源尚未提供獨贏報價':event.issues?.moneyline||'獨贏報價無效'):'';
   };
-  const analysisUnavailable=(g:Match)=>model(g).status==='ready'?'':model(g).reason;
+  const analysisUnavailable=(g:Match)=>model(g).canEstimate?'':model(g).reason;
   const eligible=selectedGames.filter(g=>!unavailable(g)&&model(g).canRecommend);
-  const preliminaryCount=selectedGames.filter(g=>!unavailable(g)&&model(g).status==='preliminary'&&model(g).canRecommend).length;
   const chosen=legs.map(leg=>({leg,g: (schedule.data?.games||[]).find(g=>g.id===leg.gameId)}));
   const allValid=chosen.length===count&&chosen.every(x=>x.g&&!unavailable(x.g)&&!analysisUnavailable(x.g)&&x.leg.quote===moneyline(x.g)?.signature);
-  const combined=allValid?chosen.reduce((p,x)=>{const h=probability(x.g!)!;return p*(x.leg.side==='home'?h:1-h);},1):null;
+  const combined=allValid?winnerParlayProbability(chosen.map(x=>({analysis:model(x.g!),side:x.leg.side})),count):null;
   function choose(g:Match,side:'away'|'home'){
     const reason=unavailable(g);if(reason){setNotice(reason);return;}
     setParlayMode('winner');
@@ -83,7 +82,7 @@ export default function Pregame(){
     if(rest.some(l=>{const other=schedule.data?.games.find(x=>x.id===l.gameId);return other&&[other.home.id,other.away.id].some(id=>id===g.home.id||id===g.away.id);})){setNotice('為避免同隊雙重賽的關聯，同一隊只可出現在一個關卡。');return;}
     setLegs([...rest,{gameId:g.id,side,quote:moneyline(g)?.signature}]);setNotice('');
   }
-  function recommend(){const used=new Set<number>();const next:Leg[]=[];for(const g of [...eligible].sort((a,b)=>Number(model(b).status==='ready')-Number(model(a).status==='ready')||Math.abs(probability(b)!-.5)-Math.abs(probability(a)!-.5))){const p=probability(g)!;if(p===.5||used.has(g.home.id)||used.has(g.away.id))continue;used.add(g.home.id);used.add(g.away.id);next.push({gameId:g.id,side:p>.5?'home':'away'});if(next.length===count)break;}setLegs(next.map(leg=>({...leg,quote:moneyline(eligible.find(g=>g.id===leg.gameId)!)?.signature})));setNotice(next.length<count?`只有 ${next.length} 場符合條件，不勉強湊滿 ${count} 關。`:'已優先選取完整分析，再依初步勝率補足；你可以逐場換隊。');}
+  function recommend(){const used=new Set<number>();const next:Leg[]=[];for(const g of [...eligible].sort((a,b)=>Number(model(b).status==='ready')-Number(model(a).status==='ready')||Math.abs(probability(b)!-.5)-Math.abs(probability(a)!-.5))){const p=probability(g)!;if(p===.5||used.has(g.home.id)||used.has(g.away.id))continue;used.add(g.home.id);used.add(g.away.id);next.push({gameId:g.id,side:p>.5?'home':'away'});if(next.length===count)break;}setLegs(next.map(leg=>({...leg,quote:moneyline(eligible.find(g=>g.id===leg.gameId)!)?.signature})));setNotice(next.length<count?`只有 ${next.length} 場符合條件，不勉強湊滿 ${count} 關。`:'');}
   function matchHeader(g:Match,expectedRunsInfo:ReactNode){
     const h=probability(g),pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
     const score=matchScore(g,scores.data,day),showScoreboard=showMatchScoreboard(g,score);
@@ -104,7 +103,7 @@ export default function Pregame(){
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
               <h4 className="text-base font-bold"><TeamName team={team} size={32}/><span className="ml-1 text-sm font-normal text-slate-400">（{side==='home'?'主':'客'}）</span></h4>
               <span className="whitespace-nowrap text-2xl font-black tabular-nums text-[#ffd538]" title="依已取得的戰績、先發與分項數據試算；尚未回測校準">
-                <span className="mr-1 text-sm font-medium text-slate-400">{model(g).status==='preliminary'?'初步勝率':'試算勝率'}</span>{prob===null?'待分析':`${Math.round(prob*100)}%`}
+                <span className="mr-1 text-sm font-medium text-slate-400">預估勝率</span>{prob===null?'待分析':`${Math.round(prob*100)}%`}
               </span>
             </div>
             <p className="mt-2 text-sm text-slate-400">{team.wins??'—'} 勝 {team.losses??'—'} 敗</p>
@@ -123,7 +122,7 @@ export default function Pregame(){
       const active=legs.some(l=>l.gameId===g.id&&l.side===side&&l.quote===q?.signature);
       return <Button key={side} aria-pressed={active} variant={active?'default':'outline'} disabled={!!reason} onClick={()=>choose(g,side)} className="market-option-card h-auto w-full items-start whitespace-normal p-3 text-left"><span className="block w-full">
         <span className="market-pick-title flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold"><span className="min-w-0"><TeamName team={g[side]}/>{r&&state.favoredSide===side&&<span data-winner-recommendation={state.status} className={`ml-2 ${active?'text-green-700':'text-green-400'}`} title={state.status==='preliminary'?'依目前可用資料試算；分項未齊，僅供初步參考':'依多因素試算；尚未回測校準'}>推薦</span>}{active&&<span className="ml-1 text-green-700" aria-label="已選取">✓</span>}</span><span className="ml-auto whitespace-nowrap tabular-nums">獨贏{q?` @${(side==='home'?q.first:q.second).toFixed(3)}`:''}</span></span>
-        <span className="mt-3 block text-sm">{r?<><span className="mb-1 block">{state.status==='preliminary'?'初步分析':'多因素試算'}</span><MarketOutcomes outcome={r}/></>:!isPregame(g,now)?(g.state==='Final'?'已完賽':'賽前選擇已關閉'):reason||state.reason}</span>
+        <span className="mt-3 block text-sm">{r?<><span className="mb-1 block">預估勝率</span><MarketOutcomes outcome={r}/></>:!isPregame(g,now)?(g.state==='Final'?'已完賽':'賽前選擇已關閉'):reason||state.reason}</span>
       </span></Button>;
     })}</div>
     {reason&&<p className="text-sm text-amber-200">{`不可加入獨贏串關：${reason}`}</p>}
@@ -134,16 +133,15 @@ export default function Pregame(){
     const state=model(g);
     if(!state.canEstimate||state.homeWin===null)return `已手動選取；${state.reason}`;
     const p=side==='home'?state.homeWin:1-state.homeWin;
-    return `${state.status==='preliminary'?'初步分析':'多因素試算'} ${(p*100).toFixed(1)}%${state.status==='preliminary'?'；不納入完整串關試算':''}`;
+    return `預估勝率 ${(p*100).toFixed(1)}%`;
   }
-  const winnerPanel=<div className="space-y-4"><label className="block text-sm text-slate-400">關卡數量</label><Select value={String(count)} onValueChange={v=>{const n=Number(v);setCount(n);setLegs(l=>l.slice(0,n));setNotice('關卡數量已更新。');}}><SelectTrigger aria-label="選擇串關數量" className="w-full"><SelectValue/></SelectTrigger><SelectContent>{[3,4,5].map(n=><SelectItem key={n} value={String(n)}>{n} 關</SelectItem>)}</SelectContent></Select>
+  const winnerPanel=<div className="space-y-4"><label className="block text-sm text-slate-400">關卡數量</label><Select value={String(count)} onValueChange={v=>{const n=Number(v);setCount(n);setLegs(l=>l.slice(0,n));setNotice('');}}><SelectTrigger aria-label="選擇串關數量" className="w-full"><SelectValue/></SelectTrigger><SelectContent>{[3,4,5].map(n=><SelectItem key={n} value={String(n)}>{n} 關</SelectItem>)}</SelectContent></Select>
         <Button className="w-full" onClick={recommend} disabled={!scheduleOK||!eligible.length}>自動推薦 {count} 關</Button>
-        <p className="text-sm text-slate-400" role="status">可自動推薦 {eligible.length} 場；初步分析 {preliminaryCount} 場可納入推薦。</p>
-        <div aria-live="polite" className="text-sm text-amber-200">{notice}</div>
+        {notice&&<div aria-live="polite" className="text-sm text-amber-200">{notice}</div>}
         <p className="font-bold">已選 {legs.length}／{count} 關</p>
         {chosen.map(({leg,g})=><div key={leg.gameId} className="rounded-lg border border-white/10 p-3"><div className="flex justify-between gap-2"><span className="font-bold">{g?<TeamName team={g[leg.side]}/>: '賽事資料已失效'} 勝</span><button aria-label="移除此關" className="text-sm underline" onClick={()=>setLegs(l=>l.filter(x=>x.gameId!==leg.gameId))}>移除</button></div>{g&&<p className="mt-1 text-xs text-slate-400"><TeamName team={g.away} size={20}/> 對 <TeamName team={g.home} size={20}/></p>}<p className="mt-1 text-sm text-amber-200">{g?unavailable(g)||(leg.quote!==moneyline(g)?.signature?'獨贏資料或賠率已變動，請重新選擇':'')||chosenAnalysis(g,leg.side):'資料缺漏，請重新選擇'}</p></div>)}
-        <div className="rounded-xl bg-[#ffd538]/10 p-4"><p className="text-sm">全數選中機率 獨立試算</p><p className="my-2 text-3xl font-black text-[#ffd538]">{combined===null?'—':`${(combined*100).toFixed(1)}%`}</p><p className="text-sm text-slate-400">{combined===null?'選滿有效關卡且各場分析資料齊全後才計算。':'將未校準的單場機率相乘，並非真實命中率。'} 各場可能相關，關數增加通常更難全中。</p></div>
-        <Button variant="outline" className="w-full" onClick={()=>{setLegs([]);setNotice('已清空組合。');}} disabled={!legs.length}>清空組合</Button>
+        <div className="rounded-xl bg-[#ffd538]/10 p-4" title="依各場預估勝率相乘的獨立試算"><p className="text-sm">串關預估勝率</p><p className="my-2 text-3xl font-black text-[#ffd538]">{combined===null?'—':`${(combined*100).toFixed(1)}%`}</p></div>
+        <Button variant="outline" className="w-full" onClick={()=>{setLegs([]);setNotice('');}} disabled={!legs.length}>清空組合</Button>
 
       </div>;
   return <section className="mb-6 space-y-5" aria-label="賽前分析與自選串關">
