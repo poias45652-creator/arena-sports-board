@@ -60,9 +60,10 @@ export async function handleTzBinding(request:Request, memberId:string|null, get
   const existing=await db.prepare('SELECT device_id FROM tz_bindings WHERE member_id = ?').bind(memberId).first<{device_id:string}>();
   // A distinct connector device per Arena member; never reuse the owner's browser ID.
   const deviceId=existing?.device_id??crypto.randomUUID().replaceAll('-','');
+  const loginHost=memberId.startsWith('ofa-login-candidate:')?'https://www.ofa1188.net':'https://www.tz6868.com';
   let upstream:Response;
   try{
-   upstream=await fetcher('https://www.tz6868.com/api/v1/login',{
+   upstream=await fetcher(`${loginHost}/api/v1/login`,{
     method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},
     body:JSON.stringify({username,password:input.password,device_id:deviceId}),
     signal:AbortSignal.timeout(15000),redirect:'manual',cache:'no-store'
