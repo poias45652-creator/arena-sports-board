@@ -2,7 +2,7 @@ import {baseProbability, fresh, isPregame, type Match} from './baseball';
 import {multifactorWin} from './multifactor-win';
 import type {AnalysisReport} from './pregame-analysis';
 
-export const WINNER_DISPLAY_VERSION = 'moneyline-stages-v1-sp60';
+export const WINNER_DISPLAY_VERSION = 'moneyline-stages-v2-preliminary';
 export type WinnerAnalysis = ReturnType<typeof multifactorWin> & {
   status: 'blocked' | 'preliminary' | 'ready';
   canEstimate: boolean;
@@ -13,7 +13,7 @@ export type WinnerAnalysis = ReturnType<typeof multifactorWin> & {
 const measured = (value: unknown): value is number =>
   typeof value === 'number' && Number.isFinite(value) && value >= 0;
 
-/** Separate an available estimate from eligibility for automatic recommendations.
+/** Allow usable preliminary estimates in recommendations without treating them as full data.
  * The underlying model, 60% starter budget and 80% full-data gate are unchanged.
  * Never promote partial inputs, expired reports or mismatched starters to ready. */
 export function winnerAnalysis(
@@ -50,7 +50,7 @@ export function winnerAnalysis(
   }
   const favoredSide = Math.abs(model.homeWin - .5) <= .000001 ? null : model.homeWin > .5 ? 'home' : 'away';
   return {...model, status: model.ready ? 'ready' : 'preliminary', canEstimate: true,
-    canRecommend: model.ready && favoredSide !== null, favoredSide, missing,
+    canRecommend: favoredSide !== null, favoredSide, missing,
     reason: model.ready ? (favoredSide ? '' : '雙方試算相同，沒有明確傾向') :
-      !report ? '分項分析取得中，先依本季戰績與先發 ERA／WHIP 試算' : model.reason};
+      !report ? '分項分析取得中，先依本季戰績與先發 ERA／WHIP 試算' : model.reason.replace('暫停自動推薦','僅供初步試算')};
 }

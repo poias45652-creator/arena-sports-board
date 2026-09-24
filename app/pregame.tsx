@@ -70,7 +70,7 @@ export default function Pregame(){
   };
   const analysisUnavailable=(g:Match)=>model(g).status==='ready'?'':model(g).reason;
   const eligible=selectedGames.filter(g=>!unavailable(g)&&model(g).canRecommend);
-  const preliminaryCount=selectedGames.filter(g=>!unavailable(g)&&model(g).status==='preliminary').length;
+  const preliminaryCount=selectedGames.filter(g=>!unavailable(g)&&model(g).status==='preliminary'&&model(g).canRecommend).length;
   const chosen=legs.map(leg=>({leg,g: (schedule.data?.games||[]).find(g=>g.id===leg.gameId)}));
   const allValid=chosen.length===count&&chosen.every(x=>x.g&&!unavailable(x.g)&&!analysisUnavailable(x.g)&&x.leg.quote===moneyline(x.g)?.signature);
   const combined=allValid?chosen.reduce((p,x)=>{const h=probability(x.g!)!;return p*(x.leg.side==='home'?h:1-h);},1):null;
@@ -83,7 +83,7 @@ export default function Pregame(){
     if(rest.some(l=>{const other=schedule.data?.games.find(x=>x.id===l.gameId);return other&&[other.home.id,other.away.id].some(id=>id===g.home.id||id===g.away.id);})){setNotice('為避免同隊雙重賽的關聯，同一隊只可出現在一個關卡。');return;}
     setLegs([...rest,{gameId:g.id,side,quote:moneyline(g)?.signature}]);setNotice('');
   }
-  function recommend(){const used=new Set<number>();const next:Leg[]=[];for(const g of [...eligible].sort((a,b)=>Math.abs(probability(b)!-.5)-Math.abs(probability(a)!-.5))){const p=probability(g)!;if(p===.5||used.has(g.home.id)||used.has(g.away.id))continue;used.add(g.home.id);used.add(g.away.id);next.push({gameId:g.id,side:p>.5?'home':'away'});if(next.length===count)break;}setLegs(next.map(leg=>({...leg,quote:moneyline(eligible.find(g=>g.id===leg.gameId)!)?.signature})));setNotice(next.length<count?`只有 ${next.length} 場符合條件，不勉強湊滿 ${count} 關。`:'已按多因素試算較高的一方排序；你可以逐場換隊。');}
+  function recommend(){const used=new Set<number>();const next:Leg[]=[];for(const g of [...eligible].sort((a,b)=>Number(model(b).status==='ready')-Number(model(a).status==='ready')||Math.abs(probability(b)!-.5)-Math.abs(probability(a)!-.5))){const p=probability(g)!;if(p===.5||used.has(g.home.id)||used.has(g.away.id))continue;used.add(g.home.id);used.add(g.away.id);next.push({gameId:g.id,side:p>.5?'home':'away'});if(next.length===count)break;}setLegs(next.map(leg=>({...leg,quote:moneyline(eligible.find(g=>g.id===leg.gameId)!)?.signature})));setNotice(next.length<count?`只有 ${next.length} 場符合條件，不勉強湊滿 ${count} 關。`:'已優先選取完整分析，再依初步勝率補足；你可以逐場換隊。');}
   function matchHeader(g:Match,expectedRunsInfo:ReactNode){
     const h=probability(g),pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
     const score=matchScore(g,scores.data,day),showScoreboard=showMatchScoreboard(g,score);
@@ -137,8 +137,8 @@ export default function Pregame(){
     return `${state.status==='preliminary'?'初步分析':'多因素試算'} ${(p*100).toFixed(1)}%${state.status==='preliminary'?'；不納入完整串關試算':''}`;
   }
   const winnerPanel=<div className="space-y-4"><label className="block text-sm text-slate-400">關卡數量</label><Select value={String(count)} onValueChange={v=>{const n=Number(v);setCount(n);setLegs(l=>l.slice(0,n));setNotice('關卡數量已更新。');}}><SelectTrigger aria-label="選擇串關數量" className="w-full"><SelectValue/></SelectTrigger><SelectContent>{[3,4,5].map(n=><SelectItem key={n} value={String(n)}>{n} 關</SelectItem>)}</SelectContent></Select>
-        <Button className="w-full" onClick={recommend} disabled={!scheduleOK||!eligible.length}>按多因素試算勝率推薦 {count} 關</Button>
-        <p className="text-sm text-slate-400" role="status">可自動推薦 {eligible.length} 場；初步分析 {preliminaryCount} 場（不自動納入）。</p>
+        <Button className="w-full" onClick={recommend} disabled={!scheduleOK||!eligible.length}>自動推薦 {count} 關</Button>
+        <p className="text-sm text-slate-400" role="status">可自動推薦 {eligible.length} 場；初步分析 {preliminaryCount} 場可納入推薦。</p>
         <div aria-live="polite" className="text-sm text-amber-200">{notice}</div>
         <p className="font-bold">已選 {legs.length}／{count} 關</p>
         {chosen.map(({leg,g})=><div key={leg.gameId} className="rounded-lg border border-white/10 p-3"><div className="flex justify-between gap-2"><span className="font-bold">{g?<TeamName team={g[leg.side]}/>: '賽事資料已失效'} 勝</span><button aria-label="移除此關" className="text-sm underline" onClick={()=>setLegs(l=>l.filter(x=>x.gameId!==leg.gameId))}>移除</button></div>{g&&<p className="mt-1 text-xs text-slate-400"><TeamName team={g.away} size={20}/> 對 <TeamName team={g.home} size={20}/></p>}<p className="mt-1 text-sm text-amber-200">{g?unavailable(g)||(leg.quote!==moneyline(g)?.signature?'獨贏資料或賠率已變動，請重新選擇':'')||chosenAnalysis(g,leg.side):'資料缺漏，請重新選擇'}</p></div>)}
