@@ -27,7 +27,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  const [showSingles,setShowSingles]=useState(false);
  const superWorkspace=useSuperWorkspace();
  useEffect(()=>{if(superWorkspace?.activePane)setShowSingles(true);},[superWorkspace?.activePane]);
- const savedSingles=useRef<{scope:string;at:number;cards:{id:number;start:string;node:ReactNode}[]}|null>(null);
+ const savedSingles=useRef<{scope:string;at:number;cards:{id:number;start:string;node:ReactNode;compact:ReactNode}[]}|null>(null);
  const [inputs,setInputs]=useState<Record<number,{spread:string;total:string}>>({});
  const [marketTabs,setMarketTabs]=useState<Record<number,MarketKey>>({});
  const [count,setCount]=useState(3),[picks,setPicks]=useState<BoardPick[]>([]),[notice,setNotice]=useState('');
@@ -107,19 +107,23 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  }
  function buildSingleRecommendations(){
   const cards=orderedGames.flatMap(g=>{
-   const items:ReactNode[]=[];
+   const items:ReactNode[]=[],highlights:{score:number;title:ReactNode}[]=[];
    for(const {key} of BOARD_MARKETS){
     if(key==='moneyline'){
      const state=winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK),q=boardQuote(matchOdds(g,odds),'moneyline');
      if(!oddsOK||!q||!state.canRecommend||!state.favoredSide||state.homeWin===null)continue;
      const side=state.favoredSide,outcome=binaryOutcome(side==='home'?state.homeWin:1-state.homeWin);
+     if(outcome)highlights.push({score:outcome.win,title:<>全場獨贏 · <TeamName team={g[side]}/></>});
      if(outcome)items.push(<div key={key} className="space-y-3 rounded-lg border border-white/10 p-3"><div className="flex flex-wrap justify-between gap-2 font-bold"><span>全場獨贏 · <TeamName team={g[side]}/></span><span className="tabular-nums">@{(side==='home'?q.first:q.second).toFixed(3)}</span></div><MarketOutcomes outcome={outcome}/></div>);
      continue;
     }
     const rows=options(g,key),pick=preferred(rows),outcome=pick?rows.find(row=>row.pick===pick)?.result:null,q=quote(g,key);
+    if(pick&&outcome&&q)highlights.push({score:outcome.win+outcome.partialWin,title:label(g,pick)});
     if(pick&&outcome&&q)items.push(<div key={key} className="space-y-3 rounded-lg border border-white/10 p-3"><div className="flex flex-wrap justify-between gap-2 font-bold"><span>{label(g,pick)}</span>{automatic&&<span className="tabular-nums">@{(pick.side==='home'||pick.side==='over'?q.first:q.second).toFixed(3)}</span>}</div><MarketOutcomes outcome={outcome}/></div>);
    }
-   return items.length?[{id:g.id,start:g.date,node:<section key={g.id} className="space-y-3" aria-label={`${g.away.name} 對 ${g.home.name} 單場推薦`}><h4 className="flex flex-wrap items-center gap-2 text-sm font-bold"><TeamName team={g.away} size={20}/> vs <TeamName team={g.home} size={20}/></h4>{items}</section>}]:[];
+   const best=highlights.sort((a,b)=>b.score-a.score)[0];
+   const compact=best?<article key={g.id} className="super-pick-summary"><div className="super-pick-match"><TeamName team={g.away} size={18}/> vs <TeamName team={g.home} size={18}/></div><strong>{best.title}</strong><div className="super-pick-probability">預估獲利機率 <b>{pct(best.score)}</b></div></article>:null;
+   return items.length?[{id:g.id,start:g.date,compact,node:<section key={g.id} className="space-y-3" aria-label={`${g.away.name} 對 ${g.home.name} 單場推薦`}><h4 className="flex flex-wrap items-center gap-2 text-sm font-bold"><TeamName team={g.away} size={20}/> vs <TeamName team={g.home} size={20}/></h4>{items}</section>}]:[];
   });
   return cards;
  }
@@ -132,7 +136,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  const previousSingles=savedSingles.current;
  const retainingSingles=(!scheduleOK||!oddsOK||!dataOK)&&previousSingles?.scope===singleScope&&now-previousSingles.at<=300000;
  const visibleSingles=retainingSingles?previousSingles.cards.filter(c=>games.some(g=>g.id===c.id&&isPregame(g,now))):singleCards;
- function singleRecommendations(){return <>{retainingSingles&&visibleSingles.length>0&&<p className="text-xs text-slate-400" role="status">更新中 · {new Date(previousSingles!.at).toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour:'2-digit',minute:'2-digit'})}</p>}{visibleSingles.length?visibleSingles.map(c=>c.node):<div className="space-y-3 py-4"><p className="text-sm text-slate-400" role="status">推薦資料同步中</p><Button variant="outline" disabled={oddsLoading} onClick={()=>void refreshOdds()}>更新推薦</Button></div>}</>;}
+ function singleRecommendations(compact=false){return <>{retainingSingles&&visibleSingles.length>0&&<p className="text-xs text-slate-400" role="status">更新中 · {new Date(previousSingles!.at).toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour:'2-digit',minute:'2-digit'})}</p>}{visibleSingles.length?visibleSingles.map(c=>compact?c.compact:c.node):<div className="space-y-3 py-4"><p className="text-sm text-slate-400" role="status">推薦資料同步中</p><Button variant="outline" disabled={oddsLoading} onClick={()=>void refreshOdds()}>更新推薦</Button></div>}</>;}
  return <section className="arena-analysis-board" aria-label="每日對戰勝率分析">
   <div className="arena-analysis-controls space-y-4">
   <h3 className="text-xl font-black">每日對戰 勝率分析</h3>
@@ -140,14 +144,14 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
   {automatic&&!oddsOK&&<p role="status" className="text-sm text-amber-200">{oddsError||'資料尚未取得或已過期，暫停推薦。'} 舊資料不參與推薦。</p>}
   {!dataOK&&<p role="status" className="text-sm text-amber-200">{error||'正在取得球隊得失分資料，暫停推薦。'}</p>}
   </div>
-  <div className="arena-analysis-summary"><ParlayPane><aside className="panel space-y-4 p-5"><h3 className="text-lg font-black">串關組合</h3><Tabs value={showSingles?'singles':parlayMode} onValueChange={v=>{setShowSingles(v==='singles');if(v!=='singles')onParlayModeChange(v as 'markets'|'winner');}}><TabsList className="mb-3 h-auto min-h-10 w-full" aria-label="選擇串關玩法"><TabsTrigger value="markets">分析</TabsTrigger><TabsTrigger value="winner">獨贏</TabsTrigger><TabsTrigger value="singles">單場推薦</TabsTrigger></TabsList><TabsContent value="markets" className="parlay-compact-content space-y-2">
+  <div className="arena-analysis-summary"><ParlayPane><aside className="panel space-y-4 p-5">{superWorkspace?.activePane?<div className="space-y-3" aria-label="MLB 精選推薦注單">{singleRecommendations(true)}</div>:<><h3 className="text-lg font-black">串關組合</h3><Tabs value={showSingles?'singles':parlayMode} onValueChange={v=>{setShowSingles(v==='singles');if(v!=='singles')onParlayModeChange(v as 'markets'|'winner');}}><TabsList className="mb-3 h-auto min-h-10 w-full" aria-label="選擇串關玩法"><TabsTrigger value="markets">分析</TabsTrigger><TabsTrigger value="winner">獨贏</TabsTrigger><TabsTrigger value="singles">單場推薦</TabsTrigger></TabsList><TabsContent value="markets" className="parlay-compact-content space-y-2">
    <div className="parlay-compact-controls">
    <Select value={String(count)} onValueChange={v=>{setCount(Number(v));setPicks(p=>p.slice(0,Number(v)));}}><SelectTrigger aria-label="串關數量" className="w-full"><SelectValue/></SelectTrigger><SelectContent>{[3,4,5].map(n=><SelectItem key={n} value={String(n)}>{n} 關</SelectItem>)}</SelectContent></Select>
    <Button className="w-full" disabled={!dataOK||!scheduleOK||!fixtures.length||(automatic&&!oddsOK)} onClick={recommend}>推薦 {count} 關</Button></div>
    <details className="parlay-explanation"><summary>試算說明</summary><p className="text-sm text-slate-400">依目前資料與模型獲利機率（含中洞贏）推薦，點選方向可換關；每場限一項，同隊不重複串。</p></details><p className="parlay-notice text-sm text-amber-200" aria-live="polite">{notice}</p><p className="font-bold">已選 {picks.length}／{count} 關</p>
    {picks.map(p=>{const g=games.find(g=>g.id===p.gameId),r=result(p);return <div key={p.gameId} className="rounded-lg border border-white/10 p-3"><div className="flex justify-between gap-2"><strong>{g?label(g,p):'賽事已失效'}</strong><button className="text-sm underline" onClick={()=>setPicks(picks.filter(x=>x.gameId!==p.gameId))}>移除</button></div>{g&&<p className="mt-2 text-sm text-slate-400"><TeamName team={g.away} size={20}/> vs <TeamName team={g.home} size={20}/></p>}<div className="mt-2 text-sm text-amber-200">{r?<MarketOutcomes outcome={r}/>:reason(g)||'資料或賠率已變動，請移除並重新選擇'}</div></div>;})}
    <div className="parlay-compact-result rounded-lg bg-[#ffd538]/10 p-4"><p className="text-sm">全關全贏 獨立試算</p><p className="my-2 text-3xl font-black text-[#ffd538]">{combined===null?'—':pct(combined)}</p></div><Button variant="outline" className="w-full" disabled={!picks.length} onClick={()=>{setPicks([]);setNotice('已清空。');}}>清空組合</Button>
-  </TabsContent><TabsContent value="winner">{winnerPanel}</TabsContent><TabsContent value="singles" className="space-y-5">{showSingles&&singleRecommendations()}</TabsContent></Tabs></aside></ParlayPane></div>
+  </TabsContent><TabsContent value="winner">{winnerPanel}</TabsContent><TabsContent value="singles" className="space-y-5">{showSingles&&singleRecommendations()}</TabsContent></Tabs></>}</aside></ParlayPane></div>
   <div className="arena-analysis-games arena-market-layout space-y-4">
    {!games.length&&<p className="panel p-5 text-slate-400">{scheduleMessage||'這個台灣日期沒有賽事，請切換上方日期。'}</p>}
    {orderedGames.map(g=>{
