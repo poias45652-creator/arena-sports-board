@@ -15,7 +15,7 @@ export async function GET(request:Request){
   }
 
   const memberId=await memberIdentity();
-  if(memberId){const binding=await getRawDb().prepare('SELECT game_url FROM tz_bindings WHERE member_id=?').bind(memberId).first<{game_url:string|null}>();if(binding?.game_url)return scoped(await hrGET(request));}
+  if(memberId){const binding=await getRawDb().prepare('SELECT game_url FROM tz_bindings WHERE member_id=?').bind(memberId).first<{game_url:string|null}>();if(binding?.game_url||memberId.startsWith('ofa:'))return scoped(await hrGET(request));}
   const response=await sharedGET();response.headers.set('Cache-Control','private, no-store');response.headers.set('Vary','Cookie');return scoped(response);
  }catch{return Response.json({error:'無法確認個人資料來源，請稍後重試。',games:[],fetchedAt:null},{status:503,headers:{'Cache-Control':'private, no-store'}});}
 }
