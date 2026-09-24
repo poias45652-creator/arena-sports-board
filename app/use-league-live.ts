@@ -16,10 +16,12 @@ export function useLeagueLive(){
     try{
      const r=await fetch(`/api/international-live?league=${league}&date=${date}`,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(45000)])});
      if(!r.ok)throw Error();const data=await r.json();
-     if(data.league===league&&data.date===date&&!data.stale&&!data.error&&Array.isArray(data.games)){
+     if(data.league===league&&data.date===date&&!data.noGames&&!data.stale&&!data.error&&Array.isArray(data.games)&&data.games.length>0){
       for(const game of data.games){
        const fetched=Date.parse(game.source?.fetchedAt);
-       if(game.status==='live'&&!game.sourceStale&&Number.isFinite(fetched)&&fetched<=Date.now())expiry=Math.max(expiry,fetched+120000);
+       const start=Date.parse(game.startTime);
+       const current=Date.now();
+       if(game.league===league&&game.date===date&&game.status==='live'&&!game.sourceStale&&Number.isFinite(start)&&start<=current&&current-start<18*60*60*1000&&Number.isFinite(fetched)&&fetched<=current&&current-fetched<120000)expiry=Math.max(expiry,fetched+120000);
       }
      }
     }catch{}
