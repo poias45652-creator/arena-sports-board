@@ -19,7 +19,8 @@ export async function superEntry(request:Request,memberId:string|null,db:HrDatab
  if(!secret)return reply({error:'SUPER 登入服務尚未設定。'},503);
  try{
   const binding=await db.prepare('SELECT member_id,encrypted_token,expires_at,verified_at FROM tz_bindings WHERE member_id=?').bind(memberId).first<{member_id:string;encrypted_token:string;expires_at:number;verified_at:number}>();
-  if(!binding||binding.expires_at<=Date.now())return reply({error:'TZ 授權已到期，請重新登入網站。',code:'tz_auth_expired'},409);
+  if(!binding||binding.expires_at<=Date.now())return reply({error:'來源授權已到期，請重新登入網站。',code:'tz_auth_expired'},409);
+  const isOfa=memberId.startsWith('ofa:');
   if(action==='release'){await releaseSuperSession(db,memberId,session);return reply({ok:true});}
   if(action==='heartbeat'){const ok=await renewSuperSession(db,memberId,session);return reply({ok},ok?200:409);}
   const now=Date.now(),operationId=crypto.randomUUID();
@@ -29,13 +30,14 @@ export async function superEntry(request:Request,memberId:string|null,db:HrDatab
   claimed=true;
   const mobile=request.headers.get('x-super-device')==='mobile'||request.headers.get('sec-ch-ua-mobile')==='?1'||/Mobile|Android|iPhone|iPad/i.test(request.headers.get('user-agent')||'');
   const key=await credentialKey(secret),token=await decryptToken(binding.encrypted_token,memberId,key);
-  const r=await fetcher('https://www.tz6868.com/api/v2/game/SUPER/login',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify({game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:mobile?'Mobile':'Desktop'}),redirect:'manual',cache:'no-store',signal:AbortSignal.timeout(15000)});
-  if(r.status===401)return reply({error:'TZ 授權失效，請重新登入網站。',code:'tz_auth_expired'},409);
-  if(r.status===403||r.status>=300&&r.status<400)return reply({error:'TZ 拒絕這次連線，尚未取得 SUPER 入口。請在來源完成所需驗證後重試。',code:'source_access_denied'},502);
+  const r=await fetcher(isOfa?'https://www.ofa1188.net/api/v2/game/SUPER/login':'https://www.tz6868.com/api/v2/game/SUPER/login',{method:'POST',headers:{Accept:'application/json','Content-Type':'application/json',Authorization:`Bearer ${token}`},body:JSON.stringify(isOfa?{game_return_url:'https://www.ofa1188.net',game_kind:'SPORT',game_device:mobile?'Mobile':'Desktop',game_money:''}:{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:mobile?'Mobile':'Desktop'}),redirect:'manual',cache:'no-store',signal:AbortSignal.timeout(15000)});
+  if(r.status===401)return reply({error:'來源授權失效，請重新登入網站。',code:'tz_auth_expired'},409);
+  if(r.status===403||r.status>=300&&r.status<400)return reply({error:'來源拒絕這次連線，尚未取得 SUPER 入口。請在來源完成所需驗證後重試。',code:'source_access_denied'},502);
   if(!r.ok)return reply({error:'SUPER 登入服務暫時無法使用，請稍後重試。',code:'source_unavailable'},502);
   const reader=r.body?.getReader();if(!reader)throw Error();let size=0,raw='';const decoder=new TextDecoder();
   for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw Error();}raw+=decoder.decode(value,{stream:true});}raw+=decoder.decode();
   const data=JSON.parse(raw),url=superDeviceEntryUrl(data?.data?.game_url,mobile);
+  if(url&&new URL(url).hostname!==(isOfa?'sp1788.net':mobile?'m.hr9988.net':'hr9988.net'))return reply({error:'來源回傳的 SUPER 網址與登入帳號不符。',code:'invalid_entry'},502);
   if(String(data?.code)!=='200'||data?.data?.game_method!=='GET'||!url)return reply({error:'來源未提供有效的 SUPER 登入入口，請確認體育館權限。',code:'invalid_entry'},502);
   const current=await db.prepare('SELECT encrypted_token,verified_at,expires_at FROM tz_bindings WHERE member_id=?').bind(memberId).first<{encrypted_token:string;verified_at:number;expires_at:number}>();
   if(!current||current.encrypted_token!==binding.encrypted_token||current.verified_at!==binding.verified_at||current.expires_at<=Date.now())return reply({error:'登入狀態已變更，請重新開啟 SUPER。',code:'binding_changed'},409);
