@@ -15,7 +15,7 @@ export default function SuperWorkspace({children,league}:{children:ReactNode;lea
  const [frameVersion,setFrameVersion]=useState(0);
  const [url,setUrl]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[loadingFrame,setLoadingFrame]=useState(false),[slow,setSlow]=useState(false);
  const cached=useRef<Entry|null>(null),pending=useRef<Promise<Entry>|null>(null),mounted=useRef(true),generation=useRef(0),returnFocus=useRef<HTMLElement|null>(null),closeButton=useRef<HTMLButtonElement>(null);
- const ball=ballDrag.ref;
+ const ball=ballDrag.ref,contentRoot=useRef<HTMLDivElement>(null);
  const acquire=useCallback(()=>{
   if(pending.current)return pending.current;
   const mobile=/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)||(/Macintosh/i.test(navigator.userAgent)&&navigator.maxTouchPoints>1);
@@ -26,9 +26,17 @@ export default function SuperWorkspace({children,league}:{children:ReactNode;lea
  const load=useCallback(async(force=false)=>{const version=++generation.current;setBusy(true);setError('');try{const next=!force&&cached.current&&cached.current.reuseUntil>Date.now()?cached.current:await acquire();if(!mounted.current||generation.current!==version)return;cached.current=null;setUrl(next.url);setFrameVersion(v=>v+1);setSlow(false);setLoadingFrame(true);}catch(e){if(mounted.current&&generation.current===version)setError(e instanceof Error?e.message:'SUPER 連線失敗，請重試。');}finally{if(mounted.current&&generation.current===version)setBusy(false);}},[acquire]);
  const close=useCallback(()=>{generation.current++;setVisible(false);setPanel(false);setUrl('');setActivePane(null);setBusy(false);setLoadingFrame(false);setSlow(false);setError('');requestAnimationFrame(()=>returnFocus.current?.focus());},[]);
  const open=useCallback(()=>{returnFocus.current=document.activeElement as HTMLElement;const root=document.querySelector(`[data-super-league="${league}"]`),pane=root?.querySelector('[data-super-parlay]');setActivePane(pane?.getAttribute('data-super-parlay')||null);setVisible(true);setPanel(false);void load();},[league,load]);
+ // A schedule/date change can remount the source pane while SUPER stays open.
+ useEffect(()=>{
+  if(!visible)return;
+  const root=contentRoot.current;if(!root)return;
+  const reconnect=()=>{const id=root.querySelector(`[data-super-league="${league}"] [data-super-parlay]`)?.getAttribute('data-super-parlay')||null;setActivePane(old=>old===id?old:id);};
+  reconnect();const observer=new MutationObserver(reconnect);observer.observe(root,{childList:true,subtree:true});
+  return()=>observer.disconnect();
+ },[visible,league]);
  useEffect(()=>{if(!visible)return;const old=document.body.style.overflow;document.body.style.overflow='hidden';document.body.classList.add('super-workspace-open');closeButton.current?.focus();return()=>{document.body.style.overflow=old;document.body.classList.remove('super-workspace-open');};},[visible]);
  useEffect(()=>{if(!visible||!loadingFrame)return;const timer=setTimeout(()=>setSlow(true),15000);return()=>clearTimeout(timer);},[visible,loadingFrame,url]);
- return <Context.Provider value={{open,busy,activePane:visible?activePane:null,host}}><div inert={visible}>{children}</div>{visible&&<section className="super-workspace" role="dialog" aria-modal="true" aria-label="SUPER 體育站內畫面" onKeyDown={e=>{if(e.key==='Escape'&&!e.defaultPrevented){e.stopPropagation();if(panel){setPanel(false);ball.current?.focus();}else close();}}}>
+ return <Context.Provider value={{open,busy,activePane:visible?activePane:null,host}}><div ref={contentRoot} inert={visible}>{children}</div>{visible&&<section className="super-workspace" role="dialog" aria-modal="true" aria-label="SUPER 體育站內畫面" onKeyDown={e=>{if(e.key==='Escape'&&!e.defaultPrevented){e.stopPropagation();if(panel){setPanel(false);ball.current?.focus();}else close();}}}>
   <header className="super-workspace-header"><Button ref={closeButton} variant="outline" onClick={close}><ArrowLeft className="size-4"/>返回分析</Button><strong>SUPER 體育</strong><Button variant="outline" disabled={busy} onClick={()=>void load(true)}><RefreshCw className={`size-4 ${busy?'animate-spin':''}`}/>重新登入 SUPER</Button></header>
   <div className="super-frame-area">{url&&<iframe key={`${url}:${frameVersion}`} src={url} title="SUPER 體育會員介面" referrerPolicy="no-referrer" sandbox="allow-scripts allow-forms allow-same-origin" onLoad={()=>setLoadingFrame(false)} onError={()=>{setLoadingFrame(false);setError('SUPER 畫面未完成載入，請重試。');}}/>}{!url&&<div className="super-entry-state" role="status">{busy?<><LoaderCircle className="size-7 animate-spin"/>正在取得你的 SUPER 入口…</>:<p>SUPER 尚未開啟</p>}</div>}
    {(error||slow)&&<div className="super-entry-notice" role="status">{error||'SUPER 載入較久。若畫面顯示拒絕嵌入，需要由來源網站開放嵌入權限。'}<Button variant="outline" disabled={busy} onClick={()=>void load(true)}>重試</Button></div>}
