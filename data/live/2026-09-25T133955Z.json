@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-25",
+  "capturedAt": "2026-09-25T13:39:55.689Z",
+  "purpose": "same-day first-team current/final verification; not production deployment",
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 41,
+    "jobId": 108094942269,
+    "artifactId": 10867157276,
+    "artifactCreatedAt": "2026-09-25T13:39:59Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "final",
+      "pregame": 0,
+      "live": 0,
+      "final": 5,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "pitchingRows": 41,
+      "finals": [
+        {
+          "key": "NPB:2021048556",
+          "away": "中日龍",
+          "home": "養樂多燕子",
+          "awayScore": 4,
+          "homeScore": 5
+        },
+        {
+          "key": "NPB:2021048557",
+          "away": "阪神虎",
+          "home": "橫濱DeNA海灣之星",
+          "awayScore": 1,
+          "homeScore": 2
+        },
+        {
+          "key": "NPB:2021048558",
+          "away": "讀賣巨人",
+          "home": "廣島東洋鯉魚",
+          "awayScore": 2,
+          "homeScore": 3
+        },
+        {
+          "key": "NPB:2021039460",
+          "away": "千葉羅德海洋",
+          "home": "西武獅",
+          "awayScore": 6,
+          "homeScore": 2
+        },
+        {
+          "key": "NPB:2021039461",
+          "away": "福岡軟銀鷹",
+          "home": "歐力士猛牛",
+          "awayScore": 9,
+          "homeScore": 0
+        }
+      ]
+    },
+    "KBO": {
+      "games": 3,
+      "state": "mixed",
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "cancelled": 2,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "lineupRows": 17,
+      "pitchingRows": 12,
+      "finals": [
+        {
+          "key": "KBO:20260925HHNC02026",
+          "away": "韓華鷹",
+          "home": "NC恐龍",
+          "awayScore": 7,
+          "homeScore": 8
+        }
+      ],
+      "cancelledGames": [
+        "KBO:20260925LTOB02026",
+        "KBO:20260925SSSK02026"
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "final",
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "lineupRows": 90,
+      "pitchingRows": 26,
+      "finals": [
+        {
+          "key": "CPBL:260925349",
+          "away": "富邦悍將",
+          "home": "台鋼雄鷹",
+          "awayScore": 1,
+          "homeScore": 2
+        },
+        {
+          "key": "CPBL:260925351",
+          "away": "味全龍",
+          "home": "統一獅",
+          "awayScore": 2,
+          "homeScore": 3
+        },
+        {
+          "key": "CPBL:260925350",
+          "away": "中信兄弟",
+          "home": "樂天桃猿",
+          "awayScore": 0,
+          "homeScore": 6
+        }
+      ],
+      "unsupportedFields": {
+        "inning": null,
+        "half": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null
+      },
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
