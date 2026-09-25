@@ -34,6 +34,16 @@ export function log5(aw:number,al:number,hw:number,hl:number):number|null {
   return (h-h*a)/(h+a-2*h*a);
 }
 export function isPregame(g:Match,now:number){return g.gameType==='R'&&g.state==='Preview'&&!g.startTimeTBD&&['Scheduled','Pre-Game','Warmup'].includes(g.status)&&Date.parse(g.date)>now;}
+// A TBD start is not evidence that the game has started. Quotes may be viewed,
+// but isPregame continues to block predictions until the start is confirmed.
+export function canShowPregameMarkets(g:Match,now:number){return isPregame(g,now)||(g.gameType==='R'&&g.state==='Preview'&&g.startTimeTBD&&['Scheduled','Pre-Game','Warmup'].includes(g.status));}
+export function matchStartLabel(g:Match){
+ const date=new Date(g.date);
+ if(!Number.isFinite(date.getTime()))return '開賽時間待確認';
+ const day=date.toLocaleDateString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit'});
+ if(g.startTimeTBD)return `${day} ${g.doubleHeader==='Y'&&g.gameNumber===2?'G1 結束後，開賽時間待定':'開賽時間待定'}（台灣）`;
+ return date.toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})+'（台灣）';
+}
 export function fresh(stamp:string|undefined,now:number,ttl:number){if(!stamp)return false;const age=now-Date.parse(stamp);return Number.isFinite(age)&&age>=-60000&&age<=ttl;}
 export function baseProbability(g:Match){const {away:a,home:h}=g;return [a.wins,a.losses,h.wins,h.losses].some(v=>v===null)?null:log5(a.wins!,a.losses!,h.wins!,h.losses!);}
 export type Leg={gameId:number;side:'away'|'home'};

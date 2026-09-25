@@ -4,7 +4,7 @@ import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
-import {fresh,isPregame,type Match} from '@/lib/baseball';
+import {fresh,canShowPregameMarkets,isPregame,type Match} from '@/lib/baseball';
 import {orderMatchCards} from '@/lib/match-card-order';
 import {expectedRuns,scoreGrid,validLine,type RunSnapshot} from '@/lib/markets';
 import {matchOdds,type OddsSnapshot,type Quote,type MarketKey} from '@/lib/pinnacle';
@@ -50,7 +50,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
   return validLine(key,line)?{line,first:0,second:0,signature:JSON.stringify(['manual',g.id,key,line])}:null;
  }
  function reason(g:Match|undefined){
-  return !g?'已切換日期或賽程已移除':!scheduleOK?'賽程更新中或已過期':!isPregame(g,now)?'已開賽或賽事狀態改變':!dataOK?'得失分資料未齊或已過期':marketContextStatus(g,analysis[g.id]?.report,now).blocked||(automatic&&!oddsOK?'資料讀取失敗或已過期，暫停推薦':automatic&&!matchOdds(g,odds)?'尚未開盤':!models.get(g.id)?'本季得失分樣本不足':'');
+  return !g?'已切換日期或賽程已移除':!scheduleOK?'賽程更新中或已過期':!isPregame(g,now)?(g.startTimeTBD?'開賽時間待定，暫停賽前推薦':'已開賽或賽事狀態改變'):!dataOK?'得失分資料未齊或已過期':marketContextStatus(g,analysis[g.id]?.report,now).blocked||(automatic&&!oddsOK?'資料讀取失敗或已過期，暫停推薦':automatic&&!matchOdds(g,odds)?'尚未配對到本場來源資料':!models.get(g.id)?'本季得失分樣本不足':'');
  }
  function result(p:BoardPick){
   const g=games.find(g=>g.id===p.gameId),model=models.get(p.gameId),q=g?quote(g,p.key):null;
@@ -86,7 +86,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  }
  const outcomes=picks.map(result),valid=picks.length===count&&outcomes.every(Boolean);
  const combined=valid?outcomes.reduce((n,r)=>n*r!.win,1):null;
- const orderedGames=orderMatchCards(games,g=>isPregame(g,now)?matchOdds(g,odds):null,oddsOK);
+ const orderedGames=orderMatchCards(games,g=>canShowPregameMarkets(g,now)?matchOdds(g,odds):null,oddsOK);
  function marketPanel(g:Match,key:BoardPick['key']){
   const q=quote(g,key),rows=options(g,key),recommended=preferred(rows),blocked=reason(g);
   const sourceIssue=matchOdds(g,odds)?.issues?.[key];
@@ -98,11 +98,11 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
     const title=key==='firstHalfOddEven'?(side==='over'?'單':'雙'):key==='total'||key==='firstHalfTotal'?(side==='over'?'大':'小'):<TeamName team={g[side as 'home'|'away']}/>;
     return <Button key={side} variant={active?'default':'outline'} disabled={!p||!r} aria-pressed={active} className="market-option-card h-auto w-full items-start whitespace-normal p-3 text-left" onClick={()=>p&&add(p)}><span className="block w-full">
      <span className="market-pick-title flex w-full flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold"><span className="min-w-0">{title}{p&&recommended&&sameBoardPick(p,recommended)&&<span className={`ml-2 ${active?'text-green-700':'text-green-400'}`}>推薦</span>}{active&&<span className="ml-1 text-green-700" aria-label="已選取">✓</span>}</span>
-      {p&&q&&<span className="ml-auto whitespace-nowrap text-right tabular-nums">{key==='firstHalfOddEven'?'':formatPickLine(p)}{automatic?` @${(side==='home'||side==='over'?q.first:q.second).toFixed(3)}`:''}</span>}
-     </span><span className="mt-3 block text-sm">{r?<MarketOutcomes outcome={r}/>:q?'尚無估算':'尚未開盤'}</span>
+      {q&&<span className="ml-auto whitespace-nowrap text-right tabular-nums">{key==='firstHalfOddEven'?'':p?formatPickLine(p):key==='total'||key==='firstHalfTotal'?q.display??q.line:formatSpreadLine(q,side as 'home'|'away')}{automatic?` @${(side==='home'||side==='over'?q.first:q.second).toFixed(3)}`:''}</span>}
+     </span><span className="mt-3 block text-sm">{r?<MarketOutcomes outcome={r}/>:q?'尚無估算':oddsError?'來源讀取失敗':!matchOdds(g,odds)?'來源場次尚未配對':sourceIssue||'尚未開盤'}</span>
     </span></Button>;
    })}</div>
-   {!q&&<p className="text-sm text-amber-200">{automatic?(oddsError||(sourceIssue?.startsWith('來源沒有開放的主盤')?'尚未開盤':sourceIssue)||'尚未開盤'):'請輸入有效的自訂數值。'}</p>}
+   {!q&&<p className="text-sm text-amber-200">{automatic?(oddsError||(!matchOdds(g,odds)?'尚未配對到本場來源資料，請更新或核對 G1／G2。':sourceIssue||'尚未開盤')):'請輸入有效的自訂數值。'}</p>}
    {blocked&&q&&<p className="text-sm text-amber-200">{blocked}</p>}
   </section>;
  }
@@ -159,7 +159,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
     const m=models.get(g.id),blocked=reason(g),selected=marketTabs[g.id]??'spread';
     return <article className="panel overflow-hidden" key={g.id} data-game-id={g.id}>
      <div className="p-4">{renderMatchHeader(g,isPregame(g,now)?<span className="tabular-nums">{m&&!blocked?`九局得分期望：客 ${m.runs.away.toFixed(1)}／主 ${m.runs.home.toFixed(1)}，合計 ${(m.runs.away+m.runs.home).toFixed(1)} 分`:'得分期望：等待有效資料'}</span>:null)}</div>
-     {isPregame(g,now)&&<details className="match-market-details"><summary><span>查看分析</span><span className="text-sm font-normal">{automatic?'7 種玩法':'自訂數值'}</span></summary><div className="space-y-4 p-4">
+     {canShowPregameMarkets(g,now)&&<details className="match-market-details"><summary><span>查看分析</span><span className="text-sm font-normal">{automatic?'7 種玩法':'自訂數值'}</span></summary><div className="space-y-4 p-4">
       <Tabs value={selected} onValueChange={value=>setMarketTabs(old=>({...old,[g.id]:value as MarketKey}))}>
        <div className="market-tabs-scroll"><TabsList className="market-type-tabs" aria-label="選擇玩法">{BOARD_MARKETS.filter(({key})=>automatic||key==='spread'||key==='total'||key==='moneyline').map(({key,label})=><TabsTrigger key={key} value={key}>{label}</TabsTrigger>)}</TabsList></div>
        <TabsContent value={selected} className="pt-4">{selected==='moneyline'?renderWinnerOptions(g):marketPanel(g,selected)}</TabsContent>

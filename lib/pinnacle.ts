@@ -1,7 +1,7 @@
 import type { Match } from './baseball';
 export type Quote={line:number;first:number;second:number;signature:string;boundary?:number;parts?:number[];display?:string};
 export type MarketKey='spread'|'total'|'moneyline'|'runline'|'firstHalfSpread'|'firstHalfTotal'|'firstHalfOddEven';
-export type OddsGame={id:number;away:string;home:string;start:string;spread:Quote|null;total:Quote|null;additional?:Partial<Record<Exclude<MarketKey,'spread'|'total'>,Quote|null>>;issues?:Partial<Record<MarketKey,string>>};
+export type OddsGame={id:number;gameId?:number;sourceStart?:string;away:string;home:string;start:string;spread:Quote|null;total:Quote|null;additional?:Partial<Record<Exclude<MarketKey,'spread'|'total'>,Quote|null>>;issues?:Partial<Record<MarketKey,string>>};
 export type OddsSnapshot={games:OddsGame[];fetchedAt:string;source:string};
 export function decimal(price:number){return Number.isFinite(price)&&Math.abs(price)>=100?(price>0?1+price/100:1+100/-price):null;}
 export function parsePinnacle(fixtures:any,markets:any,now=Date.now()):OddsGame[]{
@@ -23,7 +23,7 @@ export function parsePinnacle(fixtures:any,markets:any,now=Date.now()):OddsGame[
 }
 const normalize=(name:string)=>name.toLowerCase().replace(/^oakland athletics$|^athletics$/,'athletics').replace(/[^a-z0-9]/g,'');
 export function matchOdds(g:Match,s:OddsSnapshot|null):OddsGame|null{
- if(!s)return null;const candidates=s.games.filter(o=>normalize(o.home)===normalize(g.home.name)&&normalize(o.away)===normalize(g.away.name)&&Math.abs(Date.parse(o.start)-Date.parse(g.date))<=10*60000);
+ if(!s)return null;const candidates=s.games.filter(o=>(o.gameId===undefined||o.gameId===g.id)&&normalize(o.home)===normalize(g.home.name)&&normalize(o.away)===normalize(g.away.name)&&Math.abs(Date.parse(o.start)-Date.parse(g.date))<=10*60000);
  return candidates.length===1?candidates[0]:null;
 }
 

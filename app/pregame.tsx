@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button';
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select';
 import { RefreshCw } from 'lucide-react';
-import { doubleheaderLabel,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
+import { doubleheaderLabel,matchStartLabel,canShowPregameMarkets,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
 import Markets from './markets';
 import {winnerAnalysis,winnerParlayProbability} from '@/lib/winner-analysis';
 import MatchInningBoard from './match-inning-board';
@@ -32,7 +32,7 @@ export default function Pregame(){
   const [now,setNow]=useState(Date.now()),[dateMode,setDateMode]=useState('auto'),[count,setCount]=useState(3),[legs,setLegs]=useState<(Leg&{quote?:string})[]>([]),[notice,setNotice]=useState('');
   useEffect(()=>{const timer=setInterval(()=>setNow(Date.now()),10000);return()=>clearInterval(timer);},[]);
   const today=taipeiDay(now);
-  const nextGame=(schedule.data?.games||[]).filter(g=>isPregame(g,now)).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
+  const nextGame=(schedule.data?.games||[]).filter(g=>canShowPregameMarkets(g,now)&&taipeiDay(g.date)>=today).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
   const activeGame=(schedule.data?.games||[]).filter(g=>g.state==='Live').sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
   const autoDay=activeGame?taipeiDay(activeGame.date):nextGame?taipeiDay(nextGame.date):today;
   const day=dateMode==='auto'||dateMode<today?autoDay:dateMode;
@@ -62,7 +62,7 @@ export default function Pregame(){
   const probability=(g:Match)=>model(g).homeWin;
   const unavailable=(g:Match)=>{
     if(!scheduleOK)return '賽程更新中或已過期';
-    if(!isPregame(g,now))return g.state==='Final'?'已完賽':'已到開賽時間，賽前選擇已關閉';
+    if(!isPregame(g,now))return g.startTimeTBD?'開賽時間待定，暫停賽前推薦':g.state==='Final'?'已完賽':'已到開賽時間，賽前選擇已關閉';
     if(!moneylineOK)return '獨贏資料尚未取得或已過期';
     const event=matchOdds(g,odds.data);
     if(!event)return '尚未對應到本場來源資料';
@@ -87,13 +87,16 @@ export default function Pregame(){
     const h=probability(g),pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
     const score=matchScore(g,scores.data,day),showScoreboard=showMatchScoreboard(g,score);
     const gameLabel=doubleheaderLabel(g);
+    const sourceStart=matchOdds(g,odds.data)?.sourceStart;
+    const differentSourceTime=sourceStart&&(g.startTimeTBD||Math.abs(Date.parse(sourceStart)-Date.parse(g.date))>600000);
     return <>
       <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-sm">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="text-slate-400">{stamp(g.date)}（台灣）</span>
+          <span className="text-slate-400">{matchStartLabel(g)}</span>
+          {differentSourceTime&&<span className="text-slate-400">來源暫列：{stamp(sourceStart)}（台灣，以實際開賽為準）</span>}
           {gameLabel&&<span className="inline-flex items-center rounded border border-[#ffd538]/50 bg-[#ffd538]/10 px-2 py-0.5 font-bold text-[#ffd538]" aria-label={`雙重賽第 ${g.gameNumber} 場`} title={`雙重賽第 ${g.gameNumber} 場`}>{gameLabel}</span>}
         </div>
-        <div className="ml-auto min-w-0 text-right text-slate-400">{expectedRunsInfo}{!pre&&<span className="text-amber-200">{g.state==='Final'?'已完賽 不提供回填預測':g.state==='Live'?'進行中 不再提供賽前選擇':'賽事狀態待確認／已到開賽時間'}</span>}</div>
+        <div className="ml-auto min-w-0 text-right text-slate-400">{expectedRunsInfo}{!pre&&<span className="text-amber-200">{g.state==='Final'?'已完賽 不提供回填預測':g.state==='Live'?'進行中 不再提供賽前選擇':g.startTimeTBD?'開賽時間待定，暫停賽前推薦':'賽事狀態待確認／已到開賽時間'}</span>}</div>
       </div>
       <div className="match-header-teams grid gap-4 sm:grid-cols-2" data-scoreboard={showScoreboard}>
         {(['away','home'] as const).map(side=>{
@@ -116,13 +119,13 @@ export default function Pregame(){
     </>;
   }
   function winnerOptions(g:Match){
-    const state=model(g),h=state.homeWin,reason=unavailable(g),q=moneylineOK&&isPregame(g,now)?moneyline(g):null;
+    const state=model(g),h=state.homeWin,reason=unavailable(g),q=moneylineOK&&canShowPregameMarkets(g,now)?moneyline(g):null;
     return <section aria-label="全場獨贏選項" data-analysis-status={state.status} className="space-y-3"><h5 className="text-sm font-bold">全場獨贏</h5><div className="grid gap-4 sm:grid-cols-2">{(['away','home'] as const).map(side=>{
       const probability=h===null?null:side==='home'?h:1-h,r=!reason&&state.canEstimate&&probability!==null?binaryOutcome(probability):null;
       const active=legs.some(l=>l.gameId===g.id&&l.side===side&&l.quote===q?.signature);
       return <Button key={side} aria-pressed={active} variant={active?'default':'outline'} disabled={!!reason} onClick={()=>choose(g,side)} className="market-option-card h-auto w-full items-start whitespace-normal p-3 text-left"><span className="block w-full">
         <span className="market-pick-title flex flex-wrap items-start justify-between gap-x-3 gap-y-1 font-bold"><span className="min-w-0"><TeamName team={g[side]}/>{r&&state.favoredSide===side&&<span data-winner-recommendation={state.status} className={`ml-2 ${active?'text-green-700':'text-green-400'}`} title={state.status==='preliminary'?'依目前可用資料試算；分項未齊，僅供初步參考':'依多因素試算；尚未回測校準'}>推薦</span>}{active&&<span className="ml-1 text-green-700" aria-label="已選取">✓</span>}</span><span className="ml-auto whitespace-nowrap tabular-nums">獨贏{q?` @${(side==='home'?q.first:q.second).toFixed(3)}`:''}</span></span>
-        <span className="mt-3 block text-sm">{r?<><span className="mb-1 block">預估勝率</span><MarketOutcomes outcome={r}/></>:!isPregame(g,now)?(g.state==='Final'?'已完賽':'賽前選擇已關閉'):reason||state.reason}</span>
+        <span className="mt-3 block text-sm">{r?<><span className="mb-1 block">預估勝率</span><MarketOutcomes outcome={r}/></>:!isPregame(g,now)?(g.startTimeTBD?'開賽時間待定':g.state==='Final'?'已完賽':'賽前選擇已關閉'):reason||state.reason}</span>
       </span></Button>;
     })}</div>
     {reason&&<p className="text-sm text-amber-200">{`不可加入獨贏串關：${reason}`}</p>}

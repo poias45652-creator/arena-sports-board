@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 import {moduleUrl} from './profile-loader.mjs';
 const {winnerAnalysis}=await import(moduleUrl('lib/winner-analysis.ts'));
-const {isPregame}=await import(moduleUrl('lib/baseball.ts'));
+const {isPregame,canShowPregameMarkets}=await import(moduleUrl('lib/baseball.ts'));
 // Execute the actual nested JSX renderer with a small virtual element runtime.
 // This checks UI conditions without claiming a logged-in production browser test.
 const source=ts.createSourceFile('pregame.tsx',readFileSync('app/pregame.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
@@ -19,7 +19,7 @@ const game={id:1,date:'2026-09-22T22:40:00Z',season:2026,gameType:'R',state:'Pre
 const quote={first:.604,second:1.458,signature:'test-quote'};
 const React={Fragment:'fragment',createElement:(type,props,...children)=>({type,props:props??{},children})};
 function render(report,{marketReason='',legs=[],g=game,scheduleOK=true}={}){
- const scope={React,model:match=>winnerAnalysis(match,report,now,scheduleOK),unavailable:()=>marketReason,moneylineOK:!marketReason,isPregame,now,moneyline:()=>quote,legs,choose:()=>{},
+ const scope={React,model:match=>winnerAnalysis(match,report,now,scheduleOK),unavailable:()=>marketReason,moneylineOK:!marketReason,isPregame,canShowPregameMarkets,now,moneyline:()=>quote,legs,choose:()=>{},
   Button:'button',TeamName:'team',MarketOutcomes:'outcomes',binaryOutcome:p=>({win:p,loss:1-p,partialWin:0,partialLoss:0,push:0})};
  return new Function(...Object.keys(scope),compiled+'\nreturn winnerOptions;')(...Object.values(scope))(g);
 }
