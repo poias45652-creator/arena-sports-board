@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-25",
+  "capturedAt": "2026-09-25T09:24:20.111Z",
+  "purpose": "same-day first-team live verification fallback after GitHub collector rerun was blocked",
+  "collectionMode": "public-source verification; not production deployment",
+  "githubCollector": {
+    "runId": 35688889561,
+    "latestCompletedJobId": 107974613862,
+    "latestArtifactId": 10850053164,
+    "latestArtifactCreatedAt": "2026-09-25T06:51:13Z",
+    "latestArtifactCapturedAt": "2026-09-25T06:51:11.117Z",
+    "latestArtifactWasPregameOnly": true,
+    "requestedRerunJobId": 107974613862,
+    "rerunBlockedBySafetyLayer": true,
+    "runAttempt": null,
+    "note": "run_attempt was not exposed by the connector; no value was inferred"
+  },
+  "observationWindow": {
+    "firstObservedAt": "2026-09-25T09:22:48.244Z",
+    "secondObservedAt": "2026-09-25T09:24:11.549Z",
+    "intervalSeconds": 83.305
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "live",
+      "liveObserved": true,
+      "sameDayLiveVerified": true,
+      "source": "sportsnavi",
+      "selectedGame": {
+        "key": "NPB:2021048556",
+        "away": "中日龍",
+        "home": "東京養樂多燕子",
+        "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021048556/score",
+        "before": {
+          "score": {
+            "away": 2,
+            "home": 2
+          },
+          "inning": "1回裏"
+        },
+        "after": {
+          "score": {
+            "away": 2,
+            "home": 4
+          },
+          "inning": "1回裏"
+        },
+        "changes": {
+          "homeScore": {
+            "before": 2,
+            "after": 4
+          }
+        }
+      }
+    },
+    "KBO": {
+      "games": 3,
+      "state": "mixed",
+      "statusCounts": {
+        "live": 1,
+        "cancelled": 2
+      },
+      "liveObserved": true,
+      "sameDayLiveVerified": true,
+      "source": "naver",
+      "selectedGame": {
+        "key": "KBO:20260925HHNC02026",
+        "away": "韓華鷹",
+        "home": "NC恐龍",
+        "sourceURL": "https://api-gw.sports.naver.com/schedule/games/20260925HHNC02026/game-polling",
+        "before": {
+          "score": {
+            "away": 2,
+            "home": 8
+          },
+          "inning": "4회초",
+          "balls": 0,
+          "strikes": 0,
+          "outs": 2,
+          "bases": [
+            true,
+            true,
+            false
+          ],
+          "currentPitcher": "구창모",
+          "currentPitcherPitchCount": 67
+        },
+        "after": {
+          "score": {
+            "away": 2,
+            "home": 8
+          },
+          "inning": "4회초",
+          "balls": 1,
+          "strikes": 2,
+          "outs": 2,
+          "bases": [
+            true,
+            true,
+            false
+          ],
+          "currentPitcher": "구창모",
+          "currentPitcherPitchCount": 70
+        },
+        "changes": {
+          "balls": {
+            "before": 0,
+            "after": 1
+          },
+          "strikes": {
+            "before": 0,
+            "after": 2
+          },
+          "currentPitcherPitchCount": {
+            "before": 67,
+            "after": 70
+          }
+        }
+      }
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "live",
+      "liveObserved": true,
+      "sameDayLiveVerified": false,
+      "source": "yahoo-tw",
+      "sourceURLs": [
+        "https://tw.sports.yahoo.com/cpbl/%E5%AF%8C%E9%82%A6-%E6%82%8D%E5%B0%87-%E5%8F%B0%E9%8B%BC-%E9%9B%84%E9%B7%B9-260925349/",
+        "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E7%B5%B1%E4%B8%80-%E7%8D%85-260925351/",
+        "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E6%A8%82%E5%A4%A9-%E6%A1%83%E7%8C%BF-260925350/"
+      ],
+      "beforeScores": [
+        {
+          "key": "CPBL:260925349",
+          "away": 1,
+          "home": 0
+        },
+        {
+          "key": "CPBL:260925351",
+          "away": 2,
+          "home": 0
+        },
+        {
+          "key": "CPBL:260925350",
+          "away": 0,
+          "home": 0
+        }
+      ],
+      "afterScores": [
+        {
+          "key": "CPBL:260925349",
+          "away": 1,
+          "home": 0
+        },
+        {
+          "key": "CPBL:260925351",
+          "away": 2,
+          "home": 0
+        },
+        {
+          "key": "CPBL:260925350",
+          "away": 0,
+          "home": 0
+        }
+      ],
+      "qualifyingNumericChanges": 0,
+      "unsupportedFields": {
+        "inning": null,
+        "half": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null
+      },
+      "lineupConfirmation": "not_verified",
+      "note": "Two observations more than 65 seconds apart showed live state but no qualifying numeric change in this window."
+    }
+  },
+  "dataQuality": {
+    "cpblOfficialStatsCandidate": "https://stats.cpbl.com.tw/schedule/2026-A",
+    "cpblOfficialStatsCandidateStatus": "stale_for_live_use",
+    "note": "The CPBL stats schedule listed the same first-team game IDs but still showed pregame while Yahoo TW showed live scores; it was not promoted to a live provider."
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "deploymentPerformed": false
+}
