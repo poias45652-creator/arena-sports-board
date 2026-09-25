@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-25",
+  "capturedAt": "2026-09-25T11:06:05.150Z",
+  "purpose": "same-day first-team live verification; not production deployment",
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 38,
+    "jobId": 108046553711,
+    "artifactId": 10860047538,
+    "artifactCreatedAt": "2026-09-25T11:06:09Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "live",
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "verifiedGames": [
+        {
+          "key": "NPB:2021048557",
+          "intervalSeconds": 70.19,
+          "changes": {
+            "pitchCount": [
+              96,
+              99
+            ],
+            "outsRecorded": [
+              16,
+              17
+            ]
+          }
+        },
+        {
+          "key": "NPB:2021039461",
+          "intervalSeconds": 70.275,
+          "changes": {
+            "pitchCount": [
+              10,
+              15
+            ],
+            "outsRecorded": [
+              2,
+              3
+            ]
+          }
+        }
+      ]
+    },
+    "KBO": {
+      "games": 3,
+      "state": "mixed",
+      "live": 1,
+      "cancelled": 2,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "crossRunLiveScoreChange": {
+        "key": "KBO:20260925HHNC02026",
+        "before": {
+          "away": 2,
+          "home": 8
+        },
+        "after": {
+          "away": 5,
+          "home": 8
+        },
+        "intervalSeconds": 6113.601
+      }
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "live",
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "crossRunLiveScoreChanges": [
+        {
+          "key": "CPBL:260925349",
+          "before": {
+            "away": 1,
+            "home": 0
+          },
+          "after": {
+            "away": 1,
+            "home": 1
+          },
+          "intervalSeconds": 6113.601
+        },
+        {
+          "key": "CPBL:260925350",
+          "before": {
+            "away": 0,
+            "home": 0
+          },
+          "after": {
+            "away": 0,
+            "home": 1
+          },
+          "intervalSeconds": 6113.601
+        }
+      ],
+      "pitchingRows": 19,
+      "unsupportedFields": {
+        "inning": null,
+        "half": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null
+      },
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
