@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 import {moduleUrl} from './profile-loader.mjs';
 const {winnerAnalysis}=await import(moduleUrl('lib/winner-analysis.ts'));
-const {isPregame}=await import(moduleUrl('lib/baseball.ts'));
+const {isPregame,canShowPregameMarkets}=await import(moduleUrl('lib/baseball.ts'));
 // Execute the actual nested JSX renderer with a small virtual element runtime.
 // This checks UI conditions without claiming a logged-in production browser test.
 const source=ts.createSourceFile('pregame.tsx',readFileSync('app/pregame.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
@@ -19,7 +19,7 @@ const game={id:1,date:'2026-09-22T22:40:00Z',season:2026,gameType:'R',state:'Pre
 const quote={first:.604,second:1.458,signature:'test-quote'};
 const React={Fragment:'fragment',createElement:(type,props,...children)=>({type,props:props??{},children})};
 function render(report,{marketReason='',legs=[],g=game,scheduleOK=true}={}){
- const scope={React,model:match=>winnerAnalysis(match,report,now,scheduleOK),unavailable:()=>marketReason,moneylineOK:!marketReason,isPregame,now,moneyline:()=>quote,legs,choose:()=>{},
+ const scope={React,model:match=>winnerAnalysis(match,report,now,scheduleOK),unavailable:()=>marketReason,moneylineOK:!marketReason,isPregame,canShowPregameMarkets,now,moneyline:()=>quote,legs,choose:()=>{},
   Button:'button',TeamName:'team',MarketOutcomes:'outcomes',binaryOutcome:p=>({win:p,loss:1-p,partialWin:0,partialLoss:0,push:0})};
  return new Function(...Object.keys(scope),compiled+'\nreturn winnerOptions;')(...Object.values(scope))(g);
 }
@@ -30,16 +30,16 @@ function report(){const features={};for(const side of ['home','away'])Object.ass
 test('preliminary cards show one green recommendation label, retain their analysis stage and remain manually selectable',()=>{
  const tree=render(undefined),all=nodes(tree);assert.equal(tree.props['data-analysis-status'],'preliminary');
  assert.equal(all.filter(n=>n.type==='outcomes').length,2);assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);
- assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('初步傾向'));assert.equal(badges(tree)[0].props['data-winner-recommendation'],'preliminary');assert.match(badges(tree)[0].props.title,/分項未齊/);
+ assert.ok(!text(tree).includes('初步分析：'));assert.ok(!text(tree).includes('初步傾向'));assert.equal(badges(tree)[0].props['data-winner-recommendation'],'preliminary');assert.match(badges(tree)[0].props.title,/分項未齊/);
  const buttons=all.filter(n=>n.type==='button');assert.equal(buttons.length,2);assert.ok(buttons.every(n=>n.props.disabled===false));
  assert.ok(text(tree).includes('@1.458'));assert.ok(text(tree).includes('@0.604'));
 });
 test('full current inputs use the same visible recommendation label without changing the ready state',()=>{
  const tree=render(report());assert.equal(tree.props['data-analysis-status'],'ready');assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);
 });
-test('unconfirmed lineup and missing coverage retain preliminary status and do not become automatic picks',()=>{
+test('unconfirmed lineup and missing coverage retain preliminary status when usable estimates recommend',()=>{
  const r=report();r.context.sides.home.lineupStatus='expected';r.features.home_starter_recent_era=null;
- const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.equal(tree.props['data-analysis-status'],'preliminary');assert.ok(text(tree).includes('初步分析'));assert.equal(winnerAnalysis(game,r,now,true).canRecommend,false);
+ const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.equal(tree.props['data-analysis-status'],'preliminary');assert.ok(!text(tree).includes('初步分析：'));assert.equal(winnerAnalysis(game,r,now,true).ready,false);assert.equal(winnerAnalysis(game,r,now,true).canRecommend,true);
 });
 test('an expired quote has no selectable cards, outcomes or recommendation badge',()=>{
  const tree=render(report(),{marketReason:'獨贏資料尚未取得或已過期'});assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.ok(nodes(tree).filter(n=>n.type==='button').every(n=>n.props.disabled));assert.equal(badges(tree).length,0);

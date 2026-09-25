@@ -6,8 +6,12 @@ const {adminIdentity}=await import(url(source));
 test('only the verified configured platform administrator authorizes administration',async()=>{
  globalThis.adminTestUser=null;globalThis.adminTestSession=null;assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession={username:'member01'};assert.equal(await adminIdentity(),null);
- globalThis.adminTestSession={username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),'tz');
+ globalThis.adminTestSession={username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),null);
+ globalThis.adminTestSession={memberId:'tz:admin',username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),'tz');
+ globalThis.adminTestSession={memberId:'ofa:member',username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),null);
+ globalThis.adminTestSession={memberId:'ofa:admin',username:'dvp0322'};assert.equal(await adminIdentity(),'ofa');
+ globalThis.adminTestSession={memberId:'tz:member',username:'dvp0322'};assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession=null;assert.equal(await adminIdentity(),null);
- globalThis.adminTestSession={username:'render-test-admin'};globalThis.adminTestFail=true;assert.equal(await adminIdentity(),null);
+ globalThis.adminTestSession={memberId:'tz:admin',username:'render-test-admin'};globalThis.adminTestFail=true;assert.equal(await adminIdentity(),null);
  globalThis.adminTestUser={email:'owner@example.invalid'};assert.equal(await adminIdentity(),null);globalThis.adminTestFail=false;
 });
