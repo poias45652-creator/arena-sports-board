@@ -1,0 +1,221 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-25",
+  "capturedAt": "2026-09-25T06:51:11.117Z",
+  "purpose": "same-day collector evidence and continued live verification; not production deployment",
+  "run": {
+    "runId": 35688889561,
+    "runAttempt": 36,
+    "jobId": 107974613862,
+    "artifactId": 10850053164,
+    "artifactCreatedAt": "2026-09-25T06:51:13Z",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232",
+    "runAttemptVerification": {
+      "previousPersistedAttempt": 35,
+      "rerunSucceeded": true,
+      "freshJobId": 107974613862,
+      "freshArtifactId": 10850053164,
+      "freshArtifactCreatedAt": "2026-09-25T06:51:13Z"
+    }
+  },
+  "captureWindow": {
+    "secondCapturePerformed": false,
+    "firstCapturedAt": "2026-09-25T06:51:11.117Z",
+    "secondCapturedAt": null,
+    "intervalSeconds": null,
+    "qualifiedNumericChanges": 0,
+    "reason": "No live first-team games were present in this capture, so the collector correctly did not perform the >=65 second second capture."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "pregame": 5,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "liveStateObservedThisRun": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "NPB:2021048556",
+          "away": "中日龍",
+          "home": "養樂多燕子",
+          "startTime": "2026-09-25T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021048557",
+          "away": "阪神虎",
+          "home": "橫濱DeNA海灣之星",
+          "startTime": "2026-09-25T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021048558",
+          "away": "讀賣巨人",
+          "home": "廣島東洋鯉魚",
+          "startTime": "2026-09-25T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021039460",
+          "away": "千葉羅德海洋",
+          "home": "西武獅",
+          "startTime": "2026-09-25T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "sportsnavi"
+        },
+        {
+          "key": "NPB:2021039461",
+          "away": "福岡軟銀鷹",
+          "home": "歐力士猛牛",
+          "startTime": "2026-09-25T09:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "sportsnavi"
+        }
+      ],
+      "liveChangeProofs": [],
+      "sameDayLiveVerified": false
+    },
+    "KBO": {
+      "games": 3,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "cancelled": 2,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "liveStateObservedThisRun": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "KBO:20260925HHNC02026",
+          "away": "韓華鷹",
+          "home": "NC恐龍",
+          "startTime": "2026-09-25T08:00:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "naver"
+        },
+        {
+          "key": "KBO:20260925LTOB02026",
+          "away": "樂天巨人",
+          "home": "斗山熊",
+          "startTime": "2026-09-25T08:00:00.000Z",
+          "status": "cancelled",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "naver"
+        },
+        {
+          "key": "KBO:20260925SSSK02026",
+          "away": "三星獅",
+          "home": "SSG登陸者",
+          "startTime": "2026-09-25T08:00:00.000Z",
+          "status": "cancelled",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "naver"
+        }
+      ],
+      "liveChangeProofs": [],
+      "sameDayLiveVerified": false
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "cancelled": 0,
+      "status": "ok",
+      "sourceErrors": [],
+      "liveChangesVerifiedThisRun": false,
+      "liveStateObservedThisRun": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": [
+        {
+          "key": "CPBL:260925349",
+          "away": "富邦悍將",
+          "home": "台鋼雄鷹",
+          "startTime": "2026-09-25T08:05:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "yahoo-tw"
+        },
+        {
+          "key": "CPBL:260925351",
+          "away": "味全龍",
+          "home": "統一獅",
+          "startTime": "2026-09-25T08:05:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "yahoo-tw"
+        },
+        {
+          "key": "CPBL:260925350",
+          "away": "中信兄弟",
+          "home": "樂天桃猿",
+          "startTime": "2026-09-25T09:05:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "yahoo-tw"
+        }
+      ],
+      "liveChangeProofs": [],
+      "sameDayLiveVerified": false,
+      "pitchCountPolicy": "unverified pitch counts remain null; never synthesize zero",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "dataQuality": {
+    "unsupportedFieldsRemainNull": true,
+    "cpblPitchCountPolicy": "null unless source supplies and field is verified",
+    "cpblLineupConfirmation": "not_verified",
+    "sourceAccessChallengesBypassed": false
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false
+}
