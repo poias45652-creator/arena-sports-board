@@ -30,16 +30,16 @@ function report(){const features={};for(const side of ['home','away'])Object.ass
 test('preliminary cards show one green recommendation label, retain their analysis stage and remain manually selectable',()=>{
  const tree=render(undefined),all=nodes(tree);assert.equal(tree.props['data-analysis-status'],'preliminary');
  assert.equal(all.filter(n=>n.type==='outcomes').length,2);assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);
- assert.ok(text(tree).includes('初步分析'));assert.ok(!text(tree).includes('初步傾向'));assert.equal(badges(tree)[0].props['data-winner-recommendation'],'preliminary');assert.match(badges(tree)[0].props.title,/分項未齊/);
+ assert.ok(!text(tree).includes('初步分析：'));assert.ok(!text(tree).includes('初步傾向'));assert.equal(badges(tree)[0].props['data-winner-recommendation'],'preliminary');assert.match(badges(tree)[0].props.title,/分項未齊/);
  const buttons=all.filter(n=>n.type==='button');assert.equal(buttons.length,2);assert.ok(buttons.every(n=>n.props.disabled===false));
  assert.ok(text(tree).includes('@1.458'));assert.ok(text(tree).includes('@0.604'));
 });
 test('full current inputs use the same visible recommendation label without changing the ready state',()=>{
  const tree=render(report());assert.equal(tree.props['data-analysis-status'],'ready');assert.equal(badges(tree).length,1);assert.equal(text(badges(tree)[0]),'推薦');assert.match(badges(tree)[0].props.className,/text-green-400/);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);
 });
-test('unconfirmed lineup and missing coverage retain preliminary status and do not become automatic picks',()=>{
+test('unconfirmed lineup and missing coverage retain preliminary status when usable estimates recommend',()=>{
  const r=report();r.context.sides.home.lineupStatus='expected';r.features.home_starter_recent_era=null;
- const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.equal(tree.props['data-analysis-status'],'preliminary');assert.ok(text(tree).includes('初步分析'));assert.equal(winnerAnalysis(game,r,now,true).canRecommend,false);
+ const tree=render(r);assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,2);assert.equal(tree.props['data-analysis-status'],'preliminary');assert.ok(!text(tree).includes('初步分析：'));assert.equal(winnerAnalysis(game,r,now,true).ready,false);assert.equal(winnerAnalysis(game,r,now,true).canRecommend,true);
 });
 test('an expired quote has no selectable cards, outcomes or recommendation badge',()=>{
  const tree=render(report(),{marketReason:'獨贏資料尚未取得或已過期'});assert.equal(nodes(tree).filter(n=>n.type==='outcomes').length,0);assert.ok(nodes(tree).filter(n=>n.type==='button').every(n=>n.props.disabled));assert.equal(badges(tree).length,0);
