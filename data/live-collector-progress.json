@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-26T05:17:07.642Z",
+  "observedAt": "2026-09-26T08:12:50.174Z",
   "dateAsiaTaipei": "2026-09-26",
   "currentGames": {
     "NPB": 5,
@@ -17,7 +17,7 @@
   },
   "currentStates": {
     "NPB": "mixed",
-    "KBO": "pregame",
+    "KBO": "live",
     "CPBL": "pregame"
   },
   "databaseTest": {
@@ -489,26 +489,34 @@
     "NPB": {
       "verified": true,
       "verifiedAt": "2026-09-26T05:17:04.801Z",
-      "lastVerifiedAt": "2026-09-26T05:17:04.801Z",
+      "lastVerifiedAt": "2026-09-26T05:50:14.134Z",
       "source": "sportsnavi",
       "state": "mixed",
       "games": 5,
-      "liveGames": 3,
+      "liveGames": 2,
       "pregameGames": 2,
       "verifiedGames": [
         "NPB:2021039462"
       ],
       "parserFixLiveStatsPreserved": true,
       "zeroNameBattingRows": 0,
-      "battingRows": 54,
-      "pitchingRows": 6
+      "battingRows": 76,
+      "pitchingRows": 22,
+      "finalGames": 1
     },
     "KBO": {
-      "verified": false,
-      "verifiedAt": null,
+      "verified": true,
+      "verifiedAt": "2026-09-26T08:12:50.174Z",
+      "lastVerifiedAt": "2026-09-26T08:12:50.174Z",
       "source": "naver",
       "games": 3,
-      "state": "pregame"
+      "state": "live",
+      "liveGames": 3,
+      "verifiedGames": [
+        "KBO:20260926HHNC02026",
+        "KBO:20260926LGHT02026",
+        "KBO:20260926WOKT02026"
+      ]
     },
     "CPBL": {
       "verified": false,
@@ -521,17 +529,17 @@
       "lineupConfirmation": "not_verified"
     },
     "allVerified": false,
-    "reason": "NPB is same-day live-verified on 2026-09-26. KBO and CPBL are still pregame and must be rechecked later today."
+    "reason": "NPB and KBO are same-day live-verified on 2026-09-26. CPBL remains pregame."
   },
-  "nextAction": "Continue same-day collection later on 2026-09-26. Re-verify KBO and CPBL after they enter live state with >=65 second observations; keep unsupported CPBL inning/half, B/S/O, bases and pitchCount null and source-listed lineup not verified. Do not modify main, Render or production database.",
+  "nextAction": "Continue 2026-09-26 collection and re-verify CPBL after it enters live state with observations at least 65 seconds apart. Keep unsupported CPBL fields null. Do not modify main, Render, or production database.",
   "latestRun": {
     "runId": 35688889561,
-    "runAttempt": 42,
-    "jobId": 108344059933,
-    "artifactId": 10898224562,
-    "artifactCreatedAt": "2026-09-26T05:17:10Z",
-    "capturedAt": "2026-09-26T05:17:07.642Z",
-    "observationPath": "data/live/2026-09-26T051707Z.json",
+    "runAttempt": 44,
+    "jobId": 108368478043,
+    "artifactId": 10901551660,
+    "artifactCreatedAt": "2026-09-26T08:12:52Z",
+    "capturedAt": "2026-09-26T08:12:50.174Z",
+    "observationPath": "data/live/2026-09-26T081250Z.json",
     "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
   },
   "latestObservationCommit": "3cf32b3623f1dbd2b1b68f4ee813ab517779dfeb",
