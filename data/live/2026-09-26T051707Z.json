@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T05:17:07.642Z",
+  "captureWindow": {
+    "firstCapturedAt": "2026-09-26T05:15:58.488Z",
+    "secondCapturedAt": "2026-09-26T05:17:07.642Z",
+    "intervalSeconds": 69.154,
+    "secondCapturePerformed": true
+  },
+  "purpose": "same-day first-team live verification; not production deployment",
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 42,
+    "jobId": 108344059933,
+    "artifactId": 10898224562,
+    "artifactCreatedAt": "2026-09-26T05:17:10Z",
+    "artifactDigest": "sha256:9a8fb35f6567541e2741b02dbd733008000be65e63e85fa159dd78f8379dc584",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 2,
+      "live": 3,
+      "final": 0,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "verifiedGames": [
+        {
+          "key": "NPB:2021039462",
+          "away": "千葉羅德海洋",
+          "home": "西武獅",
+          "intervalSeconds": 69.847,
+          "changes": {
+            "homePitcher": "菅井 信也",
+            "pitchCount": [
+              18,
+              24
+            ],
+            "outsRecorded": [
+              4,
+              5
+            ]
+          }
+        }
+      ],
+      "battingRows": 54,
+      "pitchingRows": 6,
+      "zeroNameBattingRows": 0,
+      "lineupRows": 0
+    },
+    "KBO": {
+      "games": 3,
+      "state": "pregame",
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "currentRunLiveChangesVerified": false
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "pregame",
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "currentRunLiveChangesVerified": false,
+      "pitchCountPolicy": "null unless source supplies and field is verified",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-26T05:17:08.872Z",
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
