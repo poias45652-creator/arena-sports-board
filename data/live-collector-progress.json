@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-09-26T08:12:50.174Z",
+  "observedAt": "2026-09-26T09:42:50.751Z",
   "dateAsiaTaipei": "2026-09-26",
   "currentGames": {
     "NPB": 5,
@@ -18,12 +18,12 @@
   "currentStates": {
     "NPB": "mixed",
     "KBO": "live",
-    "CPBL": "pregame"
+    "CPBL": "live"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-09-26T05:17:08.872Z",
+    "checkedAt": "2026-09-26T09:42:52.147Z",
     "inserted": 11,
     "readBack": 11,
     "duplicateInserts": 0,
@@ -339,46 +339,55 @@
       "NPB": {
         "verified": true,
         "verifiedAt": "2026-09-26T05:17:04.801Z",
-        "lastVerifiedAt": "2026-09-26T05:17:04.801Z",
+        "lastVerifiedAt": "2026-09-26T09:42:47.822Z",
         "source": "sportsnavi"
       },
       "KBO": {
-        "verified": false,
-        "verifiedAt": null,
+        "verified": true,
+        "verifiedAt": "2026-09-26T08:12:50.174Z",
+        "lastVerifiedAt": "2026-09-26T09:42:48.796Z",
         "source": "naver"
       },
       "CPBL": {
         "verified": false,
         "verifiedAt": null,
-        "source": "yahoo-tw"
+        "source": "yahoo-tw",
+        "liveObserved": true,
+        "liveObservedAt": "2026-09-26T09:41:41.623Z",
+        "verificationMethod": "requires same-day live-to-live numeric change separated by >=65 seconds"
       },
       "allVerified": false,
-      "reason": "NPB has qualifying same-day within-run live pitcher-stat changes separated by >=65 seconds; KBO and CPBL are still pregame in this observation.",
+      "reason": "NPB and KBO have qualifying same-day live numeric-change proof. CPBL is live, but the 69.128 second attempt-45 window had no score or verified pitching-outs change, so CPBL remains unverified for 2026-09-26.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-09-26T05:17:07.642Z",
-        "liveGames": 3,
+        "capturedAt": "2026-09-26T09:42:50.751Z",
+        "liveGames": 8,
         "pregameGames": {
-          "NPB": 2,
-          "KBO": 3,
-          "CPBL": 3
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
         },
         "finalGames": {
+          "NPB": 3,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "cancelledGames": {
           "NPB": 0,
           "KBO": 0,
           "CPBL": 0
         },
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 69.154,
-        "qualifiedNumericChanges": 1,
-        "artifactId": 10898224562,
-        "artifactCreatedAt": "2026-09-26T05:17:10Z",
+        "captureIntervalSeconds": 69.128,
+        "qualifiedNumericChanges": 4,
+        "artifactId": 10902798890,
+        "artifactCreatedAt": "2026-09-26T09:42:53Z",
         "runId": 35688889561,
-        "runAttempt": 42,
-        "jobId": 108344059933,
-        "observationPath": "data/live/2026-09-26T051707Z.json",
+        "runAttempt": 45,
+        "jobId": 108381021656,
+        "observationPath": "data/live/2026-09-26T094250Z.json",
         "parserFixLiveStatsPreserved": true,
-        "cpblLiveObserved": false,
+        "cpblLiveObserved": true,
         "cpblSameDayLiveVerified": false
       }
     }
@@ -484,30 +493,30 @@
     "date": "2026-09-26",
     "evidenceRetainedIn": "data/live/",
     "evidenceObservationPaths": [
-      "data/live/2026-09-26T051707Z.json"
+      "data/live/2026-09-26T051707Z.json",
+      "data/live/2026-09-26T094250Z.json"
     ],
     "NPB": {
       "verified": true,
       "verifiedAt": "2026-09-26T05:17:04.801Z",
-      "lastVerifiedAt": "2026-09-26T05:50:14.134Z",
+      "lastVerifiedAt": "2026-09-26T09:42:47.822Z",
       "source": "sportsnavi",
       "state": "mixed",
       "games": 5,
       "liveGames": 2,
-      "pregameGames": 2,
+      "pregameGames": 0,
+      "finalGames": 3,
       "verifiedGames": [
-        "NPB:2021039462"
+        "NPB:2021048559"
       ],
       "parserFixLiveStatsPreserved": true,
-      "zeroNameBattingRows": 0,
-      "battingRows": 76,
-      "pitchingRows": 22,
-      "finalGames": 1
+      "lineupRows": 0,
+      "pitchingRows": 27
     },
     "KBO": {
       "verified": true,
       "verifiedAt": "2026-09-26T08:12:50.174Z",
-      "lastVerifiedAt": "2026-09-26T08:12:50.174Z",
+      "lastVerifiedAt": "2026-09-26T09:42:48.796Z",
       "source": "naver",
       "games": 3,
       "state": "live",
@@ -523,26 +532,32 @@
       "verifiedAt": null,
       "source": "yahoo-tw",
       "games": 3,
-      "state": "pregame",
-      "liveObserved": false,
+      "state": "live",
+      "liveGames": 3,
+      "liveObserved": true,
+      "liveObservedAt": "2026-09-26T09:41:41.623Z",
+      "currentRunLiveChangesVerified": false,
+      "pitchingRows": 6,
+      "outsRecordedNonNull": 6,
+      "pitchCountNonNull": 0,
       "pitchCountPolicy": "null unless source supplies and field is verified",
       "lineupConfirmation": "not_verified"
     },
     "allVerified": false,
-    "reason": "NPB and KBO are same-day live-verified on 2026-09-26. CPBL remains pregame."
+    "reason": "NPB and KBO are same-day live-verified on 2026-09-26. CPBL is live but attempt 45 had no qualifying numeric change across a 69.128 second window."
   },
-  "nextAction": "Continue 2026-09-26 collection and re-verify CPBL after it enters live state with observations at least 65 seconds apart. Keep unsupported CPBL fields null. Do not modify main, Render, or production database.",
+  "nextAction": "Continue 2026-09-26 collection and re-verify CPBL while live using observations at least 65 seconds apart. Keep CPBL pitchCount and unsupported inning/B-S-O/base fields null. Do not modify main, Render, or production database.",
   "latestRun": {
     "runId": 35688889561,
-    "runAttempt": 44,
-    "jobId": 108368478043,
-    "artifactId": 10901551660,
-    "artifactCreatedAt": "2026-09-26T08:12:52Z",
-    "capturedAt": "2026-09-26T08:12:50.174Z",
-    "observationPath": "data/live/2026-09-26T081250Z.json",
+    "runAttempt": 45,
+    "jobId": 108381021656,
+    "artifactId": 10902798890,
+    "artifactCreatedAt": "2026-09-26T09:42:53Z",
+    "capturedAt": "2026-09-26T09:42:50.751Z",
+    "observationPath": "data/live/2026-09-26T094250Z.json",
     "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
   },
-  "latestObservationCommit": "3cf32b3623f1dbd2b1b68f4ee813ab517779dfeb",
+  "latestObservationCommit": "45f0fbf9d5cf6319d37ade4f3f8fcddb6ba48a7a",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
