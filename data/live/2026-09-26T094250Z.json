@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T09:42:50.751Z",
+  "captureWindow": {
+    "firstCapturedAt": "2026-09-26T09:41:41.623Z",
+    "secondCapturedAt": "2026-09-26T09:42:50.751Z",
+    "intervalSeconds": 69.128,
+    "secondCapturePerformed": true
+  },
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 45,
+    "jobId": 108381021656,
+    "artifactId": 10902798890,
+    "artifactCreatedAt": "2026-09-26T09:42:53Z",
+    "artifactDigest": "sha256:fe5b8a738cfa19f8c8867fd3de7b9316e1ff4f1081bae1d9cd5e37c3b1e4eccd",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 0,
+      "live": 2,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 27,
+      "liveProof": [
+        {
+          "key": "NPB:2021048559",
+          "intervalSeconds": 71.238,
+          "changes": {
+            "homePitching": {
+              "高梨 裕稔:pitchCount": {
+                "before": 37,
+                "after": 40
+              }
+            }
+          }
+        }
+      ]
+    },
+    "KBO": {
+      "games": 3,
+      "state": "live",
+      "pregame": 0,
+      "live": 3,
+      "final": 0,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "lineupRows": 53,
+      "pitchingRows": 7,
+      "liveProof": [
+        {
+          "key": "KBO:20260926HHNC02026",
+          "intervalSeconds": 70.806,
+          "changes": {
+            "balls": {
+              "before": 2,
+              "after": 0
+            },
+            "strikes": {
+              "before": 2,
+              "after": 0
+            },
+            "homePitching": {
+              "56911:pitchCount": {
+                "before": 64,
+                "after": 67
+              },
+              "56911:outsRecorded": {
+                "before": 15,
+                "after": 18
+              }
+            }
+          }
+        },
+        {
+          "key": "KBO:20260926LGHT02026",
+          "intervalSeconds": 70.888,
+          "changes": {
+            "outs": {
+              "before": 0,
+              "after": 1
+            },
+            "awayPitching": {
+              "61101:pitchCount": {
+                "before": 73,
+                "after": 77
+              },
+              "61101:outsRecorded": {
+                "before": 15,
+                "after": 16
+              }
+            }
+          }
+        },
+        {
+          "key": "KBO:20260926WOKT02026",
+          "intervalSeconds": 70.897,
+          "changes": {
+            "balls": {
+              "before": 3,
+              "after": 0
+            },
+            "strikes": {
+              "before": 2,
+              "after": 0
+            },
+            "outs": {
+              "before": 0,
+              "after": 1
+            },
+            "homePitching": {
+              "64001:pitchCount": {
+                "before": 97,
+                "after": 101
+              },
+              "64001:outsRecorded": {
+                "before": 15,
+                "after": 16
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "live",
+      "pregame": 0,
+      "live": 3,
+      "final": 0,
+      "liveObserved": true,
+      "sameDayLiveVerified": false,
+      "currentRunLiveChangesVerified": false,
+      "lineupRows": 60,
+      "pitchingRows": 6,
+      "pitchCountNonNull": 0,
+      "pitchCountPolicy": "null unless source supplies and field is verified",
+      "outsRecordedNonNull": 6,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified",
+      "gamesSummary": [
+        {
+          "key": "CPBL:260926354",
+          "status": "live",
+          "away": "中信兄弟",
+          "home": "富邦悍將",
+          "awayScore": 0,
+          "homeScore": 0
+        },
+        {
+          "key": "CPBL:260926352",
+          "status": "live",
+          "away": "統一獅",
+          "home": "台鋼雄鷹",
+          "awayScore": 3,
+          "homeScore": 0
+        },
+        {
+          "key": "CPBL:260926353",
+          "status": "live",
+          "away": "樂天桃猿",
+          "home": "味全龍",
+          "awayScore": 1,
+          "homeScore": 0
+        }
+      ]
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-26T09:42:52.147Z",
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false,
+  "notes": [
+    "CPBL reached live state but no qualifying numeric change occurred within the 69.128 second capture window; do not mark same-day live verified yet.",
+    "CPBL pitchCount remains null for all six observed pitching rows; source-listed lineup rows remain not_verified."
+  ]
+}
