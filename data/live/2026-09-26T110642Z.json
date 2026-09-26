@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T11:06:42.069Z",
+  "captureWindow": {
+    "firstCapturedAt": "2026-09-26T11:05:32.672Z",
+    "secondCapturedAt": "2026-09-26T11:06:42.069Z",
+    "intervalSeconds": 69.397,
+    "secondCapturePerformed": true
+  },
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 46,
+    "jobId": 108392443200,
+    "artifactId": 10904254871,
+    "artifactCreatedAt": "2026-09-26T11:06:46Z",
+    "artifactDigest": "sha256:da0ed71c36b5fe30f234fd7f98d8b81c99cbe6ad0c3f5260645db76bbc153918",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 0,
+      "live": 2,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 31,
+      "liveProof": [
+        {
+          "key": "NPB:2021048559",
+          "intervalSeconds": 70.359,
+          "changes": {
+            "homePitching": {
+              "石原 勇輝:pitchCount": {"before": 5, "after": 9},
+              "石原 勇輝:outsRecorded": {"before": 1, "after": 2}
+            }
+          }
+        }
+      ]
+    },
+    "KBO": {
+      "games": 3,
+      "state": "final",
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "lineupRows": 48,
+      "pitchingRows": 30,
+      "retainedSameDayProofObservation": "data/live/2026-09-26T094250Z.json",
+      "gamesSummary": [
+        {"key":"KBO:20260926HHNC02026","status":"final","away":"韓華鷹","home":"NC恐龍","awayScore":2,"homeScore":3},
+        {"key":"KBO:20260926LGHT02026","status":"final","away":"LG雙子","home":"起亞虎","awayScore":1,"homeScore":5},
+        {"key":"KBO:20260926WOKT02026","status":"final","away":"培證英雄","home":"KT巫師","awayScore":10,"homeScore":1}
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "live",
+      "pregame": 0,
+      "live": 3,
+      "final": 0,
+      "liveObserved": true,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "lineupRows": 71,
+      "pitchingRows": 11,
+      "pitchCountNonNull": 0,
+      "pitchCountPolicy": "null unless source supplies and field is verified",
+      "outsRecordedNonNull": 11,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified",
+      "gamesSummary": [
+        {"key":"CPBL:260926354","status":"live","away":"中信兄弟","home":"富邦悍將","awayScore":0,"homeScore":2},
+        {"key":"CPBL:260926352","status":"live","away":"統一獅","home":"台鋼雄鷹","awayScore":3,"homeScore":2},
+        {"key":"CPBL:260926353","status":"live","away":"樂天桃猿","home":"味全龍","awayScore":3,"homeScore":0}
+      ],
+      "crossRunLiveProof": {
+        "beforeObservationPath": "data/live/2026-09-26T094250Z.json",
+        "beforeCapturedAt": "2026-09-26T09:42:50.751Z",
+        "afterCapturedAt": "2026-09-26T11:06:42.069Z",
+        "intervalSeconds": 5031.318,
+        "conditions": "same date, same game keys, live -> live, interval >=65 seconds",
+        "changes": [
+          {"key":"CPBL:260926354","awayScore":{"before":0,"after":0},"homeScore":{"before":0,"after":2}},
+          {"key":"CPBL:260926352","awayScore":{"before":3,"after":3},"homeScore":{"before":0,"after":2}},
+          {"key":"CPBL:260926353","awayScore":{"before":1,"after":3},"homeScore":{"before":0,"after":0}}
+        ]
+      }
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-26T11:06:44.903Z",
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false,
+  "notes": [
+    "CPBL achieved 2026-09-26 same-day live verification by comparing retained attempt-45 and fresh attempt-46 live observations 5031.318 seconds apart; all three CPBL games had score changes while remaining live.",
+    "CPBL pitchCount remains null for all observed pitching rows; inning/half/B-S-O/base fields remain unsupported/null and source-listed lineup rows remain not_verified.",
+    "KBO is final in attempt 46; its earlier same-day qualifying live proof is retained rather than reclassified from final-state data."
+  ]
+}
