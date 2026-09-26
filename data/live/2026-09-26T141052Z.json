@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T14:10:52.631Z",
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 48,
+    "jobId": 108419583233,
+    "artifactId": 10907951868,
+    "artifactCreatedAt": "2026-09-26T14:10:55Z",
+    "artifactDigest": "sha256:447365fb6bb6836936df6ae992aa00083682f69d2ec630b72a4a901180891ebd"
+  },
+  "secondCapturePerformed": false,
+  "reason": "No live first-team games remained.",
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "pregame": 0,
+      "live": 0,
+      "final": 5,
+      "sameDayLiveVerified": true,
+      "battingRows": 134,
+      "pitchingRows": 41,
+      "syntheticNameZeroBattingRows": 0
+    },
+    "KBO": {
+      "games": 3,
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "pitchingRows": 30
+    },
+    "CPBL": {
+      "games": 3,
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "pitchingRows": 27,
+      "pitchCountNonNull": 0,
+      "outsRecordedNonNull": 27,
+      "unsupportedFieldsRemainNull": true,
+      "lineupOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "productionWritten": false,
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
