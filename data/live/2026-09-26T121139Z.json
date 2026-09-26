@@ -1,0 +1,232 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T12:11:39.000Z",
+  "purpose": "fresh same-day validation fallback after Current baseball collector rerun was blocked; not production deployment",
+  "collectionMethod": {
+    "workflow": "Current baseball collector",
+    "latestVerifiedRun": {
+      "runId": 35688889561,
+      "runAttempt": 46,
+      "jobId": 108392443200,
+      "artifactId": 10904254871,
+      "artifactCreatedAt": "2026-09-26T11:06:46Z",
+      "capturedAt": "2026-09-26T11:06:42.069Z"
+    },
+    "rerunAttempt": {
+      "attempted": true,
+      "executed": false,
+      "reason": "GitHub connector rerun_workflow_job action was blocked by safety checks; no new artifact was created and attempt 46 is not treated as this observation."
+    },
+    "freshSources": [
+      "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-09-26",
+      "https://www.playsport.cc/livescore/6"
+    ]
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 0,
+      "live": 1,
+      "final": 4,
+      "sameDayLiveVerified": true,
+      "currentObservationLiveChangesVerified": true,
+      "source": "sportsnavi",
+      "gamesSummary": [
+        {
+          "key": "NPB:2021048560",
+          "status": "final",
+          "away": "阪神虎",
+          "home": "橫濱DeNA海灣之星",
+          "awayScore": 8,
+          "homeScore": 3
+        },
+        {
+          "key": "NPB:2021048559",
+          "status": "live",
+          "away": "中日龍",
+          "home": "養樂多燕子",
+          "awayScore": 3,
+          "homeScore": 3,
+          "inning": 8,
+          "half": "bottom"
+        },
+        {
+          "key": "NPB:2021039462",
+          "status": "final",
+          "away": "千葉羅德海洋",
+          "home": "西武獅",
+          "awayScore": 4,
+          "homeScore": 5
+        },
+        {
+          "key": "NPB:2021039463",
+          "status": "final",
+          "away": "日本火腿鬥士",
+          "home": "歐力士猛牛",
+          "awayScore": 2,
+          "homeScore": 0
+        },
+        {
+          "key": "NPB:2021039464",
+          "status": "final",
+          "away": "東北樂天金鷲",
+          "home": "福岡軟銀鷹",
+          "awayScore": 0,
+          "homeScore": 4
+        }
+      ],
+      "crossRunLiveProof": {
+        "beforeObservationPath": "data/live/2026-09-26T110642Z.json",
+        "beforeCapturedAt": "2026-09-26T11:06:42.069Z",
+        "afterCapturedAt": "2026-09-26T12:11:39.000Z",
+        "intervalSeconds": 3896.931,
+        "conditions": "same date, same game key, live -> live, interval >=65 seconds",
+        "changes": [
+          {
+            "key": "NPB:2021048559",
+            "inning": {
+              "before": 6,
+              "after": 8
+            },
+            "half": {
+              "before": null,
+              "after": "bottom"
+            },
+            "awayScore": {
+              "before": 3,
+              "after": 3
+            },
+            "homeScore": {
+              "before": 3,
+              "after": 3
+            }
+          }
+        ]
+      }
+    },
+    "KBO": {
+      "games": 3,
+      "state": "final",
+      "pregame": 0,
+      "live": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "currentObservationLiveChangesVerified": false,
+      "source": "naver",
+      "retainedSameDayProofObservation": "data/live/2026-09-26T094250Z.json",
+      "gamesSummary": [
+        {
+          "key": "KBO:20260926HHNC02026",
+          "status": "final",
+          "away": "韓華鷹",
+          "home": "NC恐龍",
+          "awayScore": 2,
+          "homeScore": 3
+        },
+        {
+          "key": "KBO:20260926LGHT02026",
+          "status": "final",
+          "away": "LG雙子",
+          "home": "起亞虎",
+          "awayScore": 1,
+          "homeScore": 5
+        },
+        {
+          "key": "KBO:20260926WOKT02026",
+          "status": "final",
+          "away": "培證英雄",
+          "home": "KT巫師",
+          "awayScore": 10,
+          "homeScore": 1
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "mixed",
+      "pregame": 0,
+      "live": 2,
+      "final": 1,
+      "liveObserved": true,
+      "sameDayLiveVerified": true,
+      "currentObservationLiveChangesVerified": true,
+      "source": "playsport-fallback",
+      "unsupportedFieldsPolicy": {
+        "pitchCount": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "lineupConfirmation": "not_verified"
+      },
+      "gamesSummary": [
+        {
+          "key": "CPBL:260926352",
+          "status": "final",
+          "away": "統一獅",
+          "home": "台鋼雄鷹",
+          "awayScore": 3,
+          "homeScore": 2
+        },
+        {
+          "key": "CPBL:260926353",
+          "status": "live",
+          "away": "樂天桃猿",
+          "home": "味全龍",
+          "awayScore": 5,
+          "homeScore": 0
+        },
+        {
+          "key": "CPBL:260926354",
+          "status": "live",
+          "away": "中信兄弟",
+          "home": "富邦悍將",
+          "awayScore": 4,
+          "homeScore": 3
+        }
+      ],
+      "crossRunLiveProof": {
+        "beforeObservationPath": "data/live/2026-09-26T110642Z.json",
+        "beforeCapturedAt": "2026-09-26T11:06:42.069Z",
+        "afterCapturedAt": "2026-09-26T12:11:39.000Z",
+        "intervalSeconds": 3896.931,
+        "conditions": "same date, same game keys, live -> live for games 353 and 354, interval >=65 seconds",
+        "changes": [
+          {
+            "key": "CPBL:260926353",
+            "awayScore": {
+              "before": 3,
+              "after": 5
+            },
+            "homeScore": {
+              "before": 0,
+              "after": 0
+            }
+          },
+          {
+            "key": "CPBL:260926354",
+            "awayScore": {
+              "before": 0,
+              "after": 4
+            },
+            "homeScore": {
+              "before": 2,
+              "after": 3
+            }
+          }
+        ]
+      }
+    }
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "deploymentPerformed": false,
+  "notes": [
+    "Fresh validation did not create a new GitHub Actions artifact because the rerun action was blocked; attempt 46 is retained only as the baseline observation.",
+    "NPB game NPB:2021048559 remained live and advanced from inning 6 to inning 8 while tied 3-3, providing a fresh same-day live numeric/state change separated by more than 65 seconds.",
+    "CPBL games 260926353 and 260926354 remained live and changed score versus attempt 46; 260926352 moved to final 3-2.",
+    "CPBL unsupported pitchCount/B-S-O/base fields remain null and source-listed lineup is not treated as officially confirmed."
+  ]
+}
