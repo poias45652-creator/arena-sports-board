@@ -37,7 +37,7 @@ export async function superEntry(request:Request,memberId:string|null,db:HrDatab
   const reader=r.body?.getReader();if(!reader)throw Error();let size=0,raw='';const decoder=new TextDecoder();
   for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw Error();}raw+=decoder.decode(value,{stream:true});}raw+=decoder.decode();
   const data=JSON.parse(raw),url=superDeviceEntryUrl(data?.data?.game_url,mobile);
-  if(url&&new URL(url).hostname!==(isOfa?'sp1788.net':mobile?'m.hr9988.net':'hr9988.net'))return reply({error:'來源回傳的 SUPER 網址與登入帳號不符。',code:'invalid_entry'},502);
+  if(url&&new URL(url).hostname!==(isOfa?(mobile?'m.sp1788.net':'sp1788.net'):(mobile?'m.hr9988.net':'hr9988.net')))return reply({error:'來源回傳的 SUPER 網址與登入帳號不符。',code:'invalid_entry'},502);
   if(String(data?.code)!=='200'||data?.data?.game_method!=='GET'||!url)return reply({error:'來源未提供有效的 SUPER 登入入口，請確認體育館權限。',code:'invalid_entry'},502);
   const current=await db.prepare('SELECT encrypted_token,verified_at,expires_at FROM tz_bindings WHERE member_id=?').bind(memberId).first<{encrypted_token:string;verified_at:number;expires_at:number}>();
   if(!current||current.encrypted_token!==binding.encrypted_token||current.verified_at!==binding.verified_at||current.expires_at<=Date.now())return reply({error:'登入狀態已變更，請重新開啟 SUPER。',code:'binding_changed'},409);

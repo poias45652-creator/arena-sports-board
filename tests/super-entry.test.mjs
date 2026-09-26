@@ -6,7 +6,7 @@ const {superEntry,superEntryUrl}=await import(moduleUrl('lib/super-entry.ts'));
 const {credentialKey,encryptToken}=await import(moduleUrl('lib/tz-credentials.ts'));
 const secret=Buffer.alloc(32,4).toString('base64'),key=await credentialKey(secret),ticket='0123456789abcdef0123456789abcdef';
 const request=(origin='https://arena.test',extra={})=>new Request('https://arena.test/api/super-entry',{method:'POST',headers:{Origin:origin,'x-super-session':'browser:12345678-1234-1234-1234-123456789abc',...extra}});
-async function setup(){const sql=new DatabaseSync(':memory:');sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,encrypted_token TEXT,expires_at INTEGER,verified_at INTEGER); CREATE TABLE tz_binding_attempts(member_id TEXT PRIMARY KEY,allowed_at INTEGER,operation_id TEXT)');const db={prepare(q){const s=sql.prepare(q);let args=[];const stmt={bind(...v){args=v;return stmt;},async first(){return s.get(...args)??null;},async run(){return s.run(...args);}};return stmt;}};for(const id of ['a','b'])sql.prepare('INSERT INTO tz_bindings VALUES(?,?,?,?)').run(id,await encryptToken('private-token-'+id,id,key),Date.now()+600000,1);return {db,sql};}
+async function setup(){const sql=new DatabaseSync(':memory:');sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,encrypted_token TEXT,expires_at INTEGER,verified_at INTEGER); CREATE TABLE tz_binding_attempts(member_id TEXT PRIMARY KEY,allowed_at INTEGER,operation_id TEXT)');const db={prepare(q){const s=sql.prepare(q);let args=[];const stmt={bind(...v){args=v;return stmt;},async first(){return s.get(...args)??null;},async run(){return s.run(...args);}};return stmt;}};for(const id of ['a','b','ofa:test'])sql.prepare('INSERT INTO tz_bindings VALUES(?,?,?,?)').run(id,await encryptToken('private-token-'+id,id,key),Date.now()+600000,1);return {db,sql};}
 const valid=(url='https://hr9988.net/#/APILogin?MemID='+ticket)=>Response.json({code:200,data:{game_method:'GET',game_url:url,game_post:{}}});
 test('each owner receives only their own browser entry without consuming it or exposing TZ token',async()=>{const {db}=await setup(),calls=[];for(const member of ['a','b']){const r=await superEntry(request(),member,db,secret,async(u,o)=>{calls.push(u);assert.equal(u,'https://www.tz6868.com/api/v2/game/SUPER/login');assert.equal(o.headers.Authorization,'Bearer private-token-'+member);assert.equal(o.redirect,'manual');assert.equal(o.cache,'no-store');assert.equal(JSON.parse(o.body).game_device,'Desktop');return valid();});assert.equal(r.status,200);assert.match(r.headers.get('cache-control'),/private, no-store/);const d=await r.json();assert.equal(d.url,'https://hr9988.net/#/APILogin?MemID='+ticket);assert.ok(d.reuseUntil>Date.now());assert.equal(JSON.stringify(d).includes('private-token'),false);}assert.equal(calls.length,2);});
 test('anonymous, cross-site, unbound and expired requests never contact source',async()=>{const {db,sql}=await setup();const noFetch=()=>{throw Error('Must not contact source');};assert.equal((await superEntry(request(),null,db,secret,noFetch)).status,401);assert.equal((await superEntry(request('https://evil.test'),'a',db,secret,noFetch)).status,403);assert.equal((await superEntry(request('https://arena.test',{'sec-fetch-site':'cross-site'}),'a',db,secret,noFetch)).status,403);assert.equal((await superEntry(request(),'missing',db,secret,noFetch)).status,409);sql.prepare('UPDATE tz_bindings SET expires_at=0 WHERE member_id=?').run('a');assert.equal((await superEntry(request(),'a',db,secret,noFetch)).status,409);});
@@ -17,5 +17,22 @@ test('oversized source response is rejected rather than reflected',async()=>{con
 test('mobile entry normalizes a desktop source URL and desktop normalizes a mobile source URL',async()=>{
  for(const [headers,sourceHost,expectedHost,device] of [[{'user-agent':'iPhone Mobile'},'hr9988.net','m.hr9988.net','Mobile'],[{'user-agent':'Macintosh','x-super-device':'mobile'},'hr9988.net','m.hr9988.net','Mobile'],[{'sec-ch-ua-mobile':'?1'},'hr9988.net','m.hr9988.net','Mobile'],[{'user-agent':'Windows NT 10.0'},'m.hr9988.net','hr9988.net','Desktop']]){
   const {db}=await setup();const r=await superEntry(request('https://arena.test',headers),'a',db,secret,async(u,o)=>{assert.equal(JSON.parse(o.body).game_device,device);return valid('https://'+sourceHost+'/#/APILogin?MemID='+ticket);});assert.equal(r.status,200);const url=new URL((await r.json()).url);assert.equal(url.hostname,expectedHost);assert.equal(url.hash,'#/APILogin?MemID='+ticket);
+ }
+});
+
+test('OFA mobile and desktop tickets stay on the OFA source with the requested device',async()=>{
+ for(const mobile of [true,false])for(const sourceHost of ['sp1788.net','m.sp1788.net']){
+  const {db}=await setup();let calls=0;
+  const r=await superEntry(request('https://arena.test',{'x-super-device':mobile?'mobile':'desktop'}),'ofa:test',db,secret,async(u,o)=>{
+   calls++;assert.equal(u,'https://www.ofa1188.net/api/v2/game/SUPER/login');assert.equal(o.headers.Authorization,'Bearer private-token-ofa:test');
+   assert.equal(JSON.parse(o.body).game_device,mobile?'Mobile':'Desktop');return valid('https://'+sourceHost+'/#/APILogin?MemID='+ticket);
+  });
+  assert.equal(r.status,200);const d=await r.json();assert.equal(d.url,'https://'+(mobile?'m.sp1788.net':'sp1788.net')+'/#/APILogin?MemID='+ticket);assert.equal(calls,1);
+ }
+});
+test('OFA and TZ tickets cannot cross providers and lookalike mobile hosts are rejected',async()=>{
+ for(const [member,host] of [['a','m.sp1788.net'],['ofa:test','m.hr9988.net'],['ofa:test','m.sp1788.net.evil.test']]){
+  const {db}=await setup();const r=await superEntry(request('https://arena.test',{'x-super-device':'mobile'}),member,db,secret,async()=>valid('https://'+host+'/#/APILogin?MemID='+ticket));
+  assert.equal(r.status,502);assert.ok(!(await r.text()).includes(ticket));
  }
 });
