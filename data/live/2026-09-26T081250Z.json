@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T08:12:50.174Z",
+  "captureWindow": {
+    "firstCapturedAt": "2026-09-26T08:11:40.179Z",
+    "secondCapturedAt": "2026-09-26T08:12:50.174Z",
+    "intervalSeconds": 69.995,
+    "secondCapturePerformed": true
+  },
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 44,
+    "jobId": 108368478043,
+    "artifactId": 10901551660,
+    "artifactCreatedAt": "2026-09-26T08:12:52Z",
+    "artifactDigest": "sha256:ebb64c9ec9f3412c2ac7a98a420ad76f514b63500c1731267348af1473d8a955"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 2,
+      "live": 2,
+      "final": 1,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": false,
+      "battingRows": 76,
+      "pitchingRows": 22,
+      "zeroNameBattingRows": 0
+    },
+    "KBO": {
+      "games": 3,
+      "state": "live",
+      "pregame": 0,
+      "live": 3,
+      "final": 0,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "liveProof": [
+        {
+          "key": "KBO:20260926HHNC02026",
+          "intervalSeconds": 70.423,
+          "changes": {
+            "pitchCount": [
+              9,
+              13
+            ]
+          }
+        },
+        {
+          "key": "KBO:20260926LGHT02026",
+          "intervalSeconds": 70.452,
+          "changes": {
+            "balls": [
+              0,
+              1
+            ],
+            "strikes": [
+              0,
+              1
+            ],
+            "pitchCount": [
+              10,
+              12
+            ]
+          }
+        },
+        {
+          "key": "KBO:20260926WOKT02026",
+          "intervalSeconds": 70.442,
+          "changes": {
+            "pitchCount": [
+              17,
+              20
+            ]
+          }
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "pregame",
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "pitchCountPolicy": "null unless verified",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-26T08:12:51.435Z",
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
