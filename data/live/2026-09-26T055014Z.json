@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-09-26",
+  "capturedAt": "2026-09-26T05:50:14.134Z",
+  "captureWindow": {
+    "firstCapturedAt": "2026-09-26T05:49:04.390Z",
+    "secondCapturedAt": "2026-09-26T05:50:14.134Z",
+    "intervalSeconds": 69.744,
+    "secondCapturePerformed": true
+  },
+  "purpose": "same-day first-team live verification; not production deployment",
+  "githubCollector": {
+    "runId": 35688889561,
+    "runAttempt": 43,
+    "jobId": 108348594834,
+    "artifactId": 10899088234,
+    "artifactCreatedAt": "2026-09-26T05:50:16Z",
+    "artifactDigest": "sha256:55e847f917d6048ef7a41b461e7715b4b6854008b18e513551f654cd3f069b3b",
+    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 5,
+      "state": "mixed",
+      "pregame": 2,
+      "live": 3,
+      "final": 0,
+      "sameDayLiveVerified": true,
+      "currentRunLiveChangesVerified": true,
+      "verifiedGames": [
+        {
+          "key": "NPB:2021048560",
+          "away": "阪神虎",
+          "home": "橫濱DeNA海灣之星",
+          "intervalSeconds": 70.397,
+          "changes": {
+            "homePitcher": "尾形 崇斗",
+            "pitchCount": [36, 40],
+            "outsRecorded": [7, 8]
+          }
+        },
+        {
+          "key": "NPB:2021039462",
+          "away": "千葉羅德海洋",
+          "home": "西武獅",
+          "intervalSeconds": 70.431,
+          "changes": {
+            "awayPitcher": "小島 和哉",
+            "pitchCount": [37, 40]
+          }
+        },
+        {
+          "key": "NPB:2021039463",
+          "away": "日本火腿鬥士",
+          "home": "歐力士猛牛",
+          "intervalSeconds": 70.457,
+          "changes": {
+            "homePitcher": "エスピノーザ",
+            "pitchCount": [44, 48],
+            "outsRecorded": [11, 12]
+          }
+        }
+      ],
+      "battingRows": 54,
+      "pitchingRows": 6,
+      "zeroNameBattingRows": 0,
+      "lineupRows": 0
+    },
+    "KBO": {
+      "games": 3,
+      "state": "pregame",
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "currentRunLiveChangesVerified": false
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "pregame",
+      "pregame": 3,
+      "live": 0,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "currentRunLiveChangesVerified": false,
+      "pitchCountPolicy": "null unless source supplies and field is verified",
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-09-26T05:50:15.435Z",
+    "inserted": 11,
+    "readBack": 11,
+    "duplicateInserts": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "deploymentPerformed": false
+}
