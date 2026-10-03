@@ -1,6 +1,6 @@
 # Missing football player research, 2026-10-04
 
-All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the fifth pass is 4,252 of 4,294 players; 42 still lack a verified transparent photograph.
+All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the sixth pass is 4,259 of 4,294 players; 35 still lack a verified transparent photograph.
 
 `football-missing-player-research.json` records each player's search sources, accepted field provenance, original photo URL and byte hash, and unresolved identity conflicts. Search results are leads, not automatically verified facts. The first pass rejected apparently usable portraits belonging to different players (Joao Victor, Matús Minka, Pedrinho). The fifth pass resolves Minka using his correct individual official profile and matching birthday; the earlier mismatched candidates remain rejected. Other conflicting roster records remain unresolved rather than silently reassigned.
 
@@ -61,3 +61,13 @@ The correct Slovan Matus Minka profile explicitly lists 25 April 2004, exactly m
 Coverage is 4,252 / 4,294; 42 remain unresolved. Monza supplies only a club crest for Aleksandr Ballabio, Troyes U19 uses a generic avatar for Lassana Simakha, and the Auxerre Salimou Danfakha profile has no portrait. None was counted as completed. All accepted local WebP assets retain alpha and remain pinned to exact hashes.
 
 Added players: Víctor Mullerat Tomas (3139134), Manel Usedo Domingo (3129042), Rodrigo Gamón Martín (3124770), Nizar El Jmili Ben Hamou (3101324), Matús Minka (405608), Rayan Bang Na (414467), Aymen Assab (3124793), Henrick Do Marcolino (398977), Idrissa Soukouna (3131916), Yacouba Kone (3129214), Yvan Zaddy (414184), Lamfia Dioubaté (416458).
+
+## Sixth pass: Norwegian announcements and individual profiles, 2026-10-04
+
+Added seven verified portraits: Milton Kald, Anders Fiskum Larsen, Jonathan Roksund Debes, Christopher Salvesen-Svenning, Kelvin Frimpong, Ari Petersen and Marcelo Vaz. Genoa supplies an original transparent portrait for Vaz. The other six are background extractions from individually named real photographs, with the original appearance compared visually on a dark background. Full-frame Frimpong and Salvesen-Svenning images avoid head clipping in their social previews. Signing officials and handshakes are excluded.
+
+Ari Petersen uses the KI-credited November 2023 signing photograph published by Roysni, when he was 20. The current IBV announcement corroborates his club history, and UEFA press-kit search results give the catalog birthday, 7 December 2002. All other accepted catalog birthdays are blank and remain unchanged. No roster identities, birthdays, live statistics or runtime photo logic were edited.
+
+Coverage is 4,259 / 4,294; 35 remain unresolved. TFF, FSGC and La Preferente placeholders are rejected. The checked Sabah rosters do not identify Muxtarov, the Bugli profile lacks a usable portrait, the Teo Ingilae group photograph remains ambiguous, and the inaccessible FPF Da Silva profile is not counted as verified. Original and served-asset SHA-256 hashes remain recorded separately.
+
+Added players: Milton Käld (3133981), Anders Fiskum Larsen (3139066), Jonathan Røksund Debes (3139067), Christopher Salvesen-Svenning (3139068), Kelvin Frimpong (420707), Ari Petersen (363365), Marcelo Vaz (3098553).
