@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 87,
+  "addedTransparentPhotos": 88,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -4341,13 +4341,32 @@
         "https://www.uefa.com/uefachampionsleague/clubs/players/250222608--robert-tomanek/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://en.skslovan.com/players/A-Robert_Tomanek"
         ],
         "result": "Official portrait has no transparent pixels (opaque PNG)."
+      },
+      "individualReview": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Slovan Bratislava individual defender profile identifies Robert Tomanek, matching the full roster name (accent-normalized) and club. Official page gives birthday 2006-06-22; catalog birthday is absent and was not changed. The named portrait in this individual profile was visually reviewed before and after background removal.",
+        "processing": "ImageGen background removal, followed by 600x900 lossless WebP web asset encoding. Only this player was processed in this update.",
+        "originalSha256": "4d5ede5239a467e215359d76705998469625f57d913f121cc0e11926f4ce88a2",
+        "transparentFraction": 0.331274
+      },
+      "photo": {
+        "source": "https://en.skslovan.com/players/A-Robert_Tomanek",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-300/891.png?202607281137",
+        "sha256": "2653efd969eadae1964397783ffad30f90c5ba21e7fd70341d19c05bc52c0e4e",
+        "width": 600,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=3107812",
+        "localPath": "/images/players/football/3107812-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Slovan Bratislava individual defender profile identifies Robert Tomanek, matching the full roster name (accent-normalized) and club. Official page gives birthday 2006-06-22; catalog birthday is absent and was not changed. The named portrait in this individual profile was visually reviewed before and after background removal."
       }
     },
     {
@@ -5532,6 +5551,12 @@
       "verifiedAt": "2026-10-04",
       "id": "408480",
       "name": "Dávid Balog",
+      "addedTransparentPhotos": 1
+    },
+    {
+      "verifiedAt": "2026-10-04",
+      "id": "3107812",
+      "name": "Róbert Tománek",
       "addedTransparentPhotos": 1
     }
   ]
