@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-03T12:19:16.245673Z",
+  "dateAsiaTaipei": "2026-10-03",
+  "purpose": "current feed validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "rerunJobId": 108552526980,
+    "rerunAttempted": true,
+    "rerunAccepted": false,
+    "rerunBlockedByConnectorSafetyChecks": true,
+    "jobsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactRejected": {
+      "artifactId": 10923208463,
+      "createdAt": "2026-09-27T04:44:22Z",
+      "reason": "artifact creation date does not match 2026-10-03"
+    },
+    "collectorFallback": true
+  },
+  "NPB": {
+    "games": 5,
+    "state": "mixed_live_final",
+    "live": 1,
+    "final": 4,
+    "pregame": 0,
+    "sameDayLiveVerified": true,
+    "proof": {
+      "source": "npb.jp direct game pages",
+      "beforeCaptureCompletedAt": "2026-10-03T12:17:19.765858Z",
+      "afterCaptureStartedNoEarlierThan": "2026-10-03T12:19:03.800935Z",
+      "conservativeIntervalSeconds": 104.035,
+      "game": "歐力士-樂天",
+      "before": {
+        "status": "live",
+        "inning": 9,
+        "half": "top",
+        "awayScore": 0,
+        "homeScore": 6
+      },
+      "after": {
+        "status": "final",
+        "inning": null,
+        "half": null,
+        "awayScore": 0,
+        "homeScore": 6
+      },
+      "materialChange": "game progressed from live 9th top to final after >=65 seconds"
+    },
+    "current": [
+      {
+        "away": "DeNA",
+        "home": "巨人",
+        "awayScore": 5,
+        "homeScore": 2,
+        "status": "live",
+        "inning": 9,
+        "half": "top"
+      },
+      {
+        "away": "中日",
+        "home": "養樂多",
+        "awayScore": 3,
+        "homeScore": 1,
+        "status": "final",
+        "inning": null,
+        "half": null
+      },
+      {
+        "away": "阪神",
+        "home": "廣島",
+        "awayScore": 4,
+        "homeScore": 6,
+        "status": "final",
+        "inning": null,
+        "half": null
+      },
+      {
+        "away": "歐力士",
+        "home": "樂天",
+        "awayScore": 0,
+        "homeScore": 6,
+        "status": "final",
+        "inning": null,
+        "half": null
+      },
+      {
+        "away": "軟銀",
+        "home": "羅德",
+        "awayScore": 1,
+        "homeScore": 2,
+        "status": "final",
+        "inning": null,
+        "half": null
+      }
+    ],
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "note": "B/S/O, bases and pitch counts were not promoted into normalized fields from fallback sources.",
+    "sources": [
+      "https://npb.jp/scores/2026/1003/g-db-25/",
+      "https://npb.jp/scores/2026/1003/s-d-25/",
+      "https://npb.jp/games/2026/schedule_07_detail.html",
+      "https://npb.jp/scores/2026/1003/e-b-25/",
+      "https://npb.jp/scores/2026/1003/m-h-25/"
+    ]
+  },
+  "KBO": {
+    "games": 5,
+    "state": "final",
+    "live": 0,
+    "final": 5,
+    "pregame": 0,
+    "excludedNonFirstTeamGames": 3,
+    "sameDayLiveVerified": true,
+    "verificationRetainedFromEarlierSameDay": true,
+    "current": [
+      {
+        "gameId": "20261003HTLG02026",
+        "away": "KIA",
+        "home": "LG",
+        "awayScore": 5,
+        "homeScore": 4,
+        "status": "final"
+      },
+      {
+        "gameId": "20261003LTKT02026",
+        "away": "樂天",
+        "home": "KT",
+        "awayScore": 0,
+        "homeScore": 5,
+        "status": "final"
+      },
+      {
+        "gameId": "20261003OBSS02026",
+        "away": "斗山",
+        "home": "三星",
+        "awayScore": 4,
+        "homeScore": 6,
+        "status": "final"
+      },
+      {
+        "gameId": "20261003SKNC02026",
+        "away": "SSG",
+        "home": "NC",
+        "awayScore": 1,
+        "homeScore": 13,
+        "status": "final"
+      },
+      {
+        "gameId": "20261003WOHH02026",
+        "away": "培證",
+        "home": "韓華",
+        "awayScore": 7,
+        "homeScore": 2,
+        "status": "final"
+      }
+    ],
+    "source": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-03&toDate=2026-10-03&page=1&pageSize=100"
+  },
+  "CPBL": {
+    "games": 3,
+    "state": "final",
+    "live": 0,
+    "final": 3,
+    "pregame": 0,
+    "sameDayLiveVerified": true,
+    "verificationRetainedFromEarlierSameDay": true,
+    "current": [
+      {
+        "away": "台鋼",
+        "home": "樂天",
+        "awayScore": 5,
+        "homeScore": 7,
+        "status": "final"
+      },
+      {
+        "away": "中信兄弟",
+        "home": "富邦",
+        "awayScore": 3,
+        "homeScore": 0,
+        "status": "final"
+      },
+      {
+        "away": "味全",
+        "home": "統一",
+        "awayScore": 3,
+        "homeScore": 5,
+        "status": "final"
+      }
+    ],
+    "pitchCount": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "lineupConfirmation": "not_officially_verified",
+    "source": "https://www.playsport.cc/livescore/6"
+  }
+}
