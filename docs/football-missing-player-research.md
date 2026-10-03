@@ -25,3 +25,9 @@ Added only player 408480 in this update, following the request to process photos
 The edit prompt requested removal of only the white background, preservation of facial features, hair, clothing, logos, pose and original 2:3 crop, and no retouching or added elements. The generated PNG was encoded as a 600 × 900 lossless WebP for the website.
 
 Cumulative reviewed additions: 87; coverage: 4,200 of 4,294 players; 94 remain unresolved. No roster membership, birthdays, statistics or prediction formulas changed.
+
+## Individual update: Róbert Tománek, 2026-10-04
+
+Added only player 3107812 after the preceding Balog update was live on both sites. The official Slovan defender profile and its named portrait match his full name and club. The official birthday is 2006-06-22; the catalog had no birthday, and no player data was changed. The original white-background portrait was processed with ImageGen and visually checked against the original and a dark backdrop. The prompt requested background removal only, preserving the existing face, expression, hair, shirt details, logos, pose and original 2:3 crop.
+
+The transparent 600 × 900 lossless WebP is stored at `public/images/players/football/3107812-cutout.webp` and uses the existing exact-hash local photo service. Source attribution, original SHA-256 and derivative SHA-256 are recorded separately. Cumulative reviewed additions: 88; coverage: 4,201 of 4,294 players; 93 remain unresolved.

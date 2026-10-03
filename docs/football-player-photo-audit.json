@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4200,
+  "verifiedTransparentPhotos": 4201,
   "teams": [
     {
       "id": "349",
@@ -656,7 +656,7 @@
       "id": "521",
       "name": "Slovan Bratislava",
       "total": 37,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "2250",
@@ -1495,14 +1495,6 @@
     {
       "id": "405608",
       "name": "Matús Minka",
-      "teams": [
-        "521"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3107812",
-      "name": "Róbert Tománek",
       "teams": [
         "521"
       ],
