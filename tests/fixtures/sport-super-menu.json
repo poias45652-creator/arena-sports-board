@@ -1,0 +1,202 @@
+{
+  "code": 200,
+  "data": {
+    "list": [
+      {
+        "LeftMenu": {
+          "item": [
+            {
+              "count": 2,
+              "catName": "2026亞運",
+              "catid": 888888,
+              "Items": [
+                {
+                  "count": 2,
+                  "WagerTypeName": "全部",
+                  "WagerTypeKey": 888888,
+                  "PageModle": false
+                },
+                {
+                  "count": 1,
+                  "WagerTypeName": "足球",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                },
+                {
+                  "count": 1,
+                  "WagerTypeName": "排球",
+                  "WagerTypeKey": 23,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 229,
+              "catName": "足球",
+              "catid": 1,
+              "Items": [
+                {
+                  "count": 202,
+                  "WagerTypeName": "全場/上半",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                },
+                {
+                  "count": 23,
+                  "WagerTypeName": "角球",
+                  "WagerTypeKey": 2,
+                  "PageModle": false
+                },
+                {
+                  "count": 4,
+                  "WagerTypeName": "罰牌",
+                  "WagerTypeKey": 201,
+                  "PageModle": false
+                },
+                {
+                  "count": 169,
+                  "WagerTypeName": "波膽",
+                  "WagerTypeKey": 3,
+                  "PageModle": false
+                },
+                {
+                  "count": 199,
+                  "WagerTypeName": "半全場",
+                  "WagerTypeKey": 5,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 1,
+              "catName": "猜冠軍",
+              "catid": 86,
+              "Items": []
+            },
+            {
+              "count": 89,
+              "catName": "籃球",
+              "catid": 102,
+              "Items": [
+                {
+                  "count": 89,
+                  "WagerTypeName": "全場/上半",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 25,
+              "catName": "棒球",
+              "catid": 101,
+              "Items": [
+                {
+                  "count": 11,
+                  "WagerTypeName": "全場/上半",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                },
+                {
+                  "count": 7,
+                  "WagerTypeName": "1~3局",
+                  "WagerTypeKey": 2,
+                  "PageModle": false
+                },
+                {
+                  "count": 7,
+                  "WagerTypeName": "1~7局",
+                  "WagerTypeKey": 3,
+                  "PageModle": false
+                },
+                {
+                  "count": 4,
+                  "WagerTypeName": "首尾分",
+                  "WagerTypeKey": 4,
+                  "PageModle": false
+                },
+                {
+                  "count": 16,
+                  "WagerTypeName": "單隊總得分",
+                  "WagerTypeKey": 5,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 6,
+              "catName": "網球",
+              "catid": 55,
+              "Items": [
+                {
+                  "count": 3,
+                  "WagerTypeName": "局數/盤數",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                },
+                {
+                  "count": 3,
+                  "WagerTypeName": "單盤",
+                  "WagerTypeKey": 2,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 32,
+              "catName": "冰球",
+              "catid": 82,
+              "Items": [
+                {
+                  "count": 24,
+                  "WagerTypeName": "全場/上半",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                },
+                {
+                  "count": 8,
+                  "WagerTypeName": "單節",
+                  "WagerTypeKey": 2,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 1,
+              "catName": "排球",
+              "catid": 23,
+              "Items": [
+                {
+                  "count": 1,
+                  "WagerTypeName": "局數/總分",
+                  "WagerTypeKey": 1,
+                  "PageModle": false
+                }
+              ]
+            },
+            {
+              "count": 12,
+              "catName": "彩球",
+              "catid": 83,
+              "Items": []
+            },
+            {
+              "count": 35,
+              "catName": "賽馬賽狗",
+              "catid": 72,
+              "Items": []
+            },
+            {
+              "count": 14,
+              "catName": "美足",
+              "catid": 5,
+              "Items": []
+            }
+          ],
+          "total": 446
+        },
+        "GameType": 3
+      }
+    ]
+  }
+}

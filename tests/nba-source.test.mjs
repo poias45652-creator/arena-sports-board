@@ -17,9 +17,9 @@ async function setup(run,override){
 }
 test('schedule spans source days, returns Taiwan day and avoids duplicate fixtures',async()=>setup(async s=>{const b=await s.nbaSchedule('2026-10-09');assert.equal(b.games.length,6);assert.ok(b.games.every(g=>new RealDate(new RealDate(g.start).getTime()+8*3600000).toISOString().startsWith('2026-10-09')));assert.equal(b.source,'ESPN');}));
 test('offseason next-date search reads next-season calendar and resolves the actual Taiwan date',async()=>setup(async(s,paths)=>{assert.deepEqual(await s.nextNbaDay('2026-09-29'),{day:'2026-10-09'});assert.ok(paths.some(p=>p.includes('dates=20261029')));}));
-test('analysis requests regular and postseason in both years; cache shares public requests',async()=>setup(async(s,paths)=>{
- const result=await s.nbaGameAnalysis('2026-10-09','401898392');assert.equal(result.analysis.status,'ready');assert.equal(result.game.home.id,'5');const count=paths.length;
- await s.nbaGameAnalysis('2026-10-09','401898392');assert.equal(paths.length,count);
+test('analysis requests both seasons and withholds predictions without current official player evidence',async()=>setup(async(s,paths)=>{
+ const result=await s.nbaGameAnalysis('2026-10-09','401898392');assert.equal(result.analysis.status,'waiting');assert.equal(result.analysis.playerContext.status,'unavailable');assert.equal(result.analysis.probabilities,undefined);assert.equal(result.game.home.id,'5');const count=paths.filter(p=>p.includes('/schedule?')||p.includes('/summary?')).length;
+ await s.nbaGameAnalysis('2026-10-09','401898392');assert.equal(paths.filter(p=>p.includes('/schedule?')||p.includes('/summary?')).length,count);
  for(const t of ['2','5'])for(const y of [2026,2027])for(const p of [2,3])assert.ok(paths.some(x=>x.includes(`/teams/${t}/schedule?season=${y}&seasontype=${p}`)));
  assert.equal(await s.nbaGameAnalysis('2026-10-09','999999'),null);
 }));

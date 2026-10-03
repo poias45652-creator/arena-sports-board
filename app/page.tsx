@@ -69,10 +69,9 @@ export default function Home(){
 
 
   async function updateAll(){
-    if(league==='FOOTBALL'||league==='NBA'||league==='WNBA'){window.dispatchEvent(new Event('arena-refresh-all'));setUpdateNotice(`正在更新${league==='FOOTBALL'?'足球':league}賽程與分析。`);return;}
     if(updateLock.current)return;updateLock.current=true;setUpdatingAll(true);setUpdateNotice('正在更新資料並連接 SUPER…');
-    const stats=Promise.allSettled([refresh(),refreshScores()]);
-    try{const r=await fetch('/api/hr9988',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(55000)});const d=await r.json();
+    const stats=(league==='MLB'||league==='NPB')?Promise.allSettled([refresh(),refreshScores()]):Promise.resolve([]);
+    try{const r=await fetch('/api/hr9988',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(75000)});const d=await r.json();
       if(r.status===401||['tz_auth_expired','binding_required','signin_required'].includes(d.code)){window.location.assign('/login?reason=tz-expired');return;}
       setUpdateNotice(r.ok?'已重新連接 SUPER；各頁資料更新中。':d.error||'SUPER 連線失敗，其他資料仍會更新。');
     }catch{setUpdateNotice('SUPER 連線逾時或失敗，請再按立即更新重試。');}

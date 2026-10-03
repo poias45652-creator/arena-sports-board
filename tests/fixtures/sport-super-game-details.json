@@ -1,0 +1,254 @@
+{
+  "code": 200,
+  "data": [
+    {
+      "CatID": 102,
+      "CatName": "籃球",
+      "Items": {
+        "List": [
+          {
+            "LeagueNameStr": "NBA 美國職業籃球-熱身賽",
+            "Team": [
+              {
+                "EvtID": 25058146,
+                "HomeTeamStr": "多倫多暴龍(主)",
+                "AwayTeamStr": "邁阿密熱火",
+                "ScheduleTimeStr": "2026/10/04 07:00:00",
+                "EvtStatus": 1,
+                "Live": false,
+                "Wager": [
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 103,
+                    "Odds": [
+                      {
+                        "GameID": 27410016,
+                        "HdpPos": 2,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "",
+                        "AwayHdp": "1-25",
+                        "HomeHdpOdds": "0.950",
+                        "AwayHdpOdds": "0.950"
+                      },
+                      {
+                        "GameID": 27430857,
+                        "HdpPos": 2,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "",
+                        "AwayHdp": "1",
+                        "HomeHdpOdds": "0.900",
+                        "AwayHdpOdds": "0.884"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 104,
+                    "Odds": [
+                      {
+                        "GameID": 27410017,
+                        "HdpPos": 0,
+                        "OULine": "228.5",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.940",
+                        "UnderOdds": "0.940"
+                      },
+                      {
+                        "GameID": 27430856,
+                        "HdpPos": 0,
+                        "OULine": "228.5",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.869",
+                        "UnderOdds": "0.952"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 111,
+                    "Odds": [
+                      {
+                        "GameID": 27410018,
+                        "HdpPos": 0,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeOdds": "0.933",
+                        "AwayOdds": "0.876"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "CatID": 1,
+      "CatName": "足球",
+      "Items": {
+        "List": [
+          {
+            "LeagueNameStr": "歐洲國家聯賽A",
+            "Team": [
+              {
+                "EvtID": 25057112,
+                "HomeTeamStr": "法國(主)",
+                "AwayTeamStr": "意大利",
+                "ScheduleTimeStr": "2026/10/03 02:45:00",
+                "EvtStatus": 1,
+                "Live": false,
+                "Wager": [
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 101,
+                    "Odds": [
+                      {
+                        "GameID": 27403029,
+                        "HdpPos": 1,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "1/1.5",
+                        "AwayHdp": "",
+                        "HomeHdpOdds": "0.950",
+                        "AwayHdpOdds": "0.954"
+                      },
+                      {
+                        "GameID": 27403207,
+                        "HdpPos": 1,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "1",
+                        "AwayHdp": "",
+                        "HomeHdpOdds": "0.689",
+                        "AwayHdpOdds": "1.270"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 102,
+                    "Odds": [
+                      {
+                        "GameID": 27403030,
+                        "HdpPos": 0,
+                        "OULine": "3",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.800",
+                        "UnderOdds": "1.110"
+                      },
+                      {
+                        "GameID": 27403212,
+                        "HdpPos": 0,
+                        "OULine": "2.5/3",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.617",
+                        "UnderOdds": "1.380"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 10,
+                    "WagerTypeID": 110,
+                    "Odds": [
+                      {
+                        "GameID": 27403031,
+                        "HdpPos": 0,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeOdds": "0.432",
+                        "AwayOdds": "5.724",
+                        "DrewOdds": "3.922"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 11,
+                    "WagerTypeID": 101,
+                    "Odds": [
+                      {
+                        "GameID": 27403032,
+                        "HdpPos": 1,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "0.5",
+                        "AwayHdp": "",
+                        "HomeHdpOdds": "0.909",
+                        "AwayHdpOdds": "0.961"
+                      },
+                      {
+                        "GameID": 27403215,
+                        "HdpPos": 1,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeHdp": "0/0.5",
+                        "AwayHdp": "",
+                        "HomeHdpOdds": "0.564",
+                        "AwayHdpOdds": "1.470"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 11,
+                    "WagerTypeID": 102,
+                    "Odds": [
+                      {
+                        "GameID": 27403033,
+                        "HdpPos": 0,
+                        "OULine": "1/1.5",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.854",
+                        "UnderOdds": "0.980"
+                      },
+                      {
+                        "GameID": 27403216,
+                        "HdpPos": 0,
+                        "OULine": "1",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "OverOdds": "0.465",
+                        "UnderOdds": "1.700"
+                      }
+                    ]
+                  },
+                  {
+                    "WagerGrpID": 11,
+                    "WagerTypeID": 110,
+                    "Odds": [
+                      {
+                        "GameID": 27403034,
+                        "HdpPos": 0,
+                        "OULine": "",
+                        "EvtType": 0,
+                        "Status": 1,
+                        "HomeOdds": "0.898",
+                        "AwayOdds": "5.182",
+                        "DrewOdds": "1.766"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -8,7 +8,7 @@ export function useSource<T>(kind:string,interval:number){
   if(busy.current&&!force)return;
   if(force)controller.current?.abort();
   const version=++generation.current;busy.current=true;setLoading(true);const c=new AbortController();controller.current=c;
-  const timer=setTimeout(()=>c.abort(),35000);
+  const timer=setTimeout(()=>c.abort(),kind.startsWith('member-odds')?75000:35000);
   try{
    let j;
    if(kind.startsWith('member-odds'))j=scopeMemberOdds(await readMemberOdds(),new URLSearchParams(kind.split('&').slice(1).join('&')).get('league'));

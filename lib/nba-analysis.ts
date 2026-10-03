@@ -34,7 +34,7 @@ export function analyzeNba(game:NbaGame,history:NbaGame[],now=Date.now()):NbaAna
 export const nbaSourceStale=(at:string|undefined,now=Date.now(),maxAge=120000)=>!at||!Number.isFinite(Date.parse(at))||now-Date.parse(at)>maxAge||Date.parse(at)>now+5000;
 export function readyNbaAnalysis(game:NbaGame,report:NbaReport|undefined,now=Date.now(),unavailable=false,expectedWeights?:string):NbaAnalysis|null{
  const a=report?.analysis;
- if(a&&!((game.home.league==='WNBA'?['wnba-recent-results-v1','wnba-efficiency-monte-carlo-v2']:['nba-recent-results-v1','nba-efficiency-monte-carlo-v2']).includes(a.model)))return null;
+ if(a&&!((game.home.league==='WNBA'?['wnba-recent-results-v1','wnba-efficiency-monte-carlo-v2','wnba-player-opponent-v3']:['nba-recent-results-v1','nba-efficiency-monte-carlo-v2','nba-player-opponent-v3']).includes(a.model)))return null;
  if(expectedWeights&&(!a||!('weightsKey' in a)||a.weightsKey!==expectedWeights))return null;
  if(unavailable||!nbaEligible(game,now)||!report?.game||nbaFixtureKey(report.game)!==nbaFixtureKey(game)||!a||a.status!=='ready'||nbaSourceStale(a.capturedAt,now,10*60000)||nbaSourceStale(report.sourceFetchedAt,now,10*60000)||!a.expected||!a.probabilities)return null;
  const p=a.probabilities,e=a.expected;
@@ -43,6 +43,7 @@ export function readyNbaAnalysis(game:NbaGame,report:NbaReport|undefined,now=Dat
  return a;
 }
 export function nbaPick(game:NbaGame,a:NbaAnalysis){
+ if('playerContext' in a&&a.playerContext&&!a.playerContext.recommendationEligible)return null;
  const p=a.probabilities!;
  if(Math.abs(p.home-p.away)<.002)return null;
  const side=p.home>p.away?'home':'away';

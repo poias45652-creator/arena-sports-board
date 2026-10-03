@@ -6,7 +6,11 @@ import {footballFixtureKey,footballSourceStale,readyFootballAnalysis,type Footba
 import FootballTeamIdentity from './football-team';
 import FootballRecommendationsPane,{FootballAnalysisNumbers} from './football-recommendations';
 
-type Board={games:FootballGame[];fetchedAt:string;day:string;league:FootballLeague};
+import SportMarkets from './sport-markets';
+import {useSource} from './use-source';
+import './sport-markets.css';
+
+type Board={source?:string;analysisAvailable?:boolean;notice?:string;games:FootballGame[];fetchedAt:string;day:string;league:FootballLeague};
 type Report=FootballReport;
 const fixtureKey=footballFixtureKey;
 const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -16,6 +20,7 @@ async function request(url:string,signal:AbortSignal){
   const d=await r.json();if(!r.ok)throw Error(d.error||'資料更新失敗');return d;
 }
 export default function FootballBoard(){
+  const odds=useSource<any>('member-odds',60000);
   const [league,setLeague]=useState<FootballLeague>('eng.1'),[day,setDay]=useState(footballDay);
   const [board,setBoard]=useState<Board|null>(null),[reports,setReports]=useState<Record<string,Report>>({});
   const [error,setError]=useState(''),[loading,setLoading]=useState(true),[nextBusy,setNextBusy]=useState(false),[notice,setNotice]=useState('');
@@ -79,11 +84,11 @@ export default function FootballBoard(){
     <div className="football-filters" role="group" aria-label="足球賽事狀態">{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完場']].map(([value,label])=><button type="button" key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div>
     {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；分析暫停顯示。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}
     {loading&&!board?<div className="football-empty" role="status"><RefreshCw className="animate-spin"/><h3>正在取得{selected.name}賽程</h3><p>賽程載入後會自動計算可分析的比賽。</p></div>:board&&!games.length?<div className="football-empty"><CalendarDays size={30}/><h3>{board.games.length?'沒有符合篩選條件的比賽':`${day} 沒有${selected.name}賽事`}</h3><p>{board.games.length?'可切換至全部查看當日賽程。':'可查看下一個比賽日，或自行選擇日期。'}</p>{!board.games.length&&<button type="button" className="football-primary" disabled={nextBusy} onClick={()=>void nextMatch()}>{nextBusy?'正在查詢…':'下一個比賽日'}<ArrowRight size={16}/></button>}{notice&&<p role="status">{notice}</p>}</div>:null}
-    <div className="football-games">{games.map(game=><FootballCard key={game.id} game={game} report={reports[game.id]} now={clock} unavailable={unavailable}/>)}</div>
-    <FootballRecommendationsPane games={games} reports={reports} league={league} leagueName={selected.name} day={day} now={clock} sourceFetchedAt={current?board.fetchedAt:undefined} unavailable={unavailable} loading={loading}/>
+    <div className="football-games">{games.map(game=><FootballCard snapshot={odds.data} oddsError={odds.error} key={game.id} game={game} report={reports[game.id]} now={clock} unavailable={unavailable}/>)}</div>
+    <FootballRecommendationsPane snapshot={odds.data} oddsError={odds.error} games={games} reports={reports} league={league} leagueName={selected.name} day={day} now={clock} sourceFetchedAt={current?board.fetchedAt:undefined} unavailable={unavailable} loading={loading}/>
   </section>;
 }
-function FootballCard({game,report,now,unavailable}:{game:FootballGame;report?:Report;now:number;unavailable:boolean}){
+function FootballCard({game,report,now,unavailable,snapshot,oddsError}:{snapshot:any;oddsError:string;game:FootballGame;report?:Report;now:number;unavailable:boolean}){
   const a=readyFootballAnalysis(game,report,now,unavailable);
   const eligible=game.state==='scheduled'&&game.timeConfirmed&&Date.parse(game.start)>now;
   return <article className="football-card">
@@ -94,5 +99,6 @@ function FootballCard({game,report,now,unavailable}:{game:FootballGame;report?:R
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
     </>:eligible&&!unavailable&&!report?<div className="football-loading" role="status" aria-label="分析載入中"><RefreshCw size={18} className="animate-spin"/></div>:null}
+    {eligible&&<SportMarkets game={game} analysis={a} snapshot={snapshot} error={oddsError} sport="FOOTBALL" now={now}/>}
   </article>;
 }

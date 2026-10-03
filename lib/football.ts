@@ -26,6 +26,7 @@ export type FootballAnalysis = {
   historyMode?:'competition'|'recent-form';
   external?:{sources:string[];fetchedAt:string;historyGames:number;conflicts:number;homeXgGames:number;awayXgGames:number;modelApplied:boolean;modelFamily?:'score-market';leagueGames?:number;reasons:string[]};
   xgEvidence?:import('./football-cup-xg-source').CupXgEvidence;
+  scoreDistribution?:{home:number;away:number;rho:number;scores:{home:number;away:number;probability:number}[]};
   expected?:{home:number;away:number};probabilities?:{home:number;draw:number;away:number;over25:number;under25:number;btts:number};
   scores?:{home:number;away:number;probability:number}[];lean?:string;notes:string[];
 };
@@ -108,7 +109,7 @@ export function footballDistribution(home:number,away:number,rho=0){
   let mass=0;for(let x=0;x<h.length;x++)for(let y=0;y<a.length;y++){const tau=x===0&&y===0?1-home*away*rho:x===0&&y===1?1+home*rho:x===1&&y===0?1+away*rho:x===1&&y===1?1-rho:1;const p=h[x]*a[y]*tau;scores.push({home:x,away:y,probability:p});mass+=p;}
   const probabilities={home:0,draw:0,away:0,over25:0,under25:0,btts:0};
   for(const s of scores){s.probability/=mass;probabilities[s.home>s.away?'home':s.home<s.away?'away':'draw']+=s.probability;probabilities[s.home+s.away>2?'over25':'under25']+=s.probability;if(s.home>0&&s.away>0)probabilities.btts+=s.probability;}
-  return {probabilities,scores:scores.sort((a,b)=>b.probability-a.probability).slice(0,3)};
+  return {probabilities,scoreDistribution:{home,away,rho,scores},scores:[...scores].sort((a,b)=>b.probability-a.probability).slice(0,3)};
 }
 export function analyzeFootball(game:FootballGame,history:FootballGame<string>[],now=Date.now(),recentHistory:FootballGame<string>[]=[]):FootballAnalysis{
   const calibration=selectFootballCalibration(game.league,now),national=isFootballNationalCompetition(game.league);let parameters=calibration.parameters;
@@ -156,4 +157,3 @@ export function analyzeFootball(game:FootballGame,history:FootballGame<string>[]
   const lean=best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望';
   return {...base,status:'ready',reason:'',historyMode,homeForm,awayForm,expected,...result,lean};
 }
-

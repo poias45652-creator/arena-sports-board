@@ -1,0 +1,28 @@
+.sport-markets{margin-top:18px;padding-top:14px;border-top:1px solid #b5a06245;font-size:.875rem;color:#e7e5dc}
+.sport-market-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sport-market-heading>span,.sport-market-heading small{color:#c9c4ad}
+.sport-market-heading>b{color:#e6c66c}
+.sport-market-block{padding:14px 0;border-bottom:1px solid #b5a06230}
+.sport-market-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin-top:10px}
+.sport-market-option{display:flex;flex-direction:column;min-width:0;padding:14px 12px;border:1px solid #9b9460;border-radius:2px;background:#111e16e8}
+.sport-market-option-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 12px;min-height:24px}
+.sport-market-team{display:flex;align-items:center;gap:8px;min-width:0;font-size:1rem;line-height:1.45;font-weight:700;color:#e7e5dc}
+.sport-market-team>span{overflow-wrap:anywhere}
+.sport-market-logo{flex-shrink:0;object-fit:contain;width:24px;height:24px}
+.sport-market-team em{flex-shrink:0;font-size:.875rem;font-style:normal;font-weight:700;color:#00db73}
+.sport-market-quote{margin-left:auto;font-size:1rem;line-height:1.45;font-weight:700;white-space:nowrap;color:#e7e5dc;font-variant-numeric:tabular-nums}
+.sport-market-outcomes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:auto 0 0;padding-top:18px;text-align:center}
+.sport-market-outcomes>div{min-width:0}
+.sport-market-outcomes dt{font-size:.875rem;line-height:1.5;white-space:nowrap}
+.sport-market-outcomes dd{margin:4px 0 0;font-size:1.125rem;line-height:1.35;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.sport-market-outcomes [data-tone=win]{color:#2de67d}
+.sport-market-outcomes [data-tone=loss]{color:#ff565e}
+.sport-market-push{display:flex;justify-content:center;align-items:baseline;gap:8px;margin-top:12px;padding-top:8px;border-top:1px solid #b5a06230;color:#c9c4ad;font-variant-numeric:tabular-nums}
+.sport-market-moneyline{grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))}
+.sport-market-win-rate{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:auto;padding-top:16px;color:#2de67d}
+.sport-market-win-rate b{font-size:1.25rem;font-variant-numeric:tabular-nums}
+.sport-markets p{margin:10px 0}
+.sport-market-pending{color:#c9c4ad}
+.sport-market-details{margin-top:18px}
+.sport-market-details>.sport-markets{margin:0;padding:14px;border-top:0}
+.sport-market-details>summary>span:last-child{font-size:.875rem;font-weight:400}
