@@ -1,8 +1,8 @@
 {
-  "verifiedAt": "2026-10-03",
+  "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4183,
+  "verifiedTransparentPhotos": 4199,
   "teams": [
     {
       "id": "349",
@@ -80,7 +80,7 @@
       "id": "357",
       "name": "Leeds United",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "364",
@@ -104,7 +104,7 @@
       "id": "361",
       "name": "Newcastle United",
       "total": 31,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "393",
@@ -152,7 +152,7 @@
       "id": "85",
       "name": "Celta Vigo",
       "total": 28,
-      "withPhoto": 27
+      "withPhoto": 28
     },
     {
       "id": "90",
@@ -188,13 +188,13 @@
       "id": "99",
       "name": "Málaga",
       "total": 32,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "97",
       "name": "Osasuna",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "87",
@@ -224,19 +224,19 @@
       "id": "89",
       "name": "Real Sociedad",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "243",
       "name": "Sevilla",
       "total": 31,
-      "withPhoto": 29
+      "withPhoto": 31
     },
     {
       "id": "94",
       "name": "Valencia",
       "total": 34,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "102",
@@ -248,7 +248,7 @@
       "id": "598",
       "name": "1. FC Union Berlin",
       "total": 32,
-      "withPhoto": 30
+      "withPhoto": 32
     },
     {
       "id": "131",
@@ -590,7 +590,7 @@
       "id": "2980",
       "name": "Bodo/Glimt",
       "total": 36,
-      "withPhoto": 28
+      "withPhoto": 32
     },
     {
       "id": "570",
@@ -650,7 +650,7 @@
       "id": "494",
       "name": "Slavia Prague",
       "total": 35,
-      "withPhoto": 34
+      "withPhoto": 35
     },
     {
       "id": "521",
@@ -1005,36 +1005,12 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "409924",
-      "name": "Callum Mills",
-      "teams": [
-        "357"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "414116",
-      "name": "Kyran Thompson",
-      "teams": [
-        "361"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "418769",
       "name": "Michael Mills",
       "teams": [
         "361"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3100794",
-      "name": "Enrique Ribes",
-      "teams": [
-        "85"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "3139134",
@@ -1069,22 +1045,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3110513",
-      "name": "Juani",
-      "teams": [
-        "99"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3129002",
-      "name": "Asier Bonel Aicua",
-      "teams": [
-        "97"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3100788",
       "name": "Hugo Pérez Sañudo",
       "teams": [
@@ -1109,30 +1069,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "410486",
-      "name": "Ibai Aguirre",
-      "teams": [
-        "89"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "371543",
-      "name": "Ibrahima Sow",
-      "teams": [
-        "243"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3131879",
-      "name": "Manuel Ángel Castillo Rodríguez",
-      "teams": [
-        "243"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "16340",
       "name": "Javier Guerra",
       "teams": [
@@ -1149,36 +1085,12 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "3124771",
-      "name": "Jaume Durá I Soler",
-      "teams": [
-        "94"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3101324",
       "name": "Nizar El Jmili Ben Hamou",
       "teams": [
         "102"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3131188",
-      "name": "Fritz Gagzow",
-      "teams": [
-        "598"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "413775",
-      "name": "Duje Sliskovic",
-      "teams": [
-        "598"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "403839",
@@ -1509,14 +1421,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3133979",
-      "name": "Tobias Solbakken",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3133984",
       "name": "Matias Bobo Høgsæt Jaiteh",
       "teams": [
@@ -1533,14 +1437,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3133951",
-      "name": "Levi Monsen Yeboah",
-      "teams": [
-        "2980"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3133980",
       "name": "Jesper Rabben Nygård",
       "teams": [
@@ -1555,22 +1451,6 @@
         "2980"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3133983",
-      "name": "Erling Eliassen",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3133982",
-      "name": "Jakob Strand",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "415122",
@@ -1611,14 +1491,6 @@
         "493"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "413840",
-      "name": "Miguel Solarte",
-      "teams": [
-        "494"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "408480",

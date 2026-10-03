@@ -1,6 +1,6 @@
-# Missing football player research, 2026-10-03
+# Missing football player research, 2026-10-04
 
-All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. This pass adds 70 reviewed transparent player photographs and fills missing country/height fields for 21 players. Coverage is now 4,183 of 4,294 players; 111 still lack a verified transparent photograph.
+All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage is 4,199 of 4,294 players; 95 still lack a verified transparent photograph.
 
 `football-missing-player-research.json` records each player's search sources, accepted field provenance, original photo URL and byte hash, and unresolved identity conflicts. Search results are leads, not automatically verified facts. Three apparently usable portraits were rejected because their dates of birth belonged to different players (Joao Victor, Matús Minka, Pedrinho). Other conflicting roster records remain unresolved rather than silently reassigned.
 
@@ -9,3 +9,11 @@ Original PNG/WebP sources and exact SHA-256 checksums are pinned in `data/footba
 `data/football-player-supplements.json` is a separate reviewed layer, so rebuilding the FotMob catalog cannot erase these findings. Roster parsing applies it only to the matching player ID/name and a compatible birthday, and only fills missing basic fields. Live statistics and competition-season data are never replaced by youth, career or another competition's statistics.
 
 To refresh an entry, recheck identity against its official profile, verify the original photo is a real transparent PNG/WebP, update the URL/hash and provenance together, then rerun `tests/football-player-photos.test.mjs`. Do not mark an unverified search result as completed.
+
+## Second pass, 2026-10-04
+
+Checked additional official pages for 51 unresolved players. Added 16 original transparent portraits after matching the player/club identity, inspecting the images on a dark background, and verifying actual PNG/WebP bytes and SHA-256. Cumulative additions: 86; coverage: 4,199 of 4,294 players; 95 remain unresolved. No roster membership, birthdays, statistics or prediction formulas were changed.
+
+Sources include official Leeds, Newcastle, Sevilla, Osasuna, Valencia, Slavia Prague, Real Sociedad, Union Berlin, Bodo/Glimt and Malaga pages, plus LALIGA. The existing authenticated, bounded photo service and exact content hashes remain in use. New reviewed hosts are explicitly listed; redirects and changed bytes remain rejected.
+
+Rejected examples are retained in the per-player secondPass records: Aymen Amaaouch is a shirt placeholder; Balog, Tomanek and Ouziad are opaque originals; the Jesper Rabben Nygard page points to a Johannes Linaker filename; Bouyer has a one-day birthday conflict and an oversized original. These are not counted as completed.
