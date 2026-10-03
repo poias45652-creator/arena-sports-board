@@ -12,6 +12,8 @@ import {
   type FootballVenue,
 } from "./football-team-profile";
 import { reconcileFootballHistory } from "./football-history";
+import supplements from "../data/football-player-supplements.json";
+import { normalizeFootballPhotoName } from "./football-photo-identity";
 
 export type FootballSeasonProfile = {
   league: FootballLeague;
@@ -251,14 +253,21 @@ export function parseFootballRoster(
       ),
       stat = (key: string) =>
         number(stats.find((s: any) => s.name === key)?.value);
+    const candidate = (supplements as Record<string, {
+      name: string; birthDate: string; country?: string; height?: string;
+    }>)[playerId];
+    const supplement = candidate &&
+      normalizeFootballPhotoName(candidate.name) === normalizeFootballPhotoName(name) &&
+      (!candidate.birthDate || !p.dateOfBirth || candidate.birthDate === String(p.dateOfBirth).slice(0, 10))
+      ? candidate : undefined;
     const photo = `/api/football-player-photo?player=${playerId}&league=${league}`;
     return {
       id: playerId,
       name,
       number: String(p.jersey || ""),
       position: String(p.position?.abbreviation || ""),
-      country: String(p.citizenship || ""),
-      height: String(p.displayHeight || ""),
+      country: String(p.citizenship || supplement?.country || ""),
+      height: String(p.displayHeight || supplement?.height || ""),
       photo,
       href: `https://www.espn.com/soccer/player/stats/_/id/${playerId}`,
       appearances: stat("appearances"),
