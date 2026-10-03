@@ -4,7 +4,7 @@ Updated 2026-10-03 for the YJ and Maya sites.
 
 The 54 NBA and 5 WNBA supplemental photos with opaque backgrounds now use local transparent PNG assets. The existing transparent Elena Buenavida photo remains at its verified source. This change covers basketball supplemental portraits, not the separate baseball photo catalog.
 
-NBA roster cards and player profiles share the same supplemental photo paths. Their error fallback now uses the league's transparent headshot rather than the original opaque supplemental photo. YJ's secondary WNBA roster source also reads the same verified photo catalog as the primary WNBA source. Identity checks continue to require both the league ID and normalized full name. Player data and statistical models are unchanged.
+NBA roster cards and player profiles share the same supplemental photo paths. Their error fallback now uses the league's transparent headshot rather than the original opaque supplemental photo. YJ's secondary WNBA roster source also reads the same verified photo catalog as the primary WNBA source. Identity checks continue to require both the league ID and normalized full name. Player data and statistical models are unchanged. Local cutouts use the built-in Next image optimizer at 256 or 640 pixels through responsive `srcSet`; the original transparent PNG is retained, and the responsive sources are cleared before an error fallback.
 
 Assets are stored at `public/images/players/{nba,wnba}/{playerId}-cutout.png`. Original photo attribution remains in `data/nba-player-supplements.json` and `data/wnba-official-photos.json`. `data/player-photo-cutouts.json` records the 59 output paths, SHA-256 hashes and measured transparent fractions so both deployments can be checked against the same files.
 
