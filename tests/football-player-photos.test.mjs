@@ -52,7 +52,8 @@ test('reviewed photo sources are complete, pinned, and exclude mismatched identi
  assert.equal(research.players.length,181);assert.equal(Object.keys(sources).length,research.addedTransparentPhotos);
  for(const p of research.players.filter(p=>p.photo)){assert.equal(sources[p.id].sha256,p.photo.sha256);assert.equal(sources[p.id].url,p.photo.originalUrl);assert.ok(!audit.missing.some(x=>x.id===p.id));}
  assert.equal(audit.verifiedTransparentPhotos,4113+Object.keys(sources).length);assert.equal(audit.missing.length,audit.uniquePlayers-audit.verifiedTransparentPhotos);
- for(const id of ['139008','405608','313078'])assert.ok(!sources[id]);
+ // Minka (405608) is now verified by his own Slovan profile and matching birthday.
+ for(const id of ['139008','313078'])assert.ok(!sources[id]);
 });
 test('reviewed PNG and WebP photos use exact bytes and MIME types; changed source images are rejected',async()=>{
  const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
