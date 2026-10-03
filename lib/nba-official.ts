@@ -29,7 +29,7 @@ export function parseOfficialPlayer(data:any,id:number){
  const validStats=s&&Number(s.PLAYER_ID)===id;
  const supplement=nbaPlayerSupplement(id,str(i.DISPLAY_FIRST_LAST));
  return {id,name:str(i.DISPLAY_FIRST_LAST),team:localTeam(Number(i.TEAM_ID)),position:bioText(i.POSITION)||supplement?.bio.position||'',number:str(i.JERSEY),height:bioText(i.HEIGHT)||supplement?.bio.height||'',weight:bioText(i.WEIGHT)||supplement?.bio.weight||'',birthDate:str(i.BIRTHDATE).slice(0,10),country:bioText(i.COUNTRY)||supplement?.bio.country||'',school:bioText(i.SCHOOL)||supplement?.bio.school||'',experience:num(i.SEASON_EXP),draft:{year:str(i.DRAFT_YEAR),round:str(i.DRAFT_ROUND),pick:str(i.DRAFT_NUMBER)},
-  photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`,photoFallback:supplement?.photo.sourceUrl,supplement,
+  photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`,photoFallback:supplement?.photo.path?`https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`:undefined,supplement,
   stats:{season:validStats?str(s.TimeFrame):'',points:validStats?num(s.PTS):null,rebounds:validStats?num(s.REB):null,assists:validStats?num(s.AST):null},
   games:logs.filter((g:any)=>g.GAME_STATUS===3).map((g:any)=>({id:str(g.Game_ID),season:str(g.SEASON_ID),date:str(g.GAME_DATE),matchup:str(g.MATCHUP),result:str(g.WL),minutes:num(g.MIN),points:num(g.PTS),rebounds:num(g.REB),assists:num(g.AST),steals:num(g.STL),blocks:num(g.BLK),turnovers:num(g.TOV),fieldGoals:num(g.FG_PCT),threes:num(g.FG3_PCT),freeThrows:num(g.FT_PCT),plusMinus:num(g.PLUS_MINUS)})),
   awards:Array.isArray(p.awards)?p.awards.map((a:any)=>({name:str(a.name),count:num(a.count)})):[],
@@ -91,7 +91,7 @@ export function enrichNbaRoster(roster:ReturnType<typeof person>[],teamId:number
   const row=matches.length===1?matches[0]:null;
   const clean=(v:unknown)=>typeof v==='string'&&v.trim()!=='-'?v.trim():'';
   const supplement=nbaPlayerSupplement(p.id,p.name);
-  return {...p,photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${p.id}.png`,photoFallback:supplement?.photo.sourceUrl,supplementalStats:supplement?.collegeStats??undefined,
+  return {...p,photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${p.id}.png`,photoFallback:supplement?.photo.path?`https://cdn.nba.com/headshots/nba/latest/1040x760/${p.id}.png`:undefined,supplementalStats:supplement?.collegeStats??undefined,
    height:clean(p.height)||clean(row?.HEIGHT)||supplement?.bio.height||'',weight:clean(p.weight)||clean(row?.WEIGHT)||supplement?.bio.weight||'',school:clean(p.school)||clean(row?.COLLEGE)||supplement?.bio.school||'',
    country:clean(row?.COUNTRY)||supplement?.bio.country||'',draftYear:row?.DRAFT_YEAR?String(row.DRAFT_YEAR):'',
    position:clean(p.position)||clean(row?.POSITION)||supplement?.bio.position||'',number:p.number||clean(row?.JERSEY_NUMBER)};

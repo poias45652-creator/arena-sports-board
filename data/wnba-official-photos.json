@@ -1,22 +1,22 @@
 {
   "1642811": {
-    "url": "https://cdn.wnba.com/sites/4/2025/03/Shyanne.png",
+    "url": "/images/players/wnba/1642811-cutout.png",
     "source": "https://www.wnba.com/draft/2025/prospects/shyanne-sellers",
     "name": "Shyanne Sellers"
   },
   "1642327": {
-    "url": "https://cdn.wnba.com/sites/4/2024/04/Villa.png",
+    "url": "/images/players/wnba/1642327-cutout.png",
     "source": "https://www.wnba.com/draft/2024/prospects/matilde-villa",
     "name": "Matilde Villa"
   },
   "1643454": {
-    "url": "https://cdn.wnba.com/sites/4/2026/04/Dunn.png",
+    "url": "/images/players/wnba/1643454-cutout.png",
     "source": "https://www.wnba.com/draft/2026/prospects/kara-dunn",
     "name": "Kara Dunn"
   },
   "1642835": {
     "name": "Morgan Maly",
-    "url": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fcreighton.sidearmsports.com%2Fimages%2F2024%2F10%2F3%2FMorgan_Maly_6c4MG.jpg&width=180&height=270&type=webp",
+    "url": "/images/players/wnba/1642835-cutout.png",
     "source": "https://gocreighton.com/sports/womens-basketball/roster/maly-morgan/8223"
   },
   "1643825": {
@@ -26,7 +26,7 @@
   },
   "1643832": {
     "name": "Aminata Gueye",
-    "url": "/images/players/wnba/1643832-ffbb-2025.jpg",
+    "url": "/images/players/wnba/1643832-cutout.png",
     "source": "https://api.ffbb.com/assets/0562cc35-1ff3-46eb-874b-8e15b9f1a1ea"
   }
 }

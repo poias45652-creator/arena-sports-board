@@ -1,4 +1,5 @@
 import snapshot from '../data/wnba-player-identities.json';
+import photos from '../data/wnba-official-photos.json';
 export type WnbaOfficialPlayer={id:number;name:string;slug:string;teamSlug:string;height:string;weight:string;school:string;country:string;draftYear:string;season:number;points:number|null;rebounds:number|null;assists:number|null};
 const clean=(v:unknown)=>typeof v==='string'&&!['-','N/A'].includes(v.trim())?v.trim():'';
 export const wnbaNameKey=(v:string)=>v.normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]/g,'');
@@ -32,5 +33,7 @@ export function enrichWnbaPlayer<T extends {id:number;name:string;height:string;
  // A saved mapping is only a fallback for stable identity/bio fields, never current stats or team assignment.
  if(validSaved&&p.id!==validSaved.id)return {...player,photoFallback:'',country:'',draftYear:'',averages:null};
  const sameSeason=matches.length===1&&p.season===season&&p.teamSlug===slugs[teamId];
- return {...player,officialId:p.id,photo:validSaved?.photoOverride||`https://cdn.wnba.com/headshots/wnba/latest/1040x760/${p.id}.png`,photoFallback:player.photo,href:`https://www.wnba.com/player/${p.id}/${p.slug}`,height:player.height||p.height,weight:player.weight||p.weight,school:player.school||p.school,country:p.country,draftYear:p.draftYear,averages:sameSeason&&[p.points,p.rebounds,p.assists].some(v=>v!==null)?{season,points:p.points,rebounds:p.rebounds,assists:p.assists}:null};
+ const photoRecord=(photos as Record<string,{url:string;name:string}>)[String(p.id)];
+ const photoOverride=photoRecord&&wnbaNameKey(photoRecord.name)===wnbaNameKey(player.name)?photoRecord:undefined;
+ return {...player,officialId:p.id,photo:photoOverride?.url||`https://cdn.wnba.com/headshots/wnba/latest/1040x760/${p.id}.png`,photoFallback:player.photo,href:`https://www.wnba.com/player/${p.id}/${p.slug}`,height:player.height||p.height,weight:player.weight||p.weight,school:player.school||p.school,country:p.country,draftYear:p.draftYear,averages:sameSeason&&[p.points,p.rebounds,p.assists].some(v=>v!==null)?{season,points:p.points,rebounds:p.rebounds,assists:p.assists}:null};
 }

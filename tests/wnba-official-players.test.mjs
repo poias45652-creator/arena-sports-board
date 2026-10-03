@@ -18,9 +18,10 @@ test('invalid directory rejects duplicate identities and unknown season-stat lab
 });
 test('audited fallback has real identity and bio only; it never invents live statistics',()=>{
  const snapshot=JSON.parse(readFileSync('data/wnba-player-identities.json','utf8'));
+ const photos=JSON.parse(readFileSync('data/wnba-official-photos.json','utf8'));
  for(const [id,p] of Object.entries(snapshot.players)){
   const out=m.enrichWnbaPlayer({...base,id:Number(id),name:p.name},'16',2026,[]);
-  assert.equal(out.officialId,p.id);assert.equal(out.averages,null);assert.match(out.photo,/cdn.wnba.com/);
+  assert.equal(out.officialId,p.id);assert.equal(out.averages,null);assert.equal(out.photo,photos[p.id]?.url||`https://cdn.wnba.com/headshots/wnba/latest/1040x760/${p.id}.png`);
  }
  const ui=readFileSync('app/nba-team-profile.tsx','utf8');assert.ok(ui.includes('p.photo||'));assert.ok(ui.includes('p.href||'));assert.ok(ui.includes('p.photoFallback'));
 });

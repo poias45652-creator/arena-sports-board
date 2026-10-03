@@ -21,7 +21,7 @@ test('verified profiles use explicit photo sources and separate sourced NCAA sea
  assert.ok(records.length>=4);assert.equal(new Set(records.map(r=>r.id)).size,records.length);
  for(const row of records){
   const p=official.parseOfficialPlayer(raw(row),row.id);
-  if(row.photo.path){assert.equal(p.photo,row.photo.path);if(p.photo.startsWith('/'))assert.ok(existsSync('public'+p.photo));else assert.match(p.photo,/^https:\/\//);}
+  if(row.photo.path){assert.equal(p.photo,row.photo.path);assert.match(p.photoFallback,/cdn.nba.com\/headshots\/nba/);if(p.photo.startsWith('/'))assert.ok(existsSync('public'+p.photo));else assert.match(p.photo,/^https:\/\//);}
   assert.deepEqual(p.stats,{season:'',points:null,rebounds:null,assists:null});
   assert.equal(p.games.length,0);if(p.supplement.collegeStats){const stats=p.supplement.collegeStats;assert.equal(stats.league,'NCAA');assert.match(stats.season,/^20\d\d–\d\d$/);assert.match(stats.sourceUrl,/^https:\/\//);for(const key of ['points','rebounds','assists'])assert.ok(stats[key]===null||stats[key]>=0&&stats[key]<=40);} 
  }
@@ -46,7 +46,7 @@ test('profile labels the NCAA fallback and keeps NBA averages when they become a
  const Summary=component('app/nba-player-profile.tsx','PlayerSummary'),row=records[1];
  const render=data=>renderToStaticMarkup(React.createElement(Summary,{data}));
  const p=official.parseOfficialPlayer(raw(row),row.id),html=render(p);
- assert.match(html,/NCAA · 2025–26 · Indiana/);assert.match(html,/13\.7/);assert.match(html,/images\/players\/nba\/1643620-draft-2026.jpg/);
+ assert.match(html,/NCAA · 2025–26 · Indiana/);assert.match(html,/13\.7/);assert.match(html,/images\/players\/nba\/1643620-cutout.png/);
  assert.match(html,/NBA 場均數據尚未公布/);
  const nba=render({...p,stats:{season:'2026-27',points:7.4,rebounds:2.1,assists:1.6}});
  assert.match(nba,/NBA · 2026-27/);assert.match(nba,/7\.4/);assert.doesNotMatch(nba,/NCAA|13\.7/);
