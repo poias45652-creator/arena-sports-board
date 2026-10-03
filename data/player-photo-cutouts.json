@@ -1,0 +1,480 @@
+{
+  "checkedAt": "2026-10-03",
+  "scope": "NBA and WNBA supplemental player portraits",
+  "method": "imagegen background-extraction with transparent_background=true",
+  "count": 59,
+  "players": [
+    {
+      "league": "nba",
+      "id": 1642870,
+      "name": "Milos Uzan",
+      "path": "/images/players/nba/1642870-cutout.png",
+      "transparentFraction": 0.474,
+      "sha256": "829b3e49bce30ef329117499ade6ea03e5af824e5517180f07371805cef2c8e1"
+    },
+    {
+      "league": "nba",
+      "id": 1643620,
+      "name": "Tucker DeVries",
+      "path": "/images/players/nba/1643620-cutout.png",
+      "transparentFraction": 0.4493,
+      "sha256": "2b2e88155641e156764477d66c056df1f6be45d7dd67a96f6012678c38d40068"
+    },
+    {
+      "league": "nba",
+      "id": 1643416,
+      "name": "Chris Cenac Jr.",
+      "path": "/images/players/nba/1643416-cutout.png",
+      "transparentFraction": 0.527,
+      "sha256": "38070f9fb2c56fcd3012326120e023e1f74050a3b1a3a70e3cf1b6944fdaf49e"
+    },
+    {
+      "league": "nba",
+      "id": 1641759,
+      "name": "Dillon Mitchell",
+      "path": "/images/players/nba/1641759-cutout.png",
+      "transparentFraction": 0.4719,
+      "sha256": "811ad60b5e7bb9f7a9e4f5aa440b654570e0e932060bb22c4829b89235164f9c"
+    },
+    {
+      "league": "nba",
+      "id": 1642284,
+      "name": "Alex Karaban",
+      "path": "/images/players/nba/1642284-cutout.png",
+      "transparentFraction": 0.5134,
+      "sha256": "741eb854e6d654dd90f84bbdb36d8b4d08a297b45792afa0196fb59e9e674601"
+    },
+    {
+      "league": "nba",
+      "id": 1643717,
+      "name": "Josh Dix",
+      "path": "/images/players/nba/1643717-cutout.png",
+      "transparentFraction": 0.5416,
+      "sha256": "1c26b1b9fcb2cd772dc3e799e6e146ac5474f1c19cdffaae15677527533bcfa9"
+    },
+    {
+      "league": "nba",
+      "id": 1643539,
+      "name": "Henri Veesaar",
+      "path": "/images/players/nba/1643539-cutout.png",
+      "transparentFraction": 0.4731,
+      "sha256": "fc3351e803c66413b8e01438286686eb97290f1eafb3acd9c4f28b9b112b2dd5"
+    },
+    {
+      "league": "nba",
+      "id": 1643567,
+      "name": "Emanuel Sharp",
+      "path": "/images/players/nba/1643567-cutout.png",
+      "transparentFraction": 0.4715,
+      "sha256": "299c6ae7552043dbd68c961c97de2833f64710a4016f12dcb35b969147542363"
+    },
+    {
+      "league": "nba",
+      "id": 1642369,
+      "name": "Michael Ajayi",
+      "path": "/images/players/nba/1642369-cutout.png",
+      "transparentFraction": 0.4282,
+      "sha256": "a934135b3a01adc8372c96cb6157b27fb7e5237f61e4f7aa2807618288dc9743"
+    },
+    {
+      "league": "nba",
+      "id": 1642923,
+      "name": "Otega Oweh",
+      "path": "/images/players/nba/1642923-cutout.png",
+      "transparentFraction": 0.5022,
+      "sha256": "1b1489dcfc41dc0379e46f185fb2478b124b7b2eefd062f1193f896dcd63cb43"
+    },
+    {
+      "league": "nba",
+      "id": 1643593,
+      "name": "Izaiyah Nelson",
+      "path": "/images/players/nba/1643593-cutout.png",
+      "transparentFraction": 0.4617,
+      "sha256": "902744c48d7052920ffdaeaa174cfa087591764f4c21159c05ee3fe5a40dab45"
+    },
+    {
+      "league": "nba",
+      "id": 1643415,
+      "name": "Brayden Burries",
+      "path": "/images/players/nba/1643415-cutout.png",
+      "transparentFraction": 0.412,
+      "sha256": "48ff28f6163ab423686f1ba4ff4970df632a0730c31a0b2b89f86fb687deceb6"
+    },
+    {
+      "league": "nba",
+      "id": 1643417,
+      "name": "Nate Ament",
+      "path": "/images/players/nba/1643417-cutout.png",
+      "transparentFraction": 0.5114,
+      "sha256": "9a1a4956caa85e4d80cedea1129ca7505ab46f4285cfd83eed29383e3c2216e9"
+    },
+    {
+      "league": "nba",
+      "id": 1643589,
+      "name": "Tyler Nickel",
+      "path": "/images/players/nba/1643589-cutout.png",
+      "transparentFraction": 0.5207,
+      "sha256": "f603028dc38504b13d8f48d6b04cbcc71a685559c178d75376a5e277a0dbd387"
+    },
+    {
+      "league": "nba",
+      "id": 1643637,
+      "name": "Jaylin Sellers",
+      "path": "/images/players/nba/1643637-cutout.png",
+      "transparentFraction": 0.3952,
+      "sha256": "a46cea4d2a3a41e235f9fe37f14a8aba72e65b1e0cc1a9b5b549bedb5a4c3307"
+    },
+    {
+      "league": "nba",
+      "id": 1643552,
+      "name": "Braden Smith",
+      "path": "/images/players/nba/1643552-cutout.png",
+      "transparentFraction": 0.51,
+      "sha256": "6a03385c6f5bd106e8c37bf81efd29f52b2037d6453d203c8e8c54b4db83708e"
+    },
+    {
+      "league": "nba",
+      "id": 1643411,
+      "name": "Darius Acuff Jr.",
+      "path": "/images/players/nba/1643411-cutout.png",
+      "transparentFraction": 0.4708,
+      "sha256": "0684382b769be4a96d11f77eb2c0cb6839ff40787259ee176bf22d52d9eb957a"
+    },
+    {
+      "league": "nba",
+      "id": 1643530,
+      "name": "Aday Mara",
+      "path": "/images/players/nba/1643530-cutout.png",
+      "transparentFraction": 0.4867,
+      "sha256": "211c17f8d9075fd4f2ba5926a2ff0922c736ddf6cfda591d54b11314aa8acb0e"
+    },
+    {
+      "league": "nba",
+      "id": 1643515,
+      "name": "Christian Anderson",
+      "path": "/images/players/nba/1643515-cutout.png",
+      "transparentFraction": 0.4671,
+      "sha256": "1395e51ecb4b656f36758971c4d7bd8cd5b5d8dc218a9caedaae40026adcf8e5"
+    },
+    {
+      "league": "nba",
+      "id": 1643573,
+      "name": "Kylan Boswell",
+      "path": "/images/players/nba/1643573-cutout.png",
+      "transparentFraction": 0.4297,
+      "sha256": "2718e629ccc095abe503b3d966ef5f186051008dc03fc2e738d414b11ee2c83c"
+    },
+    {
+      "league": "nba",
+      "id": 1643517,
+      "name": "Dailyn Swain",
+      "path": "/images/players/nba/1643517-cutout.png",
+      "transparentFraction": 0.4739,
+      "sha256": "1ccd1f48c31f92e94f86b915a52b0bb61bd2403733af9a757bc54acbeac8103f"
+    },
+    {
+      "league": "nba",
+      "id": 1643591,
+      "name": "Tobe Awaka",
+      "path": "/images/players/nba/1643591-cutout.png",
+      "transparentFraction": 0.5108,
+      "sha256": "65ad3c1ab7e0e92bc86a11018d139dc502a2bc7dcfe3d61e49a1911ee1ff1318"
+    },
+    {
+      "league": "nba",
+      "id": 1643410,
+      "name": "Caleb Wilson",
+      "path": "/images/players/nba/1643410-cutout.png",
+      "transparentFraction": 0.4645,
+      "sha256": "b0b4dcdc688fddbca71232cf12826a9fb3980fc464145fedf230fb8ed3836271"
+    },
+    {
+      "league": "nba",
+      "id": 1643520,
+      "name": "Koa Peat",
+      "path": "/images/players/nba/1643520-cutout.png",
+      "transparentFraction": 0.4256,
+      "sha256": "edaaa644c52b527d3619e0f688e0db240fe670afce3a22881f36185298702c07"
+    },
+    {
+      "league": "nba",
+      "id": 1642912,
+      "name": "Isaiah Evans",
+      "path": "/images/players/nba/1642912-cutout.png",
+      "transparentFraction": 0.4012,
+      "sha256": "13568ef09b55314de5c8cebf4d7e426ab014aeb9cb806f9f2e1f2ad73d25dc90"
+    },
+    {
+      "league": "nba",
+      "id": 1642892,
+      "name": "Bennett Stirtz",
+      "path": "/images/players/nba/1642892-cutout.png",
+      "transparentFraction": 0.4611,
+      "sha256": "7698c7b4cda7c0e31c5835ba0c709df29b0c5458093bb69d76827ceebec4e3b0"
+    },
+    {
+      "league": "nba",
+      "id": 1643419,
+      "name": "Hannes Steinbach",
+      "path": "/images/players/nba/1643419-cutout.png",
+      "transparentFraction": 0.53,
+      "sha256": "0f874717e1265a4eddc40db4265565c1d439d5d9685cb1463d715bf365ecee1a"
+    },
+    {
+      "league": "nba",
+      "id": 1643772,
+      "name": "Rashaun Agee",
+      "path": "/images/players/nba/1643772-cutout.png",
+      "transparentFraction": 0.4941,
+      "sha256": "c7a8d4bc824f6f268edaa3cc9075ac76160fca19e426afa22ce86641a2ebc3d1"
+    },
+    {
+      "league": "nba",
+      "id": 1643769,
+      "name": "Wyatt Fricks",
+      "path": "/images/players/nba/1643769-cutout.png",
+      "transparentFraction": 0.4037,
+      "sha256": "395333c992a54b4fd7307b764d2ab4202425935239492c5b08d5b3658e20379a"
+    },
+    {
+      "league": "nba",
+      "id": 1643808,
+      "name": "Andrew Holifield",
+      "path": "/images/players/nba/1643808-cutout.png",
+      "transparentFraction": 0.44,
+      "sha256": "20ce1fac559b344bdec62c315a54d7a417ab5174415d95a39b94809c625ac927"
+    },
+    {
+      "league": "nba",
+      "id": 1643754,
+      "name": "Christoph Tilly",
+      "path": "/images/players/nba/1643754-cutout.png",
+      "transparentFraction": 0.3389,
+      "sha256": "4c50d0c5cec02d5a2e80f0d3fd01a2c272b9b2fd7646b48dafee6442c226b7be"
+    },
+    {
+      "league": "nba",
+      "id": 1643022,
+      "name": "Jaden Akins",
+      "path": "/images/players/nba/1643022-cutout.png",
+      "transparentFraction": 0.3779,
+      "sha256": "ff40f4977f7bd829086de61775d0c80b6d919a461c17861ed01fcb0110e1770b"
+    },
+    {
+      "league": "nba",
+      "id": 1631474,
+      "name": "Terrell Brown Jr.",
+      "path": "/images/players/nba/1631474-cutout.png",
+      "transparentFraction": 0.3484,
+      "sha256": "c11dcd0637e3ba3f39daa22237d5e79e97ca521c0c3f68d4418d57c9a0f756b1"
+    },
+    {
+      "league": "nba",
+      "id": 1643723,
+      "name": "Cameron Corhen",
+      "path": "/images/players/nba/1643723-cutout.png",
+      "transparentFraction": 0.3054,
+      "sha256": "2a28365e917a3c34b877462e5bc8f9d45b60d19d6be39c616de3b2d7276427c7"
+    },
+    {
+      "league": "nba",
+      "id": 1643738,
+      "name": "Malik Dia",
+      "path": "/images/players/nba/1643738-cutout.png",
+      "transparentFraction": 0.3633,
+      "sha256": "1ef841a59c29d9706fac80b389a714b85e0b3fa2763621f81a89cc0c2ee32834"
+    },
+    {
+      "league": "nba",
+      "id": 1642398,
+      "name": "Sean East II",
+      "path": "/images/players/nba/1642398-cutout.png",
+      "transparentFraction": 0.2833,
+      "sha256": "05fa1c0622f3476df5a46358191c9878cb96a66b8e26de62aba7e973a24439de"
+    },
+    {
+      "league": "nba",
+      "id": 1643750,
+      "name": "Ben Humrichous",
+      "path": "/images/players/nba/1643750-cutout.png",
+      "transparentFraction": 0.4118,
+      "sha256": "ec20b4e84ab262569fa7002427ed0b85e72867928f6158c16d95f11c74d082b3"
+    },
+    {
+      "league": "nba",
+      "id": 1642937,
+      "name": "Kobe Johnson",
+      "path": "/images/players/nba/1642937-cutout.png",
+      "transparentFraction": 0.4512,
+      "sha256": "f70c158d073e8ba29100f4e190c28231aad58aba5be26ccee3c709dcc6f351eb"
+    },
+    {
+      "league": "nba",
+      "id": 1643627,
+      "name": "Keba Keita",
+      "path": "/images/players/nba/1643627-cutout.png",
+      "transparentFraction": 0.3507,
+      "sha256": "1f24270c56aae99d17574cb9124ead621952880dfed7ccd46b6cdd5308acb27f"
+    },
+    {
+      "league": "nba",
+      "id": 1643257,
+      "name": "Jayson Kent",
+      "path": "/images/players/nba/1643257-cutout.png",
+      "transparentFraction": 0.3351,
+      "sha256": "003f284bf2d012131b1967a8f4aba44689a9fc830eedab775d32eea26ad6f7ab"
+    },
+    {
+      "league": "nba",
+      "id": 1642940,
+      "name": "Viktor Lakhin",
+      "path": "/images/players/nba/1642940-cutout.png",
+      "transparentFraction": 0.3748,
+      "sha256": "57071609cb3fd589e2bddb89256b0bd73aedbd6317d9e4dfd675ac386ffa0a55"
+    },
+    {
+      "league": "nba",
+      "id": 1643792,
+      "name": "Rienk Mast",
+      "path": "/images/players/nba/1643792-cutout.png",
+      "transparentFraction": 0.4893,
+      "sha256": "e228838f619becf3080412d29e29a59f165e578d6545b4568feeb5e5402d5a6a"
+    },
+    {
+      "league": "nba",
+      "id": 1643597,
+      "name": "Robert McCray V",
+      "path": "/images/players/nba/1643597-cutout.png",
+      "transparentFraction": 0.3112,
+      "sha256": "a3dad36fbe240b1e835df4c28fdec6679f91044cc16b16705c93f2bdbe1e749b"
+    },
+    {
+      "league": "nba",
+      "id": 1643724,
+      "name": "Isaac McKneely",
+      "path": "/images/players/nba/1643724-cutout.png",
+      "transparentFraction": 0.3303,
+      "sha256": "d5e2405c2492500287c7df48f2ae789e9f070621ab7b4840e9bd8e2f73824298"
+    },
+    {
+      "league": "nba",
+      "id": 1643575,
+      "name": "Duke Miles",
+      "path": "/images/players/nba/1643575-cutout.png",
+      "transparentFraction": 0.3583,
+      "sha256": "011f45c1670429bd9f81863559b235833fd2d9f5114968d2844e1a2355fe0f75"
+    },
+    {
+      "league": "nba",
+      "id": 1641761,
+      "name": "Grant Nelson",
+      "path": "/images/players/nba/1641761-cutout.png",
+      "transparentFraction": 0.334,
+      "sha256": "1b79c548b91711e13b033cd9e7f8dbbd6ee49dd9996ce78f62cf567f0d7d601d"
+    },
+    {
+      "league": "nba",
+      "id": 1642392,
+      "name": "Jameer Nelson Jr.",
+      "path": "/images/players/nba/1642392-cutout.png",
+      "transparentFraction": 0.3271,
+      "sha256": "0c77e3e0ddfbf59d550c7d4eb27ce3822a26a5b07c663f79c57f3b701b25bd64"
+    },
+    {
+      "league": "nba",
+      "id": 1642889,
+      "name": "Labaron Philon",
+      "path": "/images/players/nba/1642889-cutout.png",
+      "transparentFraction": 0.2869,
+      "sha256": "ff23c7839bd68b721c961af01df0c0053a4dff887d36a6890b184d8e087126b9"
+    },
+    {
+      "league": "nba",
+      "id": 1642955,
+      "name": "Kadary Richmond",
+      "path": "/images/players/nba/1642955-cutout.png",
+      "transparentFraction": 0.3549,
+      "sha256": "b6560525c800292401dc2c53fab5345025c3f2dc77c4e9e2150b62e260f28243"
+    },
+    {
+      "league": "nba",
+      "id": 1643121,
+      "name": "Steve Settle III",
+      "path": "/images/players/nba/1643121-cutout.png",
+      "transparentFraction": 0.3816,
+      "sha256": "31a1481ce58f0040879950fef248d826c4035a5fece8fd1f56f3f4f56b01399e"
+    },
+    {
+      "league": "nba",
+      "id": 1641868,
+      "name": "Jake Stephens",
+      "path": "/images/players/nba/1641868-cutout.png",
+      "transparentFraction": 0.3123,
+      "sha256": "a7c4fb6f2214de03c07ae4036cbea89b7fb14d3855770f156cce8c047c41135c"
+    },
+    {
+      "league": "nba",
+      "id": 1643148,
+      "name": "Saint Thomas",
+      "path": "/images/players/nba/1643148-cutout.png",
+      "transparentFraction": 0.311,
+      "sha256": "ef6eaaf47aedaa75dda166a5f7d79343228eb4e3bb094419a33b2b76b65f8932"
+    },
+    {
+      "league": "nba",
+      "id": 1642578,
+      "name": "John Ukomadu",
+      "path": "/images/players/nba/1642578-cutout.png",
+      "transparentFraction": 0.4009,
+      "sha256": "2d560e3c324e0a970597196474c636bfe2b2d44b5378c3cd966e0bfba65a2997"
+    },
+    {
+      "league": "nba",
+      "id": 1642881,
+      "name": "Bogoljub Marković",
+      "path": "/images/players/nba/1642881-cutout.png",
+      "transparentFraction": 0.59,
+      "sha256": "3e3de2528f28a7ff1f501e905083fabaa4050df2d4970d5329944374a4d98c89"
+    },
+    {
+      "league": "wnba",
+      "id": 1642811,
+      "name": "Shyanne Sellers",
+      "path": "/images/players/wnba/1642811-cutout.png",
+      "transparentFraction": 0.5208,
+      "sha256": "d7efe7b34132636d00d73823369bc275d81295cc904daca4accf5ad0009aed2d"
+    },
+    {
+      "league": "wnba",
+      "id": 1642327,
+      "name": "Matilde Villa",
+      "path": "/images/players/wnba/1642327-cutout.png",
+      "transparentFraction": 0.6443,
+      "sha256": "2602ccc3ff8ebd712ed958436c2d1a941ad46c500bbe717cd43c87daba6d32d3"
+    },
+    {
+      "league": "wnba",
+      "id": 1643454,
+      "name": "Kara Dunn",
+      "path": "/images/players/wnba/1643454-cutout.png",
+      "transparentFraction": 0.4807,
+      "sha256": "f3356249ca0ddfec954368759aa2da302a9884b96beedcc03091dcfb12cd9437"
+    },
+    {
+      "league": "wnba",
+      "id": 1642835,
+      "name": "Morgan Maly",
+      "path": "/images/players/wnba/1642835-cutout.png",
+      "transparentFraction": 0.26,
+      "sha256": "92f96ab47619db189e44cf8a9941ec69d2790b19c40a9642c240aabad67ae7e3"
+    },
+    {
+      "league": "wnba",
+      "id": 1643832,
+      "name": "Aminata Gueye",
+      "path": "/images/players/wnba/1643832-cutout.png",
+      "transparentFraction": 0.3299,
+      "sha256": "f501ec81a3065b232dda95bf07862ad9438af8aa15a12667dba5eb434e5f541b"
+    }
+  ]
+}

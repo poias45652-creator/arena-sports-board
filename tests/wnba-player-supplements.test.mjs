@@ -16,7 +16,7 @@ test('verified WNBA bio fills omissions while preserving official measurements a
 });
 test('photo and bio supplements require both league ID and full player name',()=>{
  assert.match(parse(row(1643825,'Elena','Buenavida')).photo,/valenciabasket/);
- assert.match(parse(row(1642835,'Morgan','Maly')).photo,/Morgan_Maly/);
+ assert.match(parse(row(1642835,'Morgan','Maly')).photo,/1642835-cutout\.png$/);
  const gueye=parse(row(1643832,'Aminata','Gueye'));assert.ok(existsSync('public'+gueye.photo));
  const wrong=parse(row(1643825,'Other','Player'));assert.match(wrong.photo,/\/1643825\.png$/);assert.equal(wrong.photoFallback,'');
  assert.equal(parse(row(1643439,'Other','Player')).height,'');
