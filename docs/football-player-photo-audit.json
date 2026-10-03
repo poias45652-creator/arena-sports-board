@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4228,
+  "verifiedTransparentPhotos": 4240,
   "teams": [
     {
       "id": "349",
@@ -356,7 +356,7 @@
       "id": "103",
       "name": "AC Milan",
       "total": 28,
-      "withPhoto": 27
+      "withPhoto": 28
     },
     {
       "id": "104",
@@ -428,7 +428,7 @@
       "id": "113",
       "name": "Lecce",
       "total": 34,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "4007",
@@ -620,7 +620,7 @@
       "id": "432",
       "name": "Galatasaray",
       "total": 35,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "4411",
@@ -656,7 +656,7 @@
       "id": "521",
       "name": "Slovan Bratislava",
       "total": 37,
-      "withPhoto": 33
+      "withPhoto": 36
     },
     {
       "id": "2250",
@@ -668,7 +668,7 @@
       "id": "510",
       "name": "Viking FK",
       "total": 40,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "585",
@@ -848,7 +848,7 @@
       "id": "589",
       "name": "Liechtenstein",
       "total": 25,
-      "withPhoto": 22
+      "withPhoto": 25
     },
     {
       "id": "460",
@@ -866,7 +866,7 @@
       "id": "453",
       "name": "Malta",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "483",
@@ -878,7 +878,7 @@
       "id": "6775",
       "name": "Montenegro",
       "total": 30,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "449",
@@ -1077,14 +1077,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "403839",
-      "name": "Léo-Paul Bouyer",
-      "teams": [
-        "103"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "139008",
       "name": "Joao Victor",
       "teams": [
@@ -1099,14 +1091,6 @@
         "3263"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3123405",
-      "name": "Divine Onyemachi",
-      "teams": [
-        "113"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "3131891",
@@ -1269,14 +1253,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "415122",
-      "name": "Eyüp Karasu",
-      "teams": [
-        "432"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3102518",
       "name": "Arda Tagay",
       "teams": [
@@ -1307,38 +1283,6 @@
         "521"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "411858",
-      "name": "Matús Tomásko",
-      "teams": [
-        "521"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3107814",
-      "name": "Alex Veľký",
-      "teams": [
-        "521"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3112253",
-      "name": "Adam Canolli",
-      "teams": [
-        "521"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3139065",
-      "name": "Mats Sekse Johannesen",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "3139066",
@@ -1449,46 +1393,6 @@
       "name": "Noam Sztejfman",
       "teams": [
         "461"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3097783",
-      "name": "Bruno Poitner",
-      "teams": [
-        "589"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3142030",
-      "name": "Florian Allgäuer",
-      "teams": [
-        "589"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3142031",
-      "name": "Alessandro Alfredo Lo Russo",
-      "teams": [
-        "589"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3142163",
-      "name": "Jayden Roe",
-      "teams": [
-        "453"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "403050",
-      "name": "Danilo Vukanic",
-      "teams": [
-        "6775"
       ],
       "reason": "Source photo unavailable"
     },
