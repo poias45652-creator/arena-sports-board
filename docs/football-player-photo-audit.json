@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4199,
+  "verifiedTransparentPhotos": 4200,
   "teams": [
     {
       "id": "349",
@@ -656,7 +656,7 @@
       "id": "521",
       "name": "Slovan Bratislava",
       "total": 37,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "2250",
@@ -1491,14 +1491,6 @@
         "493"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "408480",
-      "name": "Dávid Balog",
-      "teams": [
-        "521"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "405608",
