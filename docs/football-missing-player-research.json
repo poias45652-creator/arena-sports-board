@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 139,
+  "addedTransparentPhotos": 146,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -689,7 +689,8 @@
         "https://www.instagram.com/p/DcJGK2NCMzT/",
         "https://www.statshub.com/es/player/marc-santos/599051",
         "https://www.besoccer.com/player/m-santos-3601861",
-        "https://en.soccerwiki.org/player.php?pid=176735"
+        "https://en.soccerwiki.org/player.php?pid=176735",
+        "https://www.lapreferente.com/J525123/levante-ud/marc-santos.html"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -704,6 +705,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "La Preferente Marc Santos profile uses no-disponible.jpg."
       }
     },
     {
@@ -2563,14 +2569,36 @@
         "https://www.footballdatabase.eu/en/player/details/682595-marcelo-vaz",
         "https://www.youtube.com/watch?v=lP2ClZglYDU",
         "https://www.sofascore.com/football/player/marcelo-vaz/2249092",
-        "https://www.fotmob.com/players/2029779/marcelo-vaz"
+        "https://www.fotmob.com/players/2029779/marcelo-vaz",
+        "https://genoacfc.it/giocatori/marcelo-vaz/",
+        "https://genoacfc.it/2026/06/12/marcelo-vaz-sara-un-nuovo-giocatore-del-genoa/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://genoacfc.it/giocatori/marcelo-vaz/",
+        "originalUrl": "https://genoacfc.it/wp-content/uploads/2026/09/460x718_vaz.webp",
+        "sha256": "2b47a8732d2fe9ddb241548006d87cbd165e1f8128133609891f51bee0a30cd9",
+        "originalSha256": "48d5eb3dca64c66ef39d8ecd0a75c08217c7a4f4085f69291b5f1a670ac71380",
+        "width": 461,
+        "height": 719,
+        "endpoint": "/api/football-player-photo?player=3098553",
+        "localPath": "/images/players/football/3098553-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Genoa official individual Marcelo Vaz profile directly supplies the named transparent 460x718_vaz.webp portrait and lists 31 July 2007, Guinea-Bissau, defender number 85. The official transfer announcement corroborates the move from Varesina. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Genoa official individual Marcelo Vaz profile directly supplies the named transparent 460x718_vaz.webp portrait and lists 31 July 2007, Guinea-Bissau, defender number 85. The official transfer announcement corroborates the move from Varesina. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "Original transparent club portrait, resized and encoded as WebP without image generation.",
+        "originalSha256": "48d5eb3dca64c66ef39d8ecd0a75c08217c7a4f4085f69291b5f1a670ac71380",
+        "transparentFraction": 0.503851
       }
     },
     {
@@ -3500,7 +3528,8 @@
         "https://www.onlinebettingacademy.com/stats/person/france/matthias-da-silva/6wdZbLjrzQ73J",
         "https://www.uefa.com/uefachampionsleague/clubs/players/250202831--matthias-da-silva/",
         "https://www.fotmob.com/players/1755865/matthias-da-silva",
-        "https://www.uefa.com/uefaeuropaleague/clubs/players/250202831--matthias-da-silva/"
+        "https://www.uefa.com/uefaeuropaleague/clubs/players/250202831--matthias-da-silva/",
+        "https://www.fpf.pt/pt/Jogadores/Jogador/playerId/2250030/contextId/1619481"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -3508,6 +3537,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The individual Portuguese FA profile returned HTTP 403, so its portrait could not be verified."
       }
     },
     {
@@ -4210,7 +4244,8 @@
         "https://www.statshub.com/player/teo-ingilae/2158301?tab=player-stats",
         "https://www.youtube.com/watch?v=tDUhX7FJfls",
         "https://www.allfootballapp.com/player/990581-teo-ingilae",
-        "https://www.flashscore.com/player/ingilae-teo-emanuel/KAh4mtsa/"
+        "https://www.flashscore.com/player/ingilae-teo-emanuel/KAh4mtsa/",
+        "https://www.glimt.no/nyheter-uten-push/teo-lanes-ut-til-alta"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -4218,6 +4253,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The Bodo/Glimt loan article main photograph shows two players; individual identity is insufficiently established for extraction."
       }
     },
     {
@@ -4317,14 +4357,36 @@
         "https://www.sofascore.com/football/player/milton-kald/2638525",
         "https://arenascores.co.uk/athletes/football%3A3133981",
         "https://www.worldfootball.net/person/pe1541495/milton-kaeld/co1357/fifa-u17-friendlies/international-matches/",
-        "https://www.facebook.com/tomas.kald/posts/l%C3%A4s-publiceringen-av-kontraktet-p%C3%A5-fk-bod%C3%B8glimts-hemsidan-via-l%C3%A4nken-nedan-fk-bo/10175361780640475/"
+        "https://www.facebook.com/tomas.kald/posts/l%C3%A4s-publiceringen-av-kontraktet-p%C3%A5-fk-bod%C3%B8glimts-hemsidan-via-l%C3%A4nken-nedan-fk-bo/10175361780640475/",
+        "https://www.glimt.no/nyheter/milton-kald-er-pa-plass-i-bodo",
+        "https://www.glimt.no/lag/carl-milton-kald"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.glimt.no/nyheter/milton-kald-er-pa-plass-i-bodo",
+        "originalUrl": "https://www.glimt.no/nyheter/milton-kald-er-pa-plass-i-bodo/_/image/c4d96711-e902-4bab-8308-cde370b72c30:3198f7f6e6071ffa3ab99907f03b2bb3d8ea0741/width-1100/DSC03182.jpg",
+        "sha256": "8b023f404df22099a36d6be18cd463639a3afdee0b848ab8b79188636e7088c1",
+        "originalSha256": "0db2729cd8fba50d2d492c7587891ed0db67ff32722fca73bd6a1f243807a2e2",
+        "width": 400,
+        "height": 293,
+        "endpoint": "/api/football-player-photo?player=3133981",
+        "localPath": "/images/players/football/3133981-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Bodo/Glimt official individual signing interview explicitly names Milton Kald in the title and selected portrait caption, credited to Oda Viken. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Bodo/Glimt official individual signing interview explicitly names Milton Kald in the title and selected portrait caption, credited to Oda Viken. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "0db2729cd8fba50d2d492c7587891ed0db67ff32722fca73bd6a1f243807a2e2",
+        "transparentFraction": 0.592321
       }
     },
     {
@@ -4607,7 +4669,8 @@
         "https://www.reddit.com/r/galatasaray/comments/1uza7pc/a_great_buildup_and_chaos_in_front_of_the_goal/",
         "https://www.fotmob.com/players/1841791/arda-tagay",
         "https://www.besoccer.com/player/arda-tagay-3762704",
-        "https://www.flashscore.com/player/tagay-arda/ABLtecXH/"
+        "https://www.flashscore.com/player/tagay-arda/ABLtecXH/",
+        "https://www.tff.org/Default.aspx?kisiId=2023994&pageId=526"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -4615,6 +4678,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "TFF Arda Tagay profile uses generic simgeFutbolcu.gif rather than a real portrait."
       }
     },
     {
@@ -4818,7 +4886,8 @@
         "https://www.worldfootball.net/person/pe1534583/cefer-muxtarov/record-opponent/",
         "https://tribuna.com/en/persons/cfr-muxtarov/",
         "https://www.footballcritic.com/sabah-fk/squad/33717",
-        "https://fbref.com/en/squads/a86b0368/Sabah-FK-Stats"
+        "https://fbref.com/en/squads/a86b0368/Sabah-FK-Stats",
+        "https://sabahfc.az/teams?team_type=20"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -4826,6 +4895,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Sabah first-team, reserve and U19 official rosters do not associate a current portrait with Cefer Muxtarov."
       }
     },
     {
@@ -5682,14 +5756,35 @@
         "https://www.espn.co.uk/football/player/bio/_/id/3139066/anders-fiskum-larsen",
         "https://video.thescore.com/chlg/teams/3373-viking-fk/roster",
         "https://www.uefa.com/uefayouthleague/clubs/players/250219987--anders-fiskum-larsen/",
-        "https://www.instagram.com/p/DNdZE6gI6y3/"
+        "https://www.instagram.com/p/DNdZE6gI6y3/",
+        "https://www.vikingfotball.no/nyheter/akademispiller-belonnes-med-kontrakt"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/nyheter/akademispiller-belonnes-med-kontrakt",
+        "originalUrl": "https://www.vikingfotball.no/nyheter/akademispiller-belonnes-med-kontrakt/_/image/89fa488e-4603-4be6-97ed-5c42cfbf18d1:873056d0bf5b32b97f0c4461204effededf08af6/block-1200-630/DSC08973.jpg?quality=85",
+        "sha256": "645b8aabdf1da86b4f91046fac0e3dd184f6ea378fffcd33d515627ddaeba1e9",
+        "originalSha256": "c0a2c9028ff67de0e7c46b3f709d6d672a82277dda511a13468879345f165b23",
+        "width": 400,
+        "height": 342,
+        "endpoint": "/api/football-player-photo?player=3139066",
+        "localPath": "/images/players/football/3139066-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official individual contract announcement names Anders Fiskum Larsen, born in 2010. The young player at left is extracted, excluding the older academy official and handshake. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official individual contract announcement names Anders Fiskum Larsen, born in 2010. The young player at left is extracted, excluding the older academy official and handshake. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "c0a2c9028ff67de0e7c46b3f709d6d672a82277dda511a13468879345f165b23",
+        "transparentFraction": 0.492617
       }
     },
     {
@@ -5711,14 +5806,35 @@
         "https://www.espn.co.uk/football/player/stats/_/id/3139067/jonathan-r%C3%B8ksund-debes",
         "https://sorare.com/football/teams/viking-u19-stavanger",
         "https://www.squawka.com/en/stats/players/jonathan-roksund-debes/",
-        "https://www.uefa.com/uefayouthleague/clubs/players/250225335--jonathan-debes/"
+        "https://www.uefa.com/uefayouthleague/clubs/players/250225335--jonathan-debes/",
+        "https://www.vikingfotball.no/nyheter/akademispiller-signerer-sin-forste-kontrakt"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/nyheter/akademispiller-signerer-sin-forste-kontrakt",
+        "originalUrl": "https://www.vikingfotball.no/nyheter/akademispiller-signerer-sin-forste-kontrakt/_/image/de49b2d6-81fd-4f93-bec0-cf4fd29a62e4:236bd89fd4976b32cf9e529ffc8a76ac26fcb9e4/block-1200-630/IMGL3089%20(1).jpg?quality=85",
+        "sha256": "0b74fa2174f257f935f9b73476f7197081805e866fbb62f843db4a4d2c0fdbee",
+        "originalSha256": "77ba024406f12158a055af4aa99aaebd3d89cfbf52eeb896a72d39aa83352f43",
+        "width": 400,
+        "height": 353,
+        "endpoint": "/api/football-player-photo?player=3139067",
+        "localPath": "/images/players/football/3139067-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official individual contract announcement identifies academy left-back Jonathan Debes and his move from Hundvag. The young player at right is extracted, excluding the older academy official, held shirt and childhood photograph elsewhere in the article. Name and club match catalog Jonathan Roksund Debes; blank birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official individual contract announcement identifies academy left-back Jonathan Debes and his move from Hundvag. The young player at right is extracted, excluding the older academy official, held shirt and childhood photograph elsewhere in the article. Name and club match catalog Jonathan Roksund Debes; blank birthday remains unchanged.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "77ba024406f12158a055af4aa99aaebd3d89cfbf52eeb896a72d39aa83352f43",
+        "transparentFraction": 0.560425
       }
     },
     {
@@ -5858,14 +5974,36 @@
         "https://www.instagram.com/reel/DVykxhWmk_-/?hl=en",
         "https://www.flashscore.com/player/frimpong-kelvin-ansah/Y39oQxl4/",
         "https://www.aiscore.com/player-kelvin-frimpong/edq09i90ve0umqx",
-        "https://www.uefa.com/uefachampionsleague/clubs/players/250223245--kelvin-ansah-frimpong/matches/"
+        "https://www.uefa.com/uefachampionsleague/clubs/players/250223245--kelvin-ansah-frimpong/matches/",
+        "https://www.vikingfotball.no/lag/kelvin-frimpong",
+        "https://www.vikingfotball.no/nyheter/kelvin-frimpong-2030"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/lag/kelvin-frimpong",
+        "originalUrl": "https://www.vikingfotball.no/lag/kelvin-frimpong/_/image/770dd660-0a8b-4821-9785-45225376bf90:fc44f135652f4d2d84115133320c942278f657a5/width-800/kelly.jpg",
+        "sha256": "f8b5b9be10656d2f8d4609a17d74bbc826bf73457c880c39e2ddd16c121d2009",
+        "originalSha256": "66099a31d1c1dc1e66b38392201739665ceff1c59b0a8e273a33861fd9b176b5",
+        "width": 400,
+        "height": 394,
+        "endpoint": "/api/football-player-photo?player=420707",
+        "localPath": "/images/players/football/420707-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official individual Kelvin Frimpong profile supplies the named kelly.jpg photograph and lists 2 January 2008. The full 800-pixel square preserves all hair, unlike the cropped social preview. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official individual Kelvin Frimpong profile supplies the named kelly.jpg photograph and lists 2 January 2008. The full 800-pixel square preserves all hair, unlike the cropped social preview. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "66099a31d1c1dc1e66b38392201739665ceff1c59b0a8e273a33861fd9b176b5",
+        "transparentFraction": 0.471567
       }
     },
     {
@@ -5886,14 +6024,35 @@
         "https://www.soccerbase.com/players/player.sd?player_id=224067",
         "https://www.fotmob.com/players/2333149/christopher-salvesen-svenning",
         "https://theanalyst.com/players/20739/christopher-salvesen-svenning",
-        "https://www.rotowire.com/soccer/player/christopher-salvesen-svenning-50627"
+        "https://www.rotowire.com/soccer/player/christopher-salvesen-svenning-50627",
+        "https://www.vikingfotball.no/nyheter/unggutt-fra-akademiet-har-signert-kontrakt"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/nyheter/unggutt-fra-akademiet-har-signert-kontrakt",
+        "originalUrl": "https://www.vikingfotball.no/nyheter/unggutt-fra-akademiet-har-signert-kontrakt/_/image/7f8dfc51-404f-4482-821a-3d473b3bee9a:0cfd12ab68a47a2fa6ecfe6db5eea5a281eb694a/wide-1600-900/DSC05669.jpeg.jpg",
+        "sha256": "47d53fe12048428e217bc6cb94a9a9e59ddb1642890133805660a45284136f0c",
+        "originalSha256": "c2006ece3cf98efecd5958cab4698376ee5953d2e7674874d3f034fe35dbe481",
+        "width": 400,
+        "height": 298,
+        "endpoint": "/api/football-player-photo?player=3139068",
+        "localPath": "/images/players/football/3139068-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official individual professional-contract announcement explicitly names Christopher Salvesen-Svenning. The single young player in the full-frame photograph is extracted above the held jersey. This source preserves the complete head, unlike the cropped social preview. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official individual professional-contract announcement explicitly names Christopher Salvesen-Svenning. The single young player in the full-frame photograph is extracted above the held jersey. This source preserves the complete head, unlike the cropped social preview. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "c2006ece3cf98efecd5958cab4698376ee5953d2e7674874d3f034fe35dbe481",
+        "transparentFraction": 0.587735
       }
     },
     {
@@ -6327,14 +6486,37 @@
         "https://onefootball.com/en/player/ari-i-petersen-458616",
         "https://www.sofascore.com/football/player/ari-petersen/1029324",
         "https://www.asiasports.com/en/football/player/Ari-Petersen/235038",
-        "https://en.wikipedia.org/wiki/John_Petersen_(footballer)"
+        "https://en.wikipedia.org/wiki/John_Petersen_(footballer)",
+        "https://roysni.fo/ari-i-haraldsstovu-petersen-fer-nordureftir",
+        "https://ibvsport.is/read/2025-11-19/ari-petersen-til-ibv",
+        "https://www.uefa.com/news-media/mediaservices/informationkits/competitions/uefanationsleague/2027/match/2048024/printmatchpresskits/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://roysni.fo/ari-i-haraldsstovu-petersen-fer-nordureftir",
+        "originalUrl": "https://cdn-ac.knassar.fo/media/2023/11/04/890x590/169909693742jg119awz.webp",
+        "sha256": "ad3c9f84f3c58503a115bbac4a0525026deeee4b47b059ba1fe5d0bc5ec4af7f",
+        "originalSha256": "c79b7e710f0a92018822ff2ecf12f686487bb937707ea3b818c247754b77e8b9",
+        "width": 400,
+        "height": 372,
+        "endpoint": "/api/football-player-photo?player=363365",
+        "localPath": "/images/players/football/363365-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Roysni signing report captions Ari i Haraldsstovu Petersen and credits the photograph to Klaksvikar Itrottarfelag. The younger goalkeeper at right in yellow is extracted, excluding the older official and handshake. UEFA Nations League press-kit search record lists Ari Petersen, IBV, 7 December 2002, matching the unchanged catalog birthday. The current IBV individual announcement corroborates the KI-to-07 Vestur-to-IBV career identity. The selected club-credited signing photograph dates from November 2023, when he was 20."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Roysni signing report captions Ari i Haraldsstovu Petersen and credits the photograph to Klaksvikar Itrottarfelag. The younger goalkeeper at right in yellow is extracted, excluding the older official and handshake. UEFA Nations League press-kit search record lists Ari Petersen, IBV, 7 December 2002, matching the unchanged catalog birthday. The current IBV individual announcement corroborates the KI-to-07 Vestur-to-IBV career identity. The selected club-credited signing photograph dates from November 2023, when he was 20.",
+        "processing": "ImageGen background extraction from the verified real photograph; original appearance visually compared; transparent margins trimmed and encoded as WebP with alpha.",
+        "originalSha256": "c79b7e710f0a92018822ff2ecf12f686487bb937707ea3b818c247754b77e8b9",
+        "transparentFraction": 0.486022
       }
     },
     {
@@ -6866,7 +7048,8 @@
         "https://www.365scores.com/en-us/football/player/giulio-maria-bugli-249972",
         "https://en.wikipedia.org/wiki/Matteo_Bugli",
         "https://www.fotmob.com/players/2322991/giulio-bugli",
-        "https://www.goal.com/en-us/player/g-bugli/9iGGT9e4bIwwhvBhPHAOK"
+        "https://www.goal.com/en-us/player/g-bugli/9iGGT9e4bIwwhvBhPHAOK",
+        "https://www.sanmarinoacademy.sm/player/giulio-maria-bugli/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -6874,6 +7057,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "San Marino Academy Giulio Maria Bugli profile has identity details but no usable individual player photograph."
       }
     },
     {
@@ -6895,7 +7083,8 @@
         "https://www.worldfootball.net/person/pe914580/pietro-marinucci/co1109/uefa-u21-euro-qualifiers/international-matches/",
         "https://www.soccerpunter.com/player/37666474/Pietro-Marinucci",
         "https://www.sportinglife.com/football/player/pietro-marinucci/178246/stats/san-marino/165",
-        "https://www.uefa.com/under21/teams/players/250179993--pietro-marinucci/matches/"
+        "https://www.uefa.com/under21/teams/players/250179993--pietro-marinucci/matches/",
+        "https://www.fsgc.sm/en/player/Pietro-Marinucci/802"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -6903,6 +7092,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "FSGC Pietro Marinucci profile matches the birthday but uses default-front-end.jpg."
       }
     },
     {
@@ -6955,7 +7149,8 @@
         "https://www.allfootballapp.com/player/51042443-nicholas-protti",
         "https://en.wikipedia.org/wiki/San_Marino_national_football_team",
         "https://www.uefa.com/under21/teams/players/250179571--nicholas-protti/",
-        "https://www.uefa.com/uefanationsleague/teams/players/250179571--nicholas-protti/"
+        "https://www.uefa.com/uefanationsleague/teams/players/250179571--nicholas-protti/",
+        "https://www.fsgc.sm/en/player/Nicholas-Protti/727"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -6963,6 +7158,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "sixthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "FSGC Nicholas Protti profile matches the birthday but uses default-front-end.jpg."
       }
     }
   ],
@@ -7006,5 +7206,12 @@
     "addedPhotos": 12,
     "remainingMissing": 42,
     "processing": "Six background extractions from official club photographs and six original transparent club photographs. Source and derivative hashes retained separately. Visual review and local photo API byte verification."
+  },
+  "sixthPass": {
+    "verifiedAt": "2026-10-04",
+    "missingAtStart": 42,
+    "addedPhotos": 7,
+    "remainingMissing": 35,
+    "processing": "Six background extractions from named real photographs and one original transparent Genoa portrait. Source and derivative hashes retained separately; dark-background visual review and local photo API byte verification."
   }
 }

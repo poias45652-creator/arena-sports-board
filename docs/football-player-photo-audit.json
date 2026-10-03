@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4252,
+  "verifiedTransparentPhotos": 4259,
   "teams": [
     {
       "id": "349",
@@ -404,7 +404,7 @@
       "id": "3263",
       "name": "Genoa",
       "total": 34,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "110",
@@ -590,7 +590,7 @@
       "id": "2980",
       "name": "Bodo/Glimt",
       "total": 36,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "570",
@@ -668,7 +668,7 @@
       "id": "510",
       "name": "Viking FK",
       "total": 40,
-      "withPhoto": 30
+      "withPhoto": 34
     },
     {
       "id": "585",
@@ -764,7 +764,7 @@
       "id": "447",
       "name": "Faroe Islands",
       "total": 24,
-      "withPhoto": 23
+      "withPhoto": 24
     },
     {
       "id": "458",
@@ -1053,14 +1053,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "3098553",
-      "name": "Marcelo Vaz",
-      "teams": [
-        "3263"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3131891",
       "name": "Aleksandr Ballabio",
       "teams": [
@@ -1157,14 +1149,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3133981",
-      "name": "Milton Käld",
-      "teams": [
-        "2980"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3102518",
       "name": "Arda Tagay",
       "teams": [
@@ -1185,22 +1169,6 @@
       "name": "Pedrinho",
       "teams": [
         "493"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3139066",
-      "name": "Anders Fiskum Larsen",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3139067",
-      "name": "Jonathan Røksund Debes",
-      "teams": [
-        "510"
       ],
       "reason": "No unambiguous identity match"
     },
@@ -1237,22 +1205,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "420707",
-      "name": "Kelvin Frimpong",
-      "teams": [
-        "510"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3139068",
-      "name": "Christopher Salvesen-Svenning",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3139069",
       "name": "Sondre Bakken",
       "teams": [
@@ -1275,14 +1227,6 @@
         "450"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "363365",
-      "name": "Ari Petersen",
-      "teams": [
-        "447"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "3096980",
