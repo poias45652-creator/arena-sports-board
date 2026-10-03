@@ -34,3 +34,38 @@ test('rosters use the authenticated photo endpoint instead of assumed ESPN heads
  const players=parseFootballRoster({team:{id:'579',isNational:true},season:{year:2026},athletes:[{id:'193649',displayName:'Arsen Beglaryan'}]},'uefa.nations','579',2026,team);
  assert.equal(players[0].photo,'/api/football-player-photo?player=193649&league=uefa.nations');
 });
+test('reviewed supplements fill gaps without replacing live data or crossing identities',async()=>{
+ const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
+ const team={id:'384',name:'Crystal Palace',englishName:'Crystal Palace'};
+ const parse=p=>parseFootballRoster({team:{id:'384',isNational:false},season:{year:2026},athletes:[p]},'eng.1','384',2026,team)[0];
+ const p={id:'3123880',displayName:'Chukwunonyelum Uchenna Amobi Okoli'};
+ const found=parse(p);assert.equal(found.photo,'/api/football-player-photo?player=3123880&league=eng.1');assert.equal(found.country,'England');assert.equal(found.appearances,null);assert.equal(found.goals,null);
+ assert.equal(parse({...p,citizenship:'Nigeria'}).country,'Nigeria');
+ assert.equal(parse({...p,displayName:'Another Player'}).country,'');
+ assert.match(parse({id:'243578',displayName:'Jenson Arron Jones',dateOfBirth:'2000-10-30'}).photo,/^\/api\//);
+});
+test('reviewed photo sources are complete, pinned, and exclude mismatched identities',()=>{
+ const sources=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'));
+ const research=JSON.parse(readFileSync('docs/football-missing-player-research.json'));
+ const audit=JSON.parse(readFileSync('docs/football-player-photo-audit.json'));
+ assert.equal(research.players.length,181);assert.equal(Object.keys(sources).length,70);
+ for(const p of research.players.filter(p=>p.photo)){assert.equal(sources[p.id].sha256,p.photo.sha256);assert.equal(sources[p.id].url,p.photo.originalUrl);assert.ok(!audit.missing.some(x=>x.id===p.id));}
+ assert.equal(audit.verifiedTransparentPhotos,4183);assert.equal(audit.missing.length,111);
+ for(const id of ['139008','405608','313078'])assert.ok(!sources[id]);
+});
+test('reviewed PNG and WebP photos use exact bytes and MIME types; changed source images are rejected',async()=>{
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const sources=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'));
+ const previous=globalThis.fetch;let count=0;
+ try{
+  for(const [id,extension,type]of [['119332','png','image/png'],['297754','webp','image/webp']]){
+   const bytes=readFileSync('tests/fixtures/football-reviewed-'+id+'.'+extension);
+   globalThis.fetch=async url=>{count++;assert.equal(String(url),sources[id].url);return new Response(bytes,{headers:{'content-type':type}})};
+   const response=await GET(new Request('http://localhost/api/football-player-photo?player='+id+'&league=eng.1'));
+   assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),type);assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);
+  }
+  globalThis.fetch=async()=>new Response(image,{headers:{'content-type':'image/png'}});
+  assert.equal((await GET(new Request('http://localhost/api/football-player-photo?player=84349&league=eng.1'))).status,404);
+  assert.equal(count,2);
+ }finally{globalThis.fetch=previous;}
+});
