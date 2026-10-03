@@ -17,3 +17,11 @@ Checked additional official pages for 51 unresolved players. Added 16 original t
 Sources include official Leeds, Newcastle, Sevilla, Osasuna, Valencia, Slavia Prague, Real Sociedad, Union Berlin, Bodo/Glimt and Malaga pages, plus LALIGA. The existing authenticated, bounded photo service and exact content hashes remain in use. New reviewed hosts are explicitly listed; redirects and changed bytes remain rejected.
 
 Rejected examples are retained in the per-player secondPass records: Aymen Amaaouch is a shirt placeholder; Balog, Tomanek and Ouziad are opaque originals; the Jesper Rabben Nygard page points to a Johannes Linaker filename; Bouyer has a one-day birthday conflict and an oversized original. These are not counted as completed.
+
+## Individual update: Dávid Balog, 2026-10-04
+
+Added only player 408480 in this update, following the request to process photos one at a time. The official Slovan profile matches his full name, goalkeeper position and birthday (2007-04-04). The earlier opaque original was processed separately with ImageGen to remove the white background and visually checked against the original and a dark backdrop. The website asset is a transparent 600 × 900 lossless WebP at `public/images/players/football/408480-cutout.webp`. Original attribution and source SHA-256 remain in the research record; the served derivative has its own pinned SHA-256. The authenticated photo service serves this exact local asset and continues to reject changed bytes.
+
+The edit prompt requested removal of only the white background, preservation of facial features, hair, clothing, logos, pose and original 2:3 crop, and no retouching or added elements. The generated PNG was encoded as a 600 × 900 lossless WebP for the website.
+
+Cumulative reviewed additions: 87; coverage: 4,200 of 4,294 players; 94 remain unresolved. No roster membership, birthdays, statistics or prediction formulas changed.

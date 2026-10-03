@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 86,
+  "addedTransparentPhotos": 87,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -4261,13 +4261,32 @@
         "https://www.footballcritic.com/david-balog/profile/7950857"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://en.skslovan.com/hraci/A-David_Balog"
         ],
         "result": "Official portrait has no transparent pixels (opaque PNG)."
+      },
+      "individualReview": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Slovan Bratislava goalkeeper profile matches full name David Balog, birth date 2007-04-04 and club. The original official portrait was reviewed before and after background removal.",
+        "processing": "ImageGen background removal, then 600x900 lossless WebP web asset encoding. Only this player was processed in this update.",
+        "originalSha256": "a46340b85cef3c1fd3d8deaf97e5be689b0c44c752a55efbf412613409eb5d53",
+        "transparentFraction": 0.330854
+      },
+      "photo": {
+        "source": "https://en.skslovan.com/hraci/A-David_Balog",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-300/803.png?202608051438",
+        "sha256": "b39f7978bcc50295821e372ab14f90c3834a33b5cd8afb1c0b04aa9f1c5e31f7",
+        "width": 600,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=408480",
+        "localPath": "/images/players/football/408480-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Slovan Bratislava goalkeeper profile matches full name David Balog, birth date 2007-04-04 and club. The original official portrait was reviewed before and after background removal."
       }
     },
     {
@@ -5507,5 +5526,13 @@
     "playersWithOfficialPagesChecked": 51,
     "addedTransparentPhotos": 16,
     "remainingMissingPhotos": 95
-  }
+  },
+  "individualUpdates": [
+    {
+      "verifiedAt": "2026-10-04",
+      "id": "408480",
+      "name": "Dávid Balog",
+      "addedTransparentPhotos": 1
+    }
+  ]
 }

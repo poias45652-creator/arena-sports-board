@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
 import {moduleUrl} from './profile-loader.mjs';
 const {normalizeFootballPhotoName,sameFootballPhotoIdentity,safeFootballPhotoUrl,validFootballPhotoBytes}=await import(moduleUrl('lib/football-photo-identity.ts'));
 const image=new Uint8Array(readFileSync('tests/fixtures/football-player-photo.png'));
@@ -67,5 +68,18 @@ test('reviewed PNG and WebP photos use exact bytes and MIME types; changed sourc
   globalThis.fetch=async()=>new Response(image,{headers:{'content-type':'image/png'}});
   assert.equal((await GET(new Request('http://localhost/api/football-player-photo?player=84349&league=eng.1'))).status,404);
   assert.equal(count,2);
+ }finally{globalThis.fetch=previous;}
+});
+test('Balog cutout is served from the reviewed local asset without an external download',async()=>{
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const source=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'))['408480'];
+ assert.equal(source.localPath,'/images/players/football/408480-cutout.webp');
+ const bytes=readFileSync('public'+source.localPath);
+ assert.equal(createHash('sha256').update(bytes).digest('hex'),source.sha256);
+ const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Local portrait must not download');};
+ try{
+  const response=await GET(new Request('http://localhost/api/football-player-photo?player=408480&league=uefa.champions'));
+  assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'image/webp');
+  assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);assert.equal(downloads,0);
  }finally{globalThis.fetch=previous;}
 });

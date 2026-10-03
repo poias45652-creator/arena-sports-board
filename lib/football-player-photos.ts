@@ -1,10 +1,13 @@
 import catalog from '../data/football-player-photos.json';
 import reviewedSources from '../data/football-reviewed-photo-sources.json';
 import {createHash} from 'node:crypto';
+import {readFile} from 'node:fs/promises';
+import {join} from 'node:path';
 import {isFootballLeague} from './football';
 import {sameFootballPhotoIdentity,safeFootballPhotoUrl,validFootballPhotoBytes,type FootballPhotoIdentity} from './football-photo-identity';
 const identities=catalog.players as Record<string,FootballPhotoIdentity>;
-const reviewed=reviewedSources as Record<string,{url:string;sha256:string;type:string}>;
+type ReviewedPhoto={url:string;sha256:string;type:string;localPath?:string};
+const reviewed=reviewedSources as Record<string,ReviewedPhoto>;
 const reviewedHosts=new Set(['assets.bundesliga.com','assets.laliga.com','cagliaricalcio.com','cdn.realsociedad.eus','images.ctfassets.net','images.fotmob.com','img.a.transfermarkt.technology','img.uefa.com','media-cdn.cortextech.io','media-sdp.legaseriea.it','mediaverse.sevillafc.hiway.media','res.cloudinary.com','statics-maker.llt-services.com','www.fc-union-berlin.de','www.glimt.no','www.osasuna.es','www.slavia.cz','www.valenciacf.com']);
 type Photo={bytes:Uint8Array;type:string;expires:number};
 const cache=new Map<string,Photo>(),discovered=new Map<string,{identity:FootballPhotoIdentity|null;expires:number}>();
@@ -30,7 +33,15 @@ async function discover(id:string,league:string):Promise<FootballPhotoIdentity|n
  if(discovered.size>=1000)discovered.delete(discovered.keys().next().value!);
  discovered.set(id,{identity:value,expires:Date.now()+(value?86400000:3600000)});return value;
 }
-async function readPhoto(identity:FootballPhotoIdentity,verified?:{url:string;sha256:string;type:string}){
+async function readPhoto(identity:FootballPhotoIdentity,verified?:ReviewedPhoto){
+ // Background-removed portraits are reviewed repository assets. Only fixed
+ // football portrait paths and exact reviewed bytes may use this local branch.
+ if(verified?.localPath){
+  if(!/^\/images\/players\/football\/\d{1,12}-cutout\.webp$/.test(verified.localPath)||verified.type!=='image/webp'||!/^[a-f0-9]{64}$/.test(verified.sha256))return null;
+  const bytes=await readFile(join(process.cwd(),'public',verified.localPath));
+  if(bytes.length>2000000||createHash('sha256').update(bytes).digest('hex')!==verified.sha256)return null;
+  return {bytes,type:verified.type,expires:Date.now()+86400000};
+ }
  const url=verified?.url||identity.sourceUrl||(identity.providerId?`https://images.fotmob.com/image_resources/playerimages/${identity.providerId}.png`:'');
  if(verified){const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hash||!reviewedHosts.has(u.hostname)||!/^[a-f0-9]{64}$/.test(verified.sha256)||!['image/png','image/webp'].includes(verified.type))return null;}
  else if(!safeFootballPhotoUrl(url))return null;
