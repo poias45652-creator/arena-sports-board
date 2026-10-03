@@ -5,7 +5,7 @@ import {isFootballLeague} from './football';
 import {sameFootballPhotoIdentity,safeFootballPhotoUrl,validFootballPhotoBytes,type FootballPhotoIdentity} from './football-photo-identity';
 const identities=catalog.players as Record<string,FootballPhotoIdentity>;
 const reviewed=reviewedSources as Record<string,{url:string;sha256:string;type:string}>;
-const reviewedHosts=new Set(['assets.bundesliga.com','assets.laliga.com','cagliaricalcio.com','images.fotmob.com','img.a.transfermarkt.technology','img.uefa.com','media-cdn.cortextech.io','media-sdp.legaseriea.it','res.cloudinary.com','statics-maker.llt-services.com']);
+const reviewedHosts=new Set(['assets.bundesliga.com','assets.laliga.com','cagliaricalcio.com','cdn.realsociedad.eus','images.ctfassets.net','images.fotmob.com','img.a.transfermarkt.technology','img.uefa.com','media-cdn.cortextech.io','media-sdp.legaseriea.it','mediaverse.sevillafc.hiway.media','res.cloudinary.com','statics-maker.llt-services.com','www.fc-union-berlin.de','www.glimt.no','www.osasuna.es','www.slavia.cz','www.valenciacf.com']);
 type Photo={bytes:Uint8Array;type:string;expires:number};
 const cache=new Map<string,Photo>(),discovered=new Map<string,{identity:FootballPhotoIdentity|null;expires:number}>();
 const unavailable=new Map<string,number>();

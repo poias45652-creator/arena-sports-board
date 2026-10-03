@@ -1,8 +1,8 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 70,
+  "addedTransparentPhotos": 86,
   "playersWithAddedFields": 21,
-  "verifiedAt": "2026-10-03",
+  "verifiedAt": "2026-10-04",
   "players": [
     {
       "id": "408508",
@@ -194,7 +194,14 @@
         "https://sorare.com/de/football/players/archie-howard/history"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.wearehullcity.co.uk/teams/u21-team/archiehoward"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3132863",
@@ -248,7 +255,26 @@
         "https://fmtransferupdate.com/players/2000500936-callum-mills"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.leedsunited.com/en/news/callum-mills-signs-first-professional-contract",
+          "https://www.leedsunited.com/en/teams/mens/callum-mills"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact full name, Leeds United and birthday 2008-09-19."
+      },
+      "photo": {
+        "source": "https://www.leedsunited.com/en/teams/mens/callum-mills",
+        "originalUrl": "https://images.ctfassets.net/phva2knh4vy5/4aRxB7chTzN87QpxB3kwcG/24bff35f02b00a4dac4796664ee9f1bc/Player_Profile_Callum_Mills.png?w=600",
+        "sha256": "191e79e5688975f58fa62ada322946d5fb8bb36e429fd62e0d3cf047c1715de7",
+        "width": 600,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=409924",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact full name, Leeds United and birthday 2008-09-19."
+      }
     },
     {
       "id": "414116",
@@ -271,7 +297,25 @@
         "https://www.fotmob.com/players/1816289/kyran-thompson"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.newcastleunited.com/en/teams/U18/kyran-thompson-profile"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact full name, Newcastle United and birthday 2009-09-06."
+      },
+      "photo": {
+        "source": "https://www.newcastleunited.com/en/teams/U18/kyran-thompson-profile",
+        "originalUrl": "https://images.ctfassets.net/9ec6988xevcz/3wgXEtJxggbmmymMc5A1YZ/b258d5b49afc7a2c1e171b21c0d78e83/Untitled_design-32-2.png?w=600",
+        "sha256": "d2c4429dd42825e903e566607787330e76f6939d4eaff85e8810ddcccb1ad160",
+        "width": 600,
+        "height": 957,
+        "endpoint": "/api/football-player-photo?player=414116",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact full name, Newcastle United and birthday 2009-09-06."
+      }
     },
     {
       "id": "418769",
@@ -292,10 +336,19 @@
         "https://www.themag.co.uk/2024/12/wow-saw-this-15-year-old-playing-for-newcastle-united-last-night-remember-the-name-michael-mills/",
         "https://www.flashscoreusa.com/player/mills-michael/p8SylgR8/",
         "https://www.tiktok.com/@seedorfkduah10/video/7300201271930260768",
-        "https://www.bundesliga.com/en/player/michael-mills"
+        "https://www.bundesliga.com/en/player/michael-mills",
+        "https://www.newcastleunited.com/en/teams/U18/michael-mills-profile"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.newcastleunited.com/en/news/three-youngsters-sign-first-professional-contracts",
+          "https://www.newcastleunited.com/en/teams/U18/michael-mills-profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "243578",
@@ -351,7 +404,25 @@
         "https://www.laliga.com/en-GB/player/quique-ribes-1"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.laliga.com/en-GB/player/quique-ribes-1"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "LALIGA player record 46222 identifies Enrique Ribes, birthday 2004-01-16, and Celta / Celta Fortuna; image comes from this player record’s Celta Fortuna squad, not a teammate."
+      },
+      "photo": {
+        "source": "https://www.laliga.com/en-GB/player/quique-ribes-1",
+        "originalUrl": "https://assets.laliga.com/squad/2026/t3555/p567886/512x556/p567886_t3555_2026_1_001_000.png",
+        "sha256": "5863835e723c3d673704f8a59831fd07cb623a26a4176f6cb708a5834e71a436",
+        "width": 512,
+        "height": 556,
+        "endpoint": "/api/football-player-photo?player=3100794",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "LALIGA player record 46222 identifies Enrique Ribes, birthday 2004-01-16, and Celta / Celta Fortuna; image comes from this player record’s Celta Fortuna squad, not a teammate."
+      }
     },
     {
       "id": "3129647",
@@ -467,7 +538,14 @@
         "https://www.instagram.com/p/DMiI3DGMFeB/?hl=en"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.rcdespanyol.com/en/teams/rcd-espanyol-b/victor-mullerat/3955"
+        ],
+        "result": "Official Espanyol B page supplies noplayerphoto_empty.png placeholders."
+      }
     },
     {
       "id": "3124560",
@@ -557,7 +635,14 @@
         "https://en.soccerwiki.org/player.php?pid=176735"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.levanteud.com/en/news/marc-santos-se-convierte-en-el-debutante-mas-joven-del-levante-ud"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3129042",
@@ -603,7 +688,14 @@
         "https://www.youtube.com/watch?v=zhw4D-6BZ1I"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.levanteud.com/en/news/thiago-fernandez-se-convierte-en-jugador-del-levante-ud"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "376166",
@@ -688,7 +780,25 @@
         "https://www.soccerbase.com/players/player.sd?player_id=222072"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.malagacf.com/en/players/juani"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Malaga profile identifies Juani as Juan Francisco Fernandez Martin, born 2007-01-17; matching roster club and nickname. Do not use the unrelated historical Juani search result."
+      },
+      "photo": {
+        "source": "https://www.malagacf.com/en/players/juani",
+        "originalUrl": "https://statics-maker.llt-services.com/mga/images/2025/10/01/large/1d0f4035-64d5-45d2-88af-7ba575f0ac2b-750.png",
+        "sha256": "ca35ccebf2e46bddcc3e89abddd64f83cb2b88238ca76be7d1ebae03653111c2",
+        "width": 1200,
+        "height": 1440,
+        "endpoint": "/api/football-player-photo?player=3110513",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Malaga profile identifies Juani as Juan Francisco Fernandez Martin, born 2007-01-17; matching roster club and nickname. Do not use the unrelated historical Juani search result."
+      }
     },
     {
       "id": "3129002",
@@ -711,7 +821,25 @@
         "https://sports.yahoo.com/soccer/players/4144447/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.osasuna.es/en/asier-bonel-aicua"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Full-name profile URL and Osasuna club match; official profile gives birthday 2008-01-17."
+      },
+      "photo": {
+        "source": "https://www.osasuna.es/en/asier-bonel-aicua",
+        "originalUrl": "https://www.osasuna.es/public/Image/2026/9/asierbonel_png_RetratoGrande.webp",
+        "sha256": "47d2ddd188df44a216afcd1b86a098ba6c940555c82402d0c75e257a852f9672",
+        "width": 896,
+        "height": 1344,
+        "endpoint": "/api/football-player-photo?player=3129002",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Full-name profile URL and Osasuna club match; official profile gives birthday 2008-01-17."
+      }
     },
     {
       "id": "3100788",
@@ -866,10 +994,29 @@
         "https://www.reddit.com/r/soccer/comments/1sczbxx/ibai_aguirre_19_made_his_real_sociedad_debut/",
         "https://www.facebook.com/ultrasclips/posts/-ibai-aguirre-19-made-his-real-sociedad-debut-yesterday-when-he-went-back-home-a/1563808385749349/",
         "https://www.uefa.com/uefaeuropaleague/clubs/players/250189566--ibai-aguirre/",
-        "https://www.uefa.com/uefaeuropaleague/clubs/players/250189566--ibai-aguirre/matches/"
+        "https://www.uefa.com/uefaeuropaleague/clubs/players/250189566--ibai-aguirre/matches/",
+        "https://www.realsociedad.eus/es/equipo/jugador/real-sociedad-cadete/ibai-agirre"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.realsociedad.eus/es/equipo/jugador/real-sociedad-cadete/ibai-agirre"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Reviewed short-name Ibai Aguirre / full-name Ibai Aguirre Basurko and Real Sociedad academy identity; named image in the official player profile. No birthday data was changed."
+      },
+      "photo": {
+        "source": "https://www.realsociedad.eus/es/equipo/jugador/real-sociedad-cadete/ibai-agirre",
+        "originalUrl": "https://cdn.realsociedad.eus//Uploads/jugadores/_0_ibai-aguirre.png",
+        "sha256": "8ffbe95ddf50d2715fcb11b8c23212b1b8fa8dd26fb199cbf30cf7fb4deb57a2",
+        "width": 500,
+        "height": 500,
+        "endpoint": "/api/football-player-photo?player=410486",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Reviewed short-name Ibai Aguirre / full-name Ibai Aguirre Basurko and Real Sociedad academy identity; named image in the official player profile. No birthday data was changed."
+      }
     },
     {
       "id": "119332",
@@ -951,10 +1098,29 @@
         "https://www.premierleague.com/en/players/550797/ibrahima-sow/career",
         "https://www.youtube.com/watch?v=cmMWOqqWfgA",
         "https://www.fotmob.com/players/1555045/ibrahima-sow",
-        "https://www.espn.com/soccer/player/_/id/371543/ibrahima-sow"
+        "https://www.espn.com/soccer/player/_/id/371543/ibrahima-sow",
+        "https://sevillafc.es/en/equipos/jugadores/i-sow"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://sevillafc.es/en/equipos/jugadores/i-sow"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Official embedded player record identifies Ibrahima Sow, Sevilla Atletico and matching birthday 2007-01-26; medium_shot belongs to that record."
+      },
+      "photo": {
+        "source": "https://sevillafc.es/en/equipos/jugadores/i-sow",
+        "originalUrl": "https://mediaverse.sevillafc.hiway.media/image/2026/09/07/6a9e79c4/7.-IBRA.png",
+        "sha256": "2f9a455f6392a6cd882a3a2b215637e75f30a7959194ccefa73a7bcf75da3835",
+        "width": 1080,
+        "height": 1080,
+        "endpoint": "/api/football-player-photo?player=371543",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official embedded player record identifies Ibrahima Sow, Sevilla Atletico and matching birthday 2007-01-26; medium_shot belongs to that record."
+      }
     },
     {
       "id": "3131879",
@@ -977,7 +1143,25 @@
         "https://mws.com/us/product/manuel-angel-castillo-rodriguez-Awo_E4ZUY0-4gDr4bxnvfA"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://sevillafc.es/en/equipos/jugadores/manuel-angel-castillo"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Official embedded player record identifies full name Manuel Angel Castillo Rodriguez, Sevilla Atletico and birthday 2008-06-13; medium_shot belongs to that record."
+      },
+      "photo": {
+        "source": "https://sevillafc.es/en/equipos/jugadores/manuel-angel-castillo",
+        "originalUrl": "https://mediaverse.sevillafc.hiway.media/image/2026/09/07/6a9e749a/11.-MANUEL-ANGEL.png",
+        "sha256": "a94a035aaf208600ccc113ddeb0717895c0eddaead045d1e9d2f8a0a459ea1ef",
+        "width": 1080,
+        "height": 1080,
+        "endpoint": "/api/football-player-photo?player=3131879",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official embedded player record identifies full name Manuel Angel Castillo Rodriguez, Sevilla Atletico and birthday 2008-06-13; medium_shot belongs to that record."
+      }
     },
     {
       "id": "16340",
@@ -1000,7 +1184,14 @@
         "https://sorare.com/football/players/javier-guerra-moreno/history"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.valenciacf.com/official-statement-javi-guerra"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3124770",
@@ -1046,7 +1237,25 @@
         "https://fc.gradientsports.com/rankings/player/37735518/matches"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.valenciacf.com/jaume-dura-eng"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Reviewed Jaume Dura / Jaume Dura i Soler name variant and Valencia academy membership; official profile gives birthday 2008-05-15."
+      },
+      "photo": {
+        "source": "https://www.valenciacf.com/jaume-dura-eng",
+        "originalUrl": "https://www.valenciacf.com/public/Image/2026/9/vcf-mestalla_web_0019_capa-20_RetratoGrande.png",
+        "sha256": "863841819b3b467947ee64d33ec7a970fd61375ec73632dc44949f826a8aafcf",
+        "width": 861,
+        "height": 1177,
+        "endpoint": "/api/football-player-photo?player=3124771",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Reviewed Jaume Dura / Jaume Dura i Soler name variant and Valencia academy membership; official profile gives birthday 2008-05-15."
+      }
     },
     {
       "id": "3101324",
@@ -1089,10 +1298,29 @@
         "https://www.facebook.com/1.FCUnionBerlin/posts/torwarttalent-fritz-gagzow-hat-seinen-vertrag-%C3%BCber-die-a-junioren-hinaus-verl%C3%A4ng/1450716437099904/",
         "https://www.flashscore.com/player/gagzow-fritz/Sbhpxqph/",
         "https://globalsportsarchive.com/en/soccer/athlete/fritz-gagzow/7980315",
-        "https://www.futbin.com/27/player/21322_37/fritz-gagzow"
+        "https://www.futbin.com/27/player/21322_37/fritz-gagzow",
+        "https://www.fc-union-berlin.de/de/spielerdetailseite-RHdeVKgRtKijk9i2kpZz2D5IlN4JGbZGJaUEPHxlnaE9pP0"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.fc-union-berlin.de/de/spielerdetailseite-RHdeVKgRtKijk9i2kpZz2D5IlN4JGbZGJaUEPHxlnaE9pP0"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name Fritz Gagzow and Union Berlin goalkeeper identity in the official individual profile."
+      },
+      "photo": {
+        "source": "https://www.fc-union-berlin.de/de/spielerdetailseite-RHdeVKgRtKijk9i2kpZz2D5IlN4JGbZGJaUEPHxlnaE9pP0",
+        "originalUrl": "https://www.fc-union-berlin.de/image/aaa3e7c3-24d3-4068-9a46-bd053d47d5b8?ts=0&s=WWVhRNEhm0KMZf5Rofqzw2&ratio=original&size=xs&format=webp",
+        "sha256": "53f48de9890c199a42b3eb348828ba434c14dc79e1161370f2bfd6179bb7a00e",
+        "width": 320,
+        "height": 415,
+        "endpoint": "/api/football-player-photo?player=3131188",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name Fritz Gagzow and Union Berlin goalkeeper identity in the official individual profile."
+      }
     },
     {
       "id": "413775",
@@ -1112,10 +1340,31 @@
         "https://www.sofascore.com/football/player/duje-sliskovic/2193775",
         "https://www.besoccer.com/player/duje-sliskovic-3534097",
         "https://www.worldfootball.net/person/pe904765/duje-sliskovic/",
-        "https://www.playmakerstats.com/player/duje-sliskovic/2476809"
+        "https://www.playmakerstats.com/player/duje-sliskovic/2476809",
+        "https://www.fc-union-berlin.de/de/fussball/nachwuchs/junioren/kader-u19-junioren-miRx",
+        "https://www.fc-union-berlin.de/de/spielerdetailseite-Z3CMVn1ZqnBhpy8fjCiJ4VrkJUmc5Zt4ekyygVnPd9febBE"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.fc-union-berlin.de/de/fussball/nachwuchs/junioren/kader-u19-junioren-miRx",
+          "https://www.fc-union-berlin.de/de/spielerdetailseite-Z3CMVn1ZqnBhpy8fjCiJ4VrkJUmc5Zt4ekyygVnPd9febBE"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name Duje Sliskovic and Union Berlin U19 midfielder identity; image mapped by the official squad member record and individual profile."
+      },
+      "photo": {
+        "source": "https://www.fc-union-berlin.de/de/spielerdetailseite-Z3CMVn1ZqnBhpy8fjCiJ4VrkJUmc5Zt4ekyygVnPd9febBE",
+        "originalUrl": "https://www.fc-union-berlin.de/image/a45ae216-7ab4-47f1-985d-4a4635981ed3?ts=0&s=PA9fZMwpqqgF26Xb2VCCi8&ratio=original&size=xs&format=webp",
+        "sha256": "b83ab78ee9e89e04bc2f624e78253407b35f3323d31f92f5969607d8f52f184b",
+        "width": 320,
+        "height": 415,
+        "endpoint": "/api/football-player-photo?player=413775",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name Duje Sliskovic and Union Berlin U19 midfielder identity; image mapped by the official squad member record and individual profile."
+      }
     },
     {
       "id": "421735",
@@ -1483,10 +1732,23 @@
         "https://www.fotmob.com/players/2022740/leo-paul-bouyer",
         "http://insider.espn.com/soccer/player/bio/_/id/403839/leo-paul-bouyer",
         "https://fr.wikipedia.org/wiki/L%C3%A9o-Paul_Bouyer",
-        "https://www.sofascore.com/football/player/leo-paul-bouyer/2063772"
+        "https://www.sofascore.com/football/player/leo-paul-bouyer/2063772",
+        "https://www.acmilan.com/en/teams/mens-primavera",
+        "https://www.acmilan.com/en/teams/milan-futuro",
+        "https://www.acmilan.com/en/teams/milan-futuro/players/leo-paul-bouyer"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.acmilan.com/en/news/articles/media/2026-08-18/official-statement-leo-paul-bouyer",
+          "https://www.acmilan.com/en/teams/mens-primavera",
+          "https://www.acmilan.com/en/teams/milan-futuro",
+          "https://www.acmilan.com/en/teams/milan-futuro/players/leo-paul-bouyer"
+        ],
+        "result": "Official AC Milan profile birthday 2008-08-13 conflicts with catalog 2008-08-14; downloaded original also exceeds the existing 2 MB limit. Retained for further identity review, not enabled."
+      }
     },
     {
       "id": "384831",
@@ -1506,10 +1768,19 @@
         "https://forzafootball.com/player/jacopo-mirra-1217508352",
         "https://www.facebook.com/officialasroma/videos/-jacopo-mirra-features-in-the-latest-episode-of-dreaming-roma/1204847601504268/",
         "https://theanalyst.com/players/13924/jacopo-mirra",
-        "https://www.besoccer.com/player/mirra-992161"
+        "https://www.besoccer.com/player/mirra-992161",
+        "https://en.atalanta.it/teams/under-23"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://en.atalanta.it/news/u23s-welcome-jacopo-mirra",
+          "https://en.atalanta.it/teams/under-23"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "415168",
@@ -1533,7 +1804,14 @@
         "https://www.uefa.com/uefaeuropaleague/clubs/players/250216712--matteo-franceschelli/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.laliga.com/en-GB/player/matteo-franceschelli"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "410325",
@@ -1556,7 +1834,14 @@
         "https://www.sofascore.com/football/player/marco-libra-alvarado/1986578"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.bolognafc.it/en/marco-libra-alvarado-called-up-by-venezuela/"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "411232",
@@ -1610,7 +1895,14 @@
         "https://www.facebook.com/untifosodelcagliari/videos/%F0%9D%97%A6%F0%9D%97%A8%F0%9D%97%9A%F0%9D%97%94%F0%9D%97%A0%F0%9D%97%98%F0%9D%97%9F%F0%9D%97%98-%F0%9D%97%96%F0%9D%97%9B%F0%9D%97%98-%F0%9D%97%9A%F0%9D%97%A2%F0%9D%97%9F-%F0%9D%97%9C%F0%9D%97%A1-%F0%9D%97%A3%F0%9D%97%A5%F0%9D%97%9C%F0%9D%97%A0%F0%9D%97%94%F0%9D%97%A9%F0%9D%97%98%F0%9D%97%A5%F0%9D%97%94-%F0%9D%97%96%F0%9D%97%A2%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%A5%F0%9D%97%A2-%F0%9D%97%9F%F0%9D%97%9C%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%98%F0%9D%97%A5alessandro-sugamele-nuovo-acquisto-de/2401676513610730/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://cagliaricalcio.com/en/news/sugamele-joins-cagliari/"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3140451",
@@ -1743,7 +2035,14 @@
         "https://www.besoccer.com/player/sulayman-jallow-3631666"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.acffiorentina.com/en/news/sulayman-jallow-comunicato-acquisto-28-8-25"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "422953",
@@ -2023,7 +2322,14 @@
         "https://theanalyst.com/players/19992/aleksandr-ballabio"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://en.legaseriea.it/players/aleksandr-ballabio/statistics"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "417784",
@@ -2120,7 +2426,14 @@
         "https://fc.gradientsports.com/rankings/player/38222094"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_2_508850/profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "414184",
@@ -2151,7 +2464,14 @@
           "source": "https://www.fotmob.com/players/1841152"
         }
       },
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2025_2_504285/profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "416458",
@@ -2174,7 +2494,14 @@
         "https://www.ea.com/en/games/ea-sports-fc/ratings/player-ratings/lamfia-dioubate/85892"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2025_2_505586/profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3124793",
@@ -2198,7 +2525,14 @@
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250211953--aymen-assab/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_9_508667/profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "416401",
@@ -2222,7 +2556,15 @@
         "https://www.uefa.com/under17/teams/players/250206236--mael-gernigon/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://angers-sco.fr/mael-gernigon-signe-son-premier-contrat-professionnel/",
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2025_37_505551/matches"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3130907",
@@ -2247,7 +2589,15 @@
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250222302--mamadou-diallo/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://angers-sco.fr/mamadou-diallo-signe-son-premier-contrat-professionnel/",
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_37_105417/statistics"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3121265",
@@ -2270,7 +2620,14 @@
         "https://fbref.com/en/players/ba66062f/Enzo-Monchatre"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/player-sheet/l1_championship_player_2026_44_510001"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "408085",
@@ -2321,7 +2678,14 @@
         "https://www.soccerbase.com/players/player.sd?player_id=223757"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.fff.fr/equipe-nationale/joueur/11645-ouziad-djibril/fiche.html"
+        ],
+        "result": "FFF portrait has no transparent pixels (opaque PNG)."
+      }
     },
     {
       "id": "407614",
@@ -2344,7 +2708,14 @@
         "https://kingsleague.pro/en/players/76319-william-harhouz"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_26_105046/profile"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "416429",
@@ -2367,7 +2738,14 @@
         "https://www.flashscoreusa.com/player/kone-mamadou/hn7q2wRi/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/player-sheet/l1_championship_player_2026_7_105495"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "403421",
@@ -2473,7 +2851,15 @@
         "https://starting11.com/player/martin-ponsot"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_30_508616/profile",
+          "https://www.ogcnice.com/en/article/130499/martin-ponsot-signs-first-professional-contract.html"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3127048",
@@ -2528,7 +2914,15 @@
         "https://www.uefa.com/uefaeuropaleague/clubs/players/250225226--henrick-do-marcolino/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2024_14_86774/profile",
+          "https://www.staderennais.com/en/news/henrick-do-marcolino-paraphe-son-premier-contrat-professionnel"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "422969",
@@ -2551,7 +2945,14 @@
         "https://forzafootball.com/player/aymen-amaaouch-1219176348"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.toulousefc.com/equipes/equipe-professionnelle/aymen-amaaouch"
+        ],
+        "result": "Official transparent PNG is a shirt-only placeholder, not a player photograph."
+      }
     },
     {
       "id": "3140905",
@@ -2597,7 +2998,14 @@
         "https://www.flashscore.com/player/soukouna-idrissa/0AJ8ne3j/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://ligue1.com/en/player-sheet/l1_championship_player_2026_33_508851/matches"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3129214",
@@ -2816,10 +3224,29 @@
         "https://www.reddit.com/r/NorskFotball/comments/1o62bln/why_do_you_think_bodo_glimts_star_players_like/",
         "https://www.sofascore.com/football/player/tobias-solbakken/2271269",
         "https://www.allfootballapp.com/player/1199091-tobias-solbakken",
-        "https://www.uefa.com/uefayouthleague/clubs/players/250213131--tobias-solbakken/matches/"
+        "https://www.uefa.com/uefayouthleague/clubs/players/250213131--tobias-solbakken/matches/",
+        "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/tobias-solbakken"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/tobias-solbakken"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-05-15; portrait filename matches."
+      },
+      "photo": {
+        "source": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/tobias-solbakken",
+        "originalUrl": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/tobias-solbakken/_/image/6682381f-d338-4d5a-b9b1-bb6297983dd8:7a52a945639c22569a6a5f9b6b3715cce5b6cd8b/width-800/Tobias%20Solbakken.png",
+        "sha256": "e2fcfdd1551d655987cec0c19dd18d88dba8f663d9ff5308edc53e2ccf381669",
+        "width": 800,
+        "height": 800,
+        "endpoint": "/api/football-player-photo?player=3133979",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-05-15; portrait filename matches."
+      }
     },
     {
       "id": "3133984",
@@ -2887,10 +3314,29 @@
         "https://x.com/AntonioMango4/status/2031820705537372470",
         "https://www.playmakerstats.com/player/levi-monsen-yeboah/2792596",
         "https://www.espn.com/soccer/player/stats/_/id/3133951/levi-monsen-yeboah",
-        "https://www.besoccer.com/player/l-monsen-3593612"
+        "https://www.besoccer.com/player/l-monsen-3593612",
+        "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/levi-monsen"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/levi-monsen"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Full-name Levi Monsen Yeboah, Bodo/Glimt academy and official birthday 2010-03-25; UEFA 250213128 confirms name, club and birthday."
+      },
+      "photo": {
+        "source": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/levi-monsen",
+        "originalUrl": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/levi-monsen/_/image/802c9b6e-7828-4304-81fe-b35956cb5d7c:c3738a0ed53e5cf4c7245ec00f48a148cbc30485/width-800/Levi%20Monsen.png",
+        "sha256": "cd6f654a9739222755f9b44020ef8801a62ec028ba066d450a70ff3a0883e62a",
+        "width": 800,
+        "height": 800,
+        "endpoint": "/api/football-player-photo?player=3133951",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Full-name Levi Monsen Yeboah, Bodo/Glimt academy and official birthday 2010-03-25; UEFA 250213128 confirms name, club and birthday."
+      }
     },
     {
       "id": "3133980",
@@ -2911,10 +3357,18 @@
         "https://www.besoccer.com/player/jesper-nyg%C3%A5rd-3761463",
         "https://www.worldfootball.net/person/pe1875601/jesper-rabben-nygard/",
         "https://www.allfootballapp.com/player/1199079-jesper-rabben-nygard",
-        "https://www.uefa.com/uefachampionsleague/clubs/players/250213129--jesper-rabben-nygard/matches/"
+        "https://www.uefa.com/uefachampionsleague/clubs/players/250213129--jesper-rabben-nygard/matches/",
+        "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jesber-rabben-nygard"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jesber-rabben-nygard"
+        ],
+        "result": "Official Jesper Rabben Nygard page references an image named Johannes Linaker.png; identity conflict requires resolution before use."
+      }
     },
     {
       "id": "3133981",
@@ -2958,10 +3412,29 @@
         "https://globalsportsarchive.com/en/soccer/athlete/erling-eliassen/8078463",
         "https://www.sofascore.com/football/player/erling-eliassen/2270019",
         "https://www.soccerbase.com/players/player.sd?player_id=223865",
-        "https://www.uefa.com/uefachampionsleague/clubs/players/250213099--erling-eliassen/matches/"
+        "https://www.uefa.com/uefachampionsleague/clubs/players/250213099--erling-eliassen/matches/",
+        "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/erling-eliassen"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/erling-eliassen"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-01-13; portrait filename matches."
+      },
+      "photo": {
+        "source": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/erling-eliassen",
+        "originalUrl": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/erling-eliassen/_/image/8e803fea-2733-41d2-a47c-4db0ff5c7ccb:b5d2a8122d1e477c015ee97e4ab6c321122647ed/width-800/Erling%20Eliasssen.png",
+        "sha256": "fdd2a8f5f4db57bd0dde0a161c24597ff2156f7e2a494b4f05cd73985264313e",
+        "width": 800,
+        "height": 800,
+        "endpoint": "/api/football-player-photo?player=3133983",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-01-13; portrait filename matches."
+      }
     },
     {
       "id": "3133982",
@@ -2984,7 +3457,25 @@
         "https://auburnwire.usatoday.com/story/sports/college/auburn/football/2026/08/05/auburn-football-jacob-strand-2026-player-profile/91168901007/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jakob-strand"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-10-11; portrait filename matches."
+      },
+      "photo": {
+        "source": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jakob-strand",
+        "originalUrl": "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jakob-strand/_/image/92ba3730-197a-4a26-82cc-1ca3ba5735f5:c08994a05067ada3013e81075a02ca475411a07d/width-800/Jakob%20Strand.png",
+        "sha256": "3a35fbb0154f8002eeff9c6c436a62b6f7ca2cb3575ad5159f6f8b389e59a012",
+        "width": 800,
+        "height": 800,
+        "endpoint": "/api/football-player-photo?player=3133982",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name, Bodo/Glimt academy and official birthday 2009-10-11; portrait filename matches."
+      }
     },
     {
       "id": "3102200",
@@ -3603,7 +4094,25 @@
         "https://www.uefa.com/uefayouthleague/clubs/players/250225395--miguel-solarte-arboleda/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.slavia.cz/eng/player/25/3990"
+        ],
+        "result": "verified-transparent-photo",
+        "identityReview": "Exact name, Slavia Prague and birthday 2008-01-11."
+      },
+      "photo": {
+        "source": "https://www.slavia.cz/eng/player/25/3990",
+        "originalUrl": "https://www.slavia.cz/upload/_imgcache/0d6696b3f23bf48a_486x720.png",
+        "sha256": "40f7ce8d568875411eb057c5103cfeed6ca50c0d7b5bc81e08889223f1fdabb4",
+        "width": 486,
+        "height": 720,
+        "endpoint": "/api/football-player-photo?player=413840",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Exact name, Slavia Prague and birthday 2008-01-11."
+      }
     },
     {
       "id": "3101991",
@@ -3752,7 +4261,14 @@
         "https://www.footballcritic.com/david-balog/profile/7950857"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://en.skslovan.com/hraci/A-David_Balog"
+        ],
+        "result": "Official portrait has no transparent pixels (opaque PNG)."
+      }
     },
     {
       "id": "405608",
@@ -3776,7 +4292,14 @@
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded."
+      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://en.skslovan.com/players/A-Matus_Tomasko"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3107812",
@@ -3799,7 +4322,14 @@
         "https://www.uefa.com/uefachampionsleague/clubs/players/250222608--robert-tomanek/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://en.skslovan.com/players/A-Robert_Tomanek"
+        ],
+        "result": "Official portrait has no transparent pixels (opaque PNG)."
+      }
     },
     {
       "id": "3099044",
@@ -3961,7 +4491,14 @@
         "https://www.uefa.com/uefayouthleague/clubs/players/250218095--mats-sekse-johansen/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.vikingfotball.no/nyheter/akademispiller-skriver-sin-forste-proffkontrakt"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3139066",
@@ -4194,7 +4731,14 @@
         "https://www.uefa.com/uefayouthleague/clubs/players/250225339--rasmus-gjelsvik-steigen/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.vikingfotball.no/nyheter/akademispillere-signerer-proffkontrakt"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "393731",
@@ -4577,7 +5121,14 @@
         "https://www.uefa.com/under21/teams/players/250194727--victor-huart-guerra/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.gibraltarfa.com/news/building-relationships-creating-opportunities-867"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3096980",
@@ -4600,7 +5151,14 @@
         "https://sportspundit.com/soccer/players/56620-jayvan-orlando-garro/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "secondPass": {
+        "checkedAt": "2026-10-04",
+        "officialPagesChecked": [
+          "https://www.gibraltarfa.com/player/jayvan-garro-4342"
+        ],
+        "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      }
     },
     {
       "id": "3102740",
@@ -4943,5 +5501,11 @@
       "fields": {},
       "status": "researched-no-verified-transparent-photo"
     }
-  ]
+  ],
+  "secondPass": {
+    "checkedAt": "2026-10-04",
+    "playersWithOfficialPagesChecked": 51,
+    "addedTransparentPhotos": 16,
+    "remainingMissingPhotos": 95
+  }
 }

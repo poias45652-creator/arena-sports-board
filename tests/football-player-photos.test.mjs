@@ -48,9 +48,9 @@ test('reviewed photo sources are complete, pinned, and exclude mismatched identi
  const sources=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'));
  const research=JSON.parse(readFileSync('docs/football-missing-player-research.json'));
  const audit=JSON.parse(readFileSync('docs/football-player-photo-audit.json'));
- assert.equal(research.players.length,181);assert.equal(Object.keys(sources).length,70);
+ assert.equal(research.players.length,181);assert.equal(Object.keys(sources).length,research.addedTransparentPhotos);
  for(const p of research.players.filter(p=>p.photo)){assert.equal(sources[p.id].sha256,p.photo.sha256);assert.equal(sources[p.id].url,p.photo.originalUrl);assert.ok(!audit.missing.some(x=>x.id===p.id));}
- assert.equal(audit.verifiedTransparentPhotos,4183);assert.equal(audit.missing.length,111);
+ assert.equal(audit.verifiedTransparentPhotos,4113+Object.keys(sources).length);assert.equal(audit.missing.length,audit.uniquePlayers-audit.verifiedTransparentPhotos);
  for(const id of ['139008','405608','313078'])assert.ok(!sources[id]);
 });
 test('reviewed PNG and WebP photos use exact bytes and MIME types; changed source images are rejected',async()=>{
