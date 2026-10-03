@@ -151,3 +151,80 @@ test('browser protection still permits data reads with an existing valid source 
  const calls=[];const result=await hrConnection('a',db,secret,'read',flow(calls));
  assert.equal(result.status,200);assert.equal(calls.length,2);assert.ok(calls.every(c=>!c.endpoint.includes('/SUPER/login')));
 });
+
+test('temporary network, HTTP and response-body failures retry only the failed odds request',async()=>{
+ for(const failure of ['network','http','body']){
+  const {db}=await setup(),calls=[];let failed=false;
+  const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>{
+   if(!request.endpoint.endsWith('/GameDetail')||failed)return;failed=true;
+   if(failure==='network')throw new TypeError('fetch failed');
+   if(failure==='http')return new Response('unavailable',{status:503});
+   return new Response(new ReadableStream({start(controller){controller.error(new TypeError('stream interrupted'));}}));
+  }));
+  assert.equal(response.status,200,failure);assert.equal((await response.json()).games.length,4);
+  assert.equal(calls.filter(c=>c.endpoint.endsWith('/GameDetail')).length,2);
+  assert.equal(calls.filter(c=>c.endpoint.includes('/SUPER/login')).length,1);
+ }
+});
+test('explicit update reuses a working source session instead of logging in again',async()=>{
+ const {db}=await setup();await hrConnection('a',db,secret,'connect',flow([]));const calls=[];
+ assert.equal((await hrConnection('a',db,secret,'connect',flow(calls))).status,200);
+ assert.deepEqual(calls.map(c=>c.endpoint.split('/').pop()),['Menu','GameDetail']);
+});
+test('only an explicit update replaces an expired saved source session',async()=>{
+ const {db}=await setup();await hrConnection('a',db,secret,'connect',flow([]));const calls=[];let expired=true;
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>{
+  if(request.endpoint.endsWith('/Menu')&&expired){expired=false;return Response.json({code:-101});}
+ }));
+ assert.equal(response.status,200);assert.equal(calls.filter(c=>c.endpoint.includes('/SUPER/login')).length,1);
+ assert.deepEqual(calls.map(c=>c.endpoint.split('/').pop()),['Menu','login','outApiLogin','Menu','GameDetail']);
+});
+test('a successful login survives exhausted data retries and the next read recovers without another login',async()=>{
+ const {db,sql}=await setup(),calls=[];
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>{if(request.endpoint.endsWith('/Menu'))throw new TypeError('network interrupted');}));
+ assert.equal(response.status,502);assert.equal((await response.json()).code,'source_unreachable');
+ assert.equal(calls.filter(c=>c.endpoint.endsWith('/Menu')).length,2);
+ const row=sql.prepare('SELECT * FROM hr_connections').get();assert.ok(row.encrypted_session);assert.equal(row.snapshot,null);assert.equal(row.fetched_at,null);
+ sql.exec('UPDATE hr_connections SET busy_until=0');const recovered=[];
+ assert.equal((await hrConnection('a',db,secret,'read',flow(recovered))).status,200);
+ assert.deepEqual(recovered.map(c=>c.endpoint.split('/').pop()),['Menu','GameDetail']);
+});
+test('login network failures never replay a credential exchange',async()=>{
+ const {db}=await setup(),calls=[];
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,()=>{throw new TypeError('network interrupted');}));
+ assert.equal(response.status,502);assert.equal(calls.length,1);
+});
+test('all three sport reads run concurrently and retain the lease until every request settles',async()=>{
+ const {db,sql}=await setup();let ready,release;const started=new Promise(r=>ready=r),gate=new Promise(r=>release=r),seen=new Set();
+ const task=hrConnection('a',db,secret,'connect',flow([],async request=>{
+  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[101,102,1].map(catid=>({catid,Items:[{WagerTypeKey:7}]}))}}]}});
+  if(!request.endpoint.endsWith('/GameDetail'))return;
+  seen.add(request.body.CatID);if(seen.size===3)ready();
+  if(request.body.CatID===102)return new Response('unavailable',{status:503});
+  await gate;
+ }));
+ await started;assert.equal(seen.size,3);await new Promise(r=>setTimeout(r,300));
+ assert.ok(sql.prepare('SELECT busy_until FROM hr_connections').get().busy_until>Date.now());
+ assert.equal((await hrConnection('a',db,secret,'read',flow([]))).status,429);
+ release();const response=await task;assert.equal(response.status,502);assert.match((await response.json()).error,/籃球/);
+ assert.equal(sql.prepare('SELECT snapshot FROM hr_connections').get().snapshot,null);
+});
+test('a source response taking longer than eight seconds completes without a forced disconnect',async()=>{
+ const {db}=await setup();const base=flow([]);let delayed=false;
+ const response=await hrConnection('a',db,secret,'connect',async(endpoint,options)=>{
+  if(endpoint.endsWith('/GameDetail')&&!delayed){delayed=true;await new Promise((resolve,reject)=>{
+   const timer=setTimeout(()=>{options.signal.removeEventListener('abort',abort);resolve();},8200);
+   function abort(){clearTimeout(timer);reject(options.signal.reason);}options.signal.addEventListener('abort',abort,{once:true});
+  });}
+  return base(endpoint,options);
+ });
+ assert.equal(response.status,200);
+});
+test('a new binding cannot fall back to the old binding session after a failed login',async()=>{
+ const {db,sql}=await setup();await hrConnection('a',db,secret,'connect',flow([]));
+ sql.exec('UPDATE tz_bindings SET verified_at=2');
+ assert.equal((await hrConnection('a',db,secret,'connect',flow([],()=>{throw new TypeError('offline');}))).status,502);
+ const row=sql.prepare('SELECT * FROM hr_connections').get();assert.equal(row.encrypted_session,null);assert.equal(row.snapshot,null);assert.equal(row.fetched_at,null);
+ sql.exec('UPDATE hr_connections SET busy_until=0');const calls=[];
+ assert.equal((await (await hrConnection('a',db,secret,'read',flow(calls))).json()).code,'not_connected');assert.equal(calls.length,0);
+});

@@ -1,0 +1,41 @@
+{
+  "version": "nba-player-opponent-v3-20261003",
+  "features": [
+    "homeVenue",
+    "playerProductionDiff",
+    "recentNetDiff",
+    "opponentNetDiff",
+    "restDiff"
+  ],
+  "coefficients": [
+    2.153128789830099,
+    0.22655056431507647,
+    0.6214832232420039,
+    0.27994216891623414,
+    1.1104878303926724
+  ],
+  "sigma": 14.285652442442888,
+  "enabled": true,
+  "regularSeasonValidated": true,
+  "validationScope": "historical previous-rotation minutes; excludes live news and preseason scenarios",
+  "preseasonValidated": false,
+  "alpha": 10,
+  "trainedSeasons": [
+    2024,
+    2025
+  ],
+  "holdoutSeason": 2026,
+  "validation": {
+    "games": 1307,
+    "brier": 0.20997883233431175,
+    "logLoss": 0.6073768691692066,
+    "accuracy": 0.6717674062739097
+  },
+  "referenceRecentNet": {
+    "games": 1307,
+    "brier": 0.2131690930925379,
+    "logLoss": 0.6148610352333719,
+    "accuracy": 0.6648814078041316
+  },
+  "createdAt": "2026-10-03T08:39:34.459281+00:00"
+}

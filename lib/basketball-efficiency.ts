@@ -1,4 +1,5 @@
 import {nbaFixtureKey,nbaForm,nbaHistory,type NbaGame,type NbaForm} from './nba';
+import type {NbaPlayerContext} from './basketball-player-strength';
 export type BasketballLeague='NBA'|'WNBA';
 export type Weights=[number,number,number,number,number];
 export const DEFAULT_WEIGHTS:Weights=[20,20,20,20,20];
@@ -59,7 +60,7 @@ export function simulateMargin(margin:number,sigma:number,identity:string){
  for(let i=0;i<5000;i++){const z=Math.sqrt(-2*Math.log(Math.max(Number.EPSILON,uniform())))*Math.cos(2*Math.PI*uniform());for(const v of [margin+sigma*z,margin-sigma*z]){margins.push(v);if(v>0)homeWins++;else if(v===0)homeWins+=.5;}}
  margins.sort((a,b)=>a-b);return {iterations:10000,homeWins,awayWins:10000-homeWins,home:homeWins/10000,away:1-homeWins/10000,sigma,seed:initialSeed,marginP10:margins[999],marginP50:(margins[4999]+margins[5000])/2,marginP90:margins[8999],distribution:'normal-margin' as const};
 }
-export type EfficiencyAnalysis={status:'ready'|'waiting';capturedAt:string;homeForm:NbaForm;awayForm:NbaForm;expected?:{home:number;away:number;total:number;margin:number};probabilities?:{home:number;away:number};model:'nba-efficiency-monte-carlo-v2'|'wnba-efficiency-monte-carlo-v2';weightsKey:string;simulation?:ReturnType<typeof simulateMargin>;inputs?:{home:Omit<EfficiencyMetrics,'observations'>;away:Omit<EfficiencyMetrics,'observations'>;calculation:ReturnType<typeof projectEfficiency>;possessionsMethod:string}};
+export type EfficiencyAnalysis={status:'ready'|'waiting';capturedAt:string;homeForm:NbaForm;awayForm:NbaForm;expected?:{home:number;away:number;total:number;margin:number};probabilities?:{home:number;away:number};playerContext?:NbaPlayerContext;model:'nba-player-opponent-v3'|'wnba-player-opponent-v3'|'nba-efficiency-monte-carlo-v2'|'wnba-efficiency-monte-carlo-v2';weightsKey:string;totalSigma?:number;simulation?:ReturnType<typeof simulateMargin>;inputs?:{home:Omit<EfficiencyMetrics,'observations'>;away:Omit<EfficiencyMetrics,'observations'>;calculation:ReturnType<typeof projectEfficiency>;possessionsMethod:string}};
 export function efficiencyHistory(game:NbaGame,history:NbaGame[],teamId:string,league:BasketballLeague,now=Date.now()){
  return nbaHistory(history.filter(g=>(g.home.league||'NBA')===league&&(g.away.league||'NBA')===league),teamId,Math.min(now,Date.parse(game.start))).slice(0,20);
 }
@@ -70,5 +71,6 @@ export function analyzeEfficiency(game:NbaGame,history:NbaGame[],boxes:Efficienc
  const forTeam=(games:NbaGame[],id:string)=>efficiencyMetrics(games.map(g=>{const b=boxes.find(b=>b.key===nbaFixtureKey(g)&&b.league===league);if(!b||b.home.points!==g.homeScore||b.away.points!==g.awayScore)throw Error('近期比賽效率資料不完整');return b;}),id,league);
  const h=forTeam(home,game.home.id),a=forTeam(away,game.away.id),calculation=projectEfficiency(h,a,league,game.neutral,values),simulation=simulateMargin(calculation.home-calculation.away,calculation.sigma,`${league}:${nbaFixtureKey(game)}:v2`),round=(x:number)=>Math.round(x*10)/10;
  const homeScore=round(calculation.home),awayScore=round(calculation.away),{observations:_h,...hm}=h,{observations:_a,...am}=a;
- return {...report,status:'ready',expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:simulation.home,away:simulation.away},simulation,inputs:{home:hm,away:am,calculation,possessionsMethod:'mean(FGA + 0.44*FTA - OREB + total turnovers); pace per regulation game'}};
+ const totalSigma=Math.sqrt(variance([...new Map([...home,...away].map(g=>[g.id,g])).values()].map(g=>g.homeScore!+g.awayScore!)));
+ return {...report,status:'ready',totalSigma,expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:simulation.home,away:simulation.away},simulation,inputs:{home:hm,away:am,calculation,possessionsMethod:'mean(FGA + 0.44*FTA - OREB + total turnovers); pace per regulation game'}};
 }

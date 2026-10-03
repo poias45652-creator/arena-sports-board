@@ -1,3 +1,4 @@
+import {enrichWnbaPlayerStrength} from './wnba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
 import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
 import {wnbaFirstSeason,wnbaDay,wnbaHistory,wnbaSeason,wnbaTeam,parseWnbaEvents,reconcileWnbaGames,shiftWnbaDay,validWnbaDay,type WnbaBoard} from './wnba';
@@ -56,9 +57,10 @@ async function history(teamIds:string[],season:number){
 }
 export async function wnbaGameAnalysis(day:string,id:string,weights:Weights=DEFAULT_WEIGHTS){
  const schedule=await wnbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
+
  if(!wnbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'WNBA',weights),sourceFetchedAt:schedule.fetchedAt};
  const data=await history([game.home.id,game.away.id],wnbaSeason(wnbaDay()));
- return {game,analysis:await efficiencyGameAnalysis(game,data.games,'WNBA',weights),sourceFetchedAt:data.fetchedAt};
+  return {game,analysis:await enrichWnbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'WNBA',weights)),sourceFetchedAt:data.fetchedAt};
 }
 export async function wnbaTeamProfile(teamId:string){
  const team=wnbaTeam(teamId);if(!team)throw Error('球隊不存在');

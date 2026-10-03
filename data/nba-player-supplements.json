@@ -1,0 +1,2262 @@
+[
+  {
+    "id": 1642870,
+    "name": "Milos Uzan",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-3",
+      "weight": "185",
+      "country": "USA",
+      "school": "Houston"
+    },
+    "photo": {
+      "path": "/images/players/nba/1642870-draft-2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Uzan-Milos.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Houston",
+      "points": 11.1,
+      "rebounds": 2.7,
+      "assists": 4.0,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/milos-uzan"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/milos-uzan"
+      },
+      {
+        "label": "Houston 大學官方資料",
+        "url": "https://uhcougars.com/sports/mens-basketball/roster/uzan-milos/9542"
+      }
+    ]
+  },
+  {
+    "id": 1643620,
+    "name": "Tucker DeVries",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "215",
+      "country": "USA",
+      "school": "Indiana"
+    },
+    "photo": {
+      "path": "/images/players/nba/1643620-draft-2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/tucker-devries2.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Indiana",
+      "points": 13.7,
+      "rebounds": 5.3,
+      "assists": 3.3,
+      "sourceUrl": "https://iuhoosiers.com/sports/mens-basketball/roster/tucker-devries/20209"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/tucker-devries"
+      },
+      {
+        "label": "Indiana 大學官方資料",
+        "url": "https://iuhoosiers.com/sports/mens-basketball/roster/tucker-devries/20209"
+      }
+    ]
+  },
+  {
+    "id": 1643416,
+    "name": "Chris Cenac Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F-C",
+      "height": "6-11",
+      "weight": "240",
+      "country": "USA",
+      "school": "Houston"
+    },
+    "photo": {
+      "path": "/images/players/nba/1643416-draft-2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Chris_Cenac_Jr_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Houston",
+      "points": 9.5,
+      "rebounds": 7.9,
+      "assists": 0.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/chris-cenac-jr"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/chris-cenac-jr"
+      },
+      {
+        "label": "Houston 大學官方資料",
+        "url": "https://uhcougars.com/sports/mens-basketball/roster/chris-cenac-jr-/9544"
+      }
+    ]
+  },
+  {
+    "id": 1641759,
+    "name": "Dillon Mitchell",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "210",
+      "country": "USA",
+      "school": "St. John's"
+    },
+    "photo": {
+      "path": "/images/players/nba/1641759-draft-2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/Dillon_Mitchell_214.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "St. John's",
+      "points": 8.3,
+      "rebounds": 7.0,
+      "assists": 3.0,
+      "sourceUrl": "https://redstormsports.com/sports/mens-basketball/roster/dillon-mitchell/6029"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/dillon-mitchell"
+      },
+      {
+        "label": "St. John's 大學官方資料",
+        "url": "https://redstormsports.com/sports/mens-basketball/roster/dillon-mitchell/6029"
+      }
+    ]
+  },
+  {
+    "id": 1642284,
+    "name": "Alex Karaban",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "225",
+      "country": "USA",
+      "school": "Connecticut"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Untitled-design-10.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-10.png"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/alex-karaban"
+      }
+    ]
+  },
+  {
+    "id": 1643717,
+    "name": "Josh Dix",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-6",
+      "weight": "205",
+      "country": "USA",
+      "school": "Creighton"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/i-15.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/i-15.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Creighton",
+      "points": 13.2,
+      "rebounds": 3.7,
+      "assists": 2.3,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/josh-dix"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/josh-dix"
+      }
+    ]
+  },
+  {
+    "id": 1643539,
+    "name": "Henri Veesaar",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "C",
+      "height": "6-11",
+      "weight": "227",
+      "country": "Estonia",
+      "school": "North Carolina"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/veessaar.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/veessaar.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "North Carolina",
+      "points": 17.0,
+      "rebounds": 8.7,
+      "assists": 2.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/henri-veesaar"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/henri-veesaar"
+      }
+    ]
+  },
+  {
+    "id": 1643548,
+    "name": "Tyler Bilodeau",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "228",
+      "country": "USA",
+      "school": "UCLA"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Bilodeau-Tyler.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "UCLA",
+      "points": 17.6,
+      "rebounds": 5.6,
+      "assists": 1.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/tyler-bilodeau"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/tyler-bilodeau"
+      }
+    ]
+  },
+  {
+    "id": 1643567,
+    "name": "Emanuel Sharp",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-3",
+      "weight": "208",
+      "country": "USA",
+      "school": "Houston"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Emanuel_Sharp_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Emanuel_Sharp_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Houston",
+      "points": 15.5,
+      "rebounds": 3.0,
+      "assists": 1.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/emanuel-sharp"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/emanuel-sharp"
+      }
+    ]
+  },
+  {
+    "id": 1643555,
+    "name": "Jaron Pierre Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G-F",
+      "height": "6-6",
+      "weight": "210",
+      "country": "USA",
+      "school": "Southern Methodist"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/i-4.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Southern Methodist",
+      "points": 17.6,
+      "rebounds": 4.9,
+      "assists": 2.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/jaron-pierre-jr"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/jaron-pierre-jr"
+      }
+    ]
+  },
+  {
+    "id": 1642377,
+    "name": "Jaylen Wells",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "206",
+      "country": "USA",
+      "school": "Washington State"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2024/05/GettyImages-2152702812-1.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2024 選秀資料",
+        "url": "https://www.nba.com/draft/2024/prospects/jaylen-wells"
+      }
+    ]
+  },
+  {
+    "id": 1643538,
+    "name": "Joshua Jefferson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "246",
+      "country": "USA",
+      "school": "Iowa State"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Joshua_Jefferson_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Iowa State",
+      "points": 16.4,
+      "rebounds": 7.4,
+      "assists": 4.8,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/joshua-jefferson"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/joshua-jefferson"
+      }
+    ]
+  },
+  {
+    "id": 1643544,
+    "name": "Zuby Ejiofor",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F-C",
+      "height": "6-8",
+      "weight": "245",
+      "country": "USA",
+      "school": "St. John's"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Zuby_Ejiofor_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "St. John's",
+      "points": 16.4,
+      "rebounds": 7.3,
+      "assists": 3.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/zuby-ejiofor"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/zuby-ejiofor"
+      }
+    ]
+  },
+  {
+    "id": 1642369,
+    "name": "Michael Ajayi",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "228",
+      "country": "USA",
+      "school": "Butler"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/i-1.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/i-1.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Butler",
+      "points": 16.4,
+      "rebounds": 11.1,
+      "assists": 3.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/michael-ajayi"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/michael-ajayi"
+      }
+    ]
+  },
+  {
+    "id": 1642923,
+    "name": "Otega Oweh",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "216",
+      "country": "USA",
+      "school": "Kentucky"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Oweh-Otega.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Oweh-Otega.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Kentucky",
+      "points": 18.6,
+      "rebounds": 4.8,
+      "assists": 2.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/otega-oweh"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/otega-oweh"
+      }
+    ]
+  },
+  {
+    "id": 1643509,
+    "name": "Meleek Thomas",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G-F",
+      "height": "6-3",
+      "weight": "190",
+      "country": "USA",
+      "school": "Arkansas"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/meleek-thomas.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Arkansas",
+      "points": 15.6,
+      "rebounds": 3.8,
+      "assists": 2.5,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/meleek-thomas"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/meleek-thomas"
+      }
+    ]
+  },
+  {
+    "id": 1643593,
+    "name": "Izaiyah Nelson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "C",
+      "height": "6-8",
+      "weight": "219",
+      "country": "USA",
+      "school": "South Florida"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/Izaiyah_Nelson_216.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/Izaiyah_Nelson_216.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "South Florida",
+      "points": 15.9,
+      "rebounds": 9.6,
+      "assists": 1.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/izaiyah-nelson"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/izaiyah-nelson"
+      }
+    ]
+  },
+  {
+    "id": 1643418,
+    "name": "Cameron Carr",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "184",
+      "country": "USA",
+      "school": "Baylor"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Cameron_Carr_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Baylor",
+      "points": 18.9,
+      "rebounds": 5.8,
+      "assists": 2.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/cameron-carr"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/cameron-carr"
+      }
+    ]
+  },
+  {
+    "id": 1643415,
+    "name": "Brayden Burries",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-4",
+      "weight": "215",
+      "country": "USA",
+      "school": "Arizona"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Brayden_Burries_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Brayden_Burries_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Arizona",
+      "points": 16.1,
+      "rebounds": 4.9,
+      "assists": 2.4,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/brayden-burries"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/brayden-burries"
+      }
+    ]
+  },
+  {
+    "id": 1643417,
+    "name": "Nate Ament",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-10",
+      "weight": "211",
+      "country": "USA",
+      "school": "Tennessee"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Nate_Ament_2026-1.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Nate_Ament_2026-1.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Tennessee",
+      "points": 16.8,
+      "rebounds": 6.3,
+      "assists": 2.4,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/nate-ament"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/nate-ament"
+      }
+    ]
+  },
+  {
+    "id": 1643589,
+    "name": "Tyler Nickel",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G-F",
+      "height": "6-8",
+      "weight": "217",
+      "country": "USA",
+      "school": "Vanderbilt"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/tyler-nickel.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/tyler-nickel.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Vanderbilt",
+      "points": 13.5,
+      "rebounds": 3.3,
+      "assists": 1.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/tyler-nickel"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/tyler-nickel"
+      }
+    ]
+  },
+  {
+    "id": 1643558,
+    "name": "Jaden Bradley",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-3",
+      "weight": "205",
+      "country": "USA",
+      "school": "Arizona"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Jaden_Bradley_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Arizona",
+      "points": 13.3,
+      "rebounds": 3.4,
+      "assists": 4.4,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/jaden-bradley"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/jaden-bradley"
+      }
+    ]
+  },
+  {
+    "id": 1643413,
+    "name": "Keaton Wagler",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "188",
+      "country": "USA",
+      "school": "Illinois"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Keaton_Wagler_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Illinois",
+      "points": 17.9,
+      "rebounds": 5.1,
+      "assists": 4.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/keaton-wagler"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/keaton-wagler"
+      }
+    ]
+  },
+  {
+    "id": 1643408,
+    "name": "Darryn Peterson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "199",
+      "country": "USA",
+      "school": "Kansas"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-13.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Kansas",
+      "points": 20.2,
+      "rebounds": 4.2,
+      "assists": 1.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/darryn-peterson"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/darryn-peterson"
+      }
+    ]
+  },
+  {
+    "id": 1643637,
+    "name": "Jaylin Sellers",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "205",
+      "country": "USA",
+      "school": "Providence"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/i-5.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/i-5.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/jaylin-sellers"
+      }
+    ]
+  },
+  {
+    "id": 1643553,
+    "name": "Ryan Conwell",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-4",
+      "weight": "215",
+      "country": "USA",
+      "school": "Louisville"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Ryan_Conwell_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Louisville",
+      "points": 18.8,
+      "rebounds": 4.8,
+      "assists": 2.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/ryan-conwell"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/ryan-conwell"
+      }
+    ]
+  },
+  {
+    "id": 1643552,
+    "name": "Braden Smith",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "5-10",
+      "weight": "167",
+      "country": "USA",
+      "school": "Purdue"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Braden_smith_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Braden_smith_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Purdue",
+      "points": 14.3,
+      "rebounds": 3.5,
+      "assists": 8.8,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/braden-smith"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/braden-smith"
+      }
+    ]
+  },
+  {
+    "id": 1643411,
+    "name": "Darius Acuff Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-2",
+      "weight": "186",
+      "country": "USA",
+      "school": "Arkansas"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Untitled-design-4.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-4.png"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/darius-acuff"
+      }
+    ]
+  },
+  {
+    "id": 1643512,
+    "name": "Allen Graves",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "226",
+      "country": "USA",
+      "school": "Santa Clara"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Allen_Graves_2006.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Santa Clara",
+      "points": 11.8,
+      "rebounds": 6.5,
+      "assists": 1.9,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/allen-graves"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/allen-graves"
+      }
+    ]
+  },
+  {
+    "id": 1643530,
+    "name": "Aday Mara",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "C",
+      "height": "7-3",
+      "weight": "260",
+      "country": "Spain",
+      "school": "Michigan"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Untitled-design-5.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-5.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Michigan",
+      "points": 12.1,
+      "rebounds": 6.8,
+      "assists": 2.4,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/aday-mara"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/aday-mara"
+      }
+    ]
+  },
+  {
+    "id": 1643515,
+    "name": "Christian Anderson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-1",
+      "weight": "180",
+      "country": "USA",
+      "school": "Texas Tech"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Christian_Anderson_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Christian_Anderson_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Texas Tech",
+      "points": 18.6,
+      "rebounds": 3.6,
+      "assists": 7.5,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/christian-anderson"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/christian-anderson"
+      }
+    ]
+  },
+  {
+    "id": 1643573,
+    "name": "Kylan Boswell",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-1",
+      "weight": "226",
+      "country": "USA",
+      "school": "Illinois"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Untitled-design-11.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-11.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Illinois",
+      "points": 12.9,
+      "rebounds": 4.0,
+      "assists": 3.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/kylan-boswell"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/kylan-boswell"
+      }
+    ]
+  },
+  {
+    "id": 1643516,
+    "name": "Morez Johnson Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F-C",
+      "height": "6-9",
+      "weight": "250",
+      "country": "USA",
+      "school": "Michigan"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Morez_Johnson_Jr_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Michigan",
+      "points": 13.1,
+      "rebounds": 7.3,
+      "assists": 1.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/morez-johnson-jr"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/morez-johnson-jr"
+      }
+    ]
+  },
+  {
+    "id": 1643551,
+    "name": "Ja'Kobi Gillespie",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-0",
+      "weight": "182",
+      "country": "USA",
+      "school": "Tennessee"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Jakobi_Gillespie_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Tennessee",
+      "points": 18.4,
+      "rebounds": 2.8,
+      "assists": 5.4,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/jakobi-gillespie"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/jakobi-gillespie"
+      }
+    ]
+  },
+  {
+    "id": 1643517,
+    "name": "Dailyn Swain",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "211",
+      "country": "USA",
+      "school": "Texas"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Dailyn_Swain_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Dailyn_Swain_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Texas",
+      "points": 17.3,
+      "rebounds": 7.5,
+      "assists": 3.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/dailyn-swain"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/dailyn-swain"
+      }
+    ]
+  },
+  {
+    "id": 1642865,
+    "name": "Yaxel Lendeborg",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-9",
+      "weight": "241",
+      "country": "USA",
+      "school": "Michigan"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-6.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Michigan",
+      "points": 15.1,
+      "rebounds": 6.8,
+      "assists": 3.2,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/yaxel-lendeborg"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/yaxel-lendeborg"
+      }
+    ]
+  },
+  {
+    "id": 1643591,
+    "name": "Tobe Awaka",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "255",
+      "country": "USA",
+      "school": "Arizona"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/06/GettyImages-2275147585.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/GettyImages-2275147585.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/tobe-awaka"
+      }
+    ]
+  },
+  {
+    "id": 1643410,
+    "name": "Caleb Wilson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-9",
+      "weight": "211",
+      "country": "USA",
+      "school": "North Carolina"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Caleb_Wilson_2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Caleb_Wilson_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "North Carolina",
+      "points": 19.8,
+      "rebounds": 9.4,
+      "assists": 2.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/caleb-wilson"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/caleb-wilson"
+      }
+    ]
+  },
+  {
+    "id": 1643520,
+    "name": "Koa Peat",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "245",
+      "country": "USA",
+      "school": "Arizona"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Koa_Peat_2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Koa_Peat_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Arizona",
+      "points": 14.1,
+      "rebounds": 5.6,
+      "assists": 2.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/koa-peat"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/koa-peat"
+      }
+    ]
+  },
+  {
+    "id": 1643568,
+    "name": "Nick Martinelli",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-7",
+      "weight": "224",
+      "country": "USA",
+      "school": "Northwestern"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Nick_Martinelli_2026.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Northwestern",
+      "points": 23.0,
+      "rebounds": 6.2,
+      "assists": 2.0,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/nick-martinelli"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/nick-martinelli"
+      }
+    ]
+  },
+  {
+    "id": 1642912,
+    "name": "Isaiah Evans",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-6",
+      "weight": "186",
+      "country": "USA",
+      "school": "Duke"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Isaiah_Evans_2026.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Isaiah_Evans_2026.png"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/isaiah-evans"
+      }
+    ]
+  },
+  {
+    "id": 1642892,
+    "name": "Bennett Stirtz",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-3",
+      "weight": "186",
+      "country": "USA",
+      "school": "Iowa"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Untitled-design-8.png",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-8.png"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/bennett-stirtz"
+      }
+    ]
+  },
+  {
+    "id": 1642394,
+    "name": "Baba Miller",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-11",
+      "weight": "208",
+      "country": "Spain",
+      "school": "Cincinnati"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Miller-Baba.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Cincinnati",
+      "points": 13.0,
+      "rebounds": 10.3,
+      "assists": 3.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/baba-miller"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/baba-miller"
+      }
+    ]
+  },
+  {
+    "id": 1643419,
+    "name": "Hannes Steinbach",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F-C",
+      "height": "6-10",
+      "weight": "248",
+      "country": "Germany",
+      "school": "Washington"
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2026/05/Hannes_Steinbach_2026.jpg",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Hannes_Steinbach_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Washington",
+      "points": 18.5,
+      "rebounds": 11.8,
+      "assists": 1.6,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/hannes-steinbach"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/hannes-steinbach"
+      }
+    ]
+  },
+  {
+    "id": 1643409,
+    "name": "Cameron Boozer",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F-C",
+      "height": "6-8",
+      "weight": "253",
+      "country": "USA",
+      "school": "Duke"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/Untitled-design-12.png"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Duke",
+      "points": 22.5,
+      "rebounds": 10.2,
+      "assists": 4.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/cameron-boozer"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/cameron-boozer"
+      }
+    ]
+  },
+  {
+    "id": 1643624,
+    "name": "Bryce Hopkins",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-6",
+      "weight": "218",
+      "country": "USA",
+      "school": "St. John's"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/Bryce_Hopkins_216x216.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "St. John's",
+      "points": 13.6,
+      "rebounds": 6.2,
+      "assists": 1.9,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/bryce-hopkins"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/bryce-hopkins"
+      }
+    ]
+  },
+  {
+    "id": 1643407,
+    "name": "AJ Dybantsa",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-9",
+      "weight": "217",
+      "country": "USA",
+      "school": "BYU"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/05/AJ_Dybantsa_2026.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "BYU",
+      "points": 25.5,
+      "rebounds": 6.8,
+      "assists": 3.7,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/aj-dybantsa"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/aj-dybantsa"
+      }
+    ]
+  },
+  {
+    "id": 1643630,
+    "name": "Fletcher Loyer",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-3",
+      "weight": "180",
+      "country": "USA",
+      "school": "Purdue"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://cdn.nba.com/manage/2026/06/i-7.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Purdue",
+      "points": 14.1,
+      "rebounds": 2.3,
+      "assists": 2.1,
+      "sourceUrl": "https://www.nba.com/draft/2026/prospects/fletcher-loyer"
+    },
+    "sources": [
+      {
+        "label": "NBA 官方 2026 選秀資料",
+        "url": "https://www.nba.com/draft/2026/prospects/fletcher-loyer"
+      }
+    ]
+  },
+  {
+    "id": 1643772,
+    "name": "Rashaun Agee",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-8",
+      "weight": "231",
+      "country": "",
+      "school": "Texas A&M"
+    },
+    "photo": {
+      "path": "https://12thman.com/imgproxy/eT_JaohaAzdcSeK7Hb7086nb92fPsMyJ_nzA8iBCGJY/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tLzEydGhtYW4tY29tLXByb2QvMjAyNi8wNS8xNS9YS0s2UnVKeTFENDZDQVRwamlxRW1oSWhGTXY1Qk1mY2JHT0JJZ3d0LmpwZw.jpg",
+      "sourceUrl": "https://12thman.com/imgproxy/eT_JaohaAzdcSeK7Hb7086nb92fPsMyJ_nzA8iBCGJY/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tLzEydGhtYW4tY29tLXByb2QvMjAyNi8wNS8xNS9YS0s2UnVKeTFENDZDQVRwamlxRW1oSWhGTXY1Qk1mY2JHT0JJZ3d0LmpwZw.jpg"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Texas A&M",
+      "points": 14.6,
+      "rebounds": 8.7,
+      "assists": null,
+      "sourceUrl": "https://12thman.com/sports/mens-basketball/roster/season/2025-26/player/rashaun-agee"
+    },
+    "sources": [
+      {
+        "label": "Texas A&M 大學官方資料",
+        "url": "https://12thman.com/sports/mens-basketball/roster/season/2025-26/player/rashaun-agee"
+      }
+    ]
+  },
+  {
+    "id": 1643718,
+    "name": "Nimari Burnett",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "G",
+      "height": "6-5",
+      "weight": "195",
+      "country": "USA",
+      "school": "Michigan"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fmgoblue.com%2Fimages%2F2025%2F7%2F28%2F4-Nimari-Burnett_oiNY9.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Michigan",
+      "points": 8.2,
+      "rebounds": 2.8,
+      "assists": 1.2,
+      "sourceUrl": "https://mgoblue.com/sports/mens-basketball/roster/nimari-burnett/27042"
+    },
+    "sources": [
+      {
+        "label": "Michigan 大學官方資料",
+        "url": "https://mgoblue.com/sports/mens-basketball/roster/nimari-burnett/27042"
+      },
+      {
+        "label": "FIBA 官方球員資料",
+        "url": "https://www.fiba.basketball/en/players/268699-nimari-burnett"
+      }
+    ]
+  },
+  {
+    "id": 1643721,
+    "name": "Carson Cooper",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "C",
+      "height": "6-11",
+      "weight": "245",
+      "country": "",
+      "school": "Michigan State"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fmsuspartans.com%2Fimages%2F2024%2F10%2F12%2FCooper_Carson_2425_6yAP1.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Michigan State",
+      "points": 11.1,
+      "rebounds": 7.1,
+      "assists": 1.5,
+      "sourceUrl": "https://msuspartans.com/sports/mens-basketball/roster/carson-cooper/16437"
+    },
+    "sources": [
+      {
+        "label": "Michigan State 大學官方資料",
+        "url": "https://msuspartans.com/sports/mens-basketball/roster/carson-cooper/16437"
+      }
+    ]
+  },
+  {
+    "id": 1643769,
+    "name": "Wyatt Fricks",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-10",
+      "weight": "216",
+      "country": "",
+      "school": "Marshall"
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fherdzone.com%2Fimages%2F2025%2F6%2F12%2FWyatt_Fricks.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fherdzone.com%2Fimages%2F2025%2F6%2F12%2FWyatt_Fricks.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Marshall",
+      "points": 15.7,
+      "rebounds": 5.7,
+      "assists": 1.4,
+      "sourceUrl": "https://herdzone.com/sports/mens-basketball/stats/2025-26"
+    },
+    "sources": [
+      {
+        "label": "Marshall 大學官方資料",
+        "url": "https://herdzone.com/sports/mens-basketball/roster/fricks-wyatt/10387"
+      },
+      {
+        "label": "Marshall 2025–26 官方統計",
+        "url": "https://herdzone.com/sports/mens-basketball/stats/2025-26"
+      }
+    ]
+  },
+  {
+    "id": 1643808,
+    "name": "Andrew Holifield",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-10",
+      "weight": "185",
+      "country": "",
+      "school": "Lamar"
+    },
+    "photo": {
+      "path": "https://lamarcardinals.com/images/2025/10/7/Andrew_Holifield_J4lkj.jpg?width=300",
+      "sourceUrl": "https://lamarcardinals.com/images/2025/10/7/Andrew_Holifield_J4lkj.jpg?width=300"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Lamar",
+      "points": 11.7,
+      "rebounds": 4.6,
+      "assists": 1.5,
+      "sourceUrl": "https://lamarcardinals.com/sports/mens-basketball/roster/andrew-holifield/22018"
+    },
+    "sources": [
+      {
+        "label": "Lamar 大學官方資料",
+        "url": "https://lamarcardinals.com/sports/mens-basketball/roster/andrew-holifield/22018"
+      }
+    ]
+  },
+  {
+    "id": 1643759,
+    "name": "William Kyle",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "F",
+      "height": "6-9",
+      "weight": "230",
+      "country": "",
+      "school": "Syracuse"
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fsuathletics.com%2Fimages%2F2025%2F9%2F18%2F42_-_William_Kyle-6A.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Syracuse",
+      "points": 8.4,
+      "rebounds": 7.1,
+      "assists": 0.9,
+      "sourceUrl": "https://cuse.com/sports/mens-basketball/stats/2025-26"
+    },
+    "sources": [
+      {
+        "label": "Syracuse 大學官方資料",
+        "url": "https://cuse.com/sports/mens-basketball/roster/william-kyle-iii/24614"
+      },
+      {
+        "label": "Syracuse 2025–26 官方統計",
+        "url": "https://cuse.com/sports/mens-basketball/stats/2025-26"
+      }
+    ]
+  },
+  {
+    "id": 1643754,
+    "name": "Christoph Tilly",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "C",
+      "height": "7-0",
+      "weight": "240",
+      "country": "Germany",
+      "school": "Ohio State"
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fohiostatebuckeyes.com%2Fimages%2F2025%2F10%2F2%2FDSC02801_PoraK.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fohiostatebuckeyes.com%2Fimages%2F2025%2F10%2F2%2FDSC02801_PoraK.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": {
+      "league": "NCAA",
+      "season": "2025–26",
+      "school": "Ohio State",
+      "points": 11.0,
+      "rebounds": 4.7,
+      "assists": 2.3,
+      "sourceUrl": "https://ohiostatebuckeyes.com/sports/mens-basketball/stats/2025-26"
+    },
+    "sources": [
+      {
+        "label": "Ohio State 大學官方資料",
+        "url": "https://ohiostatebuckeyes.com/sports/mens-basketball/roster/christoph-tilly/12377"
+      },
+      {
+        "label": "德國籃協官方資料",
+        "url": "https://www.basketball-bund.de/teammember/christoph-tilly/"
+      },
+      {
+        "label": "Ohio State 2025–26 官方統計",
+        "url": "https://ohiostatebuckeyes.com/sports/mens-basketball/stats/2025-26"
+      }
+    ]
+  },
+  {
+    "id": 1643022,
+    "name": "Jaden Akins",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fmsuspartans.com%2Fimages%2F2024%2F10%2F12%2FAkins_Jaden_2425_HoHCr.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fmsuspartans.com%2Fimages%2F2024%2F10%2F12%2FAkins_Jaden_2425_HoHCr.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://msuspartans.com/sports/mens-basketball/roster/jaden-akins/15542"
+      }
+    ]
+  },
+  {
+    "id": 1631474,
+    "name": "Terrell Brown Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fwashington.sidearmsports.com%2Fimages%2F2021%2F10%2F23%2FBrown_Jr__Terrell.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fwashington.sidearmsports.com%2Fimages%2F2021%2F10%2F23%2FBrown_Jr__Terrell.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://gohuskies.com/sports/mens-basketball/roster/terrell-brown-jr-/13745"
+      }
+    ]
+  },
+  {
+    "id": 1643723,
+    "name": "Cameron Corhen",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fpittsburghpanthers.com%2Fimages%2F2025%2F9%2F29%2F2_Cameron_Corhen.png&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fpittsburghpanthers.com%2Fimages%2F2025%2F9%2F29%2F2_Cameron_Corhen.png&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://pittsburghpanthers.com/sports/mens-basketball/roster/cameron-corhen/14460"
+      }
+    ]
+  },
+  {
+    "id": 1643738,
+    "name": "Malik Dia",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Folemisssports.com%2Fimages%2F2025%2F6%2F8%2FDiaHS.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Folemisssports.com%2Fimages%2F2025%2F6%2F8%2FDiaHS.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://olemisssports.com/sports/mens-basketball/roster/malik-dia/5997"
+      }
+    ]
+  },
+  {
+    "id": 1642398,
+    "name": "Sean East II",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://mutigers.com/imgproxy/ERiT3XJ9CeDHsx1QTDWWODSHf-CGaYU7C0w5GCFKAlo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL211dGlnZXJzLWNvbS1wcm9kLzIwMjYvMDYvMTcvZFAyNFNpVVh0VkVOdjFscTBTcGRiRzNwYXVhaXV1MGJWSElHc1h2RC5qcGc.jpg",
+      "sourceUrl": "https://mutigers.com/imgproxy/ERiT3XJ9CeDHsx1QTDWWODSHf-CGaYU7C0w5GCFKAlo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL211dGlnZXJzLWNvbS1wcm9kLzIwMjYvMDYvMTcvZFAyNFNpVVh0VkVOdjFscTBTcGRiRzNwYXVhaXV1MGJWSElHc1h2RC5qcGc.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://mutigers.com/sports/mens-basketball/roster/player/sean-east-ii"
+      }
+    ]
+  },
+  {
+    "id": 1643750,
+    "name": "Ben Humrichous",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ffightingillini.com%2Fimages%2F2025%2F10%2F15%2F20250930_MB_ProductionDay__ACR_03.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ffightingillini.com%2Fimages%2F2025%2F10%2F15%2F20250930_MB_ProductionDay__ACR_03.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://fightingillini.com/sports/mens-basketball/roster/ben-humrichous/14519"
+      }
+    ]
+  },
+  {
+    "id": 1642937,
+    "name": "Kobe Johnson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://uclabruins.com/imgproxy/ibwCcsUb2l0z0_-I0ZbVe6kdiTN8ZacZD8cB1-B1ubE/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3VjbGFicnVpbnMtY29tLXByb2QvMjAyNi8wNS8yMC93R2pyUVVLRGdGVGx2S1FhNFpaRkVLVmdicnlzTFBod296MWxrcUp4LmpwZw.jpg",
+      "sourceUrl": "https://uclabruins.com/imgproxy/ibwCcsUb2l0z0_-I0ZbVe6kdiTN8ZacZD8cB1-B1ubE/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3VjbGFicnVpbnMtY29tLXByb2QvMjAyNi8wNS8yMC93R2pyUVVLRGdGVGx2S1FhNFpaRkVLVmdicnlzTFBod296MWxrcUp4LmpwZw.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://uclabruins.com/sports/mens-basketball/roster/season/2024-25"
+      }
+    ]
+  },
+  {
+    "id": 1643627,
+    "name": "Keba Keita",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://byucougars.com/imgproxy/aOBc4UfeLYLl7Q9_dkwLKFNqMJbmvVBSWfZ5qUO1DJU/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2J5dWNvdWdhcnMtcHJvZC8yMDI1LzA5LzA4LzdVaTZOVGluMnYxdmNEYzZIdnNrYng1eDJ6a2dyaDllRnU4SEVWWG4uanBn.jpg",
+      "sourceUrl": "https://byucougars.com/imgproxy/aOBc4UfeLYLl7Q9_dkwLKFNqMJbmvVBSWfZ5qUO1DJU/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2J5dWNvdWdhcnMtcHJvZC8yMDI1LzA5LzA4LzdVaTZOVGluMnYxdmNEYzZIdnNrYng1eDJ6a2dyaDllRnU4SEVWWG4uanBn.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://byucougars.com/sports/mens-basketball/roster/season/2025-2026/player/keba-keita"
+      }
+    ]
+  },
+  {
+    "id": 1643257,
+    "name": "Jayson Kent",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ftexassports_com%2Fimages%2F2024%2F6%2F6%2FJayson_Kent_headshot_summer_24_0Krh4.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ftexassports_com%2Fimages%2F2024%2F6%2F6%2FJayson_Kent_headshot_summer_24_0Krh4.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://texaslonghorns.com/sports/mens-basketball/roster/jayson--kent/14080"
+      }
+    ]
+  },
+  {
+    "id": 1642940,
+    "name": "Viktor Lakhin",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://clemsontigers.com/imgproxy/c7IN5HYKe_b7f66LV-a0mwdQqGVHxw3ZtkiAL2llcXo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2NsZW1zb250aWdlcnMtY29tLzIwMjQvMDYvTEFLSElOX1ZJS1RPUl9DTEVNU09OLXNjYWxlZC5qcGc.jpg",
+      "sourceUrl": "https://clemsontigers.com/imgproxy/c7IN5HYKe_b7f66LV-a0mwdQqGVHxw3ZtkiAL2llcXo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2NsZW1zb250aWdlcnMtY29tLzIwMjQvMDYvTEFLSElOX1ZJS1RPUl9DTEVNU09OLXNjYWxlZC5qcGc.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://clemsontigers.com/sports/mens-basketball/roster/viktor-lakhin/"
+      }
+    ]
+  },
+  {
+    "id": 1643792,
+    "name": "Rienk Mast",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://huskers.com/imgproxy/cCRveRqw3xfnzBjnJcUMREyExi2MwyTrsliMAdsipPo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2h1c2tlcnMtY29tLXByb2QvMjAyNS8wNi8xMS9PUUF5ZlJ2d0FCSkFTTDBpY2djU1NIZ1VWY285NVlLa0hicXFTeFF2LmpwZw.jpg",
+      "sourceUrl": "https://huskers.com/imgproxy/cCRveRqw3xfnzBjnJcUMREyExi2MwyTrsliMAdsipPo/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL2h1c2tlcnMtY29tLXByb2QvMjAyNS8wNi8xMS9PUUF5ZlJ2d0FCSkFTTDBpY2djU1NIZ1VWY285NVlLa0hicXFTeFF2LmpwZw.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://huskers.com/sports/mens-basketball/roster/player/rienk-mast"
+      }
+    ]
+  },
+  {
+    "id": 1643597,
+    "name": "Robert McCray V",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ffsuni.sidearmsports.com%2Fimages%2F2025%2F7%2F9%2F25-204RL__034__McCray_V__Robert.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ffsuni.sidearmsports.com%2Fimages%2F2025%2F7%2F9%2F25-204RL__034__McCray_V__Robert.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://seminoles.com/sports/mens-basketball/roster/mccray-v-robert/8042"
+      }
+    ]
+  },
+  {
+    "id": 1643724,
+    "name": "Isaac McKneely",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgocards.com%2Fimages%2F2025%2F7%2F22%2FIsaac_McKneely_-_Cropped.png&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgocards.com%2Fimages%2F2025%2F7%2F22%2FIsaac_McKneely_-_Cropped.png&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://gocards.com/sports/mens-basketball/roster/isaac-mckneely/16180"
+      }
+    ]
+  },
+  {
+    "id": 1643575,
+    "name": "Duke Miles",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://vucommodores.com/imgproxy/94Ax_BOsUnQSL5vB6A606hWD7in3PYQq92rHQeOffLc/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3Z1Y29tbW9kb3Jlcy1wcm9kLzIwMjUvMDYvMl9NaWxlc19EdWtlLXNjYWxlZC5qcGc.jpg",
+      "sourceUrl": "https://vucommodores.com/imgproxy/94Ax_BOsUnQSL5vB6A606hWD7in3PYQq92rHQeOffLc/rs:fit:1980:0:0:0/g:ce:0:0/q:90/aHR0cHM6Ly9zdG9yYWdlLmdvb2dsZWFwaXMuY29tL3Z1Y29tbW9kb3Jlcy1wcm9kLzIwMjUvMDYvMl9NaWxlc19EdWtlLXNjYWxlZC5qcGc.jpg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://vucommodores.com/sports/mbball/roster/player/duke-miles/"
+      }
+    ]
+  },
+  {
+    "id": 1641761,
+    "name": "Grant Nelson",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Frolltide.com%2Fimages%2F2024%2F7%2F30%2FNelson_Grant_2025web.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Frolltide.com%2Fimages%2F2024%2F7%2F30%2FNelson_Grant_2025web.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://rolltide.com/sports/mens-basketball/roster/grant-nelson/12049"
+      }
+    ]
+  },
+  {
+    "id": 1642392,
+    "name": "Jameer Nelson Jr.",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgofrogs.com%2Fimages%2F2023%2F9%2F22%2FNelson_Jameer.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fgofrogs.com%2Fimages%2F2023%2F9%2F22%2FNelson_Jameer.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://gofrogs.com/sports/mens-basketball/roster/jameer-nelson-jr/15351"
+      }
+    ]
+  },
+  {
+    "id": 1642889,
+    "name": "Labaron Philon",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Frolltide.com%2Fimages%2F2025%2F8%2F27%2FPhilon_Labaron_2025_web.JPG&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Frolltide.com%2Fimages%2F2025%2F8%2F27%2FPhilon_Labaron_2025_web.JPG&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://rolltide.com/sports/mens-basketball/roster/labaron-philon/15265"
+      }
+    ]
+  },
+  {
+    "id": 1642955,
+    "name": "Kadary Richmond",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fredstormsports.com%2Fimages%2F2024%2F10%2F2%2F1_Kadary_Richmond.JPG&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fredstormsports.com%2Fimages%2F2024%2F10%2F2%2F1_Kadary_Richmond.JPG&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://redstormsports.com/sports/mens-basketball/roster/kadary-richmond/5484"
+      }
+    ]
+  },
+  {
+    "id": 1643121,
+    "name": "Steve Settle III",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fowlsports.com%2Fimages%2F2024%2F9%2F19%2FMBB_Headshots_Settle.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fowlsports.com%2Fimages%2F2024%2F9%2F19%2FMBB_Headshots_Settle.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://owlsports.com/sports/mens-basketball/roster/settle-iii-steve/17274"
+      }
+    ]
+  },
+  {
+    "id": 1641868,
+    "name": "Jake Stephens",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Futc.sidearmsports.com%2Fimages%2F2022%2F8%2F25%2FStephens_Jake.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Futc.sidearmsports.com%2Fimages%2F2022%2F8%2F25%2FStephens_Jake.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://gomocs.com/sports/mens-basketball/roster/jake-stephens/9019"
+      }
+    ]
+  },
+  {
+    "id": 1643148,
+    "name": "Saint Thomas",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fusctrojans.com%2Fimages%2F2024%2F10%2F3%2F09292024-USC-MENS-BASKETBALL-Saint-Thomas-75613.jpg&width=180&height=270&type=webp",
+      "sourceUrl": "https://images.sidearmdev.com/crop?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Fusctrojans.com%2Fimages%2F2024%2F10%2F3%2F09292024-USC-MENS-BASKETBALL-Saint-Thomas-75613.jpg&width=180&height=270&type=webp"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://usctrojans.com/sports/mens-basketball/roster/saint-thomas/16723"
+      }
+    ]
+  },
+  {
+    "id": 1642578,
+    "name": "John Ukomadu",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://ekusports.com/images/2023/8/16/Ukomadu_John__2023-24_Web_.jpg?width=300",
+      "sourceUrl": "https://ekusports.com/images/2023/8/16/Ukomadu_John__2023-24_Web_.jpg?width=300"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方球員照片",
+        "url": "https://ekusports.com/sports/mens-basketball/roster/john-ukomadu/9588"
+      }
+    ]
+  },
+  {
+    "id": 1642449,
+    "name": "Tolu Smith",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "245",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": ""
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方基本資料（歷年球季）",
+        "url": "https://hailstate.com/sports/mens-basketball/roster/tolu-smith-iii/10410"
+      }
+    ]
+  },
+  {
+    "id": 1642959,
+    "name": "Chris Youngblood",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "223",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "",
+      "sourceUrl": ""
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "大學官方基本資料（歷年球季）",
+        "url": "https://rolltide.com/sports/mens-basketball/roster/chris-youngblood/12505"
+      }
+    ]
+  },
+  {
+    "id": 1642881,
+    "name": "Bogoljub Marković",
+    "verifiedAt": "2026-10-03",
+    "bio": {
+      "position": "",
+      "height": "",
+      "weight": "",
+      "country": "",
+      "school": ""
+    },
+    "photo": {
+      "path": "https://cdn.nba.com/manage/2025/05/Bogoljub-Markovic.jpeg",
+      "sourceUrl": "https://cdn.nba.com/manage/2025/05/Bogoljub-Markovic.jpeg"
+    },
+    "collegeStats": null,
+    "sources": [
+      {
+        "label": "NBA 2025 官方選秀照片",
+        "url": "https://www.nba.com/draft/2025/prospects/bogoljub-markovic"
+      }
+    ]
+  }
+]

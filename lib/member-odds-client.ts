@@ -5,8 +5,9 @@ export function createMemberOddsReader(fetcher:typeof fetch=(...args)=>fetch(...
  return function read(){
   if(pending)return pending;
   const task=(async()=>{
+   const signal=AbortSignal.timeout(70000);
    for(let attempt=0;;attempt++){
-    const response=await fetcher('/api/member-odds',{cache:'no-store',signal:AbortSignal.timeout(30000)});
+    const response=await fetcher('/api/member-odds',{cache:'no-store',signal});
     const body=await response.json();
     if(!response.ok&&body.code==='connection_busy'&&attempt<4){await wait(1000);continue;}
     if(!response.ok||body.error)throw new Error(body.error||'盤口來源暫時無法連線');

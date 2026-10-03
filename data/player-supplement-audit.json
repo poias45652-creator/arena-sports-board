@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-10-03",
+  "audited": {
+    "NBA": 620,
+    "WNBA": 223
+  },
+  "nbaRecords": 80,
+  "nbaNcaaSeasonStats": 48,
+  "nbaPlaceholderPhotosReplacedThisBatch": 50,
+  "wnbaPlaceholderPhotosReplacedThisBatch": 3,
+  "remainingNbaPlaceholderIds": [
+    1630762
+  ],
+  "remainingUnverifiedNbaCountries": [
+    1643772,
+    1643721,
+    1643769,
+    1643808,
+    1643759
+  ],
+  "notes": [
+    "WNBA weights missing from the league directory stay missing; historical college weights are not imported en masse.",
+    "College statistics are display-only and do not enter NBA/WNBA prediction models.",
+    "HTTP success alone cannot identify a gray placeholder. Replacement photos were downloaded, decoded and visually inspected."
+  ]
+}

@@ -1,3 +1,4 @@
+import {officialWnbaRoster} from './wnba-official';
 import {enrichWnbaPlayer,wnbaOfficialPlayers} from './wnba-official-players';
 import {wnbaTeam} from './wnba';
 const cache=new Map<string,{value:ReturnType<typeof parseWnbaRoster>;until:number}>(),pending=new Map<string,Promise<ReturnType<typeof parseWnbaRoster>>>();
@@ -7,7 +8,12 @@ export function parseWnbaRoster(raw:any,id:string){
  const coach=raw.coach?.[0];
  return {team,season:String(raw.season.year),rosterSeason:String(raw.season.year),roster,background:{coach:coach?[coach.firstName,coach.lastName].filter(Boolean).join(' '):''},recordSummary:String(raw.team.recordSummary||''),sourceLabel:'WNBA',sourceUrl:`https://www.espn.com/wnba/team/_/name/${team.code.toLowerCase()}`};
 }
-export async function wnbaRoster(id:string){
+async function espnWnbaRoster(id:string){
  if(!wnbaTeam(id))throw Error('球隊不存在');const hit=cache.get(id);if(hit&&hit.until>Date.now())return hit.value;if(pending.has(id))return pending.get(id)!;
  const task=(async()=>{const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams/${id}/roster`,{cache:'no-store',signal:AbortSignal.timeout(12000)});if(!r.ok)throw Error('WNBA 球員資料更新失敗');const text=await r.text();if(text.length>3000000)throw Error('WNBA 球員資料過大');const raw=parseWnbaRoster(JSON.parse(text),id);const official=await wnbaOfficialPlayers().catch(()=>[]);const value={...raw,roster:raw.roster.map((p:ReturnType<typeof parseWnbaRoster>['roster'][number])=>enrichWnbaPlayer(p,id,Number(raw.season),official))};cache.set(id,{value,until:Date.now()+15*60000});return value;})().finally(()=>pending.delete(id));pending.set(id,task);return task;
+}
+
+export async function wnbaRoster(id:string){
+ if(!wnbaTeam(id))throw Error('球隊不存在');
+ try{return await officialWnbaRoster(id);}catch{return espnWnbaRoster(id);}
 }

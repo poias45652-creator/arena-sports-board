@@ -1,3 +1,4 @@
+import {enrichNbaPlayerStrength} from './nba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
 import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
 import {nbaDay,nbaHistory,nbaSeason,nbaTeam,parseNbaEvents,reconcileNbaGames,shiftNbaDay,validNbaDay,type NbaBoard} from './nba';
@@ -55,9 +56,10 @@ async function history(teamIds:string[],season:number){
 }
 export async function nbaGameAnalysis(day:string,id:string,weights:Weights=DEFAULT_WEIGHTS){
  const schedule=await nbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
+
  if(!nbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'NBA',weights),sourceFetchedAt:schedule.fetchedAt};
  const data=await history([game.home.id,game.away.id],nbaSeason(nbaDay()));
- return {game,analysis:await efficiencyGameAnalysis(game,data.games,'NBA',weights),sourceFetchedAt:data.fetchedAt};
+ return {game,analysis:await enrichNbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'NBA',weights)),sourceFetchedAt:data.fetchedAt};
 }
 export async function nbaTeamProfile(teamId:string){
  const team=nbaTeam(teamId);if(!team)throw Error('球隊不存在');
