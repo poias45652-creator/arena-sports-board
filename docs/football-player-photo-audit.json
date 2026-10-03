@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4201,
+  "verifiedTransparentPhotos": 4228,
   "teams": [
     {
       "id": "349",
@@ -104,7 +104,7 @@
       "id": "361",
       "name": "Newcastle United",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "393",
@@ -206,7 +206,7 @@
       "id": "101",
       "name": "Rayo Vallecano",
       "total": 33,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "244",
@@ -368,19 +368,19 @@
       "id": "105",
       "name": "Atalanta",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "107",
       "name": "Bologna",
       "total": 28,
-      "withPhoto": 26
+      "withPhoto": 28
     },
     {
       "id": "2925",
       "name": "Cagliari",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "2572",
@@ -392,7 +392,7 @@
       "id": "109",
       "name": "Fiorentina",
       "total": 27,
-      "withPhoto": 22
+      "withPhoto": 26
     },
     {
       "id": "4057",
@@ -404,7 +404,7 @@
       "id": "3263",
       "name": "Genoa",
       "total": 34,
-      "withPhoto": 31
+      "withPhoto": 33
     },
     {
       "id": "110",
@@ -416,7 +416,7 @@
       "id": "111",
       "name": "Juventus",
       "total": 37,
-      "withPhoto": 36
+      "withPhoto": 37
     },
     {
       "id": "112",
@@ -428,7 +428,7 @@
       "id": "113",
       "name": "Lecce",
       "total": 34,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "4007",
@@ -446,7 +446,7 @@
       "id": "115",
       "name": "Parma",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "3997",
@@ -458,7 +458,7 @@
       "id": "239",
       "name": "Torino",
       "total": 33,
-      "withPhoto": 31
+      "withPhoto": 33
     },
     {
       "id": "118",
@@ -488,7 +488,7 @@
       "id": "7868",
       "name": "Angers",
       "total": 26,
-      "withPhoto": 24
+      "withPhoto": 26
     },
     {
       "id": "6997",
@@ -506,7 +506,7 @@
       "id": "2697",
       "name": "Le Mans",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "175",
@@ -524,7 +524,7 @@
       "id": "273",
       "name": "Lorient",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "167",
@@ -542,7 +542,7 @@
       "id": "2502",
       "name": "Nice",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "6851",
@@ -584,7 +584,7 @@
       "id": "887",
       "name": "AEK Athens",
       "total": 32,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "2980",
@@ -632,7 +632,7 @@
       "id": "148",
       "name": "PSV Eindhoven",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "21922",
@@ -680,7 +680,7 @@
       "id": "587",
       "name": "Andorra",
       "total": 28,
-      "withPhoto": 26
+      "withPhoto": 28
     },
     {
       "id": "579",
@@ -794,7 +794,7 @@
       "id": "16721",
       "name": "Gibraltar",
       "total": 28,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "455",
@@ -1005,14 +1005,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "418769",
-      "name": "Michael Mills",
-      "teams": [
-        "361"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3139134",
       "name": "Víctor Mullerat Tomas",
       "teams": [
@@ -1049,14 +1041,6 @@
       "name": "Hugo Pérez Sañudo",
       "teams": [
         "87"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3128651",
-      "name": "Iván Alonso Martín",
-      "teams": [
-        "101"
       ],
       "reason": "No unambiguous identity match"
     },
@@ -1101,38 +1085,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "384831",
-      "name": "Jacopo Mirra",
-      "teams": [
-        "105"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "415168",
-      "name": "Matteo Franceschelli",
-      "teams": [
-        "107"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "410325",
-      "name": "Marco Libra",
-      "teams": [
-        "107"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "387844",
-      "name": "Alessandro Sugamele",
-      "teams": [
-        "2925"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "139008",
       "name": "Joao Victor",
       "teams": [
@@ -1141,76 +1093,12 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "401558",
-      "name": "Víctor Valdepeñas",
-      "teams": [
-        "109"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "422138",
-      "name": "Antonio Pirrò",
-      "teams": [
-        "109"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "233515",
-      "name": "Sulayman Jallow",
-      "teams": [
-        "109"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "422953",
-      "name": "Federico Croci",
-      "teams": [
-        "109"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "421761",
-      "name": "Lukas Klisys",
-      "teams": [
-        "3263"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3098553",
       "name": "Marcelo Vaz",
       "teams": [
         "3263"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3118700",
-      "name": "Adam Žulevič",
-      "teams": [
-        "3263"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3121500",
-      "name": "Grady Makiobo Makiobo",
-      "teams": [
-        "111"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "422962",
-      "name": "Christian Lupo",
-      "teams": [
-        "113"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "3123405",
@@ -1227,30 +1115,6 @@
         "4007"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "417784",
-      "name": "Gabriele Casentini",
-      "teams": [
-        "115"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "413819",
-      "name": "Francesco Cereser",
-      "teams": [
-        "239"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3131322",
-      "name": "Andrea Ballanti",
-      "teams": [
-        "239"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "3131801",
@@ -1285,22 +1149,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "416401",
-      "name": "Maël Gernigon",
-      "teams": [
-        "7868"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3130907",
-      "name": "Mamadou Diallo",
-      "teams": [
-        "7868"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3121265",
       "name": "Enzo Monchatre",
       "teams": [
@@ -1313,22 +1161,6 @@
       "name": "Djibril Ouziad",
       "teams": [
         "3236"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "407614",
-      "name": "William Harhouz",
-      "teams": [
-        "2697"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "416429",
-      "name": "Mamadou Koné",
-      "teams": [
-        "273"
       ],
       "reason": "Source photo unavailable"
     },
@@ -1347,14 +1179,6 @@
         "176"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3121791",
-      "name": "Martin Ponsot",
-      "teams": [
-        "2502"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "398977",
@@ -1393,14 +1217,6 @@
       "name": "Yacouba Kone",
       "teams": [
         "170"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3100717",
-      "name": "Georgios Sarakasidis",
-      "teams": [
-        "887"
       ],
       "reason": "Source photo unavailable"
     },
@@ -1465,14 +1281,6 @@
       "name": "Arda Tagay",
       "teams": [
         "432"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "399511",
-      "name": "Mikkel Hansen",
-      "teams": [
-        "148"
       ],
       "reason": "Source photo unavailable"
     },
@@ -1613,22 +1421,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "393731",
-      "name": "Alex Cornellà",
-      "teams": [
-        "587"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "22773",
-      "name": "Ricard Fernández",
-      "teams": [
-        "587"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "6841",
       "name": "David Winters",
       "teams": [
@@ -1641,14 +1433,6 @@
       "name": "Ari Petersen",
       "teams": [
         "447"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "402400",
-      "name": "Victor Huart",
-      "teams": [
-        "16721"
       ],
       "reason": "Source photo unavailable"
     },
