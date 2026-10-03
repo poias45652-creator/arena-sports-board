@@ -251,11 +251,7 @@ export function parseFootballRoster(
       ),
       stat = (key: string) =>
         number(stats.find((s: any) => s.name === key)?.value);
-    const photo =
-      typeof p.headshot?.href === "string" &&
-      /^https:\/\/a\.espncdn\.com\//.test(p.headshot.href)
-        ? p.headshot.href
-        : `https://a.espncdn.com/i/headshots/soccer/players/full/${playerId}.png`;
+    const photo = `/api/football-player-photo?player=${playerId}&league=${league}`;
     return {
       id: playerId,
       name,

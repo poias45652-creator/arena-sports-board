@@ -767,6 +767,12 @@ function FootballPlayers({
 }
 function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
   const [failed, setFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+  useEffect(() => {
+    if (!failed || attempt >= 2) return;
+    const retry = setTimeout(() => { setFailed(false); setAttempt(n => n + 1); }, 2000 * (attempt + 1));
+    return () => clearTimeout(retry);
+  }, [failed, attempt]);
   return (
     <article className="team-player-card football-player-card">
       <div className="football-player-portrait">
@@ -774,8 +780,9 @@ function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
           <UserRound size={48} aria-label="尚無球員照片" />
         ) : (
           <img
-            src={p.photo}
+            src={p.photo + (attempt ? `&retry=${attempt}` : "")}
             alt={p.name}
+            decoding="async"
             width={100}
             height={100}
             loading="lazy"
