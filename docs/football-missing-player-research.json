@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 127,
+  "addedTransparentPhotos": 139,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -566,10 +566,11 @@
         "https://www.365scores.com/en-us/football/player/victor-mullerat-248712",
         "https://www.footballdatabase.eu/en/player/details/695139-victor-mullerat",
         "https://www.espn.com/soccer/player/stats/_/id/3139134/victor-mullerat-tomas",
-        "https://www.instagram.com/p/DMiI3DGMFeB/?hl=en"
+        "https://www.instagram.com/p/DMiI3DGMFeB/?hl=en",
+        "https://www.rcdespanyol.com/es/noticia/victor-mullerat%2C-renovado/20325"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -581,6 +582,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.rcdespanyol.com/es/noticia/victor-mullerat%2C-renovado/20325",
+        "originalUrl": "https://www.rcdespanyol.com/uploads/_images/news/20325/resized/152738_backendGallery.jpg",
+        "sha256": "a31870b0a870cfebfeb32a07c60d691d552acf2fa357d1fb07fd193be8111404",
+        "originalSha256": "3c012e62b2d8285f94640113d132e1bd47239c84dc1c39af411ba9b8e346de79",
+        "width": 400,
+        "height": 319,
+        "endpoint": "/api/football-player-photo?player=3139134",
+        "localPath": "/images/players/football/3139134-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Espanyol official renewal announcement explicitly names Victor Mullerat in its title, image caption and artwork. Only his original head and upper chest above the graphic overlay are extracted. Name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Espanyol official renewal announcement explicitly names Victor Mullerat in its title, image caption and artwork. Only his original head and upper chest above the graphic overlay are extracted. Name and club match; catalog birthday is blank.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "3c012e62b2d8285f94640113d132e1bd47239c84dc1c39af411ba9b8e346de79",
+        "transparentFraction": 0.533636
       }
     },
     {
@@ -703,14 +724,35 @@
         "https://www.365scores.com/en-us/football/player/manel-usedo-244880",
         "https://theanalyst.com/players/19230/manel-usedo",
         "https://www.elbotola.com/en/analytics/player/n54qllhj01pnqvy",
-        "https://tribuna.com/en/persons/manel-usedo-domingo/stat/2026-2027/la-liga/"
+        "https://tribuna.com/en/persons/manel-usedo-domingo/stat/2026-2027/la-liga/",
+        "https://www.levanteud.com/noticias/el-levante-ud-y-manel-usedo-renuevan-su-relacion-contractual"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.levanteud.com/noticias/el-levante-ud-y-manel-usedo-renuevan-su-relacion-contractual",
+        "originalUrl": "https://statics-maker.llt-services.com/lev/images/2026/05/04/large/f64d2767-ccf7-4323-8411-fecf6330bc87-92.jpg",
+        "sha256": "7110257f8149acd5e74d7d477a17315fe97b979b3f3be5d259b6c82f699dcc4f",
+        "originalSha256": "ca259c702e908ccee2d4e0ae1d93adf7a31f932fa8c30f7ce47ac700fa528587",
+        "width": 400,
+        "height": 366,
+        "endpoint": "/api/football-player-photo?player=3129042",
+        "localPath": "/images/players/football/3129042-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Levante official renewal announcement names youth midfielder Manel Usedo and illustrates the contract signing. The young player at left is extracted as head and shoulders, excluding the older official and handshake. Full name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Levante official renewal announcement names youth midfielder Manel Usedo and illustrates the contract signing. The young player at left is extracted as head and shoulders, excluding the older official and handshake. Full name and club match; catalog birthday is blank.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "ca259c702e908ccee2d4e0ae1d93adf7a31f932fa8c30f7ce47ac700fa528587",
+        "transparentFraction": 0.548982
       }
     },
     {
@@ -1297,14 +1339,35 @@
         "https://es.soccerwiki.org/player.php?pid=172472",
         "https://www.lapreferente.com/J450767C11704/valencia-cf-b/rodrigo-gamon.html",
         "https://www.zerozero.pe/jugador/rodrigo-gamon/2820362?epoca_id=155",
-        "https://futbolconlupa.com/jugadores/rodrigo-gamon-martin-18261"
+        "https://futbolconlupa.com/jugadores/rodrigo-gamon-martin-18261",
+        "https://www.valenciacf.com/en/17847541170811270"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.valenciacf.com/en/17847541170811270",
+        "originalUrl": "https://www.valenciacf.com/public/Image/2026/7/megagamon.jpg",
+        "sha256": "a4553b1870f741ab35cf6dd451b7871dfb5a29d3057443a51e996e4d6883a038",
+        "originalSha256": "8dd561d9b120a9f55af2f065b1c33472e58964404879b255e50bfac2021406eb",
+        "width": 400,
+        "height": 345,
+        "endpoint": "/api/football-player-photo?player=3124770",
+        "localPath": "/images/players/football/3124770-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Valencia official first-team debut interview explicitly identifies Rodrigo Gamon and supplies this individual photograph, with his name in the image filename. Name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Valencia official first-team debut interview explicitly identifies Rodrigo Gamon and supplies this individual photograph, with his name in the image filename. Name and club match; catalog birthday is blank.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "8dd561d9b120a9f55af2f065b1c33472e58964404879b255e50bfac2021406eb",
+        "transparentFraction": 0.556696
       }
     },
     {
@@ -1366,14 +1429,35 @@
         "https://fbref.com/en/players/2618207a/Nizar",
         "https://www.bundesliga.com/en/player/nizar-el-jmili",
         "https://www.flashscore.com/player/el-jmili-nizar/rJlyjyJF/",
-        "https://www.foxsports.com/soccer/nizar-el-jmili-ben-hamou-player-bio"
+        "https://www.foxsports.com/soccer/nizar-el-jmili-ben-hamou-player-bio",
+        "https://villarrealcf.es/en/villarreal-cf-renew-nizar-el-jmili/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://villarrealcf.es/en/villarreal-cf-renew-nizar-el-jmili/",
+        "originalUrl": "https://panel.villarrealcf.es/wp-content/uploads/2026/05/Nizar-El-Jmili.jpg",
+        "sha256": "4a551f1df49ae46e38eac76eecdd3643caa108ffead9d9fc3153f5507240f40d",
+        "originalSha256": "520b9bfd178a2ef3278a09820d05a29bc0112eb630b187f6c55a7598b54cfb5c",
+        "width": 400,
+        "height": 338,
+        "endpoint": "/api/football-player-photo?player=3101324",
+        "localPath": "/images/players/football/3101324-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Villarreal official individual renewal announcement explicitly names Nizar El Jmili and supplies a named photograph of him holding the club shirt. Name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Villarreal official individual renewal announcement explicitly names Nizar El Jmili and supplies a named photograph of him holding the club shirt. Name and club match; catalog birthday is blank.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "520b9bfd178a2ef3278a09820d05a29bc0112eb630b187f6c55a7598b54cfb5c",
+        "transparentFraction": 0.625155
       }
     },
     {
@@ -2719,7 +2803,8 @@
         "https://en.legaseriea.it/players/aleksandr-ballabio/statistics",
         "https://forzafootball.com/player/aleksandr-ballabio-1221143774",
         "https://www.besoccer.com/player/a-ballabio-3462698",
-        "https://theanalyst.com/players/19992/aleksandr-ballabio"
+        "https://theanalyst.com/players/19992/aleksandr-ballabio",
+        "https://www.acmonza.com/en/squadra-giovanile/21/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -2734,6 +2819,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Monza named youth-roster image is the club crest rather than a player portrait; rejected."
       }
     },
     {
@@ -2888,7 +2978,8 @@
         "https://www.instagram.com/p/DZ9vkNAhZsd/",
         "https://tribuna.com/en/persons/salimou-danfakha/",
         "https://www.sofascore.com/football/player/salimou-danfakha/2705491",
-        "https://fc.gradientsports.com/rankings/player/38222094"
+        "https://fc.gradientsports.com/rankings/player/38222094",
+        "https://www.aja.fr/joueur/salimou-danfakha/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -2903,6 +2994,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Auxerre individual profile has identity details but no player portrait; social image is a stadium."
       }
     },
     {
@@ -2922,7 +3018,8 @@
         "https://statshub.com/player/yvan-zaddy/74912",
         "https://africasport.news/en/player/yvan-zaddy",
         "https://www.instagram.com/reel/DXrtOeiDOqi/",
-        "https://www.flashscoreusa.com/player/zaddy-yvan/hj3riZQ1/"
+        "https://www.flashscoreusa.com/player/zaddy-yvan/hj3riZQ1/",
+        "https://www.aja.fr/joueur/yvan-zaddy/"
       ],
       "fields": {
         "height": {
@@ -2934,7 +3031,7 @@
           "source": "https://www.fotmob.com/players/1841152"
         }
       },
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -2946,6 +3043,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.aja.fr/joueur/yvan-zaddy/",
+        "originalUrl": "https://www.aja.fr/wp-content/uploads/2025/11/41_ZADDY.png",
+        "sha256": "e684db8f38626e3b017e6a2e0163093780f95e84e076cc29210a43a9813d5090",
+        "originalSha256": "c4c9cc9ef7e467aaf010308068a8fd0f6a38a8c097ddb918174f89a187ce221f",
+        "width": 466,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=414184",
+        "localPath": "/images/players/football/414184-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Auxerre official individual profile explicitly names Yvan Zaddy, lists 1 May 2006, exactly matching the catalog birthday, and supplies the transparent 41_ZADDY.png portrait."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Auxerre official individual profile explicitly names Yvan Zaddy, lists 1 May 2006, exactly matching the catalog birthday, and supplies the transparent 41_ZADDY.png portrait.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "c4c9cc9ef7e467aaf010308068a8fd0f6a38a8c097ddb918174f89a187ce221f",
+        "transparentFraction": 0.334778
       }
     },
     {
@@ -2966,10 +3083,11 @@
         "https://www.fut.gg/players/85892-lamfia-dioubate/27-85892/",
         "https://www.facebook.com/100057253646762/posts/toutes-nos-f%C3%A9licitations-%C3%A0-lamfia-dioubate-pour-sa-signature-avec-laj-auxerre-la/846885587229888/",
         "https://en.wikipedia.org/wiki/AJ_Auxerre",
-        "https://www.ea.com/en/games/ea-sports-fc/ratings/player-ratings/lamfia-dioubate/85892"
+        "https://www.ea.com/en/games/ea-sports-fc/ratings/player-ratings/lamfia-dioubate/85892",
+        "https://www.aja.fr/joueur/lamfia-dioubate/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -2981,6 +3099,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.aja.fr/joueur/lamfia-dioubate/",
+        "originalUrl": "https://www.aja.fr/wp-content/uploads/2025/12/34_DIOUBATE.png",
+        "sha256": "370ed6126b2edb1e918d220d4594e9c4cac5956e802abb081e2ce9ec6be94d69",
+        "originalSha256": "3f35e59795b0df2dd9ef6b91ef4921bf12d81558aa3656f4cb5e2f336a9e18fb",
+        "width": 473,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=416458",
+        "localPath": "/images/players/football/416458-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Auxerre official individual profile explicitly names Lamfia Dioubate, lists 20 July 2007, exactly matching the catalog birthday, and supplies the transparent 34_DIOUBATE.png portrait."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Auxerre official individual profile explicitly names Lamfia Dioubate, lists 20 July 2007, exactly matching the catalog birthday, and supplies the transparent 34_DIOUBATE.png portrait.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "3f35e59795b0df2dd9ef6b91ef4921bf12d81558aa3656f4cb5e2f336a9e18fb",
+        "transparentFraction": 0.350998
       }
     },
     {
@@ -3002,10 +3140,11 @@
         "https://en.soccerwiki.org/player.php?pid=174776",
         "https://www.365scores.com/en-us/football/player/aymen-assab-245127",
         "https://worldfootball.com/people/a-assab/73394",
-        "https://www.uefa.com/uefaconferenceleague/clubs/players/250211953--aymen-assab/matches/"
+        "https://www.uefa.com/uefaconferenceleague/clubs/players/250211953--aymen-assab/matches/",
+        "https://www.asmonaco.com/fr/pros/joueurs/aymen-assab"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -3017,6 +3156,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.asmonaco.com/fr/pros/joueurs/aymen-assab",
+        "originalUrl": "https://www.asmonaco.com/media/2026/08/aymen_assab_effectif.png",
+        "sha256": "4bb0fc59a3cf56451c1e0bb03e66c1f2e4bfe855103b04f9bd6c77ac3221a5f2",
+        "originalSha256": "92b0ed091b49b180fe48e2cb6b8ac3ad6eccf5796752004d7c7e19f3a1d0dc71",
+        "width": 600,
+        "height": 825,
+        "endpoint": "/api/football-player-photo?player=3124793",
+        "localPath": "/images/players/football/3124793-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Monaco official individual player profile explicitly names Aymen Assab and supplies his named transparent portrait. The profile identifies arrival on 6 July 2026 and birth on 18 July 2008. Name and club match; blank catalog birthday is unchanged."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Monaco official individual player profile explicitly names Aymen Assab and supplies his named transparent portrait. The profile identifies arrival on 6 July 2026 and birth on 18 July 2008. Name and club match; blank catalog birthday is unchanged.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "92b0ed091b49b180fe48e2cb6b8ac3ad6eccf5796752004d7c7e19f3a1d0dc71",
+        "transparentFraction": 0.482962
       }
     },
     {
@@ -3405,14 +3564,36 @@
         "https://www.thescore.com/uefa/players/220550-rayan-ouro-bang-na/info",
         "https://www.playmakerstats.com/player/rayan-ouro-bang/1297880?epoca_id=155",
         "https://www.uefa.com/uefachampionsleague/players/comparison/250213052/250100056/",
-        "https://www.uefa.com/uefachampionsleague/clubs/players/250213052--rayan-ouro-bang-na/matches/"
+        "https://www.uefa.com/uefachampionsleague/clubs/players/250213052--rayan-ouro-bang-na/matches/",
+        "https://www.om.fr/en/reserve-team",
+        "https://mediterranee.fff.fr/wp-content/uploads/sites/16/2022/01/STAGE-REGIONAL-U15G-AVENIR-du-09.02.22.pdf"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.om.fr/en/reserve-team",
+        "originalUrl": "https://cdn.sanity.io/images/2omis1jj/production/435f6dd1d8bfd265a6074f6db53648e0cf0daef5-330x410.jpg?rect=1,0,328,410&w=656&h=820&fit=crop",
+        "sha256": "3f7ba0db84cf320d58661953b487c43b92a89a2c5df08ec3d83ee2675c01d112",
+        "originalSha256": "1f4d0efb45b5b39c91e089de1e79367ef7be14d8d22e5e6ab955fa0b253b0071",
+        "width": 400,
+        "height": 500,
+        "endpoint": "/api/football-player-photo?player=414467",
+        "localPath": "/images/players/football/414467-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Marseille official reserve roster explicitly labels this image Rayan OURO BANG NA. The French FA Mediterranean regional selection document independently gives the full name and 18 March 2007, matching the catalog birthday. Club and identity match."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Marseille official reserve roster explicitly labels this image Rayan OURO BANG NA. The French FA Mediterranean regional selection document independently gives the full name and 18 March 2007, matching the catalog birthday. Club and identity match.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "1f4d0efb45b5b39c91e089de1e79367ef7be14d8d22e5e6ab955fa0b253b0071",
+        "transparentFraction": 0.458365
       }
     },
     {
@@ -3516,10 +3697,11 @@
         "https://www.extratime.com/player/11166146/henrick_do-marcolino/",
         "https://ligue1.com/en/player-sheet/l1_championship_player_2024_14_86774/profile",
         "https://en.wikipedia.org/wiki/Jonathan_Do_Marcolino",
-        "https://www.uefa.com/uefaeuropaleague/clubs/players/250225226--henrick-do-marcolino/matches/"
+        "https://www.uefa.com/uefaeuropaleague/clubs/players/250225226--henrick-do-marcolino/matches/",
+        "https://www.staderennais.com/equipe-pro/henrick-do-marcolino"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -3532,6 +3714,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.staderennais.com/equipe-pro/henrick-do-marcolino",
+        "originalUrl": "https://www.staderennais.com/sites/default/files/styles/hero_player/private/2026-09/fiche-joueur-2026-2027_2_do_marcolino.png.webp?itok=pK95y-3u",
+        "sha256": "0ee1620b99a048440cfaf0cbd0675645d3a28c94875f135c4dffa2fee0006991",
+        "originalSha256": "7ac5c5e58a35f22ee260f4932c6b79a7986d4e60ec8c248edf1cc0f708328f7d",
+        "width": 576,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=398977",
+        "localPath": "/images/players/football/398977-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Rennes official individual first-team profile explicitly names Henrick Do Marcolino, lists 21 March 2006, exactly matching the catalog birthday, and supplies this transparent portrait."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Rennes official individual first-team profile explicitly names Henrick Do Marcolino, lists 21 March 2006, exactly matching the catalog birthday, and supplies this transparent portrait.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "7ac5c5e58a35f22ee260f4932c6b79a7986d4e60ec8c248edf1cc0f708328f7d",
+        "transparentFraction": 0.62467
       }
     },
     {
@@ -3587,7 +3789,8 @@
         "https://www.hudl.com/profile/15312838",
         "https://fminside.net/players/7-fm-26/2000492423-lassana-simakha",
         "https://www.sofascore.com/football/player/lassana-simakha/2702438",
-        "https://www.instagram.com/p/DLzfyJ4t9xz/?hl=en"
+        "https://www.instagram.com/p/DLzfyJ4t9xz/?hl=en",
+        "https://www.estac.fr/academie/effectifs/u19/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -3595,6 +3798,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Troyes U19 roster associates Lassana Simakha with the generic estac-avatar.png placeholder; rejected."
       }
     },
     {
@@ -3615,10 +3823,13 @@
         "https://www.playmakerstats.com/player/idrissa-soukouna/3553954",
         "https://www.facebook.com/61558686677383/posts/-idrissa-soukouna-va-signer-son-premier-contrat-professionnel-avec-troyeslestac-/122243910122289555/",
         "https://www.sofascore.com/football/player/idrissa-soukouna/2669978",
-        "https://www.flashscore.com/player/soukouna-idrissa/0AJ8ne3j/"
+        "https://www.flashscore.com/player/soukouna-idrissa/0AJ8ne3j/",
+        "https://www.estac.fr/equipe-premiere/effectif/",
+        "https://www.estac.fr/effectifs/idrissa-soukouna-2/",
+        "https://www.estac.fr/premiers-contrats-pros-pour-i-soukouna-et-y-kone/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -3630,6 +3841,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.estac.fr/equipe-premiere/effectif/",
+        "originalUrl": "https://www.estac.fr/wp-content/uploads/2026/08/soukouna.png",
+        "sha256": "3a4b794cd39d9e5ae809026f77db5e7e460f30015fcd8c7ee98984ed3213fc8c",
+        "originalSha256": "1f157171850a880af4a558be80e035df40de2e7012ec73782fa4abf535c673c7",
+        "width": 538,
+        "height": 538,
+        "endpoint": "/api/football-player-photo?player=3131916",
+        "localPath": "/images/players/football/3131916-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Troyes official first-team roster explicitly associates the transparent soukouna.png portrait with Idrissa Soukouna and links to his individual profile. The official professional-contract announcement corroborates the player. Name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Troyes official first-team roster explicitly associates the transparent soukouna.png portrait with Idrissa Soukouna and links to his individual profile. The official professional-contract announcement corroborates the player. Name and club match; catalog birthday is blank.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "1f157171850a880af4a558be80e035df40de2e7012ec73782fa4abf535c673c7",
+        "transparentFraction": 0.514314
       }
     },
     {
@@ -3650,14 +3881,37 @@
         "https://scoutingstats.ai/player/yacouba-kone-37927909/",
         "https://www.besoccer.com/player/yacouba-kone-3801584",
         "https://www.lequipe.fr/Football/FootballFicheJoueur139737.html",
-        "https://www.statshub.com/player/yacouba-kone/773294"
+        "https://www.statshub.com/player/yacouba-kone/773294",
+        "https://www.estac.fr/equipe-premiere/effectif/",
+        "https://www.estac.fr/effectifs/yacouba-kone/",
+        "https://www.estac.fr/premiers-contrats-pros-pour-i-soukouna-et-y-kone/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.estac.fr/equipe-premiere/effectif/",
+        "originalUrl": "https://www.estac.fr/wp-content/uploads/2026/08/kone.png",
+        "sha256": "5c9f1c0f008d29c36bcd67cfd2108dd545edda0dc2fd1bd4ef9aaacc47da2412",
+        "originalSha256": "2f1bb5cda9ec050b37f893816bcd69af30103f07d85843986ea33038759b135a",
+        "width": 538,
+        "height": 538,
+        "endpoint": "/api/football-player-photo?player=3129214",
+        "localPath": "/images/players/football/3129214-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Troyes official first-team roster explicitly associates the transparent kone.png portrait with Yacouba Kone and links to his individual profile. The official professional-contract announcement corroborates the player. Name and club match; catalog birthday is blank."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Troyes official first-team roster explicitly associates the transparent kone.png portrait with Yacouba Kone and links to his individual profile. The official professional-contract announcement corroborates the player. Name and club match; catalog birthday is blank.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "2f1bb5cda9ec050b37f893816bcd69af30103f07d85843986ea33038759b135a",
+        "transparentFraction": 0.495305
       }
     },
     {
@@ -5048,11 +5302,12 @@
         "https://www.livefootballnow.com/player/37698199",
         "https://www.bundesliga.com/en/player/matus-macik",
         "https://za.soccerway.com/player/minka-matus/zyORbbmA/",
-        "https://en.skslovan.com/players/A-Matus_Tomasko"
+        "https://en.skslovan.com/players/A-Matus_Tomasko",
+        "https://www.skslovan.com/akademia/U21-Matus_Minka"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "status": "verified-transparent-photo",
+      "identityNote": "Resolved in the fifth pass using the correct individual Slovan Matus Minka profile and exact matching birthday, 25 April 2004. Earlier Macik and Tomasko candidates were different people and remain rejected.",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -5064,6 +5319,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.skslovan.com/akademia/U21-Matus_Minka",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-300/2104.png?202508201131",
+        "sha256": "3099284c65c3fea18f51df3f49b9314286d64ae69a7893e1ad232c7350af7cc7",
+        "originalSha256": "f2f83b00c1ba3bfac9e85ebd87607cf8ad0ec654094c4a2ecde09758aaffc887",
+        "width": 400,
+        "height": 600,
+        "endpoint": "/api/football-player-photo?player=405608",
+        "localPath": "/images/players/football/405608-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Slovan official individual academy profile explicitly names Matus Minka and lists 25 April 2004, exactly matching the unchanged catalog birthday. The named portrait ID 2104 belongs to this profile. Earlier links to Matus Macik and Matus Tomasko concerned different people and remain rejected; this new individual source resolves the previous identity uncertainty."
+      },
+      "fifthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Slovan official individual academy profile explicitly names Matus Minka and lists 25 April 2004, exactly matching the unchanged catalog birthday. The named portrait ID 2104 belongs to this profile. Earlier links to Matus Macik and Matus Tomasko concerned different people and remain rejected; this new individual source resolves the previous identity uncertainty.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "f2f83b00c1ba3bfac9e85ebd87607cf8ad0ec654094c4a2ecde09758aaffc887",
+        "transparentFraction": 0.354771
       }
     },
     {
@@ -6724,5 +6999,12 @@
     "addedPhotos": 12,
     "remainingMissing": 54,
     "processing": "Eleven background extractions from official club or federation photographs and one original transparent Milan photograph. Source and derivative hashes retained separately. Visual review and local photo API byte verification."
+  },
+  "fifthPass": {
+    "verifiedAt": "2026-10-04",
+    "missingAtStart": 54,
+    "addedPhotos": 12,
+    "remainingMissing": 42,
+    "processing": "Six background extractions from official club photographs and six original transparent club photographs. Source and derivative hashes retained separately. Visual review and local photo API byte verification."
   }
 }

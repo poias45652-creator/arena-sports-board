@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4240,
+  "verifiedTransparentPhotos": 4252,
   "teams": [
     {
       "id": "349",
@@ -170,7 +170,7 @@
       "id": "88",
       "name": "Espanyol",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "2922",
@@ -182,7 +182,7 @@
       "id": "1538",
       "name": "Levante",
       "total": 28,
-      "withPhoto": 25
+      "withPhoto": 26
     },
     {
       "id": "99",
@@ -236,13 +236,13 @@
       "id": "94",
       "name": "Valencia",
       "total": 34,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "102",
       "name": "Villarreal",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "598",
@@ -476,13 +476,13 @@
       "id": "172",
       "name": "AJ Auxerre",
       "total": 34,
-      "withPhoto": 31
+      "withPhoto": 33
     },
     {
       "id": "174",
       "name": "AS Monaco",
       "total": 30,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "7868",
@@ -536,7 +536,7 @@
       "id": "176",
       "name": "Marseille",
       "total": 30,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "2502",
@@ -560,7 +560,7 @@
       "id": "169",
       "name": "Stade Rennais",
       "total": 26,
-      "withPhoto": 25
+      "withPhoto": 26
     },
     {
       "id": "180",
@@ -578,7 +578,7 @@
       "id": "170",
       "name": "Troyes",
       "total": 29,
-      "withPhoto": 26
+      "withPhoto": 28
     },
     {
       "id": "887",
@@ -656,7 +656,7 @@
       "id": "521",
       "name": "Slovan Bratislava",
       "total": 37,
-      "withPhoto": 36
+      "withPhoto": 37
     },
     {
       "id": "2250",
@@ -1005,28 +1005,12 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3139134",
-      "name": "Víctor Mullerat Tomas",
-      "teams": [
-        "88"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "3129043",
       "name": "Marc Santos Gavilán",
       "teams": [
         "1538"
       ],
       "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3129042",
-      "name": "Manel Usedo Domingo",
-      "teams": [
-        "1538"
-      ],
-      "reason": "No unambiguous identity match"
     },
     {
       "id": "339195",
@@ -1061,22 +1045,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "3124770",
-      "name": "Rodrigo Gamón Martín",
-      "teams": [
-        "94"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3101324",
-      "name": "Nizar El Jmili Ben Hamou",
-      "teams": [
-        "102"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
       "id": "139008",
       "name": "Joao Victor",
       "teams": [
@@ -1109,30 +1077,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "414184",
-      "name": "Yvan Zaddy",
-      "teams": [
-        "172"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "416458",
-      "name": "Lamfia Dioubaté",
-      "teams": [
-        "172"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3124793",
-      "name": "Aymen Assab",
-      "teams": [
-        "174"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3121265",
       "name": "Enzo Monchatre",
       "teams": [
@@ -1157,22 +1101,6 @@
       "reason": "Source photo unavailable"
     },
     {
-      "id": "414467",
-      "name": "Rayan Bang Na",
-      "teams": [
-        "176"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "398977",
-      "name": "Henrick Do Marcolino",
-      "teams": [
-        "169"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "422969",
       "name": "Aymen Ammaouch",
       "teams": [
@@ -1183,22 +1111,6 @@
     {
       "id": "3140905",
       "name": "Lassana Simakha",
-      "teams": [
-        "170"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3131916",
-      "name": "Idrissa Soukouna",
-      "teams": [
-        "170"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3129214",
-      "name": "Yacouba Kone",
       "teams": [
         "170"
       ],
@@ -1275,14 +1187,6 @@
         "493"
       ],
       "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "405608",
-      "name": "Matús Minka",
-      "teams": [
-        "521"
-      ],
-      "reason": "Source photo unavailable"
     },
     {
       "id": "3139066",
