@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 88,
+  "addedTransparentPhotos": 115,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -201,6 +201,11 @@
           "https://www.wearehullcity.co.uk/teams/u21-team/archiehoward"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -340,7 +345,7 @@
         "https://www.newcastleunited.com/en/teams/U18/michael-mills-profile"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -348,6 +353,26 @@
           "https://www.newcastleunited.com/en/teams/U18/michael-mills-profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/michael-mills/profil/spieler/1146658",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1146658-1791017504.jpg?lm=4711",
+        "sha256": "7710da117ae454288bd8d3d151767cc692c5ce11cb07d87bc9401f943ef0e62c",
+        "originalSha256": "3f1d04415feb6cf6b44a5918a0602296baf28e567dcd63abd733269d46d965d4",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=418769",
+        "localPath": "/images/players/football/418769-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-02-18 matches the profile birthday. Date of birth/Age: Feb 18, 2009 (17) Place of birth: Manchester Citizenship: England Position: Left Winger Agent: Prolific Sports ..."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-02-18 matches the profile birthday. Date of birth/Age: Feb 18, 2009 (17) Place of birth: Manchester Citizenship: England Position: Left Winger Agent: Prolific Sports ...",
+        "originalSha256": "3f1d04415feb6cf6b44a5918a0602296baf28e567dcd63abd733269d46d965d4",
+        "transparentFraction": 0.233064,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -545,6 +570,11 @@
           "https://www.rcdespanyol.com/en/teams/rcd-espanyol-b/victor-mullerat/3955"
         ],
         "result": "Official Espanyol B page supplies noplayerphoto_empty.png placeholders."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -642,6 +672,11 @@
           "https://www.levanteud.com/en/news/marc-santos-se-convierte-en-el-debutante-mas-joven-del-levante-ud"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -665,7 +700,12 @@
         "https://tribuna.com/en/persons/manel-usedo-domingo/stat/2026-2027/la-liga/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "339195",
@@ -695,6 +735,11 @@
           "https://www.levanteud.com/en/news/thiago-fernandez-se-convierte-en-jugador-del-levante-ud"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Known ID 339195 is Racing Montevideo player born 2007-01-23, not Levante player born 2004-04-03. Official Levante image is wrong person."
       }
     },
     {
@@ -862,7 +907,12 @@
         "https://www.transfermarkt.com/hugo-perez/profil/spieler/1494543"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3128651",
@@ -886,7 +936,27 @@
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250211274--ivan-alonso/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/ivan-alonso/profil/spieler/1409625",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1409625-1771715509.jpg?lm=4711",
+        "sha256": "43245b3aade26b9732df7c2d4f3c1a0503880bac95b535124191e1e760623866",
+        "originalSha256": "ba746479005ad26c546d20191f366a5c68a462382cde4509345496fa1b6bf59e",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=3128651",
+        "localPath": "/images/players/football/3128651-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Mar 15, 2006 (20) Citizenship: Spain Position: Right Winger Agent: Gersh € 25 k Last update: Jun 8, 2026 Player da"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Mar 15, 2006 (20) Citizenship: Spain Position: Right Winger Agent: Gersh € 25 k Last update: Jun 8, 2026 Player da",
+        "originalSha256": "ba746479005ad26c546d20191f366a5c68a462382cde4509345496fa1b6bf59e",
+        "transparentFraction": 0.332382,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "394885",
@@ -909,7 +979,12 @@
         "https://www.facebook.com/realbetiscantera/videos/por-aqu%C3%AD-no-puedes-pasar-firmado-%C3%A1lvaro-de-pablo-%EF%B8%8Fya-tienes-disponible-en-nuestr/1110263741528352/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "84349",
@@ -1191,6 +1266,11 @@
           "https://www.valenciacf.com/official-statement-javi-guerra"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Known ID 16340 is Real Tomayapo player born 2004-04-06, not Valencia Javi Guerra born 2003-05-13."
       }
     },
     {
@@ -1214,7 +1294,12 @@
         "https://futbolconlupa.com/jugadores/rodrigo-gamon-martin-18261"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3124771",
@@ -1278,7 +1363,12 @@
         "https://www.foxsports.com/soccer/nizar-el-jmili-ben-hamou-player-bio"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3131188",
@@ -1748,6 +1838,11 @@
           "https://www.acmilan.com/en/teams/milan-futuro/players/leo-paul-bouyer"
         ],
         "result": "Official AC Milan profile birthday 2008-08-13 conflicts with catalog 2008-08-14; downloaded original also exceeds the existing 2 MB limit. Retained for further identity review, not enabled."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Official AC Milan profile birthday differs by one day from the catalog and Transfermarkt. Identity conflict retained for review; no photo enabled."
       }
     },
     {
@@ -1772,7 +1867,7 @@
         "https://en.atalanta.it/teams/under-23"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -1780,6 +1875,26 @@
           "https://en.atalanta.it/teams/under-23"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://en.atalanta.it/news/u23s-welcome-jacopo-mirra",
+        "originalUrl": "https://images.atalanta.it/image/private/t_ratio16_9-size60/v1783087539/prd/nm2bp2kpnj7pbug42imy",
+        "sha256": "60f947f110bda92410b4d4ea39f6b29695fabfd713e77531ce288ed177cb2803",
+        "originalSha256": "3322305fb35c62b29b4835331c2d5e3fdde8d0edd775e6d0d955c976d5f72c26",
+        "width": 600,
+        "height": 900,
+        "endpoint": "/api/football-player-photo?player=384831",
+        "localPath": "/images/players/football/384831-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged.",
+        "originalSha256": "3322305fb35c62b29b4835331c2d5e3fdde8d0edd775e6d0d955c976d5f72c26",
+        "transparentFraction": 0.408028,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 92 encoding with alpha and maximum 600x900 dimensions."
       }
     },
     {
@@ -1804,13 +1919,33 @@
         "https://www.uefa.com/uefaeuropaleague/clubs/players/250216712--matteo-franceschelli/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://www.laliga.com/en-GB/player/matteo-franceschelli"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/matteo-franceschelli/profil/spieler/1272211",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1272211-1769583191.jpg?lm=4711",
+        "sha256": "05256b1846a14a5bb07c2e8e9f17bec403d3772a6dd4229a57d690a26be68296",
+        "originalSha256": "4abaa27644800438819957fcec39b9af24ccd08287097a44b503bf3fe5c72b2e",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=415168",
+        "localPath": "/images/players/football/415168-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-08-08 matches the profile birthday. Date of birth/Age: Aug 8, 2008 (18) Place of birth: Imola Citizenship: Italy Position: Goalkeeper Player data Main position Main posi"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-08-08 matches the profile birthday. Date of birth/Age: Aug 8, 2008 (18) Place of birth: Imola Citizenship: Italy Position: Goalkeeper Player data Main position Main posi",
+        "originalSha256": "4abaa27644800438819957fcec39b9af24ccd08287097a44b503bf3fe5c72b2e",
+        "transparentFraction": 0.214004,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -1834,13 +1969,33 @@
         "https://www.sofascore.com/football/player/marco-libra-alvarado/1986578"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://www.bolognafc.it/en/marco-libra-alvarado-called-up-by-venezuela/"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/marco-libra/profil/spieler/1311378",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1311378-1789368588.jpg?lm=4711",
+        "sha256": "d8824848c1d3f1155544bb930ce902202e12edac835a5f369420bf9c05a660a0",
+        "originalSha256": "fe3df40808bf91c7707a19229add11890d1e8642613bfc1befc98f9af4ee9228",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=410325",
+        "localPath": "/images/players/football/410325-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-03-21 matches the profile birthday. Date of birth/Age: Mar 21, 2008 (18) Place of birth: Caracas Citizenship: Venezuela Height: 6 ft 0 in Position: Central Midfield Curr"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-03-21 matches the profile birthday. Date of birth/Age: Mar 21, 2008 (18) Place of birth: Caracas Citizenship: Venezuela Height: 6 ft 0 in Position: Central Midfield Curr",
+        "originalSha256": "fe3df40808bf91c7707a19229add11890d1e8642613bfc1befc98f9af4ee9228",
+        "transparentFraction": 0.278919,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -1895,13 +2050,33 @@
         "https://www.facebook.com/untifosodelcagliari/videos/%F0%9D%97%A6%F0%9D%97%A8%F0%9D%97%9A%F0%9D%97%94%F0%9D%97%A0%F0%9D%97%98%F0%9D%97%9F%F0%9D%97%98-%F0%9D%97%96%F0%9D%97%9B%F0%9D%97%98-%F0%9D%97%9A%F0%9D%97%A2%F0%9D%97%9F-%F0%9D%97%9C%F0%9D%97%A1-%F0%9D%97%A3%F0%9D%97%A5%F0%9D%97%9C%F0%9D%97%A0%F0%9D%97%94%F0%9D%97%A9%F0%9D%97%98%F0%9D%97%A5%F0%9D%97%94-%F0%9D%97%96%F0%9D%97%A2%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%A5%F0%9D%97%A2-%F0%9D%97%9F%F0%9D%97%9C%F0%9D%97%A1%F0%9D%97%A7%F0%9D%97%98%F0%9D%97%A5alessandro-sugamele-nuovo-acquisto-de/2401676513610730/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://cagliaricalcio.com/en/news/sugamele-joins-cagliari/"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/alessandro-sugamele/profil/spieler/1175304",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1175304-1788858145.jpg?lm=4711",
+        "sha256": "0f51ea4efc42bf7a4c5a34bb72ba854d4ef94f6d75cf1fa3ce3c0f6746d49f90",
+        "originalSha256": "deac0984315cbc9d540a36a59a5cfcf1ed5c2406623098334f98d6c1518a8f9b",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=387844",
+        "localPath": "/images/players/football/387844-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-02-22 matches the profile birthday. Date of birth/Age: Feb 22, 2007 (19) Place of birth: Anagni Citizenship: Italy Position: Centre-Forward Former International: Italy U"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-02-22 matches the profile birthday. Date of birth/Age: Feb 22, 2007 (19) Place of birth: Anagni Citizenship: Italy Position: Centre-Forward Former International: Italy U",
+        "originalSha256": "deac0984315cbc9d540a36a59a5cfcf1ed5c2406623098334f98d6c1518a8f9b",
+        "transparentFraction": 0.215528,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -1965,7 +2140,12 @@
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded."
+      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Known ID 139008 is ABC player born 1995-05-18; reviewed UEFA/TM portraits concern a different Joao Victor."
+      }
     },
     {
       "id": "401558",
@@ -1989,7 +2169,27 @@
         "https://www.bundesliga.com/en/player/victor-valdepenas"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/victor-valdepenas/profil/spieler/1186245",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1186245-1766064999.jpg?lm=4711",
+        "sha256": "83525d0eec9704e0a36d46a2da0108f1f7e656f16574c250107b1e0e6bd6c2e3",
+        "originalSha256": "1f8774e2d14f31aefca858951fbb8fc8712abd161bb7e474060a40006551a48c",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=401558",
+        "localPath": "/images/players/football/401558-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-10-20 matches the profile birthday. Date of birth/Age: Oct 20, 2006 (19) Place of birth: Madrid Citizenship: Spain Height: 6 ft 2 in Position: Centre-Back Agent: Footfee"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-10-20 matches the profile birthday. Date of birth/Age: Oct 20, 2006 (19) Place of birth: Madrid Citizenship: Spain Height: 6 ft 2 in Position: Centre-Back Agent: Footfee",
+        "originalSha256": "1f8774e2d14f31aefca858951fbb8fc8712abd161bb7e474060a40006551a48c",
+        "transparentFraction": 0.238885,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "422138",
@@ -2012,7 +2212,27 @@
         "https://www.footballtransfers.com/en/players/antonio-pirro"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/antonio-pirro/profil/spieler/1078812",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1078812-1790333181.jpg?lm=4711",
+        "sha256": "0d3a96566537724b8c0773d300ddc1510fefa73ab2dad90d80231cccfeffacc2",
+        "originalSha256": "9cefce45a18ab06570cd6bb980b6e416e05d85b150daf07dc77d52b9810d0662",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=422138",
+        "localPath": "/images/players/football/422138-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-01-28 matches the profile birthday. Date of birth/Age: Jan 28, 2008 (18) Place of birth: Udine Citizenship: Italy Height: 5 ft 10 in Position: Attacking Midfield Former "
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-01-28 matches the profile birthday. Date of birth/Age: Jan 28, 2008 (18) Place of birth: Udine Citizenship: Italy Height: 5 ft 10 in Position: Attacking Midfield Former ",
+        "originalSha256": "9cefce45a18ab06570cd6bb980b6e416e05d85b150daf07dc77d52b9810d0662",
+        "transparentFraction": 0.22847,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "233515",
@@ -2035,13 +2255,33 @@
         "https://www.besoccer.com/player/sulayman-jallow-3631666"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://www.acffiorentina.com/en/news/sulayman-jallow-comunicato-acquisto-28-8-25"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/sulayman-jallow/profil/spieler/1341004",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1341004-1790342296.jpg?lm=4711",
+        "sha256": "4e4ad94aac02698a619e0fa27c25a359a9af4b26c92565745ea4aca57a8c99a7",
+        "originalSha256": "c26ae35b53cb2723c14ffcb2cfafd0572f81e62cb8bb666885a3e4e1115e28e5",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=233515",
+        "localPath": "/images/players/football/233515-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-05-04 matches the profile birthday. Date of birth/Age: May 4, 2007 (19) Citizenship: The Gambia Height: 6 ft 2 in Position: Centre-Forward € 400 k Last update: Jun 25, 2"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-05-04 matches the profile birthday. Date of birth/Age: May 4, 2007 (19) Citizenship: The Gambia Height: 6 ft 2 in Position: Centre-Forward € 400 k Last update: Jun 25, 2",
+        "originalSha256": "c26ae35b53cb2723c14ffcb2cfafd0572f81e62cb8bb666885a3e4e1115e28e5",
+        "transparentFraction": 0.275519,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -2065,7 +2305,27 @@
         "https://www.espn.com/soccer/player/_/id/422953/federico-croci"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/federico-croci/profil/spieler/1350478",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1350478-1780905621.jpg?lm=4711",
+        "sha256": "29d929da02ec2c3afbf462eff45f26c3b8088cee3a95729c14d3993bbf1af6b1",
+        "originalSha256": "5d5ebb57c5f50bf3720a2e12e1741df59c575b5769552204314e545d0b3a8ae1",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=422953",
+        "localPath": "/images/players/football/422953-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2010-07-01 matches the profile birthday. Date of birth/Age: Jul 1, 2010 (16) Place of birth: Bibbiena Citizenship: Italy Position: Second Striker Current international: Italy"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2010-07-01 matches the profile birthday. Date of birth/Age: Jul 1, 2010 (16) Place of birth: Bibbiena Citizenship: Italy Position: Second Striker Current international: Italy",
+        "originalSha256": "5d5ebb57c5f50bf3720a2e12e1741df59c575b5769552204314e545d0b3a8ae1",
+        "transparentFraction": 0.201365,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3118047",
@@ -2151,7 +2411,27 @@
         "https://sports.yahoo.com/soccer/players/4125342/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/lukas-klisys/profil/spieler/874974",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/874974-1760450865.jpg?lm=4711",
+        "sha256": "d529ddd3fd6becddff5c1d5cefa899e0ef4056218ba7d9759ac29cf890d93ac3",
+        "originalSha256": "ca97510f97930f96db303c8d9cb9d05bf6b81b6a1c7fbf33ec5c227e90c2a736",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=421761",
+        "localPath": "/images/players/football/421761-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-01-04 matches the profile birthday. Date of birth/Age: Jan 4, 2007 (19) Citizenship: Lithuania Position: Centre-Back Former International: Lithuania U19 Caps/Goals: 0 / "
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-01-04 matches the profile birthday. Date of birth/Age: Jan 4, 2007 (19) Citizenship: Lithuania Position: Centre-Back Former International: Lithuania U19 Caps/Goals: 0 / ",
+        "originalSha256": "ca97510f97930f96db303c8d9cb9d05bf6b81b6a1c7fbf33ec5c227e90c2a736",
+        "transparentFraction": 0.383971,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3098553",
@@ -2174,7 +2454,12 @@
         "https://www.fotmob.com/players/2029779/marcelo-vaz"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3118700",
@@ -2197,7 +2482,27 @@
         "https://www.fotmob.com/players/1670284/adam-zulevic"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/adam-zulevic/profil/spieler/1153661",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1153661-1787553344.jpg?lm=4711",
+        "sha256": "55ac0cf1a2e9b63fd1be3bad542c4183aaf9222e3600e9d07e8161118e60f30d",
+        "originalSha256": "04c17bd77bf8518af00dc4b323ebf0163b6d0ded00fddf12a00828927240341b",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=3118700",
+        "localPath": "/images/players/football/3118700-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Sep 14, 2007 (19) Place of birth: Medzilaborce Citizenship: Slovakia Height: 6 ft 6 in Position: Centre-Forward Ag"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Sep 14, 2007 (19) Place of birth: Medzilaborce Citizenship: Slovakia Height: 6 ft 6 in Position: Centre-Forward Ag",
+        "originalSha256": "04c17bd77bf8518af00dc4b323ebf0163b6d0ded00fddf12a00828927240341b",
+        "transparentFraction": 0.300628,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3121500",
@@ -2220,7 +2525,27 @@
         "https://www.foxsports.com/soccer/grady-makiobo-player-bio"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/grady-makiobo/profil/spieler/1318182",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1318182-1742887874.jpg?lm=4711",
+        "sha256": "1f1aa58eea60964fe458b7bc253d941914030f5d1cd43124dc775336060dba37",
+        "originalSha256": "7df867200080d132ef0bf1ff4153bfe12efbc5ee296859e970fad7dddb5debd9",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=3121500",
+        "localPath": "/images/players/football/3121500-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: May 11, 2007 (19) Citizenship: Belgium Position: Central Midfield National player: Belgium U19 Caps/Goals: 1 / 0 €"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: May 11, 2007 (19) Citizenship: Belgium Position: Central Midfield National player: Belgium U19 Caps/Goals: 1 / 0 €",
+        "originalSha256": "7df867200080d132ef0bf1ff4153bfe12efbc5ee296859e970fad7dddb5debd9",
+        "transparentFraction": 0.236404,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "422962",
@@ -2245,7 +2570,27 @@
         "https://www.uefa.com/under17/teams/players/250218250--christian-lupo/news/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/christian-lupo/profil/spieler/1264063",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1264063-1780597333.jpg?lm=4711",
+        "sha256": "14b5dd8f132d840fd8f7d3e23cf5f187b997e2496efbe5781ca89d049043c33b",
+        "originalSha256": "3379fafe8afe258d1d14db25d4442eb34a41bc0c94e3a7a12baaa2f525caabcd",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=422962",
+        "localPath": "/images/players/football/422962-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-05-29 matches the profile birthday. Date of birth/Age: May 29, 2009 (17) Place of birth: Bari Citizenship: Italy Position: Goalkeeper National player: Italy U18 Caps/Goa"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-05-29 matches the profile birthday. Date of birth/Age: May 29, 2009 (17) Place of birth: Bari Citizenship: Italy Position: Goalkeeper National player: Italy U18 Caps/Goa",
+        "originalSha256": "3379fafe8afe258d1d14db25d4442eb34a41bc0c94e3a7a12baaa2f525caabcd",
+        "transparentFraction": 0.274538,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3123405",
@@ -2268,7 +2613,12 @@
         "https://www.footballdatabase.eu/en/player/details/601262-divine-onyemachi"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3123406",
@@ -2329,6 +2679,11 @@
           "https://en.legaseriea.it/players/aleksandr-ballabio/statistics"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2357,7 +2712,27 @@
           "source": "https://www.fotmob.com/players/1891772"
         }
       },
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/gabriele-casentini/profil/spieler/1188642",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1188642-1768808018.jpg?lm=4711",
+        "sha256": "e74f43d08dee62a4235fd05496f8cbc41381ec8b0dfac9af10007144d589a644",
+        "originalSha256": "55bf14f4fcf3a8544c9e412d9341e98befd64bb7313b6d6560b4612dda3df973",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=417784",
+        "localPath": "/images/players/football/417784-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-03-14 matches the profile birthday. Date of birth/Age: Mar 14, 2007 (19) Place of birth: Fidenza Citizenship: Italy Height: 6 ft 4 in Position: Goalkeeper Player data Ma"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2007-03-14 matches the profile birthday. Date of birth/Age: Mar 14, 2007 (19) Place of birth: Fidenza Citizenship: Italy Height: 6 ft 4 in Position: Goalkeeper Player data Ma",
+        "originalSha256": "55bf14f4fcf3a8544c9e412d9341e98befd64bb7313b6d6560b4612dda3df973",
+        "transparentFraction": 0.2589,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "413819",
@@ -2380,7 +2755,27 @@
         "https://en.wikipedia.org/wiki/Angelo_Cereser"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/francesco-cereser/profil/spieler/1254297",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1254297-1771591857.jpg?lm=4711",
+        "sha256": "1fa393eb97b608e9b13e1db57c802b95ac3e686ddbf8d64c50c888819617c302",
+        "originalSha256": "125351f39bf9a675d0680662d952c950bb19cb602f4149ecfc22f793383b57f6",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=413819",
+        "localPath": "/images/players/football/413819-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-01-05 matches the profile birthday. Date of birth/Age: Jan 5, 2008 (18) Place of birth: Vicenza Citizenship: Italy Height: 6 ft 2 in Position: Goalkeeper Current interna"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-01-05 matches the profile birthday. Date of birth/Age: Jan 5, 2008 (18) Place of birth: Vicenza Citizenship: Italy Height: 6 ft 2 in Position: Goalkeeper Current interna",
+        "originalSha256": "125351f39bf9a675d0680662d952c950bb19cb602f4149ecfc22f793383b57f6",
+        "transparentFraction": 0.271201,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3131322",
@@ -2403,7 +2798,27 @@
         "https://www.rotowire.com/soccer/player/andrea-ballanti-49956"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/andrea-ballanti/profil/spieler/1312263",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1312263-1790338909.jpg?lm=4711",
+        "sha256": "8d4a5d58d77982466efca44d68dc21e7a4d25ee5e1828e475836b74bde5ddaa1",
+        "originalSha256": "b3414cda7477e0fcdacece972f995deac1951797f1217748b001016902bd44c4",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=3131322",
+        "localPath": "/images/players/football/3131322-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Mar 26, 2008 (18) Place of birth: Rimini Citizenship: Italy Height: 5 ft 10 in Position: Central Midfield Agent: P"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Mar 26, 2008 (18) Place of birth: Rimini Citizenship: Italy Height: 5 ft 10 in Position: Central Midfield Agent: P",
+        "originalSha256": "b3414cda7477e0fcdacece972f995deac1951797f1217748b001016902bd44c4",
+        "transparentFraction": 0.3145,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3131801",
@@ -2433,6 +2848,11 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2026_2_508850/profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2471,6 +2891,11 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2025_2_504285/profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2501,6 +2926,11 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2025_2_505586/profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2532,6 +2962,11 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2026_9_508667/profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2556,7 +2991,7 @@
         "https://www.uefa.com/under17/teams/players/250206236--mael-gernigon/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -2564,6 +2999,26 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2025_37_505551/matches"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://angers-sco.fr/mael-gernigon-signe-son-premier-contrat-professionnel/",
+        "originalUrl": "https://angers-sco.fr/wp-content/uploads/2025/12/dsc05812-2-1024x683.jpg",
+        "sha256": "1660c0ef2c6cfe9a4300cca5c018a83dbc79cfc0019acd8d704e775e36db8500",
+        "originalSha256": "eb93568daca8cae7ec438d956687fb8e373583ee1308490c2845f40aa14f6297",
+        "width": 600,
+        "height": 500,
+        "endpoint": "/api/football-player-photo?player=416401",
+        "localPath": "/images/players/football/416401-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged.",
+        "originalSha256": "eb93568daca8cae7ec438d956687fb8e373583ee1308490c2845f40aa14f6297",
+        "transparentFraction": 0.532117,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 92 encoding with alpha and maximum 600x900 dimensions."
       }
     },
     {
@@ -2589,7 +3044,7 @@
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250222302--mamadou-diallo/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -2597,6 +3052,26 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2026_37_105417/statistics"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://angers-sco.fr/mamadou-diallo-signe-son-premier-contrat-professionnel/",
+        "originalUrl": "https://angers-sco.fr/wp-content/uploads/2025/10/sign-m.diallo-20-1024x683.jpg",
+        "sha256": "9e7d120761a740bb612260694f6643bffd3ccd410b3a5b0ea3b1dcdc077d0957",
+        "originalSha256": "a98083f21a9137c0b59adc2c23dc0f0f2a23f6b8918e35549c4c69879e955c05",
+        "width": 600,
+        "height": 541,
+        "endpoint": "/api/football-player-photo?player=3130907",
+        "localPath": "/images/players/football/3130907-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged.",
+        "originalSha256": "a98083f21a9137c0b59adc2c23dc0f0f2a23f6b8918e35549c4c69879e955c05",
+        "transparentFraction": 0.5148,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 92 encoding with alpha and maximum 600x900 dimensions."
       }
     },
     {
@@ -2627,6 +3102,11 @@
           "https://ligue1.com/player-sheet/l1_championship_player_2026_44_510001"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2685,6 +3165,11 @@
           "https://www.fff.fr/equipe-nationale/joueur/11645-ouziad-djibril/fiche.html"
         ],
         "result": "FFF portrait has no transparent pixels (opaque PNG)."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "FFF source is a generic silhouette placeholder, visually confirmed. Do not create a face from it."
       }
     },
     {
@@ -2708,13 +3193,33 @@
         "https://kingsleague.pro/en/players/76319-william-harhouz"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://ligue1.com/en/player-sheet/l1_championship_player_2026_26_105046/profile"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/william-harhouz/profil/spieler/1029482",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1029482-1778702744.jpg?lm=4711",
+        "sha256": "a9a0830f530378f437d4881bf51ce17b2b509524336c8485e9097fb6c512b533",
+        "originalSha256": "4743dbdc8e20bccc63cada2574f43e023d564f3e423dfd4cdd7c93695fc83fcd",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=407614",
+        "localPath": "/images/players/football/407614-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 1999-12-30 matches the profile birthday. Date of birth/Age: Dec 30, 1999 (26) Place of birth: Paris Citizenship: France Height: 6 ft 3 in Position: Centre-Forward Agent: ARAN"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 1999-12-30 matches the profile birthday. Date of birth/Age: Dec 30, 1999 (26) Place of birth: Paris Citizenship: France Height: 6 ft 3 in Position: Centre-Forward Agent: ARAN",
+        "originalSha256": "4743dbdc8e20bccc63cada2574f43e023d564f3e423dfd4cdd7c93695fc83fcd",
+        "transparentFraction": 0.244502,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -2738,13 +3243,33 @@
         "https://www.flashscoreusa.com/player/kone-mamadou/hn7q2wRi/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://ligue1.com/player-sheet/l1_championship_player_2026_7_105495"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/mamadou-kone/profil/spieler/1459673",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1459673-1789380457.jpg?lm=4711",
+        "sha256": "9c4197167597f7e4837c2730ca04e77ea4acda19b8c47397f04be814fd3250d0",
+        "originalSha256": "884ba4415a11334455d8aab501348757d5bd446162dda5035ad1e4df5dd0004f",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=416429",
+        "localPath": "/images/players/football/416429-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-11-20 matches the profile birthday. Date of birth/Age: Nov 20, 2006 (19) Citizenship: Cote d'Ivoire Position: Centre-Forward Agent: EVOLUTION SC € 2.00 m Last update: Se"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-11-20 matches the profile birthday. Date of birth/Age: Nov 20, 2006 (19) Citizenship: Cote d'Ivoire Position: Centre-Forward Agent: EVOLUTION SC € 2.00 m Last update: Se",
+        "originalSha256": "884ba4415a11334455d8aab501348757d5bd446162dda5035ad1e4df5dd0004f",
+        "transparentFraction": 0.304581,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -2769,7 +3294,12 @@
         "https://www.uefa.com/uefaeuropaleague/clubs/players/250202831--matthias-da-silva/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "408362",
@@ -2828,7 +3358,12 @@
         "https://www.uefa.com/uefachampionsleague/clubs/players/250213052--rayan-ouro-bang-na/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3121791",
@@ -2851,7 +3386,7 @@
         "https://starting11.com/player/martin-ponsot"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -2859,6 +3394,26 @@
           "https://www.ogcnice.com/en/article/130499/martin-ponsot-signs-first-professional-contract.html"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.ogcnice.com/en/article/130499/martin-ponsot-signs-first-professional-contract.html",
+        "originalUrl": "https://www.ogcnice-assets.com/images/articles/unes/2026/06/PonsotPro16_9.jpg",
+        "sha256": "f8f85918252e3059e182e6c22acbc79f962c49af9561b28499a734df4dea395f",
+        "originalSha256": "692438ae3b17136731723b84f8416c6355d8d70bb9c5af3c60033d421a4f4169",
+        "width": 600,
+        "height": 821,
+        "endpoint": "/api/football-player-photo?player=3121791",
+        "localPath": "/images/players/football/3121791-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official club announcement and photograph match the named player and roster club; original and cutout visually compared. Existing birthday and roster data remain unchanged.",
+        "originalSha256": "692438ae3b17136731723b84f8416c6355d8d70bb9c5af3c60033d421a4f4169",
+        "transparentFraction": 0.36554,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 92 encoding with alpha and maximum 600x900 dimensions."
       }
     },
     {
@@ -2922,6 +3477,11 @@
           "https://www.staderennais.com/en/news/henrick-do-marcolino-paraphe-son-premier-contrat-professionnel"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2952,6 +3512,11 @@
           "https://www.toulousefc.com/equipes/equipe-professionnelle/aymen-amaaouch"
         ],
         "result": "Official transparent PNG is a shirt-only placeholder, not a player photograph."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -2975,7 +3540,12 @@
         "https://www.instagram.com/p/DLzfyJ4t9xz/?hl=en"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3131916",
@@ -3005,6 +3575,11 @@
           "https://ligue1.com/en/player-sheet/l1_championship_player_2026_33_508851/matches"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -3028,7 +3603,12 @@
         "https://www.statshub.com/player/yacouba-kone/773294"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3100717",
@@ -3051,7 +3631,27 @@
         "https://www.soccerbase.com/players/player.sd?player_id=221211"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/georgios-sarakasidis/profil/spieler/1479738",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1479738-1769894334.jpg?lm=4711",
+        "sha256": "403700454325a54147035b167d3bba12cf43642c0026d9d92196fc8301f6380c",
+        "originalSha256": "35261e8737d67e25a411f8d4311609bd0f83d8864fbeb1829866c040ab67f556",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=3100717",
+        "localPath": "/images/players/football/3100717-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Nov 1, 2010 (15) Citizenship: Greece Position: Goalkeeper Current international: Greece U17 Caps/Goals: 2 / 0 Play"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday is empty; full name and club/youth-team or loan-from relationship were checked manually. Date of birth/Age: Nov 1, 2010 (15) Citizenship: Greece Position: Goalkeeper Current international: Greece U17 Caps/Goals: 2 / 0 Play",
+        "originalSha256": "35261e8737d67e25a411f8d4311609bd0f83d8864fbeb1829866c040ab67f556",
+        "transparentFraction": 0.290047,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "3127084",
@@ -3144,7 +3744,12 @@
         "https://www.uefa.com/under19/teams/players/250192373--zois-karargyris/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3137951",
@@ -3167,7 +3772,12 @@
         "https://www.squawka.com/en/stats/players/argyris-argyriou/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3130704",
@@ -3271,7 +3881,12 @@
         "https://www.uefa.com/uefachampionsleague/clubs/players/250213119--matias-jaiteh/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "383359",
@@ -3294,7 +3909,12 @@
         "https://www.flashscore.com/player/ingilae-teo-emanuel/KAh4mtsa/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3133951",
@@ -3368,6 +3988,11 @@
           "https://www.glimt.no/lag/bodo-glimt-menn-2/spillere/jesber-rabben-nygard"
         ],
         "result": "Official Jesper Rabben Nygard page references an image named Johannes Linaker.png; identity conflict requires resolution before use."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Official page thumbnail points to Johannes Linaker.png, requires alternate identity-confirmed photo."
       }
     },
     {
@@ -3391,7 +4016,12 @@
         "https://www.facebook.com/tomas.kald/posts/l%C3%A4s-publiceringen-av-kontraktet-p%C3%A5-fk-bod%C3%B8glimts-hemsidan-via-l%C3%A4nken-nedan-fk-bo/10175361780640475/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3133983",
@@ -3596,7 +4226,12 @@
         "https://www.uefa.com/under19/teams/players/250212934--eyup-karasu/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "407331",
@@ -3650,7 +4285,12 @@
         "https://www.flashscore.com/player/tagay-arda/ABLtecXH/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "416395",
@@ -3712,8 +4352,28 @@
           "source": "https://www.bundesliga.com/en/player/mikkel-bro-hansen"
         }
       },
-      "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded."
+      "status": "verified-transparent-photo",
+      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "photo": {
+        "source": "https://www.transfermarkt.us/mikkel-bro-hansen/profil/spieler/1189915",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1189915-1743176166.jpg?lm=4711",
+        "sha256": "3cf0dfd70acd9832d646fbd54c21a812b449cad7073242ae637621fd3c17f3a4",
+        "originalSha256": "3ef08e8465a9b23304955200b4a639a94a72e323ab55f25021b09ae924fa4c52",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=399511",
+        "localPath": "/images/players/football/399511-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-01-25 matches the profile birthday. Date of birth/Age: Jan 25, 2009 (17) Place of birth: Lystrup Citizenship: Denmark Height: 6 ft 2 in Position: Centre-Forward Agent: S"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2009-01-25 matches the profile birthday. Date of birth/Age: Jan 25, 2009 (17) Place of birth: Lystrup Citizenship: Denmark Height: 6 ft 2 in Position: Centre-Forward Agent: S",
+        "originalSha256": "3ef08e8465a9b23304955200b4a639a94a72e323ab55f25021b09ae924fa4c52",
+        "transparentFraction": 0.345915,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "388497",
@@ -3836,7 +4496,12 @@
         "https://fbref.com/en/squads/a86b0368/Sabah-FK-Stats"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3100832",
@@ -4032,7 +4697,12 @@
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded."
+      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Known ID 313078 born 2002-07-11; the available UEFA/TM Pedrinho portrait is born 1998-04-13."
+      }
     },
     {
       "id": "420713",
@@ -4318,6 +4988,11 @@
           "https://en.skslovan.com/players/A-Matus_Tomasko"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -4462,7 +5137,12 @@
           "source": "https://www.bundesliga.com/en/player/matus-tomasko"
         }
       },
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3107814",
@@ -4482,7 +5162,12 @@
         "https://www.flashscore.com/player/velky-alex/4E0p3Gcm/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3112253",
@@ -4505,7 +5190,12 @@
         "https://www.footballtransfers.com/us/players/adam-canolli"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139065",
@@ -4536,6 +5226,11 @@
           "https://www.vikingfotball.no/nyheter/akademispiller-skriver-sin-forste-proffkontrakt"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -4559,7 +5254,12 @@
         "https://www.instagram.com/p/DNdZE6gI6y3/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139067",
@@ -4583,7 +5283,12 @@
         "https://www.uefa.com/uefayouthleague/clubs/players/250225335--jonathan-debes/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "423020",
@@ -4606,7 +5311,12 @@
         "https://www.flashscore.com.ng/player/middelthon-jacob/jmESD8bs/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139064",
@@ -4629,7 +5339,12 @@
         "https://theanalyst.com/players/20731/sondre-tveiten"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139071",
@@ -4652,7 +5367,12 @@
         "https://www.allfootballapp.com/player/1080010-elias-dahman"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139072",
@@ -4675,7 +5395,12 @@
         "https://www.whoscored.com/players/587625/fixtures/henrik-kvelvane"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "420707",
@@ -4699,7 +5424,12 @@
         "https://www.uefa.com/uefachampionsleague/clubs/players/250223245--kelvin-ansah-frimpong/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139068",
@@ -4722,7 +5452,12 @@
         "https://www.rotowire.com/soccer/player/christopher-salvesen-svenning-50627"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139069",
@@ -4745,7 +5480,12 @@
         "https://www.instagram.com/bakken_sondre/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3139070",
@@ -4776,6 +5516,11 @@
           "https://www.vikingfotball.no/nyheter/akademispillere-signerer-proffkontrakt"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -4802,7 +5547,27 @@
         "https://www.uefa.com/uefanationsleague/teams/players/250172013--alex-cornella/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/alex-cornella/profil/spieler/1072645",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1072645-1748559972.jpeg?lm=4711",
+        "sha256": "e5c07923d7903c62f31d841844f9c55364213912d54910be1fa7d7213154b6c6",
+        "originalSha256": "6583c278d4305723d60addc982d87e6f4f016460d5d3f780b946b4c899df65a8",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=393731",
+        "localPath": "/images/players/football/393731-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-09-18 matches the profile birthday. Date of birth/Age: Sep 18, 2006 (20) Citizenship: Andorra Height: 6 ft 2 in Position: Left-Back Current international: Andorra Caps/G"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2006-09-18 matches the profile birthday. Date of birth/Age: Sep 18, 2006 (20) Citizenship: Andorra Height: 6 ft 2 in Position: Left-Back Current international: Andorra Caps/G",
+        "originalSha256": "6583c278d4305723d60addc982d87e6f4f016460d5d3f780b946b4c899df65a8",
+        "transparentFraction": 0.348607,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "326541",
@@ -4856,7 +5621,27 @@
         "https://www.uefa.com/european-qualifiers/teams/players/250077900--ricard-fernandez/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "verified-transparent-photo",
+      "photo": {
+        "source": "https://www.transfermarkt.us/cucu/profil/spieler/352583",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/352583-1705184867.jpg?lm=4711",
+        "sha256": "57f02bba28c3b70440adf7bb293d10523ff4d88753122bc4a57cf0be8b8fade2",
+        "originalSha256": "9592f2c56d3bcd176ca9968da10331337384e498b549eb65c9e46bc01c9ef348",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=22773",
+        "localPath": "/images/players/football/22773-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 1999-03-19 matches the profile birthday. Date of birth/Age: Mar 19, 1999 (27) Place of birth: Andorra la Vella Citizenship: Andorra Height: 5 ft 8 in Position: Centre-Forward"
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 1999-03-19 matches the profile birthday. Date of birth/Age: Mar 19, 1999 (27) Place of birth: Andorra la Vella Citizenship: Andorra Height: 5 ft 8 in Position: Centre-Forward",
+        "originalSha256": "9592f2c56d3bcd176ca9968da10331337384e498b549eb65c9e46bc01c9ef348",
+        "transparentFraction": 0.308613,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
+      }
     },
     {
       "id": "305849",
@@ -5006,7 +5791,12 @@
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
-      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded."
+      "identityNote": "Conflicting source identity or date of birth; incorrect candidate excluded.",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "320879",
@@ -5098,7 +5888,12 @@
         "https://en.wikipedia.org/wiki/John_Petersen_(footballer)"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "305158",
@@ -5159,13 +5954,33 @@
         "https://www.uefa.com/under21/teams/players/250194727--victor-huart-guerra/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
           "https://www.gibraltarfa.com/news/building-relationships-creating-opportunities-867"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.transfermarkt.us/victor-huart/profil/spieler/1171238",
+        "originalUrl": "https://img.a.transfermarkt.technology/portrait/big/1171238-1745644034.jpeg?lm=4711",
+        "sha256": "aa48afbcf16b041f6805260d8e6be8d70e7c0db41f196189ee942fe29b7b006c",
+        "originalSha256": "569ccaab82434e48b43d0cab9b16c23d22166ef7b19e8b94226c1aa7a52ccf95",
+        "width": 300,
+        "height": 390,
+        "endpoint": "/api/football-player-photo?player=402400",
+        "localPath": "/images/players/football/402400-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-09-05 matches the profile birthday. Date of birth/Age: Sep 5, 2008 (18) Citizenship: Gibraltar Position: Goalkeeper Current international: Gibraltar Caps/Goals: 0 / 0 € "
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Transfermarkt individual profile and named photograph match the roster name. Catalog birthday 2008-09-05 matches the profile birthday. Date of birth/Age: Sep 5, 2008 (18) Citizenship: Gibraltar Position: Goalkeeper Current international: Gibraltar Caps/Goals: 0 / 0 € ",
+        "originalSha256": "569ccaab82434e48b43d0cab9b16c23d22166ef7b19e8b94226c1aa7a52ccf95",
+        "transparentFraction": 0.268855,
+        "processing": "ImageGen background extraction; visual comparison with source; WebP quality 85 encoding with alpha, maximum 300x450, without exceeding the original portrait dimensions."
       }
     },
     {
@@ -5196,6 +6011,11 @@
           "https://www.gibraltarfa.com/player/jayvan-garro-4342"
         ],
         "result": "Official pages checked; no additional accepted transparent portrait in this pass."
+      },
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
       }
     },
     {
@@ -5221,7 +6041,12 @@
         "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/statistics/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "406093",
@@ -5341,7 +6166,12 @@
         "https://www.soccerway.com/player/poitner-bruno/rkcPHRuQ/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3142030",
@@ -5366,7 +6196,12 @@
         "https://www.uefa.com/uefanationsleague/teams/players/250171902--florian-allgauer/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3142031",
@@ -5391,7 +6226,12 @@
         "https://www.uefa.com/uefanationsleague/teams/players/250183671--alessandro-lo-russo/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "3142163",
@@ -5414,7 +6254,12 @@
         "https://www.flashscoreusa.com/player/roe-jayden/pAyObqg2/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "403050",
@@ -5440,7 +6285,12 @@
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250173275--danilo-vukanic/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "410143",
@@ -5463,7 +6313,12 @@
         "https://www.goal.com/en-us/player/g-bugli/9iGGT9e4bIwwhvBhPHAOK"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "421093",
@@ -5487,7 +6342,12 @@
         "https://www.uefa.com/under21/teams/players/250179993--pietro-marinucci/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "410366",
@@ -5512,7 +6372,12 @@
         "https://www.uefa.com/under19/teams/players/250192534--cristian-meloni/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     },
     {
       "id": "410149",
@@ -5537,7 +6402,12 @@
         "https://www.uefa.com/uefanationsleague/teams/players/250179571--nicholas-protti/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo"
+      "status": "researched-no-verified-transparent-photo",
+      "thirdPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      }
     }
   ],
   "secondPass": {
@@ -5559,5 +6429,12 @@
       "name": "Róbert Tománek",
       "addedTransparentPhotos": 1
     }
-  ]
+  ],
+  "thirdPass": {
+    "verifiedAt": "2026-10-04",
+    "playersChecked": 93,
+    "addedPhotos": 27,
+    "remainingMissing": 66,
+    "processing": "Background extraction from identity-reviewed club or individual profile photographs. No faces created from placeholders. All derivatives reviewed on a dark background."
+  }
 }
