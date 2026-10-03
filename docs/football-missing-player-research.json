@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 115,
+  "addedTransparentPhotos": 127,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -191,7 +191,8 @@
         "https://www.espn.com/soccer/player/_/id/414372/archie-howard",
         "https://starting11.com/player/archie-howard",
         "https://x.com/HullCityAcademy/status/1908199132465893778",
-        "https://sorare.com/de/football/players/archie-howard/history"
+        "https://sorare.com/de/football/players/archie-howard/history",
+        "https://www.hullcityosc.org/teams/191541/player/archiehoward-3465411"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -206,6 +207,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The named supporters-club profile uses a generic holders/new-200x200.png placeholder, not a player portrait."
       }
     },
     {
@@ -1825,10 +1831,12 @@
         "https://www.sofascore.com/football/player/leo-paul-bouyer/2063772",
         "https://www.acmilan.com/en/teams/mens-primavera",
         "https://www.acmilan.com/en/teams/milan-futuro",
-        "https://www.acmilan.com/en/teams/milan-futuro/players/leo-paul-bouyer"
+        "https://www.acmilan.com/en/teams/milan-futuro/players/leo-paul-bouyer",
+        "https://www.fff.fr/equipe-nationale/joueur/10871-bouyer-leo-paul/fiche.html",
+        "https://media.fff.fr/uploads/files/8dadd2bb8f6a121ce112ddb4fc1b63f0.pdf"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -1843,6 +1851,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Official AC Milan profile birthday differs by one day from the catalog and Transfermarkt. Identity conflict retained for review; no photo enabled."
+      },
+      "photo": {
+        "source": "https://www.acmilan.com/en/teams/milan-futuro",
+        "originalUrl": "https://assets-eu-01.kc-usercontent.com:443/006f7528-416b-01e4-8ef2-ab6ab3f4e177/952e4940-b185-42e7-a332-87e8a6758f6a/Bouyer-Front-2627.png",
+        "sha256": "a4d98cdcd6471737ebacd54da7d706814b270a51734f72cbb9a950865dcac199",
+        "originalSha256": "9d50ecedaa8ad08781f06c883e1ab8e5c6b5c5022724ec4f81c7953465328767",
+        "width": 600,
+        "height": 600,
+        "endpoint": "/api/football-player-photo?player=403839",
+        "localPath": "/images/players/football/403839-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "AC Milan official Milan Futuro roster explicitly labels this transparent portrait Bouyer Goalkeeper. The French FA individual profile and U17 selection record identify Leo-Paul Bouyer, born 14 August 2008, matching the catalog birthday, and the selection record names AC Milan. This resolves the earlier one-day birthday discrepancy in the Milan profile without editing catalog identity data."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "AC Milan official Milan Futuro roster explicitly labels this transparent portrait Bouyer Goalkeeper. The French FA individual profile and U17 selection record identify Leo-Paul Bouyer, born 14 August 2008, matching the catalog birthday, and the selection record names AC Milan. This resolves the earlier one-day birthday discrepancy in the Milan profile without editing catalog identity data.",
+        "processing": "Original transparent club photograph, only resized and encoded as WebP; no image generation.",
+        "originalSha256": "9d50ecedaa8ad08781f06c883e1ab8e5c6b5c5022724ec4f81c7953465328767",
+        "transparentFraction": 0.546767
       }
     },
     {
@@ -2610,14 +2638,36 @@
         "https://www.sofascore.com/football/player/divine-onyemachi/1899541",
         "https://onefootball.com/en/player/divine-onyemachi-575367",
         "https://theanalyst.com/players/20014/divine-onyemachi",
-        "https://www.footballdatabase.eu/en/player/details/601262-divine-onyemachi"
+        "https://www.footballdatabase.eu/en/player/details/601262-divine-onyemachi",
+        "https://uslecce.it/giocatori/divine-onyemachi/",
+        "https://uslecce.it/giocatori/?squadra=primavera&stagione=2025-2026"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://uslecce.it/giocatori/divine-onyemachi/",
+        "originalUrl": "https://uslecce.it/wp-content/uploads/2025/09/Photoroom_20250908_224149.jpg",
+        "sha256": "e5b55d8960850914614d31cf4f569c90920bbd7b762f43dae9c32e45aa020fe9",
+        "originalSha256": "7f64e0a371376a7eddcafe54b8fca0ab41a3c50dad1e9704f0489b00cda8ff10",
+        "width": 600,
+        "height": 828,
+        "endpoint": "/api/football-player-photo?player=3123405",
+        "localPath": "/images/players/football/3123405-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "US Lecce official individual player page explicitly names Divine Onyemachi and links this player portrait in its social metadata; the official Primavera roster links to that page. Full name, squad and club match. Catalog birthday is empty."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "US Lecce official individual player page explicitly names Divine Onyemachi and links this player portrait in its social metadata; the official Primavera roster links to that page. Full name, squad and club match. Catalog birthday is empty.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "7f64e0a371376a7eddcafe54b8fca0ab41a3c50dad1e9704f0489b00cda8ff10",
+        "transparentFraction": 0.437059
       }
     },
     {
@@ -4223,14 +4273,35 @@
         "https://www.instagram.com/popular/ey%C3%BCp-can-karasu/?hl=en",
         "https://www.uefa.com/uefayouthleague/clubs/players/250212934--eyup-karasu/",
         "https://www.uefa.com/under19/teams/players/250212934--eyup-karasu/",
-        "https://www.uefa.com/under19/teams/players/250212934--eyup-karasu/statistics/"
+        "https://www.uefa.com/under19/teams/players/250212934--eyup-karasu/statistics/",
+        "https://www.galatasaray.org/haber/futbol-akademisi/eyup-can-karasu-ile-profesyonel-sozlesme-imzalandi/59460"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.galatasaray.org/haber/futbol-akademisi/eyup-can-karasu-ile-profesyonel-sozlesme-imzalandi/59460",
+        "originalUrl": "https://hlkiurt3.rocketcdn.com/news/68c0f6b4af084ec38ab497be38a77961.jpeg",
+        "sha256": "bf701970f6a2a2516fd068c1e80247d7011933edf208528df61ea9c3df526444",
+        "originalSha256": "502661b1cb09cfe32b5ba7ff83a066645a07105cd9c54e0f82e8fc2681ce68e3",
+        "width": 400,
+        "height": 357,
+        "endpoint": "/api/football-player-photo?player=415122",
+        "localPath": "/images/players/football/415122-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Galatasaray official contract announcement of 30 January 2026 explicitly names Eyup Can Karasu and labels the signing photograph with his name. Full name, academy affiliation and club match the roster. Only the photographed head and upper chest are retained."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Galatasaray official contract announcement of 30 January 2026 explicitly names Eyup Can Karasu and labels the signing photograph with his name. Full name, academy affiliation and club match the roster. Only the photographed head and upper chest are retained.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "502661b1cb09cfe32b5ba7ff83a066645a07105cd9c54e0f82e8fc2681ce68e3",
+        "transparentFraction": 0.501429
       }
     },
     {
@@ -5129,7 +5200,8 @@
         "https://www.365scores.com/en-us/football/player/matus-tomasko-223741",
         "https://www.espn.com/soccer/player/_/id/411858/matus-tomasko",
         "https://www.bundesliga.com/en/player/matus-tomasko",
-        "https://www.fotmob.com/en-GB/players/1820841/matus-tomasko"
+        "https://www.fotmob.com/en-GB/players/1820841/matus-tomasko",
+        "https://www.skslovan.com/hraci/A-Matus_Tomasko"
       ],
       "fields": {
         "height": {
@@ -5137,11 +5209,31 @@
           "source": "https://www.bundesliga.com/en/player/matus-tomasko"
         }
       },
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.skslovan.com/hraci/A-Matus_Tomasko",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-300/1004.png?202607281134",
+        "sha256": "8df051be33574829241dbb9fc19bed88131e6583b951b25cdc1c9694eeb1b44e",
+        "originalSha256": "c19a2e6b3ab50f7cd85e4b47497b44c557b56012b7abb3bbc13594eb882fe0d6",
+        "width": 400,
+        "height": 600,
+        "endpoint": "/api/football-player-photo?player=411858",
+        "localPath": "/images/players/football/411858-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Slovan first-team profile names Matus Tomasko and lists 30 November 2009, exactly matching the catalog birthday. Named portrait visually reviewed."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Slovan first-team profile names Matus Tomasko and lists 30 November 2009, exactly matching the catalog birthday. Named portrait visually reviewed.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "c19a2e6b3ab50f7cd85e4b47497b44c557b56012b7abb3bbc13594eb882fe0d6",
+        "transparentFraction": 0.3258
       }
     },
     {
@@ -5159,14 +5251,36 @@
         "https://www.transfermarkt.com/alexander-velky/profil/spieler/1173117",
         "https://www.soccerbase.com/players/player.sd?player_id=224125",
         "https://www.espn.com/soccer/player/bio/_/id/3107814/alex-velky",
-        "https://www.flashscore.com/player/velky-alex/4E0p3Gcm/"
+        "https://www.flashscore.com/player/velky-alex/4E0p3Gcm/",
+        "https://www.skslovan.com/akademia/U19-Alex_Velky",
+        "https://en.skslovan.com/timy/?hrac=supiska.B"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.skslovan.com/akademia/U19-Alex_Velky",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-300/786.png?202510181056",
+        "sha256": "ff7c38ef0b17b8acc175a2671211e2ef23b6089999da00ce14e6131695c1e239",
+        "originalSha256": "f1d61096a175c6b0dc39d412effa588f0df11267e850dc833fb2b462ad180715",
+        "width": 400,
+        "height": 600,
+        "endpoint": "/api/football-player-photo?player=3107814",
+        "localPath": "/images/players/football/3107814-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Slovan academy profile names Alex Velky, born 15 May 2007; current reserve roster independently includes the same named player and portrait ID 786. Catalog birthday is empty; name and club match."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Slovan academy profile names Alex Velky, born 15 May 2007; current reserve roster independently includes the same named player and portrait ID 786. Catalog birthday is empty; name and club match.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "f1d61096a175c6b0dc39d412effa588f0df11267e850dc833fb2b462ad180715",
+        "transparentFraction": 0.304367
       }
     },
     {
@@ -5187,14 +5301,36 @@
         "https://www.elbotola.com/en/analytics/player/4jwq2gh17gn7m0v",
         "https://www.soccerbase.com/players/player.sd?player_id=224180",
         "https://www.lequipe.fr/fiche/adam-canolli/261552",
-        "https://www.footballtransfers.com/us/players/adam-canolli"
+        "https://www.footballtransfers.com/us/players/adam-canolli",
+        "https://en.skslovan.com/timy/?hrac=supiska.B",
+        "https://www.skslovan.com/akademia/U19-Adam_Canolli"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://en.skslovan.com/timy/?hrac=supiska.B",
+        "originalUrl": "https://skslovan.b-cdn.net/_obrazky/hraci/png-200/787.png?202609111130",
+        "sha256": "daa8faa2131627f9ef4c95fe4436e150b28ee6ad38bf4af0c46f8117f99b5d9e",
+        "originalSha256": "4fc8fb3a4479851d310076cd774145c4b0dd75c4182c166906c5c6d2337f5cfe",
+        "width": 400,
+        "height": 600,
+        "endpoint": "/api/football-player-photo?player=3112253",
+        "localPath": "/images/players/football/3112253-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Official Slovan reserve roster maps Adam Canolli to portrait ID 787. Academy profile independently names Adam Canolli, born 3 March 2007, with the same portrait ID. Catalog birthday is empty; name and club match."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Official Slovan reserve roster maps Adam Canolli to portrait ID 787. Academy profile independently names Adam Canolli, born 3 March 2007, with the same portrait ID. Catalog birthday is empty; name and club match.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "4fc8fb3a4479851d310076cd774145c4b0dd75c4182c166906c5c6d2337f5cfe",
+        "transparentFraction": 0.361071
       }
     },
     {
@@ -5219,7 +5355,7 @@
         "https://www.uefa.com/uefayouthleague/clubs/players/250218095--mats-sekse-johansen/matches/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "secondPass": {
         "checkedAt": "2026-10-04",
         "officialPagesChecked": [
@@ -5231,6 +5367,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/nyheter/akademispiller-skriver-sin-forste-proffkontrakt",
+        "originalUrl": "https://www.vikingfotball.no/nyheter/akademispiller-skriver-sin-forste-proffkontrakt/_/image/c6c2b1e2-d03e-4c2c-98b5-d3bf8e66bd77:28d004854b70ead2816e3208638d25fe30b31fb3/block-1200-630/0F8A9402.jpg?quality=85",
+        "sha256": "a2a725b53a616bc5acf5dcbf1af79a074237dad8905c8d1885e28eeb3dd5f93f",
+        "originalSha256": "8aa83cdacf0c6c68ad37f0f950d0367731fb79a22ecb32ecc48bd3139f9bac2c",
+        "width": 400,
+        "height": 378,
+        "endpoint": "/api/football-player-photo?player=3139065",
+        "localPath": "/images/players/football/3139065-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official announcement of 24 October 2025 names 17-year-old Mats Sekse Johannesen and coach Gaute Schei. Only the young player at left is extracted; the coach, his hand and held jersey are excluded. Catalog birthday is empty; full name and club match."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official announcement of 24 October 2025 names 17-year-old Mats Sekse Johannesen and coach Gaute Schei. Only the young player at left is extracted; the coach, his hand and held jersey are excluded. Catalog birthday is empty; full name and club match.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "8aa83cdacf0c6c68ad37f0f950d0367731fb79a22ecb32ecc48bd3139f9bac2c",
+        "transparentFraction": 0.505165
       }
     },
     {
@@ -5308,7 +5464,8 @@
         "https://theanalyst.com/players/20733/jacob-middelthon",
         "https://www.flashscoreusa.com/player/middelthon-jacob/jmESD8bs",
         "https://www.espn.com/soccer/player/stats/_/id/423020/jacob-middelthon",
-        "https://www.flashscore.com.ng/player/middelthon-jacob/jmESD8bs/"
+        "https://www.flashscore.com.ng/player/middelthon-jacob/jmESD8bs/",
+        "https://www.vikingfotball.no/nyheter/akademispillere-signerer-proffkontrakt"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -5316,6 +5473,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Individually captioned photograph is from childhood. Current paired signing photograph lacks explicit left/right identification; no portrait accepted from it."
       }
     },
     {
@@ -5521,6 +5683,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Individually captioned photograph is from childhood. Current paired signing photograph lacks explicit left/right identification; no portrait accepted from it."
       }
     },
     {
@@ -6038,7 +6205,8 @@
         "https://onefootball.com/en/player/noam-sztejfman-659741",
         "https://www.worldfootball.net/person/pe1296407/noam-sztejfman/",
         "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/",
-        "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/statistics/"
+        "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/statistics/",
+        "https://www.transfermarkt.com/noam-sztejfman/profil/spieler/1469687"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -6046,6 +6214,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "Transfermarkt individual profile still uses portrait/big/default.jpg. No usable portrait accepted."
       }
     },
     {
@@ -6163,14 +6336,36 @@
         "https://de.wikipedia.org/wiki/Bruno_Poitner",
         "https://www.uefa.com/uefanationsleague/teams/players/250204701--bruno-poitner/",
         "https://www.fotmob.com/players/2007854/bruno-poitner",
-        "https://www.soccerway.com/player/poitner-bruno/rkcPHRuQ/"
+        "https://www.soccerway.com/player/poitner-bruno/rkcPHRuQ/",
+        "https://dmp.lfv.li/en/aufstellung",
+        "https://www.lfv.li/nationalmannschaften/nationalmannschaft/mannschaft"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://dmp.lfv.li/en/aufstellung",
+        "originalUrl": "https://dmp.lfv.li/fileadmin/_processed_/0/2/csm_Bruno_Poitner-quadrat_eb222a2554.jpg",
+        "sha256": "9bad6ac7778243339a5c9f431d01e72276384b45ae5e9e8c51022276e583879a",
+        "originalSha256": "e1712baecb4c805b767ba445f3650759c18e040544df2d6f2c323c3e320b122e",
+        "width": 400,
+        "height": 400,
+        "endpoint": "/api/football-player-photo?player=3097783",
+        "localPath": "/images/players/football/3097783-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Bruno Poitner with this image and birthday 22 March 2007; national-team roster corroborates the name. Catalog birthday is empty."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Bruno Poitner with this image and birthday 22 March 2007; national-team roster corroborates the name. Catalog birthday is empty.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "e1712baecb4c805b767ba445f3650759c18e040544df2d6f2c323c3e320b122e",
+        "transparentFraction": 0.513581
       }
     },
     {
@@ -6193,14 +6388,36 @@
         "https://www.ninetyminutesplus.com/player/florian-allgaeuer?id=37668643",
         "https://www.goal.com/en-us/player/f-allgauer/lCbsCzTqMyAgRwLm08U4F",
         "https://www.uefa.com/uefanationsleague/teams/players/250171902--florian-allgauer/statistics/",
-        "https://www.uefa.com/uefanationsleague/teams/players/250171902--florian-allgauer/matches/"
+        "https://www.uefa.com/uefanationsleague/teams/players/250171902--florian-allgauer/matches/",
+        "https://dmp.lfv.li/en/aufstellung",
+        "https://www.lfv.li/nationalmannschaften/nationalmannschaft/mannschaft"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://dmp.lfv.li/en/aufstellung",
+        "originalUrl": "https://dmp.lfv.li/fileadmin/_processed_/8/4/csm_2026-Florian_Allgaeuer-quadrat_11a115befd.jpg",
+        "sha256": "5adf4dfc440b6b30158f6e04ea051f888e7bafbac400e7f0869ddc802cce2d0f",
+        "originalSha256": "7238ff53a626a60dc3259800dbc5f785f4c3c8602e2901325f5ec96aece6917c",
+        "width": 400,
+        "height": 400,
+        "endpoint": "/api/football-player-photo?player=3142030",
+        "localPath": "/images/players/football/3142030-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Florian Allgauer with this image and birthday 9 December 2006; national-team roster corroborates the name and FC Ruggell. Catalog birthday is empty."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Florian Allgauer with this image and birthday 9 December 2006; national-team roster corroborates the name and FC Ruggell. Catalog birthday is empty.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "7238ff53a626a60dc3259800dbc5f785f4c3c8602e2901325f5ec96aece6917c",
+        "transparentFraction": 0.494538
       }
     },
     {
@@ -6223,14 +6440,36 @@
         "https://statshub.com/player/alessandro-lo-russo/2552418",
         "https://scoutingstats.ai/player/alessandro-lo-russo-37724420/",
         "https://www.uefa.com/uefanationsleague/teams/players/250183671--alessandro-lo-russo/statistics/",
-        "https://www.uefa.com/uefanationsleague/teams/players/250183671--alessandro-lo-russo/matches/"
+        "https://www.uefa.com/uefanationsleague/teams/players/250183671--alessandro-lo-russo/matches/",
+        "https://dmp.lfv.li/en/aufstellung",
+        "https://www.lfv.li/nationalmannschaften/nationalmannschaft/mannschaft"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://dmp.lfv.li/en/aufstellung",
+        "originalUrl": "https://dmp.lfv.li/fileadmin/_processed_/5/2/csm_2026-Alessandro_Lo_Russo-quadrat_cc306f673c.jpg",
+        "sha256": "093ecc8a6549e6b6d71f17f54a890b5deb312a8c056ea1f19757ad3c3f15984d",
+        "originalSha256": "f59efd5ede3dace7ba68de7ab81540d582fb1ab1ee97297489d26f6692f7e5ee",
+        "width": 400,
+        "height": 400,
+        "endpoint": "/api/football-player-photo?player=3142031",
+        "localPath": "/images/players/football/3142031-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Alessandro Lo Russo with this image and birthday 23 September 2008, separately from Lorenzo Lo Russo. National-team roster corroborates the name and USV Eschen/Mauren. Catalog birthday is empty."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Liechtenstein FA digital match programme explicitly associates Alessandro Lo Russo with this image and birthday 23 September 2008, separately from Lorenzo Lo Russo. National-team roster corroborates the name and USV Eschen/Mauren. Catalog birthday is empty.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "f59efd5ede3dace7ba68de7ab81540d582fb1ab1ee97297489d26f6692f7e5ee",
+        "transparentFraction": 0.5365
       }
     },
     {
@@ -6251,14 +6490,35 @@
         "https://www.instagram.com/reel/DRK5qvjAswu/",
         "https://www.facebook.com/100064435312274/videos/%F0%9D%97%9B%F0%9D%97%9C%F0%9D%97%A6%F0%9D%97%A7%F0%9D%97%A2%F0%9D%97%A5%F0%9D%97%AC-%F0%9D%97%A0%F0%9D%97%94%F0%9D%97%97%F0%9D%97%98-at-just-16-years-old-jayden-roe-made-his-first-start-in-the-malta-p/1098019022751190/",
         "https://www.foxsports.com/soccer/jayden-roe-player-bio",
-        "https://www.flashscoreusa.com/player/roe-jayden/pAyObqg2/"
+        "https://www.flashscoreusa.com/player/roe-jayden/pAyObqg2/",
+        "https://matchcentre.mfa.com.mt/player/141855"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://matchcentre.mfa.com.mt/player/141855",
+        "originalUrl": "https://comet.mfa.com.mt/file?id=61ede38c-4d18-494f-a80a-703194df829b",
+        "sha256": "2458493c3b6536bf1c46688092ff2e6aa767112451e3d4cbb6b18ad77cb35968",
+        "originalSha256": "d244ca0b214ac60695a76bd56f3471f2ff3a38e533839c11fdbfa77bb380fe5d",
+        "width": 400,
+        "height": 380,
+        "endpoint": "/api/football-player-photo?player=3142163",
+        "localPath": "/images/players/football/3142163-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Malta FA Match Centre player 141855 explicitly names Jayden Roe, Hibernians, born 6 March 2010, and supplies this player photograph. Catalog birthday is empty; name and national-team affiliation match."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Malta FA Match Centre player 141855 explicitly names Jayden Roe, Hibernians, born 6 March 2010, and supplies this player photograph. Catalog birthday is empty; name and national-team affiliation match.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "d244ca0b214ac60695a76bd56f3471f2ff3a38e533839c11fdbfa77bb380fe5d",
+        "transparentFraction": 0.569296
       }
     },
     {
@@ -6282,14 +6542,35 @@
         "https://statshub.com/player/danilo-vukanic/56198",
         "https://www.uefa.com/under21/teams/players/250173275--danilo-vukanic/",
         "https://www.uefa.com/uefaconferenceleague/clubs/players/250173275--danilo-vukanic/statistics/",
-        "https://www.uefa.com/uefaconferenceleague/clubs/players/250173275--danilo-vukanic/matches/"
+        "https://www.uefa.com/uefaconferenceleague/clubs/players/250173275--danilo-vukanic/matches/",
+        "https://fscg.me/igraci/danilo-vukanic-106415/"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://fscg.me/igraci/danilo-vukanic-106415/",
+        "originalUrl": "https://fscg.me/files/images/_resized/0000013698_330_0.jpg",
+        "sha256": "c2d8f492643538f7cef74c926e5eb7276e4644920d0ae860f7cfa340feea810b",
+        "originalSha256": "93e46f43e92bc6ea3abaa9328dae5820856851a0a8c2bac3cf05ed3f90b90c96",
+        "width": 400,
+        "height": 571,
+        "endpoint": "/api/football-player-photo?player=403050",
+        "localPath": "/images/players/football/403050-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Montenegro FA individual profile names Danilo Vukanic, Buducnost, born 11 August 2006, exactly matching the catalog birthday, and supplies this portrait."
+      },
+      "fourthPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Montenegro FA individual profile names Danilo Vukanic, Buducnost, born 11 August 2006, exactly matching the catalog birthday, and supplies this portrait.",
+        "processing": "ImageGen background extraction from the verified real photograph; original face and appearance visually compared; encoded as WebP with alpha.",
+        "originalSha256": "93e46f43e92bc6ea3abaa9328dae5820856851a0a8c2bac3cf05ed3f90b90c96",
+        "transparentFraction": 0.527701
       }
     },
     {
@@ -6436,5 +6717,12 @@
     "addedPhotos": 27,
     "remainingMissing": 66,
     "processing": "Background extraction from identity-reviewed club or individual profile photographs. No faces created from placeholders. All derivatives reviewed on a dark background."
+  },
+  "fourthPass": {
+    "verifiedAt": "2026-10-04",
+    "missingAtStart": 66,
+    "addedPhotos": 12,
+    "remainingMissing": 54,
+    "processing": "Eleven background extractions from official club or federation photographs and one original transparent Milan photograph. Source and derivative hashes retained separately. Visual review and local photo API byte verification."
   }
 }
