@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-04T06:52:02.739Z",
+  "dateAsiaTaipei": "2026-10-04",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "runStartedAt": "2026-10-04T06:48:39Z",
+    "runConclusion": "startup_failure",
+    "rerunJobId": 108552526980,
+    "rerunAccepted": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true
+  },
+  "NPB": {
+    "games": 3,
+    "state": "pregame",
+    "live": 0,
+    "pregame": 3,
+    "sameDayLiveVerified": false
+  },
+  "KBO": {
+    "games": 5,
+    "state": "mixed_live_pregame",
+    "live": 4,
+    "pregame": 1,
+    "excludedNonFirstTeamGames": 3,
+    "sameDayLiveVerified": true,
+    "verifiedAt": "2026-10-04T06:52:02.739Z",
+    "liveChangeProof": {
+      "gameId": "20261004HTLG02026",
+      "observation1": {
+        "capturedAt": "2026-10-04T06:50:50.470Z",
+        "awayScore": 2,
+        "homeScore": 3,
+        "inning": "5B",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "base1": "3",
+        "base2": "0",
+        "base3": "0",
+        "pitcher": "이의리",
+        "pitchCount": 17,
+        "outsRecorded": 2
+      },
+      "observation2": {
+        "capturedAt": "2026-10-04T06:52:02.739Z",
+        "awayScore": 2,
+        "homeScore": 3,
+        "inning": "5B",
+        "balls": 1,
+        "strikes": 0,
+        "outs": 0,
+        "base1": "0",
+        "base2": "3",
+        "base3": "0",
+        "pitcher": "이의리",
+        "pitchCount": 18,
+        "outsRecorded": 2
+      },
+      "intervalSeconds": 72.269
+    }
+  },
+  "CPBL": {
+    "games": 3,
+    "state": "pregame",
+    "live": 0,
+    "pregame": 3,
+    "sameDayLiveVerified": false,
+    "pitchCount": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "lineupConfirmation": "not_officially_verified"
+  }
+}
