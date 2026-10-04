@@ -19,7 +19,7 @@ async function collect(){
  const games=d.data.List.filter((l:any)=>l.LeagueNameStr==='MLB 美國職棒').flatMap((l:any)=>(l.Team||[]).map((t:any)=>({id:t.EvtID,home:t.HomeTeamStr,away:t.AwayTeamStr,start:t.ScheduleTimeStr,live:!!t.Live,markets:(t.Wager||[]).filter((w:any)=>w.WagerGrpID===10&&[103,104,111].includes(w.WagerTypeID)).map((w:any)=>({type:w.WagerTypeID,quotes:(w.Odds||[]).map((o:any,index:number)=>({...o,primary:index===0})).filter((o:any)=>o.Status===1).map((o:any)=>({primary:o.primary,id:o.GameID,homeLine:o.HomeHdp||'',awayLine:o.AwayHdp||'',total:o.OULine||'',homePrice:o.HomeHdpOdds??o.HomeOdds??null,awayPrice:o.AwayHdpOdds??o.AwayOdds??null,over:o.OverOdds??null,under:o.UnderOdds??null}))}))})));
  return {games,fetchedAt:new Date().toISOString(),source:'Super007'};
 }
-export async function readSource(){
+async function readSource(){
  try{
   if(!snapshot||Date.now()-Date.parse(snapshot.fetchedAt)>=60000){
    if(!pending)pending=Promise.all([collect(),updateReference()]).then(([s])=>{snapshot=s;return s;}).finally(()=>{pending=null;});

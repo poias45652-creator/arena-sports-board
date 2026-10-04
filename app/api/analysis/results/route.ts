@@ -7,7 +7,7 @@ import {statcastHistorySummary} from '@/lib/statcast-history';
 import {retrosheetSummary} from '@/lib/retrosheet';
 import {auditReadiness} from '@/lib/analysis-readiness';
 import {getRawDb} from '@/db';
-import {loadSource} from '../route';
+import {loadSource} from '../source';
 export const dynamic='force-dynamic';
 export async function POST(request:Request){
  const origin=request.headers.get('origin');if(origin&&origin!==requestOrigin(request))return Response.json({error:'來源不符'},{status:403});
