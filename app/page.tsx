@@ -53,8 +53,8 @@ export default function Home(){
   const [updatingAll,setUpdatingAll]=useState(false),[updateNotice,setUpdateNotice]=useState('');
   const updateLock=useRef(false);
   const [league,setLeague]=useState<FrontLeague>('MLB'),[baseballLeague,setBaseballLeague]=useState<'MLB'|'NPB'>('MLB');
-  const [view,setView]=useState('analysis');
-  useEffect(()=>{const read=()=>{const next=frontSelection(window.location.search);setLeague(next.league);if(next.league==='MLB'||next.league==='NPB')setBaseballLeague(next.league);setView(next.view);};read();window.addEventListener('popstate',read);return()=>window.removeEventListener('popstate',read);},[]);
+  const [view,setView]=useState('analysis'),[selectionReady,setSelectionReady]=useState(false);
+  useEffect(()=>{const read=()=>{const next=frontSelection(window.location.search);setLeague(next.league);if(next.league==='MLB'||next.league==='NPB')setBaseballLeague(next.league);setView(next.view);setSelectionReady(true);};read();window.addEventListener('popstate',read);return()=>window.removeEventListener('popstate',read);},[]);
   function selectLeague(next:FrontLeague){setLeague(next);if(next==='MLB'||next==='NPB')setBaseballLeague(next);setUpdateNotice('');window.history.replaceState(null,'',leaguePageHref(next,view));}
   function selectView(next:string){setView(next);const date=(league==='NBA'||league==='WNBA')?new URLSearchParams(window.location.search).get('date'):null;window.history.replaceState(null,'',leaguePageHref(league,next)+(date?`&date=${encodeURIComponent(date)}`:''));}
   const [scoreFilter,setScoreFilter]=useState('all');
@@ -62,20 +62,21 @@ export default function Home(){
   const [loading,setLoading]=useState(true),[error,setError]=useState(""),[updatedAt,setUpdatedAt]=useState<Date|null>(null);
   const [liveGames,setLiveGames]=useState<LiveGame[]>([]),[scoreUpdatedAt,setScoreUpdatedAt]=useState<Date|null>(null),[scoreError,setScoreError]=useState("");
   const refresh=useCallback(async()=>{setLoading(true);setError("");try{const response=await fetch(`${CSV}&refresh=${Date.now()}`,{cache:"no-store",signal:AbortSignal.timeout(20000)});if(!response.ok)throw new Error(`HTTP ${response.status}`);const next=parse(await response.text());if(!next.length)throw new Error("資料內容為空");setPlayers(next);setUpdatedAt(new Date());}catch(reason){setError("連線失敗，請稍後重試");}finally{setLoading(false);}},[]);
-  useEffect(()=>{refresh();const timer=window.setInterval(refresh,REFRESH_MS);return()=>window.clearInterval(timer);},[refresh]);
+  useEffect(()=>{if(!selectionReady||league!=='MLB')return;const update=()=>{if(!document.hidden)void refresh();};update();const timer=window.setInterval(update,REFRESH_MS);return()=>window.clearInterval(timer);},[refresh,league,selectionReady]);
   const scoresBusy=useRef(false);
   const refreshScores=useCallback(async()=>{if(scoresBusy.current)return;scoresBusy.current=true;try{setScoreError("");const response=await fetch('/api/baseball?kind=scores',{cache:"no-store",signal:AbortSignal.timeout(35000)});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();setLiveGames((data.games||[]).map(mapGame).sort((a:LiveGame,b:LiveGame)=>Number(b.live)-Number(a.live)||Date.parse(a.start)-Date.parse(b.start)));setScoreUpdatedAt(new Date(data.fetchedAt));}catch(reason){setScoreError("比分連線失敗，請稍後重試");}finally{scoresBusy.current=false;}},[]);
-  useEffect(()=>{refreshScores();const timer=window.setInterval(refreshScores,SCORE_REFRESH_MS);return()=>window.clearInterval(timer);},[refreshScores]);
+  useEffect(()=>{if(!selectionReady)return;const update=()=>{if(!document.hidden)void refreshScores();};update();const timer=window.setInterval(update,league==='MLB'?SCORE_REFRESH_MS:60000);return()=>window.clearInterval(timer);},[refreshScores,league,selectionReady]);
 
 
   async function updateAll(){
     if(updateLock.current)return;updateLock.current=true;setUpdatingAll(true);setUpdateNotice('正在更新資料並連接 SUPER…');
-    const stats=(league==='MLB'||league==='NPB')?Promise.allSettled([refresh(),refreshScores()]):Promise.resolve([]);
+    window.dispatchEvent(new Event('arena-refresh-all'));
+    const stats=league==='MLB'?Promise.allSettled([refresh(),refreshScores()]):Promise.resolve([]);
     try{const r=await fetch('/api/hr9988',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(75000)});const d=await r.json();
       if(r.status===401||['tz_auth_expired','binding_required','signin_required'].includes(d.code)){window.location.assign('/login?reason=tz-expired');return;}
       setUpdateNotice(r.ok?'已重新連接 SUPER；各頁資料更新中。':d.error||'SUPER 連線失敗，其他資料仍會更新。');
     }catch{setUpdateNotice('SUPER 連線逾時或失敗，請再按立即更新重試。');}
-    finally{window.dispatchEvent(new Event('arena-refresh-all'));await stats;setUpdatingAll(false);updateLock.current=false;}
+    finally{window.dispatchEvent(new Event('arena-odds-change'));await stats;setUpdatingAll(false);updateLock.current=false;}
   }
 
   const filteredGames=liveGames.filter(g=>scoreFilter==='all'||scoreFilter==='live'&&g.live||scoreFilter==='final'&&g.final||scoreFilter==='upcoming'&&!g.live&&!g.final);
@@ -100,7 +101,7 @@ export default function Home(){
       {league==='FOOTBALL'&&<FootballBoard/>}
       {(league==='NBA'||league==='WNBA')&&<><nav className="baseball-league-switcher" aria-label="籃球聯盟切換">{([['NBA','美國職籃'],['WNBA','美國女子職籃']] as const).map(([code,name])=><button type="button" key={code} aria-pressed={league===code} onClick={()=>selectLeague(code)}><b>{code}</b><span>{name}</span>{sportLive[code]&&<i>LIVE</i>}</button>)}</nav><NbaBoard key={league} league={league} view={view} onViewChange={selectView}/></>}
       {league==='NPB'&&<div data-super-league="NPB"><InternationalBoard league="NPB" initialView={view} onViewChange={selectView}/></div>}
-      <div data-super-league="MLB" hidden={league!=='MLB'}>
+      {selectionReady&&league==='MLB'&&<div data-super-league="MLB">
       <div className="league-heading arena-league-heading" data-view={view}><div><h1><span className="league-title-code">MLB</span> <span>美國職棒</span></h1></div></div>
       <Tabs value={view} onValueChange={selectView} className="league-workspace" data-view={view}>
         <TabsList className="league-tabs" aria-label="美國職棒頁面"><TabsTrigger value="overview">概覽</TabsTrigger><TabsTrigger value="standings">戰績排名</TabsTrigger><TabsTrigger value="teams">球隊一覽</TabsTrigger><TabsTrigger value="live">即時比分</TabsTrigger><TabsTrigger value="analysis">賽前分析・串關</TabsTrigger></TabsList>
@@ -118,7 +119,7 @@ export default function Home(){
       </div>
       <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame/></div>
       </TabsContent></Tabs>
-      </div>
+      </div>}
 
     </div>
 
