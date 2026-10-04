@@ -1,6 +1,6 @@
 {
   "searchedPlayers": 181,
-  "addedTransparentPhotos": 146,
+  "addedTransparentPhotos": 149,
   "playersWithAddedFields": 21,
   "verifiedAt": "2026-10-04",
   "players": [
@@ -3329,7 +3329,8 @@
         "https://ligue1.com/player-sheet/l1_championship_player_2026_44_510001",
         "https://www.instagram.com/p/DXXOPKcjBdb/?hl=en",
         "https://www.soccerzz.com/player/enzo-monchatre/2815680",
-        "https://fbref.com/en/players/ba66062f/Enzo-Monchatre"
+        "https://fbref.com/en/players/ba66062f/Enzo-Monchatre",
+        "https://as.com/resultados/ficha/equipo/brest/104/plantilla/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -3344,6 +3345,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The named AS roster entry uses the shared default.png player placeholder."
       }
     },
     {
@@ -4079,7 +4085,8 @@
         "https://www.pamestoixima.gr/en/sport/football/super-league-1/15795/greece/aek-athens/zois-karargyris/40129",
         "https://sorare.com/it/football/players/zois-antonios-karargyris/history",
         "https://www.flashscore.com/player/karargyris-zois/I5fDq0Cq/",
-        "https://www.uefa.com/under19/teams/players/250192373--zois-karargyris/statistics/"
+        "https://www.uefa.com/under19/teams/players/250192373--zois-karargyris/statistics/",
+        "https://chile.as.com/resultados/ficha/equipo/aek_atenas/154/plantilla/"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -4087,6 +4094,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The named AS roster entry uses the shared default.png player placeholder."
       }
     },
     {
@@ -4107,14 +4119,38 @@
         "https://www.soccerbase.com/players/player.sd?player_id=224071",
         "https://www.globalscorex.com/football/player/678974/argyris-argyriou",
         "https://onefootball.com/en/player/argyris-argyriou-701721",
-        "https://www.squawka.com/en/stats/players/argyris-argyriou/"
+        "https://www.squawka.com/en/stats/players/argyris-argyriou/",
+        "https://socceracademies.gr/argyris-argyriou-to-17chrono-epithetiko-diamanti-tis-aek/",
+        "https://www.metrosport.gr/argyrioy-afierono-toys-titloys-stin-oikogeneia-moy-kai-ston-makedoniko-1189691",
+        "https://www.metrosport.gr/apo-ton-makedoniko-stin-aek-ekane-to-alma-o-argyrioy-1231100",
+        "https://www.aekology.gr/2026/01/epaggelmatias-argyris-argyriou.html"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://socceracademies.gr/argyris-argyriou-to-17chrono-epithetiko-diamanti-tis-aek/",
+        "originalUrl": "https://socceracademies.gr/wp-content/uploads/2026/09/argyriou-1.jpg",
+        "sha256": "5bd566d800bbd46530fbffc7842cf97a56883440215552013ff2699216e54c76",
+        "originalSha256": "67b9e2e6134046197ce8fa98c6d4b18bdf6a99c7f2715baed75a13927ba7d275",
+        "width": 400,
+        "height": 338,
+        "endpoint": "/api/football-player-photo?player=3137951",
+        "localPath": "/images/players/football/3137951-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Soccer Academies individual feature dated September 2026 explicitly identifies Argyris Argyriou, AEK number 76, in its named photograph collage. Extracted the forward-facing right-panel player. The direct Metrosport interview and subsequent transfer report corroborate the full name and Makedonikos-to-AEK career; AEKology corroborates 5 March 2009. The earlier trophy photograph clips the head and is not used. The blank catalog birthday remains unchanged."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Soccer Academies individual feature dated September 2026 explicitly identifies Argyris Argyriou, AEK number 76, in its named photograph collage. Extracted the forward-facing right-panel player. The direct Metrosport interview and subsequent transfer report corroborate the full name and Makedonikos-to-AEK career; AEKology corroborates 5 March 2009. The earlier trophy photograph clips the head and is not used. The blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from a named real photograph, visually compared with the source; alpha margins trimmed and encoded as WebP.",
+        "originalSha256": "67b9e2e6134046197ce8fa98c6d4b18bdf6a99c7f2715baed75a13927ba7d275",
+        "transparentFraction": 0.487885
       }
     },
     {
@@ -6073,14 +6109,35 @@
         "https://theanalyst.com/players/20742/sondre-bakken",
         "https://fminside.net/players/7-fm-26/2000499764-sondre-bakken",
         "https://www.uefa.com/uefayouthleague/clubs/players/250208747--sondre-bakken/",
-        "https://www.instagram.com/bakken_sondre/"
+        "https://www.instagram.com/bakken_sondre/",
+        "https://www.vikingfotball.no/nyheter/akademispiller-far-kontrakt"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Additional cached club, UEFA and individual profile searches did not yield an accepted identity-verified usable portrait in this pass."
+      },
+      "photo": {
+        "source": "https://www.vikingfotball.no/nyheter/akademispiller-far-kontrakt",
+        "originalUrl": "https://www.vikingfotball.no/nyheter/akademispiller-far-kontrakt/_/image/49b9e80c-d46f-473d-ac7b-f226d03790a8:5697079f7aef33d1c441721e66a6932a7257e012/wide-1600-900/DSC08298.jpg",
+        "sha256": "c305adb1d0a93bc7c7389a148a0de460271b11fa03960e378a7e30c9c7398ed5",
+        "originalSha256": "a70d8660ff6ae86c051c45e60bc9d7698588a6e1c44f72c65f360f91d9a7ce98",
+        "width": 400,
+        "height": 366,
+        "endpoint": "/api/football-player-photo?player=3139069",
+        "localPath": "/images/players/football/3139069-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Viking official individual signing announcement explicitly identifies Sondre Bakken, midfielder from Hundvag, and his first professional contract. Extracted the young player at left, excluding the older academy official, held shirt and hands. Name and club match; blank catalog birthday remains unchanged."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Viking official individual signing announcement explicitly identifies Sondre Bakken, midfielder from Hundvag, and his first professional contract. Extracted the young player at left, excluding the older academy official, held shirt and hands. Name and club match; blank catalog birthday remains unchanged.",
+        "processing": "ImageGen background extraction from a named real photograph, visually compared with the source; alpha margins trimmed and encoded as WebP.",
+        "originalSha256": "a70d8660ff6ae86c051c45e60bc9d7698588a6e1c44f72c65f360f91d9a7ce98",
+        "transparentFraction": 0.476667
       }
     },
     {
@@ -6102,7 +6159,8 @@
         "https://www.focikatalogus.hu/rasmus-steigen-focista",
         "https://www.instagram.com/rasmus.steigen/",
         "https://www.vikingfotball.no/nyheter/akademispillere-signerer-proffkontrakt",
-        "https://www.uefa.com/uefayouthleague/clubs/players/250225339--rasmus-gjelsvik-steigen/"
+        "https://www.uefa.com/uefayouthleague/clubs/players/250225339--rasmus-gjelsvik-steigen/",
+        "https://www.vikingfotball.no/sok/_/attachment/download/04a8a06b-c920-4071-8e2f-39419607d172%3A2ade768b6d7451c94ad260ae1f26ccee049dbc33/Viking%20%C3%85rsrapport%202024_ferdig.pdf"
       ],
       "fields": {},
       "status": "researched-no-verified-transparent-photo",
@@ -6122,6 +6180,11 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Individually captioned photograph is from childhood. Current paired signing photograph lacks explicit left/right identification; no portrait accepted from it."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "unresolved",
+        "reason": "The annual-report G15 team photo has a left-to-right name caption, but the individual face is too small for a suitable portrait; not extracted."
       }
     },
     {
@@ -6663,10 +6726,12 @@
         "https://www.worldfootball.net/person/pe1296407/noam-sztejfman/",
         "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/",
         "https://www.uefa.com/under19/teams/players/250195319--noam-sztejfman/statistics/",
-        "https://www.transfermarkt.com/noam-sztejfman/profil/spieler/1469687"
+        "https://www.transfermarkt.com/noam-sztejfman/profil/spieler/1469687",
+        "https://mhaifafc.com/players/4531",
+        "https://mhaifafc.com/players"
       ],
       "fields": {},
-      "status": "researched-no-verified-transparent-photo",
+      "status": "verified-transparent-photo",
       "thirdPass": {
         "checkedAt": "2026-10-04",
         "result": "unresolved",
@@ -6676,6 +6741,26 @@
         "checkedAt": "2026-10-04",
         "result": "unresolved",
         "reason": "Transfermarkt individual profile still uses portrait/big/default.jpg. No usable portrait accepted."
+      },
+      "photo": {
+        "source": "https://mhaifafc.com/players/4531",
+        "originalUrl": "https://mhfc-content-bucket-prod.s3.eu-central-1.amazonaws.com/_2e17cdd9c8.png",
+        "sha256": "aa3f9f2b8554f404b5f9a2a934345ee4a0890f5b0ef9b7db9ff8b0c73deeecca",
+        "originalSha256": "770c45559c08f0ea7295ea37921025b864f65b78928690d36fce53e4029cb175",
+        "width": 600,
+        "height": 750,
+        "endpoint": "/api/football-player-photo?player=3102740",
+        "localPath": "/images/players/football/3102740-cutout.webp",
+        "verifiedAt": "2026-10-04",
+        "identityReview": "Maccabi Haifa official individual profile 4531 identifies Noam Shtaifman / נועם שטייפמן, defender number 35, born 28 February 2008, and directly associates the original transparent profileImage with this player. The English localization and roster corroborate the catalog spelling Noam Sztejfman. The blank catalog birthday remains unchanged."
+      },
+      "seventhPass": {
+        "checkedAt": "2026-10-04",
+        "result": "verified-transparent-photo",
+        "identityReview": "Maccabi Haifa official individual profile 4531 identifies Noam Shtaifman / נועם שטייפמן, defender number 35, born 28 February 2008, and directly associates the original transparent profileImage with this player. The English localization and roster corroborate the catalog spelling Noam Sztejfman. The blank catalog birthday remains unchanged.",
+        "processing": "Original transparent club portrait resized and encoded as WebP.",
+        "originalSha256": "770c45559c08f0ea7295ea37921025b864f65b78928690d36fce53e4029cb175",
+        "transparentFraction": 0.648838
       }
     },
     {
@@ -7213,5 +7298,12 @@
     "addedPhotos": 7,
     "remainingMissing": 35,
     "processing": "Six background extractions from named real photographs and one original transparent Genoa portrait. Source and derivative hashes retained separately; dark-background visual review and local photo API byte verification."
+  },
+  "seventhPass": {
+    "verifiedAt": "2026-10-04",
+    "missingAtStart": 35,
+    "addedPhotos": 3,
+    "remainingMissing": 32,
+    "processing": "One original transparent Maccabi Haifa portrait and two background extractions from individually named real photographs. Full-head sources, source/derivative hashes, dark-background visual review and local photo API byte verification."
   }
 }
