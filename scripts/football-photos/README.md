@@ -39,3 +39,7 @@ Export updates the server catalog and `docs/football-player-photo-audit.json`,
 which records coverage per team and every outstanding player ID. Review both
 files before deployment. Source data comes from ESPN roster endpoints and
 FotMob's public team/player endpoints; portraits retain their original pixels.
+
+## Final reviewed coverage (2026-10-04)
+
+The final audited scope has 4,293 eligible players and 4,293 verified portraits. One erroneous Czechia association is recorded separately from the 4,294 raw identities. See the audit/research reports for all 31 additions, original hashes and source evidence. Three colliding ESPN identities use `football-roster-photo-corrections.json`; these portraits must only be served with the matching team, league and season. Do not promote these corrections to global ID replacements.

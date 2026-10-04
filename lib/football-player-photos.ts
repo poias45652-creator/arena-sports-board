@@ -5,6 +5,7 @@ import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isFootballLeague} from './football';
 import {sameFootballPhotoIdentity,safeFootballPhotoUrl,validFootballPhotoBytes,type FootballPhotoIdentity} from './football-photo-identity';
+import {footballRosterPhotoCorrection,hasFootballRosterPhotoCorrection} from './football-roster-photo-corrections';
 const identities=catalog.players as Record<string,FootballPhotoIdentity>;
 type ReviewedPhoto={url:string;sha256:string;type:string;localPath?:string};
 const reviewed=reviewedSources as Record<string,ReviewedPhoto>;
@@ -58,18 +59,23 @@ async function readPhoto(identity:FootballPhotoIdentity,verified?:ReviewedPhoto)
  else if(!validFootballPhotoBytes(bytes))return null;
  return {bytes,type:verified?.type||'image/png',expires:Date.now()+86400000};
 }
-export async function footballPlayerPhoto(id:string,league:string):Promise<Photo|null>{
+export async function footballPlayerPhoto(id:string,league:string,teamId?:string,season?:number):Promise<Photo|null>{
  if(!/^\d{1,12}$/.test(id)||!isFootballLeague(league))return null;
- const hit=cache.get(id);if(hit&&hit.expires>Date.now())return hit;
- if((unavailable.get(id)||0)>Date.now())return null;
+ // Colliding provider IDs may only use their explicitly reviewed team/season.
+ // Check this before the cache so one context cannot leak a portrait into another.
+ const correction=footballRosterPhotoCorrection(id,league,teamId,season);
+ if(hasFootballRosterPhotoCorrection(id)&&(!correction?.identity||correction.exclude||!reviewed[id]))return null;
+ const key=correction?`${id}:${league}:${teamId}:${season}`:id;
+ const hit=cache.get(key);if(hit&&hit.expires>Date.now())return hit;
+ if((unavailable.get(key)||0)>Date.now())return null;
  if(queue.length>=120)throw Error('Photo queue is busy');
  if(active>=8)await new Promise<void>(resolve=>queue.push(resolve));else active++;
  try{
-  const cached=cache.get(id);if(cached&&cached.expires>Date.now())return cached;
-  const known=identities[id],verified=reviewed[id],identity=verified&&known?known:known?.providerId||known?.sourceUrl?known:await discover(id,league);
-  if(!identity)return miss(id);const photo=await readPhoto(identity,verified);if(!photo)return miss(id);
-  if(cache.has(id)){cacheBytes-=cache.get(id)!.bytes.length;cache.delete(id);}
+  const cached=cache.get(key);if(cached&&cached.expires>Date.now())return cached;
+  const known=identities[id],verified=reviewed[id],identity=correction?.identity||(verified&&known?known:known?.providerId||known?.sourceUrl?known:await discover(id,league));
+  if(!identity)return miss(key);const photo=await readPhoto(identity,verified);if(!photo)return miss(key);
+  if(cache.has(key)){cacheBytes-=cache.get(key)!.bytes.length;cache.delete(key);}
   while(cacheBytes+photo.bytes.length>LIMIT||cache.size>=1200){const first=cache.keys().next().value;if(!first)break;cacheBytes-=cache.get(first)!.bytes.length;cache.delete(first);}
-  cache.set(id,photo);cacheBytes+=photo.bytes.length;return photo;
+  cache.set(key,photo);cacheBytes+=photo.bytes.length;return photo;
  }finally{const next=queue.shift();if(next)next();else active--;}
 }

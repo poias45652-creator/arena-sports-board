@@ -1,6 +1,6 @@
 # Missing football player research, 2026-10-04
 
-All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the seventh pass is 4,262 of 4,294 players; 32 still lack a verified transparent photograph.
+All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the final pass is 4,293 of 4,293 eligible players. The original 4,294-record audit includes one proven erroneous Czechia roster association, retained separately as an exclusion. No eligible audited player remains without a verified photograph.
 
 `football-missing-player-research.json` records each player's search sources, accepted field provenance, original photo URL and byte hash, and unresolved identity conflicts. Search results are leads, not automatically verified facts. The first pass rejected apparently usable portraits belonging to different players (Joao Victor, Matús Minka, Pedrinho). The fifth pass resolves Minka using his correct individual official profile and matching birthday; the earlier mismatched candidates remain rejected. Other conflicting roster records remain unresolved rather than silently reassigned.
 
@@ -81,3 +81,47 @@ The official Haifa profile associates the Hebrew and English names, jersey numbe
 Coverage is 4,262 / 4,294; 32 remain unresolved. AS roster placeholders for Enzo Monchatre and Zois Karargyris are rejected. The captioned Viking annual-report team image is too small for a suitable individual portrait.
 
 Added players: Noam Sztejfman (3102740), Sondre Bakken (3139069), Argyris Argyriou (3137951).
+
+## Final pass: complete audited coverage, 2026-10-04
+
+Added 31 portraits in one batch: four existing transparent originals and 27 background extractions from real photographs. All were compared with their originals; original and served hashes and identity evidence are recorded in the JSON report. Small 150-pixel provider portraits and captioned team-photo extracts remain small rather than being presented as high-resolution originals. Photograph dates vary; kits can reflect earlier clubs. Nicholas Protti source credit: FSGC.
+
+Official team/season evidence resolves three ESPN identity collisions: Levante number 24 is the Argentine Thiago Fernandez (2004-04-03), Valencia number 8 is Javi Guerra (2003-05-13), and Fiorentina number 17 is Joao Mario Neto Lopes (2000-01-03). Corrections require the exact team, league, 2026 season, jersey and original name/birthday fingerprint. Photos require that same team/season context before cache lookup. Global catalog identities and unrelated seasons/teams are not rewritten.
+
+The exact David Winters/Scotland record incorrectly attached to Czechia 2026 is excluded from that roster only, with its source record and evidence retained. This is one data exclusion, not a newly found photo. Raw audited identities: 4,294; eligible: 4,293; verified photos: 4,293; eligible missing: 0.
+
+| Player | Source |
+|---|---|
+| Archie Howard (414372) | [Named source](https://www.playmakerstats.com/player/archie-howard/1055896) |
+| Marc Santos Gavilán (3129043) | [Named source](https://www.playmakerstats.com/player/marc-santos/2940953) |
+| Álvaro De Pablo (394885) | [Named source](https://www.realbetisbalompie.es/noticias/Cantera/el-betis-deportivo-refuerza-su-porteria-con-alvaro-de-pablo-32601) |
+| Salimou Danfakha (3131801) | [Named source](https://www.instagram.com/p/DZ9vkNAhZsd/) |
+| Enzo Monchatre (3121265) | [Named source](https://www.instagram.com/p/DOTiDKXDR2v/) |
+| Matthias Da Silva (403421) | [Named source](https://www.worldfootball.net/person/pe935063/matthias-da-silva/) |
+| Aymen Ammaouch (422969) | [Named source](https://www.toulousefc.com/play/blog/2026/06/le-tefece-officialise-le-premier-contrat-professionnel-d-aymen-amaaouch) |
+| Teo Ingilæ (383359) | [Named source](https://www.glimt.no/nyheter/stortalentet-teo-klar-for-glimt-akademiet) |
+| Cəfər Muxtarov (3098819) | [Named source](https://www.instagram.com/p/DX4Tyl0DUgp/) |
+| Pedrinho (313078) | [Named source](https://shakhtar.com/en/news/2023/july/19_news/19_pedrinho-is-shakhtar-player/) |
+| Sondre Tveiten (3139064) | [Named source](https://www.facebook.com/groups/310830392403504/posts/3241009369385577/) |
+| Rasmus Gjelsvik Steigen (3139070) | [Named source](https://www.vardeneset-bk.no/vbk-gutt-skrev-proffkontrakt-med-viking/) |
+| Aleksandr Ballabio (3131891) | [Named source](https://www.sofascore.com/football/player/aleksandr-ballabio/2035776) |
+| Jesper Rabben Nygård (3133980) | [Named source](https://www.sofascore.com/football/player/jesper-rabben-nygard/2342727) |
+| Henrik Kvelvane (3139072) | [Named source](https://www.sofascore.com/football/player/henrik-kvelvane/2535113) |
+| Arda Tagay (3102518) | [Named source](https://www.sofascore.com/football/player/arda-tagay/2270424) |
+| Matias Bobo Høgsæt Jaiteh (3133984) | [Named source](https://www.sofascore.com/football/player/matias-hogsaet-jaiteh/2268932) |
+| João Mário (139008) | [Named source](https://www.acffiorentina.com/fiorentina-prima-squadra-maschile) |
+| Jayvan Orlando Garro (3096980) | [Named source](https://sportsfocus.gi/football/jayvan-garro-called-up-to-gibraltar-squad/) |
+| Giulio Bugli (410143) | [Named source](https://www.sanmarinoacademy.sm/under-22-nel-mirino-la-juvenes-dogana-bugli-risultati-arriveranno-continuiamo-con-il-nostro-percorso/) |
+| Cristian Meloni (410366) | [Named source](https://www.sanmarinortv.sm/sport/calcio-sammarinese-c15/under-17-bonesso-ottima-prestazione-meloni-giocato-un-bel-secondo-tempo-a266934) |
+| Nicholas Protti (410149) | [Named source](https://giornalesm.com/san-marino-academy-under-22-al-rientro-ce-il-domagnano-protti-replicare-coraggio-e-approccio-dellultima-volta/) |
+| Lassana Simakha (3140905) | [Named source](https://www.facebook.com/100036848395709/posts/-%F0%9D%97%9F%F0%9D%97%94%F0%9D%97%A6%F0%9D%97%A6%F0%9D%97%94%F0%9D%97%A1%F0%9D%97%94-%F0%9D%97%A6%F0%9D%97%9C%F0%9D%97%A0%F0%9D%97%94%F0%9D%97%9E%F0%9D%97%9B%F0%9D%97%94-%F0%9D%97%96%F0%9D%97%9C%F0%9D%97%95%F0%9D%97%9F%F0%9D%97%98%CC%81-%F0%9D%97%98%F0%9D%97%A1-%F0%9D%97%95%F0%9D%97%A8%F0%9D%97%A1%F0%9D%97%97%F0%9D%97%98%F0%9D%97%A6%F0%9D%97%9F%F0%9D%97%9C%F0%9D%97%9A%F0%9D%97%94-il-pourrait-quitter-troyes-avant-m%C3%AAme-dy-s/1687514729153457/) |
+| Pietro Marinucci (421093) | [Named source](https://www.sanmarinortv.sm/sport/calcio-sammarinese-c15/u21-marinucci-e-pierini-all-esordio-questa-maglia-ha-un-peso-diverso-a288339) |
+| Thiago Fernández (339195) | [Named source](https://www.levanteud.com/noticias/thiago-fernandez-se-convierte-en-jugador-del-levante-ud) |
+| Elias Dahman (3139071) | [Named source](https://www.aftenbladet.no/sport/i/W0am1k/stor-presentasjon-dette-er-viking-talentene-som-jakter-paa-cupgull) |
+| Jacob Middelthon (423020) | [Named source](https://www.aftenbladet.no/sport/i/W0am1k/stor-presentasjon-dette-er-viking-talentene-som-jakter-paa-cupgull) |
+| Hugo Pérez Sañudo (3100788) | [Named source](https://universaltt.com/hugo-perez-sanudo/) |
+| Djibril Ouziad (3132216) | [Named source](https://www.playmakerstats.com/player/djibril-ouziad/2749393) |
+| Zois Karargyris (411005) | [Named source](https://www.sofascore.com/football/player/zois-karargyris/1587245) |
+| Javi Guerra (16340) | [Named source](https://www.laliga.com/jugador/javier-guerra) |
+
+Public provenance records omit expiring CDN signatures and access parameters. Original byte hashes and stable public source pages remain available; locally served image bytes are unchanged.

@@ -51,9 +51,10 @@ test('reviewed photo sources are complete, pinned, and exclude mismatched identi
  const audit=JSON.parse(readFileSync('docs/football-player-photo-audit.json'));
  assert.equal(research.players.length,181);assert.equal(Object.keys(sources).length,research.addedTransparentPhotos);
  for(const p of research.players.filter(p=>p.photo)){assert.equal(sources[p.id].sha256,p.photo.sha256);assert.equal(sources[p.id].url,p.photo.originalUrl);assert.ok(!audit.missing.some(x=>x.id===p.id));}
- assert.equal(audit.verifiedTransparentPhotos,4113+Object.keys(sources).length);assert.equal(audit.missing.length,audit.uniquePlayers-audit.verifiedTransparentPhotos);
- // Minka (405608) is now verified by his own Slovan profile and matching birthday.
- for(const id of ['139008','313078'])assert.ok(!sources[id]);
+ assert.equal(audit.verifiedTransparentPhotos,4113+Object.keys(sources).length);
+ assert.equal(audit.eligiblePlayers,audit.uniquePlayers-audit.excludedRosterRecords.length);
+ assert.equal(audit.missing.length,audit.eligiblePlayers-audit.verifiedTransparentPhotos);
+ assert.ok(sources['313078']);assert.ok(!sources['6841']);
 });
 test('reviewed PNG and WebP photos use exact bytes and MIME types; changed source images are rejected',async()=>{
  const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
@@ -82,5 +83,43 @@ test('Balog cutout is served from the reviewed local asset without an external d
   const response=await GET(new Request('http://localhost/api/football-player-photo?player=408480&league=uefa.champions'));
   assert.equal(response.status,200);assert.equal(response.headers.get('content-type'),'image/webp');
   assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);assert.equal(downloads,0);
+ }finally{globalThis.fetch=previous;}
+});
+test('team and season identity corrections require the reviewed source fingerprint',async()=>{
+ const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
+ const corrections=JSON.parse(readFileSync('data/football-roster-photo-corrections.json'));
+ for(const [id,c] of Object.entries(corrections).filter(([,c])=>c.identity)){
+  const p={id,displayName:c.sourceRecord.name,dateOfBirth:c.sourceRecord.birthDate,jersey:c.sourceRecord.number,citizenship:'wrong country',position:{abbreviation:'F'},statistics:{splits:{categories:[{stats:[{name:'appearances',value:5},{name:'totalGoals',value:2}]}]}}};
+  const parse=(player,league=c.league,teamId=c.teamId,season=c.season)=>parseFootballRoster({team:{id:teamId,isNational:false},season:{year:season},athletes:[player]},league,teamId,season,{id:teamId,name:'test',englishName:'test'})[0];
+  const result=parse(p);assert.equal(result.name,c.identity.name);assert.equal(result.country,c.identity.country);assert.equal(result.position,c.identity.position);assert.equal(result.height,c.identity.height);assert.equal(result.href,c.source);assert.equal(result.appearances,5);assert.equal(result.goals,2);
+  assert.equal(result.photo,`/api/football-player-photo?player=${id}&league=${c.league}&team=${c.teamId}&season=${c.season}`);
+  for(const other of [parse({...p,displayName:'Unrelated Person'}),parse({...p,dateOfBirth:'1990-01-01'}),parse({...p,jersey:'99'}),parse(p,c.league,'999'),parse(p,c.league,c.teamId,2025),parse(p,'eng.1')]){assert.equal(other.country,'wrong country');assert.ok(!other.photo.includes('&team='));}
+  const repaired=parse({...p,displayName:c.identity.name,dateOfBirth:c.identity.birthDate});assert.equal(repaired.photo,result.photo);
+ }
+});
+test('the erroneous Czechia association is excluded only with its exact fingerprint',async()=>{
+ const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
+ const p={id:'6841',displayName:'David Winters',dateOfBirth:'1983-03-07',citizenship:'Scotland'};
+ const parse=(player,teamId='450',season=2026)=>parseFootballRoster({team:{id:teamId,isNational:true},season:{year:season},athletes:[player]},'uefa.nations',teamId,season,{id:teamId,name:'test',englishName:'test'});
+ assert.equal(parse(p).length,0);
+ for(const args of [[p,'588'],[p,'450',2025],[{...p,displayName:'David Another'}],[{...p,dateOfBirth:'2000-03-07'}],[{...p,citizenship:'Czechia'}],[{...p,jersey:'10'}]])assert.equal(parse(...args).length,1);
+});
+test('context portraits never cross identities, including after cache population',async()=>{
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const corrections=JSON.parse(readFileSync('data/football-roster-photo-corrections.json'));
+ const sources=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'));
+ const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Reviewed portraits must be local');};
+ const get=q=>GET(new Request('http://localhost/api/football-player-photo?'+q));
+ try{
+  for(const [id,c] of Object.entries(corrections).filter(([,c])=>c.identity)){
+   const prefix=`player=${id}&league=${c.league}`;
+   const wrong=[prefix,prefix+`&team=999&season=2026`,prefix+`&team=${c.teamId}&season=2025`,`player=${id}&league=eng.1&team=${c.teamId}&season=2026`];
+   for(const q of wrong)assert.equal((await get(q)).status,404);
+   const r=await get(prefix+`&team=${c.teamId}&season=${c.season}`);assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),'image/webp');
+   const bytes=Buffer.from(await r.arrayBuffer());assert.deepEqual(bytes,readFileSync('public'+sources[id].localPath));assert.equal(createHash('sha256').update(bytes).digest('hex'),sources[id].sha256);
+   for(const q of wrong)assert.equal((await get(q)).status,404);
+   for(const suffix of ['&team=94','&season=2026','&team=&season=2026','&team=94&season=abc','&team=94&season=2026.5','&team=94&season=2000'])assert.equal((await get(prefix+suffix)).status,400);
+  }
+  assert.equal((await get('player=6841&league=uefa.nations&team=450&season=2026')).status,404);assert.equal(downloads,0);
  }finally{globalThis.fetch=previous;}
 });

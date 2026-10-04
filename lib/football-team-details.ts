@@ -14,6 +14,7 @@ import {
 import { reconcileFootballHistory } from "./football-history";
 import supplements from "../data/football-player-supplements.json";
 import { normalizeFootballPhotoName } from "./football-photo-identity";
+import {footballRosterPhotoCorrection,matchesFootballRosterCorrection} from './football-roster-photo-corrections';
 
 export type FootballSeasonProfile = {
   league: FootballLeague;
@@ -242,12 +243,15 @@ export function parseFootballRoster(
   )
     throw Error("球員名單身分或年度不符");
   const seen = new Set<string>();
-  return raw.athletes.map((p: any) => {
+  return raw.athletes.flatMap((p: any) => {
     const playerId = String(p.id),
       name = String(p.displayName || p.fullName || "").trim();
     if (!/^\d{1,12}$/.test(playerId) || !name || seen.has(playerId))
       throw Error("球員名單格式不符");
     seen.add(playerId);
+    const reviewed=footballRosterPhotoCorrection(playerId,league,id,season);
+    const correction=reviewed&&matchesFootballRosterCorrection(p,reviewed)?reviewed:undefined;
+    if(correction?.exclude)return [];
     const stats = (p.statistics?.splits?.categories || []).flatMap((c: any) =>
         Array.isArray(c.stats) ? c.stats : [],
       ),
@@ -260,20 +264,21 @@ export function parseFootballRoster(
       normalizeFootballPhotoName(candidate.name) === normalizeFootballPhotoName(name) &&
       (!candidate.birthDate || !p.dateOfBirth || candidate.birthDate === String(p.dateOfBirth).slice(0, 10))
       ? candidate : undefined;
-    const photo = `/api/football-player-photo?player=${playerId}&league=${league}`;
-    return {
+    const photo = `/api/football-player-photo?player=${playerId}&league=${league}`+
+      (correction?.identity?`&team=${id}&season=${season}`:'');
+    return [{
       id: playerId,
-      name,
+      name: correction?.identity?.name || name,
       number: String(p.jersey || ""),
-      position: String(p.position?.abbreviation || ""),
-      country: String(p.citizenship || supplement?.country || ""),
-      height: String(p.displayHeight || supplement?.height || ""),
+      position: correction?.identity?.position || String(p.position?.abbreviation || ""),
+      country: correction?.identity?.country || String(p.citizenship || supplement?.country || ""),
+      height: correction?.identity?.height || String(p.displayHeight || supplement?.height || ""),
       photo,
-      href: `https://www.espn.com/soccer/player/stats/_/id/${playerId}`,
+      href: correction?.source || `https://www.espn.com/soccer/player/stats/_/id/${playerId}`,
       appearances: stat("appearances"),
       goals: stat("totalGoals"),
       assists: stat("goalAssists"),
-    };
+    }];
   });
 }
 export function parseFootballBenchmark(
