@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4259,
+  "verifiedTransparentPhotos": 4262,
   "teams": [
     {
       "id": "349",
@@ -584,7 +584,7 @@
       "id": "887",
       "name": "AEK Athens",
       "total": 32,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "2980",
@@ -668,7 +668,7 @@
       "id": "510",
       "name": "Viking FK",
       "total": 40,
-      "withPhoto": 34
+      "withPhoto": 35
     },
     {
       "id": "585",
@@ -818,7 +818,7 @@
       "id": "461",
       "name": "Israel",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "162",
@@ -1117,14 +1117,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "3137951",
-      "name": "Argyris Argyriou",
-      "teams": [
-        "887"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3133984",
       "name": "Matias Bobo Høgsæt Jaiteh",
       "teams": [
@@ -1205,14 +1197,6 @@
       "reason": "No unambiguous identity match"
     },
     {
-      "id": "3139069",
-      "name": "Sondre Bakken",
-      "teams": [
-        "510"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
       "id": "3139070",
       "name": "Rasmus Gjelsvik Steigen",
       "teams": [
@@ -1233,14 +1217,6 @@
       "name": "Jayvan Orlando Garro",
       "teams": [
         "16721"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3102740",
-      "name": "Noam Sztejfman",
-      "teams": [
-        "461"
       ],
       "reason": "Source photo unavailable"
     },

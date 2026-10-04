@@ -1,6 +1,6 @@
 # Missing football player research, 2026-10-04
 
-All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the sixth pass is 4,259 of 4,294 players; 35 still lack a verified transparent photograph.
+All 181 entries in the previous missing-photo audit were searched individually, with additional UEFA searches and club/league profile checks. The first pass added 70 reviewed transparent player photographs and filled missing country/height fields for 21 players. The second pass adds 16 more photographs. Current coverage after the seventh pass is 4,262 of 4,294 players; 32 still lack a verified transparent photograph.
 
 `football-missing-player-research.json` records each player's search sources, accepted field provenance, original photo URL and byte hash, and unresolved identity conflicts. Search results are leads, not automatically verified facts. The first pass rejected apparently usable portraits belonging to different players (Joao Victor, Matús Minka, Pedrinho). The fifth pass resolves Minka using his correct individual official profile and matching birthday; the earlier mismatched candidates remain rejected. Other conflicting roster records remain unresolved rather than silently reassigned.
 
@@ -71,3 +71,13 @@ Ari Petersen uses the KI-credited November 2023 signing photograph published by 
 Coverage is 4,259 / 4,294; 35 remain unresolved. TFF, FSGC and La Preferente placeholders are rejected. The checked Sabah rosters do not identify Muxtarov, the Bugli profile lacks a usable portrait, the Teo Ingilae group photograph remains ambiguous, and the inaccessible FPF Da Silva profile is not counted as verified. Original and served-asset SHA-256 hashes remain recorded separately.
 
 Added players: Milton Käld (3133981), Anders Fiskum Larsen (3139066), Jonathan Røksund Debes (3139067), Christopher Salvesen-Svenning (3139068), Kelvin Frimpong (420707), Ari Petersen (363365), Marcelo Vaz (3098553).
+
+## Seventh pass: individual profiles and complete photographs, 2026-10-04
+
+Added Noam Sztejfman (Maccabi Haifa official transparent portrait), Sondre Bakken (Viking official signing announcement) and Argyris Argyriou (named AEK number 76 photograph in the Soccer Academies individual feature). The latter two use background extraction from the verified real photographs, with their original appearance compared visually. The complete Argyriou photograph avoids the head clipping in an earlier interview image. Individual source links and original/served SHA-256 hashes are retained.
+
+The official Haifa profile associates the Hebrew and English names, jersey number, birth date and photo. The Metrosport interview and transfer report corroborate Argyriou's identity and club history. All three catalog birthdays were blank and remain unchanged. No roster identities, live statistics or runtime photo logic were edited.
+
+Coverage is 4,262 / 4,294; 32 remain unresolved. AS roster placeholders for Enzo Monchatre and Zois Karargyris are rejected. The captioned Viking annual-report team image is too small for a suitable individual portrait.
+
+Added players: Noam Sztejfman (3102740), Sondre Bakken (3139069), Argyris Argyriou (3137951).
