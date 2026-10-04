@@ -1,7 +1,7 @@
 import {readSession} from '../lib/arena-session';
 export async function gateRequest(request: Request, db: any): Promise<Response | null> {
   const path = new URL(request.url).pathname;
-  if (path === '/api/health' || path === '/api/session' ||
+  if (path === '/api/health' || path === '/api/session' || path === '/api/free-trial' ||
       (path === '/api/international-sync' && request.method === 'POST')) return null;
   const protectedPage = path === '/' || path === '/admin' || path.startsWith('/admin/') ||
     path === '/teams' || path.startsWith('/teams/') || path.startsWith('/players/');

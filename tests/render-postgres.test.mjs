@@ -72,6 +72,11 @@ test('Render PostgreSQL migration, sessions, authorization, rollback and analyti
     }
     assert.equal(await gateRequest(new Request('https://site.test/api/baseball',{headers:{cookie:memberCookie}}),db),null);
     assert.equal(await gateRequest(new Request('https://site.test/api/session'),db),null);
+    assert.equal(await gateRequest(new Request('https://site.test/free-trial'),db),null);
+    assert.equal(await gateRequest(new Request('https://site.test/api/free-trial'),db),null);
+    for(const path of ['/api/free-trial/private','/api/analysis','/api/football','/api/member-odds']){
+      assert.equal((await gateRequest(new Request('https://site.test'+path),db)).status,401);
+    }
     assert.equal(await gateRequest(new Request('https://site.test/api/international-sync',{method:'POST'}),db),null);
     assert.equal((await gateRequest(new Request('https://site.test/api/international-sync'),db)).status,401);
   });

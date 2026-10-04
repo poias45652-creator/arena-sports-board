@@ -156,3 +156,15 @@ CREATE TABLE IF NOT EXISTS "football_results" (
   "away_goals" bigint NOT NULL,
   "fetched_at" text NOT NULL
 );
+
+-- Public daily recommendation; existing member data remains in the YJ schema.
+CREATE TABLE IF NOT EXISTS free_trial_selections(day text PRIMARY KEY NOT NULL, fixture_key text NOT NULL, created_at bigint NOT NULL);
+CREATE TABLE IF NOT EXISTS free_trial_daily (
+ day text PRIMARY KEY NOT NULL,
+ fixture_key text NOT NULL,
+ fixture text NOT NULL,
+ forecast text,
+ progress text,
+ progress_at bigint NOT NULL DEFAULT 0,
+ progress_rank bigint NOT NULL DEFAULT 0
+);

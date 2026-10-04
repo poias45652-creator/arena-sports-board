@@ -7,7 +7,8 @@ async function request(path,status,options={}){
  const response=await fetch(origin+path,{redirect:'manual',...options});
  assert.equal(response.status,status,`${path}: ${await response.clone().text()}`);checks++;return response;
 }
-const login=await request('/login',200);assert.match(await login.text(),/聯繫作者/);
+const login=await request('/login',200);const loginHtml=await login.text();assert.match(loginHtml,/聯繫作者/);assert.match(loginHtml,/href="\/free-trial"[^>]*>免費推薦<\/a>/);
+const trial=await request('/free-trial',200);assert.match(await trial.text(),/免費推薦/);
 await request('/yj-logo.png',200);
 await request('/api/health',200);
 const session=await request('/api/session',200);assert.equal((await session.json()).signedIn,false);
