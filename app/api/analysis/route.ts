@@ -1,12 +1,11 @@
 import {requestOrigin} from '@/lib/request-origin';
-import {GET as sourceGET} from '../baseball/route';
+import {loadSource} from './source';
 import {assembleAnalysis,type AnalysisReport} from '@/lib/pregame-analysis';
 import {isPregame,type Match} from '@/lib/baseball';
 import {getRawDb} from '@/db';
 export const dynamic='force-dynamic';
 const pending=new Map<number,Promise<AnalysisReport>>(),reports=new Map<number,{until:number;data:AnalysisReport}>();
 const rosters=new Map<number,{until:number;value:any}>();
-export async function loadSource(kind:string){const r=await sourceGET(new Request('https://arena.internal/api/baseball?kind='+kind));if(!r.ok)throw new Error('來源不可用');return r.json();}
 async function roster(id:number){
  const cached=rosters.get(id);if(cached&&cached.until>Date.now())return cached.value;
  const source=`https://statsapi.mlb.com/api/v1/teams/${id}/roster?rosterType=40Man&hydrate=person`;
