@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-04T14:22:18.000Z",
+  "dateAsiaTaipei": "2026-10-04",
+  "purpose": "same-day first-team current/final source validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "rerunJobId": 108552526980,
+    "rerunAccepted": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true,
+    "runStartedAt": "2026-10-04T11:37:59Z",
+    "conclusion": "startup_failure",
+    "checkedAt": "2026-10-04T14:22:18.000Z"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 3,
+      "state": "final",
+      "live": 0,
+      "pregame": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "verificationRetainedFromEarlierSameDayObservation": true,
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/first/all?date=2026-10-04",
+      "current": [
+        {
+          "gameId": "2021049625",
+          "away": "広島",
+          "home": "ヤクルト",
+          "awayScore": 7,
+          "homeScore": 4,
+          "status": "final"
+        },
+        {
+          "gameId": "2021049648",
+          "away": "阪神",
+          "home": "DeNA",
+          "awayScore": 1,
+          "homeScore": 2,
+          "status": "final",
+          "innings": 11
+        },
+        {
+          "gameId": "2021048606",
+          "away": "楽天",
+          "home": "ロッテ",
+          "awayScore": 2,
+          "homeScore": 3,
+          "status": "final"
+        }
+      ],
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "warnings": [
+        "bso_and_bases_not_verified_in_normalized_npb_feed"
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "final",
+      "live": 0,
+      "pregame": 0,
+      "final": 5,
+      "excludedNonFirstTeamGames": 3,
+      "sameDayLiveVerified": true,
+      "verificationRetainedFromEarlierSameDayObservation": true,
+      "source": "naver",
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-04&toDate=2026-10-04&page=1&pageSize=100",
+      "current": [
+        {
+          "gameId": "20261004HTLG02026",
+          "away": "KIA",
+          "home": "LG",
+          "awayScore": 6,
+          "homeScore": 5,
+          "status": "final",
+          "inningHalf": "9회말"
+        },
+        {
+          "gameId": "20261004OBSS02026",
+          "away": "두산",
+          "home": "삼성",
+          "awayScore": 12,
+          "homeScore": 0,
+          "status": "final",
+          "inningHalf": "9회말"
+        },
+        {
+          "gameId": "20261004SKNC02026",
+          "away": "SSG",
+          "home": "NC",
+          "awayScore": 6,
+          "homeScore": 2,
+          "status": "final",
+          "inningHalf": "9회말"
+        },
+        {
+          "gameId": "20261004WOHH02026",
+          "away": "키움",
+          "home": "한화",
+          "awayScore": 9,
+          "homeScore": 3,
+          "status": "final",
+          "inningHalf": "9회말"
+        },
+        {
+          "gameId": "20261004LTKT02026",
+          "away": "롯데",
+          "home": "KT",
+          "awayScore": 2,
+          "homeScore": 2,
+          "status": "final",
+          "inningHalf": "11회말"
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "final",
+      "live": 0,
+      "pregame": 0,
+      "final": 3,
+      "sameDayLiveVerified": true,
+      "verificationRetainedFromEarlierSameDayObservation": true,
+      "source": "playsport-public-fallback",
+      "sourceURL": "https://www.playsport.cc/livescore/6?gamedate=20261004&mode=1",
+      "current": [
+        {
+          "gameId": "2026100461001",
+          "away": "台鋼",
+          "home": "兄弟",
+          "awayScore": 1,
+          "homeScore": 12,
+          "status": "final"
+        },
+        {
+          "gameId": "2026100461002",
+          "away": "統一",
+          "home": "富邦",
+          "awayScore": 6,
+          "homeScore": 1,
+          "status": "final"
+        },
+        {
+          "gameId": "2026100461003",
+          "away": "味全",
+          "home": "樂天",
+          "awayScore": 9,
+          "homeScore": 4,
+          "status": "final"
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified",
+      "warnings": [
+        "unsupported_live_fields_remain_null",
+        "source_listed_lineup_not_promoted_to_official_confirmation"
+      ]
+    }
+  },
+  "sourceCheck": {
+    "allScheduledFirstTeamGamesFinal": true,
+    "secondCapturePerformed": false,
+    "reason": "No live first-team games remained at this fresh check; same-day live proof is retained from earlier 2026-10-04 observations."
+  }
+}
