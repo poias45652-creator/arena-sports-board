@@ -2,7 +2,7 @@
   "verifiedAt": "2026-10-04",
   "season": 2026,
   "uniquePlayers": 4294,
-  "verifiedTransparentPhotos": 4262,
+  "verifiedTransparentPhotos": 4293,
   "teams": [
     {
       "id": "349",
@@ -68,7 +68,7 @@
       "id": "306",
       "name": "Hull City",
       "total": 34,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "373",
@@ -182,7 +182,7 @@
       "id": "1538",
       "name": "Levante",
       "total": 28,
-      "withPhoto": 26
+      "withPhoto": 28
     },
     {
       "id": "99",
@@ -200,7 +200,7 @@
       "id": "87",
       "name": "Racing Santander",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "101",
@@ -212,7 +212,7 @@
       "id": "244",
       "name": "Real Betis",
       "total": 28,
-      "withPhoto": 27
+      "withPhoto": 28
     },
     {
       "id": "86",
@@ -236,7 +236,7 @@
       "id": "94",
       "name": "Valencia",
       "total": 34,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "102",
@@ -392,7 +392,7 @@
       "id": "109",
       "name": "Fiorentina",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "4057",
@@ -434,7 +434,7 @@
       "id": "4007",
       "name": "Monza",
       "total": 32,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "114",
@@ -476,7 +476,7 @@
       "id": "172",
       "name": "AJ Auxerre",
       "total": 34,
-      "withPhoto": 33
+      "withPhoto": 34
     },
     {
       "id": "174",
@@ -494,13 +494,13 @@
       "id": "6997",
       "name": "Brest",
       "total": 27,
-      "withPhoto": 26
+      "withPhoto": 27
     },
     {
       "id": "3236",
       "name": "Le Havre AC",
       "total": 30,
-      "withPhoto": 29
+      "withPhoto": 30
     },
     {
       "id": "2697",
@@ -530,7 +530,7 @@
       "id": "167",
       "name": "Lyon",
       "total": 31,
-      "withPhoto": 30
+      "withPhoto": 31
     },
     {
       "id": "176",
@@ -572,25 +572,25 @@
       "id": "179",
       "name": "Toulouse",
       "total": 26,
-      "withPhoto": 25
+      "withPhoto": 26
     },
     {
       "id": "170",
       "name": "Troyes",
       "total": 29,
-      "withPhoto": 28
+      "withPhoto": 29
     },
     {
       "id": "887",
       "name": "AEK Athens",
       "total": 32,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "2980",
       "name": "Bodo/Glimt",
       "total": 36,
-      "withPhoto": 33
+      "withPhoto": 36
     },
     {
       "id": "570",
@@ -620,7 +620,7 @@
       "id": "432",
       "name": "Galatasaray",
       "total": 35,
-      "withPhoto": 34
+      "withPhoto": 35
     },
     {
       "id": "4411",
@@ -638,13 +638,13 @@
       "id": "21922",
       "name": "Sabah FK",
       "total": 32,
-      "withPhoto": 31
+      "withPhoto": 32
     },
     {
       "id": "493",
       "name": "Shakhtar Donetsk",
       "total": 33,
-      "withPhoto": 32
+      "withPhoto": 33
     },
     {
       "id": "494",
@@ -668,7 +668,7 @@
       "id": "510",
       "name": "Viking FK",
       "total": 40,
-      "withPhoto": 35
+      "withPhoto": 40
     },
     {
       "id": "585",
@@ -740,7 +740,9 @@
       "id": "450",
       "name": "Czechia",
       "total": 33,
-      "withPhoto": 32
+      "withPhoto": 32,
+      "excludedRosterRecords": 1,
+      "eligiblePlayers": 32
     },
     {
       "id": "479",
@@ -794,7 +796,7 @@
       "id": "16721",
       "name": "Gibraltar",
       "total": 28,
-      "withPhoto": 27
+      "withPhoto": 28
     },
     {
       "id": "455",
@@ -932,7 +934,7 @@
       "id": "588",
       "name": "San Marino",
       "total": 27,
-      "withPhoto": 23
+      "withPhoto": 27
     },
     {
       "id": "580",
@@ -995,262 +997,23 @@
       "withPhoto": 30
     }
   ],
-  "missing": [
-    {
-      "id": "414372",
-      "name": "Archie Howard",
-      "teams": [
-        "306"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3129043",
-      "name": "Marc Santos Gavilán",
-      "teams": [
-        "1538"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "339195",
-      "name": "Thiago Fernández",
-      "teams": [
-        "1538"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3100788",
-      "name": "Hugo Pérez Sañudo",
-      "teams": [
-        "87"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "394885",
-      "name": "Álvaro De Pablo",
-      "teams": [
-        "244"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "16340",
-      "name": "Javier Guerra",
-      "teams": [
-        "94"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "139008",
-      "name": "Joao Victor",
-      "teams": [
-        "109"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3131891",
-      "name": "Aleksandr Ballabio",
-      "teams": [
-        "4007"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3131801",
-      "name": "Salimou Danfakha",
-      "teams": [
-        "172"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3121265",
-      "name": "Enzo Monchatre",
-      "teams": [
-        "6997"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3132216",
-      "name": "Djibril Ouziad",
-      "teams": [
-        "3236"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "403421",
-      "name": "Matthias Da Silva",
-      "teams": [
-        "167"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "422969",
-      "name": "Aymen Ammaouch",
-      "teams": [
-        "179"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3140905",
-      "name": "Lassana Simakha",
-      "teams": [
-        "170"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "411005",
-      "name": "Zois Karargyris",
-      "teams": [
-        "887"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3133984",
-      "name": "Matias Bobo Høgsæt Jaiteh",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "383359",
-      "name": "Teo Ingilæ",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3133980",
-      "name": "Jesper Rabben Nygård",
-      "teams": [
-        "2980"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3102518",
-      "name": "Arda Tagay",
-      "teams": [
-        "432"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3098819",
-      "name": "Cəfər Muxtarov",
-      "teams": [
-        "21922"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "313078",
-      "name": "Pedrinho",
-      "teams": [
-        "493"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "423020",
-      "name": "Jacob Middelthon",
-      "teams": [
-        "510"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3139064",
-      "name": "Sondre Tveiten",
-      "teams": [
-        "510"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "3139071",
-      "name": "Elias Dahman",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3139072",
-      "name": "Henrik Kvelvane",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3139070",
-      "name": "Rasmus Gjelsvik Steigen",
-      "teams": [
-        "510"
-      ],
-      "reason": "No unambiguous identity match"
-    },
+  "missing": [],
+  "eligiblePlayers": 4293,
+  "excludedRosterRecords": [
     {
       "id": "6841",
-      "name": "David Winters",
-      "teams": [
-        "450"
-      ],
-      "reason": "No unambiguous identity match"
-    },
-    {
-      "id": "3096980",
-      "name": "Jayvan Orlando Garro",
-      "teams": [
-        "16721"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "410143",
-      "name": "Giulio Bugli",
-      "teams": [
-        "588"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "421093",
-      "name": "Pietro Marinucci",
-      "teams": [
-        "588"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "410366",
-      "name": "Cristian Meloni",
-      "teams": [
-        "588"
-      ],
-      "reason": "Source photo unavailable"
-    },
-    {
-      "id": "410149",
-      "name": "Nicholas Protti",
-      "teams": [
-        "588"
-      ],
-      "reason": "No unambiguous identity match"
+      "teamId": "450",
+      "league": "uefa.nations",
+      "season": 2026,
+      "sourceRecord": {
+        "name": "David Winters",
+        "birthDate": "1983-03-07",
+        "number": "",
+        "country": "Scotland"
+      },
+      "exclude": true,
+      "source": "https://www.caledonianbraves.com/news/your-questions-david-winters",
+      "evidence": "ESPN's player 6841 identifies the Scottish Caledonian Braves forward and lists his historic Scottish club matches, despite inserting him into Czechia's 2026 roster. Caledonian Braves' named interview confirms the Scottish player's career. This exact erroneous Czechia association is quarantined; the global identity and other seasons/teams are retained."
     }
   ]
 }

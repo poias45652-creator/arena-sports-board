@@ -1,0 +1,30 @@
+{
+  "339195": {
+    "teamId": "1538", "league": "esp.1", "season": 2026,
+    "sourceRecord": {"name": "Thiago Fernández", "birthDate": "2007-01-23", "number": "24"},
+    "identity": {"name": "Thiago Fernández", "birthDate": "2004-04-03", "country": "Argentina", "position": "M", "height": "175 cm"},
+    "source": "https://www.laliga.com/jugador/thiago-fernandez",
+    "evidence": "LaLiga identifies Levante number 24 as the Argentine born 3 April 2004. Villarreal's official 2026 loan announcement corroborates the full name Thiago Cruz Fernandez and birth date. ESPN's global profile incorrectly combines this Levante record with Racing Montevideo's Uruguayan namesake."
+  },
+  "16340": {
+    "teamId": "94", "league": "esp.1", "season": 2026,
+    "sourceRecord": {"name": "Javier Guerra", "birthDate": "2004-04-06", "number": "8"},
+    "identity": {"name": "Javi Guerra", "birthDate": "2003-05-13", "country": "Spain", "position": "M", "height": "187 cm"},
+    "source": "https://www.laliga.com/jugador/javier-guerra",
+    "evidence": "LaLiga identifies Valencia number 8 as Javi Guerra, born 13 May 2003; RFEF corroborates his birth date. ESPN's global profile mixes Valencia matches and Real Tomayapo's Bolivian Javier Guerra."
+  },
+  "139008": {
+    "teamId": "109", "league": "ita.1", "season": 2026,
+    "sourceRecord": {"name": "Joao Victor", "birthDate": "1995-05-18", "number": "17"},
+    "identity": {"name": "João Mário", "birthDate": "2000-01-03", "country": "Portugal", "position": "D", "height": "178 cm"},
+    "source": "https://www.acffiorentina.com/it/player/20466eaa-9ca7-4758-b662-c283cbfde242",
+    "evidence": "Fiorentina's official first-team roster explicitly associates number 17, Joao Mario Neto Lopes and the named portrait. The 3 August 2026 loan announcement identifies the Portuguese born 3 January 2000. ESPN incorrectly combines Fiorentina matches with ABC's Brazilian Joao Victor."
+  },
+  "6841": {
+    "teamId": "450", "league": "uefa.nations", "season": 2026,
+    "sourceRecord": {"name": "David Winters", "birthDate": "1983-03-07", "number": "", "country": "Scotland"},
+    "exclude": true,
+    "source": "https://www.caledonianbraves.com/news/your-questions-david-winters",
+    "evidence": "ESPN's player 6841 identifies the Scottish Caledonian Braves forward and lists his historic Scottish club matches, despite inserting him into Czechia's 2026 roster. Caledonian Braves' named interview confirms the Scottish player's career. This exact erroneous Czechia association is quarantined; the global identity and other seasons/teams are retained."
+  }
+}
