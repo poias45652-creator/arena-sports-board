@@ -22,22 +22,22 @@ export function sportQuoteLabel(quote:SportQuote,side:'home'|'away'|'over'|'unde
  if(quote.line===0&&quote.boundary===0)return venue+'平手 0';
  return `${venue}${giving?'讓':'受讓'} ${giving?'-':'+'}${line}`;
 }
-const aliases:Record<string,string>={'聖馬力諾':'聖馬利諾','意大利':'義大利','格魯吉亞':'喬治亞','克羅地亞':'克羅埃西亞','斯洛文尼亞':'斯洛維尼亞','北馬其頓共和國':'北馬其頓','波黑':'波士尼亞與赫塞哥維納','黑山':'蒙特內哥羅','塞浦路斯':'賽普勒斯','法羅群島':'法羅群島','多蒙特':'多特蒙德','利華古遜':'勒沃庫森','阿仙奴':'阿森納','車路士':'切爾西','愛華頓':'艾佛頓','紐卡素':'紐卡索聯','阿士東維拉':'阿斯頓維拉','白禮頓':'布萊頓','富咸':'富勒姆','賓福特':'布倫特福德','韋斯咸':'西漢姆聯','列斯聯':'里茲聯','般尼':'伯恩利','新特蘭':'桑德蘭','巴塞羅那':'巴塞隆納','皇家貝蒂斯':'皇家貝提斯','維拉利爾':'比利亞雷亞爾','切爾達':'塞爾塔','祖雲達斯':'尤文圖斯','拿玻里':'拿坡里','費倫天拿':'佛羅倫斯','博洛尼亞':'波隆那','烏甸尼斯':'烏迪內斯','萊比錫':'RB萊比錫','慕遜加柏':'門興','弗賴堡':'弗萊堡','巴黎聖日門':'巴黎聖日耳曼'};
-export function sportTeamKey(name:string){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return aliases[key]??key;}
+const aliases:Record<string,string>={'阿塞拜疆':'亞塞拜然','亞塞拜疆':'亞塞拜然','阿塞拜然':'亞塞拜然','聖馬力諾':'聖馬利諾','意大利':'義大利','格魯吉亞':'喬治亞','克羅地亞':'克羅埃西亞','斯洛文尼亞':'斯洛維尼亞','北馬其頓共和國':'北馬其頓','波黑':'波士尼亞與赫塞哥維納','黑山':'蒙特內哥羅','塞浦路斯':'賽普勒斯','法羅群島':'法羅群島','多蒙特':'多特蒙德','利華古遜':'勒沃庫森','阿仙奴':'阿森納','車路士':'切爾西','愛華頓':'艾佛頓','紐卡素':'紐卡索聯','阿士東維拉':'阿斯頓維拉','白禮頓':'布萊頓','富咸':'富勒姆','賓福特':'布倫特福德','韋斯咸':'西漢姆聯','列斯聯':'里茲聯','般尼':'伯恩利','新特蘭':'桑德蘭','巴塞羅那':'巴塞隆納','皇家貝蒂斯':'皇家貝提斯','維拉利爾':'比利亞雷亞爾','切爾達':'塞爾塔','祖雲達斯':'尤文圖斯','拿玻里':'拿坡里','費倫天拿':'佛羅倫斯','博洛尼亞':'波隆那','烏甸尼斯':'烏迪內斯','萊比錫':'RB萊比錫','慕遜加柏':'門興','弗賴堡':'弗萊堡','巴黎聖日門':'巴黎聖日耳曼'};
+export function sportTeamKey(name:string){const key=name.normalize('NFKC').replace(/\s/g,'').replace(/\(主\)/g,'');return aliases[key]??key;}
 export function matchSportEvent(snapshot:any,game:SportFixture,sport:'NBA'|'WNBA'|'FOOTBALL',now=Date.now()):SportEvent|null{
  const captured=Date.parse(snapshot?.fetchedAt||''),start=Date.parse(game.start);
- if(!Number.isFinite(captured)||now-captured< -60000||now-captured>=150000||game.state!=='scheduled'||!game.timeConfirmed||!Number.isFinite(start)||start<=now||!Array.isArray(snapshot?.sportGames))return null;
+ if(!Number.isFinite(now)||!Number.isFinite(captured)||now-captured< -60000||now-captured>=150000||game.state!=='scheduled'||!game.timeConfirmed||!Number.isFinite(start)||start<=now||!Array.isArray(snapshot?.sportGames))return null;
  const matches=snapshot.sportGames.filter((r:any)=>{
-  if(r.league!==sport||r.live!==false||sport==='FOOTBALL'&&r.competition!==game.league||typeof r.home!=='string'||typeof r.away!=='string'||typeof r.start!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(r.start))return false;
+  if(!r||r.league!==sport||r.live!==false||sport==='FOOTBALL'&&r.competition!==game.league||typeof r.home!=='string'||typeof r.away!=='string'||typeof r.start!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(r.start))return false;
   const sourceStart=Date.parse(r.start.replaceAll('/','-').replace(' ','T')+'+08:00');
   return Number.isFinite(sourceStart)&&Math.abs(sourceStart-start)<=600000&&sportTeamKey(r.home)===sportTeamKey(game.home.name)&&sportTeamKey(r.away)===sportTeamKey(game.away.name);
  });
  if(matches.length!==1)return null;
  const r=matches[0],types=sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
  const read=(kind:SportQuote['kind']):SportQuote|null=>{
-  const markets=(r.displayMarkets||[]).filter((m:any)=>m.period==='full'&&m.type===types[kind]);
+  const markets=(Array.isArray(r.displayMarkets)?r.displayMarkets:[]).filter((m:any)=>m&&m.period==='full'&&m.type===types[kind]);
   if(markets.length!==1)return null;
-  const primary=(markets[0].quotes||[]).filter((q:any)=>q.primary===true);
+  const primary=(Array.isArray(markets[0].quotes)?markets[0].quotes:[]).filter((q:any)=>q&&q.primary===true);
   if(primary.length!==1||primary[0].open!==true)return null;
   const q=primary[0],h=Number(kind==='total'?q.over:q.homePrice),a=Number(kind==='total'?q.under:q.awayPrice),d=Number(q.drawPrice);
   if(![h,a].every(n=>Number.isFinite(n)&&n>0)||kind==='moneyline'&&sport==='FOOTBALL'&&(!Number.isFinite(d)||d<=0))return null;
@@ -51,6 +51,42 @@ export function matchSportEvent(snapshot:any,game:SportFixture,sport:'NBA'|'WNBA
   return {kind,line:parsed.line*direction,boundary:parsed.boundary*(kind==='spread'&&!q.homeLine?-1:1),parts:parsed.parts?.map(n=>n*direction),display:kind==='moneyline'?'獨贏':kind==='total'?parsed.raw:(q.homeLine?'主讓 ':'客讓 ')+parsed.raw,home:h,away:a,...(kind==='moneyline'&&sport==='FOOTBALL'?{draw:d}:{}),signature:JSON.stringify([snapshot.source,r.id,kind,q])};
  };
  return {id:r.id,home:r.home,away:r.away,spread:read('spread'),total:read('total'),moneyline:read('moneyline')};
+}
+
+export type SportMatchStatus='matched'|'loading'|'source_missing_sport'|'source_time_invalid'|'source_stale'|'fixture_unavailable'|'sport_empty'|'fixture_unconfirmed'|'sides_reversed'|'competition_mismatch'|'source_not_pregame'|'source_start_invalid'|'start_mismatch'|'ambiguous';
+export type SportMatchInspection={event:SportEvent|null;status:SportMatchStatus;message:string};
+/** Diagnose only the current caller's snapshot. No fetch, login, or fallback account. */
+export function inspectSportEvent(snapshot:any,game:SportFixture,sport:'NBA'|'WNBA'|'FOOTBALL',now=Date.now()):SportMatchInspection{
+ const fail=(status:SportMatchStatus,message:string):SportMatchInspection=>({event:null,status,message});
+ const start=Date.parse(game.start);
+ if(!Number.isFinite(now)||!Number.isFinite(start)||game.state!=='scheduled'||!game.timeConfirmed||start<=now)return fail('fixture_unavailable','本場目前不提供賽前全場分析。');
+ if(!snapshot)return fail('loading','正在取得資料…');
+ if(!Array.isArray(snapshot.sportGames))return fail('source_missing_sport','目前連線來源未提供這項球類的全場資料。');
+ const captured=Date.parse(snapshot.fetchedAt||'');
+ if(!Number.isFinite(captured)||now-captured< -60000)return fail('source_time_invalid','來源更新時間無法確認，暫停套用全場資料。');
+ if(now-captured>=150000)return fail('source_stale','全場資料已過期，等待自動更新。');
+ const event=matchSportEvent(snapshot,game,sport,now);
+ if(event)return {event,status:'matched',message:''};
+ const rows=snapshot.sportGames.filter((r:any)=>r&&r.league===sport&&typeof r.home==='string'&&typeof r.away==='string');
+ if(!rows.length)return fail('sport_empty','本次來源尚未回傳這項球類的賽事資料。');
+ const home=sportTeamKey(game.home.name),away=sportTeamKey(game.away.name);
+ const pairs=rows.filter((r:any)=>sportTeamKey(r.home)===home&&sportTeamKey(r.away)===away);
+ if(!pairs.length){
+  if(rows.some((r:any)=>sportTeamKey(r.home)===away&&sportTeamKey(r.away)===home))return fail('sides_reversed','來源主客隊順序不同，暫停套用以避免分析錯隊。');
+  return fail('fixture_unconfirmed','尚未找到可核對本場兩隊的全場資料。');
+ }
+ const competition=pairs.filter((r:any)=>sport!=='FOOTBALL'||r.competition===game.league);
+ if(!competition.length)return fail('competition_mismatch','來源賽事分類與本場聯賽不一致，等待核對。');
+ const pregame=competition.filter((r:any)=>r.live===false);
+ if(!pregame.length)return fail('source_not_pregame','來源尚無可確認的賽前資料，不套用場中資料。');
+ const times:number[]=pregame.flatMap((r:any)=>{
+  if(typeof r.start!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(r.start))return [];
+  const time=Date.parse(r.start.replaceAll('/','-').replace(' ','T')+'+08:00');
+  return Number.isFinite(time)?[time]:[];
+ });
+ if(!times.length)return fail('source_start_invalid','來源開賽時間格式無法確認，等待核對。');
+ if(!times.some(time=>Math.abs(time-start)<=600000))return fail('start_mismatch','來源開賽時間與本場不一致，等待核對。');
+ return fail('ambiguous','來源有多筆相符賽事，暫停套用以避免配錯場。');
 }
 export function settleSportGrid(grid:SportGrid,quote:SportQuote,side:'home'|'away'|'over'|'under'):SportOutcomes|null{
  if(quote.kind==='moneyline'||!grid.length||grid.some(r=>!Number.isFinite(r.value)||!Number.isFinite(r.p)||r.p<0)||Math.abs(grid.reduce((n,r)=>n+r.p,0)-1)>1e-6)return null;
