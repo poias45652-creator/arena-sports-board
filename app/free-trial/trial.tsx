@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useState} from 'react';
-import {trialDay,trialPick,type TrialData} from '@/lib/free-trial';
+import {trialDay,trialPick,trialScorePredictions,type TrialData} from '@/lib/free-trial';
 const sports={baseball:'棒球',basketball:'籃球',football:'足球'};
 const backgrounds={baseball:'/backgrounds/yankee-stadium.jpg',basketball:'/backgrounds/basketball-dunk-v1.webp',football:'/backgrounds/football-stadium-v1.webp'};
 const results={hit:'推薦命中',miss:'推薦未命中',draw:'和局',no_pick:'本場無賽前推薦',ungraded:'賽果待核對'};
@@ -26,6 +26,7 @@ export default function Trial(){
  if(!current)return <section className="trial-empty" role="status">正在選取當日賽事…</section>;
  if(!g)return <section className="trial-empty"><p>{current.day} · 台灣時間</p><h2>{current.status==='empty'?'今日暫無未開賽賽事':'賽程暫時無法取得'}</h2>{current.status==='unavailable'&&<button onClick={()=>setAttempt(n=>n+1)} disabled={loading}>{loading?'更新中…':'重新載入'}</button>}</section>;
  const side=trialPick(p),pick=side==='draw'?'和局':side?g[side]:null;
+ const predictions=g.sport==='football'?trialScorePredictions(current):[];
  const started=s?.state!=='scheduled'&&!!s||Date.now()>=Date.parse(g.start);
  const hasScore=s?.home!==null&&s?.home!==undefined&&s?.away!==null&&s?.away!==undefined;
  return <article className="trial-match">
@@ -47,8 +48,8 @@ export default function Trial(){
     <div className="trial-probability" role="img" aria-label={`${g.away} ${Math.round(p.away*100)}%，${g.home} ${Math.round(p.home*100)}%${p.draw!==undefined?`，和局 ${Math.round(p.draw*100)}%`:''}`}><i style={{width:`${p.away*100}%`}}/>{p.draw!==undefined&&<i className="trial-draw" style={{width:`${p.draw*100}%`}}/>}<i style={{width:`${p.home*100}%`}}/></div>
     <div className="trial-pick"><span>賽前推薦</span><strong>{pick?pick+(pick==='和局'?'':' 勝'):'雙方接近'}</strong></div>
    </>:!current.result&&<p className="trial-pending">{started?'本場無賽前推薦':'本場分析更新中'}</p>}
-   {current.expected&&<div className="trial-score"><span>賽前預估比分（客／主）</span><strong>{Math.round(current.expected.away)} : {Math.round(current.expected.home)}</strong></div>}
-   {!!current.details?.length&&<table className="trial-details"><thead><tr><th>對戰數據</th><th>客隊</th><th>主隊</th></tr></thead><tbody>{current.details.map(row=><tr key={row.label}><th>{row.label}</th><td>{row.away}</td><td>{row.home}</td></tr>)}</tbody></table>}
+   {g.sport!=='football'&&current.expected&&<div className="trial-score"><span>賽前預估比分（客／主）</span><strong>{Math.round(current.expected.away)} : {Math.round(current.expected.home)}</strong></div>}
+   {!!predictions.length&&<section className="trial-score-predictions" aria-label="三組賽前預測比分"><h3>賽前預測比分（客／主）</h3><ol>{predictions.map((score,i)=><li key={`${score.away}:${score.home}`}><span>預測 {i+1}</span><strong>{score.away} : {score.home}</strong></li>)}</ol></section>}
   </div>
  </article>;
 }

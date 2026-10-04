@@ -6,7 +6,7 @@ import {PGlite} from '@electric-sql/pglite';
 const compile=s=>ts.transpileModule(s,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const helpers=fs.readFileSync('lib/free-trial.ts','utf8');
 const load=s=>import('data:text/javascript;base64,'+Buffer.from(compile(s)).toString('base64'));
-const {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialResult,retainTrialProgress}=await load(helpers);
+const {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialScorePredictions,trialResult,retainTrialProgress}=await load(helpers);
 test('today changes at Taipei midnight and year rollover',()=>{
  assert.equal(trialDay(Date.parse('2026-10-01T15:59:59Z')),'2026-10-01');
  assert.equal(trialDay(Date.parse('2026-10-01T16:00:00Z')),'2026-10-02');
@@ -57,16 +57,16 @@ test('persistent daily lifecycle survives reloads, outages, final correction and
    const nbaSchedule=async()=>({games:[]});const wnbaSchedule=nbaSchedule;
    const FOOTBALL_LEAGUES=[{code:'eng.1',fullName:'英超'}];
    const footballSchedule=async()=>{if(globalThis.__trialFail)throw Error('offline');return {games:[globalThis.__trialFixture],fetchedAt:new Date(Date.now()).toISOString()}};
-   const footballGameAnalysis=async()=>{globalThis.__trialAnalysis++;return {analysis:{status:'ready',probabilities:{home:.6,away:.3,draw:.1},expected:{home:2,away:1}}}};
+   const footballGameAnalysis=async()=>{globalThis.__trialAnalysis++;return {analysis:{status:'ready',probabilities:{home:.6,away:.3,draw:.1},expected:{home:2,away:1},scores:[{home:2,away:1,probability:.18},{home:1,away:1,probability:.15},{home:2,away:0,probability:.12}]}}};
   `;
   const route=fs.readFileSync('app/api/free-trial/route.ts','utf8').replace(/^import .*;\n/gm,'');let serial=0;
   const request=async()=>{const mod=await load(helpers+stubs+route+`\n// instance ${serial++}`);return (await mod.GET(new Request('https://example.test/api/free-trial?game=secret&date=2000-01-01'))).json();};
   const [first,concurrent]=await Promise.all([request(),request()]);
   assert.equal(first.game.id,'123');assert.equal(concurrent.game.key,first.game.key);assert.equal(first.game.raw,undefined);assert.equal(first.game.eligible,undefined);assert.equal(first.game.private,undefined);
-  assert.equal(first.predictionAt,'2026-10-02T04:00:00.000Z');assert.equal(first.result,undefined);
+  assert.deepEqual(first.scores,[{home:2,away:1},{home:1,away:1},{home:2,away:0}]);assert.equal(first.predictionAt,'2026-10-02T04:00:00.000Z');assert.equal(first.result,undefined);
   const calls=globalThis.__trialAnalysis;
   clock=Date.parse('2026-10-02T05:10:00Z');Object.assign(globalThis.__trialFixture,{state:'live',homeScore:0,awayScore:2,statusLabel:'進行中'});
-  const live=await request();assert.equal(live.progress.state,'live');assert.equal(live.progress.away,2);assert.equal(live.result,undefined);assert.deepEqual(live.probabilities,first.probabilities);assert.equal(globalThis.__trialAnalysis,calls);
+  const live=await request();assert.equal(live.progress.state,'live');assert.equal(live.progress.away,2);assert.equal(live.result,undefined);assert.deepEqual(live.probabilities,first.probabilities);assert.deepEqual(live.scores,first.scores);assert.equal(globalThis.__trialAnalysis,calls);
   clock+=60000;globalThis.__trialFail=true;
   const stale=await request();assert.equal(stale.game.id,'123');assert.equal(stale.progress.stale,true);assert.equal(stale.progress.away,2);
   globalThis.__trialFail=false;clock=Date.parse('2026-10-02T07:00:00Z');Object.assign(globalThis.__trialFixture,{state:'final',homeScore:3,awayScore:2,statusName:'STATUS_FINAL',statusLabel:'已完賽'});
@@ -80,4 +80,17 @@ test('persistent daily lifecycle survives reloads, outages, final correction and
   clock=Date.parse('2026-10-02T16:00:00Z');Object.assign(globalThis.__trialFixture,{id:'456',start:'2026-10-03T05:00:00Z',state:'scheduled',homeScore:null,awayScore:null});
   const next=await request();assert.equal(next.day,'2026-10-03');assert.equal(next.game.id,'456');assert.equal((await pg.query('SELECT * FROM free_trial_selections')).rows.length,2);
  }finally{Date.now=realNow;delete globalThis.__trialDb;await pg.close();}
+});
+
+test('three football scores preserve model order, deduplicate and support frozen legacy forecasts',()=>{
+ const game={sport:'football'},expected={home:1.15,away:1.35};
+ const data={game,expected};
+ const scores=trialScorePredictions(data);
+ assert.equal(scores.length,3);assert.equal(new Set(scores.map(s=>`${s.home}:${s.away}`)).size,3);
+ assert.deepEqual(scores[0],{home:1,away:1});
+ assert.deepEqual(trialScorePredictions({...data,scores:[{home:2,away:1},{home:0,away:1},{home:1,away:1}]}),[{home:2,away:1},{home:0,away:1},{home:1,away:1}]);
+ assert.deepEqual(trialScorePredictions({...data,scores:[null,{home:-1,away:0},{home:1,away:1},{home:1,away:1}]}),scores);
+ assert.deepEqual(trialScorePredictions({game,expected:{home:NaN,away:1}}),[]);
+ assert.deepEqual(trialScorePredictions({game}),[]);
+ for(const sport of ['basketball','baseball'])assert.deepEqual(trialScorePredictions({...data,game:{sport}}),[]);
 });

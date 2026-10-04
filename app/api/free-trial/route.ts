@@ -1,4 +1,4 @@
-import {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialResult,retainTrialProgress,type TrialProgress,type TrialData,type TrialFixture} from '@/lib/free-trial';
+import {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialScorePredictions,trialResult,retainTrialProgress,type TrialProgress,type TrialData,type TrialFixture} from '@/lib/free-trial';
 import {GET as baseballSource} from '../baseball/route';
 import {POST as baseballAnalysis} from '../analysis/route';
 import {isPregame,type Match} from '@/lib/baseball';
@@ -69,10 +69,11 @@ async function analyze(chosen:Candidate,day:string):Promise<TrialData>{
   }else{
    const report=game.sport==='football'?await footballGameAnalysis(game.league as FootballLeague,day,game.id):await(game.league==='NBA'?nbaGameAnalysis:wnbaGameAnalysis)(day,game.id);
    const a=report?.analysis;
-   if(a?.status==='ready'){data.probabilities=trialProbabilities(a.probabilities);if(a.expected)data.expected={home:a.expected.home,away:a.expected.away};}
+   if(a?.status==='ready'){data.probabilities=trialProbabilities(a.probabilities);if(a.expected)data.expected={home:a.expected.home,away:a.expected.away};if(game.sport==='football'&&'scores' in a&&Array.isArray(a.scores))data.scores=a.scores;}
    if(a?.homeForm&&a?.awayForm)data.details=[{label:'近期分析場數',home:String(a.homeForm.games),away:String(a.awayForm.games)}];
   }
  }catch{/* Keep the actual selected fixture without inventing missing analysis. */}
+ if(game.sport==='football')data.scores=trialScorePredictions(data);
  return data;
 }
 async function build(day:string):Promise<TrialData>{
@@ -123,7 +124,8 @@ async function build(day:string):Promise<TrialData>{
  const latest=await db.prepare('SELECT progress FROM free_trial_daily WHERE day=?').bind(day).first<{progress:string|null}>();
  const persisted:TrialProgress|undefined=latest?.progress?JSON.parse(latest.progress):undefined;
  const display=next?retainTrialProgress(persisted,next):persisted?{...persisted,stale:true}:undefined;
- const data:TrialData={...base,status:'ready',game,progress:display||progress('other',null,null,base.updatedAt,'賽事狀態更新中'),probabilities:forecast?.probabilities,expected:forecast?.expected,details:forecast?.details||details,predictionAt:forecast?.predictionAt};
+ const data:TrialData={...base,status:'ready',game,progress:display||progress('other',null,null,base.updatedAt,'賽事狀態更新中'),probabilities:forecast?.probabilities,expected:forecast?.expected,scores:forecast?.scores,details:forecast?.details||details,predictionAt:forecast?.predictionAt};
+ if(game.sport==='football')data.scores=trialScorePredictions(data);
  data.result=trialResult(data);
  return data;
 }
