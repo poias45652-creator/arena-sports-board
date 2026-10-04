@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-04T11:41:25.803Z",
+  "dateAsiaTaipei": "2026-10-04",
+  "purpose": "same-day first-team live source validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "rerunJobId": 108552526980,
+    "rerunAccepted": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true,
+    "runStartedAt": "2026-10-04T11:37:59Z",
+    "conclusion": "startup_failure"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 3,
+      "state": "live",
+      "sameDayLiveVerified": true,
+      "source": "sportsnavi",
+      "baselineCapturedAt": "2026-10-04T11:30:33.558Z",
+      "currentCapturedAt": "2026-10-04T11:41:25.803Z",
+      "intervalSeconds": 652.245,
+      "current": [
+        [
+          "2021049625",
+          4,
+          4,
+          "8回裏"
+        ],
+        [
+          "2021049648",
+          1,
+          1,
+          "7回裏"
+        ],
+        [
+          "2021048606",
+          2,
+          3,
+          "8回裏"
+        ]
+      ],
+      "liveChangeProof": [],
+      "verificationRetainedFromEarlierSameDayObservation": true,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "games": 5,
+      "state": "mixed_live_final",
+      "live": 1,
+      "final": 4,
+      "excludedNonFirstTeamGames": 3,
+      "sameDayLiveVerified": true,
+      "source": "naver",
+      "baselineCapturedAt": "2026-10-04T11:30:33.558Z",
+      "currentCapturedAt": "2026-10-04T11:41:25.803Z",
+      "intervalSeconds": 652.245,
+      "liveGame": {
+        "gameId": "20261004LTKT02026",
+        "awayScore": 2,
+        "homeScore": 2,
+        "status": "live",
+        "inningHalf": "11회초",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 2,
+        "bases": [
+          false,
+          true,
+          false
+        ],
+        "currentPitcher": "스기모토",
+        "pitchCount": 11,
+        "pitcherOutsRecorded": 2
+      },
+      "liveChangeProof": [
+        [
+          "inningHalf",
+          "10회말",
+          "11회초"
+        ],
+        [
+          "currentPitcher",
+          "이이무라",
+          "스기모토"
+        ],
+        [
+          "bases",
+          [
+            false,
+            false,
+            false
+          ],
+          [
+            false,
+            true,
+            false
+          ]
+        ]
+      ]
+    },
+    "CPBL": {
+      "games": 3,
+      "state": "live",
+      "sameDayLiveVerified": true,
+      "source": "playsport-public-fallback",
+      "baselineCapturedAt": "2026-10-04T11:30:33.558Z",
+      "currentCapturedAt": "2026-10-04T11:41:25.803Z",
+      "intervalSeconds": 652.245,
+      "current": [
+        [
+          "2026100461001",
+          1,
+          12,
+          "8局下結束"
+        ],
+        [
+          "2026100461002",
+          5,
+          0,
+          "8局下"
+        ],
+        [
+          "2026100461003",
+          4,
+          4,
+          "7局上"
+        ]
+      ],
+      "liveChangeProof": [
+        [
+          "2026100461001",
+          "homeScore",
+          9,
+          12
+        ],
+        [
+          "2026100461003",
+          "homeScore",
+          3,
+          4
+        ]
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  }
+}
