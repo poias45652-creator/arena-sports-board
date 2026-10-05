@@ -19,5 +19,5 @@ test('hidden views pause public polling and analysis',()=>{
 });
 test('authoritative analysis still loads its own inputs',()=>{
  const route=read('app/api/analysis/route.ts');
- assert.match(route,/loadSource\\('schedule'\\)/);assert.match(route,/assembleAnalysis\\(g,input\\)/);assert.match(route,/loadSource\\('statcast-pitcher/);
+ assert.ok(route.includes("loadSource('schedule')"));assert.ok(route.includes('assembleAnalysis(g,input)'));assert.ok(route.includes("loadSource('statcast-pitcher"));
 });
