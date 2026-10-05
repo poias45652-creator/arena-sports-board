@@ -13,7 +13,7 @@ test('hidden views pause public polling and analysis',()=>{
  const source=read('app/use-source.ts'),standings=read('app/standings.tsx'),pregame=read('app/pregame.tsx'),context=read('app/game-context.tsx');
  assert.match(source,/enabled=true/);assert.match(source,/document\\.hidden/);assert.match(source,/visibilitychange/);
  assert.match(standings,/5\\*60000,active/);
- assert.doesNotMatch(pregame,/useSource<Snapshot>\\('pitcher'|batter-team|pitcher-team/);
+ assert.doesNotMatch(pregame,/useSource<Snapshot>/);assert.doesNotMatch(pregame,/batter-team|pitcher-team/);
  assert.match(pregame,/useSource<Schedule>\\('schedule',30000,active\\)/);
  assert.match(context,/arena-analysis-refresh/);assert.match(context,/if\\(!active\\)return/);
 });
