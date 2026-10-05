@@ -35,10 +35,11 @@ function mapGame(game:any):LiveGame{
 }
 
 export default function Home(){
-  const leagueLive=useLeagueLive(),sportLive=useSportLive();
   const [updatingAll,setUpdatingAll]=useState(false),[updateNotice,setUpdateNotice]=useState('');
   const updateLock=useRef(false);
   const [league,setLeague]=useState<FrontLeague>('MLB'),[baseballLeague,setBaseballLeague]=useState<'MLB'|'NPB'>('MLB');
+  const leagueLive=useLeagueLive(['NPB']);
+  const sportLive=useSportLive(league==='FOOTBALL'?'FOOTBALL':league==='NBA'?'NBA':league==='WNBA'?'WNBA':'NONE');
   const [view,setView]=useState('analysis'),[selectionReady,setSelectionReady]=useState(false);
   useEffect(()=>{const read=()=>{const next=frontSelection(window.location.search);setLeague(next.league);if(next.league==='MLB'||next.league==='NPB')setBaseballLeague(next.league);setView(next.view);setSelectionReady(true);};read();window.addEventListener('popstate',read);return()=>window.removeEventListener('popstate',read);},[]);
   function selectLeague(next:FrontLeague){setLeague(next);if(next==='MLB'||next==='NPB')setBaseballLeague(next);setUpdateNotice('');window.history.replaceState(null,'',leaguePageHref(next,view));}
