@@ -27,28 +27,32 @@ def replace_once(text, old, new):
     return text.replace(old, new, 1)
 
 for path in [
-    'app/api/wnba/route.ts',
-    'app/basketball-report-refresh.ts',
-    'app/nba-board.tsx',
-    'app/nba-match.tsx',
-    'app/nba-request.ts',
-    'app/sport-markets.tsx',
-    'lib/sport-super-markets.ts',
-    'lib/wnba-current-rosters.ts',
-    'lib/wnba-fetch.ts',
-    'lib/wnba-official.ts',
-    'lib/wnba-player-strength-source.ts',
-    'tests/basketball-loading.test.mjs',
-    'tests/nba-market-aliases.test.mjs',
-    'tests/nba-ui.test.mjs',
-    'tests/wnba-ui.test.mjs',
-    'tests/wnba-recovery.test.mjs',
+    'app/api/wnba/route.ts', 'app/basketball-report-refresh.ts',
+    'app/nba-board.tsx', 'app/nba-match.tsx', 'app/nba-request.ts',
+    'app/sport-markets.tsx', 'lib/sport-super-markets.ts',
+    'lib/wnba-current-rosters.ts', 'lib/wnba-fetch.ts', 'lib/wnba-official.ts',
+    'lib/wnba-player-strength-source.ts', 'tests/basketball-loading.test.mjs',
+    'tests/nba-market-aliases.test.mjs', 'tests/nba-ui.test.mjs',
+    'tests/wnba-ui.test.mjs', 'tests/wnba-recovery.test.mjs',
+    'tests/nba-player-strength.test.mjs',
     '.github/workflows/wnba-player-strength-sync.yml',
     '.github/workflows/nba-player-refresh-validation.yml',
 ]:
     restore(path)
-for path in ['lib/nba-source.ts', 'lib/nba-player-strength-source.ts', 'tests/nba-player-strength.test.mjs']:
+for path in ['lib/nba-source.ts', 'lib/nba-player-strength-source.ts']:
     restore(path, NBA_REPAIR)
+
+# Restore immediate schedule-refresh notification and the odds-change event.
+# Keep all original Statcast/source reads and direct board mounting unchanged.
+path = 'app/page.tsx'
+legacy_page = read(LEGACY, path).decode()
+assert Path(path).read_text() == legacy_page, path
+before = "setUpdateNotice('正在更新資料並連接 SUPER…');\n"
+after = before + "    window.dispatchEvent(new Event('arena-refresh-all'));\n"
+text = replace_once(legacy_page, before, after)
+text = replace_once(text, "finally{window.dispatchEvent(new Event('arena-refresh-all'));await stats;", "finally{window.dispatchEvent(new Event('arena-odds-change'));await stats;")
+Path(path).write_text(text)
+restored.append({'path': path, 'sourceCommit': BACKUP, 'mode': 'restore the two manual-refresh event notifications only; original source reads and rendering preserved'})
 
 # Restore source recovery and stage diagnostics, not the result-cache wrapper.
 path = 'lib/wnba-source.ts'
@@ -77,12 +81,11 @@ text = replace_once(text, "   recordNbaSeed('efficiency',key,{header:league==='W
 Path(path).write_text(text)
 restored.append({'path': path, 'sourceCommit': BACKUP, 'mode': 'WNBA transport recovery only; no seed reading or capture'})
 
-# The pre-speed site entry, full source loads, models, photos, and user security stay intact.
+# The pre-speed full source loads, models, photos, and user security stay intact.
 legacy_paths = [
-    'app/page.tsx', 'app/football-board.tsx', 'app/use-source.ts',
-    'app/pregame.tsx', 'app/game-context.tsx', 'app/standings.tsx',
-    'app/international-board.tsx', 'app/international-live-feed.tsx',
-    'app/use-sport-live.ts', 'app/use-league-live.ts',
+    'app/football-board.tsx', 'app/use-source.ts', 'app/pregame.tsx',
+    'app/game-context.tsx', 'app/standings.tsx', 'app/international-board.tsx',
+    'app/international-live-feed.tsx', 'app/use-sport-live.ts', 'app/use-league-live.ts',
     'lib/nba-official.ts', 'lib/covers-fetch.ts', 'lib/playsport-pregame.ts',
     'instrumentation.ts', 'scripts/render-prepare.mjs', 'next.config.ts',
     'app/login/page.tsx', 'app/api/baseball/route.ts',
@@ -102,8 +105,7 @@ for path in preserved:
 for root in ['public', 'db', 'drizzle']:
     assert not git('diff', '--name-only', BASE, '--', root).strip(), root
 
-# Classify every path removed by the preceding rollback, rather than silently
-# treating performance scaffolding as a missing user-facing feature.
+# Classify every path removed by the preceding rollback.
 deleted = git('diff', '--name-only', '--diff-filter=D', BACKUP, BASE).decode().splitlines()
 missing = [path for path in deleted if not Path(path).exists()]
 performance_only = {
@@ -128,6 +130,7 @@ report = {
     'baseline': BASE, 'preSpeedRuntime': LEGACY, 'fullBackup': BACKUP,
     'scope': 'YJ only; restore removed functional repairs and preserve pre-speed entry/source-loading behavior',
     'restored': restored, 'legacyRuntimeVerified': legacy_paths,
+    'entryPage': 'identical to pre-speed page except restoring immediate refresh and odds-change notifications',
     'preservedVerified': preserved,
     'notReactivatedPerEarlierUserRequest': missing,
     'performanceBackupBranch': 'backup/yj-before-user-rollback-20261005-1435',
