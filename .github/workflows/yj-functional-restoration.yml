@@ -45,6 +45,20 @@ jobs:
           if ! test -f reports/yj-functional-restoration-20261005.json; then
             python scripts/restore-yj-functional-features.py
           fi
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          paths = ['app/nba-board.tsx', 'tests/basketball-loading.test.mjs']
+          for path in paths:
+              p = Path(path)
+              p.write_bytes(p.read_bytes().rstrip(b'\n') + b'\n')
+          p = Path('reports/yj-functional-restoration-20261005.json')
+          data = json.loads(p.read_text())
+          for row in data['restored']:
+              if row['path'] in paths:
+                  row['mode'] = 'exact source code; redundant trailing blank line removed before verification'
+          p.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n')
+          PY
       - name: Verify restored matching, loading recovery and source protection
         run: |
           node --test tests/nba-market-aliases.test.mjs tests/sport-super-markets.test.mjs tests/basketball-loading.test.mjs tests/wnba-recovery.test.mjs tests/nba-player-strength.test.mjs tests/wnba-player-strength.test.mjs
@@ -59,7 +73,7 @@ jobs:
           test "$(git ls-remote origin "refs/heads/$TARGET_BRANCH" | cut -f1)" = "$SOURCE_SHA"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add app lib tests .github/workflows/wnba-player-strength-sync.yml .github/workflows/nba-player-refresh-validation.yml reports/yj-functional-restoration-20261005.json
+          git add app lib tests reports/yj-functional-restoration-20261005.json
           git diff --cached --check
           if ! git diff --cached --quiet; then
             git commit -m 'Restore all audited YJ functional repairs lost in the pre-speed rollback'
