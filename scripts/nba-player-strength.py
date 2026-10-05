@@ -138,6 +138,36 @@ def snapshot(hist,players,names,index,now):
         if f:teams[id]={**f,'lastPlayed':rows[-1]['at'],'pointsFor':sum(g['h'] if g['home']==id else g['a'] for g in rows)/len(rows),'pointsAgainst':sum(g['a'] if g['home']==id else g['h'] for g in rows)/len(rows)}
     return {'schema':1,'capturedAt':datetime.fromtimestamp(now,timezone.utc).isoformat(),'source':f'{LEAGUE}.com player identities; SportsDataverse ESPN {LEAGUE} verified individual boxes','players':ps,'teams':teams,'unmatchedNames':excluded,'identityMethod':'unique exact normalized full name on both sources'}
 
+def verified_identity_index(previous,names,now):
+    """Reuse identity pairs, NEVER previous statistics or current roster claims.
+
+    NBA.com person IDs and ESPN athlete IDs are stable identifiers. A 403 on
+    the HTML directory must not prevent checking new boxscores for identities
+    already verified in this repository. Unknown, renamed or ambiguous players
+    remain excluded; runtime roster/availability/coverage gates are unchanged.
+    """
+    if previous.get('schema')!=1 or not isinstance(previous.get('players'),dict):
+        raise ValueError('Verified NBA identity snapshot missing')
+    verified_at=previous.get('identitySourceCapturedAt',previous.get('capturedAt'))
+    try:age=now-timestamp(verified_at)
+    except (TypeError,ValueError,AttributeError):
+        raise ValueError('Invalid identity verification timestamp') from None
+    if not math.isfinite(age) or age<0:raise ValueError('Invalid identity verification timestamp')
+    index=[];seen=set()
+    for nba_id,row in previous['players'].items():
+        if not isinstance(row,dict):raise ValueError('Invalid verified identity')
+        source_id=row.get('sourceId');saved_name=row.get('name')
+        if (not isinstance(nba_id,str) or not re.fullmatch(r'[1-9][0-9]*',nba_id)
+            or not isinstance(source_id,str) or not re.fullmatch(r'[1-9][0-9]*',source_id)
+            or not isinstance(saved_name,str) or not name_key(saved_name)):
+            raise ValueError('Invalid verified identity')
+        if source_id in seen:raise ValueError('Conflicting verified ESPN identity')
+        seen.add(source_id)
+        current_name=names.get(source_id)
+        if not isinstance(current_name,str) or name_key(current_name)!=name_key(saved_name):continue
+        index.append({'PERSON_ID':nba_id,'PLAYER_FIRST_NAME':current_name,'PLAYER_LAST_NAME':''})
+    return index,verified_at
+
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--train',action='store_true');ap.add_argument('--refresh',action='store_true');args=ap.parse_args();folder=ROOT/'evidence';folder.mkdir(exist_ok=True)
     now=datetime.now(timezone.utc).timestamp()
@@ -153,10 +183,14 @@ def main():
                 if len(data)>30000000:raise ValueError('source too large')
                 name=('player-csv.csv' if kind=='players' else 'schedule.csv') if year==2026 else f'{kind}-{year}.csv';(folder/name).write_bytes(data)
             else:available.append(year)
-        raw=urllib.request.urlopen('https://www.nba.com/players',timeout=30).read(6000000).decode();index=json.loads(re.search(r'<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)</script>',raw)[1])['props']['pageProps']['players'];years=available
+        years=available
+        # Retain the original identity verification date; do not relabel it as
+        # a newly fetched roster. All statistics below come from fresh archives.
+        previous=json.loads((ROOT/'data/nba-player-strength.json').read_text())
     else:
         years=[2023,2024,2025,2026];index=json.loads((folder/'players.json').read_text())['props']['pageProps']['players']
     games,names=read_games(folder,years);games=[g for g in games if g['at']+6*3600<now];assert len(games)>=1000
+    if args.refresh:index,identity_verified_at=verified_identity_index(previous,names,now)
     samples,hist,players=chronological(games)
     if args.train:
         train=[r for r in samples if r['year']==2024];tune=[r for r in samples if r['year']==2025];test=[r for r in samples if r['year']==2026]
@@ -169,6 +203,11 @@ def main():
         model={'version':'nba-player-opponent-v3-20261003','features':['homeVenue','playerProductionDiff','recentNetDiff','opponentNetDiff','restDiff'],'coefficients':co,'sigma':sigma,'enabled':enabled,'regularSeasonValidated':enabled,'validationScope':'historical previous-rotation minutes; excludes live news and preseason scenarios','preseasonValidated':False,'alpha':alpha,'trainedSeasons':[2024,2025],'holdoutSeason':2026,'validation':result,'referenceRecentNet':baseline,'createdAt':datetime.fromtimestamp(now,timezone.utc).isoformat()}
         (ROOT/'data/nba-player-model.json').write_text(json.dumps(model,indent=2)+'\n');print(json.dumps(model))
     s=snapshot(hist,players,names,index,now);assert len(s['players'])>300 and len(s['teams'])==30
+    if args.refresh:
+        s['identitySourceCapturedAt']=identity_verified_at
+        s['identityMethod']='previously verified NBA.com/ESPN ID pairs; exact source ID and normalized name; ambiguous or unknown identities excluded'
+        s['source']='Previously verified NBA.com identities; freshly checked SportsDataverse ESPN NBA verified individual boxes'
+        s['sourceSeasons']=years
     target=ROOT/'data/nba-player-strength.json';temp=target.with_suffix('.tmp');temp.write_text(json.dumps(s,separators=(',',':'))+'\n');temp.replace(target)
     print(json.dumps({'games':len(games),'players':len(s['players']),'teams':len(s['teams']),'unmatchedCount':len(s['unmatchedNames'])}))
 if __name__=='__main__':main()

@@ -59,7 +59,10 @@ export async function nbaGameAnalysis(day:string,id:string,weights:Weights=DEFAU
 
  if(!nbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'NBA',weights),sourceFetchedAt:schedule.fetchedAt};
  const data=await history([game.home.id,game.away.id],nbaSeason(nbaDay()));
- return {game,analysis:await enrichNbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'NBA',weights)),sourceFetchedAt:data.fetchedAt};
+ const analysis=await enrichNbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'NBA',weights));
+ // Public fixture metadata only; no member identity, credentials or source session.
+ console.info('nba-analysis-result',JSON.stringify({day,id,status:analysis.status,reason:analysis.playerContext?.reason??null,playerContext:analysis.playerContext?.status??null,statsCapturedAt:analysis.playerContext?.statsCapturedAt??null,sourceFetchedAt:data.fetchedAt,capturedAt:analysis.capturedAt}));
+ return {game,analysis,sourceFetchedAt:data.fetchedAt};
 }
 export async function nbaTeamProfile(teamId:string){
  const team=nbaTeam(teamId);if(!team)throw Error('球隊不存在');

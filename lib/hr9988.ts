@@ -59,6 +59,7 @@ export function hrFootballCompetition(name:string):string|null{
  return rules.find(([rule])=>rule.test(name))?.[1]??null;
 }
 
+let lastBasketballShapeLoggedAt=0;
 /** Parse the observed GameDetail shape, without inventing a fetch timestamp. */
 export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnapshot {
  const response=value as any;
@@ -101,5 +102,12 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
  if(new Set(internationalGames.map(g=>g.league+':'+g.id)).size!==internationalGames.length)throw new Error('SUPER 回傳重複聯盟賽事');
  if(new Set(games.map(g=>g.id)).size!==games.length)throw new Error('SUPER 回傳重複賽事，暫停配對');
  if(new Set(sportGames.map(g=>g.league+':'+g.id)).size!==sportGames.length)throw new Error('SUPER 回傳重複運動賽事');
+ // Rate-limited, allowlisted public fixture metadata only. Never log the
+ // original response, authorization headers, member IDs or session URLs.
+ const basketball=response.data.filter((c:any)=>c.CatID===102).flatMap((c:any)=>c.Items.List);
+ if(basketball.length&&Date.now()-lastBasketballShapeLoggedAt>=60000){
+  lastBasketballShapeLoggedAt=Date.now();
+  console.info('super-basketball-shape',JSON.stringify({fetchedAt,parsedGames:sportGames.filter(g=>g.league==='NBA'||g.league==='WNBA').length,leagues:basketball.slice(0,8).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,80),games:Array.isArray(l.Team)?l.Team.length:0})),examples:basketball.filter((l:any)=>/^W?NBA\b/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(l.Team||[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,80),id:t.EvtID,home:String(t.HomeTeamStr).slice(0,80),away:String(t.AwayTeamStr).slice(0,80),start:String(t.ScheduleTimeStr).slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(t.Wager||[]).slice(0,8).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,8)}));
+ }
  return {source:'hr9988',games,internationalGames,sportGames,sourceLeagues,fetchedAt} as SuperSnapshot;
 }
