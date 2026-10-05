@@ -1,0 +1,40 @@
+name: YJ sport market pairing audit
+on:
+  push:
+    branches: ['fix/yj-all-sport-market-pairing-20261005']
+  pull_request:
+    branches: [main]
+    paths:
+      - 'lib/sport-super-markets.ts'
+      - 'lib/hr9988.ts'
+      - 'app/sport-markets.tsx'
+      - 'tests/sport-market-audit.test.mjs'
+permissions:
+  contents: read
+concurrency:
+  group: sport-market-pairing-${{ github.head_ref || github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify exact aliases, complete competition labels, all rejection classes and the real UI
+        run: node --test tests/sport-market-audit.test.mjs tests/sport-super-markets.test.mjs tests/nba-market-aliases.test.mjs tests/nba-ui.test.mjs tests/wnba-ui.test.mjs
+      - name: Full application regression suite
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Verify no account, data, model, photo or loading changes
+        run: |
+          git fetch --depth=1 origin 7a6553957289ee169ea4d4035ef5992889c17ff9
+          test -z "$(git diff --name-only 7a6553957289ee169ea4d4035ef5992889c17ff9 HEAD -- db drizzle data public lib/arena-session.ts lib/tz-login.ts lib/nba.ts lib/wnba.ts lib/football.ts lib/basketball-efficiency.ts lib/nba-player-strength.ts lib/wnba-player-strength.ts app/page.tsx app/nba-board.tsx app/football-board.tsx instrumentation.ts scripts/render-prepare.mjs)"

@@ -1,11 +1,9 @@
 import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import ts from 'typescript';
-const code=f=>ts.transpileModule(readFileSync(new URL('../lib/'+f,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
-const url=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
-const {parseHrGameDetail,hrSportsRequests,hrBaseballRequest}=await import(url(code('hr9988.ts')));
-const {matchSportEvent,settleSportGrid,basketballMarketGrid,footballMarketGrids,sportTeamKey,sportQuoteLabel,preferredSportOutcome}=await import(url(code('sport-super-markets.ts').replace("'./settlement'",JSON.stringify(url(code('settlement.ts'))))));
+import {moduleUrl} from './profile-loader.mjs';
+const {parseHrGameDetail,hrSportsRequests,hrBaseballRequest}=await import(moduleUrl('lib/hr9988.ts'));
+const {matchSportEvent,settleSportGrid,basketballMarketGrid,footballMarketGrids,sportTeamKey,sportQuoteLabel,preferredSportOutcome}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const fixture=()=>JSON.parse(readFileSync(new URL('./fixtures/sport-super-game-details.json',import.meta.url),'utf8'));
 const menu=JSON.parse(readFileSync(new URL('./fixtures/sport-super-menu.json',import.meta.url),'utf8'));
 const now=Date.parse('2026-10-03T01:00:00+08:00');
