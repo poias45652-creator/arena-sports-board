@@ -16,10 +16,10 @@ test('only the verified configured platform administrator authorizes administrat
  globalThis.adminTestUser={email:'owner@example.invalid'};assert.equal(await adminIdentity(),null);globalThis.adminTestFail=false;
 });
 
-test('OFA administrators require a verified OFA session, including dvp03068',async()=>{
+test('OFA administrators require a verified OFA session, including dvp03068 and tzt05',async()=>{
  globalThis.adminTestFail=false;
  try{
-  for(const username of ['dvp0322','dvp038','dvp03068','DVP03068']){
+  for(const username of ['dvp0322','dvp038','dvp03068','DVP03068','tzt05','TZT05']){
    globalThis.adminTestSession={memberId:'ofa:verified',username};assert.equal(await adminIdentity(),'ofa');
    globalThis.adminTestSession={memberId:'tz:verified',username};assert.equal(await adminIdentity(),null);
    globalThis.adminTestSession={username};assert.equal(await adminIdentity(),null);
@@ -30,7 +30,7 @@ test('OFA administrators require a verified OFA session, including dvp03068',asy
 });
 
 test('OFA routing, verified identity checks and access bootstrap use the same explicit administrators',()=>{
- const expected=['dvp0322','dvp038','dvp03068'];
+ const expected=['dvp0322','dvp038','dvp03068','tzt05'];
  for(const [file,count] of [['app/admin-access.ts',1],['lib/tz-login.ts',4]]){
   const parsed=ts.createSourceFile(file,readFileSync(file,'utf8'),ts.ScriptTarget.Latest,true);
   const lists=[];
@@ -62,23 +62,36 @@ const loginRequest=(username,extra={})=>new Request('https://site.test/api/sessi
 test('new and existing OFA administrators reach OFA verification, never TZ or a password bypass',async()=>{
  globalThis.ofaRoutingCalls=[];
  try{
-  for(const username of ['dvp0322','dvp038','dvp03068',' DVP03068 ']){
+  for(const username of ['dvp0322','dvp038','dvp03068',' DVP03068 ','tzt05',' TZT05 ']){
    const r=await tzLogin(loginRequest(username),routingDb,'synthetic-key');
    assert.equal(r.status,422);assert.equal(r.headers.get('set-cookie'),null);
    const call=globalThis.ofaRoutingCalls.at(-1);assert.match(call.memberId,/^ofa-login-candidate:/);assert.equal(call.username,username.trim());
   }
   const ordinary=await tzLogin(loginRequest('ordinary-member'),routingDb,'synthetic-key');
   assert.equal(ordinary.status,422);assert.match(globalThis.ofaRoutingCalls.at(-1).memberId,/^login-candidate:/);
-  assert.equal(globalThis.ofaRoutingCalls.length,5);
+  assert.equal(globalThis.ofaRoutingCalls.length,7);
  }finally{delete globalThis.ofaRoutingCalls;}
 });
 test('new OFA administrator still requires Turnstile and cannot choose an identity source',async()=>{
  globalThis.ofaRoutingCalls=[];
  try{
-  const captcha=await tzLogin(loginRequest('dvp03068'),routingDb,'synthetic-key',fetch,'synthetic-turnstile-key',true);
-  assert.equal(captcha.status,403);assert.equal(captcha.headers.get('set-cookie'),null);
-  const suppliedSource=await tzLogin(loginRequest('dvp03068',{source:'ofa'}),routingDb,'synthetic-key');
-  assert.equal(suppliedSource.status,400);assert.equal(suppliedSource.headers.get('set-cookie'),null);
+  for(const username of ['dvp03068','tzt05']){
+   const captcha=await tzLogin(loginRequest(username),routingDb,'synthetic-key',fetch,'synthetic-turnstile-key',true);
+   assert.equal(captcha.status,403);assert.equal(captcha.headers.get('set-cookie'),null);
+   const suppliedSource=await tzLogin(loginRequest(username,{source:'ofa'}),routingDb,'synthetic-key');
+   assert.equal(suppliedSource.status,400);assert.equal(suppliedSource.headers.get('set-cookie'),null);
+  }
   assert.deepEqual(globalThis.ofaRoutingCalls,[]);
  }finally{delete globalThis.ofaRoutingCalls;}
+});
+
+test('tzt05 administrator matching is exact and session failures deny access',async()=>{
+ globalThis.adminTestFail=false;
+ try{
+  for(const username of ['tzt050','pretzt05','tzt05-suffix']){
+   globalThis.adminTestSession={memberId:'ofa:verified',username};assert.equal(await adminIdentity(),null);
+  }
+  globalThis.adminTestSession={memberId:'ofa:verified',username:'tzt05'};globalThis.adminTestFail=true;
+  assert.equal(await adminIdentity(),null);
+ }finally{globalThis.adminTestSession=null;globalThis.adminTestFail=false;}
 });
