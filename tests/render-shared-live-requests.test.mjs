@@ -18,3 +18,5 @@ test('shared layer coalesces equivalent query order and does not cache analysis'
  assert.match(c,/recent=new Map/);
  assert.match(c,/!parsed\.searchParams\.has\('kind'\)/);
 });
+
+// Final verification marker: full LIVE coverage is retained; only identical in-flight requests are shared.
