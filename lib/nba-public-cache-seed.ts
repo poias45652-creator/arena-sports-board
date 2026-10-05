@@ -7,7 +7,7 @@ export type NbaSeedKind='official'|'efficiency';
 export type NbaSeedEntry={kind:NbaSeedKind;key:string;capturedAt:number;data:any;sha256:string};
 const MAX_BYTES=16*1024*1024,MAX_ROWS=1500;
 const digest=(data:any)=>createHash('sha256').update(JSON.stringify(data)).digest('hex');
-const permitted=(kind:unknown,key:unknown)=>typeof key==='string'&&key.length<500&&(kind==='official'?/^(players|team\/[1-9]\d*\/[a-z0-9-]+|player\/[1-9]\d*\/[a-z0-9-]+)$/.test(key):kind==='efficiency'&&key.startsWith('NBA:'));
+const permitted=(kind:unknown,key:unknown)=>typeof key==='string'&&key.length<500&&(kind==='official'?/^(players|team\/[1-9]\d*\/[a-z0-9-]+|player\/[1-9]\d*\/[a-z0-9-]+)$/.test(key):kind==='efficiency'&&/^(NBA|WNBA):/.test(key));
 export function createNbaSeedReader(document:any,clock=()=>Date.now()){
  const rows=new Map<string,NbaSeedEntry>();
  if(document?.schema===1&&Array.isArray(document.entries)&&document.entries.length<=MAX_ROWS){
@@ -29,15 +29,18 @@ export function createNbaSeedReader(document:any,clock=()=>Date.now()){
   try{if(digest(row.data)!==row.sha256)return null;return {data:row.data,capturedAt:row.capturedAt};}catch{return null;}
  };
 }
-let reader:ReturnType<typeof createNbaSeedReader>|undefined;
+// WNBA historical boxes have a separate file and reader. A WNBA deployment
+// preparation failure cannot remove the existing NBA preparation output.
+const readers=new Map<string,ReturnType<typeof createNbaSeedReader>>();
 export function readNbaSeed(kind:NbaSeedKind,key:string,maxAge:number){
- if(process.env.YJ_NBA_SEED_CAPTURE==='1'||process.env.YJ_NBA_DISABLE_SEED==='1')return null;
- if(!reader){
+ const league=kind==='efficiency'&&key.startsWith('WNBA:')?'WNBA':'NBA';
+ if(process.env.YJ_NBA_SEED_CAPTURE==='1'||process.env.YJ_NBA_DISABLE_SEED==='1'||(league==='WNBA'&&process.env.YJ_WNBA_DISABLE_SEED==='1'))return null;
+ if(!readers.has(league)){
   let document:any=null;
-  try{const file=join(process.cwd(),'data','nba-public-cache-seed.json');if(statSync(file).size<=MAX_BYTES)document=JSON.parse(readFileSync(file,'utf8'));}catch{}
-  reader=createNbaSeedReader(document);
+  try{const file=join(process.cwd(),'data',`${league.toLowerCase()}-public-cache-seed.json`);if(statSync(file).size<=MAX_BYTES)document=JSON.parse(readFileSync(file,'utf8'));}catch{}
+  readers.set(league,createNbaSeedReader(document));
  }
- return reader(kind,key,maxAge);
+ return readers.get(league)!(kind,key,maxAge);
 }
 const captured=new Map<string,NbaSeedEntry>();let capturedBytes=0;
 export function recordNbaSeed(kind:NbaSeedKind,key:string,data:any,capturedAt=Date.now()){
