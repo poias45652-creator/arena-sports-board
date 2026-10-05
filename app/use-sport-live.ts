@@ -1,4 +1,5 @@
 'use client';
+import {runNavigationTask} from './navigation-work';
 import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
 import {scheduleLiveUntil} from '@/lib/sport-live';
@@ -12,7 +13,7 @@ export function useSportLive(){
   async function refresh(){
    if(busy||document.hidden||controller.signal.aborted)return;busy=true;
    const day=taipeiDay(Date.now());
-   await Promise.allSettled(sources.map(async([code,url])=>{
+   await Promise.allSettled(sources.map(([code,url])=>runNavigationTask(async()=>{
     let expiry=0;
     try{
      const target=`${url}${url.includes('?')?'&':'?'}date=${day}`;
@@ -22,12 +23,12 @@ export function useSportLive(){
      expiry=scheduleLiveUntil(data,code,day,Date.now());
     }catch{}
     if(!controller.signal.aborted)setUntil(old=>({...old,[code]:expiry}));
-   }));busy=false;
+   },controller.signal)));busy=false;
   }
   const resume=()=>{setNow(Date.now());void refresh();};
-  void refresh();const poll=setInterval(()=>void refresh(),30000),clock=setInterval(()=>setNow(Date.now()),15000);
+  const initial=setTimeout(()=>void refresh(),3000);const poll=setInterval(()=>void refresh(),30000),clock=setInterval(()=>setNow(Date.now()),15000);
   document.addEventListener('visibilitychange',resume);window.addEventListener('arena-refresh-all',resume);
-  return()=>{controller.abort();clearInterval(poll);clearInterval(clock);document.removeEventListener('visibilitychange',resume);window.removeEventListener('arena-refresh-all',resume);};
+  return()=>{controller.abort();clearTimeout(initial);clearInterval(poll);clearInterval(clock);document.removeEventListener('visibilitychange',resume);window.removeEventListener('arena-refresh-all',resume);};
  },[]);
  return {NBA:(until.NBA||0)>now,WNBA:(until.WNBA||0)>now,FOOTBALL:sources.slice(2).some(([code])=>(until[code]||0)>now)};
 }

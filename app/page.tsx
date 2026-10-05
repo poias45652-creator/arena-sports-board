@@ -1,27 +1,30 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Activity, CalendarDays, CheckCircle2, CircleDot, Database, Gauge, LogOut, RefreshCw, ShieldCheck, TimerReset, Users, Wifi, WifiOff } from "lucide-react";
 import { Tabs,TabsList,TabsTrigger,TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 
 import { teamZh, gameDetailZh } from "./zh";
-import Pregame from './pregame';
+const Pregame = dynamic(() => import('./pregame'), { loading: BoardLoading });
 import TeamName from './team-name';
 import PlayerLink from './player-link';
-import Standings from './standings';
-import TeamsDirectory from './teams-directory';
-import LiveScoreboard from './live-scoreboard';
+const Standings = dynamic(() => import('./standings'), { loading: BoardLoading });
+const TeamsDirectory = dynamic(() => import('./teams-directory'), { loading: BoardLoading });
+const LiveScoreboard = dynamic(() => import('./live-scoreboard'), { loading: BoardLoading });
 import SessionAccount from './session-account';
 import AdminEntry from './admin-entry';
 import {useLeagueLive} from './use-league-live';
 import {useSportLive} from './use-sport-live';
 import SuperWorkspace,{SuperEntryButton} from './super-workspace';
-import FootballBoard from './football-board';
-import NbaBoard from './nba-board';
-import InternationalBoard from './international-board';
+const FootballBoard = dynamic(() => import('./football-board'), { loading: BoardLoading });
+const NbaBoard = dynamic(() => import('./nba-board'), { loading: BoardLoading });
+const InternationalBoard = dynamic(() => import('./international-board'), { loading: BoardLoading });
 import {BASEBALL_LEAGUES,frontSelection,leaguePageHref,type FrontLeague} from '@/lib/sport-navigation';
 import './football.css';
+
+function BoardLoading(){return <div className="panel min-h-40 p-6 text-sm text-slate-400" role="status" aria-live="polite">正在載入賽事內容…</div>;}
 
 type LiveGame = { id:number; awayId?:number; homeId?:number; away:string; home:string; awayScore:number|null; homeScore:number|null; status:string; detail:string; start:string; live:boolean; final:boolean; line:any; pitchCount:number|null; detailError:boolean; detailFetchedAt:string|null };
 const SCORE_REFRESH_MS = 15 * 1000;
@@ -91,15 +94,15 @@ export default function Home(){
         {view==='teams'&&<TeamsDirectory/>}
         {view==='live'&&<LiveScoreboard/>}
         {view==='overview'&&<div className="league-summary"><div><span>台灣日期</span><strong>{taipeiDate()}</strong></div><div><span>今日與跨日賽事</span><strong>{scoreUpdatedAt?liveGames.length:'—'} <small>場</small></strong></div><div><span>進行中</span><strong className="text-rose-300">{scoreUpdatedAt?liveGames.filter(g=>g.live).length:'—'} <small>場</small></strong></div><div><span>已完賽</span><strong>{scoreUpdatedAt?liveGames.filter(g=>g.final).length:'—'} <small>場</small></strong></div></div>}
-        <div hidden={view!=='overview'&&view!=='standings'}><Standings active={view==='overview'||view==='standings'}/></div>
-        <div hidden={view!=='overview'}>
+        {(view==='overview'||view==='standings')&&<Standings active={view==='overview'||view==='standings'}/>}
+        {view==='overview'&&<div>
 
       <section className="panel mb-5 overflow-hidden"><div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/8 px-5 py-4"><div><div className="flex items-center gap-2 font-black"><CircleDot className="size-5 text-rose-400"/>即時比分</div><p className="mt-1 text-xs text-slate-500">台灣今日與跨日賽事</p></div><div className="flex items-center gap-2 text-xs font-bold text-slate-400"><span className={`size-2 rounded-full ${liveGames.some(game=>game.live)?"bg-rose-400 animate-pulse":"bg-slate-600"}`}/>{liveGames.filter(game=>game.live).length?`${liveGames.filter(game=>game.live).length} 場進行中・更新 ${scoreUpdatedAt?.toLocaleTimeString("zh-TW",{timeZone:"Asia/Taipei"})??"同步中"}`:scoreUpdatedAt?`更新於 ${scoreUpdatedAt.toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"})}`:"同步中"}</div></div>
         <div className="score-filters" role="group" aria-label="篩選賽事狀態">{[['all','全部'],['live','進行中'],['upcoming','未開賽'],['final','已完賽']].map(([key,label])=><Button key={key} variant="ghost" aria-pressed={scoreFilter===key} onClick={()=>setScoreFilter(key)}>{label}</Button>)}</div>
         {scoreError?<div className="p-5 text-sm text-rose-200">即時比分暫時無法更新：{scoreError}</div>:<div className="score-grid">{filteredGames.map(game=><div key={game.id} className="score-card"><div className="mb-3 flex items-center justify-between text-xs font-bold"><span className={game.live?"text-rose-300":"text-slate-500"}>{game.live?"進行中":game.final?"已完賽":game.detail.includes("開賽")?"賽前":"賽事狀態"}</span><span className="text-slate-500">{game.detail}</span></div><div className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2 text-sm"><span className="font-bold"><TeamName team={{id:game.awayId,name:game.away}}/></span><b className="text-lg text-[#ffd538]">{game.awayScore??"—"}</b><span className="font-bold"><TeamName team={{id:game.homeId,name:game.home}}/></span><b className="text-lg text-[#ffd538]">{game.homeScore??"—"}</b></div>{(game.live||game.final)&&<details className="game-expand"><summary>逐局比分與場況</summary><LiveDetails game={game}/></details>}</div>)}{!filteredGames.length&&<div className="p-6 text-sm text-slate-400">{!scoreUpdatedAt?"正在取得賽事…":scoreFilter==="all"?"今天沒有美職棒賽事":"目前沒有符合此狀態的賽事"}</div>}</div>}
       </section>
-      </div>
-      <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame active={view==='overview'||view==='analysis'}/></div>
+      </div>}
+      {(view==='overview'||view==='analysis')&&<div className="analysis-workspace"><Pregame active={view==='overview'||view==='analysis'}/></div>}
       </TabsContent></Tabs>
       </div>}
 

@@ -1,0 +1,172 @@
+{
+  "capturedAt": "2026-10-05T08:10:36.092Z",
+  "runId": "37281800011",
+  "runAttempt": "1",
+  "testedBase": "a773c8b71ddbbab1eb6312144552776e67eede3b",
+  "before": {
+    "label": "baseline",
+    "capturedAt": "2026-10-05T08:09:38.409Z",
+    "metric": "initial-dashboard-JavaScript-from-prerendered-HTML",
+    "files": [
+      {
+        "file": "static/chunks/4bd1b696-e356ca5ba0218e27.js",
+        "bytes": 199870,
+        "gzipBytes": 62880
+      },
+      {
+        "file": "static/chunks/3794-ba2500baa4c52d55.js",
+        "bytes": 222757,
+        "gzipBytes": 60719
+      },
+      {
+        "file": "static/chunks/main-app-eddef5eed9e50f8f.js",
+        "bytes": 529,
+        "gzipBytes": 233
+      },
+      {
+        "file": "static/chunks/8409-eddce460300b29d1.js",
+        "bytes": 27328,
+        "gzipBytes": 8540
+      },
+      {
+        "file": "static/chunks/8612-42c8fca80ed7731b.js",
+        "bytes": 23771,
+        "gzipBytes": 7515
+      },
+      {
+        "file": "static/chunks/1028-b8e09b3aa2eaeffc.js",
+        "bytes": 74660,
+        "gzipBytes": 25822
+      },
+      {
+        "file": "static/chunks/8500-f62a38ff68ab7f42.js",
+        "bytes": 8734,
+        "gzipBytes": 3546
+      },
+      {
+        "file": "static/chunks/7599-a3e17224a510645f.js",
+        "bytes": 7074,
+        "gzipBytes": 2818
+      },
+      {
+        "file": "static/chunks/5074-a3f3ec74a3f9661d.js",
+        "bytes": 14477,
+        "gzipBytes": 4775
+      },
+      {
+        "file": "static/chunks/5890-2f6e95c7bb03804f.js",
+        "bytes": 35390,
+        "gzipBytes": 14278
+      },
+      {
+        "file": "static/chunks/914-f3eb22e902ddf885.js",
+        "bytes": 10790,
+        "gzipBytes": 4724
+      },
+      {
+        "file": "static/chunks/3099-245bef0ab6a20f3e.js",
+        "bytes": 10516,
+        "gzipBytes": 4062
+      },
+      {
+        "file": "static/chunks/1307-eb7ff192e101204a.js",
+        "bytes": 114028,
+        "gzipBytes": 36583
+      },
+      {
+        "file": "static/chunks/app/page-52368fa48523c08a.js",
+        "bytes": 105856,
+        "gzipBytes": 34159
+      },
+      {
+        "file": "static/chunks/polyfills-42372ed130431b0a.js",
+        "bytes": 112594,
+        "gzipBytes": 39627
+      },
+      {
+        "file": "static/chunks/webpack-e76c96e121327c8b.js",
+        "bytes": 3429,
+        "gzipBytes": 1740
+      }
+    ],
+    "bytes": 971803,
+    "gzipBytes": 312021
+  },
+  "after": {
+    "label": "optimized",
+    "capturedAt": "2026-10-05T08:10:36.055Z",
+    "metric": "initial-dashboard-JavaScript-from-prerendered-HTML",
+    "files": [
+      {
+        "file": "static/chunks/4bd1b696-e356ca5ba0218e27.js",
+        "bytes": 199870,
+        "gzipBytes": 62880
+      },
+      {
+        "file": "static/chunks/3794-ba2500baa4c52d55.js",
+        "bytes": 222757,
+        "gzipBytes": 60719
+      },
+      {
+        "file": "static/chunks/main-app-eddef5eed9e50f8f.js",
+        "bytes": 529,
+        "gzipBytes": 233
+      },
+      {
+        "file": "static/chunks/8409-eddce460300b29d1.js",
+        "bytes": 27328,
+        "gzipBytes": 8540
+      },
+      {
+        "file": "static/chunks/8612-42c8fca80ed7731b.js",
+        "bytes": 23771,
+        "gzipBytes": 7515
+      },
+      {
+        "file": "static/chunks/8500-f62a38ff68ab7f42.js",
+        "bytes": 8734,
+        "gzipBytes": 3546
+      },
+      {
+        "file": "static/chunks/7599-a3e17224a510645f.js",
+        "bytes": 7074,
+        "gzipBytes": 2818
+      },
+      {
+        "file": "static/chunks/8134-ad2343a3bf1aa3fa.js",
+        "bytes": 7731,
+        "gzipBytes": 2924
+      },
+      {
+        "file": "static/chunks/1370-ccbaf90b26b7a3f9.js",
+        "bytes": 23986,
+        "gzipBytes": 9485
+      },
+      {
+        "file": "static/chunks/app/page-1036a19fcbb82828.js",
+        "bytes": 20402,
+        "gzipBytes": 7161
+      },
+      {
+        "file": "static/chunks/polyfills-42372ed130431b0a.js",
+        "bytes": 112594,
+        "gzipBytes": 39627
+      },
+      {
+        "file": "static/chunks/webpack-138237df55b90054.js",
+        "bytes": 5196,
+        "gzipBytes": 2518
+      }
+    ],
+    "bytes": 659972,
+    "gzipBytes": 207966
+  },
+  "reductionPercent": 33.3,
+  "checks": {
+    "loadingTests": "passed",
+    "fullRegression": "passed",
+    "productionBuild": "passed",
+    "httpSmoke": "passed"
+  },
+  "scope": "YJ only; no prediction, authentication or Maya changes"
+}
