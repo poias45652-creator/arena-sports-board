@@ -27,9 +27,7 @@ jobs:
       - name: Prepare optional source caches with actual public data
         run: node scripts/prepare-nba-public-cache.mjs
       - name: Verify real analyses in a fresh process using source seeds
-        run: |
-          mkdir -p evidence
-          node scripts/verify-nba-live-analysis.mjs
+        run: node scripts/verify-nba-seeded-load.mjs
       - name: Production build
         run: npm run build
       - uses: actions/upload-artifact@v4
