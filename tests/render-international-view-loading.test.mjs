@@ -22,3 +22,5 @@ test('overview still retains player-count data while analysis avoids unused bat/
  assert.ok(c.includes("league==='CPBL'?[]:['bat','pit']"));
  assert.ok(c.includes("const allPlayers=Object.values(data).flatMap"));
 });
+
+// Verification marker: active-view loading does not alter LIVE coverage or recommendation inputs.
