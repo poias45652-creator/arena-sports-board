@@ -1,0 +1,54 @@
+name: Read-only source checks for deployed YJ rollback
+on:
+  push:
+    branches: ['ops/yj-rollback-source-check-20261005']
+permissions:
+  contents: read
+jobs:
+  football-and-wnba:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 1d674ac46a1a9b10da783193cc97b40970de1a83
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts && mkdir -p evidence
+      - name: Verify screenshot-day football sources with restored code
+        continue-on-error: true
+        run: |
+          timeout 300s node --input-type=module <<'JS'
+          import {moduleUrl} from './tests/profile-loader.mjs';
+          import {writeFileSync} from 'node:fs';
+          const source=await import(moduleUrl('lib/football-source.ts'));
+          const {readyFootballAnalysis}=await import(moduleUrl('lib/football-recommendations.ts'));
+          const result={commit:'1d674ac46a1a9b10da783193cc97b40970de1a83',startedAt:new Date().toISOString(),league:'uefa.nations',day:'2026-10-07',games:[]};
+          try {
+            const board=await source.footballSchedule(result.league,result.day);
+            const games=board.games.filter(g=>g.state==='scheduled'&&g.timeConfirmed&&Date.parse(g.start)>Date.now());
+            console.log(JSON.stringify({fixtures:games.map(g=>({id:g.id,home:g.home.name,away:g.away.name}))}));
+            for(const game of games){
+              const t=Date.now();let row;
+              try {const r=await source.footballGameAnalysis(result.league,result.day,game.id);const a=readyFootballAnalysis(game,r,Date.now(),false);row={id:game.id,home:game.home.name,away:game.away.name,ready:!!a,status:r?.analysis?.status,reason:r?.analysis?.reason,homeGames:r?.analysis?.homeForm?.games,awayGames:r?.analysis?.awayForm?.games,elapsedMs:Date.now()-t};}
+              catch(e){row={id:game.id,home:game.home.name,away:game.away.name,ready:false,error:String(e?.message||e).slice(0,240),elapsedMs:Date.now()-t};}
+              result.games.push(row);console.log(JSON.stringify(row));
+              writeFileSync('evidence/football-rollback-sources.json',JSON.stringify(result,null,2));
+            }
+            result.passed=!!games.length&&result.games.every(g=>g.ready);
+          }catch(e){result.passed=false;result.error=String(e?.message||e).slice(0,240);}
+          result.finishedAt=new Date().toISOString();writeFileSync('evidence/football-rollback-sources.json',JSON.stringify(result,null,2));
+          if(!result.passed)process.exitCode=1;
+          JS
+      - name: Recheck WNBA source availability without code changes
+        continue-on-error: true
+        run: timeout 240s node scripts/verify-wnba-live-analysis.mjs 2026-10-08
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yj-rollback-source-check-${{ github.run_id }}-${{ github.run_attempt }}
+          path: evidence/
+          retention-days: 3
