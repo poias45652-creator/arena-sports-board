@@ -15,7 +15,7 @@ async function run(){
  const started=Date.now(),day=nbaDay(),boards=await Promise.all([nbaSchedule(day),nbaSchedule(shiftNbaDay(day,1))]);
  const todo=boards.flatMap(b=>b.games.filter(g=>nbaEligible(g)).map(game=>({day:b.day,game}))).slice(0,15),rows:any[]=[];
  async function worker(){while(todo.length){const {day,game}=todo.shift()!,at=Date.now();try{
-  const report=await nbaGameAnalysis(day,game.id);rows.push({id:game.id,ready:!!readyNbaAnalysis(game,report),elapsedMs:Date.now()-at});
+  const report=await nbaGameAnalysis(day,game.id);rows.push({id:game.id,ready:!!report&&!!readyNbaAnalysis(game,report),elapsedMs:Date.now()-at});
  }catch{rows.push({id:game.id,ready:false,elapsedMs:Date.now()-at});}}}
  await Promise.all([worker(),worker()]);
  console.info('nba-startup-warmup',JSON.stringify({origin:'render-startup-not-browser',elapsedMs:Date.now()-started,rows}));
