@@ -1,10 +1,13 @@
-import {enrichNbaPlayerStrength} from './nba-player-strength-source';
+import {enrichNbaPlayerStrength,prepareNbaPlayerStrength} from './nba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
-import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
-import {nbaDay,nbaHistory,nbaSeason,nbaTeam,parseNbaEvents,reconcileNbaGames,shiftNbaDay,validNbaDay,type NbaBoard} from './nba';
-import {nbaEligible} from './nba-analysis';
+import {analyzeEfficiency,DEFAULT_WEIGHTS,weightKey,type Weights,type EfficiencyAnalysis} from './basketball-efficiency';
+import {nbaDay,nbaFixtureKey,nbaHistory,nbaSeason,nbaTeam,parseNbaEvents,reconcileNbaGames,shiftNbaDay,validNbaDay,type NbaBoard,type NbaGame} from './nba';
+import {nbaEligible,readyNbaAnalysis} from './nba-analysis';
+import {createNbaAnalysisCache} from './nba-analysis-cache';
 const ROOT='https://site.api.espn.com/apis/site/v2/sports/basketball/nba';
 const cache=new Map<string,{value:any;fetchedAt:string;expires:number}>(),pending=new Map<string,Promise<{value:any;fetchedAt:string;expires:number}>>();
+type AnalysisReport={game:NbaGame;analysis:EfficiencyAnalysis;sourceFetchedAt:string};
+const analyses=createNbaAnalysisCache<AnalysisReport>();
 let active=0;const queue:(()=>void)[]=[];
 async function source(path:string,ttl=30000){
  const hit=cache.get(path);if(hit&&hit.expires>Date.now())return hit;
@@ -55,14 +58,25 @@ async function history(teamIds:string[],season:number){
  return {games:reconcileNbaGames(rows.flatMap(r=>r.games)),fetchedAt:rows.map(r=>r.fetchedAt).sort()[0]};
 }
 export async function nbaGameAnalysis(day:string,id:string,weights:Weights=DEFAULT_WEIGHTS){
- const schedule=await nbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
-
+ const started=Date.now(),schedule=await nbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
  if(!nbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'NBA',weights),sourceFetchedAt:schedule.fetchedAt};
- const data=await history([game.home.id,game.away.id],nbaSeason(nbaDay()));
- const analysis=await enrichNbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'NBA',weights));
- // Public fixture metadata only; no member identity, credentials or source session.
- console.info('nba-analysis-result',JSON.stringify({day,id,status:analysis.status,reason:analysis.playerContext?.reason??null,playerContext:analysis.playerContext?.status??null,statsCapturedAt:analysis.playerContext?.statsCapturedAt??null,sourceFetchedAt:data.fetchedAt,capturedAt:analysis.capturedAt}));
- return {game,analysis,sourceFetchedAt:data.fetchedAt};
+ const expectedWeights=weightKey(weights),key=nbaFixtureKey(game)+':'+expectedWeights;
+ const result=await analyses.read(key,async()=>{
+  // Neither pipeline depends on the other's output. Keep the complete history,
+  // roster and availability checks while removing their sequential wait.
+  const [baseline,evidence]=await Promise.all([
+   (async()=>{const data=await history([game.home.id,game.away.id],nbaSeason(nbaDay()));return {analysis:await efficiencyGameAnalysis(game,data.games,'NBA',weights),fetchedAt:data.fetchedAt};})(),
+   prepareNbaPlayerStrength(game)
+  ]);
+  return {game,analysis:await enrichNbaPlayerStrength(game,baseline.analysis,evidence),sourceFetchedAt:baseline.fetchedAt};
+ },report=>{
+  const now=Date.now(),stats=Date.parse(report.analysis.playerContext?.statsCapturedAt||'');
+  return !!readyNbaAnalysis(game,report,now,false,expectedWeights)&&Number.isFinite(stats)&&stats<=now&&now-stats<=36*3600000;
+ });
+ const {analysis,sourceFetchedAt}=result.value;
+ // Public fixture metadata only; never member identity or source sessions.
+ console.info('nba-analysis-result',JSON.stringify({day,id,status:analysis.status,reason:analysis.playerContext?.reason??null,playerContext:analysis.playerContext?.status??null,statsCapturedAt:analysis.playerContext?.statsCapturedAt??null,sourceFetchedAt,capturedAt:analysis.capturedAt,cache:result.cache,elapsedMs:Date.now()-started}));
+ return result.value;
 }
 export async function nbaTeamProfile(teamId:string){
  const team=nbaTeam(teamId);if(!team)throw Error('球隊不存在');
@@ -72,7 +86,6 @@ export async function nbaTeamProfile(teamId:string){
  return {team,results:nbaHistory(games,teamId),upcoming:games.filter(g=>g.state==='scheduled'&&Date.parse(g.start)>Date.now()).sort((a,b)=>Date.parse(a.start)-Date.parse(b.start)).slice(0,5),fetchedAt:[data.fetchedAt,preseason.fetchedAt].sort()[0]};
 }
 export type NbaTeamProfileData=Awaited<ReturnType<typeof nbaTeamProfile>>;
-
 export async function nbaTeamSeasonProfile(teamId:string,season:number,phase:number){
  if(!nbaTeam(teamId))throw Error('球隊不存在');
  const row=await teamSeason(teamId,season,phase);
