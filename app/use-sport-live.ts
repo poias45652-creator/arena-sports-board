@@ -3,6 +3,7 @@ import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
 import {scheduleLiveUntil} from '@/lib/sport-live';
 import {nbaRequest} from './nba-request';
+import {liveRequest} from './live-request';
 const sources=[['NBA','/api/nba'],['WNBA','/api/wnba'],...['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','uefa.nations'].map(code=>[code,`/api/football?league=${code}`])] as const;
 export function useSportLive(){
  const [until,setUntil]=useState<Record<string,number>>({}),[now,setNow]=useState(Date.now);
@@ -17,7 +18,7 @@ export function useSportLive(){
      const target=`${url}${url.includes('?')?'&':'?'}date=${day}`;
      let data;
      if(code==='NBA'||code==='WNBA')data=await nbaRequest(target,controller.signal);
-     else{const r=await fetch(target,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(45000)])});if(!r.ok)throw Error();data=await r.json();}
+     else data=await liveRequest(target,controller.signal);
      expiry=scheduleLiveUntil(data,code,day,Date.now());
     }catch{}
     if(!controller.signal.aborted)setUntil(old=>({...old,[code]:expiry}));
