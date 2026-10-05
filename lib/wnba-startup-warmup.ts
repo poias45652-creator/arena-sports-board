@@ -14,7 +14,8 @@ async function run(){
  const todo=boards.flatMap(b=>b.games.filter(g=>nbaEligible(g)).map(game=>({day:b.day,game}))).slice(0,6);
  async function worker(){while(todo.length){const {day,game}=todo.shift()!,at=Date.now();try{
   const report=await wnbaGameAnalysis(day,game.id),analysis=report&&readyNbaAnalysis(game,report);
-  rows.push({day,id:game.id,ready:!!analysis,model:analysis?.model,context:analysis&&'playerContext' in analysis?analysis.playerContext?.status:null,elapsedMs:Date.now()-at});
+  const context=analysis&&'playerContext' in analysis?analysis.playerContext:undefined;
+  rows.push({day,id:game.id,ready:!!analysis,status:report?.analysis?.status,model:analysis?.model,context:context?.status??null,statsCapturedAt:context?.statsCapturedAt??null,sourceFetchedAt:report?.sourceFetchedAt??null,elapsedMs:Date.now()-at});
  }catch(error){rows.push({day,id:game.id,ready:false,error:error instanceof Error?error.message:'source unavailable'});}}}
  await Promise.all([worker(),worker()]);
  console.info('wnba-startup-warmup',JSON.stringify({origin:'render-startup-not-browser',elapsedMs:Date.now()-started,rows}));
