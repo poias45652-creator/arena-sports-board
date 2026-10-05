@@ -1,4 +1,5 @@
 'use client';
+// Coalesce identical public LIVE reads without reducing league coverage.
 type Pending={controller:AbortController;promise:Promise<any>;readers:number;settled:boolean};
 const pending=new Map<string,Pending>();
 const recent=new Map<string,{value:any;expires:number}>();
