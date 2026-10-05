@@ -1,3 +1,4 @@
+import {wnbaPage} from './wnba-fetch';
 import {enrichWnbaPlayerStrength} from './wnba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
 import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
@@ -12,9 +13,7 @@ async function source(path:string,ttl=30000){
  const task=(async()=>{
   if(active>=4)await new Promise<void>(resolve=>queue.push(resolve));else active++;
   try{
-   const response=await fetch(`${ROOT}/${path}`,{cache:'no-store',signal:AbortSignal.timeout(12000)});
-   if(!response.ok)throw Error('WNBA 來源無法連線');
-   const text=await response.text();if(text.length>6000000)throw Error('WNBA 來源過大');
+   const text=await wnbaPage(`${ROOT}/${path}`,12000);
    const value=JSON.parse(text);if(!Array.isArray(value?.events))throw Error('WNBA 來源格式錯誤');
    const entry={value,fetchedAt:new Date().toISOString(),expires:Date.now()+ttl};
    if(cache.size>=240)cache.delete(cache.keys().next().value!);cache.set(path,entry);return entry;
@@ -57,10 +56,15 @@ async function history(teamIds:string[],season:number){
 }
 export async function wnbaGameAnalysis(day:string,id:string,weights:Weights=DEFAULT_WEIGHTS){
  const schedule=await wnbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
-
  if(!wnbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'WNBA',weights),sourceFetchedAt:schedule.fetchedAt};
- const data=await history([game.home.id,game.away.id],wnbaSeason(wnbaDay()));
-  return {game,analysis:await enrichWnbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'WNBA',weights)),sourceFetchedAt:data.fetchedAt};
+  const started=Date.now();let stage='history';
+  try{
+   const data=await history([game.home.id,game.away.id],wnbaSeason(wnbaDay())),historyAt=Date.now();stage='historical_boxes';
+   const base=await efficiencyGameAnalysis(game,data.games,'WNBA',weights),boxesAt=Date.now();stage='players';
+   const analysis=await enrichWnbaPlayerStrength(game,base),context='playerContext' in analysis?analysis.playerContext:undefined;
+   console.info('wnba-analysis-result',JSON.stringify({day,id,status:analysis.status,context:context?.status??null,statsCapturedAt:context?.statsCapturedAt??null,historyMs:historyAt-started,boxesMs:boxesAt-historyAt,playersMs:Date.now()-boxesAt,elapsedMs:Date.now()-started}));
+   return {game,analysis,sourceFetchedAt:data.fetchedAt};
+  }catch(error){console.warn('wnba-analysis-failure',JSON.stringify({day,id,stage,elapsedMs:Date.now()-started,error:error instanceof Error?error.message:'source unavailable'}));throw error;}
 }
 export async function wnbaTeamProfile(teamId:string){
  const team=wnbaTeam(teamId);if(!team)throw Error('球隊不存在');
@@ -70,7 +74,6 @@ export async function wnbaTeamProfile(teamId:string){
  return {team,results:wnbaHistory(games,teamId),upcoming:games.filter(g=>g.state==='scheduled'&&Date.parse(g.start)>Date.now()).sort((a,b)=>Date.parse(a.start)-Date.parse(b.start)).slice(0,5),fetchedAt:[data.fetchedAt,preseason.fetchedAt].sort()[0]};
 }
 export type WnbaTeamProfileData=Awaited<ReturnType<typeof wnbaTeamProfile>>;
-
 export async function wnbaTeamSeasonProfile(teamId:string,season:number,phase:number){
  if(!wnbaTeam(teamId))throw Error('球隊不存在');
  const row=await teamSeason(teamId,season,phase);

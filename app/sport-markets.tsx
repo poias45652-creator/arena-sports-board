@@ -8,7 +8,7 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
  const e=valid?analysis.expected:null,p=valid?analysis.probabilities:null,context=valid?analysis.playerContext:null;
  // Ready preseason projections may show a market-based scenario recommendation.
  // Keep the regular-season availability gate and the source/model freshness checks.
- const eligible=!!valid&&!(context?.status==='applied'&&!context.recommendationEligible&&!context.preseason);
+ const eligible=!!valid&&(!context||context.status==='applied'&&(context.recommendationEligible||context.preseason));
  const recommendationTitle=context?.preseason?'依熱身賽輪替情境的獲利機率（含中洞贏）推薦':'依模型獲利機率（含中洞贏）推薦';
  const football=sport==='FOOTBALL'&&valid?footballMarketGrids(analysis):null;
  const margin=sport==='FOOTBALL'?football?.margin||[]:valid?basketballMarketGrid(e.margin,context?.marginSigma??analysis.simulation?.sigma,'margin',p.home):[];
@@ -29,7 +29,7 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
    </div>;
   })}</div>}</div>;
  }
- return <details key={`${sport}:${game.id}:${game.start}`} className="match-market-details sport-market-details"><summary><span>查看分析</span><span>3 種玩法</span></summary><section className="sport-markets" aria-label="全場讓分與大小分析"><div className="sport-market-heading"><span>{sport==='FOOTBALL'?'90 分鐘・不含加時':'全場・含延長賽'}</span>{event&&<small>賠率不含本金</small>}</div>{error?<p role="status">{error}</p>:!snapshot?<p role="status">正在取得資料…</p>:!event?<p role="status">尚未取得可配對的全場資料</p>:<>
+ return <details key={`${sport}:${game.id}:${game.start}`} className="match-market-details sport-market-details"><summary><span>查看分析</span><span>{valid?'3 種玩法':'分析更新中'}</span></summary><section className="sport-markets" aria-label="全場讓分與大小分析"><div className="sport-market-heading"><span>{sport==='FOOTBALL'?'90 分鐘・不含加時':'全場・含延長賽'}</span>{event&&<small>賠率不含本金</small>}</div>{error?<p role="status">{error}</p>:!snapshot?<p role="status">正在取得資料…</p>:!event?<p role="status">尚未取得可配對的全場資料</p>:<>
   {market(event.spread,'spread')}{market(event.total,'total')}
   <div className="sport-market-block"><div className="sport-market-heading"><strong>全場獨贏</strong>{!event.moneyline&&<b>尚未開盤</b>}</div>{event.moneyline&&<div className="sport-market-options sport-market-moneyline">{(['home',...(sport==='FOOTBALL'?['draw']:[]),'away'] as ('home'|'draw'|'away')[]).map(side=><div className="sport-market-option" key={side}><div className="sport-market-option-heading"><strong className="sport-market-team">{side==='draw'?<span>和局</span>:identity(side)}</strong><strong className="sport-market-quote">@{event.moneyline![side]!.toFixed(3)}</strong></div>{p&&<div className="sport-market-win-rate"><span>勝率</span><b>{percent(p[side])}</b></div>}</div>)}</div>}</div>
  </>}</section></details>;

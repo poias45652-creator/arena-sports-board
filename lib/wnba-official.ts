@@ -1,3 +1,4 @@
+import {wnbaPage,WnbaSourceUnavailable} from './wnba-fetch';
 import {sourceWork,withSourceRequest} from './source-request';
 import {availabilityFromNews,type PlayerEvidence} from './basketball-player-strength';
 import {wnbaTeam} from './wnba';
@@ -30,10 +31,7 @@ export async function officialWnbaDirectory(){
  if(cache&&cache.until>Date.now())return cache.value;
  const {pending}=sourceWork('wnba-official');if(pending.has('players'))return pending.get('players')! as Promise<ReturnType<typeof parseOfficialWnbaDirectory>>;
  const task=(async()=>{
-  const r=await fetch('https://www.wnba.com/players',{signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('WNBA 官網無法更新');
-  const reader=r.body?.getReader();if(!reader)throw Error('WNBA 官網內容為空');const chunks:Uint8Array[]=[];let size=0;
-  try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>6000000){await reader.cancel();throw Error('WNBA 官網資料過大');}chunks.push(value);}}finally{reader.releaseLock();}
-  const html=Buffer.concat(chunks).toString('utf8'),json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
+  const html=await wnbaPage('https://www.wnba.com/players',12000),json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
   if(!json)throw Error('WNBA 官網資料缺漏');const value=parseOfficialWnbaDirectory(JSON.parse(json));cache={value,until:Date.now()+15*60000};return value;
  })().finally(()=>pending.delete('players'));pending.set('players',task);return task;
 }
@@ -67,11 +65,7 @@ async function officialWnbaAnalysisPlayer(p:ReturnType<typeof parseOfficialWnbaD
  const task=(async()=>{
   if(work.active>=4)await new Promise<void>(r=>queue.push(r));else work.active++;
   try{
-   const r=await fetch(p.href,{cache:'no-store',signal:AbortSignal.timeout(10000)});
-   if(!r.ok)throw Error('WNBA 球員頁更新失敗');
-   const reader=r.body?.getReader();if(!reader)throw Error('WNBA 球員頁為空');const chunks:Uint8Array[]=[];let size=0;
-   try{while(true){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>6000000){await reader.cancel();throw Error('WNBA 球員頁過大');}chunks.push(value);}}finally{reader.releaseLock();}
-   const json=Buffer.concat(chunks).toString('utf8').match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
+   const json=(await wnbaPage(p.href,7000)).match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
    if(!json)throw Error('WNBA 球員頁資料缺漏');const value=parseOfficialWnbaPlayer(JSON.parse(json),p.id,p.teamSlug);
    if(playerPages.size>=240)playerPages.delete(playerPages.keys().next().value!);
    playerPages.set(key,{value,until:Date.now()+5*60000});return value;
@@ -85,7 +79,14 @@ export async function officialWnbaAnalysisRosters(homeId:string,awayId:string,se
  const rosters=[homeId,awayId].map(id=>officialWnbaRosterFromDirectory(directory,id));
  const words=rosters.map(r=>[slugs[r.team.id],...new Set(r.roster.flatMap(p=>[p.teamCity,p.teamName]))]);
  const evidence=await Promise.all(rosters.map((r,side)=>Promise.all(r.roster.map(async p=>{
-  const player=await officialWnbaAnalysisPlayer(p);return wnbaPlayerEvidence(player,Date.now(),words[1-side]);
+  try{const player=await officialWnbaAnalysisPlayer(p);return wnbaPlayerEvidence(player,Date.now(),words[1-side]);}
+  catch(error){
+   if(!(error instanceof WnbaSourceUnavailable))throw error;
+   // Fresh official directory confirms membership, but a failed news page says
+   // nothing about health. Keep the player explicitly unknown, never healthy.
+   console.warn('wnba-player-page-retry-exhausted',JSON.stringify({id:p.id,team:p.teamSlug}));
+   return {id:p.id,name:p.name,status:'unknown' as const,sourceUrl:p.href,minutesConfirmed:false};
+  }
  }))));
  return {home:evidence[0],away:evidence[1]};
  });

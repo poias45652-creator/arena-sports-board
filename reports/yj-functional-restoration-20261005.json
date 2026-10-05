@@ -1,0 +1,205 @@
+{
+  "baseline": "1d674ac46a1a9b10da783193cc97b40970de1a83",
+  "preSpeedRuntime": "5a9274fd7bef71d6f41a09c5fabf3bfdedcf7aef",
+  "fullBackup": "44c83dda09b132d84449f0b75d54a276e724aebf",
+  "scope": "YJ only; restore removed functional repairs and preserve pre-speed entry/source-loading behavior",
+  "restored": [
+    {
+      "path": "app/api/wnba/route.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "app/basketball-report-refresh.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "app/nba-board.tsx",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact source code; redundant trailing blank line removed before verification"
+    },
+    {
+      "path": "app/nba-match.tsx",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "app/nba-request.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "app/sport-markets.tsx",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/sport-super-markets.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/wnba-current-rosters.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/wnba-fetch.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/wnba-official.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/wnba-player-strength-source.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "tests/basketball-loading.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact source code; redundant trailing blank line removed before verification"
+    },
+    {
+      "path": "tests/nba-market-aliases.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "tests/nba-ui.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "tests/wnba-ui.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "tests/wnba-recovery.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "tests/nba-player-strength.test.mjs",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": ".github/workflows/wnba-player-strength-sync.yml",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": ".github/workflows/nba-player-refresh-validation.yml",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/nba-source.ts",
+      "sourceCommit": "a307db98ab4db4823fece57410e27ab70e9bdf01",
+      "mode": "exact"
+    },
+    {
+      "path": "lib/nba-player-strength-source.ts",
+      "sourceCommit": "a307db98ab4db4823fece57410e27ab70e9bdf01",
+      "mode": "exact"
+    },
+    {
+      "path": "app/page.tsx",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "restore the two manual-refresh event notifications only; original source reads and rendering preserved"
+    },
+    {
+      "path": "lib/wnba-source.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "functional recovery only; no analysis-result cache"
+    },
+    {
+      "path": "lib/basketball-efficiency-source.ts",
+      "sourceCommit": "44c83dda09b132d84449f0b75d54a276e724aebf",
+      "mode": "WNBA transport recovery only; no seed reading or capture"
+    }
+  ],
+  "legacyRuntimeVerified": [
+    "app/football-board.tsx",
+    "app/use-source.ts",
+    "app/pregame.tsx",
+    "app/game-context.tsx",
+    "app/standings.tsx",
+    "app/international-board.tsx",
+    "app/international-live-feed.tsx",
+    "app/use-sport-live.ts",
+    "app/use-league-live.ts",
+    "lib/nba-official.ts",
+    "lib/covers-fetch.ts",
+    "lib/playsport-pregame.ts",
+    "instrumentation.ts",
+    "scripts/render-prepare.mjs",
+    "next.config.ts",
+    "app/login/page.tsx",
+    "app/api/baseball/route.ts"
+  ],
+  "entryPage": "identical to pre-speed page except restoring immediate refresh and odds-change notifications",
+  "preservedVerified": [
+    "app/admin-access.ts",
+    "app/api/admin/accounts/route.ts",
+    "lib/hr9988.ts",
+    "lib/tz-login.ts",
+    "app/api/free-trial/route.ts",
+    "data/nba-player-strength.json",
+    "data/wnba-player-strength.json",
+    "lib/basketball-efficiency.ts",
+    "lib/nba.ts",
+    "lib/wnba.ts",
+    "lib/football.ts",
+    "lib/nba-player-strength.ts",
+    "lib/wnba-player-strength.ts",
+    "scripts/nba-player-strength.py",
+    "scripts/wnba-player-strength.py"
+  ],
+  "notReactivatedPerEarlierUserRequest": [
+    ".github/workflows/nba-loading-verify.yml",
+    ".github/workflows/yj-loading-verify.yml",
+    ".github/workflows/yj-nba-pairing-verification.yml",
+    ".github/workflows/yj-resilience-verify.yml",
+    ".github/workflows/yj-wnba-coldstart.yml",
+    ".github/workflows/yj-wnba-recovery.yml",
+    "app/live-request.ts",
+    "app/login/background-video.tsx",
+    "app/navigation-work.ts",
+    "lib/nba-analysis-cache.ts",
+    "lib/nba-official-cache.ts",
+    "lib/nba-public-cache-seed.ts",
+    "lib/nba-startup-warmup.ts",
+    "lib/wnba-startup-warmup.ts",
+    "scripts/benchmark-nba-loading.mjs",
+    "scripts/measure-yj-loading.mjs",
+    "scripts/prepare-nba-public-cache.mjs",
+    "scripts/prepare-wnba-public-cache.mjs",
+    "scripts/probe-nba-page-data.mjs",
+    "scripts/verify-nba-seeded-load.mjs",
+    "scripts/verify-wnba-seeded-analysis.mjs",
+    "server/runtime-cache.mjs",
+    "server/source-resilience.mjs",
+    "tests/nba-public-seed.test.mjs",
+    "tests/nba-speed.test.mjs",
+    "tests/render-international-view-loading.test.mjs",
+    "tests/render-request-cleanup.test.mjs",
+    "tests/render-runtime-resilience.test.mjs",
+    "tests/render-shared-live-requests.test.mjs",
+    "tests/wnba-seed-recovery.test.mjs",
+    "tests/yj-loading-performance.test.mjs"
+  ],
+  "performanceBackupBranch": "backup/yj-before-user-rollback-20261005-1435",
+  "notes": [
+    "No database or account mutation.",
+    "No hosting/environment change.",
+    "No authentication bypass.",
+    "Public source tests do not prove a logged-in member market response."
+  ]
+}

@@ -70,12 +70,13 @@ export default function Home(){
 
   async function updateAll(){
     if(updateLock.current)return;updateLock.current=true;setUpdatingAll(true);setUpdateNotice('正在更新資料並連接 SUPER…');
+    window.dispatchEvent(new Event('arena-refresh-all'));
     const stats=(league==='MLB'||league==='NPB')?Promise.allSettled([refresh(),refreshScores()]):Promise.resolve([]);
     try{const r=await fetch('/api/hr9988',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(75000)});const d=await r.json();
       if(r.status===401||['tz_auth_expired','binding_required','signin_required'].includes(d.code)){window.location.assign('/login?reason=tz-expired');return;}
       setUpdateNotice(r.ok?'已重新連接 SUPER；各頁資料更新中。':d.error||'SUPER 連線失敗，其他資料仍會更新。');
     }catch{setUpdateNotice('SUPER 連線逾時或失敗，請再按立即更新重試。');}
-    finally{window.dispatchEvent(new Event('arena-refresh-all'));await stats;setUpdatingAll(false);updateLock.current=false;}
+    finally{window.dispatchEvent(new Event('arena-odds-change'));await stats;setUpdatingAll(false);updateLock.current=false;}
   }
 
   const filteredGames=liveGames.filter(g=>scoreFilter==='all'||scoreFilter==='live'&&g.live||scoreFilter==='final'&&g.final||scoreFilter==='upcoming'&&!g.live&&!g.final);
