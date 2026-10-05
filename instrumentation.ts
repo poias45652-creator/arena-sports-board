@@ -5,6 +5,9 @@ export async function register(){
   if(process.env.RENDER_SERVICE_ID==='srv-dahruorm8hqs73d57edg'){
    const {startNbaStartupWarmup}=await import('./lib/nba-startup-warmup');
    startNbaStartupWarmup();
+   const {startWnbaStartupWarmup}=await import('./lib/wnba-startup-warmup');
+   startWnbaStartupWarmup();
   }
  }
 }
+

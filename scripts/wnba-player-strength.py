@@ -36,17 +36,20 @@ def main():
             (folder/name).write_bytes(data);return (year,True)
         with ThreadPoolExecutor(max_workers=3) as pool:results=list(pool.map(download,[(y,k) for y in years for k in ['schedule','players']]))
         years=[y for y in years if all(ok for year,ok in results if year==y)]
-        raw=source('https://www.wnba.com/players',6000000).decode()
-        match=re.search(r'<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)</script>',raw)
-        if not match:raise ValueError('WNBA directory missing')
-        directory=json.loads(match[1]);(folder/'players.json').write_text(json.dumps(directory))
-    else:directory=json.loads((folder/'players.json').read_text())
-    page=directory['props']['pageProps']
-    if int(page['defaultSeason'])!=end or len(page['currentPlayersData'])<100:raise ValueError('WNBA identity season mismatch')
-    index=[{'PERSON_ID':r[0],'PLAYER_FIRST_NAME':r[2],'PLAYER_LAST_NAME':r[1]} for r in page['currentPlayersData']]
-    if len({r['PERSON_ID'] for r in index})!=len(index):raise ValueError('duplicate WNBA identity')
+        if end not in years:raise ValueError('Current WNBA season source unavailable')
+        previous=json.loads((ROOT/'data/wnba-player-strength.json').read_text())
+    else:
+        directory=json.loads((folder/'players.json').read_text())
+        page=directory['props']['pageProps']
+        if int(page['defaultSeason'])!=end or len(page['currentPlayersData'])<100:raise ValueError('WNBA identity season mismatch')
+        index=[{'PERSON_ID':r[0],'PLAYER_FIRST_NAME':r[2],'PLAYER_LAST_NAME':r[1]} for r in page['currentPlayersData']]
+        if len({r['PERSON_ID'] for r in index})!=len(index):raise ValueError('duplicate WNBA identity')
     games,names=core.read_games(folder,years);games=[g for g in games if g['at']+6*3600<now]
     if len(games)<400:raise ValueError('insufficient verified WNBA history')
+    if args.refresh:
+        # Reuse only stable, verified ID/name pairs; recompute every statistic
+        # from the newly downloaded, validated current-season boxes.
+        index,identity_verified_at=core.verified_identity_index(previous,names,now)
     samples,hist,players=core.chronological(games)
     model=None
     if args.train:
@@ -64,6 +67,7 @@ def main():
         model={'version':'wnba-player-opponent-v3','features':['homeVenue','playerProductionDiff','recentNetDiff','opponentNetDiff','restDiff'],'coefficients':co,'sigma':sigma,'enabled':True,'regularSeasonValidated':beats_reference,'beatsReference':beats_reference,'validationScope':'historical previous-rotation minutes; excludes live news and preseason scenarios; live output is a scenario estimate','preseasonValidated':False,'alpha':alpha,'trainedSeasons':[2024,2025],'holdoutSeason':2026,'validation':result,'referenceRecentNet':baseline,'createdAt':datetime.fromtimestamp(now,timezone.utc).isoformat()}
         print(json.dumps(model),flush=True)
     snapshot=core.snapshot(hist,players,names,index,now)
+    if args.refresh:snapshot['identitySourceCapturedAt']=identity_verified_at
     if len(snapshot['players'])<100 or len(snapshot['teams'])<12:raise ValueError('WNBA snapshot coverage insufficient')
     # Validate everything before replacing either committed output.
     for name,value in [('wnba-player-model',model),('wnba-player-strength',snapshot)]:

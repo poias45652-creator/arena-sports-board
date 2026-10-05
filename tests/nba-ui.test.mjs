@@ -16,7 +16,7 @@ const match=component('app/nba-match.tsx',{'@/lib/nba':n,'@/lib/nba-analysis':m}
 const parsed=ts.createSourceFile('nba-board.tsx',readFileSync('app/nba-board.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
 const node=parsed.statements.find(x=>ts.isFunctionDeclaration(x)&&x.name?.text==='NbaCard');
 const code=ts.transpileModule(node.getText(parsed),{fileName:'card.tsx',compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
-const scope={React,...n,...m,...match,SportMarkets:sportMarkets.default},Card=new Function(...Object.keys(scope),code+'\nreturn NbaCard;')(...Object.values(scope));
+const scope={...(await import(moduleUrl('app/basketball-report-refresh.ts'))),React,...n,...m,...match,SportMarkets:sportMarkets.default},Card=new Function(...Object.keys(scope),code+'\nreturn NbaCard;')(...Object.values(scope));
 const Pane=component('app/nba-recommendations.tsx',{'react':{useId:()=>':nba:'},'react-dom':{createPortal:child=>child},'@/lib/nba':n,'@/lib/nba-analysis':m,'./nba-match':match,'./sport-markets':sportMarkets,'./super-workspace':{useSuperWorkspace:()=>({activePane:':nba:',host:{}})}}).default;
 const now=Date.parse('2026-09-29T16:00:00Z'),game=n.parseNbaEvents(fixture('future'))[0],history=['2','5'].flatMap(t=>[2,3].flatMap(p=>n.parseNbaEvents(fixture(`team-${t}-2026-${p}`),t)));
 const report={game,analysis:m.analyzeNba(game,history,now),sourceFetchedAt:new Date(now).toISOString()},render=(C,props)=>renderToStaticMarkup(React.createElement(C,props));

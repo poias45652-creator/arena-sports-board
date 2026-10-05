@@ -1,8 +1,12 @@
+import {createNbaAnalysisCache} from './nba-analysis-cache';
+import {nbaFixtureKey} from './nba';
+import {readyNbaAnalysis,type NbaReport} from './nba-analysis';
 import {enrichWnbaPlayerStrength} from './wnba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
-import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
+import {analyzeEfficiency,DEFAULT_WEIGHTS,weightKey,type Weights} from './basketball-efficiency';
 import {wnbaFirstSeason,wnbaDay,wnbaHistory,wnbaSeason,wnbaTeam,parseWnbaEvents,reconcileWnbaGames,shiftWnbaDay,validWnbaDay,type WnbaBoard} from './wnba';
 import {wnbaEligible} from './wnba-analysis';
+const analysisCache=createNbaAnalysisCache<NbaReport>({ttl:60000,maxEntries:32,maxPending:8});
 const ROOT='https://site.api.espn.com/apis/site/v2/sports/basketball/wnba';
 const cache=new Map<string,{value:any;fetchedAt:string;expires:number}>(),pending=new Map<string,Promise<{value:any;fetchedAt:string;expires:number}>>();
 let active=0;const queue:(()=>void)[]=[];
@@ -59,8 +63,12 @@ export async function wnbaGameAnalysis(day:string,id:string,weights:Weights=DEFA
  const schedule=await wnbaSchedule(day),game=schedule.games.find(g=>g.id===id);if(!game)return null;
 
  if(!wnbaEligible(game))return {game,analysis:analyzeEfficiency(game,[],[],'WNBA',weights),sourceFetchedAt:schedule.fetchedAt};
- const data=await history([game.home.id,game.away.id],wnbaSeason(wnbaDay()));
+ const key=`${nbaFixtureKey(game)}:${weightKey(weights)}`;
+ const result=await analysisCache.read(key,async()=>{
+  const data=await history([game.home.id,game.away.id],wnbaSeason(wnbaDay()));
   return {game,analysis:await enrichWnbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'WNBA',weights)),sourceFetchedAt:data.fetchedAt};
+ },report=>!!readyNbaAnalysis(game,report,Date.now(),false,weightKey(weights))&&!!report.analysis&&'playerContext' in report.analysis&&report.analysis.playerContext?.status==='applied');
+ return result.value;
 }
 export async function wnbaTeamProfile(teamId:string){
  const team=wnbaTeam(teamId);if(!team)throw Error('球隊不存在');

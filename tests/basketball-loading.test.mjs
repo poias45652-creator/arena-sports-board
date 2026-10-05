@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 import React from 'react';
 import {moduleUrl} from './profile-loader.mjs';
+const refreshPolicy=await import(moduleUrl('app/basketball-report-refresh.ts'));
 const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
 const requestModule=()=>import(moduleUrl('app/nba-request.ts')+'#'+Math.random());
@@ -45,7 +46,7 @@ function mountBoard(request){
   useEffect(run,deps){const i=cursor++,old=slots[i];if(!old||deps.some((v,j)=>v!==old.deps[j])){slots[i]={deps,cleanup:old?.cleanup};effects.push(()=>{slots[i].cleanup?.();slots[i].cleanup=run();});}}
  };
  const nba={nbaDay:()=> '2026-10-05',validNbaDay:()=>true,shiftNbaDay:day=>day,NBA_TEAMS:[],nbaFixtureKey:g=>g.id};
- const dependencies={react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':{DEFAULT_WEIGHTS:[20,20,20,20,20],weightKey:w=>w.join(','),normalizedWeights:w=>w},'@/lib/nba-analysis':{nbaEligible:()=>false,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
+ const dependencies={react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':{DEFAULT_WEIGHTS:[20,20,20,20,20],weightKey:w=>w.join(','),normalizedWeights:w=>w},'@/lib/nba-analysis':{nbaEligible:()=>false,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
  const code=ts.transpileModule(readFileSync('app/nba-board.tsx','utf8'),{fileName:'board.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const exports={};new Function('require','exports','React',code)(key=>{if(key.endsWith('.css'))return {};assert.ok(key in dependencies,key);return dependencies[key];},exports,React);
  return {render(props={}){cursor=0;const tree=exports.default({view:'live',onViewChange(){},...props});effects.splice(0).forEach(run=>run());return tree;},dispose(){for(const slot of slots)slot?.cleanup?.();}};
@@ -86,3 +87,4 @@ test('manual update dispatches schedules before waiting for SUPER',async()=>{
  const update=new Function(...Object.keys(scope),code+';return updateAll;')(...Object.values(scope));
  const task=update();assert.deepEqual(events,['arena-refresh-all']);reply.resolve(Response.json({}));await task;assert.deepEqual(events,['arena-refresh-all','arena-odds-change']);
 });
+
