@@ -31,6 +31,19 @@ jobs:
         run: |
           if test -f scripts/apply-yj-loading-optimization.mjs; then
             node scripts/apply-yj-loading-optimization.mjs
+            node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          let page=fs.readFileSync('app/page.tsx','utf8');
+          for(const [before,after] of [
+            ['<Standings active/>',"<Standings active={view==='overview'||view==='standings'}/>"],
+            ['<Pregame active/>',"<Pregame active={view==='overview'||view==='analysis'}/>"],
+          ]) {
+            assert.equal(page.split(before).length-1,1,'Unexpected active-view guard');
+            page=page.replace(before,after);
+          }
+          fs.writeFileSync('app/page.tsx',page);
+          JS
           fi
           git diff --check
       - name: Test loading, cancellation and caching safeguards
@@ -51,7 +64,8 @@ jobs:
           import assert from 'node:assert/strict';
           const before=JSON.parse(fs.readFileSync('/tmp/yj-loading-before.json','utf8'));
           const after=JSON.parse(fs.readFileSync('/tmp/yj-loading-after.json','utf8'));
-          assert.ok(after.gzipBytes <= before.gzipBytes, 'Initial JS must not increase');
+          assert.equal(before.metric,after.metric,'Measurements must use the same method');
+          assert.ok(after.gzipBytes <= before.gzipBytes,'Initial JS must not increase');
           const report={capturedAt:new Date().toISOString(),runId:process.env.GITHUB_RUN_ID,runAttempt:process.env.GITHUB_RUN_ATTEMPT,testedBase:process.env.GITHUB_SHA,before,after,reductionPercent:Math.round((1-after.gzipBytes/before.gzipBytes)*1000)/10,checks:{loadingTests:'passed',fullRegression:'passed',productionBuild:'passed',httpSmoke:'passed'},scope:'YJ only; no prediction, authentication or Maya changes'};
           fs.writeFileSync('reports/yj-loading-20261005.json',JSON.stringify(report,null,2)+'\n');
           JS
