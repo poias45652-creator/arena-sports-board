@@ -1,5 +1,6 @@
 import {NBA_TEAMS,nbaTeam} from './nba';
 import {nbaPlayerSupplement,type NbaCollegeStats} from './nba-player-supplements';
+import {compactNbaPage,createNbaPageCache} from './nba-official-cache';
 // NBA.com uses different team identifiers from the scoreboard provider.
 const OFFICIAL:Record<string,[number,string]> = {"SAC":[1610612758,"kings"],"HOU":[1610612745,"rockets"],"MIA":[1610612748,"heat"],"NYK":[1610612752,"knicks"],"CLE":[1610612739,"cavaliers"],"UTA":[1610612762,"jazz"],"CHA":[1610612766,"hornets"],"DAL":[1610612742,"mavericks"],"ATL":[1610612737,"hawks"],"MIL":[1610612749,"bucks"],"TOR":[1610612761,"raptors"],"POR":[1610612757,"blazers"],"CHI":[1610612741,"bulls"],"WAS":[1610612764,"wizards"],"DEN":[1610612743,"nuggets"],"MIN":[1610612750,"timberwolves"],"ORL":[1610612753,"magic"],"PHI":[1610612755,"sixers"],"SAS":[1610612759,"spurs"],"OKC":[1610612760,"thunder"],"GSW":[1610612744,"warriors"],"LAC":[1610612746,"clippers"],"NOP":[1610612740,"pelicans"],"BKN":[1610612751,"nets"],"PHX":[1610612756,"suns"],"MEM":[1610612763,"grizzlies"],"IND":[1610612754,"pacers"],"LAL":[1610612747,"lakers"],"BOS":[1610612738,"celtics"],"DET":[1610612765,"pistons"]};
 const aliases:Record<string,string>={GS:'GSW',NO:'NOP',NY:'NYK',SA:'SAS',UTAH:'UTA',WSH:'WAS'};
@@ -37,11 +38,11 @@ export function parseOfficialPlayer(data:any,id:number){
 }
 export type OfficialTeam=ReturnType<typeof parseOfficialTeam>;
 export type OfficialPlayer=ReturnType<typeof parseOfficialPlayer>;
-const cache=new Map<string,{data:any;until:number}>(),pending=new Map<string,Promise<any>>();
+const cache=createNbaPageCache(),pending=new Map<string,Promise<any>>();
 let active=0;const queue:(()=>void)[]=[];
 
 async function page(path:string){
- const hit=cache.get(path);if(hit&&hit.until>Date.now())return hit.data;
+ const hit=cache.get(path);if(hit)return hit;
  if(pending.has(path))return pending.get(path)!;
  if(queue.length>64)throw Error('NBA 資料忙碌中');
  const task=(async()=>{
@@ -55,7 +56,7 @@ async function page(path:string){
    const html=Buffer.concat(chunks).toString('utf8');
    const match=html.match(/<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
    if(!match)throw Error('NBA 官網資料格式錯誤');
-   const data=JSON.parse(match[1]);if(cache.size>=160)cache.delete(cache.keys().next().value!);cache.set(path,{data,until:Date.now()+15*60000});return data;
+   const data=compactNbaPage(JSON.parse(match[1]),path);cache.set(path,data);return data;
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(path));pending.set(path,task);return task;
 }
