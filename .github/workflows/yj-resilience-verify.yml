@@ -1,0 +1,36 @@
+name: YJ runtime resilience verification
+on:
+  push:
+    branches: [fix/yj-runtime-resilience-20261005]
+  pull_request:
+    paths:
+      - server/**
+      - lib/**
+      - tests/render-runtime-*.mjs
+      - .github/workflows/yj-resilience-verify.yml
+permissions:
+  contents: read
+concurrency:
+  group: yj-resilience-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package tracked application sources for verification
+        run: |
+          git ls-files -z app components hooks lib server scripts tests data '*.json' '*.mjs' '*.ts' .github | tar --null -T - -czf /tmp/yj-verification-source.tgz
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yj-verification-source
+          path: /tmp/yj-verification-source.tgz
+          retention-days: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm run build
