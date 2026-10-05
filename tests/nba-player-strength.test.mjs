@@ -6,11 +6,18 @@ const m=await import(moduleUrl('lib/nba-player-strength.ts')),n=await import(mod
 const f=JSON.parse(readFileSync('tests/fixtures/player-strength/heat-raptors.json'));
 const snapshot=JSON.parse(readFileSync('data/nba-player-strength.json'));
 const now=Date.parse(snapshot.capturedAt)+1000;
-const evidence=(name,opp)=>f[name].roster.map(r=>{const p=f[name].players.find(p=>p.id===r.PLAYER_ID);return m.availabilityFromNews(r.PLAYER_ID,r.PLAYER,'https://www.nba.com/player/'+r.PLAYER_ID,[...(p?.news||[]),...f[name].news],now,[opp]);});
+// This unit fixture is replayed on a relative test clock. Preserve all news ages
+// relative to one another without changing the stored fixture or live sources.
+// Production freshness checks and the separate expiry tests remain unchanged.
+const fixtureNews=Object.values(f).flatMap(team=>[...team.news,...team.players.flatMap(p=>p.news||[])]);
+const fixtureClock=Math.max(...fixtureNews.map(row=>Number(row.date??row.DateTime)).filter(Number.isFinite));
+const offset=now-fixtureClock-1000;
+const replayNews=row=>({...row,...(Number.isFinite(row.date)?{date:row.date+offset}:{}),...(Number.isFinite(row.DateTime)?{DateTime:row.DateTime+offset}:{})});
+const evidence=(name,opp)=>f[name].roster.map(r=>{const p=f[name].players.find(p=>p.id===r.PLAYER_ID);return m.availabilityFromNews(r.PLAYER_ID,r.PLAYER,'https://www.nba.com/player/'+r.PLAYER_ID,[...(p?.news||[]),...f[name].news].map(replayNews),now,[opp]);});
 const home=evidence('raptors','Miami'),away=evidence('heat','Toronto');
-const game={id:'official:0012600009',home:n.nbaTeam('28'),away:n.nbaTeam('14'),phase:1,season:2027,state:'scheduled',timeConfirmed:true,neutral:false,start:'2026-10-03T23:00:00Z'};
+const game={id:'official:0012600009',home:n.nbaTeam('28'),away:n.nbaTeam('14'),phase:1,season:2027,state:'scheduled',timeConfirmed:true,neutral:false,start:new Date(now+86400000).toISOString()};
 const base={status:'ready',capturedAt:new Date(now).toISOString(),homeForm:{games:20},awayForm:{games:20},expected:{home:123,away:117,total:240,margin:6},probabilities:{home:.711,away:.289},model:'nba-efficiency-monte-carlo-v2',weightsKey:'0.20000000,0.20000000,0.20000000,0.20000000,0.20000000'};
-test('official names include incoming stars and exclude departed players',()=>{
+test('official fixture names include incoming stars and exclude departed players',()=>{
  assert.ok(away.some(p=>p.id===203507));assert.ok(away.some(p=>p.id===202691));assert.ok(!away.some(p=>/Herro/.test(p.name)));
  assert.ok(home.some(p=>p.id===202695));assert.equal(away.find(p=>p.id===203507).status,'expected');assert.equal(home.find(p=>p.id===202695).status,'doubtful');
 });

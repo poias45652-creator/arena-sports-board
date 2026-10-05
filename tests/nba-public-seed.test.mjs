@@ -18,8 +18,8 @@ test('stale future wrong-schema duplicate and corrupt sources are not reused',()
  assert.equal(reader([entry({sha256:'0'.repeat(64)})])('official','players',100),null);
  assert.equal(createNbaSeedReader({schema:2,entries:[entry()]},()=>1050)('official','players',100),null);
 });
-test('seeds exclude member routes, foreign leagues and untrusted paths',()=>{
- for(const row of [entry({key:'https://evil.example/players'}),entry({key:'../players'}),entry({kind:'member',key:'players'}),entry({kind:'efficiency',key:'WNBA:1'})]){
+test('seeds exclude member routes, unsupported leagues and untrusted paths',()=>{
+ for(const row of [entry({key:'https://evil.example/players'}),entry({key:'../players'}),entry({kind:'member',key:'players'}),entry({kind:'efficiency',key:'MLB:1'})]){
   assert.equal(reader([row])(row.kind,row.key,100),null);
  }
  assert.equal(reader([entry()])('efficiency','NBA:players',100),null);
