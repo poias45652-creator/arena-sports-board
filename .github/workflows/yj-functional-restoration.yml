@@ -1,4 +1,4 @@
-name: YJ functional restoration without speed changes
+name: YJ functional restoration final verification
 on:
   push:
     branches: ['restore/yj-deleted-features-20261005']
@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   restore-and-verify:
-    if: github.repository == 'poias45652-creator/arena-sports-board' && github.actor != 'github-actions[bot]'
+    if: github.repository == 'poias45652-creator/arena-sports-board'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
