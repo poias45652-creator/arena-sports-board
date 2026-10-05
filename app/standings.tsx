@@ -7,8 +7,8 @@ import {Table,TableHeader,TableBody,TableRow,TableHead,TableCell} from '@/compon
 import {useSource} from './use-source';
 import {teamZh} from './zh';
 import {divisions} from '@/lib/standings';
-export default function Standings(){
- const [scope,setScope]=useState('all');const {data,error,loading,refresh}=useSource<any>('standings',5*60000);
+export default function Standings({active=true}:{active?:boolean}){
+ const [scope,setScope]=useState('all');const {data,error,loading,refresh}=useSource<any>('standings',5*60000,active);
  const mode=scope==='all'?'all':scope==='103'||scope==='104'?'league':'division';
  const title=scope==='all'?'全 MLB':scope==='103'?'美國聯盟':scope==='104'?'國家聯盟':divisions[+scope];
  const rows=(data?.rows||[]).filter((r:any)=>scope==='all'||mode==='league'&&r.leagueId===+scope||mode==='division'&&r.divisionId===+scope).sort((a:any,b:any)=>a.rank[mode]-b.rank[mode]||a.id-b.id);
