@@ -1,0 +1,45 @@
+name: YJ WNBA recovery verification
+on:
+  push:
+    branches: ['fix/yj-wnba-recovery-20261005']
+permissions:
+  contents: read
+concurrency:
+  group: yj-wnba-recovery-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - name: Verify outage recovery and freshness
+        run: node --test tests/wnba-recovery.test.mjs tests/wnba-player-strength.test.mjs tests/basketball-loading.test.mjs tests/wnba-ui.test.mjs tests/nba-ui.test.mjs tests/sport-super-markets.test.mjs
+      - name: Refresh actual WNBA statistics
+        run: python scripts/wnba-player-strength.py --refresh
+      - name: Verify refreshed WNBA integration
+        run: node --test tests/wnba-recovery.test.mjs tests/wnba-player-strength.test.mjs
+      - name: Verify the two reported real fixtures
+        run: node scripts/verify-wnba-live-analysis.mjs 2026-10-08
+      - name: Regression suite
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yj-wnba-recovery-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            evidence/wnba-live-verification.json
+            data/wnba-player-strength.json
+          retention-days: 3
