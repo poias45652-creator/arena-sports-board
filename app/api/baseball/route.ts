@@ -1,3 +1,5 @@
+import {createRequestCache} from '@/server/runtime-cache.mjs';
+import {readTextBounded} from '@/server/source-resilience.mjs';
 import {GET as super007GET} from '../super007/route';
 import {parseStandings} from '@/lib/standings';
 import validation from '@/data/model-validation.json';
@@ -19,21 +21,13 @@ import { parseRuns } from '@/lib/markets';
 import { parseStats, shiftDay, taipeiDay, isMlbPostseason, type Kind } from '@/lib/baseball';
 import {parseMlbSchedule,withMlbSeasonRecords} from '@/lib/mlb-schedule';
 export const dynamic='force-dynamic';
-const cache=new Map<string,{data:unknown;expires:number}>();
-const pending=new Map<string,Promise<unknown>>();
-async function cached(key:string,ttl:number,fetcher:()=>Promise<unknown>){
-  const current=cache.get(key);if(current&&current.expires>Date.now())return current.data;
-  // Live requests must not inherit unfinished I/O from a canceled Worker request.
-  if(key.startsWith('scores:')||key.startsWith('game:')||key.startsWith('schedule:')||key.startsWith('pitcher-rates:')){const data=await fetcher();if(cache.size>=80)cache.delete(cache.keys().next().value!);cache.set(key,{data,expires:Date.now()+ttl});return data;}
-  if(pending.has(key))return pending.get(key)!;
-  const task=fetcher().then(data=>{if(cache.size>=80)cache.delete(cache.keys().next().value!);cache.set(key,{data,expires:Date.now()+ttl});return data;}).finally(()=>pending.delete(key));pending.set(key,task);return task;
-}
-async function sourceFetch(url:string){const r=await fetch(url,{signal:AbortSignal.timeout(25000)});if(!r.ok)throw new Error(`來源回覆 ${r.status}`);return r;}
+const {get:cached}=createRequestCache();
+async function sourceFetch(url:string){const r=await fetch(url,{signal:AbortSignal.timeout(25000)});if(!r.ok){await r.body?.cancel();throw new Error(`來源回覆 ${r.status}`);}return r;}
 async function gameDetail(gamePk:number){
   return cached('game:'+gamePk,10000,async()=>{
     const response=await fetch(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/feed/live`,{signal:AbortSignal.timeout(8000)});
     if(!response.ok)throw new Error('詳細資料暫時無法取得');
-    const text=await response.text();if(text.length>8000000)throw new Error('比賽資料超出上限');
+    const text=await readTextBounded(response,8000000);
     return parseLiveGame(JSON.parse(text),gamePk);
   }) as Promise<ReturnType<typeof parseLiveGame>>;
 }
