@@ -1,0 +1,32 @@
+name: Sport event matching regression
+on:
+  push:
+    branches: ['fix/sport-event-match-20261004']
+  pull_request:
+    paths:
+      - 'lib/sport-super-markets.ts'
+      - 'app/sport-markets.tsx'
+      - 'tests/sport-event-matching.test.mjs'
+      - '.github/workflows/sport-event-matching.yml'
+permissions:
+  contents: read
+concurrency:
+  group: sport-event-matching-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Match, settlement, and source regression tests
+        run: node --test tests/sport-event-matching.test.mjs tests/sport-super-markets.test.mjs tests/hr9988-connection.test.mjs
+      - name: Production build and type check
+        run: npm run build
