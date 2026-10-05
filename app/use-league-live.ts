@@ -1,8 +1,6 @@
 'use client';
-import {runNavigationTask} from './navigation-work';
 import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
-import {liveRequest} from './live-request';
 type League='CPBL'|'NPB'|'KBO';
 const leagues:League[]=['CPBL','NPB','KBO'];
 /** Check every league, including tabs that have not been opened. */
@@ -13,10 +11,11 @@ export function useLeagueLive(){
   const controller=new AbortController();let busy=false;
   async function refresh(){
    if(busy||document.hidden)return;busy=true;const date=taipeiDay(Date.now());
-   await Promise.allSettled(leagues.map(league=>runNavigationTask(async()=>{
+   await Promise.allSettled(leagues.map(async league=>{
     let expiry=0;
     try{
-     const data=await liveRequest(`/api/international-live?league=${league}&date=${date}`,controller.signal);
+     const r=await fetch(`/api/international-live?league=${league}&date=${date}`,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(45000)])});
+     if(!r.ok)throw Error();const data=await r.json();
      if(data.league===league&&data.date===date&&!data.noGames&&!data.stale&&!data.error&&Array.isArray(data.games)&&data.games.length>0){
       for(const game of data.games){
        const fetched=Date.parse(game.source?.fetchedAt);
@@ -27,12 +26,12 @@ export function useLeagueLive(){
      }
     }catch{}
     if(!controller.signal.aborted)setUntil(old=>({...old,[league]:expiry}));
-   },controller.signal)));busy=false;
+   }));busy=false;
   }
   const resume=()=>{if(!document.hidden){setNow(Date.now());void refresh();}};
-  const initial=setTimeout(()=>void refresh(),3000);const poll=setInterval(()=>void refresh(),60000),clock=setInterval(()=>setNow(Date.now()),15000);
+  void refresh();const poll=setInterval(()=>void refresh(),60000),clock=setInterval(()=>setNow(Date.now()),15000);
   document.addEventListener('visibilitychange',resume);window.addEventListener('arena-refresh-all',resume);
-  return()=>{controller.abort();clearTimeout(initial);clearInterval(poll);clearInterval(clock);document.removeEventListener('visibilitychange',resume);window.removeEventListener('arena-refresh-all',resume);};
+  return()=>{controller.abort();clearInterval(poll);clearInterval(clock);document.removeEventListener('visibilitychange',resume);window.removeEventListener('arena-refresh-all',resume);};
  },[]);
  return {now,CPBL:(until.CPBL??0)>now,NPB:(until.NPB??0)>now,KBO:(until.KBO??0)>now};
 }

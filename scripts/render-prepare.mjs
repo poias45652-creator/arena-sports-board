@@ -12,9 +12,3 @@ for(const file of files){
  await mkdir(dirname(target),{recursive:true});await rename(source,target);count++;
 }
 if(count)console.log(`Backed up ${count} obsolete Render files in .render-legacy-backup. No account data changed.`);
-// Only this YJ service prepares public source data during deployment. Separate
-// child processes and files isolate NBA and WNBA optional preparation failures.
-if(process.env.RENDER_SERVICE_ID==='srv-dahruorm8hqs73d57edg'){
- await import('./prepare-nba-public-cache.mjs');
- await import('./prepare-wnba-public-cache.mjs');
-}

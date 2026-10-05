@@ -1,0 +1,56 @@
+name: YJ user-requested pre-speed rollback verification
+on:
+  push:
+    branches: ['rollback/yj-pre-speed-20261005']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: yj-user-rollback-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: npm ci --ignore-scripts
+      - name: Verify preserved source identity protections
+        run: python scripts/test_nba_identity_refresh.py
+      - name: Verify accounts, sports and restored runtime
+        run: npm test
+      - name: Build restored production code
+        run: npm run build
+  public-source-probes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts && mkdir -p evidence
+      - name: Probe restored NBA analysis against current public sources
+        continue-on-error: true
+        run: timeout 240s node scripts/verify-nba-live-analysis.mjs 2026-10-06
+      - name: Probe restored WNBA analysis against current public sources
+        continue-on-error: true
+        run: timeout 240s node scripts/verify-wnba-live-analysis.mjs 2026-10-08
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yj-user-rollback-public-probes-${{ github.run_id }}-${{ github.run_attempt }}
+          path: evidence/
+          retention-days: 3

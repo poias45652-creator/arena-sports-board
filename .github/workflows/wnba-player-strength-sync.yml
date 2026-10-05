@@ -3,62 +3,29 @@ on:
   schedule:
     - cron: '35 */3 * * *'
   workflow_dispatch:
-  push:
-    branches: ['fix/yj-wnba-recovery-20261005']
-    paths:
-      - '.github/workflows/wnba-player-strength-sync.yml'
-      - 'scripts/wnba-player-strength.py'
 permissions:
   contents: write
 concurrency:
-  group: wnba-player-strength-refresh-${{ github.ref }}
+  group: wnba-player-strength-refresh
   cancel-in-progress: false
 jobs:
   refresh:
-    if: github.ref_type == 'branch' && (github.ref_name == 'main' || github.ref_name == 'fix/yj-wnba-recovery-20261005')
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    env:
-      TARGET_BRANCH: ${{ github.ref_name }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: npm
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: npm ci --ignore-scripts
       - name: Refresh verified WNBA individual results
         run: python scripts/wnba-player-strength.py --refresh
-      - name: Validate refreshed player snapshot and outage recovery
-        run: node --test tests/wnba-recovery.test.mjs tests/wnba-player-strength.test.mjs
-      - name: Verify reported fixtures before publishing the repair snapshot
-        if: github.ref_name == 'fix/yj-wnba-recovery-20261005'
-        run: node scripts/verify-wnba-live-analysis.mjs 2026-10-08
-      - name: Verify production build with the refreshed repair snapshot
-        if: github.ref_name == 'fix/yj-wnba-recovery-20261005'
-        run: npm test && npm run build
-      - name: Publish verified snapshot to the same source branch
+      - name: Publish verified snapshot
         run: |
-          case "$TARGET_BRANCH" in
-            main|fix/yj-wnba-recovery-20261005) ;;
-            *) echo 'Refusing an unexpected publication branch'; exit 1 ;;
-          esac
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add -- data/wnba-player-strength.json
+          git add data/wnba-player-strength.json
           if ! git diff --cached --quiet; then
-            git commit -m 'Refresh verified WNBA player strength snapshot'
-            # Never rebase tested code or force-push over a concurrent update.
-            git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+            git commit -m 'Refresh WNBA player strength snapshot'
+            git pull --rebase origin main
+            git push origin HEAD:main
           fi
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: wnba-published-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
-          path: |
-            data/wnba-player-strength.json
-            evidence/wnba-live-verification.json
-          retention-days: 3

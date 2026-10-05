@@ -8,7 +8,6 @@ import FootballRecommendationsPane,{FootballAnalysisNumbers} from './football-re
 
 import SportMarkets from './sport-markets';
 import {useSource} from './use-source';
-import {liveRequest} from './live-request';
 import './sport-markets.css';
 
 type Board={source?:string;analysisAvailable?:boolean;notice?:string;games:FootballGame[];fetchedAt:string;day:string;league:FootballLeague};
@@ -16,7 +15,6 @@ type Report=FootballReport;
 const fixtureKey=footballFixtureKey;
 const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 async function request(url:string,signal:AbortSignal){
-  if(!url.includes('kind='))return liveRequest(url,signal);
   const r=await fetch(url,{cache:'no-store',signal:AbortSignal.any([signal,AbortSignal.timeout(55000)])});
   if(r.status===401){window.location.assign('/login');throw Error('請重新登入');}
   const d=await r.json();if(!r.ok)throw Error(d.error||'資料更新失敗');return d;

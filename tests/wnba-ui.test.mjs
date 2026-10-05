@@ -16,7 +16,7 @@ const match=component('app/nba-match.tsx',{'@/lib/nba':n,'@/lib/nba-analysis':m}
 const parsed=ts.createSourceFile('nba-board.tsx',readFileSync('app/nba-board.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
 const node=parsed.statements.find(x=>ts.isFunctionDeclaration(x)&&x.name?.text==='NbaCard');
 const code=ts.transpileModule(node.getText(parsed),{fileName:'card.tsx',compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
-const scope={...(await import(moduleUrl('app/basketball-report-refresh.ts'))),React,...n,...m,...match,SportMarkets:sportMarkets.default},Card=new Function(...Object.keys(scope),code+'\nreturn NbaCard;')(...Object.values(scope));
+const scope={React,...n,...m,...match,SportMarkets:sportMarkets.default},Card=new Function(...Object.keys(scope),code+'\nreturn NbaCard;')(...Object.values(scope));
 const Pane=component('app/nba-recommendations.tsx',{'react':{useId:()=>':nba:'},'react-dom':{createPortal:child=>child},'@/lib/nba':n,'@/lib/nba-analysis':m,'./nba-match':match,'./sport-markets':sportMarkets,'./super-workspace':{useSuperWorkspace:()=>({activePane:':nba:',host:{}})}}).default;
 const w=await import(moduleUrl('lib/wnba.ts')),wa=await import(moduleUrl('lib/wnba-analysis.ts'));
 const read=name=>JSON.parse(readFileSync(`tests/fixtures/wnba/${name}.json`,'utf8'));

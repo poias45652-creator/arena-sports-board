@@ -23,5 +23,5 @@ export async function GET(request:Request){
    const result=await wnbaGameAnalysis(day,id,weights);return result?Response.json(result,{headers}):Response.json({error:'本日查無此賽事'},{status:404,headers});
   }
   return Response.json(await wnbaSchedule(day),{headers});
- }catch(error){console.error('wnba-analysis-source-error',JSON.stringify({kind,day,game:p.get('game'),message:error instanceof Error?error.message:'source unavailable'}));return Response.json({error:'WNBA 資料暫時無法更新，請稍後重試。'},{status:502,headers});}
+ }catch{return Response.json({error:'WNBA 資料暫時無法更新，請稍後重試。'},{status:502,headers});}
 }

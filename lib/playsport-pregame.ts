@@ -1,4 +1,3 @@
-import {createPublicTextSource} from '../server/source-resilience.mjs';
 import {plain,type SourceTable} from './international';
 import type {PregameData,PregameGame,PregameSide,PregamePitchingStats} from './international-pregame';
 
@@ -82,16 +81,14 @@ export function parsePlaysportPregame(html:string,url:string,league:string,date:
  return game;
 }
 
-const sourceReaders=new WeakMap<typeof fetch,ReturnType<typeof createPublicTextSource>>();
 export async function fetchPlaysportPregame(league:string,date:string,fetcher:typeof fetch=fetch){
  const errors:string[]=[],games:PregameGame[]=[];
- const read=sourceReaders.get(fetcher)||createPublicTextSource({origin:'https://www.playsport.cc',label:'玩運彩',fetcher});
- sourceReaders.set(fetcher,read);
+ const read=async(url:string)=>{const r=await fetcher(url,{redirect:'manual',cache:'no-store',headers:{Accept:'text/html','User-Agent':'ArenaSportsBoard/1.0'},signal:AbortSignal.timeout(10000)});if(!r.ok)throw Error(`玩運彩 HTTP ${r.status}`);const html=await r.text();if(html.length>4_000_000)throw Error('賽前頁超出上限');return html};
  try{
   if(!alliances[league])throw Error('不支援的聯盟');
   const index=await read(`https://www.playsport.cc/livescore/${alliances[league]}?gamedate=${date.replaceAll('-','')}&mode=2`),links=playsportLinks(index,league,date);
   if(!links.length)throw Error('來源沒有該日可核對的賽前連結');
-  // The shared source reader limits all leagues together and respects provider cooldowns.
+  // At most six concurrent requests, with a deadline per page. No date/ID guessing.
   for(let i=0;i<links.length;i+=6)await Promise.all(links.slice(i,i+6).map(async url=>{try{const html=await read(url),g=parsePlaysportPregame(html,url,league,date,new Date().toISOString());if(g)games.push(g)}catch(e){errors.push(e instanceof Error?e.message:'賽前讀取失敗')}}));
  }catch(e){errors.push(e instanceof Error?e.message:'賽前讀取失敗')}
  const snapshot:PregameData={schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||'',games};

@@ -23,17 +23,14 @@ export function sportQuoteLabel(quote:SportQuote,side:'home'|'away'|'over'|'unde
  return `${venue}${giving?'讓':'受讓'} ${giving?'-':'+'}${line}`;
 }
 const aliases:Record<string,string>={'聖馬力諾':'聖馬利諾','意大利':'義大利','格魯吉亞':'喬治亞','克羅地亞':'克羅埃西亞','斯洛文尼亞':'斯洛維尼亞','北馬其頓共和國':'北馬其頓','波黑':'波士尼亞與赫塞哥維納','黑山':'蒙特內哥羅','塞浦路斯':'賽普勒斯','法羅群島':'法羅群島','多蒙特':'多特蒙德','利華古遜':'勒沃庫森','阿仙奴':'阿森納','車路士':'切爾西','愛華頓':'艾佛頓','紐卡素':'紐卡索聯','阿士東維拉':'阿斯頓維拉','白禮頓':'布萊頓','富咸':'富勒姆','賓福特':'布倫特福德','韋斯咸':'西漢姆聯','列斯聯':'里茲聯','般尼':'伯恩利','新特蘭':'桑德蘭','巴塞羅那':'巴塞隆納','皇家貝蒂斯':'皇家貝提斯','維拉利爾':'比利亞雷亞爾','切爾達':'塞爾塔','祖雲達斯':'尤文圖斯','拿玻里':'拿坡里','費倫天拿':'佛羅倫斯','博洛尼亞':'波隆那','烏甸尼斯':'烏迪內斯','萊比錫':'RB萊比錫','慕遜加柏':'門興','弗賴堡':'弗萊堡','巴黎聖日門':'巴黎聖日耳曼'};
-// Exact NBA spellings observed in YJ production on 2026-10-05. No fuzzy matching,
-// shortened names, league mixing, home/away reversal or wider time tolerance.
-const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊'};
-export function sportTeamKey(name:string,sport?:'NBA'|'WNBA'|'FOOTBALL'){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):(aliases[key]??key);}
+export function sportTeamKey(name:string){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return aliases[key]??key;}
 export function matchSportEvent(snapshot:any,game:SportFixture,sport:'NBA'|'WNBA'|'FOOTBALL',now=Date.now()):SportEvent|null{
  const captured=Date.parse(snapshot?.fetchedAt||''),start=Date.parse(game.start);
  if(!Number.isFinite(captured)||now-captured< -60000||now-captured>=150000||game.state!=='scheduled'||!game.timeConfirmed||!Number.isFinite(start)||start<=now||!Array.isArray(snapshot?.sportGames))return null;
  const matches=snapshot.sportGames.filter((r:any)=>{
   if(r.league!==sport||r.live!==false||sport==='FOOTBALL'&&r.competition!==game.league||typeof r.home!=='string'||typeof r.away!=='string'||typeof r.start!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(r.start))return false;
   const sourceStart=Date.parse(r.start.replaceAll('/','-').replace(' ','T')+'+08:00');
-  return Number.isFinite(sourceStart)&&Math.abs(sourceStart-start)<=600000&&sportTeamKey(r.home,sport)===sportTeamKey(game.home.name,sport)&&sportTeamKey(r.away,sport)===sportTeamKey(game.away.name,sport);
+  return Number.isFinite(sourceStart)&&Math.abs(sourceStart-start)<=600000&&sportTeamKey(r.home)===sportTeamKey(game.home.name)&&sportTeamKey(r.away)===sportTeamKey(game.away.name);
  });
  if(matches.length!==1)return null;
  const r=matches[0],types=sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};

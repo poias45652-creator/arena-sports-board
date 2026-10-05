@@ -1,26 +1,22 @@
-import {createBoundedCache} from '../server/runtime-cache.mjs';
-import {createTaskGate,readTextBounded} from '../server/source-resilience.mjs';
 import {playerPhotoKey} from './international-player-photos';
 import {cpblYahooGames,cpblUpcoming,npbCalendar,kboMonth,uniqueGames,npbPlayers,profileTeams,profileTeamId,type ProfileLeague,type ProfileGame} from './international-profile';
 import {parseInternational,plain} from './international';
 import {npbScheduleIds,parseNpb} from '../server/baseball-live-providers.mjs';
 type Page={html:string;cookie:string};
-const pageCache=createBoundedCache({maxEntries:48,maxBytes:12*1024*1024,sizeOf:(page:Page)=>2*(page.html.length+page.cookie.length)});
-const pagePending=new Map<string,Promise<Page>>(),runPage=createTaskGate(4,32);
+const pageCache=new Map<string,{until:number;page:Page}>(),pagePending=new Map<string,Promise<Page>>();
 async function fetchPage(url:string,body?:URLSearchParams,cookie?:string):Promise<Page>{
  if(/(^|\.)cpbl\.com\.tw$/i.test(new URL(url).hostname))throw Error('已停用中職官網抓取');
- const signal=AbortSignal.timeout(20000);
- return runPage(async()=>{try{
- const r=await fetch(url,{method:body?'POST':'GET',body,headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html,application/json',...(cookie?{Cookie:cookie}:{})},signal,redirect:'manual'});
- if(!r.ok){await r.body?.cancel();throw Error(`來源回覆 HTTP ${r.status}`);}const html=await readTextBounded(r,8_000_000);if(/challenge-platform|<title>Just a moment/i.test(html))throw Error('來源暫時無法讀取');
+ try{
+ const r=await fetch(url,{method:body?'POST':'GET',body,headers:{'User-Agent':'YJBaseballStats/1.0',Accept:'text/html,application/json',...(cookie?{Cookie:cookie}:{})},signal:AbortSignal.timeout(20000),redirect:'manual'});
+ if(!r.ok)throw Error(`來源回覆 HTTP ${r.status}`);const html=await r.text();if(html.length>8_000_000||/challenge-platform|<title>Just a moment/i.test(html))throw Error('來源暫時無法讀取');
  const headers=r.headers as Headers&{getAll?:(name:string)=>string[]};
  const cookies=typeof headers.getSetCookie==='function'?headers.getSetCookie():typeof headers.getAll==='function'?headers.getAll('Set-Cookie'):(headers.get('set-cookie')||'').split(/,(?=\s*[^;,=\s]+=)/);
  return {html,cookie:cookies.filter(Boolean).map(c=>c.split(';')[0].trim()).join('; ')};
- }catch(error){console.error('International profile source failed',new URL(url).hostname,error instanceof Error?error.message.slice(0,180):'unknown');throw error;}},signal);
+ }catch(error){console.error('International profile source failed',new URL(url).hostname,error instanceof Error?error.message.slice(0,180):'unknown');throw error;}
 }
 async function getPage(url:string,body?:URLSearchParams,cookie?:string):Promise<Page>{
- if(body)return fetchPage(url,body,cookie);const old=pageCache.get(url);if(old)return old;
- if(!pagePending.has(url))pagePending.set(url,fetchPage(url).then(page=>{pageCache.set(url,page,240000);return page;}).finally(()=>pagePending.delete(url)));
+ if(body)return fetchPage(url,body,cookie);const old=pageCache.get(url);if(old&&old.until>Date.now())return old.page;
+ if(!pagePending.has(url))pagePending.set(url,fetchPage(url).then(page=>{if(pageCache.size>90)pageCache.delete(pageCache.keys().next().value!);pageCache.set(url,{page,until:Date.now()+240000});return page;}).finally(()=>pagePending.delete(url)));
  return pagePending.get(url)!;
 }
 function hidden(html:string){const p=new URLSearchParams();for(const m of html.matchAll(/<input\b[^>]*type="hidden"[^>]*>/gi)){const n=m[0].match(/name="([^"]+)"/)?.[1],v=m[0].match(/value="([^"]*)"/)?.[1];if(n)p.set(n,plain(v||''));}return p;}
