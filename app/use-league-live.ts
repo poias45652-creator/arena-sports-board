@@ -1,6 +1,7 @@
 'use client';
 import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
+import {liveRequest} from './live-request';
 type League='CPBL'|'NPB'|'KBO';
 const leagues:League[]=['CPBL','NPB','KBO'];
 /** Check every league, including tabs that have not been opened. */
@@ -14,8 +15,7 @@ export function useLeagueLive(){
    await Promise.allSettled(leagues.map(async league=>{
     let expiry=0;
     try{
-     const r=await fetch(`/api/international-live?league=${league}&date=${date}`,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(45000)])});
-     if(!r.ok)throw Error();const data=await r.json();
+     const data=await liveRequest(`/api/international-live?league=${league}&date=${date}`,controller.signal);
      if(data.league===league&&data.date===date&&!data.noGames&&!data.stale&&!data.error&&Array.isArray(data.games)&&data.games.length>0){
       for(const game of data.games){
        const fetched=Date.parse(game.source?.fetchedAt);
