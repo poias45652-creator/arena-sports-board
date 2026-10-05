@@ -2,7 +2,6 @@ name: YJ functional restoration without speed changes
 on:
   push:
     branches: ['restore/yj-deleted-features-20261005']
-    paths: ['scripts/restore-yj-functional-features.py', '.github/workflows/yj-functional-restoration.yml']
 permissions:
   contents: read
 concurrency:
@@ -10,7 +9,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   restore-and-verify:
-    if: github.repository == 'poias45652-creator/arena-sports-board'
+    if: github.repository == 'poias45652-creator/arena-sports-board' && github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
