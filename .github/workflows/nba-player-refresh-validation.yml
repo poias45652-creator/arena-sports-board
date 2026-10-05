@@ -4,13 +4,20 @@ on:
     paths:
       - 'scripts/nba-player-strength.py'
       - 'scripts/test_nba_identity_refresh.py'
+      - 'scripts/verify-nba-live-analysis.mjs'
       - 'data/nba-player-strength.json'
+      - 'lib/nba*.ts'
+      - 'lib/basketball*.ts'
       - '.github/workflows/nba-player-refresh-validation.yml'
+      - '.github/workflows/nba-player-strength-sync.yml'
   push:
     branches: ['fix/yj-nba-player-refresh-20261005']
     paths:
       - 'scripts/nba-player-strength.py'
       - 'scripts/test_nba_identity_refresh.py'
+      - 'scripts/verify-nba-live-analysis.mjs'
+      - 'lib/nba*.ts'
+      - 'lib/basketball*.ts'
       - '.github/workflows/nba-player-refresh-validation.yml'
 permissions:
   contents: read
@@ -20,19 +27,21 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-          sparse-checkout: |
-            scripts
-            data
-            lib
           fetch-depth: 1
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
       - name: Run offline identity and integrity regressions
         run: python scripts/test_nba_identity_refresh.py
       - name: Refresh actual public archives without publishing
@@ -72,11 +81,24 @@ jobs:
           Path('evidence/nba-refresh-validation.json').write_text(json.dumps(report, indent=2) + '\n')
           print(json.dumps(report, indent=2))
           PY
+      - name: Probe actual upcoming NBA analyses
+        id: live
+        continue-on-error: true
+        run: node scripts/verify-nba-live-analysis.mjs
+      - name: Run application regression suite
+        run: npm test
+      - name: Build production application
+        run: npm run build
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: nba-refresh-validation-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             data/nba-player-strength.json
             evidence/nba-refresh-validation.json
+            evidence/nba-live-verification.json
           retention-days: 7
           if-no-files-found: error
+      - name: Require actual analyses to be ready
+        if: steps.live.outcome != 'success'
+        run: exit 1
