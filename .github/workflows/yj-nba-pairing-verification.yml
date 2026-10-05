@@ -20,17 +20,23 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
-      - name: Probe lightweight official public page data
-        run: node scripts/probe-nba-page-data.mjs
-      - name: Verify production name observations and quote propagation
-        run: node --test tests/nba-market-aliases.test.mjs tests/sport-super-markets.test.mjs
-      - name: Full regression suite
+      - name: Verify observed pairing, original protections, cache integrity and budgets
+        run: node --test tests/nba-market-aliases.test.mjs tests/sport-super-markets.test.mjs tests/nba-public-seed.test.mjs tests/nba-speed.test.mjs
+      - name: Full regression suite without a source seed
         run: npm test
+      - name: Prepare optional source caches with actual public data
+        run: node scripts/prepare-nba-public-cache.mjs
+      - name: Verify real analyses in a fresh process using source seeds
+        run: |
+          mkdir -p evidence
+          node scripts/verify-nba-live-analysis.mjs
       - name: Production build
         run: npm run build
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: yj-nba-pairing-${{ github.run_id }}-${{ github.run_attempt }}
-          path: evidence/nba-page-data-probe.json
+          path: |
+            evidence/nba-live-verification.json
+            data/nba-public-cache-seed.json
           retention-days: 3

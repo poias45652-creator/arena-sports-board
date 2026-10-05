@@ -12,3 +12,6 @@ for(const file of files){
  await mkdir(dirname(target),{recursive:true});await rename(source,target);count++;
 }
 if(count)console.log(`Backed up ${count} obsolete Render files in .render-legacy-backup. No account data changed.`);
+// Only this YJ service prepares source data during deployment. Local builds and
+// unrelated sites do not start network work. Failure cannot block deployment.
+if(process.env.RENDER_SERVICE_ID==='srv-dahruorm8hqs73d57edg')await import('./prepare-nba-public-cache.mjs');
