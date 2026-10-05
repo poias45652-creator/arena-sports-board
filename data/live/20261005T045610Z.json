@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-05T04:56:10.000Z",
+  "dateAsiaTaipei": "2026-10-05",
+  "purpose": "same-day first-team current source validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "rerunJobId": 108552526980,
+    "rerunAccepted": false,
+    "rerunBlockedBySafetyCheck": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "pregame",
+      "live": 0,
+      "pregame": 2,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-05",
+      "current": [
+        {
+          "gameId": "2021051118",
+          "away": "ソフトバンク",
+          "home": "楽天",
+          "startTimeLocal": "18:00 JST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "probableHomeStarter": "前田健",
+          "probableAwayStarter": "上茶谷"
+        },
+        {
+          "gameId": "2021051119",
+          "away": "西武",
+          "home": "ロッテ",
+          "startTimeLocal": "18:00 JST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "probableHomeStarter": "西野",
+          "probableAwayStarter": "髙橋光成"
+        }
+      ],
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "warnings": [
+        "pregame_only",
+        "bso_and_bases_not_verified_in_normalized_npb_feed"
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "pregame",
+      "live": 0,
+      "pregame": 5,
+      "final": 0,
+      "excludedNonFirstTeamGames": 5,
+      "sameDayLiveVerified": false,
+      "source": "naver",
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-05&toDate=2026-10-05&page=1&pageSize=100",
+      "current": [
+        {
+          "gameId": "20261005HTLG02026",
+          "away": "KIA",
+          "home": "LG",
+          "startTimeLocal": "14:00 KST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "rawStatus": "READY"
+        },
+        {
+          "gameId": "20261005LTKT02026",
+          "away": "롯데",
+          "home": "KT",
+          "startTimeLocal": "14:00 KST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "rawStatus": "READY"
+        },
+        {
+          "gameId": "20261005OBSS02026",
+          "away": "두산",
+          "home": "삼성",
+          "startTimeLocal": "14:00 KST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "rawStatus": "READY"
+        },
+        {
+          "gameId": "20261005SKNC02026",
+          "away": "SSG",
+          "home": "NC",
+          "startTimeLocal": "14:00 KST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "rawStatus": "READY"
+        },
+        {
+          "gameId": "20261005WOHH02026",
+          "away": "키움",
+          "home": "한화",
+          "startTimeLocal": "14:00 KST",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "rawStatus": "READY"
+        }
+      ],
+      "warnings": [
+        "raw_pregame_zero_scores_normalized_to_null",
+        "non_kbo_rows_excluded"
+      ]
+    },
+    "CPBL": {
+      "games": 2,
+      "state": "pregame",
+      "live": 0,
+      "pregame": 2,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "source": "playsport-public-fallback",
+      "sourceURL": "https://www.playsport.cc/livescore/6?gamedate=20261005&mode=1",
+      "current": [
+        {
+          "away": "富邦",
+          "home": "樂天",
+          "startTimeLocal": "18:35 Asia/Taipei",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        },
+        {
+          "away": "統一",
+          "home": "兄弟",
+          "startTimeLocal": "18:35 Asia/Taipei",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified",
+      "warnings": [
+        "unsupported_live_fields_remain_null",
+        "source_listed_lineup_not_promoted_to_official_confirmation"
+      ]
+    }
+  },
+  "sourceCheck": {
+    "allScheduledFirstTeamGamesFinal": false,
+    "secondCapturePerformed": false,
+    "reason": "All first-team games were pregame at the fresh capture; no live state existed, so a >=65-second second capture was not required."
+  }
+}
