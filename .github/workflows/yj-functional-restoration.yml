@@ -1,0 +1,102 @@
+name: YJ functional restoration without speed changes
+on:
+  push:
+    branches: ['restore/yj-deleted-features-20261005']
+    paths: ['scripts/restore-yj-functional-features.py', '.github/workflows/yj-functional-restoration.yml']
+permissions:
+  contents: read
+concurrency:
+  group: yj-functional-restoration-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  restore-and-verify:
+    if: github.repository == 'poias45652-creator/arena-sports-board'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch immutable restoration sources
+        run: |
+          git fetch --depth=1 origin 44c83dda09b132d84449f0b75d54a276e724aebf 5a9274fd7bef71d6f41a09c5fabf3bfdedcf7aef a307db98ab4db4823fece57410e27ab70e9bdf01 1d674ac46a1a9b10da783193cc97b40970de1a83
+          mkdir -p evidence
+      - run: npm ci --ignore-scripts
+      - name: Reproduce screenshot team-name regression before restoration
+        run: |
+          git show 44c83dda09b132d84449f0b75d54a276e724aebf:tests/nba-market-aliases.test.mjs > tests/nba-market-aliases.test.mjs
+          if node --test tests/nba-market-aliases.test.mjs > evidence/nba-alias-before.log 2>&1; then
+            cat evidence/nba-alias-before.log
+            echo 'Expected the current missing-alias regression to fail'; exit 1
+          fi
+          cat evidence/nba-alias-before.log
+      - name: Restore audited functional repairs and verify preserved scope
+        run: python scripts/restore-yj-functional-features.py
+      - name: Verify restored matching, loading recovery and source protection
+        run: |
+          node --test tests/nba-market-aliases.test.mjs tests/sport-super-markets.test.mjs tests/basketball-loading.test.mjs tests/wnba-recovery.test.mjs tests/nba-player-strength.test.mjs tests/wnba-player-strength.test.mjs
+          python scripts/test_nba_identity_refresh.py
+      - name: Full regression suite
+        run: npm test
+      - name: Production build
+        run: npm run build
+      - name: Publish verified code only to the restoration branch
+        run: |
+          test "$GITHUB_REF_NAME" = 'restore/yj-deleted-features-20261005'
+          test "$(git ls-remote origin "refs/heads/$GITHUB_REF_NAME" | cut -f1)" = "$GITHUB_SHA"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app lib tests .github/workflows/wnba-player-strength-sync.yml .github/workflows/nba-player-refresh-validation.yml reports/yj-functional-restoration-20261005.json
+          git diff --cached --check
+          git commit -m 'Restore all audited YJ functional repairs lost in the pre-speed rollback'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git rev-parse HEAD | tee evidence/verified-candidate-sha.txt
+      - name: Verify current NBA analyses with restored code
+        id: nba
+        continue-on-error: true
+        run: GITHUB_SHA=$(git rev-parse HEAD) timeout 240s node scripts/verify-nba-live-analysis.mjs 2026-10-06
+      - name: Verify current WNBA analyses with restored code
+        id: wnba
+        continue-on-error: true
+        run: GITHUB_SHA=$(git rev-parse HEAD) timeout 240s node scripts/verify-wnba-live-analysis.mjs 2026-10-08
+      - name: Verify screenshot-day football analyses unchanged
+        id: football
+        continue-on-error: true
+        run: |
+          timeout 240s node --input-type=module <<'JS'
+          import {moduleUrl} from './tests/profile-loader.mjs';
+          import {writeFileSync} from 'node:fs';
+          import {execFileSync} from 'node:child_process';
+          const s=await import(moduleUrl('lib/football-source.ts'));
+          const {readyFootballAnalysis}=await import(moduleUrl('lib/football-recommendations.ts'));
+          const result={commit:execFileSync('git',['rev-parse','HEAD']).toString().trim(),runId:process.env.GITHUB_RUN_ID,attempt:process.env.GITHUB_RUN_ATTEMPT,startedAt:new Date().toISOString(),day:'2026-10-07',league:'uefa.nations',games:[]};
+          try{
+           const board=await s.footballSchedule(result.league,result.day);
+           for(const game of board.games.filter(g=>g.state==='scheduled'&&g.timeConfirmed&&Date.parse(g.start)>Date.now())){
+            const report=await s.footballGameAnalysis(result.league,result.day,game.id);
+            const row={id:game.id,home:game.home.name,away:game.away.name,ready:!!readyFootballAnalysis(game,report,Date.now(),false),status:report?.analysis?.status};result.games.push(row);console.log(JSON.stringify(row));
+           }
+           result.passed=result.games.length>0&&result.games.every(g=>g.ready);
+          }catch(e){result.passed=false;result.error=String(e?.message||e);}
+          result.finishedAt=new Date().toISOString();writeFileSync('evidence/football-restoration.json',JSON.stringify(result,null,2));if(!result.passed)process.exitCode=1;
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: yj-functional-restoration-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            evidence/
+            reports/yj-functional-restoration-20261005.json
+          retention-days: 7
+      - name: Require current public-source readiness
+        if: steps.nba.outcome != 'success' || steps.wnba.outcome != 'success' || steps.football.outcome != 'success'
+        run: exit 1
