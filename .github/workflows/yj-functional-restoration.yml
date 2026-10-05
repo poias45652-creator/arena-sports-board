@@ -1,23 +1,26 @@
 name: YJ functional restoration final verification
 on:
-  push:
-    branches: ['restore/yj-deleted-features-20261005']
+  pull_request:
+    branches: [main]
 permissions:
   contents: read
 concurrency:
-  group: yj-functional-restoration-${{ github.ref }}
+  group: yj-functional-restoration-${{ github.head_ref }}
   cancel-in-progress: false
 jobs:
   restore-and-verify:
-    if: github.repository == 'poias45652-creator/arena-sports-board'
+    if: github.repository == 'poias45652-creator/arena-sports-board' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'restore/yj-deleted-features-20261005'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: write
+    env:
+      SOURCE_SHA: ${{ github.event.pull_request.head.sha }}
+      TARGET_BRANCH: ${{ github.head_ref }}
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ env.SOURCE_SHA }}
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -30,16 +33,18 @@ jobs:
           git fetch --depth=1 origin 44c83dda09b132d84449f0b75d54a276e724aebf 5a9274fd7bef71d6f41a09c5fabf3bfdedcf7aef a307db98ab4db4823fece57410e27ab70e9bdf01 1d674ac46a1a9b10da783193cc97b40970de1a83
           mkdir -p evidence
       - run: npm ci --ignore-scripts
-      - name: Reproduce screenshot team-name regression before restoration
+      - name: Reproduce missing team-name mapping before restoration
         run: |
-          git show 44c83dda09b132d84449f0b75d54a276e724aebf:tests/nba-market-aliases.test.mjs > tests/nba-market-aliases.test.mjs
-          if node --test tests/nba-market-aliases.test.mjs > evidence/nba-alias-before.log 2>&1; then
+          if ! test -f reports/yj-functional-restoration-20261005.json; then
+            git show 44c83dda09b132d84449f0b75d54a276e724aebf:tests/nba-market-aliases.test.mjs > tests/nba-market-aliases.test.mjs
+            if node --test tests/nba-market-aliases.test.mjs > evidence/nba-alias-before.log 2>&1; then cat evidence/nba-alias-before.log; exit 1; fi
             cat evidence/nba-alias-before.log
-            echo 'Expected the current missing-alias regression to fail'; exit 1
           fi
-          cat evidence/nba-alias-before.log
       - name: Restore audited functional repairs and verify preserved scope
-        run: python scripts/restore-yj-functional-features.py
+        run: |
+          if ! test -f reports/yj-functional-restoration-20261005.json; then
+            python scripts/restore-yj-functional-features.py
+          fi
       - name: Verify restored matching, loading recovery and source protection
         run: |
           node --test tests/nba-market-aliases.test.mjs tests/sport-super-markets.test.mjs tests/basketball-loading.test.mjs tests/wnba-recovery.test.mjs tests/nba-player-strength.test.mjs tests/wnba-player-strength.test.mjs
@@ -48,16 +53,18 @@ jobs:
         run: npm test
       - name: Production build
         run: npm run build
-      - name: Publish verified code only to the restoration branch
+      - name: Publish verified code only to the same restoration branch
         run: |
-          test "$GITHUB_REF_NAME" = 'restore/yj-deleted-features-20261005'
-          test "$(git ls-remote origin "refs/heads/$GITHUB_REF_NAME" | cut -f1)" = "$GITHUB_SHA"
+          test "$TARGET_BRANCH" = 'restore/yj-deleted-features-20261005'
+          test "$(git ls-remote origin "refs/heads/$TARGET_BRANCH" | cut -f1)" = "$SOURCE_SHA"
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add app lib tests .github/workflows/wnba-player-strength-sync.yml .github/workflows/nba-player-refresh-validation.yml reports/yj-functional-restoration-20261005.json
           git diff --cached --check
-          git commit -m 'Restore all audited YJ functional repairs lost in the pre-speed rollback'
-          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          if ! git diff --cached --quiet; then
+            git commit -m 'Restore all audited YJ functional repairs lost in the pre-speed rollback'
+            git push origin "HEAD:refs/heads/$TARGET_BRANCH"
+          fi
           git rev-parse HEAD | tee evidence/verified-candidate-sha.txt
       - name: Verify current NBA analyses with restored code
         id: nba
