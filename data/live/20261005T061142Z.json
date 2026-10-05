@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-05T06:11:42.578Z",
+  "dateAsiaTaipei": "2026-10-05",
+  "purpose": "same-day first-team current/live source validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": null,
+    "rerunJobId": 108552526980,
+    "rerunAccepted": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true,
+    "checkedAt": "2026-10-05T06:11:42.578Z"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "pregame",
+      "live": 0,
+      "pregame": 2,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-05",
+      "sourceCheckedAt": "2026-10-05T06:11:25.462Z",
+      "current": [
+        {
+          "gameId": "2021051118",
+          "teams": [
+            "楽天",
+            "ソフトバンク"
+          ],
+          "startTimeLocal": "18:00",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        },
+        {
+          "gameId": "2021051119",
+          "teams": [
+            "ロッテ",
+            "西武"
+          ],
+          "startTimeLocal": "18:00",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        }
+      ],
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "warnings": [
+        "pregame_scores_normalized_to_null",
+        "probable_starters_not_promoted_to_official_lineup",
+        "bso_and_bases_not_verified_in_normalized_npb_feed"
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "live",
+      "live": 5,
+      "pregame": 0,
+      "final": 0,
+      "excludedNonFirstTeamGames": 5,
+      "sameDayLiveVerified": true,
+      "verifiedAt": "2026-10-05T06:10:52.740Z",
+      "source": "naver",
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-05&toDate=2026-10-05&page=1&pageSize=100",
+      "sourceCheckedAt": "2026-10-05T06:11:42.578Z",
+      "current": [
+        {
+          "gameId": "20261005HTLG02026",
+          "away": "KIA",
+          "home": "LG",
+          "awayScore": 0,
+          "homeScore": 4,
+          "status": "live",
+          "inningHalf": "3회말"
+        },
+        {
+          "gameId": "20261005LTKT02026",
+          "away": "롯데",
+          "home": "KT",
+          "awayScore": 0,
+          "homeScore": 7,
+          "status": "live",
+          "inningHalf": "4회말"
+        },
+        {
+          "gameId": "20261005OBSS02026",
+          "away": "두산",
+          "home": "삼성",
+          "awayScore": 5,
+          "homeScore": 1,
+          "status": "live",
+          "inningHalf": "5회말"
+        },
+        {
+          "gameId": "20261005SKNC02026",
+          "away": "SSG",
+          "home": "NC",
+          "awayScore": 0,
+          "homeScore": 0,
+          "status": "live",
+          "inningHalf": "5회초"
+        },
+        {
+          "gameId": "20261005WOHH02026",
+          "away": "키움",
+          "home": "한화",
+          "awayScore": 3,
+          "homeScore": 5,
+          "status": "live",
+          "inningHalf": "4회말"
+        }
+      ],
+      "liveChangeProof": {
+        "gameId": "20261005HTLG02026",
+        "beforeObservedAt": "2026-10-05T06:07:06.560Z",
+        "afterObservedAt": "2026-10-05T06:10:52.740Z",
+        "intervalSeconds": 226.18,
+        "before": {
+          "awayScore": 0,
+          "homeScore": 4,
+          "inningHalf": "3회말",
+          "balls": 0,
+          "strikes": 0,
+          "outs": 0,
+          "bases": {
+            "base1": "5",
+            "base2": "0",
+            "base3": "0"
+          },
+          "pitcher": {
+            "id": "55633",
+            "name": "올러",
+            "pitchCount": 54,
+            "inningsPitched": "2.0",
+            "outsRecorded": 6
+          }
+        },
+        "after": {
+          "awayScore": 0,
+          "homeScore": 4,
+          "inningHalf": "3회말",
+          "balls": 0,
+          "strikes": 1,
+          "outs": 1,
+          "bases": {
+            "base1": "6",
+            "base2": "0",
+            "base3": "0"
+          },
+          "pitcher": {
+            "id": "55633",
+            "name": "올러",
+            "pitchCount": 61,
+            "inningsPitched": "2.1",
+            "outsRecorded": 7
+          }
+        },
+        "changedFields": [
+          "strikes",
+          "outs",
+          "bases.base1",
+          "pitcher.pitchCount",
+          "pitcher.outsRecorded"
+        ],
+        "verificationMethod": "two fresh same-day Naver game-polling observations separated by more than 65 seconds"
+      }
+    },
+    "CPBL": {
+      "games": 2,
+      "state": "pregame",
+      "live": 0,
+      "pregame": 2,
+      "final": 0,
+      "sameDayLiveVerified": false,
+      "source": "playsport-public-fallback",
+      "sourceURL": "https://www.playsport.cc/livescore/6?gamedate=20261005&mode=1",
+      "sourceCheckedAt": "2026-10-05T06:11:29.481Z",
+      "current": [
+        {
+          "gameId": "2026100561001",
+          "away": "富邦",
+          "home": "樂天",
+          "startTimeLocal": "18:35",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "probableStarters": [
+            "李東洺",
+            "鍾亦恩"
+          ]
+        },
+        {
+          "gameId": "2026100561002",
+          "away": "統一",
+          "home": "兄弟",
+          "startTimeLocal": "18:35",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "probableStarters": [
+            "周彥農",
+            "張祖恩"
+          ]
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified",
+      "warnings": [
+        "pregame_zero_placeholders_not_accepted_as_scores",
+        "unsupported_live_fields_remain_null",
+        "source_page_says_lineup_not_published"
+      ]
+    }
+  },
+  "sourceCheck": {
+    "liveLeagues": [
+      "KBO"
+    ],
+    "secondCapturePerformed": true,
+    "qualifyingLiveChangeLeagues": [
+      "KBO"
+    ],
+    "pendingLiveVerificationLeagues": [
+      "NPB",
+      "CPBL"
+    ],
+    "reason": "KBO has qualifying same-day live changes. NPB and CPBL are pregame only at this check, so no same-day live proof is claimed for them yet."
+  }
+}
