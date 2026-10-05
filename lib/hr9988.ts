@@ -1,4 +1,5 @@
 import type {SuperSnapshot} from './super007';
+import {sportSourceAudit} from './sport-super-markets';
 
 export type HrDisplayQuote = {
  id: number; primary: boolean; open: boolean;
@@ -55,11 +56,22 @@ export function hrSportsRequests(value:unknown):{GameType:3;CatID:number;WagerTy
  });
 }
 export function hrFootballCompetition(name:string):string|null{
- const rules:[RegExp,string][]=[[/英格蘭.*超級|英超/,'eng.1'],[/西班牙.*甲級|西甲/,'esp.1'],[/(?:意大利|義大利).*甲級|意甲|義甲/,'ita.1'],[/德國.*甲級|德甲/,'ger.1'],[/法國.*甲級|法甲/,'fra.1'],[/歐洲.*冠軍|歐冠/,'uefa.champions'],[/歐洲.*國家聯賽|歐國聯/,'uefa.nations']];
- return rules.find(([rule])=>rule.test(name))?.[1]??null;
+ // Match the complete senior competition label. A substring such as 西甲 also
+ // occurs in 巴西甲組聯賽; youth, women's, second divisions and cups stay separate.
+ const key=name.normalize('NFKC').replace(/\s/g,'');
+ const rules:[RegExp,string][]=[
+  [/^(?:英超|英格蘭(?:足球)?超級聯賽|英格蘭超級足球聯賽)$/,'eng.1'],
+  [/^(?:西甲|西班牙(?:足球)?甲(?:級|組)聯賽)$/,'esp.1'],
+  [/^(?:意甲|義甲|(?:意大利|義大利)(?:足球)?甲(?:級|組)聯賽)$/,'ita.1'],
+  [/^(?:德甲|德國(?:足球)?甲(?:級|組)聯賽)$/,'ger.1'],
+  [/^(?:法甲|法國(?:足球)?甲(?:級|組)聯賽)$/,'fra.1'],
+  [/^(?:歐冠|歐洲(?:足球)?冠軍聯賽|歐洲聯賽冠軍[盃杯])(?:[-－]?(?:資格賽|外圍賽|附加賽|聯賽階段|小組賽|淘汰賽))?$/,'uefa.champions'],
+  [/^(?:歐國聯|歐洲國家聯賽|歐洲足總國家聯賽)(?:[-－]?[ABCD](?:聯賽|組)?)?$/,'uefa.nations']
+ ];
+ return rules.find(([rule])=>rule.test(key))?.[1]??null;
 }
 
-let lastBasketballShapeLoggedAt=0;
+let lastBasketballShapeLoggedAt=0,lastSportPairingLoggedAt=0;
 /** Parse the observed GameDetail shape, without inventing a fetch timestamp. */
 export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnapshot {
  const response=value as any;
@@ -109,5 +121,10 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
   lastBasketballShapeLoggedAt=Date.now();
   console.info('super-basketball-shape',JSON.stringify({fetchedAt,parsedGames:sportGames.filter(g=>g.league==='NBA'||g.league==='WNBA').length,leagues:basketball.slice(0,8).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,80),games:Array.isArray(l.Team)?l.Team.length:0})),examples:basketball.filter((l:any)=>/^W?NBA\b/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(l.Team||[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,80),id:t.EvtID,home:String(t.HomeTeamStr).slice(0,80),away:String(t.AwayTeamStr).slice(0,80),start:String(t.ScheduleTimeStr).slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(t.Wager||[]).slice(0,8).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,8)}));
  }
- return {source:'hr9988',games,internationalGames,sportGames,sourceLeagues,fetchedAt} as SuperSnapshot;
+ const snapshot={source:'hr9988',games,internationalGames,sportGames,sourceLeagues,fetchedAt} as SuperSnapshot;
+ if(sportGames.length&&Date.now()-lastSportPairingLoggedAt>=300000){
+  lastSportPairingLoggedAt=Date.now();
+  try{console.info('super-sport-pairing-audit',JSON.stringify(sportSourceAudit(snapshot)));}catch{console.warn('super-sport-pairing-audit-unavailable');}
+ }
+ return snapshot;
 }

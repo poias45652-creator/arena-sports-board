@@ -1,9 +1,9 @@
 'use client';
-import {basketballMarketGrid,footballMarketGrids,matchSportEvent,settleSportGrid,sportQuoteLabel,preferredSportOutcome,type SportFixture,type SportQuote,type SportOutcomes} from '@/lib/sport-super-markets';
+import {basketballMarketGrid,footballMarketGrids,sportMarketStatus,settleSportGrid,sportQuoteLabel,preferredSportOutcome,type SportFixture,type SportQuote,type SportOutcomes} from '@/lib/sport-super-markets';
 const percent=(n:number)=>(n*100).toFixed(1)+'%';
 export default function SportMarkets({game,analysis,snapshot,error='',sport,now}:{game:SportFixture;analysis?:any;snapshot:any;error?:string;sport:'NBA'|'WNBA'|'FOOTBALL';now:number}){
  if(game.state!=='scheduled'||!game.timeConfirmed||Date.parse(game.start)<=now)return null;
- const event=!error?matchSportEvent(snapshot,game,sport,now):null;
+ const status=sportMarketStatus(error?null:snapshot,game,sport,now),event=!error?status.event:null;
  const valid=analysis?.status==='ready'&&analysis.expected&&analysis.probabilities&&now-Date.parse(analysis.capturedAt)>=-60000&&now-Date.parse(analysis.capturedAt)<15*60000;
  const e=valid?analysis.expected:null,p=valid?analysis.probabilities:null,context=valid?analysis.playerContext:null;
  // Ready preseason projections may show a market-based scenario recommendation.
@@ -21,7 +21,7 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
   const sides=kind==='spread'?['home','away'] as const:['over','under'] as const;
   const outcomes=quote?sides.map(side=>settleSportGrid(kind==='spread'?margin:total,quote,side)):[];
   const best=eligible?preferredSportOutcome(outcomes):null;
-  return <div className="sport-market-block"><div className="sport-market-heading"><strong>{kind==='spread'?(sport==='FOOTBALL'?'全場讓球':'全場讓分'):(sport==='FOOTBALL'?'全場大小球':'全場大小分')}</strong>{!quote&&<b>尚未開盤</b>}</div>{quote&&<div className="sport-market-options">{sides.map((side,i)=>{
+  return <div className="sport-market-block" data-market-state={status.markets[kind].code}><div className="sport-market-heading"><strong>{kind==='spread'?(sport==='FOOTBALL'?'全場讓球':'全場讓分'):(sport==='FOOTBALL'?'全場大小球':'全場大小分')}</strong>{!quote&&<b>{status.markets[kind].message}</b>}</div>{quote&&<div className="sport-market-options">{sides.map((side,i)=>{
    const r=outcomes[i];
    return <div className="sport-market-option" key={side}>
     <div className="sport-market-option-heading"><strong className="sport-market-team">{side==='home'||side==='away'?identity(side):<span>{side==='over'?'大':'小'}</span>}{best===i&&r&&<em title={recommendationTitle}>推薦</em>}</strong><strong className="sport-market-quote">{sportQuoteLabel(quote,side)} @{(i===0?quote.home:quote.away).toFixed(3)}</strong></div>
@@ -29,9 +29,10 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
    </div>;
   })}</div>}</div>;
  }
- return <details key={`${sport}:${game.id}:${game.start}`} className="match-market-details sport-market-details"><summary><span>查看分析</span><span>{valid?'3 種玩法':'分析更新中'}</span></summary><section className="sport-markets" aria-label="全場讓分與大小分析"><div className="sport-market-heading"><span>{sport==='FOOTBALL'?'90 分鐘・不含加時':'全場・含延長賽'}</span>{event&&<small>賠率不含本金</small>}</div>{error?<p role="status">{error}</p>:!snapshot?<p role="status">正在取得資料…</p>:!event?<p role="status">尚未取得可配對的全場資料</p>:<>
+ const summary=status.availableCount?`${status.availableCount} 種玩法`:error?'來源連線異常':!snapshot?'資料更新中':'暫無可用玩法';
+ return <details key={`${sport}:${game.id}:${game.start}`} className="match-market-details sport-market-details" data-market-status={error?'source_error':status.code}><summary><span>查看分析</span><span>{valid?summary:'分析更新中'}</span></summary><section className="sport-markets" aria-label="全場讓分與大小分析"><div className="sport-market-heading"><span>{sport==='FOOTBALL'?'90 分鐘・不含加時':'全場・含延長賽'}</span>{event&&<small>賠率不含本金</small>}</div>{error?<p role="status">{error}</p>:!event?<p role="status">{status.message}</p>:<>
   {market(event.spread,'spread')}{market(event.total,'total')}
-  <div className="sport-market-block"><div className="sport-market-heading"><strong>全場獨贏</strong>{!event.moneyline&&<b>尚未開盤</b>}</div>{event.moneyline&&<div className="sport-market-options sport-market-moneyline">{(['home',...(sport==='FOOTBALL'?['draw']:[]),'away'] as ('home'|'draw'|'away')[]).map(side=><div className="sport-market-option" key={side}><div className="sport-market-option-heading"><strong className="sport-market-team">{side==='draw'?<span>和局</span>:identity(side)}</strong><strong className="sport-market-quote">@{event.moneyline![side]!.toFixed(3)}</strong></div>{p&&<div className="sport-market-win-rate"><span>勝率</span><b>{percent(p[side])}</b></div>}</div>)}</div>}</div>
+  <div className="sport-market-block" data-market-state={status.markets.moneyline.code}><div className="sport-market-heading"><strong>全場獨贏</strong>{!event.moneyline&&<b>{status.markets.moneyline.message}</b>}</div>{event.moneyline&&<div className="sport-market-options sport-market-moneyline">{(['home',...(sport==='FOOTBALL'?['draw']:[]),'away'] as ('home'|'draw'|'away')[]).map(side=><div className="sport-market-option" key={side}><div className="sport-market-option-heading"><strong className="sport-market-team">{side==='draw'?<span>和局</span>:identity(side)}</strong><strong className="sport-market-quote">@{event.moneyline![side]!.toFixed(3)}</strong></div>{p&&<div className="sport-market-win-rate"><span>勝率</span><b>{percent(p[side])}</b></div>}</div>)}</div>}</div>
  </>}</section></details>;
 }
 function Outcome({result:r}:{result:SportOutcomes}){
