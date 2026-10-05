@@ -4,8 +4,13 @@ on:
     branches: [fix/yj-runtime-resilience-20261005]
   pull_request:
     paths:
-      - server/**
-      - lib/**
+      - app/api/baseball/**
+      - app/game-context.tsx
+      - server/runtime-cache.mjs
+      - server/source-resilience.mjs
+      - lib/covers-fetch.ts
+      - lib/playsport-pregame.ts
+      - lib/international-profile-source.ts
       - tests/render-runtime-*.mjs
       - .github/workflows/yj-resilience-verify.yml
 permissions:
@@ -19,18 +24,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - name: Package tracked application sources for verification
-        run: |
-          git ls-files -z app components hooks lib server scripts tests data '*.json' '*.mjs' '*.ts' .github | tar --null -T - -czf /tmp/yj-verification-source.tgz
-      - uses: actions/upload-artifact@v4
         with:
-          name: yj-verification-source
-          path: /tmp/yj-verification-source.tgz
-          retention-days: 1
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-      - run: npm ci --ignore-scripts
+      - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm test
       - run: npm run build
+      - run: node tests/run-render-http-smoke.mjs
