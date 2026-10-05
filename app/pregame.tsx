@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@/components/ui/button';
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select';
 import { RefreshCw } from 'lucide-react';
-import { doubleheaderLabel,matchStartLabel,isMlbPostseason,canShowPregameMarkets,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
+import { doubleheaderLabel,matchStartLabel,isMlbPostseason,canShowPregameMarkets,fresh,isPregame,shiftDay,taipeiDay,type Leg,type Match,type Schedule } from '@/lib/baseball';
 import Markets from './markets';
 import {winnerAnalysis,winnerParlayProbability} from '@/lib/winner-analysis';
 import MatchInningBoard from './match-inning-board';
@@ -21,17 +21,17 @@ import {boardQuote,binaryOutcome} from '@/lib/board-markets';
 import MarketOutcomes from './market-outcomes';
 
 const stamp=(s:string|undefined)=>s?new Date(s).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'尚未取得';
-export default function Pregame(){
+export default function Pregame({active=true}:{active?:boolean}){
   const [parlayMode,setParlayMode]=useState<'markets'|'winner'>('markets');
   const [evaluation,setEvaluation]=useState<any>(null);
   const updateResults=useCallback((value:any)=>setEvaluation(value),[]);
   const [analysis,setAnalysis]=useState<Record<number,AnalysisState>>({});
   const updateAnalysis=useCallback((id:number,value:AnalysisState)=>setAnalysis(old=>({...old,[id]:value.loading?{...old[id],loading:true}:value})),[]);
-  const primaryOdds=useSource<SuperSnapshot>('member-odds',60000);
-  const runs=useSource<RunSnapshot>('runs',20*60000);
-  const pitchers=useSource<Snapshot>('pitcher',20*60000),batting=useSource<Snapshot>('batter-team',20*60000),pitching=useSource<Snapshot>('pitcher-team',20*60000),schedule=useSource<Schedule>('schedule',30000);
+  const primaryOdds=useSource<SuperSnapshot>('member-odds',60000,active);
+  const runs=useSource<RunSnapshot>('runs',20*60000,active);
+  const schedule=useSource<Schedule>('schedule',30000,active);
   const [now,setNow]=useState(Date.now()),[dateMode,setDateMode]=useState('auto'),[count,setCount]=useState(3),[legs,setLegs]=useState<(Leg&{quote?:string})[]>([]),[notice,setNotice]=useState('');
-  useEffect(()=>{const timer=setInterval(()=>setNow(Date.now()),10000);return()=>clearInterval(timer);},[]);
+  useEffect(()=>{if(!active)return;const timer=setInterval(()=>setNow(Date.now()),10000);return()=>clearInterval(timer);},[active]);
   const today=taipeiDay(now);
   const nextGame=(schedule.data?.games||[]).filter(g=>canShowPregameMarkets(g,now)&&taipeiDay(g.date)>=today).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
   const activeGame=(schedule.data?.games||[]).filter(g=>g.state==='Live').sort((a,b)=>Date.parse(a.date)-Date.parse(b.date))[0];
@@ -56,7 +56,6 @@ export default function Pregame(){
   const odds={...primaryOdds,data:superOdds(primaryOdds.data,schedule.data?.games||[],teamZh)};
   const selectedGames=(schedule.data?.games||[]).filter(g=>taipeiDay(g.date)===day).sort((a,b)=>Date.parse(a.date)-Date.parse(b.date));
   const scheduleOK=!schedule.error&&fresh(schedule.data?.fetchedAt,now,120000);
-  const sources=[{title:'個別投手',kind:'pitcher' as Kind,...pitchers},{title:'團隊打擊',kind:'batter-team' as Kind,...batting},{title:'團隊投球',kind:'pitcher-team' as Kind,...pitching}];
   const moneyline=(g:Match)=>boardQuote(matchOdds(g,odds.data),'moneyline');
   const moneylineOK=!odds.error&&fresh(odds.data?.fetchedAt,now,150000);
   const model=(g:Match)=>winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK);
@@ -150,13 +149,13 @@ export default function Pregame(){
       </div>;
   return <section className="mb-6 space-y-5" aria-label="賽前分析與自選串關">
     <div className="arena-pregame-toolbar flex flex-wrap items-center gap-3">
-      <Button variant="outline" onClick={()=>{sources.forEach(s=>void s.refresh());void runs.refresh();}} disabled={sources.some(s=>s.loading)||runs.loading}><RefreshCw className={sources.some(s=>s.loading)||runs.loading?'animate-spin':''}/>更新投打數據</Button>
+      <Button variant="outline" onClick={()=>{void schedule.refresh();void runs.refresh();window.dispatchEvent(new Event('arena-analysis-refresh'));}} disabled={!active||schedule.loading||runs.loading}><RefreshCw className={schedule.loading||runs.loading?'animate-spin':''}/>更新分析資料</Button>
       {datePicker}
       <span className="text-sm text-white">賽程抓取：{stamp(schedule.data?.fetchedAt)}（台灣）</span>
     </div>
     {schedule.error&&<p role="alert" className="arena-pregame-status text-rose-300">{schedule.error} 暫停串關計算。</p>}
     {schedule.loading&&!schedule.data&&<p role="status" className="arena-pregame-status">正在取得賽程，尚無比分或勝率。</p>}
-    <GameContext games={selectedGames} onChange={updateAnalysis} onResults={updateResults}/>
+    <GameContext games={selectedGames} onChange={updateAnalysis} onResults={updateResults} active={active}/>
     <Markets analysis={analysis} key={day} games={selectedGames} now={now} data={runs.data} error={runs.error} scheduleOK={scheduleOK} scheduleMessage={schedule.error?'賽程更新失敗，稍後自動重試。':!schedule.data?'正在取得賽程，請稍候…':''} odds={odds.data} oddsError={odds.error} oddsLoading={odds.loading} refreshOdds={odds.refresh} renderMatchHeader={matchHeader} renderWinnerOptions={winnerOptions} winnerPanel={winnerPanel} parlayMode={parlayMode} onParlayModeChange={setParlayMode}/>
   </section>;
 }

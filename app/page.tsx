@@ -23,23 +23,9 @@ import InternationalBoard from './international-board';
 import {BASEBALL_LEAGUES,frontSelection,leaguePageHref,type FrontLeague} from '@/lib/sport-navigation';
 import './football.css';
 
-type Player = { name:string; playerId:string; attempts:number; avgHitSpeed:number; maxHitSpeed:number; sweetSpot:number; hardHit:number; barrels:number; barrelRate:number };
 type LiveGame = { id:number; awayId?:number; homeId?:number; away:string; home:string; awayScore:number|null; homeScore:number|null; status:string; detail:string; start:string; live:boolean; final:boolean; line:any; pitchCount:number|null; detailError:boolean; detailFetchedAt:string|null };
-const YEAR = new Date().getFullYear();
-const CSV = `https://baseballsavant.mlb.com/leaderboard/statcast?type=batter&year=${YEAR}&position=&team=&min=10&sort=6&sortDir=desc&csv=true`;
-const REFRESH_MS = 20 * 60 * 1000;
 const SCORE_REFRESH_MS = 15 * 1000;
 
-function split(line:string) {
-  const result:string[]=[]; let value="", quoted=false;
-  for(let i=0;i<line.length;i++){ const c=line[i]; if(c==='"'&&line[i+1]==='"'&&quoted){value+='"';i++;}else if(c==='"')quoted=!quoted;else if(c===","&&!quoted){result.push(value);value="";}else value+=c; }
-  result.push(value); return result;
-}
-function parse(csv:string):Player[]{
-  const rows=csv.replace(/^\uFEFF/,"").trim().split(/\r?\n/).map(split), headers=rows.shift()??[];
-  const at=(name:string)=>headers.indexOf(name), num=(row:string[],name:string)=>Number(row[at(name)]||0);
-  return rows.map(row=>({name:row[at("last_name, first_name")]||"未知球員",playerId:row[at("player_id")]||"",attempts:num(row,"attempts"),avgHitSpeed:num(row,"avg_hit_speed"),maxHitSpeed:num(row,"max_hit_speed"),sweetSpot:num(row,"anglesweetspotpercent"),hardHit:num(row,"ev95percent"),barrels:num(row,"barrels"),barrelRate:num(row,"brl_percent")})).filter(p=>p.playerId&&Number.isFinite(p.avgHitSpeed));
-}
 function taipeiDate(){ return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Taipei",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date()); }
 function mapGame(game:any):LiveGame{
   const state=game.status?.abstractGameState||"Preview", line=game.linescore;
@@ -58,20 +44,16 @@ export default function Home(){
   function selectLeague(next:FrontLeague){setLeague(next);if(next==='MLB'||next==='NPB')setBaseballLeague(next);setUpdateNotice('');window.history.replaceState(null,'',leaguePageHref(next,view));}
   function selectView(next:string){setView(next);const date=(league==='NBA'||league==='WNBA')?new URLSearchParams(window.location.search).get('date'):null;window.history.replaceState(null,'',leaguePageHref(league,next)+(date?`&date=${encodeURIComponent(date)}`:''));}
   const [scoreFilter,setScoreFilter]=useState('all');
-  const [players,setPlayers]=useState<Player[]>([]);
-  const [loading,setLoading]=useState(true),[error,setError]=useState(""),[updatedAt,setUpdatedAt]=useState<Date|null>(null);
   const [liveGames,setLiveGames]=useState<LiveGame[]>([]),[scoreUpdatedAt,setScoreUpdatedAt]=useState<Date|null>(null),[scoreError,setScoreError]=useState("");
-  const refresh=useCallback(async()=>{setLoading(true);setError("");try{const response=await fetch(`${CSV}&refresh=${Date.now()}`,{cache:"no-store",signal:AbortSignal.timeout(20000)});if(!response.ok)throw new Error(`HTTP ${response.status}`);const next=parse(await response.text());if(!next.length)throw new Error("資料內容為空");setPlayers(next);setUpdatedAt(new Date());}catch(reason){setError("連線失敗，請稍後重試");}finally{setLoading(false);}},[]);
-  useEffect(()=>{if(!selectionReady||league!=='MLB')return;const update=()=>{if(!document.hidden)void refresh();};update();const timer=window.setInterval(update,REFRESH_MS);return()=>window.clearInterval(timer);},[refresh,league,selectionReady]);
   const scoresBusy=useRef(false);
   const refreshScores=useCallback(async()=>{if(scoresBusy.current)return;scoresBusy.current=true;try{setScoreError("");const response=await fetch('/api/baseball?kind=scores',{cache:"no-store",signal:AbortSignal.timeout(35000)});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json();setLiveGames((data.games||[]).map(mapGame).sort((a:LiveGame,b:LiveGame)=>Number(b.live)-Number(a.live)||Date.parse(a.start)-Date.parse(b.start)));setScoreUpdatedAt(new Date(data.fetchedAt));}catch(reason){setScoreError("比分連線失敗，請稍後重試");}finally{scoresBusy.current=false;}},[]);
-  useEffect(()=>{if(!selectionReady)return;const update=()=>{if(!document.hidden)void refreshScores();};update();const timer=window.setInterval(update,league==='MLB'?SCORE_REFRESH_MS:60000);return()=>window.clearInterval(timer);},[refreshScores,league,selectionReady]);
+  useEffect(()=>{if(!selectionReady||league!=='MLB')return;const update=()=>{if(!document.hidden)void refreshScores();};update();const timer=window.setInterval(update,SCORE_REFRESH_MS);return()=>window.clearInterval(timer);},[refreshScores,league,selectionReady]);
 
 
   async function updateAll(){
     if(updateLock.current)return;updateLock.current=true;setUpdatingAll(true);setUpdateNotice('正在更新資料並連接 SUPER…');
     window.dispatchEvent(new Event('arena-refresh-all'));
-    const stats=league==='MLB'?Promise.allSettled([refresh(),refreshScores()]):Promise.resolve([]);
+    const stats=league==='MLB'?Promise.allSettled([refreshScores()]):Promise.resolve([]);
     try{const r=await fetch('/api/hr9988',{method:'POST',cache:'no-store',signal:AbortSignal.timeout(75000)});const d=await r.json();
       if(r.status===401||['tz_auth_expired','binding_required','signin_required'].includes(d.code)){window.location.assign('/login?reason=tz-expired');return;}
       setUpdateNotice(r.ok?'已重新連接 SUPER；各頁資料更新中。':d.error||'SUPER 連線失敗，其他資料仍會更新。');
@@ -83,8 +65,8 @@ export default function Home(){
   return <SuperWorkspace league={league}><main className="arena-shell min-h-screen text-slate-100" data-sport={league==='FOOTBALL'?'football':(league==='NBA'||league==='WNBA')?'basketball':'baseball'}>
     <header className="sticky top-0 z-20 border-b border-white/8 bg-[#081522]/95 backdrop-blur"><div className="mx-auto flex min-h-16 max-w-[1440px] flex-wrap items-center gap-3 px-4 py-3 lg:px-7">
       <div className="flex shrink-0 items-center gap-3"><a href="https://line.me/ti/p/ZuZetvA6NY" target="_blank" rel="noopener noreferrer" aria-label="透過 LINE 聯絡 YJ（另開視窗）" className="shrink-0 rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#ffd538]"><img src="/yj-logo.png" alt="YJ" width={40} height={40} className="size-10 object-contain"/></a><span className="whitespace-nowrap text-lg font-black">YJ體育分析</span></div>
-      {league==='MLB'?<><div className="ml-auto flex items-center gap-2 text-sm text-slate-400"><TimerReset className="size-4 shrink-0"/><span>最後更新時間：{updatedAt?updatedAt.toLocaleString("zh-TW",{timeZone:"Asia/Taipei",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}):"等待同步"}</span></div>
-      <div className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1.5 text-xs font-bold text-emerald-300">{error?<WifiOff className="size-3.5"/>:<Wifi className="size-3.5"/>}{error?"連線異常":loading?"正在同步":"資料已連線"}</div></>:<div className="ml-auto text-sm text-slate-400">{league==='NPB'?'棒球・NPB 日本職棒':league==='WNBA'?'籃球・WNBA 美國女子職籃':league==='NBA'?'籃球・NBA 美國職籃':'足球・五大聯賽＋歐冠＋歐國聯'}</div>}
+      {league==='MLB'?<><div className="ml-auto flex items-center gap-2 text-sm text-slate-400"><TimerReset className="size-4 shrink-0"/><span>最後更新時間：{scoreUpdatedAt?scoreUpdatedAt.toLocaleString("zh-TW",{timeZone:"Asia/Taipei",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit"}):"等待同步"}</span></div>
+      <div className="flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/5 px-3 py-1.5 text-xs font-bold text-emerald-300">{scoreError?<WifiOff className="size-3.5"/>:<Wifi className="size-3.5"/>}{scoreError?"連線異常":scoreUpdatedAt?"資料已連線":"正在同步"}</div></>:<div className="ml-auto text-sm text-slate-400">{league==='NPB'?'棒球・NPB 日本職棒':league==='WNBA'?'籃球・WNBA 美國女子職籃':league==='NBA'?'籃球・NBA 美國職籃':'足球・五大聯賽＋歐冠＋歐國聯'}</div>}
       <Button onClick={()=>void updateAll()} disabled={updatingAll} className="bg-[#ffd538] font-black text-[#06101b] hover:bg-[#ffe36f]"><RefreshCw className={updatingAll?"animate-spin":""}/>{updatingAll?"更新中":"立即更新"}</Button>
       <SuperEntryButton/>
       <AdminEntry/>
@@ -109,7 +91,7 @@ export default function Home(){
         {view==='teams'&&<TeamsDirectory/>}
         {view==='live'&&<LiveScoreboard/>}
         {view==='overview'&&<div className="league-summary"><div><span>台灣日期</span><strong>{taipeiDate()}</strong></div><div><span>今日與跨日賽事</span><strong>{scoreUpdatedAt?liveGames.length:'—'} <small>場</small></strong></div><div><span>進行中</span><strong className="text-rose-300">{scoreUpdatedAt?liveGames.filter(g=>g.live).length:'—'} <small>場</small></strong></div><div><span>已完賽</span><strong>{scoreUpdatedAt?liveGames.filter(g=>g.final).length:'—'} <small>場</small></strong></div></div>}
-        <div hidden={view!=='overview'&&view!=='standings'}><Standings/></div>
+        <div hidden={view!=='overview'&&view!=='standings'}><Standings active={view==='overview'||view==='standings'}/></div>
         <div hidden={view!=='overview'}>
 
       <section className="panel mb-5 overflow-hidden"><div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/8 px-5 py-4"><div><div className="flex items-center gap-2 font-black"><CircleDot className="size-5 text-rose-400"/>即時比分</div><p className="mt-1 text-xs text-slate-500">台灣今日與跨日賽事</p></div><div className="flex items-center gap-2 text-xs font-bold text-slate-400"><span className={`size-2 rounded-full ${liveGames.some(game=>game.live)?"bg-rose-400 animate-pulse":"bg-slate-600"}`}/>{liveGames.filter(game=>game.live).length?`${liveGames.filter(game=>game.live).length} 場進行中・更新 ${scoreUpdatedAt?.toLocaleTimeString("zh-TW",{timeZone:"Asia/Taipei"})??"同步中"}`:scoreUpdatedAt?`更新於 ${scoreUpdatedAt.toLocaleTimeString("zh-TW",{hour:"2-digit",minute:"2-digit"})}`:"同步中"}</div></div>
@@ -117,7 +99,7 @@ export default function Home(){
         {scoreError?<div className="p-5 text-sm text-rose-200">即時比分暫時無法更新：{scoreError}</div>:<div className="score-grid">{filteredGames.map(game=><div key={game.id} className="score-card"><div className="mb-3 flex items-center justify-between text-xs font-bold"><span className={game.live?"text-rose-300":"text-slate-500"}>{game.live?"進行中":game.final?"已完賽":game.detail.includes("開賽")?"賽前":"賽事狀態"}</span><span className="text-slate-500">{game.detail}</span></div><div className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2 text-sm"><span className="font-bold"><TeamName team={{id:game.awayId,name:game.away}}/></span><b className="text-lg text-[#ffd538]">{game.awayScore??"—"}</b><span className="font-bold"><TeamName team={{id:game.homeId,name:game.home}}/></span><b className="text-lg text-[#ffd538]">{game.homeScore??"—"}</b></div>{(game.live||game.final)&&<details className="game-expand"><summary>逐局比分與場況</summary><LiveDetails game={game}/></details>}</div>)}{!filteredGames.length&&<div className="p-6 text-sm text-slate-400">{!scoreUpdatedAt?"正在取得賽事…":scoreFilter==="all"?"今天沒有美職棒賽事":"目前沒有符合此狀態的賽事"}</div>}</div>}
       </section>
       </div>
-      <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame/></div>
+      <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame active={view==='overview'||view==='analysis'}/></div>
       </TabsContent></Tabs>
       </div>}
 
