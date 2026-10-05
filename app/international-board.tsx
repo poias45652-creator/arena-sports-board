@@ -28,20 +28,30 @@ export default function InternationalBoard({league,initialView="analysis",onView
  const [analysisDate,setAnalysisDate]=useState(()=>taipeiFixtureDay(Date.now()));
  const [scheduleDate,setScheduleDate]=useState(new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date()));
  const [game,setGame]=useState(''),[gameData,setGameData]=useState<Data>(),[gameLoading,setGameLoading]=useState(false),[liveTab,setLiveTab]=useState('score');
- const superData=useSource<any>(`member-odds&league=${league}`,60000);
+ const superData=useSource<any>(`member-odds&league=${league}`,60000,view==='analysis'||view==='overview');
  const year=new Date().getUTCFullYear();
  useEffect(()=>{const refresh=()=>setRevision(v=>v+1);window.addEventListener('arena-refresh-all',refresh);return()=>window.removeEventListener('arena-refresh-all',refresh)},[]);
  useEffect(()=>{setGame('');setData({});setAnalysisDate(taipeiFixtureDay(Date.now()));},[league]);
  useEffect(()=>{setView(['analysis','overview','teams','standings','live'].includes(initialView)?initialView:'analysis');},[initialView]);
  function changeView(value:string){setView(value);onViewChange?.(value);}
  useEffect(()=>{
-  const c=new AbortController();setLoading(true);
-  const kinds=league==='CPBL'?['standings','schedule']:['bat','pit','standings','schedule',...(league==='NPB'?['starters']:[])];
+  const c=new AbortController();
+  const kinds=view==='analysis'
+    ? ['standings','schedule',...(league==='NPB'?['starters']:[])]
+    : view==='overview'
+      ? ['standings',...(league==='CPBL'?[]:['bat','pit'])]
+      : view==='standings'||view==='teams'
+        ? ['standings']
+        : view==='live'&&league==='NPB'
+          ? ['schedule']
+          : [];
+  if(!kinds.length){setLoading(false);return()=>c.abort();}
+  setLoading(true);
   let busy=false;async function load(){if(busy||document.hidden)return;busy=true;try{await Promise.all(kinds.map(async kind=>{try{const r=await fetch(`/api/international?kind=${league.toLowerCase()}-${kind}`,{signal:AbortSignal.any([c.signal,AbortSignal.timeout(45000)]),cache:'no-store'});if(!r.ok)throw new Error();const value=await r.json();if(!c.signal.aborted)setData(old=>({...old,[kind]:value}));}catch{if(!c.signal.aborted)setData(old=>({...old,[kind]:{...old[kind],error:'來源暫時無法取得',status:old[kind]?'stale':'unavailable'}}))}}));}finally{busy=false;if(!c.signal.aborted)setLoading(false)}}
   const resume=()=>{if(!document.hidden)void load();};void load();const timer=setInterval(()=>void load(),300000);document.addEventListener('visibilitychange',resume);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',resume);c.abort();};
- },[league,revision]);
+ },[league,revision,view]);
  useEffect(()=>{
-  if(!analysisDate)return;
+  if(view!=='analysis'||!analysisDate)return;
   const c=new AbortController();let busy=false;
   // The selected fixture day can be tomorrow even while the local date is today.
   setData(old=>({...old,pregame:old.pregame?.pregame?.date===analysisDate?old.pregame:{}}));
@@ -52,7 +62,7 @@ export default function InternationalBoard({league,initialView="analysis",onView
   }catch{if(!c.signal.aborted)setData(old=>({...old,pregame:{...old.pregame,error:'來源暫時無法取得',status:'stale'}}))}finally{busy=false}}
   const resume=()=>{if(!document.hidden)void load()};void load();const timer=setInterval(()=>void load(),300000);document.addEventListener('visibilitychange',resume);
   return()=>{c.abort();clearInterval(timer);document.removeEventListener('visibilitychange',resume)};
- },[league,analysisDate,revision]);
+ },[league,analysisDate,revision,view]);
  useEffect(()=>{setGameData(undefined);if(!game||!['NPB','CPBL'].includes(league))return;const c=new AbortController();setGameLoading(true);fetch(league==='CPBL'?`/api/international?kind=cpbl-game&url=${encodeURIComponent(data.schedule?.games?.find(g=>g.id===game)?.url||'')}`:`/api/international?kind=${liveTab==='preview'?'npb-preview':'npb-game'}&id=${encodeURIComponent(game)}`,{signal:c.signal}).then(async r=>{if(!r.ok)throw new Error();return r.json()}).then(value=>{if(!c.signal.aborted)setGameData(value)}).catch(()=>{if(!c.signal.aborted)setGameData({error:'單場紀錄讀取失敗'})}).finally(()=>{if(!c.signal.aborted)setGameLoading(false)});return()=>c.abort()},[game,league,revision,liveTab]);
  const directory=Object.values(profileTeams[league]);
  const record=(name:string)=>{for(const t of data.standings?.tables||[]){const r=t.rows.find(r=>r[t.headers.indexOf('球隊')]===name);if(r)return {wins:r[t.headers.indexOf('勝')],losses:r[t.headers.indexOf('敗')],ties:r[t.headers.indexOf('和')],rate:r[t.headers.indexOf('勝率')]};}return null;};
