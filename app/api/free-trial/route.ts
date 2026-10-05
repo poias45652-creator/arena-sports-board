@@ -10,6 +10,7 @@ import {FOOTBALL_LEAGUES,type FootballLeague} from '@/lib/football';
 import {footballSchedule,footballGameAnalysis} from '@/lib/football-source';
 import {getInternationalLive,getInternationalPregame} from '@/lib/international-feed';
 import {buildRunAnalysis,analysisStartTime} from '@/lib/baseball-run-analysis';
+import {internationalTeam} from '@/lib/international-teams';
 import {getRawDb} from '@/db';
 export const dynamic='force-dynamic';
 type Candidate=TrialFixture&{raw:any;eligible:boolean;progress:TrialProgress};
@@ -64,7 +65,14 @@ async function analyze(chosen:Candidate,day:string):Promise<TrialData>{
    if(model.canEstimate&&model.homeWin!==null)data.probabilities=trialProbabilities({home:model.homeWin,away:1-model.homeWin});
    data.details=[{label:'先發投手',home:raw.home.pitcherName||'尚未公布',away:raw.away.pitcherName||'尚未公布'},{label:'先發 ERA',home:numeric(raw.home.pitcherEra),away:numeric(raw.away.pitcherEra)},{label:'先發 WHIP',home:numeric(raw.home.pitcherWhip),away:numeric(raw.away.pitcherWhip)}];
   }else if(game.league==='NPB'){
-   const d=await getInternationalPregame('NPB',day),g=d.pregame.games.find((g:any)=>g.home.team===game.home&&g.away.team===game.away&&analysisStartTime(g.start)===Date.parse(game.start));
+   const d=await getInternationalPregame('NPB',day);
+   // Schedules retain display names (西武獅), while pregame data uses
+   // canonical names (埼玉西武獅). Keep exact sides, league, day and start;
+   // ambiguous duplicate fixtures must never supply a public prediction.
+   const home=internationalTeam(game.home,'NPB'),away=internationalTeam(game.away,'NPB');
+   const matches=d.pregame?.league==='NPB'&&d.pregame.date===day&&home&&away
+    ?d.pregame.games.filter((g:any)=>g.league==='NPB'&&g.date===day&&internationalTeam(g.home.team,'NPB')===home&&internationalTeam(g.away.team,'NPB')===away&&analysisStartTime(g.start)===Date.parse(game.start)):[];
+   const g=matches.length===1?matches[0]:undefined;
    if(g){const a=buildRunAnalysis(g,Date.now(),'NPB',true);if(a.status==='ready'&&a.mode!=='simulation'){data.probabilities=trialProbabilities(a.win);if(a.expected)data.expected=a.expected;}data.details=[{label:'先發投手',home:g.home.starter.name||'尚未公布',away:g.away.starter.name||'尚未公布'}];}
   }else{
    const report=game.sport==='football'?await footballGameAnalysis(game.league as FootballLeague,day,game.id):await(game.league==='NBA'?nbaGameAnalysis:wnbaGameAnalysis)(day,game.id);
