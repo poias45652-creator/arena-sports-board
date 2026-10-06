@@ -8,17 +8,17 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-04T10:25:44.937Z",
-  "dateAsiaTaipei": "2026-10-04",
+  "observedAt": "2026-10-06T05:56:52.390Z",
+  "dateAsiaTaipei": "2026-10-06",
   "currentGames": {
-    "NPB": 3,
+    "NPB": 2,
     "KBO": 5,
-    "CPBL": 3
+    "CPBL": 1
   },
   "currentStates": {
-    "NPB": "live",
-    "KBO": "mixed_live_final",
-    "CPBL": "live"
+    "NPB": "pregame",
+    "KBO": "pregame",
+    "CPBL": "pregame"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
@@ -35,9 +35,9 @@
     "CPBL": "18:35"
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-04",
-    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-04&toDate=2026-10-04&page=1&pageSize=100",
-    "CPBL": "https://www.playsport.cc/livescore/6?gamedate=20261004&mode=1"
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-06",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-06&toDate=2026-10-06&page=1&pageSize=100",
+    "CPBL": "https://www.playsport.cc/livescore/6?gamedate=20261006&mode=1"
   },
   "liveChangeProof": {
     "NPB": {
@@ -688,6 +688,43 @@
         "observationPath": "data/live/20261004T102544Z.json",
         "collectorFallback": true
       }
+    },
+    "2026-10-06": {
+      "NPB": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "sportsnavi",
+        "state": "pregame",
+        "games": 2
+      },
+      "KBO": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "naver",
+        "state": "pregame",
+        "games": 5,
+        "excludedNonFirstTeamGames": 3
+      },
+      "CPBL": {
+        "verified": false,
+        "verifiedAt": null,
+        "source": "playsport-public-fallback",
+        "state": "pregame",
+        "games": 1
+      },
+      "allVerified": false,
+      "reason": "All scheduled first-team games were pregame; no >=65-second live pair was applicable.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-06T05:56:52.390Z",
+        "artifactId": null,
+        "artifactCreatedAt": null,
+        "runId": 35688889561,
+        "runAttempt": 50,
+        "jobId": null,
+        "observationPath": "data/live/20261006T055652Z.json",
+        "collectorFallback": true
+      }
     }
   },
   "parserFixes": [
@@ -796,62 +833,64 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-01",
+    "date": "2026-10-06",
     "evidenceRetainedIn": "data/live/",
     "evidenceObservationPaths": [
-      "data/live/20261001T094109Z.json",
-      "data/live/20261001T103146Z.json",
-      "data/live/20261001T113938Z.json"
+      "data/live/20261006T052126Z.json",
+      "data/live/20261006T055652Z.json"
     ],
     "NPB": {
-      "verified": true,
-      "state": "mixed_live_final",
-      "games": 4,
-      "liveGames": 3,
-      "finalGames": 1,
-      "source": "sportsnavi",
-      "proofIntervalSeconds": 88.638
+      "verified": false,
+      "state": "pregame",
+      "games": 2,
+      "liveGames": 0,
+      "finalGames": 0,
+      "source": "sportsnavi"
     },
     "KBO": {
-      "verified": true,
-      "state": "live",
-      "games": 4,
-      "liveGames": 4,
+      "verified": false,
+      "state": "pregame",
+      "games": 5,
+      "liveGames": 0,
       "finalGames": 0,
       "source": "naver",
-      "proofIntervalSeconds": 175.912,
-      "excludedNonFirstTeamGames": 1
+      "excludedNonFirstTeamGames": 3
     },
     "CPBL": {
-      "verified": true,
-      "state": "live",
-      "games": 2,
-      "liveGames": 2,
+      "verified": false,
+      "state": "pregame",
+      "games": 1,
+      "liveGames": 0,
       "finalGames": 0,
-      "source": "yahoo-tw + playsport-public-fallback",
-      "proofMinimumIntervalSeconds": 640.221,
+      "source": "playsport-public-fallback",
       "pitchCount": null,
       "balls": null,
       "strikes": null,
       "outs": null,
       "bases": null
     },
-    "allScheduledLeaguesVerified": true,
-    "allThreeLeaguesLiveVerified": true,
-    "latestObservationPath": "data/live/20261001T113938Z.json"
+    "allScheduledLeaguesVerified": false,
+    "allThreeLeaguesLiveVerified": false,
+    "latestObservationPath": "data/live/20261006T055652Z.json"
   },
-  "nextAction": "Continue 2026-10-01 collection while live games remain; recheck final transitions. Keep CPBL unsupported live fields null and do not use a conflicting fallback total as authoritative.",
+  "nextAction": "Continue 2026-10-06 collection; after a first-team game enters live state, capture again at least 65 seconds later and verify real numeric changes.",
   "latestRun": {
     "runId": 35688889561,
-    "runAttempt": 45,
-    "jobId": 108381021656,
-    "artifactId": 10902798890,
-    "artifactCreatedAt": "2026-09-26T09:42:53Z",
-    "capturedAt": "2026-09-26T09:42:50.751Z",
-    "observationPath": "data/live/2026-09-26T094250Z.json",
-    "headSha": "57f2c4959eaa49a28ea773e5485b07c29c2d9232"
+    "runAttempt": 50,
+    "jobId": null,
+    "artifactId": null,
+    "artifactCreatedAt": null,
+    "capturedAt": "2026-10-06T05:56:52.390Z",
+    "observationPath": "data/live/20261006T055652Z.json",
+    "headSha": null,
+    "status": "completed",
+    "conclusion": "startup_failure",
+    "runStartedAt": "2026-10-06T05:52:55Z",
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "staleArtifactUsed": false
   },
-  "latestObservationCommit": "7d2fead776b54e2719bbab9225025bc94b5dc150",
+  "latestObservationCommit": "c403edcc73c59d145ea8f4b446917ef31543cb51",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
