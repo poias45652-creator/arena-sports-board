@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T05:21:26Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "purpose": "current feed validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": null,
+    "priorKnownRunAttempt": 50,
+    "rerunJobId": 108552526980,
+    "rerunAttempted": true,
+    "rerunAccepted": true,
+    "jobsObservedAfterRerun": 0,
+    "artifactsObservedAfterRerun": 0,
+    "freshArtifactAccepted": false,
+    "staleArtifactUsed": false,
+    "collectorFallback": true,
+    "note": "Job rerun request was accepted, but the workflow run still exposed zero jobs and zero artifacts during this execution; no old artifact was reused."
+  },
+  "captureWindow": {
+    "firstCapturedAt": "2026-10-06T05:21:26Z",
+    "secondCapturedAt": null,
+    "intervalSeconds": null,
+    "secondCapturePerformed": false,
+    "reason": "No first-team game was live at this capture; >=65 second paired live observations were not applicable yet."
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-06",
+      "current": [
+        {
+          "gameId": "2021051133",
+          "away": "広島",
+          "home": "阪神",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "2021051120",
+          "away": "西武",
+          "home": "ロッテ",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        }
+      ],
+      "placeholderScoresAccepted": false
+    },
+    "KBO": {
+      "games": 5,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "source": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-06&toDate=2026-10-06&page=1&pageSize=100",
+      "excludedNonFirstTeamGames": 3,
+      "current": [
+        {
+          "gameId": "20261006KTWO02026",
+          "away": "KT",
+          "home": "키움",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006NCLG02026",
+          "away": "NC",
+          "home": "LG",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006OBLT02026",
+          "away": "두산",
+          "home": "롯데",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006SKHH02026",
+          "away": "SSG",
+          "home": "한화",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006SSHT02026",
+          "away": "삼성",
+          "home": "KIA",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        }
+      ],
+      "sourceZeroScoresNormalizedToNullForPregame": true
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "source": "https://www.playsport.cc/livescore/6?gamedate=20261006&mode=1",
+      "current": [
+        {
+          "gameId": "2026100661001",
+          "away": "富邦",
+          "home": "樂天",
+          "startTime": "2026-10-06T18:35:00+08:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_officially_verified"
+        }
+      ],
+      "placeholderScoresAccepted": false,
+      "unsupportedLiveFieldsRemainNull": true
+    }
+  }
+}
