@@ -1,4 +1,69 @@
 {
+  "schemaVersion": 1,
   "capturedAt": "2026-10-06T13:00:59.850Z",
-  "dateAsiaTaipei": "2026-10-06"
+  "dateAsiaTaipei": "2026-10-06",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 11,
+    "jobId": 112280045007,
+    "artifactId": 11415396447,
+    "artifactCreatedAt": "2026-10-06T12:57:39Z",
+    "artifactCapturedAt": "2026-10-06T12:57:33.814Z",
+    "runHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "freshArtifactUsed": true,
+    "staleArtifactUsed": false
+  },
+  "leagues": {
+    "NPB": {
+      "state": "final",
+      "games": [
+        {
+          "away": "廣島東洋鯉魚",
+          "home": "阪神虎",
+          "awayScore": 1,
+          "homeScore": 2
+        },
+        {
+          "away": "西武獅",
+          "home": "千葉羅德海洋",
+          "awayScore": 3,
+          "homeScore": 0
+        }
+      ],
+      "sameDayLiveVerified": false
+    },
+    "KBO": {
+      "state": "final",
+      "games": 5,
+      "sameDayLiveVerified": true,
+      "verifiedAt": "2026-10-06T09:38:04.669Z",
+      "evidencePath": "data/live/20261006T093804Z.json",
+      "excludedNonFirstTeamGames": 3
+    },
+    "CPBL": {
+      "state": "live",
+      "away": "富邦悍將",
+      "home": "樂天桃猿",
+      "awayScore": 6,
+      "homeScore": 0,
+      "inning": 8,
+      "half": "bottom",
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "lineupConfirmation": "not_officially_verified",
+      "sameDayLiveVerified": true,
+      "proof": {
+        "beforePath": "data/live/20261006T122447Z.json",
+        "beforeAt": "2026-10-06T12:24:47.048Z",
+        "beforeInning": 6,
+        "afterAt": "2026-10-06T13:00:59.850Z",
+        "afterInning": 8,
+        "intervalSeconds": 2172.802
+      }
+    }
+  }
 }
