@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T09:38:04.670Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 10,
+    "jobId": 112204737418,
+    "artifactId": 11402946292,
+    "artifactCreatedAt": "2026-10-06T09:38:07Z",
+    "runStartedAt": "2026-10-06T09:36:31Z",
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "artifactCapturedAt": "2026-10-06T09:38:04.670Z",
+    "runHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "currentBranchParserBlobSha": "d0322058abe85ace00d24ae3a4f3edbe2a0185a1",
+    "currentBranchCurrentBlobSha": "d8bff5415de31d9a025cda1306afe9dd0b11ca22",
+    "staleArtifactUsed": false,
+    "artifactFreshButCodeSnapshotOlderThanBranch": true,
+    "note": "Fresh 2026-10-06 attempt-10 artifact. GitHub rerun checked out historical run head f12e947a..., so evidence was accepted only where independently valid and normalization rules were enforced."
+  },
+  "captureWindow": {
+    "firstCapturedAt": "2026-10-06T09:36:56.519Z",
+    "secondCapturedAt": "2026-10-06T09:38:04.670Z",
+    "secondCapturePerformed": true,
+    "liveObserved": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "live",
+      "sameDayLiveVerified": false,
+      "reason": "Two live observations were >=65 seconds apart, but neither NPB game had a qualifying numeric change during this window.",
+      "current": [
+        {
+          "gameId": "2021051133",
+          "away": "廣島東洋鯉魚",
+          "home": "阪神虎",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 2,
+          "inning": 3,
+          "half": "top",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "firstFetchedAt": "2026-10-06T09:36:53.478Z",
+          "secondFetchedAt": "2026-10-06T09:38:02.232Z",
+          "intervalSeconds": 68.754,
+          "materialChange": false,
+          "pitching": {
+            "away": [
+              {
+                "name": "工藤 泰己",
+                "pitchCount": 34,
+                "outsRecorded": 6
+              }
+            ],
+            "home": [
+              {
+                "name": "大竹 耕太郎",
+                "pitchCount": 25,
+                "outsRecorded": 7
+              }
+            ]
+          }
+        },
+        {
+          "gameId": "2021051120",
+          "away": "西武獅",
+          "home": "千葉羅德海洋",
+          "status": "live",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 3,
+          "half": "top",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "firstFetchedAt": "2026-10-06T09:36:53.722Z",
+          "secondFetchedAt": "2026-10-06T09:38:02.496Z",
+          "intervalSeconds": 68.774,
+          "materialChange": false,
+          "pitching": {
+            "away": [
+              {
+                "name": "武内 夏暉",
+                "pitchCount": 30,
+                "outsRecorded": 6
+              }
+            ],
+            "home": [
+              {
+                "name": "ルケーシー",
+                "pitchCount": 31,
+                "outsRecorded": 6
+              }
+            ]
+          }
+        }
+      ],
+      "normalizationNotes": [
+        "Unsupported NPB B/S/O and base-state fields remain null.",
+        "No unchanged 0/0 score was treated as proof of live change."
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "live",
+      "sameDayLiveVerified": true,
+      "verifiedAt": "2026-10-06T09:38:04.669Z",
+      "verificationMethod": "same-run live-to-live numeric changes separated by >=65 seconds",
+      "current": [
+        {
+          "gameId": "20261006KTWO02026",
+          "away": "KT巫師",
+          "home": "培證英雄",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 1,
+          "balls": 0,
+          "strikes": 0,
+          "outs": 0,
+          "bases": [
+            false,
+            false,
+            false
+          ],
+          "proof": {
+            "beforeFetchedAt": "2026-10-06T09:36:54.358Z",
+            "afterFetchedAt": "2026-10-06T09:38:03.470Z",
+            "intervalSeconds": 69.112,
+            "changes": {
+              "outs": {
+                "before": 1,
+                "after": 0
+              },
+              "pitchCount": {
+                "pitcher": "박준현",
+                "before": 14,
+                "after": 18
+              },
+              "outsRecorded": {
+                "pitcher": "박준현",
+                "before": 1,
+                "after": 3
+              }
+            }
+          }
+        },
+        {
+          "gameId": "20261006NCLG02026",
+          "away": "NC恐龍",
+          "home": "LG雙子",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 1,
+          "balls": 1,
+          "strikes": 1,
+          "outs": 0,
+          "bases": [
+            false,
+            false,
+            false
+          ],
+          "proof": {
+            "beforeFetchedAt": "2026-10-06T09:36:54.781Z",
+            "afterFetchedAt": "2026-10-06T09:38:03.909Z",
+            "intervalSeconds": 69.128,
+            "changes": {
+              "balls": {
+                "before": 0,
+                "after": 1
+              },
+              "strikes": {
+                "before": 0,
+                "after": 1
+              },
+              "pitchCount": {
+                "pitcher": "최성영",
+                "before": 0,
+                "after": 2
+              }
+            }
+          }
+        },
+        {
+          "gameId": "20261006OBLT02026",
+          "away": "斗山熊",
+          "home": "樂天巨人",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 1,
+          "balls": 0,
+          "strikes": 0,
+          "outs": 2,
+          "bases": [
+            true,
+            false,
+            true
+          ],
+          "proof": {
+            "beforeFetchedAt": "2026-10-06T09:36:54.990Z",
+            "afterFetchedAt": "2026-10-06T09:38:04.214Z",
+            "intervalSeconds": 69.224,
+            "changes": {
+              "pitchCount": {
+                "pitcher": "박세웅",
+                "before": 16,
+                "after": 19
+              }
+            }
+          }
+        },
+        {
+          "gameId": "20261006SKHH02026",
+          "away": "SSG登陸者",
+          "home": "韓華鷹",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 1,
+          "balls": 1,
+          "strikes": 2,
+          "outs": 1,
+          "bases": [
+            true,
+            false,
+            false
+          ],
+          "proof": {
+            "beforeFetchedAt": "2026-10-06T09:36:55.216Z",
+            "afterFetchedAt": "2026-10-06T09:38:04.489Z",
+            "intervalSeconds": 69.273,
+            "changes": {
+              "pitchCount": {
+                "pitcher": "화이트",
+                "before": 15,
+                "after": 17
+              }
+            }
+          }
+        },
+        {
+          "gameId": "20261006SSHT02026",
+          "away": "三星獅",
+          "home": "起亞虎",
+          "status": "live",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 1,
+          "balls": 0,
+          "strikes": 0,
+          "outs": 2,
+          "bases": [
+            false,
+            true,
+            false
+          ],
+          "proof": {
+            "beforeFetchedAt": "2026-10-06T09:36:55.391Z",
+            "afterFetchedAt": "2026-10-06T09:38:04.669Z",
+            "intervalSeconds": 69.278,
+            "changes": {
+              "balls": {
+                "before": 2,
+                "after": 0
+              },
+              "outs": {
+                "before": 1,
+                "after": 2
+              },
+              "pitchCount": {
+                "pitcher": "김태형",
+                "before": 12,
+                "after": 15
+              },
+              "outsRecorded": {
+                "pitcher": "김태형",
+                "before": 1,
+                "after": 2
+              }
+            }
+          }
+        }
+      ],
+      "normalizationNotes": [
+        "Only categoryId=kbo first-team games are included.",
+        "Score staying 0-0 does not block verification when other in-game numeric fields change."
+      ]
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "current": [
+        {
+          "gameId": "261006274",
+          "away": "富邦悍將",
+          "home": "樂天桃猿",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_officially_verified",
+          "sourceFetchedAt": "2026-10-06T09:38:04.520Z"
+        }
+      ],
+      "normalizationNotes": [
+        "Pregame 0-0 is not accepted as a score.",
+        "Unsupported CPBL live fields remain null; source-listed lineup is not treated as official confirmation."
+      ]
+    }
+  },
+  "dataQuality": {
+    "oldRunSnapshotStillUsedByRerun": true,
+    "effect": "Current artifact is fresh, but rerunning this historical workflow run checks out f12e947a rather than the branch's newer parser files.",
+    "action": "No main/Render/production edits. Accepted only validated current facts and retained null for unsupported fields."
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "deployed": false
+}
