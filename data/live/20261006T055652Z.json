@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T05:56:52.390Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35688889561,
+    "runAttempt": 50,
+    "runStatus": "completed",
+    "runConclusion": "startup_failure",
+    "runStartedAt": "2026-10-06T05:52:55Z",
+    "rerunJobId": 108552526980,
+    "rerunAccepted": true,
+    "jobsObserved": 0,
+    "artifactsObserved": 0,
+    "staleArtifactUsed": false,
+    "collectorFallback": true
+  },
+  "captureWindow": {
+    "secondCapturePerformed": false,
+    "reason": "no first-team live game"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "current": [
+        {
+          "gameId": "2021051133",
+          "away": "広島",
+          "home": "阪神",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "2021051120",
+          "away": "西武",
+          "home": "ロッテ",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        }
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "excludedNonFirstTeamGames": 3,
+      "current": [
+        {
+          "gameId": "20261006KTWO02026",
+          "away": "KT",
+          "home": "키움",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006NCLG02026",
+          "away": "NC",
+          "home": "LG",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006OBLT02026",
+          "away": "두산",
+          "home": "롯데",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006SKHH02026",
+          "away": "SSG",
+          "home": "한화",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        },
+        {
+          "gameId": "20261006SSHT02026",
+          "away": "삼성",
+          "home": "KIA",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame"
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "current": [
+        {
+          "gameId": "2026100661001",
+          "away": "富邦",
+          "home": "樂天",
+          "startTime": "2026-10-06T18:35:00+08:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_officially_verified"
+        }
+      ]
+    }
+  }
+}
