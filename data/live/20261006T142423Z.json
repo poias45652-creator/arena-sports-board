@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T14:24:23.794Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 12,
+    "jobId": 112320570161,
+    "artifactId": 11420945139,
+    "artifactCreatedAt": "2026-10-06T14:24:27Z",
+    "runHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "freshArtifactUsed": true,
+    "staleArtifactUsed": false
+  },
+  "states": {
+    "NPB": {"state":"final","games":2,"sameDayLiveVerified":false},
+    "KBO": {"state":"final","games":5,"sameDayLiveVerified":true,"evidencePath":"data/live/20261006T093804Z.json"},
+    "CPBL": {"state":"final","games":1,"away":"富邦悍將","home":"樂天桃猿","awayScore":6,"homeScore":1,"sameDayLiveVerified":true,"evidencePath":"data/live/20261006T130059Z.json","balls":null,"strikes":null,"outs":null,"bases":null,"pitchCount":null,"lineupConfirmation":"not_officially_verified"}
+  }
+}
