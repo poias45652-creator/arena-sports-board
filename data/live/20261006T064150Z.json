@@ -1,0 +1,193 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T06:41:50.966Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 8,
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "runStartedAt": "2026-10-06T06:41:24Z",
+    "rerunJobId": 106620975849,
+    "freshJobId": 112143037898,
+    "rerunAccepted": true,
+    "jobsObserved": 1,
+    "artifactId": 11394601548,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-06T06:41:53Z",
+    "artifactsObserved": 1,
+    "staleArtifactUsed": false,
+    "collectorFallback": false,
+    "sourceHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "note": "Reran the latest previously successful collect job. Fresh artifact timestamps and capturedAt are 2026-10-06. NPB pregame stats-table placeholder row named '0' from this older workflow revision was not accepted as usable batting data; unknown pregame values remain null."
+  },
+  "captureWindow": {
+    "secondCapturePerformed": false,
+    "reason": "no first-team live game"
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "current": [
+        {
+          "gameId": "2021051133",
+          "away": "廣島東洋鯉魚",
+          "home": "阪神虎",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:47.395Z"
+        },
+        {
+          "gameId": "2021051120",
+          "away": "西武獅",
+          "home": "千葉羅德海洋",
+          "startTime": "2026-10-06T18:00:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:47.738Z"
+        }
+      ],
+      "normalizationNotes": [
+        "pregame batting placeholder row named '0' in the rerun artifact was discarded; it is not treated as player data"
+      ]
+    },
+    "KBO": {
+      "games": 5,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "excludedNonFirstTeamGames": 3,
+      "current": [
+        {
+          "gameId": "20261006KTWO02026",
+          "away": "KT巫師",
+          "home": "培證英雄",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:47.879Z"
+        },
+        {
+          "gameId": "20261006NCLG02026",
+          "away": "NC恐龍",
+          "home": "LG雙子",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:48.177Z"
+        },
+        {
+          "gameId": "20261006OBLT02026",
+          "away": "斗山熊",
+          "home": "樂天巨人",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:48.372Z"
+        },
+        {
+          "gameId": "20261006SKHH02026",
+          "away": "SSG登陸者",
+          "home": "韓華鷹",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:48.551Z"
+        },
+        {
+          "gameId": "20261006SSHT02026",
+          "away": "三星獅",
+          "home": "起亞虎",
+          "startTime": "2026-10-06T18:30:00+09:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:48.746Z"
+        }
+      ]
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "pregame",
+      "sameDayLiveVerified": false,
+      "current": [
+        {
+          "gameId": "261006274",
+          "away": "富邦悍將",
+          "home": "樂天桃猿",
+          "startTime": "2026-10-06T18:35:00+08:00",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_officially_verified",
+          "sourceFetchedAt": "2026-10-06T06:41:50.960Z"
+        }
+      ]
+    }
+  }
+}
