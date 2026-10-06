@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-06T12:24:47.048Z",
+  "dateAsiaTaipei": "2026-10-06",
+  "purpose": "current first-team feed validation; not production deployment",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "rerunAttempted": true,
+    "rerunBlockedBySafetyChecks": true,
+    "freshArtifactUsed": false,
+    "lastVerifiedRunId": 35589830427,
+    "lastVerifiedRunAttempt": 10,
+    "lastVerifiedArtifactId": 11402946292,
+    "note": "No older artifact was treated as this run's capture. Current state came from fresh public-source fetches."
+  },
+  "captureWindow": {
+    "firstObservationRecordedAt": "2026-10-06T12:23:40.823Z",
+    "secondObservationRecordedAt": "2026-10-06T12:24:47.048Z",
+    "minimumIntervalSeconds": 66.225,
+    "firstObservationProvider": "Firecrawl live fetch (maxAge=0)",
+    "secondObservationProvider": "TinyFish live fetch (ttl=0)",
+    "plannedDelayedFirecrawlSecondCaptureFailed": "low credits",
+    "liveObserved": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 2,
+      "state": "final",
+      "sameDayLiveVerified": false,
+      "reason": "A stored same-day live observation exists from 09:38Z and current finals show real progression, but the persisted 09:38Z NPB window itself had no qualifying live-to-live numeric change; do not upgrade proof from final-only comparison.",
+      "current": [
+        {
+          "away": "廣島東洋鯉魚",
+          "home": "阪神虎",
+          "status": "final",
+          "awayScore": 1,
+          "homeScore": 2,
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        },
+        {
+          "away": "西武獅",
+          "home": "千葉羅德海洋",
+          "status": "final",
+          "awayScore": 3,
+          "homeScore": 0,
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        }
+      ],
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-06"
+    },
+    "KBO": {
+      "games": 5,
+      "state": "mixed_live_final",
+      "sameDayLiveVerified": true,
+      "verifiedAt": "2026-10-06T09:38:04.669Z",
+      "verificationMethod": "retained same-run live-to-live numeric changes separated by >=65 seconds from data/live/20261006T093804Z.json; current live states re-fetched this run",
+      "excludedNonFirstTeamGames": 3,
+      "current": [
+        {
+          "gameId": "20261006KTWO02026",
+          "away": "KT巫師",
+          "home": "培證英雄",
+          "status": "live",
+          "awayScore": 10,
+          "homeScore": 1,
+          "inning": 9,
+          "half": "top",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        },
+        {
+          "gameId": "20261006NCLG02026",
+          "away": "NC恐龍",
+          "home": "LG雙子",
+          "status": "live",
+          "awayScore": 1,
+          "homeScore": 6,
+          "inning": 9,
+          "half": "top",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        },
+        {
+          "gameId": "20261006SKHH02026",
+          "away": "SSG登陸者",
+          "home": "韓華鷹",
+          "status": "live",
+          "awayScore": 2,
+          "homeScore": 9,
+          "inning": 8,
+          "half": "bottom",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        },
+        {
+          "gameId": "20261006SSHT02026",
+          "away": "三星獅",
+          "home": "起亞虎",
+          "status": "live",
+          "awayScore": 5,
+          "homeScore": 4,
+          "inning": 9,
+          "half": "top",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        },
+        {
+          "gameId": "20261006OBLT02026",
+          "away": "斗山熊",
+          "home": "樂天巨人",
+          "status": "final",
+          "awayScore": 3,
+          "homeScore": 1,
+          "inning": 9,
+          "half": "bottom",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        }
+      ],
+      "source": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-06&toDate=2026-10-06&page=1&pageSize=100"
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "live",
+      "sameDayLiveVerified": false,
+      "reason": "Two fresh observations were recorded at least 66.225 seconds apart, but score remained 6-0 and the second source did not expose a trustworthy current half-inning/B-S-O/base/pitch-count change. Live source remains usable; no fabricated proof.",
+      "current": [
+        {
+          "gameId": "261006274",
+          "away": "富邦悍將",
+          "home": "樂天桃猿",
+          "status": "live",
+          "awayScore": 6,
+          "homeScore": 0,
+          "inning": 6,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_officially_verified"
+        }
+      ],
+      "firstObservation": {
+        "awayScore": 6,
+        "homeScore": 0,
+        "inning": 6,
+        "half": "bottom"
+      },
+      "secondObservation": {
+        "awayScore": 6,
+        "homeScore": 0,
+        "inning": 6,
+        "half": null
+      },
+      "source": "https://www.playsport.cc/livescore/6?gamedate=20261006&mode=1",
+      "normalizationNotes": [
+        "Blank B/S/O stays null.",
+        "bases and pitchCount stay null.",
+        "Source-listed lineup is not treated as official confirmation."
+      ]
+    }
+  },
+  "dataQuality": {
+    "auxiliaryFirecrawlLowCredits": true,
+    "impact": "Delayed second Firecrawl fetch was unavailable; TinyFish live fetch supplied the second observation without bypassing access controls.",
+    "sourceAccessRestrictionsBypassed": false
+  },
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "deployed": false
+}
