@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T15:35:15.711Z",
+  "dateAsiaTaipei": "2026-10-07",
+  "source": "current-baseball-collector-workflow",
+  "workflowRunId": 35589830427,
+  "workflowRunAttempt": 17,
+  "workflowJobId": 112873438144,
+  "latestFreshArtifactId": 11494201251,
+  "latestFreshArtifactCreatedAt": "2026-10-07T15:35:18Z",
+  "staleArtifactUsed": false,
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "qualifiedNumericChanges": 0,
+  "states": {
+    "NPB": {
+      "state": "final",
+      "games": 1,
+      "away": "廣島東洋鯉魚",
+      "home": "阪神虎",
+      "awayScore": 1,
+      "homeScore": 2,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "sameDayLiveVerified": true
+    },
+    "KBO": {
+      "state": "final",
+      "games": 5,
+      "live": 0,
+      "final": 5,
+      "excludedNonFirstTeamGames": 2,
+      "sameDayLiveVerified": true,
+      "gamesSummary": [
+        {
+          "key": "KBO:20261007HHWO02026",
+          "away": "韓華鷹",
+          "home": "培證英雄",
+          "awayScore": 3,
+          "homeScore": 5,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007HTLT02026",
+          "away": "起亞虎",
+          "home": "樂天巨人",
+          "awayScore": 12,
+          "homeScore": 4,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007NCSK02026",
+          "away": "NC恐龍",
+          "home": "SSG登陸者",
+          "awayScore": 3,
+          "homeScore": 6,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007OBLG02026",
+          "away": "斗山熊",
+          "home": "LG雙子",
+          "awayScore": 5,
+          "homeScore": 7,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007SSKT02026",
+          "away": "三星獅",
+          "home": "KT巫師",
+          "awayScore": 3,
+          "homeScore": 9,
+          "status": "final"
+        }
+      ]
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-07T15:35:16.982Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 5,
+        "duplicateWrites": 0,
+        "readBack": 5,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "comparison": {
+    "previousObservation": "data/live/20261007T141528Z.json",
+    "previousCapturedAt": "2026-10-07T14:15:28.367Z",
+    "intervalSeconds": 4787.344,
+    "materialStateChange": false
+  },
+  "notes": [
+    "Only first-team games included.",
+    "NPB and KBO same-day live-change proof was established earlier on 2026-10-07 and retained; this final-state capture does not create new live proof.",
+    "No live games remained, so no second >=65 second capture was required.",
+    "Unknown fields remain null.",
+    "CPBL had no first-team games on 2026-10-07.",
+    "Workflow checkout remains historical SHA f12e947a5e8ad30967ef03e5cde4e05e291b4e03.",
+    "No production deployment or production database changes."
+  ]
+}
