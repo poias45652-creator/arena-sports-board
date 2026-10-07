@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T06:55:23.819Z",
+  "dateAsiaTaipei": "2026-10-07",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 15,
+    "jobId": 112670442294,
+    "artifactId": 11466147062,
+    "artifactCreatedAt": "2026-10-07T06:55:26Z",
+    "runHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "freshArtifactUsed": true,
+    "staleArtifactUsed": false
+  },
+  "states": {
+    "NPB": {
+      "state": "pregame",
+      "games": 1,
+      "sameDayLiveVerified": false,
+      "away": "廣島東洋鯉魚",
+      "home": "阪神虎",
+      "awayScore": null,
+      "homeScore": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "state": "pregame",
+      "games": 5,
+      "sameDayLiveVerified": false,
+      "pregameScoresNormalizedToNull": true,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  },
+  "validation": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "captureIntervalSeconds": null,
+    "qualifiedNumericChanges": 0
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-07T06:55:24.998Z"
+  }
+}
