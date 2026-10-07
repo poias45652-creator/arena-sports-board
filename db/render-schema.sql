@@ -168,3 +168,28 @@ CREATE TABLE IF NOT EXISTS free_trial_daily (
  progress_at bigint NOT NULL DEFAULT 0,
  progress_rank bigint NOT NULL DEFAULT 0
 );
+
+
+-- Unified public-model daily win-rate ledger. No account/member data is stored here.
+CREATE TABLE IF NOT EXISTS "daily_forecasts" (
+  "id" text PRIMARY KEY NOT NULL,
+  "sport" text NOT NULL,
+  "game_id" text NOT NULL,
+  "day" text NOT NULL,
+  "start_time" text NOT NULL,
+  "captured_at" text NOT NULL,
+  "pick" text NOT NULL,
+  "payload" text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS "daily_forecasts_day_sport" ON "daily_forecasts" ("day","sport");
+CREATE TABLE IF NOT EXISTS "daily_results" (
+  "id" text PRIMARY KEY NOT NULL,
+  "sport" text NOT NULL,
+  "game_id" text NOT NULL,
+  "day" text NOT NULL,
+  "start_time" text NOT NULL,
+  "home_score" bigint NOT NULL,
+  "away_score" bigint NOT NULL,
+  "fetched_at" text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS "daily_results_day_sport" ON "daily_results" ("day","sport");
