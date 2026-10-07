@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T05:20:04.092Z",
+  "dateAsiaTaipei": "2026-10-07",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": null,
+    "runAttempt": null,
+    "jobId": null,
+    "artifactId": null,
+    "artifactCreatedAt": null,
+    "freshArtifactUsed": false,
+    "staleArtifactUsed": false,
+    "executionAttempt": {
+      "attempted": true,
+      "method": "rerun latest verified collect job",
+      "sourceRunId": 35589830427,
+      "sourceJobId": 112351403578,
+      "result": "blocked_by_connector_safety_checks"
+    },
+    "collectorFallback": true
+  },
+  "states": {
+    "NPB": {
+      "state": "pregame",
+      "games": 1,
+      "sameDayLiveVerified": false,
+      "game": {
+        "id": "2021051134",
+        "home": "阪神",
+        "away": "広島",
+        "startTimeLocalJapan": "2026-10-07T18:00:00+09:00",
+        "startTimeAsiaTaipei": "2026-10-07T17:00:00+08:00",
+        "homeScore": null,
+        "awayScore": null,
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "probablePitchers": {
+          "home": "西 勇輝",
+          "away": "玉村 昇悟"
+        }
+      }
+    },
+    "KBO": {
+      "state": "pregame",
+      "games": 5,
+      "sameDayLiveVerified": false,
+      "excludedNonFirstTeamGames": 2,
+      "gameIds": [
+        "20261007HHWO02026",
+        "20261007HTLT02026",
+        "20261007NCSK02026",
+        "20261007OBLG02026",
+        "20261007SSKT02026"
+      ],
+      "startTimeLocalKorea": "2026-10-07T18:30:00+09:00",
+      "startTimeAsiaTaipei": "2026-10-07T17:30:00+08:00",
+      "pregameScoresNormalizedToNull": true,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  },
+  "sources": {
+    "NPB": {
+      "provider": "sportsnavi",
+      "scheduleUrl": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-07",
+      "gameUrl": "https://baseball.yahoo.co.jp/npb/game/2021051134/index",
+      "status": "ok"
+    },
+    "KBO": {
+      "provider": "naver",
+      "url": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-07&toDate=2026-10-07&page=1&pageSize=100",
+      "status": "ok",
+      "rawGameCount": 7,
+      "firstTeamGameCount": 5,
+      "excludedCategories": [
+        "kbaseballetc"
+      ]
+    },
+    "CPBL": {
+      "provider": "cpbl-official + playsport-public-fallback",
+      "officialUrl": "https://www.cpbl.com.tw/",
+      "fallbackUrl": "https://www.playsport.cc/livescore/6?gamedate=20261007&mode=1",
+      "status": "ok",
+      "note": "Official CPBL and date-specific public fallback both show no first-team game today."
+    }
+  },
+  "validation": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "captureIntervalSeconds": null,
+    "qualifiedNumericChanges": 0,
+    "reason": "Only pregame NPB/KBO games are scheduled at capture time; CPBL has no first-team game today. No >=65 second live observation is applicable yet."
+  },
+  "safety": {
+    "productionChanged": false,
+    "productionDatabaseWritten": false,
+    "mainModified": false,
+    "renderModified": false,
+    "authModified": false,
+    "envModified": false,
+    "deployed": false
+  }
+}
