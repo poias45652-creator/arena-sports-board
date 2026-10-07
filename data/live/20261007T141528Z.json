@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T14:15:28.367Z",
+  "dateAsiaTaipei": "2026-10-07",
+  "source": "fresh-public-fallback",
+  "workflowRunId": 35589830427,
+  "workflowRunAttempt": 16,
+  "workflowJobId": 112744432047,
+  "latestFreshArtifactId": 11474904311,
+  "latestFreshArtifactCreatedAt": "2026-10-07T10:23:36Z",
+  "workflowRerunBlocked": true,
+  "staleArtifactUsed": false,
+  "states": {
+    "NPB": {
+      "state": "final",
+      "games": 1,
+      "away": "廣島東洋鯉魚",
+      "home": "阪神虎",
+      "awayScore": 1,
+      "homeScore": 2,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "currentPitcher": null,
+      "currentPitcherPitchCount": null,
+      "currentBatter": null,
+      "sameDayLiveVerified": true
+    },
+    "KBO": {
+      "state": "final",
+      "games": 5,
+      "live": 0,
+      "final": 5,
+      "excludedNonFirstTeamGames": 2,
+      "sameDayLiveVerified": true,
+      "gamesSummary": [
+        {
+          "key": "KBO:20261007HHWO02026",
+          "away": "韓華鷹",
+          "home": "培證英雄",
+          "awayScore": 3,
+          "homeScore": 5,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007HTLT02026",
+          "away": "起亞虎",
+          "home": "樂天巨人",
+          "awayScore": 12,
+          "homeScore": 4,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007NCSK02026",
+          "away": "NC恐龍",
+          "home": "SSG登陸者",
+          "awayScore": 3,
+          "homeScore": 6,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007OBLG02026",
+          "away": "斗山熊",
+          "home": "LG雙子",
+          "awayScore": 5,
+          "homeScore": 7,
+          "status": "final"
+        },
+        {
+          "key": "KBO:20261007SSKT02026",
+          "away": "三星獅",
+          "home": "KT巫師",
+          "awayScore": 3,
+          "homeScore": 9,
+          "status": "final"
+        }
+      ]
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  },
+  "comparison": {
+    "previousObservation": "data/live/20261007T124344Z.json",
+    "previousCapturedAt": "2026-10-07T12:43:44.146Z",
+    "intervalSeconds": 5504.221,
+    "NPB": {
+      "status": {
+        "before": "live",
+        "after": "final"
+      },
+      "homeScore": {
+        "before": 1,
+        "after": 2
+      }
+    },
+    "KBO": {
+      "status": {
+        "before": "mixed_live_final",
+        "after": "final"
+      },
+      "20261007HTLT02026": {
+        "status": {
+          "before": "live",
+          "after": "final"
+        }
+      },
+      "20261007SSKT02026": {
+        "awayScore": {
+          "before": 0,
+          "after": 3
+        },
+        "status": {
+          "before": "live",
+          "after": "final"
+        }
+      }
+    }
+  },
+  "sourceURLs": {
+    "NPB": "https://baseball.yahoo.co.jp/npb/game/2021051134/score",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-07&toDate=2026-10-07&page=1&pageSize=100",
+    "CPBL": "https://www.playsport.cc/livescore/6?gamedate=20261007&mode=1"
+  },
+  "notes": [
+    "Only first-team games included.",
+    "NPB and KBO same-day live-change proof was established earlier on 2026-10-07 and is retained; this final-state capture does not create new live proof.",
+    "Unknown fields remain null.",
+    "KBO non-first-team rows excluded.",
+    "CPBL has no first-team games on 2026-10-07.",
+    "No production deployment or production database changes."
+  ]
+}
