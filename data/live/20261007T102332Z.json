@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-07T10:23:32.041Z",
+  "dateAsiaTaipei": "2026-10-07",
+  "collector": {
+    "workflow": "Current baseball collector",
+    "runId": 35589830427,
+    "runAttempt": 16,
+    "jobId": 112744432047,
+    "artifactId": 11474904311,
+    "artifactCreatedAt": "2026-10-07T10:23:36Z",
+    "runHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "freshArtifactUsed": true,
+    "staleArtifactUsed": false
+  },
+  "states": {
+    "NPB": {
+      "state": "live",
+      "games": 1,
+      "sameDayLiveVerified": false,
+      "liveStateObserved": true,
+      "away": "廣島東洋鯉魚",
+      "home": "阪神虎",
+      "awayScore": 1,
+      "homeScore": 0,
+      "inning": 5,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "source": "sportsnavi",
+      "fetchedAt": "2026-10-07T10:23:28.959Z",
+      "note": "Two captures were performed in the workflow, but no qualifying tracked numeric live-to-live change was observed for NPB in this window."
+    },
+    "KBO": {
+      "state": "live",
+      "games": 5,
+      "sameDayLiveVerified": true,
+      "liveStateObserved": true,
+      "source": "naver",
+      "verificationMethod": "same-run live-to-live numeric changes separated by >=65 seconds",
+      "verifiedAt": "2026-10-07T10:23:31.978Z",
+      "gamesSummary": [
+        {
+          "key": "KBO:20261007HHWO02026",
+          "away": "韓華鷹",
+          "home": "培證英雄",
+          "awayScore": 0,
+          "homeScore": 1,
+          "inning": 3,
+          "intervalSeconds": 69.005,
+          "changes": {
+            "balls": {
+              "before": 1,
+              "after": 3
+            },
+            "strikes": {
+              "before": 1,
+              "after": 2
+            },
+            "awayPitching": {
+              "55743:pitchCount": {
+                "before": 49,
+                "after": 52
+              }
+            }
+          }
+        },
+        {
+          "key": "KBO:20261007HTLT02026",
+          "away": "起亞虎",
+          "home": "樂天巨人",
+          "awayScore": 1,
+          "homeScore": 1,
+          "inning": 3,
+          "intervalSeconds": null,
+          "changes": null
+        },
+        {
+          "key": "KBO:20261007NCSK02026",
+          "away": "NC恐龍",
+          "home": "SSG登陸者",
+          "awayScore": 0,
+          "homeScore": 0,
+          "inning": 3,
+          "intervalSeconds": 68.942,
+          "changes": {
+            "awayPitching": {
+              "69962:pitchCount": {
+                "before": 60,
+                "after": 63
+              }
+            }
+          }
+        },
+        {
+          "key": "KBO:20261007OBLG02026",
+          "away": "斗山熊",
+          "home": "LG雙子",
+          "awayScore": 5,
+          "homeScore": 3,
+          "inning": 3,
+          "intervalSeconds": 68.944,
+          "changes": {
+            "balls": {
+              "before": 3,
+              "after": 0
+            },
+            "strikes": {
+              "before": 2,
+              "after": 0
+            },
+            "homePitching": {
+              "61101:pitchCount": {
+                "before": 65,
+                "after": 67
+              }
+            }
+          }
+        },
+        {
+          "key": "KBO:20261007SSKT02026",
+          "away": "三星獅",
+          "home": "KT巫師",
+          "awayScore": 0,
+          "homeScore": 2,
+          "inning": 3,
+          "intervalSeconds": 68.919,
+          "changes": {
+            "strikes": {
+              "before": 0,
+              "after": 1
+            },
+            "awayPitching": {
+              "69446:pitchCount": {
+                "before": 45,
+                "after": 46
+              }
+            }
+          }
+        }
+      ]
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified"
+    }
+  },
+  "validation": {
+    "liveGames": 6,
+    "secondCapturePerformed": true,
+    "minimumRequiredIntervalSeconds": 65,
+    "kboQualifiedLiveChanges": 4,
+    "npbQualifiedLiveChanges": 0,
+    "cpblQualifiedLiveChanges": 0
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-07T10:23:35.335Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 5,
+        "duplicateWrites": 0,
+        "readBack": 5,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "sourceURLs": {
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-07",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-07&toDate=2026-10-07&page=1&pageSize=100",
+    "CPBL": "https://www.playsport.cc/livescore/6?gamedate=20261007&mode=1"
+  },
+  "notes": [
+    "Only first-team regular games are included.",
+    "Unknown fields remain null and are not synthesized as zero.",
+    "CPBL lineup/source-listed data is not treated as official confirmation.",
+    "Workflow rerun still checked out historical branch SHA f12e947a5e8ad30967ef03e5cde4e05e291b4e03."
+  ]
+}
