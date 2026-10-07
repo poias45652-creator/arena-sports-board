@@ -2,6 +2,7 @@ import {footballDay,isFootballLeague,validFootballDay} from '@/lib/football';
 import {footballGameAnalysis,footballSchedule,nextFootballDay} from '@/lib/football-source';
 import {getRawDb} from '@/db';
 import {saveFootballForecast,saveFootballResults} from '@/lib/football-ledger';
+import {saveDailyForecast,saveDailyResults} from '@/lib/daily-win-rate';
 export const dynamic='force-dynamic';
 const savedResults=new Map<string,number>();
 export async function GET(request:Request){
@@ -14,11 +15,11 @@ export async function GET(request:Request){
       const id=p.get('game')||'';if(!/^\d{1,12}$/.test(id))return Response.json({error:'無效賽事編號'},{status:400,headers});
       const result=await footballGameAnalysis(league,day,id);
       if(!result)return Response.json({error:'本日找不到此賽事，請更新賽程'},{status:404,headers});
-      let snapshotSaved=false;try{snapshotSaved=await saveFootballForecast(getRawDb(),result.game,result.analysis);}catch{/* Analysis remains available, but snapshot failure is visible. */}
-      return Response.json({...result,snapshotSaved},{headers});
+      let snapshotSaved=false,dailySaved=false;try{const db=getRawDb();snapshotSaved=await saveFootballForecast(db,result.game,result.analysis);if(result.analysis.probabilities)dailySaved=await saveDailyForecast(db,'FOOTBALL',result.game,result.analysis.probabilities,result.analysis.capturedAt,result.analysis.version);}catch{/* Analysis remains available, but snapshot failure is visible. */}
+      return Response.json({...result,snapshotSaved,dailySaved},{headers});
     }
     const {calendar,...data}=await footballSchedule(league,day),key=league+':'+day;
-    if(Date.now()-(savedResults.get(key)||0)>600000){try{await saveFootballResults(getRawDb(),data.games);if(savedResults.size>=100)savedResults.delete(savedResults.keys().next().value!);savedResults.set(key,Date.now());}catch{/* Retried on the next visit; no false settled count. */}}
+    if(Date.now()-(savedResults.get(key)||0)>600000){try{const db=getRawDb();await saveFootballResults(db,data.games);await saveDailyResults(db,'FOOTBALL',data.games);if(savedResults.size>=100)savedResults.delete(savedResults.keys().next().value!);savedResults.set(key,Date.now());}catch{/* Retried on the next visit; no false settled count. */}}
     return Response.json(data,{headers});
   }catch{return Response.json({error:'足球資料暫時無法更新，請稍後重試。'},{status:502,headers});}
 }
