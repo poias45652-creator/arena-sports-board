@@ -1,5 +1,5 @@
 import {getRawDb} from '@/db';
-import {summarizeDailyWinRate,saveDailyResults,validDailyDay,dailySportDay} from '@/lib/daily-win-rate';
+import {summarizeDailyWinRate,saveDailyResults,validDailyDay,dailySportDay,backfillLegacyDaily} from '@/lib/daily-win-rate';
 import {nbaSchedule} from '@/lib/nba-source';
 import {wnbaSchedule} from '@/lib/wnba-source';
 import {footballSchedule} from '@/lib/football-source';
@@ -8,7 +8,7 @@ import {FOOTBALL_LEAGUES} from '@/lib/football';
 export const dynamic='force-dynamic';
 
 async function mlbFinals(day:string){
- const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${day}&endDate=${day}&hydrate=linescore,team`;
+ const previous=new Date(Date.parse(day+'T12:00:00Z')-86400000).toISOString().slice(0,10),source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${previous}&endDate=${day}&hydrate=linescore,team`;
  const r=await fetch(source,{cache:'no-store',signal:AbortSignal.timeout(10000)});if(!r.ok)throw new Error('MLB result source unavailable');
  const data=await r.json(),games:any[]=[];
  for(const d of data.dates||[])for(const g of d.games||[]){
@@ -29,6 +29,6 @@ async function refreshResults(day:string){
 export async function GET(request:Request){
  const p=new URL(request.url).searchParams,day=p.get('date')||dailySportDay();
  if(!validDailyDay(day)||Math.abs(Date.parse(day)-Date.parse(dailySportDay()))>370*86400000)return Response.json({error:'日期參數錯誤'},{status:400,headers:{'Cache-Control':'no-store'}});
- try{const errors=await refreshResults(day),summary=await summarizeDailyWinRate(getRawDb(),day);return Response.json({...summary,resultSources:{ok:errors.length===0,errors},fetchedAt:new Date().toISOString()},{headers:{'Cache-Control':'public, max-age=30'}});}
+ try{const db=getRawDb(),backfill=await backfillLegacyDaily(db,day),errors=await refreshResults(day),summary=await summarizeDailyWinRate(db,day);return Response.json({...summary,backfill,resultSources:{ok:errors.length===0,errors},fetchedAt:new Date().toISOString()},{headers:{'Cache-Control':'public, max-age=30'}});}
  catch{return Response.json({error:'每日勝率暫時無法更新'},{status:503,headers:{'Cache-Control':'no-store'}});}
 }
