@@ -1,0 +1,74 @@
+{
+  "schemaVersion": 1,
+  "task": "YJ NPB KBO CPBL daily first-team public-source verification",
+  "dateAsiaTaipei": "2026-10-08",
+  "capturedAt": "2026-10-08T13:34:37Z",
+  "captureMethod": "Fresh Firecrawl public-source scrape maxAge=0 basic proxy; NOT GitHub Actions collector",
+  "collector": {
+    "rerunAttempted": true,
+    "rerunStatus": "blocked_by_connector_safety_checks",
+    "newRunAttempt": false,
+    "newArtifact": false,
+    "referenceOnly": {
+      "runId": 35589830427,
+      "attempt": 20,
+      "jobId": 113326277040,
+      "artifactId": 11552711539,
+      "artifactCreatedAt": "2026-10-08T13:06:37Z",
+      "usedAsFreshCapture": false
+    }
+  },
+  "leagues": {
+    "NPB": {
+      "status": "final",
+      "games": 1,
+      "live": 0,
+      "final": 1,
+      "away": "養樂多燕子",
+      "home": "阪神虎",
+      "awayScore": 4,
+      "homeScore": 0,
+      "gameKey": "NPB:2021051699",
+      "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021051699/score",
+      "sourceHttpStatus": 200,
+      "sourceScrapeId": "01a11bb9-cd64-743b-9e72-5490e9a95e8f",
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null
+    },
+    "KBO": {
+      "status": "no_games",
+      "games": 0,
+      "live": 0,
+      "final": 0,
+      "sourceUrl": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-08&toDate=2026-10-08&page=1&pageSize=100",
+      "sourceHttpStatus": 200,
+      "sourceScrapeId": "01a11bb9-e9d0-772b-a7fd-6ca35d777462",
+      "apiSuccess": true,
+      "gameTotalCount": 0
+    },
+    "CPBL": {
+      "status": "no_games",
+      "games": 0,
+      "live": 0,
+      "final": 0,
+      "sourceUrl": "https://www.playsport.cc/livescore/6?gamedate=20261008&mode=1",
+      "sourceHttpStatus": 200,
+      "sourceScrapeId": "01a11bba-d51e-770a-9eee-35192a039737",
+      "sourceResult": "暫無資料",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No live games; final scores do not count as live-to-live proof",
+  "priorLiveChangeEvidenceRetained": true,
+  "productionChanged": false
+}
