@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-08",
+  "type": "retained_same_day_live_change_proof",
+  "backfilledAt": "2026-10-08T13:34:37Z",
+  "league": "NPB",
+  "gameKey": "NPB:2021051699",
+  "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021051699/score",
+  "provenance": "Original two live captures obtained earlier 2026-10-08, retained in local YJ-baseball-current-proof-20261008T130633Z-attempt20.json; this commit is preservation of earlier observation, NOT a new capture",
+  "captures": [
+    {
+      "requestStartedAt": "2026-10-08T09:23:00.701Z",
+      "responseReceivedAt": "2026-10-08T09:23:21.706Z",
+      "httpStatus": 200,
+      "status": "live",
+      "awayScore": 1,
+      "homeScore": 0,
+      "inning": 2,
+      "half": "top",
+      "balls": 1,
+      "strikes": 1,
+      "outs": 2,
+      "bases": null,
+      "pitcher": "ルーカス",
+      "pitchCount": 29
+    },
+    {
+      "requestStartedAt": "2026-10-08T09:24:30.000Z",
+      "responseReceivedAt": "2026-10-08T09:24:36.639Z",
+      "httpStatus": 200,
+      "status": "live",
+      "awayScore": 1,
+      "homeScore": 0,
+      "inning": 2,
+      "half": "top",
+      "balls": 3,
+      "strikes": 2,
+      "outs": 2,
+      "bases": null,
+      "pitcher": "ルーカス",
+      "pitchCount": 32
+    }
+  ],
+  "requestGapSeconds": 89.299,
+  "responseGapSeconds": 74.933,
+  "completedFirstToStartedSecondSeconds": 68.294,
+  "numericChanges": {
+    "balls": {
+      "before": 1,
+      "after": 3
+    },
+    "strikes": {
+      "before": 1,
+      "after": 2
+    },
+    "pitchCount": {
+      "before": 29,
+      "after": 32
+    }
+  },
+  "qualifiedSameDayLiveChange": true,
+  "unknownFieldsRemainNull": true,
+  "productionChanged": false
+}
