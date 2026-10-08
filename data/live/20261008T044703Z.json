@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-08T04:47:03.392Z",
+  "dateAsiaTaipei": "2026-10-08",
+  "source": "current-baseball-collector-workflow",
+  "workflowRunId": 35589830427,
+  "workflowRunAttempt": 18,
+  "workflowJobId": 113153950446,
+  "workflowHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+  "latestFreshArtifactId": 11529435884,
+  "latestFreshArtifactCreatedAt": "2026-10-08T04:47:05Z",
+  "staleArtifactUsed": false,
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "qualifiedNumericChanges": 0,
+  "states": {
+    "NPB": {
+      "state": "pregame",
+      "games": 1,
+      "live": 0,
+      "final": 0,
+      "match": {
+        "key": "NPB:2021051699",
+        "away": "養樂多燕子",
+        "home": "阪神虎",
+        "startTime": "2026-10-08T09:00:00.000Z",
+        "status": "pregame",
+        "awayScore": null,
+        "homeScore": null,
+        "inning": null,
+        "source": {
+          "provider": "sportsnavi",
+          "url": "https://baseball.yahoo.co.jp/npb/game/2021051699/score",
+          "fetchedAt": "2026-10-08T04:47:00.753Z",
+          "httpDate": "Thu, 08 Oct 2026 04:47:00 GMT",
+          "cacheAgeSeconds": 0,
+          "providerUpdatedAt": null,
+          "supportingSources": [
+            {
+              "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-08",
+              "fetchedAt": "2026-10-08T04:47:00.564Z"
+            },
+            {
+              "url": "https://baseball.yahoo.co.jp/npb/game/2021051699/stats",
+              "fetchedAt": "2026-10-08T04:47:00.986Z"
+            }
+          ]
+        },
+        "liveChangeProof": null
+      },
+      "sameDayLiveVerified": false
+    },
+    "KBO": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "errors": []
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified",
+      "errors": []
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-08T04:47:04.435Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "comparison": {
+    "previousObservation": "data/live/20261007T153515Z.json",
+    "previousDateAsiaTaipei": "2026-10-07",
+    "crossDayComparisonNotLiveProof": true
+  },
+  "notes": [
+    "Only 2026-10-08 first-team games included.",
+    "NPB pregame score and other unobserved fields remain null.",
+    "No live games at checkedAt; no >=65-second second capture required.",
+    "KBO and CPBL returned no first-team games with source status ok.",
+    "All leagues retain historical 2026-09-15 verification; 2026-10-08 same-day live proof is not yet available.",
+    "Workflow run checkout uses historical SHA f12e947a5e8ad30967ef03e5cde4e05e291b4e03.",
+    "No production changes or deployments."
+  ]
+}
