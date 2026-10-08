@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "capturedAt": "2026-10-08T06:39:11.536Z",
+  "dateAsiaTaipei": "2026-10-08",
+  "source": "fresh-public-source-check; not GitHub Actions collector",
+  "workflowRunId": null,
+  "workflowRunAttempt": null,
+  "workflowJobId": null,
+  "latestFreshArtifactId": null,
+  "staleArtifactUsed": false,
+  "referencePreviousCollector": {
+    "runId": 35589830427,
+    "runAttempt": 18,
+    "artifactId": 11529435884,
+    "artifactCreatedAt": "2026-10-08T04:47:05Z",
+    "capturedAt": "2026-10-08T04:47:03.392Z",
+    "observationPath": "data/live/20261008T044703Z.json",
+    "usedAsCurrentCapture": false
+  },
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "qualifiedNumericChanges": 0,
+  "states": {
+    "NPB": {
+      "state": "pregame",
+      "games": 1,
+      "live": 0,
+      "final": 0,
+      "match": {
+        "key": "NPB:2021051699",
+        "away": "養樂多燕子",
+        "home": "阪神虎",
+        "startTime": "2026-10-08T09:00:00.000Z",
+        "status": "pregame",
+        "awayScore": null,
+        "homeScore": null,
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "source": {
+          "provider": "sportsnavi",
+          "url": "https://baseball.yahoo.co.jp/npb/game/2021051699/score",
+          "httpStatus": 200,
+          "transport": "public Firecrawl basic; cache maxAge=0"
+        },
+        "liveChangeProof": null
+      },
+      "sameDayLiveVerified": false
+    },
+    "KBO": {
+      "state": "no_games",
+      "games": 0,
+      "live": 0,
+      "final": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "nonFirstTeamExcluded": 1,
+      "providerReturnedCategory": "kbaseballetc",
+      "sourceUrl": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-08&toDate=2026-10-08&page=1&pageSize=100",
+      "httpStatus": 200
+    },
+    "CPBL": {
+      "state": "no_games",
+      "games": 0,
+      "live": 0,
+      "final": 0,
+      "notApplicableToday": true,
+      "sameDayLiveVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_officially_verified",
+      "sourceUrl": "https://www.playsport.cc/livescore/6?gamedate=20261008&mode=1",
+      "httpStatus": 200,
+      "sourceDisplayed": "暫無資料"
+    }
+  },
+  "databaseTest": null,
+  "notes": [
+    "Fresh public-source pregame/no-game check; GitHub connector blocked rerun of latest verified collector job 113153950446, so no new Actions run or artifact for this check.",
+    "No live game; no second capture necessary.",
+    "Do not use the prior collector artifact as proof of this capture.",
+    "No production changes."
+  ]
+}
