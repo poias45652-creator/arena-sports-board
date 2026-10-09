@@ -32,7 +32,10 @@ export async function officialWnbaDirectory(){
  const {pending}=sourceWork('wnba-official');if(pending.has('players'))return pending.get('players')! as Promise<ReturnType<typeof parseOfficialWnbaDirectory>>;
  const task=(async()=>{
   const html=await wnbaPage('https://www.wnba.com/players',12000),json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
-  if(!json)throw Error('WNBA 官網資料缺漏');const value=parseOfficialWnbaDirectory(JSON.parse(json));cache={value,until:Date.now()+15*60000};return value;
+  // A successful HTTP response can still be an outage/interstitial page.
+  // Missing page data permits the verified current-roster fallback; present
+  // data must still pass JSON, season and identity validation below.
+  if(!json)throw new WnbaSourceUnavailable('WNBA 官網資料缺漏',false);const value=parseOfficialWnbaDirectory(JSON.parse(json));cache={value,until:Date.now()+15*60000};return value;
  })().finally(()=>pending.delete('players'));pending.set('players',task);return task;
 }
 export function officialWnbaRosterFromDirectory(data:ReturnType<typeof parseOfficialWnbaDirectory>,id:string){
@@ -57,7 +60,7 @@ export function wnbaPlayerEvidence(player:ReturnType<typeof parseOfficialWnbaPla
 }
 
 const playerPages=new Map<string,{value:ReturnType<typeof parseOfficialWnbaPlayer>;until:number}>();
-async function officialWnbaAnalysisPlayer(p:ReturnType<typeof parseOfficialWnbaDirectory>['players'][number]){
+async function officialWnbaAnalysisPlayer(p:ReturnType<typeof parseOfficialWnbaDirectory>['players'][number],deadline:number){
  const key=`${p.id}:${p.teamSlug}`,hit=playerPages.get(key);if(hit&&hit.until>Date.now())return hit.value;
  const work=sourceWork('wnba-official-player'),{pending,queue}=work;
  if(pending.has(key))return pending.get(key)! as Promise<ReturnType<typeof parseOfficialWnbaPlayer>>;
@@ -65,8 +68,12 @@ async function officialWnbaAnalysisPlayer(p:ReturnType<typeof parseOfficialWnbaD
  const task=(async()=>{
   if(work.active>=4)await new Promise<void>(r=>queue.push(r));else work.active++;
   try{
+   // Do not let every queued player consume two more timeouts during an
+   // outage. In-flight lookups can finish; the verified directory still
+   // supplies membership for players whose news cannot be fetched in time.
+   if(Date.now()>=deadline)throw new WnbaSourceUnavailable('WNBA 球員資料更新逾時',false);
    const json=(await wnbaPage(p.href,7000)).match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
-   if(!json)throw Error('WNBA 球員頁資料缺漏');const value=parseOfficialWnbaPlayer(JSON.parse(json),p.id,p.teamSlug);
+   if(!json)throw new WnbaSourceUnavailable('WNBA 球員頁資料缺漏',false);const value=parseOfficialWnbaPlayer(JSON.parse(json),p.id,p.teamSlug);
    if(playerPages.size>=240)playerPages.delete(playerPages.keys().next().value!);
    playerPages.set(key,{value,until:Date.now()+5*60000});return value;
   }finally{const next=queue.shift();if(next)next();else work.active--;}
@@ -78,8 +85,9 @@ export async function officialWnbaAnalysisRosters(homeId:string,awayId:string,se
  const directory=await officialWnbaDirectory();if(directory.season!==season)throw Error('WNBA 現役名單球季不符');
  const rosters=[homeId,awayId].map(id=>officialWnbaRosterFromDirectory(directory,id));
  const words=rosters.map(r=>[slugs[r.team.id],...new Set(r.roster.flatMap(p=>[p.teamCity,p.teamName]))]);
+ const deadline=Date.now()+20000;
  const evidence=await Promise.all(rosters.map((r,side)=>Promise.all(r.roster.map(async p=>{
-  try{const player=await officialWnbaAnalysisPlayer(p);return wnbaPlayerEvidence(player,Date.now(),words[1-side]);}
+  try{const player=await officialWnbaAnalysisPlayer(p,deadline);return wnbaPlayerEvidence(player,Date.now(),words[1-side]);}
   catch(error){
    if(!(error instanceof WnbaSourceUnavailable))throw error;
    // Fresh official directory confirms membership, but a failed news page says

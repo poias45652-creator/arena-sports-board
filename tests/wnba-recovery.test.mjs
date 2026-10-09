@@ -42,3 +42,59 @@ test('official outage uses verified fresh ESPN membership and current statistics
  const a=await enrichWnbaPlayerStrength(game,base);assert.equal(a.status,'ready');assert.equal(a.model,'wnba-player-opponent-v3');assert.equal(a.playerContext.recommendationEligible,false);
  assert.ok([...a.playerContext.home,...a.playerContext.away].every(p=>p.status==='unknown'));
 });
+
+test('HTTP 200 without official directory data also recovers through a freshly verified roster',async t=>{
+ t.mock.method(Date,'now',()=>now+16*60000);let rosterCalls=0;
+ t.mock.method(globalThis,'fetch',async url=>{
+  const u=new URL(url);
+  if(u.hostname==='www.wnba.com')return new Response('<html><title>Temporarily unavailable</title></html>');
+  assert.equal(u.hostname,'site.api.espn.com');rosterCalls++;
+  return Response.json(roster(u.pathname.split('/').at(-2)));
+ });
+ const a=await enrichWnbaPlayerStrength(game,base);
+ assert.equal(a.status,'ready');assert.equal(a.playerContext.status,'applied');assert.equal(rosterCalls,2);
+ assert.equal(a.playerContext.recommendationEligible,false);
+ assert.ok([...a.playerContext.home,...a.playerContext.away].every(p=>p.status==='unknown'&&!p.minutesConfirmed));
+});
+
+test('present but invalid official data still blocks analysis instead of bypassing validation',async t=>{
+ t.mock.method(Date,'now',()=>now+32*60000);
+ t.mock.method(globalThis,'fetch',async url=>{
+  assert.equal(new URL(url).hostname,'www.wnba.com');
+  return new Response('<script id="__NEXT_DATA__">{"props":{"pageProps":{"defaultSeason":2026,"currentPlayersData":[]}}}</script>');
+ });
+ const a=await enrichWnbaPlayerStrength(game,base);
+ assert.equal(a.status,'waiting');assert.equal(a.expected,undefined);assert.equal(a.probabilities,undefined);
+});
+
+test('missing individual page data preserves verified official membership with unknown availability',async t=>{
+ t.mock.method(Date,'now',()=>now+48*60000);let playerCalls=0;
+ const data=JSON.parse(readFileSync('tests/fixtures/player-strength/wnba-directory.json'));
+ t.mock.method(globalThis,'fetch',async url=>{
+  const u=new URL(url);assert.equal(u.hostname,'www.wnba.com');
+  if(u.pathname==='/players')return new Response(`<script id="__NEXT_DATA__">${JSON.stringify(data)}</script>`);
+  playerCalls++;return new Response('<html><title>Temporarily unavailable</title></html>');
+ });
+ const a=await enrichWnbaPlayerStrength(game,base);
+ assert.ok(playerCalls>=16);assert.equal(a.status,'ready');assert.equal(a.playerContext.status,'applied');
+ assert.equal(a.playerContext.recommendationEligible,false);
+ assert.ok([...a.playerContext.home,...a.playerContext.away].every(p=>p.status==='unknown'&&!p.minutesConfirmed));
+});
+
+test('an exhausted player lookup budget drains the queue without delaying the entire forecast',async t=>{
+ let clock=now+64*60000,playerCalls=0;t.mock.method(Date,'now',()=>clock);
+ const data=JSON.parse(readFileSync('tests/fixtures/player-strength/wnba-directory.json'));
+ t.mock.method(globalThis,'fetch',async url=>{
+  const u=new URL(url);assert.equal(u.hostname,'www.wnba.com');
+  if(u.pathname==='/players')return new Response(`<script id="__NEXT_DATA__">${JSON.stringify(data)}</script>`);
+  playerCalls++;
+  // The first batch uses the source budget; queued players must not start
+  // another full batch of network timeouts before returning the analysis.
+  if(playerCalls===4)clock+=21000;
+  return new Response('<html><title>Temporarily unavailable</title></html>');
+ });
+ const a=await enrichWnbaPlayerStrength(game,base);
+ assert.equal(playerCalls,4);assert.equal(a.status,'ready');assert.equal(a.playerContext.status,'applied');
+ assert.equal(a.playerContext.recommendationEligible,false);
+ assert.ok([...a.playerContext.home,...a.playerContext.away].every(p=>p.status==='unknown'&&!p.minutesConfirmed));
+});
