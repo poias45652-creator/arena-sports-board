@@ -6,10 +6,11 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
  const status=sportMarketStatus(error?null:snapshot,game,sport,now),event=!error?status.event:null;
  const valid=analysis?.status==='ready'&&analysis.expected&&analysis.probabilities&&now-Date.parse(analysis.capturedAt)>=-60000&&now-Date.parse(analysis.capturedAt)<15*60000;
  const e=valid?analysis.expected:null,p=valid?analysis.probabilities:null,context=valid?analysis.playerContext:null;
- // Ready preseason projections may show a market-based scenario recommendation.
- // Keep the regular-season availability gate and the source/model freshness checks.
- const eligible=!!valid&&(!context||context.status==='applied'&&(context.recommendationEligible||context.preseason));
- const recommendationTitle=context?.preseason?'依熱身賽輪替情境的獲利機率（含中洞贏）推薦':'依模型獲利機率（含中洞贏）推薦';
+ // Applied WNBA projections can rank market scenarios while availability is pending.
+ // Explain that uncertainty visibly; unavailable/stale models remain ineligible.
+ const wnbaScenario=sport==='WNBA'&&context?.status==='applied'&&!context.recommendationEligible;
+ const eligible=!!valid&&(!context||context.status==='applied'&&(context.recommendationEligible||context.preseason||wnbaScenario));
+ const recommendationTitle=wnbaScenario?'依目前球員情境的獲利機率（含中洞贏）推薦；出賽狀態待確認':context?.preseason?'依熱身賽輪替情境的獲利機率（含中洞贏）推薦':'依模型獲利機率（含中洞贏）推薦';
  const football=sport==='FOOTBALL'&&valid?footballMarketGrids(analysis):null;
  const margin=sport==='FOOTBALL'?football?.margin||[]:valid?basketballMarketGrid(e.margin,context?.marginSigma??analysis.simulation?.sigma,'margin',p.home):[];
  const total=sport==='FOOTBALL'?football?.total||[]:valid?basketballMarketGrid(e.total,analysis.totalSigma,'total'):[];
@@ -31,6 +32,7 @@ export default function SportMarkets({game,analysis,snapshot,error='',sport,now}
  }
  const summary=status.availableCount?`${status.availableCount} 種玩法`:error?'來源連線異常':!snapshot?'資料更新中':'暫無可用玩法';
  return <details key={`${sport}:${game.id}:${game.start}`} className="match-market-details sport-market-details" data-market-status={error?'source_error':status.code}><summary><span>查看分析</span><span>{valid?summary:'分析更新中'}</span></summary><section className="sport-markets" aria-label="全場讓分與大小分析"><div className="sport-market-heading"><span>{sport==='FOOTBALL'?'90 分鐘・不含加時':'全場・含延長賽'}</span>{event&&<small>賠率不含本金</small>}</div>{error?<p role="status">{error}</p>:!event?<p role="status">{status.message}</p>:<>
+  {wnbaScenario&&<p className="sport-market-pending">推薦依目前球員情境推估；出賽狀態待確認。</p>}
   {market(event.spread,'spread')}{market(event.total,'total')}
   <div className="sport-market-block" data-market-state={status.markets.moneyline.code}><div className="sport-market-heading"><strong>全場獨贏</strong>{!event.moneyline&&<b>{status.markets.moneyline.message}</b>}</div>{event.moneyline&&<div className="sport-market-options sport-market-moneyline">{(['home',...(sport==='FOOTBALL'?['draw']:[]),'away'] as ('home'|'draw'|'away')[]).map(side=><div className="sport-market-option" key={side}><div className="sport-market-option-heading"><strong className="sport-market-team">{side==='draw'?<span>和局</span>:identity(side)}</strong><strong className="sport-market-quote">@{event.moneyline![side]!.toFixed(3)}</strong></div>{p&&<div className="sport-market-win-rate"><span>勝率</span><b>{percent(p[side])}</b></div>}</div>)}</div>}</div>
  </>}</section></details>;

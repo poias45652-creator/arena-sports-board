@@ -44,5 +44,11 @@ test('the actual WNBA analysis panel renders market outcomes even when availabil
  const analysis={status:'ready',capturedAt:at,expected:{home:85,away:81,total:166,margin:4},probabilities:{home:.624,away:.376},totalSigma:15,playerContext:{status:'applied',marginSigma:12,recommendationEligible:false,preseason:false}};
  const html=renderToStaticMarkup(React.createElement(C,{game:game(fixtures[1]),analysis,snapshot:source(),sport:'WNBA',now}));
  for(const label of ['3 種玩法','全場讓分','全場大小分','全場獨贏','全贏','中洞贏','62.4%'])assert.ok(html.includes(label),label);
- assert.ok(!html.includes('暫無可用玩法'));assert.ok(!html.includes('暫無可用分布'));assert.ok(!html.includes('>推薦</em>'));
+ assert.ok(!html.includes('暫無可用玩法'));assert.ok(!html.includes('暫無可用分布'));assert.ok(html.includes('>推薦</em>'));assert.ok(html.includes('推薦依目前球員情境推估；出賽狀態待確認。'));
+ for(const patch of [{status:'waiting'},{capturedAt:new Date(now-15*60000).toISOString()},{playerContext:{...analysis.playerContext,status:'unavailable'}}]){
+  const blocked=renderToStaticMarkup(React.createElement(C,{game:game(fixtures[1]),analysis:{...analysis,...patch},snapshot:source(),sport:'WNBA',now}));
+  assert.ok(!blocked.includes('>推薦</em>'));assert.ok(!blocked.includes('推薦依目前球員情境推估；出賽狀態待確認。'));
+ }
+ const stale=renderToStaticMarkup(React.createElement(C,{game:game(fixtures[1]),analysis,snapshot:{...source(),fetchedAt:new Date(now-150000).toISOString()},sport:'WNBA',now}));
+ assert.ok(!stale.includes('>推薦</em>'));
 });
