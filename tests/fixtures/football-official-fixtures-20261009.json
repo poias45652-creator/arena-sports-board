@@ -1,0 +1,464 @@
+{
+  "source": "ESPN scoreboards retrieved 2026-10-09",
+  "games": [
+    {
+      "id": "401879268",
+      "league": "eng.1",
+      "start": "2026-10-10T11:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "359",
+        "name": "阿森納",
+        "englishName": "Arsenal"
+      },
+      "away": {
+        "id": "357",
+        "name": "里茲聯",
+        "englishName": "Leeds United"
+      }
+    },
+    {
+      "id": "401878776",
+      "league": "eng.1",
+      "start": "2026-10-10T14:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "362",
+        "name": "阿斯頓維拉",
+        "englishName": "Aston Villa"
+      },
+      "away": {
+        "id": "337",
+        "name": "布倫特福德",
+        "englishName": "Brentford"
+      }
+    },
+    {
+      "id": "401878775",
+      "league": "eng.1",
+      "start": "2026-10-10T14:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "363",
+        "name": "切爾西",
+        "englishName": "Chelsea"
+      },
+      "away": {
+        "id": "349",
+        "name": "伯恩茅斯",
+        "englishName": "AFC Bournemouth"
+      }
+    },
+    {
+      "id": "401879265",
+      "league": "eng.1",
+      "start": "2026-10-10T14:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "373",
+        "name": "伊普斯維奇",
+        "englishName": "Ipswich Town"
+      },
+      "away": {
+        "id": "370",
+        "name": "富勒姆",
+        "englishName": "Fulham"
+      }
+    },
+    {
+      "id": "401878772",
+      "league": "eng.1",
+      "start": "2026-10-10T14:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "366",
+        "name": "桑德蘭",
+        "englishName": "Sunderland"
+      },
+      "away": {
+        "id": "331",
+        "name": "布萊頓",
+        "englishName": "Brighton & Hove Albion"
+      }
+    },
+    {
+      "id": "401878773",
+      "league": "eng.1",
+      "start": "2026-10-10T16:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "360",
+        "name": "曼聯",
+        "englishName": "Manchester United"
+      },
+      "away": {
+        "id": "367",
+        "name": "熱刺",
+        "englishName": "Tottenham Hotspur"
+      }
+    },
+    {
+      "id": "401884781",
+      "league": "ger.1",
+      "start": "2026-10-09T18:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "124",
+        "name": "多特蒙德",
+        "englishName": "Borussia Dortmund"
+      },
+      "away": {
+        "id": "137",
+        "name": "不來梅",
+        "englishName": "Werder Bremen"
+      }
+    },
+    {
+      "id": "401884775",
+      "league": "ger.1",
+      "start": "2026-10-10T13:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "598",
+        "name": "柏林聯",
+        "englishName": "1. FC Union Berlin"
+      },
+      "away": {
+        "id": "10388",
+        "name": "艾禾斯堡",
+        "englishName": "SV Elversberg"
+      }
+    },
+    {
+      "id": "401884777",
+      "league": "ger.1",
+      "start": "2026-10-10T13:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "3841",
+        "name": "奧格斯堡",
+        "englishName": "FC Augsburg"
+      },
+      "away": {
+        "id": "132",
+        "name": "拜仁慕尼黑",
+        "englishName": "Bayern Munich"
+      }
+    },
+    {
+      "id": "401884776",
+      "league": "ger.1",
+      "start": "2026-10-10T13:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "2950",
+        "name": "美因茨",
+        "englishName": "Mainz"
+      },
+      "away": {
+        "id": "131",
+        "name": "勒沃庫森",
+        "englishName": "Bayer Leverkusen"
+      }
+    },
+    {
+      "id": "401884773",
+      "league": "ger.1",
+      "start": "2026-10-10T13:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "3307",
+        "name": "帕德博恩",
+        "englishName": "SC Paderborn 07"
+      },
+      "away": {
+        "id": "134",
+        "name": "斯圖加特",
+        "englishName": "VfB Stuttgart"
+      }
+    },
+    {
+      "id": "401884779",
+      "league": "ger.1",
+      "start": "2026-10-10T13:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "7911",
+        "name": "霍芬海姆",
+        "englishName": "TSG Hoffenheim"
+      },
+      "away": {
+        "id": "127",
+        "name": "漢堡",
+        "englishName": "Hamburg SV"
+      }
+    },
+    {
+      "id": "401884780",
+      "league": "ger.1",
+      "start": "2026-10-10T16:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "11420",
+        "name": "RB萊比錫",
+        "englishName": "RB Leipzig"
+      },
+      "away": {
+        "id": "125",
+        "name": "法蘭克福",
+        "englishName": "Eintracht Frankfurt"
+      }
+    },
+    {
+      "id": "401874947",
+      "league": "ita.1",
+      "start": "2026-10-10T13:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "3263",
+        "name": "熱那亞",
+        "englishName": "Genoa"
+      },
+      "away": {
+        "id": "109",
+        "name": "佛羅倫斯",
+        "englishName": "Fiorentina"
+      }
+    },
+    {
+      "id": "401875021",
+      "league": "ita.1",
+      "start": "2026-10-10T16:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "110",
+        "name": "國際米蘭",
+        "englishName": "Internazionale"
+      },
+      "away": {
+        "id": "115",
+        "name": "帕爾馬",
+        "englishName": "Parma"
+      }
+    },
+    {
+      "id": "401874754",
+      "league": "ita.1",
+      "start": "2026-10-10T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "114",
+        "name": "拿坡里",
+        "englishName": "Napoli"
+      },
+      "away": {
+        "id": "4057",
+        "name": "弗洛西諾尼",
+        "englishName": "Frosinone"
+      }
+    },
+    {
+      "id": "401882851",
+      "league": "esp.1",
+      "start": "2026-10-09T19:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "99",
+        "name": "馬拉加",
+        "englishName": "Málaga"
+      },
+      "away": {
+        "id": "88",
+        "name": "西班牙人",
+        "englishName": "Espanyol"
+      }
+    },
+    {
+      "id": "401882849",
+      "league": "esp.1",
+      "start": "2026-10-10T12:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "101",
+        "name": "巴列卡諾",
+        "englishName": "Rayo Vallecano"
+      },
+      "away": {
+        "id": "93",
+        "name": "畢爾包",
+        "englishName": "Athletic Club"
+      }
+    },
+    {
+      "id": "401882856",
+      "league": "esp.1",
+      "start": "2026-10-10T14:15:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "96",
+        "name": "阿拉維斯",
+        "englishName": "Alavés"
+      },
+      "away": {
+        "id": "1068",
+        "name": "馬德里競技",
+        "englishName": "Atlético Madrid"
+      }
+    },
+    {
+      "id": "401882853",
+      "league": "esp.1",
+      "start": "2026-10-10T16:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "83",
+        "name": "巴塞隆納",
+        "englishName": "Barcelona"
+      },
+      "away": {
+        "id": "2922",
+        "name": "赫塔費",
+        "englishName": "Getafe"
+      }
+    },
+    {
+      "id": "401882848",
+      "league": "esp.1",
+      "start": "2026-10-10T19:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "86",
+        "name": "皇家馬德里",
+        "englishName": "Real Madrid"
+      },
+      "away": {
+        "id": "102",
+        "name": "比利亞雷亞爾",
+        "englishName": "Villarreal"
+      }
+    },
+    {
+      "id": "401876447",
+      "league": "fra.1",
+      "start": "2026-10-09T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "175",
+        "name": "朗斯",
+        "englishName": "Lens"
+      },
+      "away": {
+        "id": "167",
+        "name": "里昂",
+        "englishName": "Lyon"
+      }
+    },
+    {
+      "id": "401876446",
+      "league": "fra.1",
+      "start": "2026-10-10T15:15:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "166",
+        "name": "里爾",
+        "englishName": "Lille"
+      },
+      "away": {
+        "id": "3236",
+        "name": "勒阿弗爾",
+        "englishName": "Le Havre AC"
+      }
+    },
+    {
+      "id": "401876444",
+      "league": "fra.1",
+      "start": "2026-10-10T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "174",
+        "name": "摩納哥",
+        "englishName": "AS Monaco"
+      },
+      "away": {
+        "id": "179",
+        "name": "圖盧茲",
+        "englishName": "Toulouse"
+      }
+    },
+    {
+      "id": "401876448",
+      "league": "fra.1",
+      "start": "2026-10-10T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "6997",
+        "name": "布雷斯特",
+        "englishName": "Brest"
+      },
+      "away": {
+        "id": "7868",
+        "name": "昂熱",
+        "englishName": "Angers"
+      }
+    },
+    {
+      "id": "401876445",
+      "league": "fra.1",
+      "start": "2026-10-10T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "273",
+        "name": "洛里昂",
+        "englishName": "Lorient"
+      },
+      "away": {
+        "id": "6851",
+        "name": "巴黎FC",
+        "englishName": "Paris FC"
+      }
+    },
+    {
+      "id": "401876442",
+      "league": "fra.1",
+      "start": "2026-10-10T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "160",
+        "name": "巴黎聖日耳曼",
+        "englishName": "Paris Saint-Germain"
+      },
+      "away": {
+        "id": "2697",
+        "name": "勒芒",
+        "englishName": "Le Mans"
+      }
+    }
+  ]
+}

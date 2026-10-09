@@ -1,0 +1,437 @@
+{
+  "fetchedAt": "2026-10-09T15:30:20.988Z",
+  "fixtures": [
+    {
+      "id": 25078825,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "多特蒙德(主)",
+      "away": "雲達不萊梅",
+      "start": "2026/10/10 02:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25078829,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "朗斯(主)",
+      "away": "里昂",
+      "start": "2026/10/10 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25078832,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "馬拉加(主)",
+      "away": "愛斯賓奴",
+      "start": "2026/10/10 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082013,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "阿仙奴(主)",
+      "away": "列斯聯",
+      "start": "2026/10/10 19:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082014,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "巴列卡諾(主)",
+      "away": "畢爾巴鄂競技",
+      "start": "2026/10/10 20:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082017,
+      "sport": "FOOTBALL",
+      "competition": "ita.1",
+      "leagueName": "意大利甲級聯賽",
+      "home": "熱那亞(主)",
+      "away": "費倫天拿",
+      "start": "2026/10/10 21:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082026,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "奧斯堡(主)",
+      "away": "拜仁慕尼黑",
+      "start": "2026/10/10 21:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082028,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "美因茨05(主)",
+      "away": "勒沃庫森",
+      "start": "2026/10/10 21:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082027,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "霍芬海姆(主)",
+      "away": "漢堡",
+      "start": "2026/10/10 21:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082022,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "帕德博恩(主)",
+      "away": "斯圖加特",
+      "start": "2026/10/10 21:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082020,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "柏林聯(主)",
+      "away": "艾禾斯堡",
+      "start": "2026/10/10 21:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082043,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "車路士(主)",
+      "away": "般尼茅夫",
+      "start": "2026/10/10 22:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082039,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "桑德蘭(主)",
+      "away": "白禮頓",
+      "start": "2026/10/10 22:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082040,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "伊普斯維奇(主)",
+      "away": "富勒姆",
+      "start": "2026/10/10 22:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082038,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "阿斯頓維拉(主)",
+      "away": "賓福特",
+      "start": "2026/10/10 22:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082042,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "艾拉維斯(主)",
+      "away": "馬德里體育會",
+      "start": "2026/10/10 22:15:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082054,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "利爾(主)",
+      "away": "勒阿弗爾",
+      "start": "2026/10/10 23:15:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082053,
+      "sport": "FOOTBALL",
+      "competition": "ita.1",
+      "leagueName": "意大利甲級聯賽",
+      "home": "國際米蘭(主)",
+      "away": "帕爾馬",
+      "start": "2026/10/11 00:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082055,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "曼聯(主)",
+      "away": "托特納姆熱刺",
+      "start": "2026/10/11 00:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082057,
+      "sport": "FOOTBALL",
+      "competition": "ger.1",
+      "leagueName": "德國甲級聯賽",
+      "home": "RB萊比錫(主)",
+      "away": "法蘭克福",
+      "start": "2026/10/11 00:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082056,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "巴塞隆拿(主)",
+      "away": "基達菲",
+      "start": "2026/10/11 00:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082070,
+      "sport": "FOOTBALL",
+      "competition": "ita.1",
+      "leagueName": "意大利甲級聯賽",
+      "home": "拿玻里(主)",
+      "away": "弗洛西諾尼",
+      "start": "2026/10/11 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082064,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "摩納哥(主)",
+      "away": "圖魯茲",
+      "start": "2026/10/11 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082069,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "布雷斯特(主)",
+      "away": "昂熱",
+      "start": "2026/10/11 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082068,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "洛里昂(主)",
+      "away": "巴黎",
+      "start": "2026/10/11 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082067,
+      "sport": "FOOTBALL",
+      "competition": "fra.1",
+      "leagueName": "法國甲級聯賽",
+      "home": "巴黎聖日門(主)",
+      "away": "利文斯",
+      "start": "2026/10/11 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25082066,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "皇家馬德里(主)",
+      "away": "維拉利爾",
+      "start": "2026/10/11 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    }
+  ]
+}

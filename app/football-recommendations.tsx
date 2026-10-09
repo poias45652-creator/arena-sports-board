@@ -4,6 +4,7 @@ import {useId} from 'react';
 import {createPortal} from 'react-dom';
 import type {FootballGame,FootballLeague} from '@/lib/football';
 import {footballTeamHref} from '@/lib/football-team-profile';
+import {footballScoreScenarios} from '@/lib/football-score-scenarios';
 import {footballRecommendations,footballSourceStale,type FootballReport,type ReadyFootballAnalysis} from '@/lib/football-recommendations';
 import {useSuperWorkspace} from './super-workspace';
 
@@ -14,12 +15,13 @@ const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asi
 
 // Render the exact same numbers in the match card and the floating recommendation.
 export function FootballAnalysisNumbers({analysis}:{analysis:ReadyFootballAnalysis}){
-  const p=analysis.probabilities;
+  const p=analysis.probabilities,scenarios=footballScoreScenarios(analysis);
   return <>
     <div className="football-probabilities">{[['主勝',p.home],['和局',p.draw],['客勝',p.away]].map(([label,value])=><div key={String(label)}><span>{label}</span><strong>{percent(Number(value))}</strong></div>)}</div>
     <div className="football-probability-bar" aria-hidden="true"><span style={{width:p.home*100+'%'}}/><span style={{width:p.draw*100+'%'}}/><span style={{width:p.away*100+'%'}}/></div>
     <div className="football-goals"><div><span>模型大 2.5 球</span><b>{percent(p.over25)}</b></div><div><span>模型小 2.5 球</span><b>{percent(p.under25)}</b></div><div><span>雙方都進球</span><b>{percent(p.btts)}</b></div></div>
-    <div className="football-scores"><span>三組比分預測<small>主：客</small></span>{analysis.scores?.map(s=><div key={`${s.home}:${s.away}`}><b>{s.home} : {s.away}</b><small>{percent(s.probability)}</small></div>)}</div>
+    <div className="football-scores" data-score-mode={scenarios.mode}><span>三組比分{scenarios.mode==='attacking'?'情境':'預測'}<small>主：客</small></span>{scenarios.scores.map(s=><div key={`${s.home}:${s.away}`}><small className="football-score-label">{s.label}</small><b>{s.home} : {s.away}</b><small>{percent(s.probability)}</small></div>)}</div>
+    {scenarios.mode==='attacking'&&<div className="football-margin-chances"><span>{scenarios.favourite==='home'?'主隊':'客隊'}贏2球以上 <b>{percent(scenarios.winBy2Plus!)}</b></span><span>贏3球以上 <b>{percent(scenarios.winBy3Plus!)}</b></span><small>進攻、大勝為進取情境；百分比為各比分的模型機率。</small></div>}
   </>;
 }
 
