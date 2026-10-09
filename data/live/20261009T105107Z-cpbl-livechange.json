@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "task": "YJ NPB KBO CPBL first-team daily and live source verification",
+  "dateAsiaTaipei": "2026-10-09",
+  "capturedAt": "2026-10-09T10:51:07.178Z",
+  "timeZone": "Asia/Taipei",
+  "runContext": {
+    "type": "independent_public_source_observation",
+    "newGitHubActionsArtifact": false,
+    "reRunAttempted": true,
+    "reRunStatus": "blocked_by_safety_checks",
+    "latestHistoricalRunId": 35589830427,
+    "latestHistoricalRunAttempt": 26,
+    "latestHistoricalArtifactId": 11604453128,
+    "latestHistoricalArtifactCreatedAt": "2026-10-09T08:42:06Z"
+  },
+  "leagues": {
+    "NPB": {
+      "state": "no_games",
+      "firstTeamGames": 0,
+      "collectorState": "unavailable",
+      "source": "https://npb.jp/games/2026/",
+      "evidence": "NPB official schedule states no first-team games on 2026-10-09; collector currently incorrectly categorizes off-days as unavailable"
+    },
+    "KBO": {
+      "state": "final",
+      "firstTeamGames": 3,
+      "capturedAt": "2026-10-09T10:51:20.255Z",
+      "source": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-09&toDate=2026-10-09&page=1&pageSize=100",
+      "ignoredNonKboGames": 3,
+      "games": [
+        {
+          "gameId": "20261009HTNC02026",
+          "away": "KIA",
+          "home": "NC",
+          "awayScore": 7,
+          "homeScore": 2,
+          "status": "final"
+        },
+        {
+          "gameId": "20261009LGLT02026",
+          "away": "LG",
+          "home": "롯데",
+          "awayScore": 1,
+          "homeScore": 9,
+          "status": "final"
+        },
+        {
+          "gameId": "20261009SSSK02026",
+          "away": "삼성",
+          "home": "SSG",
+          "awayScore": 1,
+          "homeScore": 3,
+          "status": "final"
+        }
+      ]
+    },
+    "CPBL": {
+      "state": "live",
+      "firstTeamGames": 1,
+      "gameId": "2026-E-1",
+      "yahooGameId": "cpbl.g.261009001",
+      "seasonPhase": "POSTSEASON",
+      "officialLineupConfirmed": false,
+      "source": "https://stats.cpbl.com.tw/schedule/2026-E-1",
+      "game": {
+        "away": "統一7-ELEVEn獅",
+        "home": "中信兄弟",
+        "awayScore": 1,
+        "homeScore": 4,
+        "inning": 6,
+        "half": "bottom",
+        "awayHits": 6,
+        "homeHits": 10,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null
+      },
+      "captures": [
+        {
+          "retrievedAt": "2026-10-09T10:48:13.648Z",
+          "status": "live",
+          "awayScore": 1,
+          "homeScore": 4,
+          "inning": 6,
+          "half": "top",
+          "awayHits": 6,
+          "homeHits": 10,
+          "pitcher": "勝騎士",
+          "pitcherInnings": "5.2",
+          "pitcherOutsRecorded": 17,
+          "displayPitchCount": 78,
+          "tabularPitchCount": 78
+        },
+        {
+          "retrievedAt": "2026-10-09T10:49:36.492Z",
+          "status": "live",
+          "awayScore": 1,
+          "homeScore": 4,
+          "inning": 6,
+          "half": "top",
+          "awayHits": 6,
+          "homeHits": 10,
+          "pitcher": "勝騎士",
+          "pitcherInnings": "5.2",
+          "pitcherOutsRecorded": 17,
+          "displayPitchCount": 82,
+          "tabularPitchCount": 81,
+          "unverifiedPitchCount": true
+        },
+        {
+          "retrievedAt": "2026-10-09T10:51:07.178Z",
+          "status": "live",
+          "awayScore": 1,
+          "homeScore": 4,
+          "inning": 6,
+          "half": "bottom",
+          "awayHits": 6,
+          "homeHits": 10,
+          "pitcher": "勝騎士",
+          "pitcherInnings": "6.0",
+          "pitcherOutsRecorded": 18,
+          "displayPitchCount": null,
+          "tabularPitchCount": 82
+        }
+      ],
+      "verifiedLiveNumericChange": {
+        "confirmed": true,
+        "from": "2026-10-09T10:49:36.492Z",
+        "to": "2026-10-09T10:51:07.178Z",
+        "intervalSeconds": 90.686,
+        "verifiedField": "pitcherOutsRecorded",
+        "before": 17,
+        "after": 18,
+        "halfChanged": "top→bottom",
+        "sourceStateBefore": "live",
+        "sourceStateAfter": "live"
+      },
+      "dataQuality": {
+        "pitchCount": "null_due_to_conflicting_live_and_tabular_display",
+        "bso": "not_verified",
+        "bases": "not_verified",
+        "postseasonParser": "excludes_POSTSEASON_unfixed"
+      }
+    }
+  },
+  "changesOnProduction": false,
+  "deploy": false,
+  "sourceLoginBypass": false
+}
