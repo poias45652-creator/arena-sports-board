@@ -1,4 +1,5 @@
 import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
+import {WNBA_TEAMS} from './wnba';
 export type SportFixture={id:string;league?:string;start:string;timeConfirmed:boolean;state:string;home:{id?:string;name:string;logo?:string};away:{id?:string;name:string;logo?:string}};
 export type SportQuote={kind:'spread'|'total'|'moneyline';line:number;boundary:number;parts?:number[];display:string;home:number;away:number;draw?:number;signature:string};
 export type SportEvent={id:number;home:string;away:string;spread:SportQuote|null;total:SportQuote|null;moneyline:SportQuote|null};
@@ -28,7 +29,10 @@ const aliases:Record<string,string>={'聖馬力諾':'聖馬利諾','意大利':'
 // These additions apply only to football, never youth/women suffixes or basketball.
 const footballAliases:Record<string,string>={'阿美尼亞':'亞美尼亞','波斯尼亞和黑塞哥維那':'波士尼亞與赫塞哥維納','哈薩克斯坦':'哈薩克'};
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊'};
-export function sportTeamKey(name:string,sport?:MarketSport){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
+// SUPER appends (女) to WNBA names. Map only registered full team names in
+// this league; never strip women/youth qualifiers from other competitions.
+const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));
+export function sportTeamKey(name:string,sport?:MarketSport){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='WNBA'?(wnbaAliases.get(key)??aliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
 const marketTypes=(sport:MarketSport)=>sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
 function sourceTime(value:unknown){
  if(typeof value!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(value))return NaN;
