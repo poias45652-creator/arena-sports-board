@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-09",
+  "capturedAt": "2026-10-09T14:21:49.723Z",
+  "artifactCreatedAt": "2026-10-09T14:21:52Z",
+  "runId": 35589830427,
+  "runAttempt": 29,
+  "jobId": 113863811998,
+  "artifactId": 11622377526,
+  "headSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+  "collectorConclusion": "success",
+  "sourceState": {
+    "NPB": {
+      "status": "unavailable",
+      "games": 0,
+      "reason": "No recognizable first-team schedule; not proof of no games"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": 3,
+      "live": 0,
+      "final": 3,
+      "results": [
+        [
+          "KIA",
+          "NC",
+          7,
+          2
+        ],
+        [
+          "LG",
+          "Lotte",
+          1,
+          9
+        ],
+        [
+          "Samsung",
+          "SSG",
+          1,
+          3
+        ]
+      ]
+    },
+    "CPBL": {
+      "status": "partial",
+      "games": 0,
+      "error": "Not CPBL regular season",
+      "knownPublicSourcePostseasonFinal": true
+    }
+  },
+  "secondCapturePerformed": false,
+  "newLiveChangeProof": false,
+  "isolatedPostgres16": {
+    "success": true,
+    "inserted": 3,
+    "readBack": 3,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "issues": [
+    "CPBL POSTSEASON not allowed by validated branch parser",
+    "NPB off-day reported unavailable",
+    "collector run uses baseline headSha, not unmerged isolated fix"
+  ],
+  "pitchCountCpbl": null,
+  "productionDeployed": false,
+  "artifactUrl": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/35589830427/artifacts/11622377526"
+}
