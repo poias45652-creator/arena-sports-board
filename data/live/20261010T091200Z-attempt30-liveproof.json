@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-10",
+  "capturedAt": "2026-10-10T09:12:00.676Z",
+  "source": "verified GitHub Actions artifact evidence",
+  "runId": 35589830427,
+  "runAttempt": 30,
+  "jobId": 114179449907,
+  "artifactId": 11665234657,
+  "artifactCreatedAt": "2026-10-10T09:12:05Z",
+  "artifactHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+  "NPB": {
+    "games": 2,
+    "final": 2,
+    "liveChangesVerifiedThisAttempt": false
+  },
+  "KBO": {
+    "games": 3,
+    "final": 1,
+    "live": 2,
+    "liveChanges": [
+      {
+        "gameId": "20261010NCHH02026",
+        "beforeFetchedAt": "2026-10-10T09:10:49.626Z",
+        "afterFetchedAt": "2026-10-10T09:11:58.935Z",
+        "intervalSeconds": 69.309,
+        "awayScore": {
+          "before": 3,
+          "after": 4
+        },
+        "homePitchCount": {
+          "before": 8,
+          "after": 12
+        }
+      },
+      {
+        "gameId": "20261010SKHT02026",
+        "beforeFetchedAt": "2026-10-10T09:10:49.783Z",
+        "afterFetchedAt": "2026-10-10T09:11:59.466Z",
+        "intervalSeconds": 69.683,
+        "awayPitchCount": {
+          "before": 10,
+          "after": 13
+        }
+      }
+    ]
+  },
+  "CPBL": {
+    "games": 0,
+    "status": "partial",
+    "error": "Not CPBL regular season",
+    "pitchCount": null,
+    "postseasonPublicGameExists": true
+  },
+  "notes": "Derived solely from 2026-10-10 Attempt 30 ZIP verification.json previously downloaded and corroborated against GitHub job/artifact metadata. Not a newly executed collector.",
+  "productionWritten": false
+}
