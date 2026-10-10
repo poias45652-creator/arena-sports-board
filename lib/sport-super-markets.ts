@@ -37,7 +37,8 @@ const footballAliases:Record<string,string>={
  '巴塞隆拿':'巴塞隆納','基達菲':'赫塔費','利爾':'里爾','圖魯茲':'圖盧茲',
  '巴黎':'巴黎FC','利文斯':'勒芒',
 };
-const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊'};
+// Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
+const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
 // SUPER appends (女) to WNBA names. Map only registered full team names in
 // this league; never strip women/youth qualifiers from other competitions.
 const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));

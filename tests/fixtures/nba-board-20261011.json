@@ -1,0 +1,117 @@
+{
+  "provenance": "Public ESPN scoreboards dates=20261010 and 20261011, retrieved 2026-10-10; official fixture identities only.",
+  "games": [
+    {
+      "id": "401902645",
+      "start": "2026-10-10T22:30Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "28",
+        "name": "多倫多暴龍"
+      },
+      "away": {
+        "id": "12",
+        "name": "洛杉磯快艇"
+      }
+    },
+    {
+      "id": "401898396",
+      "start": "2026-10-10T23:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "11",
+        "name": "印第安納溜馬"
+      },
+      "away": {
+        "id": "1",
+        "name": "亞特蘭大老鷹"
+      }
+    },
+    {
+      "id": "401906510",
+      "start": "2026-10-10T23:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "27",
+        "name": "華盛頓巫師"
+      },
+      "away": {
+        "id": "8",
+        "name": "底特律活塞"
+      }
+    },
+    {
+      "id": "401898397",
+      "start": "2026-10-11T00:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "14",
+        "name": "邁阿密熱火"
+      },
+      "away": {
+        "id": "16",
+        "name": "明尼蘇達灰狼"
+      }
+    },
+    {
+      "id": "401898398",
+      "start": "2026-10-11T00:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "2",
+        "name": "波士頓塞爾提克"
+      },
+      "away": {
+        "id": "20",
+        "name": "費城七六人"
+      }
+    },
+    {
+      "id": "401898399",
+      "start": "2026-10-11T00:30Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "9",
+        "name": "金州勇士"
+      },
+      "away": {
+        "id": "23",
+        "name": "沙加緬度國王"
+      }
+    },
+    {
+      "id": "401898720",
+      "start": "2026-10-11T02:30Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "21",
+        "name": "鳳凰城太陽"
+      },
+      "away": {
+        "id": "24",
+        "name": "聖安東尼奧馬刺"
+      }
+    },
+    {
+      "id": "401898400",
+      "start": "2026-10-11T10:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "10",
+        "name": "休士頓火箭"
+      },
+      "away": {
+        "id": "6",
+        "name": "達拉斯獨行俠"
+      }
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "fetchedAt": "2026-10-10T15:06:25.575Z",
+  "provenance": "Render super-sport-pairing-audit; public fixture metadata only, no prices or session data.",
+  "sportGames": [
+    {
+      "id": 25084148,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "多倫多暴龍(主)",
+      "away": "洛杉磯快艇",
+      "start": "2026/10/11 06:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084150,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "華盛頓巫師(主)",
+      "away": "底特律活塞",
+      "start": "2026/10/11 07:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084154,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "印第安納溜馬(主)",
+      "away": "亞特蘭大老鷹",
+      "start": "2026/10/11 07:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084156,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "波士頓塞爾蒂克(主)",
+      "away": "費城76人",
+      "start": "2026/10/11 08:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084157,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "邁阿密熱火(主)",
+      "away": "明尼蘇達灰狼",
+      "start": "2026/10/11 08:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084160,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "金州勇士(主)",
+      "away": "沙加緬度國王",
+      "start": "2026/10/11 08:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    },
+    {
+      "id": 25084162,
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "鳳凰城太陽(主)",
+      "away": "聖安東尼奧馬刺",
+      "start": "2026/10/11 10:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      },
+      "league": "NBA"
+    }
+  ]
+}
