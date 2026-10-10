@@ -22,5 +22,41 @@
     "artifactId": 11665234657,
     "rerunBlocked": true
   },
-  "productionWritten": false
+  "productionWritten": false,
+  "timeProof": {
+    "firstResponseCompletedNoLaterThan": "2026-10-10T09:44:31.377Z",
+    "secondPollStartedAt": "2026-10-10T09:45:59.680Z",
+    "secondResponseCompletedAt": "2026-10-10T09:46:09.996Z",
+    "minimumIntervalSeconds": 88.303
+  },
+  "sourceEvidence": {
+    "KBO": {
+      "url": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-10&toDate=2026-10-10&page=1&pageSize=100",
+      "scrapeIds": [
+        "01a12532-efb6-753e-bfab-daa5383bc75a",
+        "01a12534-8515-76fc-9898-7c8e1fdbd1bb"
+      ],
+      "twoLiveGamesScoreOrInningChanged": false
+    },
+    "CPBL": {
+      "url": "https://stats.cpbl.com.tw/schedule/2026-E-2",
+      "scrapeIds": [
+        "01a12533-0073-7607-b232-00d71f125308",
+        "01a12534-9381-700e-86b0-9b85ec5ef9fc"
+      ],
+      "rawDisplayedPitchCount": [
+        46,
+        49
+      ],
+      "pitchCount": null,
+      "otherTrustedFieldsChanged": false
+    }
+  },
+  "isolatedCodeFix": {
+    "branch": "data/cpbl-postseason-parser-test-20261009",
+    "commit": "eb655f9f6fa19c37bed5ca4b3d5ee4d56bad6622",
+    "change": "interval>=65000",
+    "staticReadbackVerified": true,
+    "integratedTestPassed": false
+  }
 }
