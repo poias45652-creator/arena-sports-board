@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-10",
+  "capturedAt": "2026-10-10T09:48:41Z",
+  "sourceType": "independent public source",
+  "minIntervalSeconds": 141.067,
+  "KBO": [
+    {
+      "id": "20261010NCHH02026",
+      "inning": [
+        "5 top",
+        "5 bottom"
+      ],
+      "scores": [
+        "8-3",
+        "8-3"
+      ]
+    },
+    {
+      "id": "20261010SKHT02026",
+      "scores": [
+        "3-4",
+        "3-8"
+      ],
+      "inning": [
+        "5 bottom",
+        "5 bottom"
+      ]
+    }
+  ],
+  "CPBL": {
+    "id": "2026-E-2",
+    "inning": [
+      "2 top",
+      "2 bottom"
+    ],
+    "scores": [
+      "0-0",
+      "0-0"
+    ],
+    "pitchCount": null
+  },
+  "newCollectorArtifact": false,
+  "productionModified": false
+}
