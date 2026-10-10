@@ -25,11 +25,29 @@ test('away recommendations use the higher probability and exact ties do not pick
  const [row]=footballRecommendations({...options,reports:{[game.id]:{game,analysis:tied}}});
  assert.equal(row.result,null);assert.equal(row.total,null);assert.equal(row.btts,null);
 });
-test('kickoff, non-scheduled matches and unconfirmed times withdraw recommendations',()=>{
- assert.equal(footballRecommendations({...options,now:Date.parse(game.start)}).length,0);
+test('kickoff retains pregame predictions but invalid states and unconfirmed times do not',()=>{
+ assert.equal(footballRecommendations({...options,now:Date.parse(game.start)}).length,1);
  for(const patch of [{state:'live'},{state:'final'},{state:'other'},{timeConfirmed:false}]){
   const next={...game,...patch};assert.equal(readyFootballAnalysis(next,{game:next,analysis},now),null);
  }
+});
+test('live and final forecasts stay identical through the Taiwan day, including a source outage',()=>{
+ for(const state of ['scheduled','live','final']){
+  const current={...game,state,homeScore:4,awayScore:0};
+  for(const clock of [Date.parse(game.start),Date.parse('2026-09-29T15:59:59.999Z')]){
+   const [row]=footballRecommendations({...options,games:[current],now:clock,unavailable:true});
+   assert.equal(row.analysis,analysis);assert.deepEqual(row.analysis.scores,analysis.scores);
+   assert.equal(row.result.label,'主勝');
+  }
+  assert.equal(footballRecommendations({...options,games:[current],now:Date.parse('2026-09-29T16:00:00Z')}).length,0);
+ }
+});
+test('retention never accepts a prediction captured at or after kickoff',()=>{
+ for(const capturedAt of [game.start,'2026-09-28T19:10:00Z']){
+  const current={...game,state:'live'},late={...report,analysis:{...analysis,capturedAt}};
+  assert.equal(readyFootballAnalysis(current,late,Date.parse('2026-09-28T20:00:00Z')),null);
+ }
+ assert.equal(readyFootballAnalysis({...game,state:'final'},undefined,Date.parse('2026-09-29T12:00:00Z')),null);
 });
 test('a report for another fixture, team assignment or rescheduled match cannot be reused',()=>{
  for(const patch of [{id:'9002'},{league:'esp.1'},{season:2025},{start:'2026-09-28T20:00:00Z'},{home:game.away,away:game.home},{neutral:true},{timeConfirmed:false},{state:'live'}]){

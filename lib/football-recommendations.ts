@@ -1,17 +1,27 @@
 import {footballDay,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
 
-export type FootballReport={game?:FootballGame;analysis?:FootballAnalysis;error?:string;sourceFetchedAt?:string;archiveAsOf?:string;snapshotSaved?:boolean};
+export type FootballReport={game?:FootballGame;analysis?:FootballAnalysis;error?:string;sourceFetchedAt?:string;archiveAsOf?:string;snapshotSaved?:boolean;retained?:boolean};
 export type ReadyFootballAnalysis=FootballAnalysis&{probabilities:NonNullable<FootballAnalysis['probabilities']>};
 export type FootballDirection={label:string;probability:number};
 export type FootballRecommendation={game:FootballGame;analysis:ReadyFootballAnalysis;result:FootballDirection|null;total:FootballDirection|null;btts:FootballDirection|null};
 export const footballFixtureKey=(g?:FootballGame)=>g&&[g.league,g.id,g.season,g.start,g.home.id,g.away.id,g.neutral,g.timeConfirmed].join('|');
 export function footballSourceStale(fetchedAt:string,now:number){const captured=Date.parse(fetchedAt);return !Number.isFinite(captured)||!Number.isFinite(now)||now-captured>=120000||captured-now>60000;}
 
+export function retainFootballForecast(game:FootballGame,now:number){
+  const start=Date.parse(game.start);
+  return Number.isFinite(now)&&Number.isFinite(start)&&game.timeConfirmed&&
+    ['scheduled','live','final'].includes(game.state)&&start<=now&&footballDay(game.start)===footballDay(new Date(now));
+}
+
 // The match card and floating sheet share the same eligibility gate and snapshot.
 export function readyFootballAnalysis(game:FootballGame,report:FootballReport|undefined,now:number,unavailable=false):ReadyFootballAnalysis|null{
   const analysis=report?.analysis,p=analysis?.probabilities,captured=Date.parse(analysis?.capturedAt||''),start=Date.parse(game.start);
-  if(unavailable||report?.error||!Number.isFinite(now)||!Number.isFinite(start)||game.state!=='scheduled'||!game.timeConfirmed||start<=now||report?.game?.state!=='scheduled'||footballFixtureKey(report?.game)!==footballFixtureKey(game)||analysis?.status!=='ready'||!p)return null;
-  if(!Number.isFinite(captured)||now-captured>=15*60000||captured-now>60000)return null;
+  const retained=retainFootballForecast(game,now);
+  if(report?.error||!Number.isFinite(now)||!Number.isFinite(start)||!game.timeConfirmed||report?.game?.state!=='scheduled'||footballFixtureKey(report?.game)!==footballFixtureKey(game)||analysis?.status!=='ready'||!p)return null;
+  // After kickoff only the existing pregame snapshot is shown, until Taipei midnight.
+  // Its age and a scoreboard outage cannot change or withdraw that prediction.
+  if(!Number.isFinite(captured)||captured>=start||captured-now>60000)return null;
+  if(!retained&&(unavailable||game.state!=='scheduled'||start<=now||now-captured>=15*60000))return null;
   if([p.home,p.draw,p.away,p.over25,p.under25,p.btts].some(n=>!Number.isFinite(n)||n<0||n>1)||Math.abs(p.home+p.draw+p.away-1)>1e-6||Math.abs(p.over25+p.under25-1)>1e-6)return null;
   return analysis as ReadyFootballAnalysis;
 }

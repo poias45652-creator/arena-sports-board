@@ -1,7 +1,7 @@
 import {footballDay,isFootballLeague,validFootballDay} from '@/lib/football';
 import {footballGameAnalysis,footballSchedule,nextFootballDay} from '@/lib/football-source';
 import {getRawDb} from '@/db';
-import {saveFootballForecast,saveFootballResults} from '@/lib/football-ledger';
+import {loadFootballForecast,saveFootballForecast,saveFootballResults} from '@/lib/football-ledger';
 import {saveDailyForecast,saveDailyResults} from '@/lib/daily-win-rate';
 export const dynamic='force-dynamic';
 const savedResults=new Map<string,number>();
@@ -15,6 +15,10 @@ export async function GET(request:Request){
       const id=p.get('game')||'';if(!/^\d{1,12}$/.test(id))return Response.json({error:'無效賽事編號'},{status:400,headers});
       const result=await footballGameAnalysis(league,day,id);
       if(!result)return Response.json({error:'本日找不到此賽事，請更新賽程'},{status:404,headers});
+      if(Date.parse(result.game.start)<=Date.now()){
+        const saved=await loadFootballForecast(getRawDb(),result.game);
+        return Response.json(saved?{...saved,sourceFetchedAt:result.sourceFetchedAt}:result,{headers});
+      }
       let snapshotSaved=false,dailySaved=false;try{const db=getRawDb();snapshotSaved=await saveFootballForecast(db,result.game,result.analysis);if(result.analysis.probabilities)dailySaved=await saveDailyForecast(db,'FOOTBALL',result.game,result.analysis.probabilities,result.analysis.capturedAt,result.analysis.version);}catch{/* Analysis remains available, but snapshot failure is visible. */}
       return Response.json({...result,snapshotSaved,dailySaved},{headers});
     }

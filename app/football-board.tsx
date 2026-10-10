@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
 import {FOOTBALL_LEAGUES,footballDay,shiftFootballDay,isFootballLeague,validFootballDay,type FootballGame,type FootballLeague} from '@/lib/football';
-import {footballFixtureKey,footballSourceStale,readyFootballAnalysis,type FootballReport} from '@/lib/football-recommendations';
+import {footballFixtureKey,footballSourceStale,readyFootballAnalysis,retainFootballForecast,type FootballReport} from '@/lib/football-recommendations';
 import FootballTeamIdentity from './football-team';
 import FootballRecommendationsPane,{FootballAnalysisNumbers} from './football-recommendations';
 
@@ -26,9 +26,20 @@ export default function FootballBoard(){
   const [error,setError]=useState(''),[loading,setLoading]=useState(true),[nextBusy,setNextBusy]=useState(false),[notice,setNotice]=useState('');
   const [filter,setFilter]=useState('all'),[reload,setReload]=useState(0),[now,setNow]=useState(Date.now);
   const nextController=useRef<AbortController|null>(null);
+  const today=useRef(footballDay());
   const selected=FOOTBALL_LEAGUES.find(l=>l.code===league)!;
   useEffect(()=>{const p=new URLSearchParams(window.location.search),competition=p.get('competition'),date=p.get('date');if(competition&&isFootballLeague(competition))setLeague(competition);if(date&&validFootballDay(date)&&Math.abs(Date.parse(date)-Date.parse(footballDay()))<=365*86400000)setDay(date);},[]);
-  useEffect(()=>{const timer=setInterval(()=>setNow(Date.now()),15000);return()=>clearInterval(timer);},[]);
+  useEffect(()=>{
+    let timer:ReturnType<typeof setTimeout>;
+    const tick=()=>{
+      clearTimeout(timer);const clock=Date.now(),date=footballDay(new Date(clock));setNow(clock);
+      if(date!==today.current){const previous=today.current;today.current=date;setDay(selectedDay=>selectedDay===previous?date:selectedDay);}
+      timer=setTimeout(tick,Math.min(15000,86400000-((clock+8*3600000)%86400000)));
+    };
+    const resume=()=>{if(document.visibilityState==='visible')tick();};
+    tick();document.addEventListener('visibilitychange',resume);
+    return()=>{clearTimeout(timer);document.removeEventListener('visibilitychange',resume);};
+  },[]);
   useEffect(()=>{
     const refresh=()=>setReload(n=>n+1);window.addEventListener('arena-refresh-all',refresh);
     return()=>window.removeEventListener('arena-refresh-all',refresh);
@@ -39,7 +50,7 @@ export default function FootballBoard(){
   },[league,day]);
   useEffect(()=>{
     const controller=new AbortController();let busy=false,timer:ReturnType<typeof setTimeout>;
-    const known:Record<string,Report>={},queued=new Set<string>();
+    const known:Record<string,Report>={},queued=new Set<string>(),attempted:Record<string,number>={};
     setBoard(null);setReports({});setError('');setLoading(true);
     const base=`/api/football?league=${encodeURIComponent(league)}&date=${day}`;
     async function update(){
@@ -47,13 +58,23 @@ export default function FootballBoard(){
       try{
         const data:Board=await request(base,controller.signal);if(controller.signal.aborted)return;
         setBoard(data);setError('');setLoading(false);
-        const todo=data.games.filter(g=>g.state==='scheduled'&&g.timeConfirmed&&Date.parse(g.start)>Date.now()&&!queued.has(g.id)&&(!known[g.id]?.analysis||fixtureKey(known[g.id]?.game)!==fixtureKey(g)||Date.now()-Date.parse(known[g.id].analysis!.capturedAt)>600000));
-        todo.forEach(g=>queued.add(g.id));
+        const clock=Date.now();
+        const todo=data.games.filter(g=>{
+          if(queued.has(g.id))return false;
+          if(retainFootballForecast(g,clock))return !readyFootballAnalysis(g,known[g.id],clock)&&clock-(attempted[fixtureKey(g)!]||0)>=60000;
+          return g.state==='scheduled'&&g.timeConfirmed&&Date.parse(g.start)>clock&&(!known[g.id]?.analysis||fixtureKey(known[g.id]?.game)!==fixtureKey(g)||clock-Date.parse(known[g.id].analysis!.capturedAt)>600000);
+        });
+        todo.forEach(g=>{queued.add(g.id);attempted[fixtureKey(g)!]=clock;});
         async function worker(){
           while(todo.length&&!controller.signal.aborted){
             const game=todo.shift()!;
-            try{const r=await request(base+`&kind=analysis&game=${game.id}`,controller.signal);if(!controller.signal.aborted){known[game.id]=r;setReports({...known});}}
-            catch(e){if(!controller.signal.aborted){known[game.id]={error:e instanceof Error?e.message:'分析暫時無法取得'};setReports({...known});}}
+            try{const r:Report=await request(base+`&kind=analysis&game=${game.id}`,controller.signal);if(!controller.signal.aborted){
+              // A request crossing kickoff must not replace the saved forecast
+              // with a closed response or a transient error.
+              if(r.analysis?.status==='ready'||!readyFootballAnalysis(game,known[game.id],Date.now()))known[game.id]=r;
+              setReports({...known});
+            }}
+            catch(e){if(!controller.signal.aborted){if(!readyFootballAnalysis(game,known[game.id],Date.now()))known[game.id]={error:e instanceof Error?e.message:'分析暫時無法取得'};setReports({...known});}}
             finally{queued.delete(game.id);}
           }
         }
@@ -82,7 +103,7 @@ export default function FootballBoard(){
     <div className="football-toolbar"><div><h2>{selected.fullName}</h2><p>台灣時間 UTC+8</p></div><div className="football-date"><button type="button" aria-label="前一天" onClick={()=>setDay(shiftFootballDay(day,-1))}><ArrowLeft size={17}/></button><label><CalendarDays size={17}/><span className="sr-only">比賽日期（台灣時間）</span><input type="date" value={day} min={shiftFootballDay(footballDay(),-365)} max={shiftFootballDay(footballDay(),365)} onChange={e=>{if(e.target.value)setDay(e.target.value);}}/></label><button type="button" aria-label="後一天" onClick={()=>setDay(shiftFootballDay(day,1))}><ArrowRight size={17}/></button><button type="button" onClick={()=>setDay(footballDay())}>今天</button><button type="button" aria-label="更新足球資料" disabled={loading} onClick={()=>setReload(n=>n+1)}><RefreshCw size={17} className={loading?'animate-spin':''}/></button></div></div>
     <div className="football-status"><span>{board?`${board.games.length} 場賽事・${board.games.filter(g=>g.state==='live').length} 場進行中`:'正在取得賽程'}</span><span>{board?`抓取 ${time(board.fetchedAt)}`:'等待同步'}{stale?'・資料已過期':''}</span></div>
     <div className="football-filters" role="group" aria-label="足球賽事狀態">{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完場']].map(([value,label])=><button type="button" key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div>
-    {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；分析暫停顯示。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}
+    {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；當日已開賽的賽前預測仍保留。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}
     {loading&&!board?<div className="football-empty" role="status"><RefreshCw className="animate-spin"/><h3>正在取得{selected.name}賽程</h3><p>賽程載入後會自動計算可分析的比賽。</p></div>:board&&!games.length?<div className="football-empty"><CalendarDays size={30}/><h3>{board.games.length?'沒有符合篩選條件的比賽':`${day} 沒有${selected.name}賽事`}</h3><p>{board.games.length?'可切換至全部查看當日賽程。':'可查看下一個比賽日，或自行選擇日期。'}</p>{!board.games.length&&<button type="button" className="football-primary" disabled={nextBusy} onClick={()=>void nextMatch()}>{nextBusy?'正在查詢…':'下一個比賽日'}<ArrowRight size={16}/></button>}{notice&&<p role="status">{notice}</p>}</div>:null}
     <div className="football-games">{games.map(game=><FootballCard snapshot={odds.data} oddsError={odds.error} key={game.id} game={game} report={reports[game.id]} now={clock} unavailable={unavailable}/>)}</div>
     <FootballRecommendationsPane snapshot={odds.data} oddsError={odds.error} games={games} reports={reports} league={league} leagueName={selected.name} day={day} now={clock} sourceFetchedAt={current?board.fetchedAt:undefined} unavailable={unavailable} loading={loading}/>
@@ -96,6 +117,7 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError}:{snapshot
     <div className="football-match"><FootballTeamIdentity team={game.home} side="home" league={game.league} day={footballDay(game.start)}/><b>{game.homeScore!==null&&game.awayScore!==null?`${game.homeScore} : ${game.awayScore}`:'VS'}</b><FootballTeamIdentity team={game.away} side="away" league={game.league} day={footballDay(game.start)}/></div>
     {(game.venue||game.neutral)&&<p className="football-venue">{game.neutral?'中立場・':''}{game.venue}</p>}
     {a?<>
+      {retainFootballForecast(game,now)&&<p className="football-venue">賽前預測・保留至今日 24:00</p>}
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
     </>:eligible&&!unavailable&&!report?<div className="football-loading" role="status" aria-label="分析載入中"><RefreshCw size={18} className="animate-spin"/></div>:null}

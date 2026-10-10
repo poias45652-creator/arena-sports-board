@@ -1,5 +1,6 @@
 import type {Database} from '../db';
 import type {FootballAnalysis,FootballGame} from './football';
+import {readyFootballAnalysis,retainFootballForecast,type FootballReport} from './football-recommendations';
 
 export function validFootballForecast(game:FootballGame,analysis:FootballAnalysis,now=Date.now()){
   const captured=Date.parse(analysis.capturedAt),start=Date.parse(game.start),p=analysis.probabilities;
@@ -10,11 +11,28 @@ export function validFootballForecast(game:FootballGame,analysis:FootballAnalysi
 export async function saveFootballForecast(db:Database,game:FootballGame,analysis:FootballAnalysis,now=Date.now()){
   if(!validFootballForecast(game,analysis,now))return false;
   const id=[game.league,game.id,game.start,analysis.version].join('|');
-  const payload=JSON.stringify({home:game.home,away:game.away,probabilities:analysis.probabilities,calibration:analysis.calibration?.status,historyMode:analysis.historyMode,homeForm:analysis.homeForm,awayForm:analysis.awayForm,quality:analysis.quality,external:analysis.external});
+  const payload=JSON.stringify({home:game.home,away:game.away,probabilities:analysis.probabilities,calibration:analysis.calibration?.status,historyMode:analysis.historyMode,homeForm:analysis.homeForm,awayForm:analysis.awayForm,quality:analysis.quality,external:analysis.external,game,analysis});
   // Each version keeps its most recent valid pregame observation. Capture and
   // kickoff checks are server-side; after kickoff there is no rewrite path.
   await db.prepare(`INSERT INTO football_forecasts (id,league,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?,?) ON CONFLICT (id) DO UPDATE SET captured_at=excluded.captured_at,payload=excluded.payload WHERE football_forecasts.captured_at<excluded.captured_at`).bind(id,game.league,game.id,game.start,analysis.capturedAt,analysis.version,payload).run();
   return true;
+}
+export async function loadFootballForecast(db:Database,game:FootballGame,now=Date.now()):Promise<FootballReport|null>{
+  if(!retainFootballForecast(game,now))return null;
+  const {results}=await db.prepare(`SELECT start_time,captured_at,version,payload FROM football_forecasts WHERE league=? AND game_id=? AND start_time=? ORDER BY captured_at DESC LIMIT 20`).bind(game.league,game.id,game.start).all();
+  for(const row of results){
+    try{
+      const payload=JSON.parse(row.payload),captured=Date.parse(row.captured_at);
+      if(!Number.isFinite(captured)||captured>=Date.parse(game.start)-60000||payload.home?.id!==game.home.id||payload.away?.id!==game.away.id)continue;
+      // Legacy rows contain probabilities only. Never reconstruct missing score
+      // predictions from results or today's model.
+      const analysis:FootballAnalysis=payload.analysis??{status:'ready',reason:'',version:row.version,capturedAt:row.captured_at,probabilities:payload.probabilities,homeForm:payload.homeForm,awayForm:payload.awayForm,historyMode:payload.historyMode,quality:payload.quality,external:payload.external,notes:[]};
+      if(analysis.capturedAt!==row.captured_at||analysis.version!==row.version)continue;
+      const report:FootballReport={game:payload.game??{...game,state:'scheduled',statusName:'STATUS_SCHEDULED',statusLabel:'未開賽',homeScore:null,awayScore:null},analysis,retained:true,snapshotSaved:true};
+      if(readyFootballAnalysis(game,report,now))return report;
+    }catch{/* Corrupt snapshots are never replaced by postgame calculations. */}
+  }
+  return null;
 }
 export async function saveFootballResults(db:Database,games:FootballGame[],now=Date.now()){
   let count=0;
