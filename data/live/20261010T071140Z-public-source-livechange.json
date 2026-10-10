@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 1,
+  "task": "YJ first-team official-game source validation",
+  "dateAsiaTaipei": "2026-10-10",
+  "evidenceType": "independent_public_source_polling",
+  "notCollectorArtifact": true,
+  "collectorAttempt": null,
+  "artifactId": null,
+  "timings": {
+    "firstResponseCompletedAtUtc": "2026-10-10T07:09:56.281Z",
+    "secondPollStartedNoEarlierThanUtc": "2026-10-10T07:11:14.893Z",
+    "secondResponseCompletedAtUtc": "2026-10-10T07:11:40.079Z",
+    "conservativeMinimumIntervalSeconds": 78.612,
+    "qualifiesMin65Seconds": true,
+    "notes": "Timestamps are tool/batch envelope clocks, not source-supplied fetchedAt; >=78.612s is a conservative bound between completion of all first requests and earliest second-request start."
+  },
+  "leagues": {
+    "NPB": [
+      {
+        "gameKey": "NPB:20261010:g-db-01",
+        "away": "Yokohama DeNA BayStars",
+        "home": "Yomiuri Giants",
+        "series": "CS First Stage G1",
+        "source": "https://npb.jp/scores/2026/1010/g-db-01/",
+        "sourceHttp": 200,
+        "first": {
+          "status": "live",
+          "inning": "8 top",
+          "completedOutsThisHalf": 2,
+          "reason": "Two groundouts recorded; third batter not yet in latest events",
+          "scrapeId": "01a124a5-2649-72e6-806f-40db84ad23fe"
+        },
+        "second": {
+          "status": "live",
+          "inning": "8 top",
+          "completedOutsThisHalf": 3,
+          "reason": "Additional strikeout of Ebina after two groundouts",
+          "scrapeId": "01a124a7-02f8-7328-b0c9-137e50627356"
+        },
+        "proof": {
+          "metric": "completedOutsThisHalf",
+          "before": 2,
+          "after": 3,
+          "verified": true
+        }
+      },
+      {
+        "gameKey": "NPB:20261010:l-f-01",
+        "away": "Hokkaido Nippon-Ham Fighters",
+        "home": "Saitama Seibu Lions",
+        "series": "CS First Stage G1",
+        "source": "https://npb.jp/scores/2026/1010/l-f-01/",
+        "sourceHttp": 200,
+        "first": {
+          "status": "live",
+          "inning": "6 bottom",
+          "scrapeId": "01a124a5-57a7-763b-b81e-7861d7bb0a07"
+        },
+        "second": {
+          "status": "live",
+          "inning": "7 top",
+          "scrapeId": "01a124a7-179c-70cc-9341-b3fd744cad35"
+        },
+        "proof": {
+          "metric": "inningHalf",
+          "before": "6 bottom",
+          "after": "7 top",
+          "verified": true
+        }
+      }
+    ],
+    "KBO": {
+      "source": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-10&toDate=2026-10-10&page=1&pageSize=100",
+      "sourceHttp": 200,
+      "firstScrapeId": "01a124a5-7571-74b3-b8e8-e8c08be36111",
+      "secondScrapeId": "01a124a7-2c3b-703c-a6ae-830e7b0570b2",
+      "firstTeamOfficialGames": 3,
+      "excludedOtherGames": 2,
+      "games": [
+        {
+          "id": "20261010LGLT02026",
+          "away": "LG",
+          "home": "Lotte",
+          "first": {
+            "status": "live",
+            "inning": "7 top",
+            "awayScore": 3,
+            "homeScore": 1
+          },
+          "second": {
+            "status": "live",
+            "inning": "7 top",
+            "awayScore": 3,
+            "homeScore": 1
+          },
+          "verifiedNumericChange": false
+        },
+        {
+          "id": "20261010NCHH02026",
+          "away": "NC",
+          "home": "Hanwha",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        },
+        {
+          "id": "20261010SKHT02026",
+          "away": "SSG",
+          "home": "KIA",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null
+        }
+      ]
+    },
+    "CPBL": {
+      "source": "https://stats.cpbl.com.tw/schedule/2026-E-2",
+      "sourceHttp": 200,
+      "firstScrapeId": "01a124a5-8322-76fa-82ce-f5ceedb52c93",
+      "firstTeamOfficialGames": 1,
+      "games": [
+        {
+          "id": "2026-E-2",
+          "away": "CTBC Brothers",
+          "home": "Uni-Lions",
+          "seasonPhase": "POSTSEASON",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "pitchCount": null,
+          "lineupOfficiallyConfirmed": false
+        }
+      ]
+    }
+  },
+  "limitations": [
+    "Unable to trigger GitHub Current baseball collector: safety checks blocked rerun_workflow_job; latest verified collector attempt remains 29 dated 2026-10-09.",
+    "NPB official pages provide play-by-play event out counts; proof for g-db-01 is derived from the sequence of completed outs, not an authoritative instant B/S/O field.",
+    "No new KBO numeric live change established from schedule API within this window.",
+    "Existing collector script tests delay(65000) but erroneously accepts interval>=60000; isolated branch fix attempted but blocked."
+  ],
+  "changesToProduction": false
+}
