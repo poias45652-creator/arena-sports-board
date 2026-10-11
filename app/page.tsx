@@ -49,7 +49,7 @@ function mapGame(game:any):LiveGame{
 }
 
 export default function Home(){
-  const leagueLive=useLeagueLive(),sportLive=useSportLive();
+  const leagueLive=useLeagueLive(['NPB']),sportLive=useSportLive();
   const [updatingAll,setUpdatingAll]=useState(false),[updateNotice,setUpdateNotice]=useState('');
   const updateLock=useRef(false);
   const [league,setLeague]=useState<FrontLeague>('MLB'),[baseballLeague,setBaseballLeague]=useState<'MLB'|'NPB'>('MLB');
