@@ -119,7 +119,7 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError}:{snapshot
     {a?<>
       {retainFootballForecast(game,now)&&<p className="football-venue">賽前預測・保留至今日 24:00</p>}
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
-      <FootballAnalysisNumbers analysis={a}/>
+      <FootballAnalysisNumbers analysis={a} showScores={false}/>
     </>:eligible&&!unavailable&&!report?<div className="football-loading" role="status" aria-label="分析載入中"><RefreshCw size={18} className="animate-spin"/></div>:null}
     {eligible&&<SportMarkets game={game} analysis={a} snapshot={snapshot} error={oddsError} sport="FOOTBALL" now={now}/>}
   </article>;
