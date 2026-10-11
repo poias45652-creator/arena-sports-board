@@ -1,0 +1,233 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Daily first-team live observation and collector verification; never deploy automatically",
+  "source": "GitHub Actions Current baseball collector",
+  "dateAsiaTaipei": "2026-10-11",
+  "capturedAt": "2026-10-11T08:07:36.324Z",
+  "runId": 35589830427,
+  "runAttempt": 35,
+  "jobId": 114423288271,
+  "artifactId": 11696037869,
+  "artifactCreatedAt": "2026-10-11T08:07:39Z",
+  "workflowHeadSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+  "secondCapturePerformed": true,
+  "leagues": [
+    {
+      "league": "NPB",
+      "games": 2,
+      "status": "ok",
+      "errors": [],
+      "pregame": 0,
+      "live": 1,
+      "final": 1,
+      "liveStateObserved": true,
+      "liveChangesVerified": true,
+      "lineupRows": 0,
+      "pitchingRows": 18,
+      "gamesSummary": [
+        {
+          "key": "NPB:2021039475",
+          "away": "橫濱DeNA海灣之星",
+          "home": "讀賣巨人",
+          "startTime": "2026-10-11T05:00:00.000Z",
+          "status": "final",
+          "awayScore": 4,
+          "homeScore": 1,
+          "inning": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039475/score",
+            "fetchedAt": "2026-10-11T08:07:33.949Z",
+            "httpDate": "Sun, 11 Oct 2026 08:07:33 GMT",
+            "cacheAgeSeconds": 0,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-11",
+                "fetchedAt": "2026-10-11T08:07:33.833Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039475/stats",
+                "fetchedAt": "2026-10-11T08:07:34.066Z"
+              }
+            ]
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "NPB:2021039478",
+          "away": "日本火腿鬥士",
+          "home": "西武獅",
+          "startTime": "2026-10-11T05:00:00.000Z",
+          "status": "live",
+          "awayScore": 1,
+          "homeScore": 0,
+          "inning": 9,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039478/score",
+            "fetchedAt": "2026-10-11T08:07:34.188Z",
+            "httpDate": "Sun, 11 Oct 2026 08:07:33 GMT",
+            "cacheAgeSeconds": 1,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-11",
+                "fetchedAt": "2026-10-11T08:07:33.833Z"
+              },
+              {
+                "url": "https://baseball.yahoo.co.jp/npb/game/2021039478/stats",
+                "fetchedAt": "2026-10-11T08:07:34.306Z"
+              }
+            ]
+          },
+          "liveChangeProof": {
+            "beforeHash": "38dfc10f6b0e869954b1d0efe87c451c81d7fc0eea5e6e3274b5f2ac57fe36bf",
+            "afterHash": "976e5f23724749da4254203fb078afe5d1565de89f27e88423d738e80984f990",
+            "beforeFetchedAt": "2026-10-11T08:06:25.382Z",
+            "afterFetchedAt": "2026-10-11T08:07:34.188Z",
+            "intervalSeconds": 68.806,
+            "changes": {
+              "awayPitching": {
+                "柳川 大晟:pitchCount": {
+                  "before": 0,
+                  "after": 5
+                },
+                "柳川 大晟:outsRecorded": {
+                  "before": 0,
+                  "after": 1
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "league": "KBO",
+      "games": 2,
+      "status": "ok",
+      "errors": [],
+      "pregame": 0,
+      "live": 0,
+      "final": 2,
+      "liveStateObserved": false,
+      "liveChangesVerified": false,
+      "lineupRows": 32,
+      "pitchingRows": 17,
+      "gamesSummary": [
+        {
+          "key": "KBO:20261011KTSS02026",
+          "away": "KT巫師",
+          "home": "三星獅",
+          "startTime": "2026-10-11T05:00:00.000Z",
+          "status": "final",
+          "awayScore": 12,
+          "homeScore": 3,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20261011KTSS02026/game-polling",
+            "fetchedAt": "2026-10-11T08:07:34.202Z",
+            "httpDate": "Sun, 11 Oct 2026 08:07:34 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        },
+        {
+          "key": "KBO:20261011LTHT02026",
+          "away": "樂天巨人",
+          "home": "起亞虎",
+          "startTime": "2026-10-11T05:00:00.000Z",
+          "status": "final",
+          "awayScore": 4,
+          "homeScore": 1,
+          "inning": null,
+          "source": {
+            "provider": "naver",
+            "url": "https://api-gw.sports.naver.com/schedule/games/20261011LTHT02026/game-polling",
+            "fetchedAt": "2026-10-11T08:07:34.387Z",
+            "httpDate": "Sun, 11 Oct 2026 08:07:34 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null
+          },
+          "liveChangeProof": null
+        }
+      ]
+    },
+    {
+      "league": "CPBL",
+      "games": 0,
+      "status": "partial",
+      "errors": [
+        "Not CPBL regular season"
+      ],
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "liveStateObserved": false,
+      "liveChangesVerified": false,
+      "lineupRows": 0,
+      "pitchingRows": 0,
+      "gamesSummary": []
+    }
+  ],
+  "validLiveProof": [
+    {
+      "key": "NPB:2021039478",
+      "away": "日本火腿鬥士",
+      "home": "西武獅",
+      "startTime": "2026-10-11T05:00:00.000Z",
+      "status": "live",
+      "awayScore": 1,
+      "homeScore": 0,
+      "inning": 9,
+      "source": {
+        "provider": "sportsnavi",
+        "url": "https://baseball.yahoo.co.jp/npb/game/2021039478/score",
+        "fetchedAt": "2026-10-11T08:07:34.188Z",
+        "httpDate": "Sun, 11 Oct 2026 08:07:33 GMT",
+        "cacheAgeSeconds": 1,
+        "providerUpdatedAt": null,
+        "supportingSources": [
+          {
+            "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-11",
+            "fetchedAt": "2026-10-11T08:07:33.833Z"
+          },
+          {
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039478/stats",
+            "fetchedAt": "2026-10-11T08:07:34.306Z"
+          }
+        ]
+      },
+      "liveChangeProof": {
+        "beforeHash": "38dfc10f6b0e869954b1d0efe87c451c81d7fc0eea5e6e3274b5f2ac57fe36bf",
+        "afterHash": "976e5f23724749da4254203fb078afe5d1565de89f27e88423d738e80984f990",
+        "beforeFetchedAt": "2026-10-11T08:06:25.382Z",
+        "afterFetchedAt": "2026-10-11T08:07:34.188Z",
+        "intervalSeconds": 68.806,
+        "changes": {
+          "awayPitching": {
+            "柳川 大晟:pitchCount": {
+              "before": 0,
+              "after": 5
+            },
+            "柳川 大晟:outsRecorded": {
+              "before": 0,
+              "after": 1
+            }
+          }
+        }
+      },
+      "league": "NPB"
+    }
+  ],
+  "verifiedQualifiedLiveProof": 1,
+  "sourceLimitations": [
+    "CPBL official postseason game was rejected by historical parser",
+    "CPBL pitchCount, balls, strikes, outs, bases remain null unless verified",
+    "Lineup source listings do not constitute official lineup confirmation"
+  ],
+  "productionDeployed": false
+}
