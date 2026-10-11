@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-11",
+  "capturedAt": "2026-10-11T14:42:23.226Z",
+  "purpose": "Independent public final-state recheck; not a new GitHub Actions collector run and not LIVE proof",
+  "source": "https://stats.cpbl.com.tw/schedule/2026-E-3",
+  "league": "CPBL",
+  "gameKey": "CPBL:2026-E-3",
+  "firstTeamOfficial": true,
+  "competition": "POSTSEASON",
+  "status": "final",
+  "away": {
+    "name": "統一7-ELEVEn獅",
+    "score": 4,
+    "hits": 13,
+    "errors": 0
+  },
+  "home": {
+    "name": "中信兄弟",
+    "score": 2,
+    "hits": 9,
+    "errors": 1
+  },
+  "balls": null,
+  "strikes": null,
+  "outs": null,
+  "bases": null,
+  "pitchCount": null,
+  "lineupConfirmation": "not_verified",
+  "liveChangesVerified": false,
+  "officialCollectorParser": "Not CPBL regular season",
+  "productionTouched": false
+}
