@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-11",
+  "league": "CPBL",
+  "gameKey": "CPBL:2026-E-3",
+  "source": "https://stats.cpbl.com.tw/schedule/2026-E-3",
+  "status": "live",
+  "sourceType": "independent public page",
+  "first": {
+    "requestStartedAt": "2026-10-11T11:13:24.791Z",
+    "responseCompletedAt": "2026-10-11T11:13:36.262Z",
+    "score": {
+      "away": 3,
+      "home": 2
+    },
+    "inning": 6,
+    "half": "bottom",
+    "awayHits": 10,
+    "homeHits": 8
+  },
+  "second": {
+    "requestStartedAt": "2026-10-11T11:15:36.068Z",
+    "responseCompletedAt": "2026-10-11T11:15:57.163Z",
+    "score": {
+      "away": 3,
+      "home": 2
+    },
+    "inning": 7,
+    "half": "top",
+    "awayHits": 11,
+    "homeHits": 8
+  },
+  "minimumGuaranteedIntervalSeconds": 119.806,
+  "verifiedLiveChange": {
+    "inning": {
+      "before": 6,
+      "after": 7
+    },
+    "half": {
+      "before": "bottom",
+      "after": "top"
+    }
+  },
+  "sourceScrapeIds": [
+    "01a12aaa-e99d-728b-95dd-cba57ffa84ca",
+    "01a12aac-ea16-706f-80c6-09c286c83cac"
+  ],
+  "unknownFields": {
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null
+  },
+  "lineupConfirmation": "unverified",
+  "officialCollector": "parsing_error_not_repaired",
+  "productionTouched": false
+}
