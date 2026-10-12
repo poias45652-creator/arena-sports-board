@@ -124,7 +124,11 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
  const snapshot={source:'hr9988',games,internationalGames,sportGames,sourceLeagues,fetchedAt} as SuperSnapshot;
  if(sportGames.length&&Date.now()-lastSportPairingLoggedAt>=300000){
   lastSportPairingLoggedAt=Date.now();
-  try{console.info('super-sport-pairing-audit',JSON.stringify(sportSourceAudit(snapshot)));}catch{console.warn('super-sport-pairing-audit-unavailable');}
+  try{
+   const audit=sportSourceAudit(snapshot);
+   console.info('super-sport-pairing-audit',JSON.stringify(audit));
+   if(audit.unrecognizedTeamNames.length)console.warn('super-sport-team-names-unmapped',JSON.stringify({revision:audit.revision,fetchedAt:audit.fetchedAt,teams:audit.unrecognizedTeamNames}));
+  }catch{console.warn('super-sport-pairing-audit-unavailable');}
  }
  return snapshot;
 }

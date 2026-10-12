@@ -1,5 +1,7 @@
 import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
 import {WNBA_TEAMS} from './wnba';
+import {NBA_TEAMS} from './nba';
+import {FOOTBALL_TEAM_NAMES} from './football';
 export type SportFixture={id:string;league?:string;start:string;timeConfirmed:boolean;state:string;home:{id?:string;name:string;logo?:string};away:{id?:string;name:string;logo?:string}};
 export type SportQuote={kind:'spread'|'total'|'moneyline';line:number;boundary:number;parts?:number[];display:string;home:number;away:number;draw?:number;signature:string};
 export type SportEvent={id:number;home:string;away:string;spread:SportQuote|null;total:SportQuote|null;moneyline:SportQuote|null};
@@ -36,12 +38,15 @@ const footballAliases:Record<string,string>={
  '畢爾巴鄂競技':'畢爾包','艾拉維斯':'阿拉維斯','馬德里體育會':'馬德里競技',
  '巴塞隆拿':'巴塞隆納','基達菲':'赫塔費','利爾':'里爾','圖魯茲':'圖盧茲',
  '巴黎':'巴黎FC','利文斯':'勒芒',
+ // Exact spellings in the October 12 source audit, verified against official fixtures.
+ '利雲特':'萊萬特','紐卡素聯':'紐卡索聯','拖連奴':'都靈',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
 // SUPER appends (女) to WNBA names. Map only registered full team names in
 // this league; never strip women/youth qualifiers from other competitions.
 const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));
+const registeredNames:Record<MarketSport,ReadonlySet<string>>={NBA:new Set(NBA_TEAMS.map(t=>t.name)),WNBA:new Set(WNBA_TEAMS.map(t=>t.name)),FOOTBALL:new Set(FOOTBALL_TEAM_NAMES)};
 export function sportTeamKey(name:string,sport?:MarketSport){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='WNBA'?(wnbaAliases.get(key)??aliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
 const marketTypes=(sport:MarketSport)=>sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
 function sourceTime(value:unknown){
@@ -134,7 +139,8 @@ export function sportSourceAudit(snapshot:any,now=Date.now()){
  const supported=new Set(['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','uefa.nations']);
  const rows=(Array.isArray(snapshot?.sportGames)?snapshot.sportGames:[]).filter((r:any)=>r&&(['NBA','WNBA'].includes(r.league)||r.league==='FOOTBALL'&&supported.has(r.competition)));
  const safe=(v:unknown,n=100)=>typeof v==='string'?v.slice(0,n):'';
- return {schema:1,revision:'sport-pairing-v2',fetchedAt:safe(snapshot?.fetchedAt,40),fixtureCount:rows.length,truncated:rows.length>120,fixtures:rows.slice(0,120).map((r:any)=>{
+ const unrecognizedTeamNames=[...new Map(rows.slice(0,120).flatMap((r:any)=>[r.home,r.away].filter(name=>!registeredNames[r.league as MarketSport].has(sportTeamKey(safe(name),r.league))).map(name=>[`${r.league}:${safe(name)}`,{sport:r.league,name:safe(name)}] as const))).values()];
+ return {schema:1,revision:'sport-pairing-v3',fetchedAt:safe(snapshot?.fetchedAt,40),fixtureCount:rows.length,truncated:rows.length>120,unrecognizedTeamNames,fixtures:rows.slice(0,120).map((r:any)=>{
   const start=sourceTime(r.start),game:SportFixture={id:String(r.id),league:r.competition,start:Number.isFinite(start)?new Date(start).toISOString():'',state:'scheduled',timeConfirmed:true,home:{name:safe(r.home)},away:{name:safe(r.away)}};
   const result=sportMarketStatus(snapshot,game,r.league,now);
   return {id:Number.isSafeInteger(r.id)?r.id:null,sport:r.league,competition:safe(r.competition),leagueName:safe(r.leagueName),home:safe(r.home),away:safe(r.away),start:safe(r.start,40),live:typeof r.live==='boolean'?r.live:null,availableMarkets:result.availableCount,marketStates:Object.fromEntries(Object.entries(result.markets).map(([k,v])=>[k,v.code]))};

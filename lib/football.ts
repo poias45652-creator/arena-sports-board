@@ -46,6 +46,8 @@ export const shiftFootballDay=(day:string,offset:number)=>new Date(Date.parse(da
 export function validFootballDay(day:string){return /^\d{4}-\d{2}-\d{2}$/.test(day)&&Number.isFinite(Date.parse(day))&&new Date(day).toISOString().slice(0,10)===day;}
 export function isFootballLeague(value:string):value is FootballLeague{return FOOTBALL_LEAGUES.some(l=>l.code===value);}
 export const footballTeamName=(name:string)=>TEAM_NAMES[name]||name;
+// Shared by source diagnostics; recognition alone never authorizes a fixture match.
+export const FOOTBALL_TEAM_NAMES:readonly string[]=Object.freeze([...new Set(Object.values(TEAM_NAMES))]);
 function goals(raw:any):number|null{
   const value=typeof raw==='object'&&raw!==null?raw.value:raw;
   if(value===null||value===undefined||value==='')return null;

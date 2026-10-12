@@ -1,0 +1,137 @@
+{
+  "schema": 1,
+  "revision": "sport-pairing-v2",
+  "fetchedAt": "2026-10-12T10:50:02.146Z",
+  "fixtureCount": 8,
+  "truncated": false,
+  "fixtures": [
+    {
+      "id": 25091726,
+      "sport": "NBA",
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "華盛頓巫師(主)",
+      "away": "布魯克林籃網",
+      "start": "2026/10/13 07:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25091727,
+      "sport": "NBA",
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "亞特蘭大老鷹(主)",
+      "away": "奧克拉荷馬雷霆",
+      "start": "2026/10/13 07:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25091730,
+      "sport": "NBA",
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "紐約尼克(主)",
+      "away": "明尼蘇達灰狼",
+      "start": "2026/10/13 07:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25091731,
+      "sport": "NBA",
+      "competition": "",
+      "leagueName": "NBA 美國職業籃球-熱身賽",
+      "home": "猶他爵士(主)",
+      "away": "聖安東尼奧馬刺",
+      "start": "2026/10/13 09:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25089263,
+      "sport": "FOOTBALL",
+      "competition": "ita.1",
+      "leagueName": "意大利甲級聯賽",
+      "home": "亞特蘭大(主)",
+      "away": "威尼斯",
+      "start": "2026/10/13 00:30:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25089264,
+      "sport": "FOOTBALL",
+      "competition": "ita.1",
+      "leagueName": "意大利甲級聯賽",
+      "home": "拖連奴(主)",
+      "away": "烏甸尼斯",
+      "start": "2026/10/13 02:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25089273,
+      "sport": "FOOTBALL",
+      "competition": "eng.1",
+      "leagueName": "英格蘭超級聯賽",
+      "home": "考文垂(主)",
+      "away": "紐卡素聯",
+      "start": "2026/10/13 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25089269,
+      "sport": "FOOTBALL",
+      "competition": "esp.1",
+      "leagueName": "西班牙甲級聯賽",
+      "home": "利雲特(主)",
+      "away": "塞維利亞",
+      "start": "2026/10/13 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    }
+  ]
+}

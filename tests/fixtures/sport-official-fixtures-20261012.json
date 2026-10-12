@@ -1,0 +1,141 @@
+{
+  "source": "Independent ESPN scoreboards retrieved 2026-10-12; source audit contains market identities and availability only",
+  "games": [
+    {
+      "id": "401879267",
+      "sport": "FOOTBALL",
+      "league": "eng.1",
+      "start": "2026-10-12T19:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "388",
+        "name": "考文垂",
+        "englishName": "Coventry City"
+      },
+      "away": {
+        "id": "361",
+        "name": "紐卡索聯",
+        "englishName": "Newcastle United"
+      }
+    },
+    {
+      "id": "401882852",
+      "sport": "FOOTBALL",
+      "league": "esp.1",
+      "start": "2026-10-12T19:00:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "1538",
+        "name": "萊萬特",
+        "englishName": "Levante"
+      },
+      "away": {
+        "id": "243",
+        "name": "塞維利亞",
+        "englishName": "Sevilla"
+      }
+    },
+    {
+      "id": "401875005",
+      "sport": "FOOTBALL",
+      "league": "ita.1",
+      "start": "2026-10-12T16:30:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "105",
+        "name": "亞特蘭大",
+        "englishName": "Atalanta"
+      },
+      "away": {
+        "id": "17530",
+        "name": "威尼斯",
+        "englishName": "Venezia"
+      }
+    },
+    {
+      "id": "401874763",
+      "sport": "FOOTBALL",
+      "league": "ita.1",
+      "start": "2026-10-12T18:45:00.000Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "239",
+        "name": "都靈",
+        "englishName": "Torino"
+      },
+      "away": {
+        "id": "118",
+        "name": "烏迪內斯",
+        "englishName": "Udinese"
+      }
+    },
+    {
+      "id": "401898402",
+      "sport": "NBA",
+      "league": "nba",
+      "start": "2026-10-12T23:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "1",
+        "name": "亞特蘭大老鷹"
+      },
+      "away": {
+        "id": "25",
+        "name": "奧克拉荷馬雷霆"
+      }
+    },
+    {
+      "id": "401901824",
+      "sport": "NBA",
+      "league": "nba",
+      "start": "2026-10-12T23:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "27",
+        "name": "華盛頓巫師"
+      },
+      "away": {
+        "id": "17",
+        "name": "布魯克林籃網"
+      }
+    },
+    {
+      "id": "401914124",
+      "sport": "NBA",
+      "league": "nba",
+      "start": "2026-10-12T23:30Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "18",
+        "name": "紐約尼克"
+      },
+      "away": {
+        "id": "16",
+        "name": "明尼蘇達灰狼"
+      }
+    },
+    {
+      "id": "401898721",
+      "sport": "NBA",
+      "league": "nba",
+      "start": "2026-10-13T01:00Z",
+      "state": "scheduled",
+      "timeConfirmed": true,
+      "home": {
+        "id": "26",
+        "name": "猶他爵士"
+      },
+      "away": {
+        "id": "24",
+        "name": "聖安東尼奧馬刺"
+      }
+    }
+  ]
+}
