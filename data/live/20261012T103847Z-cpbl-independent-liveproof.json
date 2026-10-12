@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-12",
+  "league": "CPBL",
+  "sourceType": "independent_public_source_observation",
+  "provenance": "2026-10-12 18:38 Asia/Taipei prior observation; not a new GitHub Actions artifact",
+  "source": "CPBL public official playoff page",
+  "sourceURL": "https://stats.cpbl.com.tw/schedule/2026-E-4",
+  "gameId": "2026-E-4",
+  "date": "2026-10-12",
+  "officialFirstTeamPostseason": true,
+  "away": "統一7-ELEVEn獅",
+  "home": "中信兄弟",
+  "capturedAt": "2026-10-12T10:38:47.342Z",
+  "observations": [
+    {
+      "requestedAt": "2026-10-12T10:37:30.046Z",
+      "receivedAt": "2026-10-12T10:37:35.026Z",
+      "status": "live",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "inning": "1上",
+      "currentBatter": "邱智呈",
+      "rawDisplayedPitchCounter": 5,
+      "firstBatterAtBats": 0
+    },
+    {
+      "requestedAt": "2026-10-12T10:38:44.621Z",
+      "receivedAt": "2026-10-12T10:38:47.342Z",
+      "status": "live",
+      "score": {
+        "away": 0,
+        "home": 0
+      },
+      "inning": "1上",
+      "currentBatter": "林佳緯",
+      "rawDisplayedPitchCounter": 7,
+      "firstBatterAtBats": 1,
+      "priorBatterResult": "二滾"
+    }
+  ],
+  "conservativeIntervalSeconds": 69.595,
+  "observedChanges": {
+    "currentBatter": {
+      "before": "邱智呈",
+      "after": "林佳緯"
+    },
+    "rawDisplayedPitchCounter": {
+      "before": 5,
+      "after": 7
+    },
+    "firstBatterAtBats": {
+      "before": 0,
+      "after": 1
+    }
+  },
+  "qualifyingLivePageStateChange": true,
+  "normalizedPitchCountVerified": false,
+  "unknownFields": {
+    "pitchCount": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null
+  },
+  "sourceListedBattingOrderIsOfficialConfirmation": false,
+  "knownCollectorIssue": "Not CPBL regular season; original parser rejects POSTSEASON; this evidence does not validate the parser",
+  "deployed": false
+}
