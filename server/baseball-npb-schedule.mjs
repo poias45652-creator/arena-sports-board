@@ -1,0 +1,144 @@
+import {dayInTaipei,plain,npbScheduleIds} from './baseball-live-providers.mjs';
+
+const ORIGIN='https://baseball.yahoo.co.jp';
+const KIND='npb-dated-first-team-schedule';
+const TEAM_IDS=new Set(['1','2','3','4','5','6','7','8','9','11','12','376']);
+const isDay=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&Number.isFinite(Date.parse(value+'T00:00:00Z'))&&new Date(value+'T00:00:00Z').toISOString().slice(0,10)===value;
+const shift=(date,days)=>new Date(Date.parse(date+'T00:00:00Z')+days*86400000).toISOString().slice(0,10);
+const scheduleUrl=date=>`${ORIGIN}/npb/schedule/?date=${date}`;
+const csUrl=date=>`${ORIGIN}/npb/schedule/first/cs?date=${date}`;
+const gameId=value=>typeof value==='string'&&/^\d+$/.test(value);
+const teamsOk=g=>TEAM_IDS.has(g.homeId)&&TEAM_IDS.has(g.awayId)&&g.homeId!==g.awayId;
+function attrs(text){
+ const result={};
+ for(const m of text.matchAll(/\b([a-z][\w:-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)){
+  const key=m[1].toLowerCase();if(Object.hasOwn(result,key))throw Error('Duplicate source attribute');result[key]=m[2]??m[3];
+ }
+ return result;
+}
+const hasClass=(a,name)=>(a.class||'').split(/\s+/).includes(name);
+const blocks=(html,tag)=>[...html.matchAll(new RegExp(`<${tag}\\b([^>]*)>([\\s\\S]*?)<\\/${tag}>`,'gi'))].map(m=>({attrs:attrs(m[1]),body:m[2]}));
+function selectedBlock(html,tag,predicate){
+ const openings=[...html.matchAll(new RegExp(`<${tag}\\b([^>]*)>`,'gi'))].filter(m=>predicate(attrs(m[1])));
+ if(openings.length!==1)throw Error('Missing or ambiguous source section');
+ const opening=openings[0],tokens=new RegExp(`<\\/?${tag}\\b[^>]*>`,'gi');tokens.lastIndex=opening.index+opening[0].length;let depth=1;
+ for(let m;m=tokens.exec(html);){depth+=/^<\//.test(m[0])?-1:/\/>$/.test(m[0])?0:1;if(!depth)return {attrs:attrs(opening[1]),body:html.slice(opening.index+opening[0].length,m.index)};}
+ throw Error('Incomplete source section');
+}
+const byId=(html,tag,id)=>selectedBlock(html,tag,a=>a.id===id);
+const oneClass=(html,tag,name)=>selectedBlock(html,tag,a=>hasClass(a,name));
+function listedCard(card){
+ const id=card.attrs.href?.match(/^(?:https:\/\/baseball\.yahoo\.co\.jp)?\/npb\/game\/(\d+)\/(?:index|score)$/)?.[1];
+ const home=[...card.body.matchAll(/bb-score__homeLogo--npbTeam(\d+)\b/g)],away=[...card.body.matchAll(/bb-score__awayLogo--npbTeam(\d+)\b/g)];
+ const row={id,homeId:home[0]?.[1],awayId:away[0]?.[1]};
+ if(!gameId(id)||home.length!==1||away.length!==1||!teamsOk(row))throw Error('Invalid first-team score card');return row;
+}
+function calendarGame(row){
+ const status=oneClass(row,'p','bb-scheduleTable__status'),links=blocks(status.body,'a');
+ const id=links.length===1?links[0].attrs.href?.match(/^\/npb\/game\/(\d+)\/(?:index|score)$/)?.[1]:null;
+ const side=name=>{const part=oneClass(row,'div',`bb-scheduleTable__${name}Name`),links=blocks(part.body,'a');return links.length===1?links[0].attrs.href?.match(/^\/npb\/teams\/(\d+)\/index$/)?.[1]:null;};
+ const result={id,homeId:side('home'),awayId:side('away')};if(!gameId(id)||!teamsOk(result))throw Error('Invalid dated calendar fixture');return result;
+}
+// Extract only the JSON value assigned to Sportsnavi's tournament data variable.
+// Bracket matching respects JSON strings; source JavaScript is never evaluated.
+function tournamentData(html){
+ const found=[];
+ for(const script of blocks(html,'script'))for(const assignment of script.body.matchAll(/\b(?:var|let|const)\s+data\s*=\s*(?=\{)/g)){
+  const start=assignment.index+assignment[0].length;let depth=0,quoted=false,escaped=false,end=-1;
+  for(let i=start;i<script.body.length;i++){
+   const c=script.body[i];if(quoted){if(escaped)escaped=false;else if(c==='\\')escaped=true;else if(c==='"')quoted=false;continue;}
+   if(c==='"')quoted=true;else if(c==='{')depth++;else if(c==='}'&&!--depth){end=i+1;break;}
+  }
+  if(end<0||!/^\s*;/.test(script.body.slice(end)))continue;
+  let data;try{data=JSON.parse(script.body.slice(start,end));}catch{continue;}
+  if(data?.title==='CS・日本シリーズトーナメント表')found.push(data);
+ }
+ if(found.length!==1)throw Error('Missing or ambiguous tournament JSON');return found[0];
+}
+function completedSweeps(data,date){
+ if(!data.array_list?.some(r=>r.note_text==='CSファーストステージは2戦先勝')||data.tournaments?.length!==1)return [];
+ const content=data.tournaments[0]?.content;
+ if(!content||content.rounds?.[0]?.text!=='CSファーストステージ'||content.rounds?.[1]?.text!=='CSファイナルステージ'||!Array.isArray(content.blocks)||!Array.isArray(content.section?.[1]))return [];
+ const blocksById=new Map();
+ for(const b of content.blocks){if(!Number.isInteger(b.id)||blocksById.has(b.id))return [];blocksById.set(b.id,b);}
+ const sweeps=[];
+ for(const series of content.section[1]){
+  if(series.type!=='even'||series.family_count!==2||series.children?.length!==2||series.children[0]===series.children[1])continue;
+  const [home,away]=series.children.map(id=>blocksById.get(id));
+  const league=home?.sub_text?.match(/^(セ|パ)・リーグ2位$/)?.[1];if(!league||away?.sub_text!==league+'・リーグ3位')continue;
+  const homeId=home.url?.match(/^https:\/\/baseball\.yahoo\.co\.jp\/npb\/teams\/(\d+)\/top$/)?.[1],awayId=away.url?.match(/^https:\/\/baseball\.yahoo\.co\.jp\/npb\/teams\/(\d+)\/top$/)?.[1];
+  if(!teamsOk({homeId,awayId}))continue;
+  const wins=[String(series.score_top),String(series.score_bottom)];
+  const winner=wins[0]==='2'&&wins[1]==='0'?0:wins[0]==='0'&&wins[1]==='2'?1:-1;if(winner<0)continue;
+  if(series.status!==(winner===0?'activeTop':'activeBottom')||[home,away][winner].flag!=='true'||[home,away][1-winner].flag!=='false')continue;
+  const startDate=series.info_url?.match(/^https:\/\/baseball\.yahoo\.co\.jp\/npb\/schedule\/first\/cs\?date=(\d{4}-\d{2}-\d{2})$/)?.[1];
+  if(!isDay(startDate)||startDate.slice(0,4)!==date.slice(0,4)||series.info_text!==`${Number(startDate.slice(5,7))}/${Number(startDate.slice(8,10))}～`)continue;
+  // This proof only covers the ordinary third day of a two-win first stage.
+  // Postponed/rescheduled games and every later playoff round remain untouched.
+  const thirdGameDate=shift(startDate,2);if(thirdGameDate!==date)continue;
+  sweeps.push({startDate,thirdGameDate,homeId,awayId,winnerId:[homeId,awayId][winner],eliminatedId:[homeId,awayId][1-winner],wins:wins.map(Number),sourceUrl:series.info_url});
+ }
+ const keys=sweeps.map(s=>s.homeId+':'+s.awayId);return new Set(keys).size===keys.length?sweeps:[];
+}
+
+/** A dated, complete first-team calendar plus its exact CS first-stage bracket.
+ * Unknown or partial markup cannot authorize removing a previously seen game. */
+export function npbScheduleProof(page,date){
+ try{
+  if(!isDay(date)||page?.url!==scheduleUrl(date)||typeof page.text!=='string'||page.text.length>8000000||!Number.isFinite(Date.parse(page.fetchedAt)))return null;
+  const html=page.text,metas=[...html.matchAll(/<meta\b([^>]*)>/gi)].map(m=>attrs(m[1])).filter(a=>a.property==='og:url');
+  if(metas.length!==1||metas[0].content!==page.url)return null;
+  const [year,month,day]=date.split('-').map(Number),weekday='日月火水木金土'[new Date(date+'T00:00:00Z').getUTCDay()],label=`${month}月${day}日（${weekday}）`;
+  const headings=blocks(html,'h2').filter(b=>hasClass(b.attrs,'bb-head01__title')&&/^\d+月\d+日[（(]/.test(plain(b.body)));
+  if(headings.length!==1||plain(headings[0].body)!==label)return null;
+  const menu=byId(html,'nav','sch_menu'),selected=blocks(menu.body,'li').filter(b=>hasClass(b.attrs,'bb-menuWhite__item--current'));
+  if(selected.length!==1||blocks(selected[0].body,'a').length!==1||blocks(selected[0].body,'a')[0].attrs.href!=='/npb/schedule/first/all')return null;
+  const navigation=blocks(byId(html,'nav','day_nav').body,'a').map(a=>a.attrs.href);
+  if(![-1,1].every(n=>navigation.includes(`/npb/schedule/first/all?date=${shift(date,n)}`)))return null;
+  const listedGames=blocks(byId(html,'div','gm_card').body,'a').filter(a=>hasClass(a.attrs,'bb-score__content')).map(listedCard);
+  if(!listedGames.length||listedGames.length>12||new Set(listedGames.map(g=>g.id)).size!==listedGames.length)return null;
+  const collectorIds=npbScheduleIds(html);if(collectorIds.length!==listedGames.length||listedGames.some(g=>!collectorIds.includes(g.id)))return null;
+  const calendar=byId(html,'table','wk_sche'),days=blocks(calendar.body,'tbody').filter(b=>blocks(b.body,'th').some(h=>hasClass(h.attrs,'bb-scheduleTable__head')&&plain(h.body)===label));
+  if(days.length!==1)return null;
+  const rows=blocks(days[0].body,'tr').filter(r=>hasClass(r.attrs,'bb-scheduleTable__row')),heads=blocks(days[0].body,'th');
+  if(heads.length!==1||Number(heads[0].attrs.rowspan)!==rows.length||!rows.length)return null;
+  const calendarGames=rows.map(r=>calendarGame(r.body)),key=g=>`${g.id}:${g.homeId}:${g.awayId}`;
+  if(calendarGames.length!==listedGames.length||new Set(calendarGames.map(key)).size!==calendarGames.length||calendarGames.some(g=>!listedGames.some(c=>key(c)===key(g))))return null;
+  // The adjacent date links and canonical URL establish the year. Keep the
+  // explicit check here so a malformed numeric date cannot become provenance.
+  if(year<2000||year>2100)return null;
+  const completedFirstStages=completedSweeps(tournamentData(html),date);
+  return {schemaVersion:1,kind:KIND,league:'NPB',date,source:{provider:'sportsnavi',url:page.url,fetchedAt:page.fetchedAt},listedGames,completedFirstStages};
+ }catch{return null;}
+}
+
+/** Remove only an unplayed, now-unneeded first-stage Game 3, never stale play. */
+export function isRetiredNpbFixture(game,proof,now=Date.now()){
+ try{
+  if(!game||game.league!=='NPB'||!gameId(game.id)||game.key!==`NPB:${game.id}`||!isDay(game.date)||!['pregame','unknown'].includes(game.status))return false;
+  if(!Number.isFinite(now)||dayInTaipei(new Date(now))!==game.date||proof?.schemaVersion!==1||proof.kind!==KIND||proof.league!=='NPB'||proof.date!==game.date)return false;
+  if(proof.source?.provider!=='sportsnavi'||proof.source.url!==scheduleUrl(game.date))return false;
+  const at=Date.parse(proof.source.fetchedAt),previous=Date.parse(game.source?.fetchedAt),start=Date.parse(game.startTime);
+  if(!Number.isFinite(at)||!Number.isFinite(previous)||now-at< -60000||now-at>900000||at<previous||!Number.isFinite(start)||new Date(start+9*3600000).toISOString().slice(0,10)!==game.date)return false;
+  if(!['score','top'].some(part=>game.source?.url===`${ORIGIN}/npb/game/${game.id}/${part}`))return false;
+  if(game.home?.score!==null||game.away?.score!==null||!teamsOk({homeId:game.home?.id,awayId:game.away?.id}))return false;
+  if(game.liveStateObserved||game.liveChangesVerified||['inning','half','balls','strikes','outs','bases','currentBatter','currentPitcher','currentAtBat'].some(k=>game[k]!==null&&game[k]!==undefined))return false;
+  if(/試合終了|コールド|\d+回[表裏]|中断/.test(game.rawStatus||''))return false;
+  if(game.status==='unknown'&&!/予告先発|スタメン|見どころ|試合前|開始前/.test(game.rawStatus||''))return false;
+  for(const side of ['home','away']){
+   if(game[side].hits!==null&&game[side].hits!==undefined||game[side].errors!==null&&game[side].errors!==undefined)return false;
+   for(const kind of ['innings','batting','pitching'])if(game[kind]&&(!Array.isArray(game[kind][side])||game[kind][side].length))return false;
+  }
+  const listed=proof.listedGames;
+  if(!Array.isArray(listed)||!listed.length||listed.length>12||listed.some(g=>!gameId(g.id)||!teamsOk(g))||new Set(listed.map(g=>g.id)).size!==listed.length||listed.some(g=>g.id===game.id))return false;
+  // A reissued ID or reversed venue for this matchup contradicts a stale
+  // tournament bracket. Keep the old record until its identity is reconciled.
+  if(listed.some(g=>g.homeId===game.home.id&&g.awayId===game.away.id||g.homeId===game.away.id&&g.awayId===game.home.id))return false;
+  if(!Array.isArray(proof.completedFirstStages))return false;
+  const series=proof.completedFirstStages.filter(s=>s.homeId===game.home.id&&s.awayId===game.away.id);
+  if(series.length!==1)return false;const s=series[0];
+  if(!isDay(s.startDate)||s.startDate.slice(0,4)!==game.date.slice(0,4)||shift(s.startDate,2)!==game.date||s.thirdGameDate!==game.date||s.sourceUrl!==csUrl(s.startDate))return false;
+  const winner=Array.isArray(s.wins)&&s.wins.length===2?s.wins[0]===2&&s.wins[1]===0?0:s.wins[0]===0&&s.wins[1]===2?1:-1:-1;
+  return winner>=0&&s.winnerId===[s.homeId,s.awayId][winner]&&s.eliminatedId===[s.homeId,s.awayId][1-winner];
+ }catch{return false;}
+}

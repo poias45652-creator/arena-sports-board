@@ -20,6 +20,11 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       const feed=await getLive(league,date);
       if(feed?.league!==league||feed.date!==date||!Array.isArray(feed.games))throw Error('來源場次格式不符');
       state.status=feed.status;state.games=feed.games.length;
+      state.sourceErrors=feed.sourceErrors||[];
+      state.retiredFixtures=(feed.retiredFixtures||[]).map(g=>({id:g.id,reason:g.reason}));
+      state.staleFixtures=feed.games.filter(g=>g.sourceStale).map(g=>({id:g.id,status:g.status,
+        homeId:g.home?.id,awayId:g.away?.id,homeScore:g.home?.score,awayScore:g.away?.score,
+        startTime:g.startTime,fetchedAt:g.source?.fetchedAt,url:g.source?.url}));
       if(feed.stale||feed.status==='unavailable')throw Error('來源暫時無法更新');
       failures.set(league,0);state.succeededAt=new Date(now()).toISOString();state.error=null;
       const nextDate=league==='CPBL'&&feed.noGames&&/^\d{4}-\d{2}-\d{2}$/.test(feed.nextGameDate||'')&&feed.nextGameDate>date&&Date.parse(feed.nextGameDate)-Date.parse(date)<=7*86400000?feed.nextGameDate:null;

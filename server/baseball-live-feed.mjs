@@ -1,5 +1,6 @@
 import {retainFixtureStart} from './baseball-live-retention.mjs';
 import {baseballBackgroundStatus} from './baseball-background-state.mjs';
+import {isRetiredNpbFixture} from './baseball-npb-schedule.mjs';
 /** Shared-source feed. No account credentials leave this server. */
 export function createLiveFeed({collect,read,write,day,now=Date.now}) {
  const cache=new Map(),pending=new Map();
@@ -42,7 +43,15 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
      if(!Number.isFinite(age)||age< -60000||age>900000)throw new Error('Invalid source observation time');
     }
     const errors=Array.isArray(fresh.errors)?fresh.errors:[];
-    const games=new Map([...older].map(([k,g])=>[k,{...g,sourceStale:true}]));
+    const freshKeys=new Set(fresh.games.map(g=>g.key));
+    // A conditional CS third game disappears after a verified 2–0 series.
+    // Only retire an unplayed exact fixture with dated schedule/bracket proof;
+    // missing live/final games and ordinary source failures still stay stale.
+    const retiredFixtures=[...older.values()].filter(g=>!freshKeys.has(g.key)&&isRetiredNpbFixture(g,fresh.scheduleProof,now()))
+     .map(g=>({key:g.key,id:g.id,league:g.league,date:g.date,startTime:g.startTime,home:g.home.name,away:g.away.name,
+      previousFetchedAt:g.source.fetchedAt,reason:'npb_first_stage_completed',source:fresh.scheduleProof.source}));
+    const retiredKeys=new Set(retiredFixtures.map(g=>g.key));
+    const games=new Map([...older].filter(([k])=>!retiredKeys.has(k)).map(([k,g])=>[k,{...g,sourceStale:true}]));
     const accepted=[];
     for(const g of fresh.games){
      const old=older.get(g.key);
@@ -55,11 +64,20 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
     const rows=[...games.values()],partial=errors.length>0||rows.some(g=>g.sourceStale);
     const nearStart=rows.some(g=>g.status==='pregame'&&Date.parse(g.startTime)>now()&&Date.parse(g.startTime)-now()<=1800000);
     const pollAfterMs=rows.some(g=>g.status==='live')||partial||nearStart?60000:300000;
-    const value={schemaVersion:1,league,date,games:rows,status:partial?'partial':'ok',stale:false,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,persistence,pollAfterMs,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus(),...(partial?{error:'部分場次更新失敗；舊資料保留原擷取時間。'}:{})};
+    const value={schemaVersion:1,league,date,games:rows,status:partial?'partial':'ok',stale:false,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,persistence,pollAfterMs,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus(),sourceErrors:errors,sourceWarnings:Array.isArray(fresh.warnings)?fresh.warnings:[],retiredFixtures,...(fresh.scheduleProof?{scheduleProof:fresh.scheduleProof}:{}),...(partial?{error:'部分場次更新失敗；舊資料保留原擷取時間。'}:{})};
     cache.set(key,{value,until:now()+pollAfterMs});return value;
    }catch{
-    const games=[...older.values()].map(g=>({...g,sourceStale:true}));
-    const value={schemaVersion:1,league,date,games,status:games.length?'stale':'unavailable',stale:true,checkedAt:new Date(now()).toISOString(),error:'目前無法更新來源；不代表今日沒有比賽。',pollAfterMs:60000,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus()};
+    // An unchanged old database row must not resurrect a fixture that the last
+    // successful refresh already retired. Re-evaluate at that observation time;
+    // a newer row or any evidence of play prevents reuse of the earlier proof.
+    const prior=previous?.value;
+    const retiredFixtures=(prior?.retiredFixtures||[]).filter(r=>{
+     const g=older.get(r.key);return g&&g.source.fetchedAt===r.previousFetchedAt&&
+      isRetiredNpbFixture(g,prior.scheduleProof,Date.parse(prior.scheduleProof?.source?.fetchedAt));
+    });
+    const confirmedRetired=new Set(retiredFixtures.map(g=>g.key));
+    const games=[...older.values()].filter(g=>!confirmedRetired.has(g.key)).map(g=>({...g,sourceStale:true}));
+    const value={schemaVersion:1,league,date,games,status:games.length?'stale':'unavailable',stale:true,checkedAt:new Date(now()).toISOString(),error:'目前無法更新來源；不代表今日沒有比賽。',pollAfterMs:60000,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus(),retiredFixtures,...(retiredFixtures.length?{scheduleProof:prior.scheduleProof}: {})};
     cache.set(key,{value,until:now()+60000});return value;
    }
   })().finally(()=>pending.delete(key));

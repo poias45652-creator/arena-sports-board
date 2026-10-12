@@ -37,3 +37,25 @@ test('CPBL collection cannot call the official website, including a players fall
  const original=globalThis.fetch,urls=[];globalThis.fetch=async url=>{urls.push(String(url));throw Error('test unavailable');};
  try{await assert.rejects(()=>collectProfilePlayers('CPBL','AAA',2026));assert.equal(urls.length,0);await assert.rejects(()=>collectProfileGames('CPBL',2026));assert.equal(urls.length,6);assert.ok(urls.every(u=>new URL(u).hostname==='tw.sports.yahoo.com'));}finally{globalThis.fetch=original;}
 });
+
+test('verified retired NPB third game cannot reappear from a pregame archive',()=>{
+ const game=structuredClone(baseline.games[0]);
+ Object.assign(game,{id:'2021040000',league:'NPB',date:'2026-10-12',start:'2026-10-12 13:00:00'});
+ game.home.team='讀賣巨人';game.away.team='橫濱DeNA海灣之星';
+ const archive={...baseline,league:'NPB',date:game.date,games:[game],excludedFixtures:[]};
+ const retired={key:'NPB:'+game.id,id:game.id,league:'NPB',date:game.date,startTime:'2026-10-12T05:00:00.000Z',
+  home:game.home.team,away:game.away.team,reason:'npb_first_stage_completed',
+  source:{provider:'sportsnavi',url:'https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-12',fetchedAt:'2026-10-12T09:00:00.000Z'}};
+ const result=currentPregame('NPB',game.date,{games:[],retiredFixtures:[retired]},[archive]);
+ assert.equal(result.games.length,0);assert.equal(result.excludedFixtures.length,1);
+ assert.equal(result.excludedFixtures[0].status,'cancelled');
+ assert.equal(result.excludedFixtures[0].observedAt,retired.source.fetchedAt);
+ assert.equal(archive.games.length,1);
+ const again=currentPregame('NPB',game.date,{games:[]},[archive,result]);
+ assert.equal(again.games.length,0);
+ for(const change of [{date:'2026-10-11'},{league:'KBO'},{reason:'source_missing'},
+  {source:{...retired.source,url:'https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-11'}}]){
+  const keep=currentPregame('NPB',game.date,{games:[],retiredFixtures:[{...retired,...change}]},[archive]);
+  assert.equal(keep.games.length,1);
+ }
+});
