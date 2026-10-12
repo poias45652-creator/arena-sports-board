@@ -23,7 +23,7 @@ export function inspectCpblSchedule(pages,date){
  const fixtures=new Map(),coverage=[];
  for(const {teamId,page} of pages){
   if(!teams[teamId]||coverage.some(c=>c.teamId===teamId))throw Error('中職球隊賽程身分重複或不符');
-  const rows=yahooObjects(page.text).filter(x=>x.seasonPhase==='REGULAR_SEASON'&&
+  const rows=yahooObjects(page.text).filter(x=>['REGULAR_SEASON','POSTSEASON'].includes(x.seasonPhase)&&
    (x.homeTeamId===teamId||x.awayTeamId===teamId)&&x.startTime?.startsWith(date.slice(0,4)+'-'));
   if(!rows.length)throw Error('中職球隊頁沒有可核對的本季賽程');
   const days=[];
@@ -33,7 +33,7 @@ export function inspectCpblSchedule(pages,date){
    if(raw.gameId.slice(7,13)!==day.replaceAll('-','').slice(2))throw Error('中職賽程日期與場次不符');
    days.push(day);
    const old=fixtures.get(raw.gameId);
-   if(old&&(old.raw.homeTeamId!==raw.homeTeamId||old.raw.awayTeamId!==raw.awayTeamId||old.raw.startTime!==raw.startTime))throw Error('中職球隊頁對戰資料衝突');
+   if(old&&(old.raw.homeTeamId!==raw.homeTeamId||old.raw.awayTeamId!==raw.awayTeamId||old.raw.startTime!==raw.startTime||old.raw.seasonPhase!==raw.seasonPhase))throw Error('中職球隊頁對戰資料衝突');
    if(!old||page.fetchedAt>old.page.fetchedAt)fixtures.set(raw.gameId,{raw,page,day});
   }
   coverage.push({teamId,url:page.url,fetchedAt:page.fetchedAt,from:days.sort()[0],through:days.at(-1)});
@@ -56,7 +56,7 @@ export async function collectCpblCurrent({date=dayInTaipei(),fetcher=fetch}={}){
  await Promise.all(schedule.matches.map(async({raw,page})=>{
   try{
    const detail=await fetchPublic(raw.alias.url,fetcher);
-   const rows=yahooObjects(detail.text).filter(x=>x.gameId===raw.gameId&&x.homeTeamId===raw.homeTeamId&&x.awayTeamId===raw.awayTeamId&&x.startTime===raw.startTime&&(x.playerStats||x.status==='PREGAME'));
+   const rows=yahooObjects(detail.text).filter(x=>x.gameId===raw.gameId&&x.homeTeamId===raw.homeTeamId&&x.awayTeamId===raw.awayTeamId&&x.startTime===raw.startTime&&x.seasonPhase===raw.seasonPhase&&(x.playerStats||x.status==='PREGAME'));
    if(rows.length){games.push(parseCpblCurrent(rows.at(-1),detail));return;}
    if(raw.status!=='PREGAME')throw Error('中職單場投打資料尚未取得');
    // A published schedule remains useful before a pregame box score exists.

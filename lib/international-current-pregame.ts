@@ -60,7 +60,7 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
    }
    return {team:side==='away'?away:home,teamCode:old?.teamCode||live[side].id,sourceTeam:live[side].name,starter,bullpen:old?.bullpen||null,...(old?.bullpenSource?{bullpenSource:old.bullpenSource}:{}),batting:old?.batting||emptyTable('團隊打擊'),...(old?.record?{record:old.record}:{}),...(old?.battingWarnings?{battingWarnings:old.battingWarnings}:{}),...(old?.pitchingSource&&preserve?{pitchingSource:old.pitchingSource}:{}),...(old?.gameLogs&&preserve?{gameLogs:old.gameLogs}:{}),...(old?{retainedSource:old.retainedSource||previous!.source}:{}),lineup:live.lineups?.[side]||[]};
   };
-  byFixture.set(k,{id:previous?.id||live.id,league,date,start,kind:'pregame_snapshot',liveVerified:false,source,away:sideData('away'),home:sideData('home'),...(previous?.comparison?{comparison:previous.comparison,comparisonSource:previous.comparisonSource,rules:previous.rules}:{})});
+  byFixture.set(k,{id:previous?.id||live.id,league,date,start,kind:'pregame_snapshot',liveVerified:false,...(league==='CPBL'&&['REGULAR_SEASON','POSTSEASON'].includes(live.seasonPhase)?{seasonPhase:live.seasonPhase}:{}),source,away:sideData('away'),home:sideData('home'),...(previous?.comparison?{comparison:previous.comparison,comparisonSource:previous.comparisonSource,rules:previous.rules}:{})});
  }
  const games=[...byFixture.values()].filter(g=>!excluded.has(key(g))).sort((a,b)=>a.start.localeCompare(b.start));
  return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||'',games};

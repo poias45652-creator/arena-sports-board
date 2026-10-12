@@ -1,0 +1,1032 @@
+{
+  "source": "Yahoo CPBL public game payload retrieved 2026-10-12",
+  "fetchedAt": "2026-10-12T11:00:14.681Z",
+  "raw": {
+    "gameId": "cpbl.g.261012004",
+    "season": 2026,
+    "seasonPhase": "POSTSEASON",
+    "status": "IN_PROGRESS",
+    "startTime": "2026-10-12T03:35:00-07:00",
+    "homeTeamId": "cpbl.t.1",
+    "awayTeamId": "cpbl.t.2",
+    "homeScore": 0,
+    "awayScore": 0,
+    "homeHits": 0,
+    "awayHits": 0,
+    "homeErrors": 0,
+    "awayErrors": 0,
+    "homeLineScore": [
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第1",
+          "isOvertime": false,
+          "period": 1,
+          "displayName": "Bottom 第1"
+        }
+      }
+    ],
+    "awayLineScore": [
+      {
+        "score": 0,
+        "period": {
+          "shortDisplayName": "Bot 第1",
+          "isOvertime": false,
+          "period": 1,
+          "displayName": "Bottom 第1"
+        }
+      }
+    ],
+    "currentPeriod": null,
+    "fullStatusDisplayName": "進行中",
+    "alias": {
+      "url": "https://tw.sports.yahoo.com/cpbl/統一-獅-中信-兄弟-261012004/"
+    },
+    "playerStats": {
+      "homeTables": [
+        {
+          "tableId": "batting",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3356",
+                "displayName": "張仁瑋"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3477",
+                "displayName": "張士綸"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3205",
+                "displayName": "陳俊秀"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3012",
+                "displayName": "王威晨"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3028",
+                "displayName": "詹子賢"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3055",
+                "displayName": "宋晟睿"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3042",
+                "displayName": "江坤宇"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3043",
+                "displayName": "黃韋盛"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3026",
+                "displayName": "高宇杰"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tableId": "pitching",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3339",
+                "displayName": "鄭浩均"
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.2"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "awayTables": [
+        {
+          "tableId": "batting",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3104",
+                "displayName": "邱智呈"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "1"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3393",
+                "displayName": "林佳緯"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "1"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3069",
+                "displayName": "陳傑憲"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3376",
+                "displayName": "林培緯"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3086",
+                "displayName": "潘傑楷"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3113",
+                "displayName": "林子豪"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3481",
+                "displayName": "陳聖平"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3074",
+                "displayName": "陳重羽"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            },
+            {
+              "player": {
+                "playerId": "cpbl.p.3472",
+                "displayName": "林泓弦"
+              },
+              "stats": [
+                {
+                  "statId": "AT_BATS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HITS",
+                  "value": "0"
+                },
+                {
+                  "statId": "RBIS",
+                  "value": "0"
+                },
+                {
+                  "statId": "HOME_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STOLEN_BASES",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS",
+                  "value": "0"
+                },
+                {
+                  "statId": "LEFT_ON_BASE",
+                  "value": "0"
+                },
+                {
+                  "statId": "BATTING_AVERAGE",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tableId": "pitching",
+          "tableStats": [
+            {
+              "player": {
+                "playerId": "cpbl.p.3105",
+                "displayName": "布雷克"
+              },
+              "stats": [
+                {
+                  "statId": "INNINGS_PITCHED",
+                  "value": "0.0"
+                },
+                {
+                  "statId": "HITS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "EARNED_RUNS",
+                  "value": "0"
+                },
+                {
+                  "statId": "WALKS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "STRIKEOUTS_THROWN",
+                  "value": "0"
+                },
+                {
+                  "statId": "PITCHES_THROWN",
+                  "value": null
+                },
+                {
+                  "statId": "HOME_RUNS_ALLOWED",
+                  "value": "0"
+                },
+                {
+                  "statId": "WHIP",
+                  "value": null
+                },
+                {
+                  "statId": "ERA",
+                  "value": null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

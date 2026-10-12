@@ -22,22 +22,24 @@ export function cpblResults(html:string,year:number){
   out.push(game(year,+link[3],r[2].replaceAll('/','-'),profileTeamId('CPBL',home),profileTeamId('CPBL',away),score(r[7]),score(r[5]),'已完賽',{url:'https://cpbl.com.tw'+plain(link[1]),venue:r[1]}));
  }if(!out.length)throw Error('未取得中職逐場紀錄');return uniqueGames(out);
 }
+// Yahoo IDs include the date. Keep the full ID so postponed fixtures and
+// their rescheduled games, or restarted postseason numbers, cannot collide.
 export function cpblUpcoming(html:string,year:number){const codes:Record<string,string>={'1':'ACN','2':'ADD','5':'AEO','6':'AJL','7':'AAA','8':'AKP'},out:ProfileGame[]=[];for(const g of yahooObjects(html)){
- const h=codes[g.homeTeamId?.split('.').at(-1)],a=codes[g.awayTeamId?.split('.').at(-1)];if(!h||!a||g.seasonPhase!=='REGULAR_SEASON'||!g.startTime?.startsWith(`${year}-`)||!/^cpbl\.g\.\d{9}$/.test(g.gameId)||!['PREGAME','IN_PROGRESS','SUSPENDED'].includes(g.status))continue;
+ const h=codes[g.homeTeamId?.split('.').at(-1)],a=codes[g.awayTeamId?.split('.').at(-1)];if(!h||!a||!['REGULAR_SEASON','POSTSEASON'].includes(g.seasonPhase)||!g.startTime?.startsWith(`${year}-`)||!/^cpbl\.g\.\d{9}$/.test(g.gameId)||!['PREGAME','IN_PROGRESS','SUSPENDED'].includes(g.status))continue;
  const start=new Date(g.startTime).toISOString(),date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date(start));
- out.push(game(year,Number(g.gameId.slice(-3)),date,profileTeamId('CPBL',h),profileTeamId('CPBL',a),g.status==='PREGAME'?null:score(g.homeScore),g.status==='PREGAME'?null:score(g.awayScore),g.status==='PREGAME'?'未開賽':g.status==='SUSPENDED'?'暫停':'進行中',{start,timeKnown:true}));
+ out.push(game(year,Number(g.gameId.slice(7)),date,profileTeamId('CPBL',h),profileTeamId('CPBL',a),g.status==='PREGAME'?null:score(g.homeScore),g.status==='PREGAME'?null:score(g.awayScore),g.status==='PREGAME'?'未開賽':g.status==='SUSPENDED'?'暫停':'進行中',{start,timeKnown:true}));
  }return uniqueGames(out);}
 export function cpblYahooGames(html:string,year:number){
  const codes:Record<string,string>={'cpbl.t.1':'ACN','cpbl.t.2':'ADD','cpbl.t.5':'AEO','cpbl.t.6':'AJL','cpbl.t.7':'AAA','cpbl.t.8':'AKP'},out:ProfileGame[]=[];
  for(const g of yahooObjects(html)){
-  const h=codes[g.homeTeamId],a=codes[g.awayTeamId];if(!h||!a||h===a||g.seasonPhase!=='REGULAR_SEASON'||!g.startTime?.startsWith(`${year}-`)||!/^cpbl\.g\.\d{9}$/.test(g.gameId))continue;
+  const h=codes[g.homeTeamId],a=codes[g.awayTeamId];if(!h||!a||h===a||!['REGULAR_SEASON','POSTSEASON'].includes(g.seasonPhase)||!g.startTime?.startsWith(`${year}-`)||!/^cpbl\.g\.\d{9}$/.test(g.gameId))continue;
   const time=Date.parse(g.startTime);if(!Number.isFinite(time))continue;
   const start=new Date(time).toISOString(),date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei'}).format(new Date(time));
   if(g.gameId.slice(7,13)!==date.replaceAll('-','').slice(2))continue;
   const labels:Record<string,string>={FINAL:'已完賽',IN_PROGRESS:'進行中',PREGAME:'未開賽',SUSPENDED:'暫停',POSTPONED:'延賽',CANCELLED:'取消'};if(!labels[g.status])continue;
   const played=['FINAL','IN_PROGRESS','SUSPENDED'].includes(g.status),hs=played?score(g.homeScore):null,as=played?score(g.awayScore):null;
   if(g.status==='FINAL'&&(hs===null||as===null))continue;
-  out.push(game(year,Number(g.gameId.slice(-3)),date,profileTeamId('CPBL',h),profileTeamId('CPBL',a),hs,as,labels[g.status],{start,timeKnown:true,url:g.alias?.url}));
+  out.push(game(year,Number(g.gameId.slice(7)),date,profileTeamId('CPBL',h),profileTeamId('CPBL',a),hs,as,labels[g.status],{start,timeKnown:true,url:g.alias?.url}));
  }
  if(!out.length)throw Error('Yahoo 尚無可核對的中職逐場紀錄');return uniqueGames(out);
 }

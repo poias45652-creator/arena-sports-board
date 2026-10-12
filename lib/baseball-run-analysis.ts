@@ -127,6 +127,7 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  if(!isModelLeague(league)||g.league!==league||g.kind!=='pregame_snapshot'||!Number.isFinite(start)||!g.start.startsWith(g.date+' ')||team(g.away.team,league)===team(g.home.team,league))return stop('賽前資料場次不符');
  if(now>=start)return stop('已開賽，停止賽前估算','started');
  if(!validObserved(g.source.observedAt,start,now))return stop('賽前資料擷取時間不符或已過期');
+ if(league==='CPBL'&&g.seasonPhase==='POSTSEASON')return stop('中職季後賽延長局規則尚未接入估算；賽程與比分照常顯示');
  if(league==='KBO'){
   if(g.rules?.league!=='KBO'||g.rules.season!==2026||Number(g.date.slice(0,4))!==2026||g.rules.phase!=='regular'||g.rules.maxInnings!==11||!validObserved(g.rules.fixtureObservedAt,start,now))return stop('韓職例行賽場次／延長局數尚未核對');
   report.notes.push('一般例行賽最多 11 局，11 局後保留和局；未套用中職突破僵局跑者。雙重賽與季後賽暫不估算。','團隊得失分由本場日期之前的已完賽紀錄彙算，沒有把當日比分納入。');

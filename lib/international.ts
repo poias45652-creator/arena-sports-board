@@ -30,14 +30,14 @@ export function yahooObjects(html:string):any[]{
 const cpblNames:Record<string,string>={'cpbl.t.1':'中信兄弟','cpbl.t.2':'統一獅','cpbl.t.5':'富邦悍將','cpbl.t.6':'樂天桃猿','cpbl.t.7':'味全龍','cpbl.t.8':'台鋼雄鷹'};
 function cpblTime(s:string){const d=new Date(s);if(!Number.isFinite(d.getTime()))throw new Error('中職日期無效');return new Intl.DateTimeFormat('sv-SE',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(d);}
 function cpblGame(g:any,year:number){
- if(!/^cpbl\.g\.\d{9}$/.test(g.gameId)||!cpblNames[g.homeTeamId]||!cpblNames[g.awayTeamId]||g.homeTeamId===g.awayTeamId||g.seasonPhase!=='REGULAR_SEASON'||!g.startTime?.startsWith(`${year}-`))return null;
+ if(!/^cpbl\.g\.\d{9}$/.test(g.gameId)||!cpblNames[g.homeTeamId]||!cpblNames[g.awayTeamId]||g.homeTeamId===g.awayTeamId||!['REGULAR_SEASON','POSTSEASON'].includes(g.seasonPhase)||!g.startTime?.startsWith(`${year}-`))return null;
  const url=g.alias?.url;if(typeof url!=='string'||!url.startsWith('https://tw.sports.yahoo.com/cpbl/')||!url.endsWith(`${g.gameId.slice(7)}/`))return null;
  const status:Record<string,string>={FINAL:'已完賽',PREGAME:'未開賽',POSTPONED:'延賽',IN_PROGRESS:'進行中',CANCELLED:'取消',SUSPENDED:'暫停'};
  if(!status[g.status])return null;
  const score=['FINAL','IN_PROGRESS','SUSPENDED'].includes(g.status);
  if(score&&(!Number.isInteger(g.awayScore)||!Number.isInteger(g.homeScore)||g.awayScore<0||g.homeScore<0))return null;
  const time=cpblTime(g.startTime),away=cpblNames[g.awayTeamId],home=cpblNames[g.homeTeamId];
- return {id:g.gameId.slice(7),url,date:time.slice(0,10),label:`${time} · ${away}（客） ${score?`${g.awayScore}：${g.homeScore}`:'vs'} ${home}（主） · ${status[g.status]}`};
+ return {id:g.gameId.slice(7),url,date:time.slice(0,10),label:`${time}${g.seasonPhase==='POSTSEASON'?' · 季後賽':''} · ${away}（客） ${score?`${g.awayScore}：${g.homeScore}`:'vs'} ${home}（主） · ${status[g.status]}`};
 }
 
 export function parseInternational(html:string,kind:string,year:number){
@@ -61,10 +61,10 @@ export function parseInternational(html:string,kind:string,year:number){
  if(kind==='cpbl-schedule'){
   const games=new Map<string,any>();for(const x of yahooObjects(html)){const g=cpblGame(x,year);if(g)games.set(g.id,g);}
   if(!games.size)throw new Error('中職球隊頁未取得本季賽事');
-  return {games:[...games.values()].sort((a,b)=>a.label.localeCompare(b.label)),tables:[],scope:`${year} Yahoo 球隊頁例行賽；時間已轉台灣時間，資料以來源更新為準`};
+  return {games:[...games.values()].sort((a,b)=>a.label.localeCompare(b.label)),tables:[],scope:`${year} Yahoo 球隊頁例行賽與季後賽；時間已轉台灣時間，資料以來源更新為準`};
  }
  if(kind==='cpbl-game'){
-  const objects=yahooObjects(html),game=objects.find(g=>/^cpbl\.g\.\d{9}$/.test(g.gameId)&&cpblNames[g.homeTeamId]&&cpblNames[g.awayTeamId]&&g.playerStats&&g.season===year&&g.seasonPhase==='REGULAR_SEASON');
+  const objects=yahooObjects(html),game=objects.find(g=>/^cpbl\.g\.\d{9}$/.test(g.gameId)&&cpblNames[g.homeTeamId]&&cpblNames[g.awayTeamId]&&g.playerStats&&g.season===year&&['REGULAR_SEASON','POSTSEASON'].includes(g.seasonPhase));
   if(!game)throw new Error('單場中職資料或球季未能確認');
   const score=tables(html).find(t=>t.headers.includes('R')&&t.headers.includes('H')&&t.headers.includes('E')&&t.rows.length===2&&t.rows.every(r=>/富邦|台鋼|味全|統一|中信|樂天/.test(r[0])));
   if(!score)throw new Error('本場尚無逐局比分，請稍後更新');

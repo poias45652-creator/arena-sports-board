@@ -17,7 +17,7 @@ export type PregameSide = {
 export type PregameGame = {
  id:string;league:string;date:string;start:string;away:PregameSide;home:PregameSide;
  source:{name:string;url:string;observedAt:string;publishedAt:string|null;sourceTitle:string;contentSha256:string};
- kind:string;liveVerified:boolean;comparison?:SourceTable;
+ kind:string;liveVerified:boolean;comparison?:SourceTable;seasonPhase?:'REGULAR_SEASON'|'POSTSEASON';
  comparisonSource?:{name:string;url:string;observedAt:string;throughDate:string|null;seasonComplete?:boolean;seasonYear?:number;games:number};
  rules?:{league:'KBO';season:number;phase:'regular';maxInnings:11;sourceUrl:string;fixtureObservedAt:string};
 };
