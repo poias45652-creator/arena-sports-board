@@ -1,0 +1,4274 @@
+{
+  "capturedAt": "2026-10-12T11:25:45.036Z",
+  "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/",
+  "description": "Exact ESPN event identities, competition slugs, scores and status fields; unrelated presentation metadata omitted.",
+  "sources": [
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261014&limit=100",
+      "fetchedAt": "2026-10-12T11:25:09.571Z",
+      "data": {
+        "leagues": [
+          {
+            "slug": "uefa.champions"
+          }
+        ],
+        "events": [
+          {
+            "id": "401915416",
+            "name": "Como at Feyenoord Rotterdam",
+            "date": "2026-10-14T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "De Kuip",
+                  "address": {
+                    "city": "Rotterdam",
+                    "country": "Netherlands"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "142",
+                      "displayName": "Feyenoord Rotterdam"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2572",
+                      "displayName": "Como"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915415",
+            "name": "Liverpool at LASK Linz",
+            "date": "2026-10-14T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Raiffeisen Arena (Linz)",
+                  "address": {
+                    "city": "Linz",
+                    "country": "Austria"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "4411",
+                      "displayName": "LASK Linz"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "364",
+                      "displayName": "Liverpool"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915414",
+            "name": "Real Madrid at AS Roma",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Olimpico",
+                  "address": {
+                    "city": "Roma",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "104",
+                      "displayName": "AS Roma"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "86",
+                      "displayName": "Real Madrid"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915409",
+            "name": "Fenerbahce at Aston Villa",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Villa Park",
+                  "address": {
+                    "city": "Birmingham",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "362",
+                      "displayName": "Aston Villa"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "436",
+                      "displayName": "Fenerbahce"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915393",
+            "name": "Borussia Dortmund at Bodo/Glimt",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Aspmyra Stadion",
+                  "address": {
+                    "city": "Bodø/Glimt",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "124",
+                      "displayName": "Borussia Dortmund"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915407",
+            "name": "Paris Saint-Germain at Manchester City",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Etihad Stadium",
+                  "address": {
+                    "city": "Manchester",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "382",
+                      "displayName": "Manchester City"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "160",
+                      "displayName": "Paris Saint-Germain"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915408",
+            "name": "FC Porto at Real Betis",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Estadio La Cartuja",
+                  "address": {
+                    "city": "Sevilla",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "244",
+                      "displayName": "Real Betis"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "437",
+                      "displayName": "FC Porto"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915406",
+            "name": "AEK Athens at Shakhtar Donetsk",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stamford Bridge",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "493",
+                      "displayName": "Shakhtar Donetsk"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "887",
+                      "displayName": "AEK Athens"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915405",
+            "name": "VfB Stuttgart at Slovan Bratislava",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Národny Futbalovy Stadión",
+                  "address": {
+                    "city": "Bratislava",
+                    "country": "Slovakia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "521",
+                      "displayName": "Slovan Bratislava"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "134",
+                      "displayName": "VfB Stuttgart"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261013&limit=100",
+      "fetchedAt": "2026-10-12T11:25:09.610Z",
+      "data": {
+        "leagues": [
+          {
+            "slug": "uefa.champions"
+          }
+        ],
+        "events": [
+          {
+            "id": "401915418",
+            "name": "Sporting CP at Lens",
+            "date": "2026-10-13T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stade Bollaert-Delelis",
+                  "address": {
+                    "city": "Lens",
+                    "country": "France"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "175",
+                      "displayName": "Lens"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2250",
+                      "displayName": "Sporting CP"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915436",
+            "name": "Slavia Prague at Sabah FK",
+            "date": "2026-10-13T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Baku Olympic Stadium",
+                  "address": {
+                    "city": "Baku",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915417",
+            "name": "Lille at Arsenal",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Emirates Stadium",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "359",
+                      "displayName": "Arsenal"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "166",
+                      "displayName": "Lille"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915412",
+            "name": "Manchester United at Atlético Madrid",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Riyadh Air Metropolitano",
+                  "address": {
+                    "city": "Madrid",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "1068",
+                      "displayName": "Atlético Madrid"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "360",
+                      "displayName": "Manchester United"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915435",
+            "name": "Barcelona at Galatasaray",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "RAMS Park",
+                  "address": {
+                    "city": "Istanbul",
+                    "country": "Türkiye"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "432",
+                      "displayName": "Galatasaray"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "83",
+                      "displayName": "Barcelona"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915413",
+            "name": "Club Brugge at Internazionale",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "San Siro",
+                  "address": {
+                    "city": "Milano",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "110",
+                      "displayName": "Internazionale"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "570",
+                      "displayName": "Club Brugge"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915434",
+            "name": "PSV Eindhoven at RB Leipzig",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Red Bull Arena",
+                  "address": {
+                    "city": "Leipzig",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "11420",
+                      "displayName": "RB Leipzig"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "148",
+                      "displayName": "PSV Eindhoven"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915411",
+            "name": "Bayern Munich at Viking FK",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915410",
+            "name": "Napoli at Villarreal",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Estadio de la Cerámica",
+                  "address": {
+                    "city": "Villarreal",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "102",
+                      "displayName": "Villarreal"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "114",
+                      "displayName": "Napoli"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/teams/21922/schedule?season=2025",
+      "fetchedAt": "2026-10-12T11:25:23.016Z",
+      "data": {
+        "team": {
+          "id": "21922",
+          "displayName": "Sabah FK"
+        },
+        "events": []
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/teams/494/schedule?season=2025",
+      "fetchedAt": "2026-10-12T11:25:23.070Z",
+      "data": {
+        "team": {
+          "id": "494",
+          "displayName": "Slavia Prague"
+        },
+        "events": [
+          {
+            "id": "757794",
+            "name": "Slavia Prague at Pafos",
+            "date": "2026-01-28T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-01-28T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 540,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Alphamega Stadium",
+                  "address": {
+                    "city": "Kolossi",
+                    "country": "Cyprus"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "22281",
+                      "displayName": "Pafos"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757778",
+            "name": "Barcelona at Slavia Prague",
+            "date": "2026-01-21T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-01-21T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "83",
+                      "displayName": "Barcelona"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757749",
+            "name": "Slavia Prague at Tottenham Hotspur",
+            "date": "2025-12-09T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-12-09T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Tottenham Hotspur Stadium",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "367",
+                      "displayName": "Tottenham Hotspur"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757733",
+            "name": "Athletic Club at Slavia Prague",
+            "date": "2025-11-25T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-11-25T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "93",
+                      "displayName": "Athletic Club"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757707",
+            "name": "Arsenal at Slavia Prague",
+            "date": "2025-11-04T17:45Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-11-04T17:45Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 360,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "359",
+                      "displayName": "Arsenal"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757700",
+            "name": "Slavia Prague at Atalanta",
+            "date": "2025-10-22T19:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-10-22T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "New Balance Arena",
+                  "address": {
+                    "city": "Bergamo",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "105",
+                      "displayName": "Atalanta"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757678",
+            "name": "Slavia Prague at Internazionale",
+            "date": "2025-09-30T19:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-09-30T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "San Siro",
+                  "address": {
+                    "city": "Milano",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "110",
+                      "displayName": "Internazionale"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757660",
+            "name": "Bodo/Glimt at Slavia Prague",
+            "date": "2025-09-17T16:45Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-09-17T16:45Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 720,
+                  "displayClock": "90'+12'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/teams/21922/schedule?season=2026",
+      "fetchedAt": "2026-10-12T11:25:23.071Z",
+      "data": {
+        "team": {
+          "id": "21922",
+          "displayName": "Sabah FK"
+        },
+        "events": [
+          {
+            "id": "401915442",
+            "name": "Sabah FK at Manchester United",
+            "date": "2026-09-10T19:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-09-10T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Old Trafford",
+                  "address": {
+                    "city": "Manchester",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "360",
+                      "displayName": "Manchester United"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/teams/494/schedule?season=2026",
+      "fetchedAt": "2026-10-12T11:25:23.101Z",
+      "data": {
+        "team": {
+          "id": "494",
+          "displayName": "Slavia Prague"
+        },
+        "events": [
+          {
+            "id": "401915440",
+            "name": "Lens at Slavia Prague",
+            "date": "2026-09-10T19:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-09-10T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 420,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "175",
+                      "displayName": "Lens"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/494/schedule?season=2026",
+      "fetchedAt": "2026-10-12T11:25:23.263Z",
+      "data": {
+        "team": {
+          "id": "494",
+          "displayName": "Slavia Prague"
+        },
+        "events": [
+          {
+            "id": "401915440",
+            "name": "Lens at Slavia Prague",
+            "date": "2026-09-10T19:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-09-10T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 420,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "175",
+                      "displayName": "Lens"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/494/schedule?season=2025",
+      "fetchedAt": "2026-10-12T11:25:23.372Z",
+      "data": {
+        "team": {
+          "id": "494",
+          "displayName": "Slavia Prague"
+        },
+        "events": [
+          {
+            "id": "757794",
+            "name": "Slavia Prague at Pafos",
+            "date": "2026-01-28T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-01-28T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 540,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Alphamega Stadium",
+                  "address": {
+                    "city": "Kolossi",
+                    "country": "Cyprus"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "22281",
+                      "displayName": "Pafos"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757778",
+            "name": "Barcelona at Slavia Prague",
+            "date": "2026-01-21T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-01-21T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "83",
+                      "displayName": "Barcelona"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757749",
+            "name": "Slavia Prague at Tottenham Hotspur",
+            "date": "2025-12-09T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-12-09T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Tottenham Hotspur Stadium",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "367",
+                      "displayName": "Tottenham Hotspur"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757733",
+            "name": "Athletic Club at Slavia Prague",
+            "date": "2025-11-25T20:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-11-25T20:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "93",
+                      "displayName": "Athletic Club"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757707",
+            "name": "Arsenal at Slavia Prague",
+            "date": "2025-11-04T17:45Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-11-04T17:45Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 360,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "359",
+                      "displayName": "Arsenal"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757700",
+            "name": "Slavia Prague at Atalanta",
+            "date": "2025-10-22T19:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-10-22T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "New Balance Arena",
+                  "address": {
+                    "city": "Bergamo",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "105",
+                      "displayName": "Atalanta"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757678",
+            "name": "Slavia Prague at Internazionale",
+            "date": "2025-09-30T19:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-09-30T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "San Siro",
+                  "address": {
+                    "city": "Milano",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "110",
+                      "displayName": "Internazionale"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757660",
+            "name": "Bodo/Glimt at Slavia Prague",
+            "date": "2025-09-17T16:45Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2025-09-17T16:45Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 720,
+                  "displayClock": "90'+12'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Fortuna Arena",
+                  "address": {
+                    "city": "Prague",
+                    "country": "Czechia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/21922/schedule?season=2025",
+      "fetchedAt": "2026-10-12T11:25:29.685Z",
+      "data": {
+        "team": {
+          "id": "21922",
+          "displayName": "Sabah FK"
+        },
+        "events": [
+          {
+            "id": "755178",
+            "name": "Levski Sofia at Sabah FK",
+            "date": "2025-08-14T16:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa.conf_qual",
+              "name": "UEFA Conference League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-08-14T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "490",
+                      "displayName": "Levski Sofia"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "755154",
+            "name": "Sabah FK at Levski Sofia",
+            "date": "2025-08-07T18:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa.conf_qual",
+              "name": "UEFA Conference League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-08-07T18:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 600,
+                  "displayClock": "90'+10'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Georgi Asparuhov Stadium",
+                  "address": {
+                    "city": "Sofia",
+                    "country": "Bulgaria"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "490",
+                      "displayName": "Levski Sofia"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "753906",
+            "name": "Petrocub at Sabah FK",
+            "date": "2025-07-31T16:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa.conf_qual",
+              "name": "UEFA Conference League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-07-31T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "19250",
+                      "displayName": "Petrocub"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "753905",
+            "name": "Sabah FK at Petrocub",
+            "date": "2025-07-24T17:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa.conf_qual",
+              "name": "UEFA Conference League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-07-24T17:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 540,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stadionul Zimbru",
+                  "address": {
+                    "city": "Chisinau",
+                    "country": "Moldova"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "19250",
+                      "displayName": "Petrocub"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "741724",
+            "name": "Sabah FK at NK Celje",
+            "date": "2025-07-17T18:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Europa League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa_qual",
+              "name": "UEFA Europa League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-07-17T18:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 7200,
+                  "addedClock": 300,
+                  "displayClock": "120'+5'",
+                  "period": 4,
+                  "type": {
+                    "id": "45",
+                    "name": "STATUS_FINAL_AET",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Final Score - After Extra Time",
+                    "detail": "AET",
+                    "shortDetail": "AET"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stadion Z'dezele",
+                  "address": {
+                    "city": "Celje",
+                    "country": "Slovenia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "3362",
+                      "displayName": "NK Celje"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "741716",
+            "name": "NK Celje at Sabah FK",
+            "date": "2025-07-10T16:00Z",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Europa League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.europa_qual",
+              "name": "UEFA Europa League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2025-07-10T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "3362",
+                      "displayName": "NK Celje"
+                    },
+                    "score": {
+                      "value": 3
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/all/teams/21922/schedule?season=2026",
+      "fetchedAt": "2026-10-12T11:25:29.809Z",
+      "data": {
+        "team": {
+          "id": "21922",
+          "displayName": "Sabah FK"
+        },
+        "events": [
+          {
+            "id": "401915442",
+            "name": "Sabah FK at Manchester United",
+            "date": "2026-09-10T19:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "slug": "uefa.champions",
+              "name": "UEFA Champions League"
+            },
+            "competitions": [
+              {
+                "date": "2026-09-10T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Old Trafford",
+                  "address": {
+                    "city": "Manchester",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "360",
+                      "displayName": "Manchester United"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401909192",
+            "name": "Hapoel Be'er at Sabah FK",
+            "date": "2026-08-25T16:45Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-08-25T16:45Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 7200,
+                  "addedClock": 60,
+                  "displayClock": "120'+1'",
+                  "period": 4,
+                  "type": {
+                    "id": "45",
+                    "name": "STATUS_FINAL_AET",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Final Score - After Extra Time",
+                    "detail": "AET",
+                    "shortDetail": "AET"
+                  }
+                },
+                "venue": {
+                  "fullName": "Tofiq Bahramov Republican Stadium",
+                  "address": {
+                    "city": "Baku",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 5
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "13083",
+                      "displayName": "Hapoel Be'er"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401909193",
+            "name": "Sabah FK at Hapoel Be'er",
+            "date": "2026-08-19T19:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-08-19T19:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Giulesti Stadium",
+                  "address": {
+                    "city": "Bucuresti",
+                    "country": "Romania"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "13083",
+                      "displayName": "Hapoel Be'er"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401902676",
+            "name": "AGF at Sabah FK",
+            "date": "2026-08-11T16:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-08-11T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 4
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "7853",
+                      "displayName": "AGF"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401902678",
+            "name": "Sabah FK at AGF",
+            "date": "2026-08-05T17:10Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-08-05T17:10Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 420,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Cepheus Park Randers",
+                  "address": {
+                    "city": "Randers",
+                    "country": "Denmark"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "7853",
+                      "displayName": "AGF"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401891534",
+            "name": "Sabah FK at KuPS Kuopio",
+            "date": "2026-07-28T15:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-07-28T15:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Vare Areena TN",
+                  "address": {
+                    "city": "Kuopion",
+                    "country": "Finland"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "8169",
+                      "displayName": "KuPS Kuopio"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401891587",
+            "name": "KuPS Kuopio at Sabah FK",
+            "date": "2026-07-21T16:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-07-21T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 240,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "8169",
+                      "displayName": "KuPS Kuopio"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401877817",
+            "name": "Sabah FK at The New Saints",
+            "date": "2026-07-14T17:30Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-07-14T17:30Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 180,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Park Hall",
+                  "address": {
+                    "city": "Oswestry",
+                    "country": "Wales"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "576",
+                      "displayName": "The New Saints"
+                    },
+                    "score": {
+                      "value": 1
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401877829",
+            "name": "The New Saints at Sabah FK",
+            "date": "2026-07-07T16:00Z",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "slug": "uefa.champions_qual",
+              "name": "UEFA Champions League Qualifying"
+            },
+            "competitions": [
+              {
+                "date": "2026-07-07T16:00Z",
+                "timeValid": true,
+                "neutralSite": false,
+                "status": {
+                  "clock": 5400,
+                  "addedClock": 300,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "venue": {
+                  "fullName": "Bank Respublika Stadium",
+                  "address": {
+                    "city": "Masazir",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": {
+                      "value": 2
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "576",
+                      "displayName": "The New Saints"
+                    },
+                    "score": {
+                      "value": 0
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261013&limit=100",
+      "fetchedAt": "2026-10-12T11:25:40.037Z",
+      "data": {
+        "leagues": [
+          {
+            "slug": "uefa.champions"
+          }
+        ],
+        "events": [
+          {
+            "id": "401915418",
+            "name": "Sporting CP at Lens",
+            "date": "2026-10-13T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stade Bollaert-Delelis",
+                  "address": {
+                    "city": "Lens",
+                    "country": "France"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "175",
+                      "displayName": "Lens"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2250",
+                      "displayName": "Sporting CP"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915436",
+            "name": "Slavia Prague at Sabah FK",
+            "date": "2026-10-13T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Baku Olympic Stadium",
+                  "address": {
+                    "city": "Baku",
+                    "country": "Azerbaijan"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "21922",
+                      "displayName": "Sabah FK"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "494",
+                      "displayName": "Slavia Prague"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915417",
+            "name": "Lille at Arsenal",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Emirates Stadium",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "359",
+                      "displayName": "Arsenal"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "166",
+                      "displayName": "Lille"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915412",
+            "name": "Manchester United at Atlético Madrid",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Riyadh Air Metropolitano",
+                  "address": {
+                    "city": "Madrid",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "1068",
+                      "displayName": "Atlético Madrid"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "360",
+                      "displayName": "Manchester United"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915435",
+            "name": "Barcelona at Galatasaray",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "RAMS Park",
+                  "address": {
+                    "city": "Istanbul",
+                    "country": "Türkiye"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "432",
+                      "displayName": "Galatasaray"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "83",
+                      "displayName": "Barcelona"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915413",
+            "name": "Club Brugge at Internazionale",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "San Siro",
+                  "address": {
+                    "city": "Milano",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "110",
+                      "displayName": "Internazionale"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "570",
+                      "displayName": "Club Brugge"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915434",
+            "name": "PSV Eindhoven at RB Leipzig",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Red Bull Arena",
+                  "address": {
+                    "city": "Leipzig",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "11420",
+                      "displayName": "RB Leipzig"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "148",
+                      "displayName": "PSV Eindhoven"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915411",
+            "name": "Bayern Munich at Viking FK",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915410",
+            "name": "Napoli at Villarreal",
+            "date": "2026-10-13T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Estadio de la Cerámica",
+                  "address": {
+                    "city": "Villarreal",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "102",
+                      "displayName": "Villarreal"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "114",
+                      "displayName": "Napoli"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261014&limit=100",
+      "fetchedAt": "2026-10-12T11:25:40.137Z",
+      "data": {
+        "leagues": [
+          {
+            "slug": "uefa.champions"
+          }
+        ],
+        "events": [
+          {
+            "id": "401915416",
+            "name": "Como at Feyenoord Rotterdam",
+            "date": "2026-10-14T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "De Kuip",
+                  "address": {
+                    "city": "Rotterdam",
+                    "country": "Netherlands"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "142",
+                      "displayName": "Feyenoord Rotterdam"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2572",
+                      "displayName": "Como"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915415",
+            "name": "Liverpool at LASK Linz",
+            "date": "2026-10-14T16:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 12:45 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Raiffeisen Arena (Linz)",
+                  "address": {
+                    "city": "Linz",
+                    "country": "Austria"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "4411",
+                      "displayName": "LASK Linz"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "364",
+                      "displayName": "Liverpool"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915414",
+            "name": "Real Madrid at AS Roma",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Olimpico",
+                  "address": {
+                    "city": "Roma",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "104",
+                      "displayName": "AS Roma"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "86",
+                      "displayName": "Real Madrid"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915409",
+            "name": "Fenerbahce at Aston Villa",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Villa Park",
+                  "address": {
+                    "city": "Birmingham",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "362",
+                      "displayName": "Aston Villa"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "436",
+                      "displayName": "Fenerbahce"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915393",
+            "name": "Borussia Dortmund at Bodo/Glimt",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Aspmyra Stadion",
+                  "address": {
+                    "city": "Bodø/Glimt",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "124",
+                      "displayName": "Borussia Dortmund"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915407",
+            "name": "Paris Saint-Germain at Manchester City",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Etihad Stadium",
+                  "address": {
+                    "city": "Manchester",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "382",
+                      "displayName": "Manchester City"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "160",
+                      "displayName": "Paris Saint-Germain"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915408",
+            "name": "FC Porto at Real Betis",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Estadio La Cartuja",
+                  "address": {
+                    "city": "Sevilla",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "244",
+                      "displayName": "Real Betis"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "437",
+                      "displayName": "FC Porto"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915406",
+            "name": "AEK Athens at Shakhtar Donetsk",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Stamford Bridge",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "493",
+                      "displayName": "Shakhtar Donetsk"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "887",
+                      "displayName": "AEK Athens"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915405",
+            "name": "VfB Stuttgart at Slovan Bratislava",
+            "date": "2026-10-14T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-14T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Wed, October 14th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "fullName": "Národny Futbalovy Stadión",
+                  "address": {
+                    "city": "Bratislava",
+                    "country": "Slovakia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "521",
+                      "displayName": "Slovan Bratislava"
+                    },
+                    "score": "0"
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "134",
+                      "displayName": "VfB Stuttgart"
+                    },
+                    "score": "0"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -18,6 +18,7 @@ import {announcedNpbGames,scheduledKboGames} from '@/lib/international-fixtures'
 import {selectInternationalBoardFixtures} from '@/lib/international-board-fixtures';
 import {internationalTeam} from '@/lib/international-teams';
 import {mergePregameFixtures,displayPitcherStat,type PregameData} from '@/lib/international-pregame';
+import type {InternationalPregameNotice} from './international-pregame-status';
 type Pick=InternationalPick;
 type SourceTable={title:string;headers:string[];rows:string[][]};
 type ScheduleData={tables?:SourceTable[];status?:string;games?:{id:string;label:string;date?:string}[];fetchedAt?:string;error?:string};
@@ -27,7 +28,7 @@ function scheduleGame(g:{id:string;label:string;date?:string}){
  const match=g.label.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+·\s+(.+?)（客）\s+(?:vs|\d+：\d+)\s+(.+?)（主）/);
  return match?{id:`schedule-${g.id}`,sourceId:g.id,start:`${match[1]} ${match[2]}:00`,away:match[3],home:match[4],live:false,displayMarkets:[]}:null;
 }
-export default function InternationalMarkets({league,schedule,standings,starters,pregame,odds,dataLoading,onRefreshData,onDateChange}:{onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData}){
+export default function InternationalMarkets({league,schedule,standings,starters,pregame,pregameNotice,odds,dataLoading,onRefreshData,onDateChange}:{onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData;pregameNotice?:InternationalPregameNotice|null}){
  const {data,error,loading:busy,refresh}=odds;
  const [now,setNow]=useState(Date.now());
  const [day,setDay]=useState('auto'),[count,setCount]=useState(3),[parlayMode,setParlayMode]=useState('markets'),[notice,setNotice]=useState('');
@@ -44,6 +45,8 @@ export default function InternationalMarkets({league,schedule,standings,starters
  const currentFixtures=(league==='NPB'?announcedNpbGames(starters?.tables):league==='KBO'?scheduledKboGames(schedule?.tables):(schedule?.games||[]).map(scheduleGame).filter(Boolean)) as any[];
  const listed=mergePregameFixtures(currentFixtures,pregame,league,currentFixtures) as any[];
  const {games,days,automaticDay,targetDay}=selectInternationalBoardFixtures(listed,sourceGames,league,now,day,pregame?.excludedFixtures,hasOptions);
+ const sourceNotice=pregameNotice?.date===targetDay?pregameNotice:null;
+ const sourceMessage=sourceNotice&&<p role="status" className="text-sm text-amber-200">{sourceNotice.message}{sourceNotice.observedAt&&<> 資料擷取：<time dateTime={sourceNotice.observedAt}>{new Date(sourceNotice.observedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}</time>（台灣）</>}</p>;
  useEffect(()=>{if(targetDay)onDateChange?.(targetDay)},[targetDay,onDateChange]);
  useEffect(()=>{setDay('auto');setPicks([]);setMarketTabs({})},[league]);
  const record=(name:string)=>{for(const table of standings?.tables||[]){const hi=table.headers.indexOf('球隊'),wi=table.headers.indexOf('勝'),li=table.headers.indexOf('敗');const row=table.rows.find(r=>hi>=0&&teamName(r[hi])===teamName(name));if(row)return wi>=0&&li>=0?`${row[wi]} 勝 ${row[li]} 敗`:'';}return '';};
@@ -88,6 +91,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
     <h3 className="text-xl font-black">每日對戰 勝率分析</h3>
     <div className="flex flex-wrap items-center gap-3"><Button variant="outline" disabled={busy} onClick={()=>void refresh()}>{busy?'讀取中…':'更新資料'}</Button></div>
     {error&&<p role="alert" className="text-sm text-amber-200">{error}</p>}
+    {!!games.length&&sourceMessage}
    </div>
    <div className="arena-analysis-summary"><ParlayPane><aside className="panel space-y-4 p-5">
     <h3 className="text-lg font-black">串關組合</h3>
@@ -112,7 +116,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
      <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2><InternationalTeamLink league={league} name={g[side]}>{cleanTeam(g[side])}</InternationalTeamLink><small>（{side==='home'?'主':'客'}）</small></h2><span><small>{analysis?.mode==='simulation'?'模擬勝率':'勝率'}</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{league==='NPB'?<NpbPlayerLink links={starters?.playerLinks} team={g[side]} name={g.starters?.[side]||'尚未取得'}/>:g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
-    {!games.length&&<div className="panel p-5">{dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`}</div>}
+    {!games.length&&<div className="panel p-5">{sourceMessage||(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`)}</div>}
    </div>
   </section>
  </section>;

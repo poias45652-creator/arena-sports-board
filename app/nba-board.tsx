@@ -8,7 +8,7 @@ import {nbaEligible,nbaSourceStale,readyNbaAnalysis,type NbaReport} from '@/lib/
 import {NbaAnalysisNumbers,NbaMatch,NbaQuarters,NbaTeamIdentity,nbaTime} from './nba-match';
 import NbaRecommendations from './nba-recommendations';
 import {nbaRequest} from './nba-request';
-import {basketballReportNeedsRefresh,basketballPendingLabel} from './basketball-report-refresh';
+import {basketballReportNeedsRefresh,basketballPendingLabel,basketballPendingState} from './basketball-report-refresh';
 import './nba.css';
 import './sport-markets.css';
 import SportMarkets from './sport-markets';
@@ -68,19 +68,19 @@ export default function NbaBoard({view,onViewChange,league='NBA'}:{league?:'NBA'
    <div className="nba-board-meta"><div className="nba-filters" role="group" aria-label={`${league} 賽事狀態`}>{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完賽']].map(([v,label])=><button type="button" key={v} aria-pressed={filter===v} onClick={()=>setFilter(v)}>{label}{current&&<span>{v==='all'?board.games.length:board.games.filter(g=>g.state===v).length}</span>}</button>)}</div><span className="nba-updated">{current?`賽程更新 ${nbaTime(board.fetchedAt)}`:'正在取得賽程'}</span></div>
    {error&&<p className="nba-alert" role="alert">{error}<button type="button" onClick={()=>refreshBoard.current()}>重試</button></p>}
    {loading&&!current?<p className="nba-empty" role="status">正在取得 {league} 賽程…</p>:current&&!games.length?<div className="nba-empty"><CalendarDays size={32}/><h3>{board.games.length?'沒有符合篩選的比賽':`${day} 沒有 ${league} 賽事`}</h3>{!board.games.length&&<button type="button" className="nba-primary" disabled={nextBusy} onClick={()=>void nextMatch()}>{nextBusy?'查詢中…':'下一個比賽日'}<ArrowRight size={16}/></button>}{notice&&<p role="status">{notice}</p>}</div>:null}
-   <div className="nba-games" data-view={tab}>{games.map(game=><NbaCard key={game.id} game={game} report={expectedWeights===weightKey(weights)?reports[game.id]:undefined} snapshot={odds.data} oddsError={odds.error} sport={league} expectedWeights={expectedWeights} now={clock} unavailable={unavailable} showAnalysis={tab==='analysis'}/>)}</div>
+   <div className="nba-games" data-view={tab}>{games.map(game=><NbaCard key={game.id} game={game} report={expectedWeights===weightKey(weights)?reports[game.id]:undefined} snapshot={odds.data} oddsError={odds.error} oddsLoading={odds.loading} sport={league} expectedWeights={expectedWeights} now={clock} unavailable={unavailable} showAnalysis={tab==='analysis'}/>)}</div>
   </>}
-  <NbaRecommendations snapshot={odds.data} oddsError={odds.error} expectedWeights={expectedWeights} league={league} games={current?board.games:[]} reports={reports} day={day} now={clock} fetchedAt={current?board.fetchedAt:undefined} unavailable={unavailable} loading={loading}/>
+  <NbaRecommendations snapshot={odds.data} oddsError={odds.error} oddsLoading={odds.loading} expectedWeights={expectedWeights} league={league} games={current?board.games:[]} reports={reports} day={day} now={clock} fetchedAt={current?board.fetchedAt:undefined} unavailable={unavailable} loading={loading}/>
  </section>;
 }
-function NbaCard({game,report,now,unavailable,showAnalysis,expectedWeights,snapshot,oddsError,sport}:{snapshot:any;oddsError:string;sport:'NBA'|'WNBA';game:NbaGame;report?:NbaReport;now:number;unavailable:boolean;showAnalysis:boolean;expectedWeights?:string}){
+function NbaCard({game,report,now,unavailable,showAnalysis,expectedWeights,snapshot,oddsError,oddsLoading=false,sport}:{snapshot:any;oddsError:string;oddsLoading?:boolean;sport:'NBA'|'WNBA';game:NbaGame;report?:NbaReport;now:number;unavailable:boolean;showAnalysis:boolean;expectedWeights?:string}){
  const a=readyNbaAnalysis(game,report,now,unavailable,expectedWeights),form=report?.analysis;
  return <article className="nba-card" data-state={game.state}><header><div className="nba-card-labels"><span className="nba-phase-tag">{nbaPhase(game.phase)}</span><span className={game.state==='live'?'nba-live':'nba-game-status'}><i/>{game.statusLabel}</span></div><time dateTime={game.start}>{game.timeConfirmed?nbaTime(game.start):'時間待定'}</time></header><div className="nba-card-layout" data-analysis={showAnalysis&&(!!a||nbaEligible(game,now))}>
   <div className="nba-match-overview"><NbaMatch game={game}/><NbaQuarters game={game}/>
    {showAnalysis&&a&&form&&<div className="nba-form"><span>近期正式賽</span>{(['away','home'] as const).map(side=>{const f=form[`${side}Form`];return <div key={side}><small>{side==='away'?'客隊':'主隊'}・近 {f.games} 場</small><strong>{f.wins} <em>勝</em> {f.losses} <em>負</em></strong><span>得 {f.pointsFor==null?'—':Math.round(f.pointsFor)} ／ 失 {f.pointsAgainst==null?'—':Math.round(f.pointsAgainst)}</span><div className="nba-streak" aria-label="近五場，最近一場在左">{f.results.map((r,i)=><i key={i} data-result={r}>{r==='W'?'勝':'負'}</i>)}</div></div>;})}</div>}
   </div>
-  {showAnalysis&&a&&<div className="nba-card-analysis"><small className="nba-updated">分析更新 {nbaTime(a.capturedAt)}</small><NbaAnalysisNumbers game={game} analysis={a}/><SportMarkets game={game} analysis={a} snapshot={snapshot} error={oddsError} sport={sport} now={now}/></div>}
-  {showAnalysis&&!a&&nbaEligible(game,now)&&<div className="nba-card-analysis nba-analysis-pending"><span className="nba-section-kicker">賽前分析</span><p role="status">{basketballPendingLabel(report,unavailable)}</p><SportMarkets game={game} snapshot={snapshot} error={oddsError} sport={sport} now={now}/></div>}
+  {showAnalysis&&a&&<div className="nba-card-analysis"><small className="nba-updated">分析更新 {nbaTime(a.capturedAt)}</small><NbaAnalysisNumbers game={game} analysis={a}/><SportMarkets game={game} analysis={a} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} sport={sport} now={now}/></div>}
+  {showAnalysis&&!a&&nbaEligible(game,now)&&<div className="nba-card-analysis nba-analysis-pending"><span className="nba-section-kicker">賽前分析</span><p role="status">{basketballPendingLabel(report,unavailable)}</p><SportMarkets game={game} analysisState={basketballPendingState(report,unavailable)} analysisMessage={basketballPendingLabel(report,unavailable)} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} sport={sport} now={now}/></div>}
   </div>
  </article>;
 }

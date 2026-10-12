@@ -95,7 +95,9 @@ export const needsFootballRecentForm=(form:FootballForm|undefined,before:number)
 // Senior national friendlies are opt-in for the sparse national-form fallback.
 // Club, youth and women's friendlies are never accepted here.
 export const isFootballNationalCompetition=(league:string)=>['uefa.nations','uefa.euro','uefa.euroq','fifa.world','fifa.worldq.uefa'].includes(league);
-export const isFootballFormCompetition=(league:string,targetCompetition?:string,includeNationalFriendlies=false)=>targetCompetition&&isFootballNationalCompetition(targetCompetition)?isFootballNationalCompetition(league)||(includeNationalFriendlies&&league==='fifa.friendly'):/^[a-z]{3}\.[1-4]$/.test(league)||['uefa.champions','uefa.europa','uefa.europa.conf','eng.fa','eng.league_cup','esp.copa_del_rey','ger.dfb_pokal','ita.coppa_italia','fra.coupe_de_france'].includes(league);
+// ESPN identifies senior UEFA qualifying rounds separately from the main cups.
+// Retain those identities so the existing cross-competition weight still applies.
+export const isFootballFormCompetition=(league:string,targetCompetition?:string,includeNationalFriendlies=false)=>targetCompetition&&isFootballNationalCompetition(targetCompetition)?isFootballNationalCompetition(league)||(includeNationalFriendlies&&league==='fifa.friendly'):/^[a-z]{3}\.[1-4]$/.test(league)||['uefa.champions','uefa.champions_qual','uefa.europa','uefa.europa_qual','uefa.europa.conf','uefa.europa.conf_qual','eng.fa','eng.league_cup','esp.copa_del_rey','ger.dfb_pokal','ita.coppa_italia','fra.coupe_de_france'].includes(league);
 export function parseFootballTeamHistory(data:any,teamId:string,targetCompetition?:string,includeNationalFriendlies=false):FootballGame<string>[]{
   if(String(data?.team?.id)!==teamId||!Array.isArray(data?.events))throw Error('球隊歷史來源身分不符');
   return data.events.flatMap((event:any)=>{

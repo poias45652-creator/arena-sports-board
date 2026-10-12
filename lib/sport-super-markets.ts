@@ -89,7 +89,7 @@ export type SportMarketStatus={event:SportEvent|null;code:string;message:string;
 // Diagnostics explain a rejection. Only the original guarded matcher can return
 // an event; time/orientation/competition hints below never authorize a fallback.
 export function sportMarketStatus(snapshot:any,game:SportFixture,sport:MarketSport,now=Date.now()):SportMarketStatus{
- const out:SportMarketStatus={event:null,code:'fixture_unmatched',message:'來源尚無可確認的對應賽事',availableCount:0,markets:{spread:{code:'missing',message:statusText.missing},total:{code:'missing',message:statusText.missing},moneyline:{code:'missing',message:statusText.missing}}};
+ const out:SportMarketStatus={event:null,code:'fixture_unmatched',message:'目前玩法來源尚未提供本場可確認的對應資料，取得後會自動更新。',availableCount:0,markets:{spread:{code:'missing',message:statusText.missing},total:{code:'missing',message:statusText.missing},moneyline:{code:'missing',message:statusText.missing}}};
  const reject=(code:string,message:string)=>({...out,code,message});
  if(!snapshot)return reject('source_pending','正在取得全場資料…');
  const captured=Date.parse(snapshot.fetchedAt||''),start=Date.parse(game.start);

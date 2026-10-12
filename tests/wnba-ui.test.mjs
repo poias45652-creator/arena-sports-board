@@ -34,3 +34,14 @@ test('document-model weights and probabilities stay identical on the WNBA card a
  const e=await import(moduleUrl('lib/basketball-efficiency.ts')),raw=JSON.parse(readFileSync('tests/fixtures/basketball-efficiency/wnba-boxes.json','utf8')),games=[...new Map(['16','20'].flatMap(id=>e.efficiencyHistory(game,history,id,'WNBA',now)).map(g=>[g.id,g])).values()],boxes=games.map(g=>e.parseEfficiencyBox(raw[g.id],g,'WNBA')),analysis=e.analyzeEfficiency(game,history,boxes,'WNBA',undefined,now),current={game,analysis,sourceFetchedAt:new Date(now).toISOString()},oldNow=Date.now;Date.now=()=>now;
  try{for(const expectedWeights of [e.weightKey([20,20,20,20,20]),e.weightKey([0,0,0,0,100])]){const card=render(Card,{game,report:current,now,unavailable:false,showAnalysis:true,expectedWeights}),pane=render(Pane,{league:'WNBA',games:[game],reports:{[game.id]:current},day:'2026-10-01',now,fetchedAt:new Date(now).toISOString(),unavailable:false,loading:false,expectedWeights});if(expectedWeights===analysis.weightsKey){for(const html of [card,pane]){assert.ok(html.includes('效率模擬'));assert.ok(html.includes('51.6%'));assert.ok(html.includes('亞特蘭大夢想 勝'));}}else{assert.ok(!card.includes('data-nba-recommendation'));assert.ok(!pane.includes('data-nba-recommendation'));}}}finally{Date.now=oldNow;}
 });
+
+test('WNBA missing player data and source failures remain visible without perpetual loading',()=>{
+ const waiting={game,analysis:{...report.analysis,status:'waiting',expected:undefined,probabilities:undefined,playerContext:{status:'unavailable',reason:'player_snapshot_missing_or_stale'}}};
+ const html=render(Card,{game,report:waiting,sport:'WNBA',now,unavailable:false,showAnalysis:true,oddsError:'來源連線失敗'});
+ assert.ok(html.includes('data-analysis-state="waiting"'));
+ assert.ok(html.includes('球員資料尚未更新，暫時無法計算分析'));
+ assert.ok(html.includes('來源連線失敗'));
+ assert.ok(!html.includes('分析更新中'));
+ assert.ok(!html.includes('正在計算'));
+ assert.ok(!html.includes('data-nba-recommendation'));
+});
