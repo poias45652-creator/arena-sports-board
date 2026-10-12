@@ -1,3 +1,4 @@
+import {nbaPage,BasketballSourceUnavailable} from './wnba-fetch';
 import {NBA_TEAMS,nbaTeam} from './nba';
 import {nbaPlayerSupplement,type NbaCollegeStats} from './nba-player-supplements';
 // NBA.com uses different team identifiers from the scoreboard provider.
@@ -40,21 +41,17 @@ export type OfficialPlayer=ReturnType<typeof parseOfficialPlayer>;
 const cache=new Map<string,{data:any;until:number}>(),pending=new Map<string,Promise<any>>();
 let active=0;const queue:(()=>void)[]=[];
 
-async function page(path:string){
+async function page(path:string,deadline=Infinity){
  const hit=cache.get(path);if(hit&&hit.until>Date.now())return hit.data;
  if(pending.has(path))return pending.get(path)!;
  if(queue.length>64)throw Error('NBA 資料忙碌中');
  const task=(async()=>{
   if(active>=4)await new Promise<void>(r=>queue.push(r));else active++;
   try{
-   const res=await fetch(`https://www.nba.com/${path}`,{cache:'no-store',signal:AbortSignal.timeout(15000)});
-   if(!res.ok)throw Error('NBA 官網連線失敗');
-   const reader=res.body?.getReader();if(!reader)throw Error('NBA 官網內容為空');
-   const chunks:Uint8Array[]=[];let bytes=0;
-   try{while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.length;if(bytes>6000000){await reader.cancel();throw Error('NBA 官網資料過大');}chunks.push(value);}}finally{reader.releaseLock();}
-   const html=Buffer.concat(chunks).toString('utf8');
+   if(Date.now()>=deadline)throw new BasketballSourceUnavailable('NBA 球員資料更新逾時',false);
+   const html=await nbaPage(`https://www.nba.com/${path}`,Math.min(Number.isFinite(deadline)?7000:15000,Math.max(1,deadline-Date.now())));
    const match=html.match(/<script[^>]*id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
-   if(!match)throw Error('NBA 官網資料格式錯誤');
+   if(!match)throw new BasketballSourceUnavailable('NBA 官網資料缺漏',false);
    const data=JSON.parse(match[1]);if(cache.size>=160)cache.delete(cache.keys().next().value!);cache.set(path,{data,until:Date.now()+15*60000});return data;
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(path));pending.set(path,task);return task;
@@ -76,11 +73,11 @@ export async function officialAnalysisTeam(id:string){
  const raw=await page(`team/${t[0]}/${t[1]}`),profile=parseOfficialTeam(raw,id);
  return {...profile,englishNames:[String(raw.props.pageProps.team.info.TEAM_CITY||''),String(raw.props.pageProps.team.info.TEAM_NAME||'')],news:raw.props.pageProps.team.fantasyNews||[],fetchedAt:new Date().toISOString()};
 }
-export async function officialAnalysisPlayer(id:number){
- const index=await page('players'),players=index?.props?.pageProps?.players;
+export async function officialAnalysisPlayer(id:number,deadline=Infinity){
+ const index=await page('players',deadline),players=index?.props?.pageProps?.players;
  if(!Array.isArray(players))throw Error('NBA 球員索引錯誤');
  const p=players.find((p:any)=>Number(p.PERSON_ID)===id);if(!p||!/^[-a-z0-9]+$/.test(p.PLAYER_SLUG))throw Error('NBA 球員索引缺少現役球員');
- const raw=await page(`player/${id}/${p.PLAYER_SLUG}`),profile=parseOfficialPlayer(raw,id);
+ const raw=await page(`player/${id}/${p.PLAYER_SLUG}`,deadline),profile=parseOfficialPlayer(raw,id);
  return {...profile,news:raw.props.pageProps.player.latestNews||[],fetchedAt:new Date().toISOString()};
 }
 
