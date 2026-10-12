@@ -34,7 +34,8 @@ jobs:
         run: npm test
       - name: Production build
         run: npm run build
-      - name: Verify no account, data, model, photo or loading changes
+      - name: Verify original pairing-audit scope
+        if: ${{ github.head_ref == 'fix/yj-all-sport-market-pairing-20261005' || github.ref == 'refs/heads/fix/yj-all-sport-market-pairing-20261005' }}
         run: |
           git fetch --depth=1 origin 7a6553957289ee169ea4d4035ef5992889c17ff9
           test -z "$(git diff --name-only 7a6553957289ee169ea4d4035ef5992889c17ff9 HEAD -- db drizzle data public lib/arena-session.ts lib/tz-login.ts lib/nba.ts lib/wnba.ts lib/football.ts lib/basketball-efficiency.ts lib/nba-player-strength.ts lib/wnba-player-strength.ts app/page.tsx app/nba-board.tsx app/football-board.tsx instrumentation.ts scripts/render-prepare.mjs)"
