@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-12",
+  "league": "NPB",
+  "observationType": "same_day_independent_live_to_live",
+  "source": "SportsNavi via fresh Firecrawl page scrape",
+  "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039479/score",
+  "gameId": "2021039479",
+  "gameType": "NPB CLIMAX SERIES Pacific First Stage",
+  "away": {
+    "id": "8",
+    "name": "北海道日本火腿"
+  },
+  "home": {
+    "id": "7",
+    "name": "埼玉西武"
+  },
+  "snapshots": [
+    {
+      "requestStartedAt": "2026-10-12T07:21:24.030Z",
+      "requestEndedAt": "2026-10-12T07:21:30.981Z",
+      "scrapeId": "01a12efc-dac3-74d0-be37-d57cca9bd339",
+      "gameStatus": "live",
+      "inning": "7回表",
+      "scoreHeader": {
+        "away": 3,
+        "home": 1
+      },
+      "scoreInningTable": {
+        "away": 3,
+        "home": 1
+      },
+      "balls": null,
+      "strikes": null,
+      "outs": 1
+    },
+    {
+      "requestStartedAt": "2026-10-12T07:22:45.147Z",
+      "requestEndedAt": "2026-10-12T07:22:51.367Z",
+      "scrapeId": "01a12efe-17d5-75ba-9186-2f3d409b2b2a",
+      "gameStatus": "live",
+      "inning": "7回表",
+      "scoreHeader": {
+        "away": 4,
+        "home": 1
+      },
+      "scoreInningTable": {
+        "away": 3,
+        "home": 1
+      },
+      "balls": 1,
+      "strikes": null,
+      "outs": 1,
+      "playText": "ボール ＋1点 / 暴投（篠原）、セーフティスクイズ"
+    }
+  ],
+  "conservativeIntervalSeconds": 74.166,
+  "qualifiedLiveNumericChanges": {
+    "awayScore": {
+      "before": 3,
+      "after": 4
+    }
+  },
+  "verified": true,
+  "dataQualityWarnings": [
+    "Score in inning-by-inning summary table lagged current headline (away 3 vs 4) on second fetch. Do not mix snapshots from these different page sections.",
+    "No independent official data-source latency SLA verified."
+  ],
+  "pitchCount": null,
+  "lineupConfirmation": "not_verified",
+  "collectorArtifact": null,
+  "actionsAttempt": null,
+  "provenance": "independent_public_scrape_not_formal_collector",
+  "productionDeployed": false
+}
