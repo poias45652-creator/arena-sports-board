@@ -18,5 +18,5 @@ test('both leagues produce document-model rates, correct shared recommendations,
 test('failed efficiency source cannot silently fall back to old-score forecasts',async()=>{
  const original=fetch,oldNow=Date.now;Date.now=()=>now;let calls=0;
  globalThis.fetch=async input=>{calls++;const id=new URL(input).searchParams.get('event');if(id===nba.games.at(-1).id)return new Response('',{status:503});return Response.json(nba.raw[id]);};
- try{const source=await import(moduleUrl('lib/basketball-efficiency-source.ts')+'#failure');await assert.rejects(source.efficiencyGameAnalysis(nba.game,nba.history,'NBA'));await new Promise(r=>setImmediate(r));assert.equal(calls,nba.boxes.length);}finally{globalThis.fetch=original;Date.now=oldNow;}
+ try{const source=await import(moduleUrl('lib/basketball-efficiency-source.ts')+'#failure');await assert.rejects(source.efficiencyGameAnalysis(nba.game,nba.history,'NBA'));await new Promise(r=>setImmediate(r));assert.equal(calls,nba.boxes.length+1);}finally{globalThis.fetch=original;Date.now=oldNow;}
 });

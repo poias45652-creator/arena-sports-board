@@ -1,3 +1,4 @@
+import {nbaPage} from './wnba-fetch';
 import {enrichNbaPlayerStrength} from './nba-player-strength-source';
 import {efficiencyGameAnalysis} from './basketball-efficiency-source';
 import {analyzeEfficiency,DEFAULT_WEIGHTS,type Weights} from './basketball-efficiency';
@@ -12,9 +13,7 @@ async function source(path:string,ttl=30000){
  const task=(async()=>{
   if(active>=4)await new Promise<void>(resolve=>queue.push(resolve));else active++;
   try{
-   const response=await fetch(`${ROOT}/${path}`,{cache:'no-store',signal:AbortSignal.timeout(12000)});
-   if(!response.ok)throw Error('NBA 來源無法連線');
-   const text=await response.text();if(text.length>6000000)throw Error('NBA 來源過大');
+   const text=await nbaPage(`${ROOT}/${path}`,12000);
    const value=JSON.parse(text);if(!Array.isArray(value?.events))throw Error('NBA 來源格式錯誤');
    const entry={value,fetchedAt:new Date().toISOString(),expires:Date.now()+ttl};
    if(cache.size>=240)cache.delete(cache.keys().next().value!);cache.set(path,entry);return entry;

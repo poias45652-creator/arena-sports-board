@@ -22,7 +22,8 @@ export async function enrichWnbaPlayerStrength(game:NbaGame,base:EfficiencyAnaly
  }catch(error){
   console.error('wnba-player-context-unavailable',{message:error instanceof Error?error.message:'source failure'});
   const playerContext:NbaPlayerContext={status:'unavailable',reason:'official_roster_or_availability_unavailable',calibrated:false,preseason:game.phase===1,minutesConfirmed:false,recommendationEligible:false,sourceFetchedAt:new Date().toISOString(),statsCapturedAt:'',home:[],away:[],sources:[]};
-  if(error instanceof WnbaSourceUnavailable)return {...base,playerContext};
-  return {...base,status:'waiting' as const,expected:undefined,probabilities:undefined,simulation:undefined,playerContext};
+  // Player evidence is supplemental to the independently validated team boxes.
+  // Discard inconsistent evidence and disable picks; retain the team projection.
+  return {...base,playerContext};
  }
 }
