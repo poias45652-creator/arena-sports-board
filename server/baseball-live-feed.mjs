@@ -1,6 +1,6 @@
 import {retainFixtureStart} from './baseball-live-retention.mjs';
 import {baseballBackgroundStatus} from './baseball-background-state.mjs';
-import {isRetiredNpbFixture} from './baseball-npb-schedule.mjs';
+import {isRetiredNpbFixture,npbFixtureRetirementDecision} from './baseball-npb-schedule.mjs';
 /** Shared-source feed. No account credentials leave this server. */
 export function createLiveFeed({collect,read,write,day,now=Date.now}) {
  const cache=new Map(),pending=new Map();
@@ -47,7 +47,10 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
     // A conditional CS third game disappears after a verified 2–0 series.
     // Only retire an unplayed exact fixture with dated schedule/bracket proof;
     // missing live/final games and ordinary source failures still stay stale.
-    const retiredFixtures=[...older.values()].filter(g=>!freshKeys.has(g.key)&&isRetiredNpbFixture(g,fresh.scheduleProof,now()))
+    const retirementChecks=league==='NPB'?[...older.values()].filter(g=>!freshKeys.has(g.key))
+     .map(g=>({id:g.id,key:g.key,...npbFixtureRetirementDecision(g,fresh.scheduleProof,now())})):[];
+    const confirmedKeys=new Set(retirementChecks.filter(g=>g.retired).map(g=>g.key));
+    const retiredFixtures=[...older.values()].filter(g=>confirmedKeys.has(g.key))
      .map(g=>({key:g.key,id:g.id,league:g.league,date:g.date,startTime:g.startTime,home:g.home.name,away:g.away.name,
       previousFetchedAt:g.source.fetchedAt,reason:'npb_first_stage_completed',source:fresh.scheduleProof.source}));
     const retiredKeys=new Set(retiredFixtures.map(g=>g.key));
@@ -64,7 +67,7 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
     const rows=[...games.values()],partial=errors.length>0||rows.some(g=>g.sourceStale);
     const nearStart=rows.some(g=>g.status==='pregame'&&Date.parse(g.startTime)>now()&&Date.parse(g.startTime)-now()<=1800000);
     const pollAfterMs=rows.some(g=>g.status==='live')||partial||nearStart?60000:300000;
-    const value={schemaVersion:1,league,date,games:rows,status:partial?'partial':'ok',stale:false,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,persistence,pollAfterMs,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus(),sourceErrors:errors,sourceWarnings:Array.isArray(fresh.warnings)?fresh.warnings:[],retiredFixtures,...(fresh.scheduleProof?{scheduleProof:fresh.scheduleProof}:{}),...(partial?{error:'部分場次更新失敗；舊資料保留原擷取時間。'}:{})};
+    const value={schemaVersion:1,league,date,games:rows,status:partial?'partial':'ok',stale:false,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,persistence,pollAfterMs,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus(),sourceErrors:errors,sourceWarnings:Array.isArray(fresh.warnings)?fresh.warnings:[],retiredFixtures,...(league==='NPB'?{retirementChecks,scheduleVerification:fresh.scheduleVerification}:{}),...(fresh.scheduleProof?{scheduleProof:fresh.scheduleProof}:{}),...(partial?{error:'部分場次更新失敗；舊資料保留原擷取時間。'}:{})};
     cache.set(key,{value,until:now()+pollAfterMs});return value;
    }catch{
     // An unchanged old database row must not resurrect a fixture that the last
