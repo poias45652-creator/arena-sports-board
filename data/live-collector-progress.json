@@ -8,17 +8,17 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-07T14:15:28.367Z",
-  "dateAsiaTaipei": "2026-10-07",
+  "observedAt": "2026-10-12T06:28:32.130Z",
+  "dateAsiaTaipei": "2026-10-12",
   "currentGames": {
     "NPB": 1,
-    "KBO": 5,
-    "CPBL": 0
+    "KBO": 3,
+    "CPBL": 1
   },
   "currentStates": {
-    "NPB": "final",
-    "KBO": "final",
-    "CPBL": "no_games"
+    "NPB": "live",
+    "KBO": "pregame",
+    "CPBL": "pregame_independent_official_collector_partial"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
@@ -35,9 +35,9 @@
     "CPBL": "18:35"
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/game/2021051134/score",
-    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-07&toDate=2026-10-07&page=1&pageSize=100",
-    "CPBL": "https://www.playsport.cc/livescore/6?gamedate=20261007&mode=1"
+    "NPB": "https://baseball.yahoo.co.jp/npb/game/2021039479/score",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-12&toDate=2026-10-12&page=1&pageSize=100",
+    "CPBL": "https://stats.cpbl.com.tw/schedule/2026-E-4"
   },
   "liveChangeProof": {
     "NPB": {
@@ -797,6 +797,34 @@
         "collectorFallback": true,
         "observationWriteSucceeded": true
       }
+    },
+    "2026-10-12": {
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-10-12T06:28:32.130Z",
+        "source": "sportsnavi independent fresh scrape",
+        "state": "live",
+        "games": 1,
+        "verificationMethod": "Two separately initiated LIVE page reads, minimum conservative 70.313 seconds apart, balls 1->2 and strikes 1->2 in fifth inning top",
+        "evidencePath": "data/live/20261012T062832Z-npb-independent-liveproof.json",
+        "evidenceGitHubCommitted": false
+      },
+      "KBO": {
+        "verified": false,
+        "state": "pregame",
+        "games": 3,
+        "source": "naver collector attempt41",
+        "notApplicableYet": true
+      },
+      "CPBL": {
+        "verified": false,
+        "state": "pregame",
+        "games": 1,
+        "source": "CPBL stats independent; official collector parse partial",
+        "notApplicableYet": true
+      },
+      "allVerified": false,
+      "evidenceRetainedIn": "data/live/ pending GitHub write"
     }
   },
   "parserFixes": [
@@ -905,63 +933,57 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-07",
-    "evidenceRetainedIn": "data/live/",
+    "date": "2026-10-12",
+    "evidenceRetainedIn": "data/live/ pending GitHub write",
     "evidenceObservationPaths": [
-      "data/live/20261007T102332Z.json",
-      "data/live/20261007T112116Z.json",
-      "data/live/20261007T124344Z.json",
-      "data/live/20261007T141528Z.json"
+      "data/live/20261012T062832Z-npb-independent-liveproof.json"
     ],
     "NPB": {
       "verified": true,
-      "verifiedAt": "2026-10-07T11:21:16Z",
-      "state": "final",
+      "verifiedAt": "2026-10-12T06:28:32.130Z",
+      "state": "live",
       "games": 1,
-      "liveGames": 0,
-      "finalGames": 1,
-      "source": "sportsnavi",
-      "verificationMethod": "same-day cross-run live-to-live numeric changes separated by >=65 seconds; retained after final-state capture"
+      "liveGames": 1,
+      "finalGames": 0,
+      "source": "sportsnavi independent public 200",
+      "verificationMethod": ">=65s B/S/O changes; conservative 70.313s; raw page manual observation"
     },
     "KBO": {
-      "verified": true,
-      "verifiedAt": "2026-10-07T10:23:32.041Z",
-      "state": "final",
-      "games": 5,
+      "verified": false,
+      "verifiedAt": null,
+      "state": "pregame",
+      "games": 3,
       "liveGames": 0,
-      "finalGames": 5,
-      "source": "naver",
-      "excludedNonFirstTeamGames": 2,
-      "verificationMethod": "same-day live-to-live numeric changes separated by >=65 seconds; retained after final-state capture"
+      "finalGames": 0,
+      "source": "naver Attempt 41"
     },
     "CPBL": {
       "verified": false,
       "verifiedAt": null,
-      "state": "no_games",
-      "games": 0,
+      "state": "pregame",
+      "games": 1,
       "liveGames": 0,
       "finalGames": 0,
-      "source": "playsport-public-fallback",
-      "notApplicableToday": true,
+      "source": "stats.cpbl.com.tw independent; official collector parser still fails",
       "pitchCount": null,
       "balls": null,
       "strikes": null,
       "outs": null,
       "bases": null
     },
-    "allScheduledLeaguesVerified": true,
+    "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestObservationPath": "data/live/20261007T141528Z.json"
+    "latestObservationPath": "data/live/20261012T062832Z-npb-independent-liveproof.json"
   },
-  "nextAction": "All 2026-10-07 scheduled first-team games are final. Retain today's NPB/KBO live proof, keep CPBL as no-games N/A, and continue fresh daily validation on the next scheduled run.",
+  "nextAction": "Collector rerun blocked by safety checks at 14:24 Asia/Taipei; independent NPB live proof obtained 14:27-14:28. Continue later polling; CPBL postseason parser still partial. Persist pending proof when GitHub writes available.",
   "latestRun": {
     "runId": 35589830427,
-    "runAttempt": 16,
-    "jobId": 112744432047,
-    "artifactId": 11474904311,
-    "artifactCreatedAt": "2026-10-07T10:23:36Z",
-    "capturedAt": "2026-10-07T10:23:32.041Z",
-    "observationPath": "data/live/20261007T102332Z.json",
+    "runAttempt": 41,
+    "jobId": 114665633415,
+    "artifactId": 11726722780,
+    "artifactCreatedAt": "2026-10-12T04:40:58Z",
+    "capturedAt": "2026-10-12T04:40:54.918Z",
+    "observationPath": null,
     "headSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
     "status": "completed",
     "conclusion": "success",
