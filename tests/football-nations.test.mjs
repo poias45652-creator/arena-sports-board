@@ -49,7 +49,13 @@ test('Nations recommendations reuse the exact card probabilities and selected Ta
  const analysis=analyzeFootball(game,history,now,history),options={games:[game],reports:{[game.id]:{game,analysis}},league,day:footballDay(game.start),now};
  const [r]=footballRecommendations(options);assert.equal(r.analysis,analysis);assert.equal(r.analysis.probabilities,analysis.probabilities);assert.equal(r.analysis.scores,analysis.scores);
  assert.equal(r.result.label,'客勝');assert.equal(r.result.probability,analysis.probabilities.away);assert.equal(r.total.label,'小 2.5 球');
- assert.equal(footballRecommendations({...options,league:'eng.1'}).length,0);assert.equal(footballRecommendations({...options,day:'2026-09-28'}).length,0);assert.equal(footballRecommendations({...options,now:Date.parse(game.start)}).length,0);
+ assert.equal(footballRecommendations({...options,league:'eng.1'}).length,0);assert.equal(footballRecommendations({...options,day:'2026-09-28'}).length,0);
+ const dayEnd=Date.parse(`${options.day}T23:59:59.999+08:00`);
+ for(const clock of [Date.parse(game.start),dayEnd]){
+  const retained=footballRecommendations({...options,now:clock});
+  assert.equal(retained.length,1);assert.equal(retained[0].analysis,analysis);assert.equal(retained[0].analysis.probabilities,analysis.probabilities);assert.equal(retained[0].analysis.scores,analysis.scores);
+ }
+ assert.equal(footballRecommendations({...options,now:dayEnd+1}).length,0);
 });
 test('full source pipeline preserves Taiwan dates and withdraws predictions if current national history fails',async()=>{
  const {footballSchedule,footballGameAnalysis}=await import(moduleUrl('lib/football-source.ts'));
