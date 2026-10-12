@@ -49,6 +49,19 @@ test('an absent fixture without complete schedule and series proof remains stale
  assert.deepEqual(feed.retiredFixtures,[]);
 });
 
+test('stored pre-start empty batting totals are excluded without deleting or refreshing the original record',async()=>{
+ const old=conditional(),row={id:null,name:'0',stats:{AT_BATS:0,RUNS:0,HITS:0,RBIS:0,HOME_RUNS:null,WALKS:0,STRIKEOUTS:0}};
+ old.source.fetchedAt='2026-10-11T08:32:09.030Z';old.batting={home:[structuredClone(row)],away:[structuredClone(row)]};
+ const before=structuredClone(old),x=setup({stored:[old]});
+ let feed=await x.get('NPB');
+ assert.equal(feed.status,'ok');assert.equal(feed.error,undefined);assert.equal(feed.games.length,1);
+ assert.equal(feed.retiredFixtures[0].id,old.id);assert.deepEqual(x.stored[0],before);
+ assert.deepEqual(x.writes[0].games.map(g=>g.id),['2021040001']);
+ x.outage();x.advance(300001);feed=await x.get('NPB');
+ assert.equal(feed.status,'stale');assert.equal(feed.games.length,1);assert.equal(feed.retiredFixtures[0].id,old.id);
+ assert.deepEqual(x.stored[0],before);
+});
+
 test('a missing played final is retained all day even if the same teams won their series',async()=>{
  const old=conditional();old.status='final';old.home.score=1;old.away.score=4;
  const x=setup({stored:[old]}),feed=await x.get('NPB');

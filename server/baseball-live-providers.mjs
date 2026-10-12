@@ -95,7 +95,11 @@ export function parseNpb(scoreHtml,statsHtml,id,page){
  if(statsHtml){const statsTitle=plain(statsHtml.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'');assert(statsTitle.startsWith(`${Number(m[1])}年${Number(m[2])}月${Number(m[3])}日`),'NPB stats date conflict');
   for(const t of tableData(statsHtml)){const teamId=t.attrs.match(/--npbTeam(\d+)/)?.[1],side=teamId===g.away?.id?'away':teamId===g.home?.id?'home':null;if(!side)continue;const [headers,...rows]=t.rows;const kind=headers.includes('投球数')?'pitching':headers.includes('打数')?'batting':null;if(!kind)continue;
    const mappings=kind==='pitching'?{投球回:'INNINGS_PITCHED',投球数:'PITCHES_THROWN',被安打:'HITS_ALLOWED',自責点:'EARNED_RUNS',失点:'RUNS_ALLOWED',与四球:'WALKS_ALLOWED',奪三振:'STRIKEOUTS_THROWN'}:{打数:'AT_BATS',得点:'RUNS',安打:'HITS',打点:'RBIS',本塁打:'HOME_RUNS',四球:'WALKS',三振:'STRIKEOUTS'};
-   for(const row of rows){const name=row[headers.indexOf('選手名')];if(!name||name==='合計')continue;const stats=Object.fromEntries(Object.entries(mappings).map(([label,key])=>[key,numberOrNull(row[headers.indexOf(label)])]));const person={id:null,name,stats};if(kind==='pitching'){person.pitchCount=integerOrNull(stats.PITCHES_THROWN);person.outsRecorded=inningsToOuts(stats.INNINGS_PITCHED);}g[kind][side].push(person);}}
+   for(const row of rows){
+    // The batting total's 合計 cell spans position and player name. tableData
+    // retains one cell, so the first numeric total is not a player's name.
+    if(row[0]==='合計')continue;
+    const name=row[headers.indexOf('選手名')];if(!name||name==='合計')continue;const stats=Object.fromEntries(Object.entries(mappings).map(([label,key])=>[key,numberOrNull(row[headers.indexOf(label)])]));const person={id:null,name,stats};if(kind==='pitching'){person.pitchCount=integerOrNull(stats.PITCHES_THROWN);person.outsRecorded=inningsToOuts(stats.INNINGS_PITCHED);}g[kind][side].push(person);}}
  }
  g.warnings.push('provider_update_time_not_supplied','bso_and_bases_not_verified');return validateGame(g);
 }
