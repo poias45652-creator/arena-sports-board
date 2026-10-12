@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-12",
+  "capturedAt": "2026-10-12T15:02:19.335Z",
+  "observationType": "independent_public_final_state_check",
+  "notNewCollectorArtifact": true,
+  "firstTeamOnly": true,
+  "secondCapturePerformed": false,
+  "reasonNoSecondCapture": "all five first-team games final; zero currently live games",
+  "collectorReference": {
+    "runId": 35589830427,
+    "runAttempt": 44,
+    "artifactId": 11747766195,
+    "artifactCreatedAt": "2026-10-12T12:27:53Z",
+    "headSha": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
+    "isCurrentRun": false
+  },
+  "leagues": {
+    "NPB": {
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039479/score",
+      "observedStatus": "final",
+      "games": [
+        {
+          "gameId": "2021039479",
+          "away": "日本火腿",
+          "home": "西武",
+          "awayScore": 4,
+          "homeScore": 1,
+          "status": "final",
+          "runs": [
+            4,
+            1
+          ],
+          "hits": [
+            8,
+            5
+          ],
+          "errors": [
+            1,
+            1
+          ]
+        }
+      ],
+      "liveNumericChangeVerifiedThisObservation": false
+    },
+    "KBO": {
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-12&toDate=2026-10-12&page=1&pageSize=100",
+      "observedStatus": "final",
+      "excludedNonFirstTeamRows": 2,
+      "games": [
+        {
+          "gameId": "20261012KTSS02026",
+          "date": "2026-10-12",
+          "away": "KT",
+          "home": "삼성",
+          "awayScore": 4,
+          "homeScore": 2,
+          "status": "final",
+          "inningText": "9회말"
+        },
+        {
+          "gameId": "20261012LGHT02026",
+          "date": "2026-10-12",
+          "away": "LG",
+          "home": "KIA",
+          "awayScore": 2,
+          "homeScore": 4,
+          "status": "final",
+          "inningText": "9회초"
+        },
+        {
+          "gameId": "20261012LTOB02026",
+          "date": "2026-10-12",
+          "away": "롯데",
+          "home": "두산",
+          "awayScore": 7,
+          "homeScore": 4,
+          "status": "final",
+          "inningText": "9회말"
+        }
+      ],
+      "liveNumericChangeVerifiedThisObservation": false
+    },
+    "CPBL": {
+      "sourceURL": "https://stats.cpbl.com.tw/schedule/2026-E-4",
+      "observedStatus": "final",
+      "games": [
+        {
+          "gameId": "2026-E-4",
+          "gameType": "一軍季後挑戰賽",
+          "away": "統一7-ELEVEn獅",
+          "home": "中信兄弟",
+          "awayScore": 2,
+          "homeScore": 8,
+          "awayHits": 9,
+          "homeHits": 16,
+          "awayErrors": 1,
+          "homeErrors": 0,
+          "status": "final",
+          "pitchCount": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "lineupOfficiallyConfirmed": false
+        }
+      ],
+      "collectorParserStatus": "Not CPBL regular season (known failure; independent public result only)",
+      "liveNumericChangeVerifiedThisObservation": false
+    }
+  },
+  "earlierSameDayLiveEvidence": [
+    "data/live/20261012T072251Z-npb-independent-liveproof.json",
+    "data/live/20261012T103832Z-kbo-independent-liveproof.json",
+    "data/live/20261012T103847Z-cpbl-independent-liveproof.json"
+  ],
+  "sourceChecks": {
+    "npbFinalLabelFound": true,
+    "cpblFinalLabelFound": true,
+    "kboAllFirstTeamFinal": true,
+    "fetchErrors": []
+  },
+  "status": "final_check_only",
+  "productionChanged": false,
+  "deployed": false,
+  "caveats": [
+    "This final-state verification is not a fresh LIVE-to-LIVE proof.",
+    "CPBL raw box-score pitcher pitch count is not mapped to unverified live normalized pitchCount.",
+    "The older approved GitHub Actions workflow checks out a historical SHA; this independent check does not demonstrate parser repair."
+  ]
+}
