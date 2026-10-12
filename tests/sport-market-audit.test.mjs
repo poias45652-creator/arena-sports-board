@@ -96,9 +96,9 @@ const C=new Function('require','exports','React',code+'\nreturn exports.default;
 const analysis={status:'ready',capturedAt:new Date(now).toISOString(),expected:{home:2,away:1},probabilities:{home:.6,draw:.2,away:.2}};
 const render=s=>renderToStaticMarkup(React.createElement(C,{game:game(),analysis,snapshot:s,sport:'FOOTBALL',now}));
 test('actual expanded component shows two repaired cards, only available play counts, and precise failure text',()=>{
- assert.ok(render(source()).includes('3 種玩法'));
+ assert.ok(render(source()).includes('2 種玩法'));
  const s=source();s.sportGames[0].displayMarkets=s.sportGames[0].displayMarkets.slice(0,1);
  assert.ok(render(s).includes('1 種玩法'));assert.ok(render(s).includes('來源尚未提供此全場玩法'));
  s.fetchedAt=new Date(now-150000).toISOString();const html=render(s);
- assert.ok(html.includes('data-market-status="source_stale"'));assert.ok(html.includes('全場資料已過期'));assert.ok(!html.includes('3 種玩法'));assert.ok(!html.includes('尚未取得可配對的全場資料'));
+ assert.ok(html.includes('data-market-status="source_stale"'));assert.ok(html.includes('全場資料已過期'));assert.ok(!html.includes('2 種玩法'));assert.ok(!html.includes('尚未取得可配對的全場資料'));
 });
