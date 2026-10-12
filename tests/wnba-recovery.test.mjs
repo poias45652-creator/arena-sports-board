@@ -57,14 +57,14 @@ test('HTTP 200 without official directory data also recovers through a freshly v
  assert.ok([...a.playerContext.home,...a.playerContext.away].every(p=>p.status==='unknown'&&!p.minutesConfirmed));
 });
 
-test('present but invalid official data still blocks analysis instead of bypassing validation',async t=>{
+test('present but invalid official data disables player picks while retaining independently validated team data',async t=>{
  t.mock.method(Date,'now',()=>now+32*60000);
  t.mock.method(globalThis,'fetch',async url=>{
   assert.equal(new URL(url).hostname,'www.wnba.com');
   return new Response('<script id="__NEXT_DATA__">{"props":{"pageProps":{"defaultSeason":2026,"currentPlayersData":[]}}}</script>');
  });
  const a=await enrichWnbaPlayerStrength(game,base);
- assert.equal(a.status,'waiting');assert.equal(a.expected,undefined);assert.equal(a.probabilities,undefined);
+ assert.equal(a.status,'ready');assert.deepEqual(a.expected,base.expected);assert.equal(a.playerContext.status,'unavailable');assert.equal(a.playerContext.recommendationEligible,false);
 });
 
 test('missing individual page data preserves verified official membership with unknown availability',async t=>{
