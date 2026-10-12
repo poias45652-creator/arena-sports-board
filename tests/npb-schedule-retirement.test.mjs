@@ -113,6 +113,36 @@ test('any observed play, changed identity, future stage or more recent observati
  for(const mutate of variants){const g=game();mutate(g);assert.equal(isRetiredNpbFixture(g,proof,now),false);}
 });
 
+test('legacy zero-only batting totals captured before first pitch cannot preserve an unnecessary third game',()=>{
+ const proof=npbScheduleProof(page(),day),old=game();
+ // Observed legacy shape: a colspan totals row was parsed as a player named 0.
+ const row={id:null,name:'0',stats:{AT_BATS:0,RUNS:0,HITS:0,RBIS:0,HOME_RUNS:null,WALKS:0,STRIKEOUTS:0}};
+ old.source.fetchedAt='2026-10-11T08:32:09.030Z';
+ old.batting={home:[clone(row)],away:[clone(row)]};
+ const before=clone(old);
+ assert.equal(isRetiredNpbFixture(old,proof,now),true);assert.deepEqual(old,before);
+ for(const mutate of [
+  g=>g.source.fetchedAt=g.startTime,
+  g=>g.source.fetchedAt='2026-10-12T05:01:00Z',
+  g=>g.status='unknown',
+  g=>g.batting.home[0].stats.AT_BATS=1,
+  g=>g.batting.away[0].stats.WALKS=1,
+  g=>g.batting.home[0].stats.HOME_RUNS=-1,
+  g=>g.batting.home[0].stats.HITS='0',
+  g=>g.batting.home[0].stats.PLATE_APPEARANCES=0,
+  g=>delete g.batting.home[0].stats.HITS,
+  g=>g.batting.home.push({name:'missing stats'}),
+  g=>g.pitching.away=[{id:null,name:'0',pitchCount:0,outsRecorded:0,stats:{PITCHES_THROWN:0}}],
+  g=>g.innings.home=[{inning:1,runs:0}],
+  g=>g.outs=0,
+  g=>g.home.score=0,
+ ]){
+  const altered=clone(old);mutate(altered);assert.equal(isRetiredNpbFixture(altered,proof,now),false);
+ }
+ assert.equal(isRetiredNpbFixture(old,null,now),false);
+ assert.equal(isRetiredNpbFixture(old,npbScheduleProof(page({cards:[listed,unplayed]}),day),now),false);
+});
+
 test('old, future, cross-day or malformed proof never replaces newer state or hides a source failure',()=>{
  const original=npbScheduleProof(page(),day);
  const variants=[

@@ -9,6 +9,14 @@ const scheduleUrl=date=>`${ORIGIN}/npb/schedule/?date=${date}`;
 const csUrl=date=>`${ORIGIN}/npb/schedule/first/cs?date=${date}`;
 const gameId=value=>typeof value==='string'&&/^\d+$/.test(value);
 const teamsOk=g=>TEAM_IDS.has(g.homeId)&&TEAM_IDS.has(g.awayId)&&g.homeId!==g.awayId;
+const BATTING_METRICS=Object.freeze(['AT_BATS','RUNS','HITS','RBIS','HOME_RUNS','WALKS','STRIKEOUTS']);
+function emptyPregameBatting(rows){
+ return rows.length<=50&&rows.every(row=>{
+  const stats=row?.stats;
+  return stats&&typeof stats==='object'&&!Array.isArray(stats)&&Object.keys(stats).length===BATTING_METRICS.length&&
+   BATTING_METRICS.every(key=>Object.hasOwn(stats,key)&&(stats[key]===null||stats[key]===0));
+ });
+}
 function attrs(text){
  const result={};
  for(const m of text.matchAll(/\b([a-z][\w:-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/gi)){
@@ -170,7 +178,10 @@ export function npbFixtureRetirementDecision(game,proof,now=Date.now()){
    if(game[side].errors!==null&&game[side].errors!==undefined)return reject('team_metric:'+side+':errors');
    for(const kind of ['innings','batting','pitching'])if(game[kind]){
     if(!Array.isArray(game[kind][side]))return reject('table_invalid:'+side+':'+kind);
-    if(game[kind][side].length)return reject('table_nonempty:'+side+':'+kind);
+    // Legacy /stats parsing could turn a colspan "合計" row into a player
+    // with only zero/null batting totals. An explicit pregame observation made
+    // before the verified start cannot make those empty totals evidence of play.
+    if(game[kind][side].length&&!(kind==='batting'&&game.status==='pregame'&&previous<start&&emptyPregameBatting(game[kind][side])))return reject('table_nonempty:'+side+':'+kind);
    }
   }
   const listed=proof.listedGames;
