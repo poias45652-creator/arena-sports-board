@@ -23,6 +23,16 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
  for(const a of archives)if(a.league===league&&a.date===date)for(const x of a.excludedFixtures||[])if(x.start.startsWith(date+' '))excluded.set(excludedKey(x),x);
  const key=(g:PregameGame)=>`${g.start}|${internationalTeam(g.away.team,league)}|${internationalTeam(g.home.team,league)}`;
  for(const archive of archives){if(archive?.league!==league||archive.date!==date)continue;for(const g of archive.games){const old=byFixture.get(key(g));if(!old||Date.parse(g.source.observedAt)>Date.parse(old.source.observedAt))byFixture.set(key(g),g);}}
+ // Carry the live feed's verified series completion into the pregame archive,
+ // otherwise an obsolete conditional third game would reappear from storage.
+ for(const retired of feed.retiredFixtures||[]){
+  if(league!=='NPB'||retired.league!==league||retired.date!==date||retired.reason!=='npb_first_stage_completed'||
+     !Number.isFinite(Date.parse(retired.startTime))||!Number.isFinite(Date.parse(retired.source?.fetchedAt))||
+     retired.source?.url!==`https://baseball.yahoo.co.jp/npb/schedule/?date=${date}`)continue;
+  const x={start:taipeiStart(retired.startTime),away:retired.away,home:retired.home,status:'cancelled',
+   observedAt:retired.source.fetchedAt,sourceUrl:retired.source.url};
+  if(x.start.startsWith(date+' ')&&x.away&&x.home)excluded.set(excludedKey(x),x);
+ }
  for(const live of feed.games||[]){
   if(live.league===league&&live.date===date&&!live.sourceStale&&Number.isFinite(Date.parse(live.startTime))&&Number.isFinite(Date.parse(live.source?.fetchedAt))){
    const x={start:taipeiStart(live.startTime),away:live.away.name,home:live.home.name,status:live.status,observedAt:live.source.fetchedAt,sourceUrl:live.source.url},k=excludedKey(x),old=excluded.get(k);
