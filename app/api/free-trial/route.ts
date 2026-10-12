@@ -91,10 +91,24 @@ async function build(day:string):Promise<TrialData>{
  // Once selected, only query that competition; source failure never triggers a redraw.
  const pool=await candidates(day,storedGame?.league);
  let prior=await db.prepare('SELECT fixture_key FROM free_trial_selections WHERE day=?').bind(day).first<{fixture_key:string}>();
+ let selectedReport:TrialData|undefined;
  let chosen=pool.games.find(g=>g.key===(saved?.fixture_key||prior?.fixture_key));
  if(!saved&&!prior){
-  chosen=dailyTrialPick(pool.games.filter(g=>g.eligible),day);
-  if(!chosen)return {...base,status:pool.failed?'unavailable':'empty'};
+  // Lock only a fixture with a usable forecast captured before kickoff.
+  // Otherwise a missing NPB analysis would consume the whole day's free pick.
+  const remaining=pool.games.filter(g=>g.eligible);
+  const hadCandidates=remaining.length>0;
+  while(remaining.length){
+   const candidate=dailyTrialPick(remaining,day)!;
+   remaining.splice(remaining.indexOf(candidate),1);
+   const report=await analyze(candidate,day);
+   const at=Date.now();
+   if(report.probabilities&&at<Date.parse(candidate.start)){
+    report.predictionAt=new Date(at).toISOString();
+    chosen=candidate;selectedReport=report;break;
+   }
+  }
+  if(!chosen)return {...base,status:pool.failed||hadCandidates?'unavailable':'empty'};
   await db.prepare('INSERT INTO free_trial_selections (day,fixture_key,created_at) VALUES (?,?,?) ON CONFLICT(day) DO NOTHING').bind(day,chosen.key,Date.now()).run();
   prior=await db.prepare('SELECT fixture_key FROM free_trial_selections WHERE day=?').bind(day).first<{fixture_key:string}>();
   chosen=pool.games.find(g=>g.key===prior?.fixture_key);
@@ -102,12 +116,27 @@ async function build(day:string):Promise<TrialData>{
  if(!saved){
   if(!chosen)return {...base,status:'unavailable'};
   const {raw,eligible,progress:unused,...fixture}=chosen;
-  await db.prepare('INSERT INTO free_trial_daily (day,fixture_key,fixture) VALUES (?,?,?) ON CONFLICT(day) DO NOTHING').bind(day,chosen.key,JSON.stringify(fixture)).run();
+  await db.prepare('INSERT INTO free_trial_daily (day,fixture_key,fixture,forecast) VALUES (?,?,?,?) ON CONFLICT(day) DO NOTHING').bind(day,chosen.key,JSON.stringify(fixture),selectedReport?.game?.key===chosen.key?JSON.stringify(selectedReport):null).run();
   saved=await db.prepare('SELECT fixture_key,fixture,forecast,progress FROM free_trial_daily WHERE day=?').bind(day).first<Saved>();
  }
  if(!saved)throw Error('selection persistence failed');
  const game:TrialFixture=JSON.parse(saved.fixture);
  let forecast:TrialData|undefined=saved.forecast?JSON.parse(saved.forecast):undefined;
+ if(!forecast&&game.league==='NPB'){
+  try{
+   const fixtureKey=JSON.stringify(['NPB',Date.parse(game.start),internationalTeam(game.away,'NPB'),internationalTeam(game.home,'NPB')]);
+   const rows=await db.prepare('SELECT payload FROM international_forecasts WHERE league=? AND date=? AND fixture_key=? ORDER BY captured_at DESC').bind('NPB',day,fixtureKey).all();
+   for(const row of rows.results){
+    const snapshot=JSON.parse(String(row.payload)),at=Date.parse(snapshot.capturedAt);
+    const probabilities=trialProbabilities(snapshot.win);
+    if(snapshot.schemaVersion!==1||snapshot.league!=='NPB'||snapshot.date!==day||snapshot.fixtureKey!==fixtureKey||Date.parse(snapshot.startTime)!==Date.parse(game.start)||internationalTeam(snapshot.fixture?.home,'NPB')!==internationalTeam(game.home,'NPB')||internationalTeam(snapshot.fixture?.away,'NPB')!==internationalTeam(game.away,'NPB')||!Number.isFinite(at)||at>Date.now()||at>=Date.parse(game.start)||!probabilities||String(snapshot.version).includes('simulation'))continue;
+    const restored:TrialData={...base,status:'ready',game,probabilities,expected:snapshot.expectedFinal,predictionAt:snapshot.capturedAt};
+    await db.prepare('UPDATE free_trial_daily SET forecast=? WHERE day=? AND fixture_key=? AND forecast IS NULL').bind(JSON.stringify(restored),day,game.key).run();
+    const savedForecast=await db.prepare('SELECT forecast FROM free_trial_daily WHERE day=?').bind(day).first<{forecast:string|null}>();
+    forecast=savedForecast?.forecast?JSON.parse(savedForecast.forecast):undefined;break;
+   }
+  }catch{/* Missing audit storage must not hide the selected fixture. */}
+ }
  let details=forecast?.details;
  // Save the first valid pregame forecast atomically. Never manufacture a pick after kickoff.
  if(!forecast&&chosen?.eligible&&Date.now()<Date.parse(game.start)){
