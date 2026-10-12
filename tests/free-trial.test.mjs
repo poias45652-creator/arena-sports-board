@@ -94,3 +94,43 @@ test('three football scores preserve model order, deduplicate and support frozen
  assert.deepEqual(trialScorePredictions({game}),[]);
  for(const sport of ['basketball','baseball'])assert.deepEqual(trialScorePredictions({...data,game:{sport}}),[]);
 });
+
+test('NPB does not lock missing or simulated analysis and restores only captured pregame forecasts',async()=>{
+ const pg=new PGlite(),realNow=Date.now;
+ let clock=Date.parse('2026-10-12T04:00:00Z');Date.now=()=>clock;
+ try{
+  await pg.exec('BEGIN;'+fs.readFileSync('db/render-schema.sql','utf8')+'COMMIT;SET search_path TO yj_platform_v1,pg_catalog;');
+  globalThis.__npbDb={prepare(sql){let i=0;sql=sql.replace(/\?/g,()=>'$'+ ++i);return {bind(...args){return {first:async()=>(await pg.query(sql,args)).rows[0]??null,all:async()=>({results:(await pg.query(sql,args)).rows}),run:async()=>{await pg.query(sql,args);return {success:true};}};}};}};
+  globalThis.__npbMode='missing';
+  const stubs=`
+   const getRawDb=()=>globalThis.__npbDb;
+   const baseballSource=async()=>Response.json({games:[]});
+   const nbaSchedule=async()=>({games:[]});const wnbaSchedule=nbaSchedule;const FOOTBALL_LEAGUES=[];
+   const internationalTeam=(n)=>({'西武獅':'埼玉西武獅','日本火腿鬥士':'北海道日本火腿鬥士'}[n]||n||'');
+   const analysisStartTime=s=>Date.parse(s.replace(' ','T')+'+08:00');
+   const getInternationalLive=async()=>({status:'ready',games:[{id:'123',startTime:'2026-10-12T05:00:00Z',home:{name:'西武獅',score:1},away:{name:'日本火腿鬥士',score:4},status:Date.now()<Date.parse('2026-10-12T05:00:00Z')?'pregame':'live',source:{fetchedAt:new Date(Date.now()).toISOString()}}]});
+   const getInternationalPregame=async()=>({pregame:{league:'NPB',date:'2026-10-12',games:globalThis.__npbMode==='missing'?[]:[{league:'NPB',date:'2026-10-12',start:'2026-10-12 13:00',home:{team:'埼玉西武獅',starter:{name:'主投手'}},away:{team:'北海道日本火腿鬥士',starter:{name:'客投手'}}}]}});
+   const buildRunAnalysis=()=>({status:'ready',mode:globalThis.__npbMode==='simulation'?'simulation':undefined,win:{home:.6,away:.35,draw:.05},expected:{home:4,away:3}});
+  `;
+  const route=fs.readFileSync('app/api/free-trial/route.ts','utf8').replace(/^import .*;\n/gm,'');let serial=0;
+  const request=async()=>{const mod=await load(helpers+stubs+route+`\n// npb instance ${serial++}`);return (await mod.GET()).json();};
+  assert.equal((await request()).status,'unavailable');
+  assert.equal((await pg.query('SELECT * FROM free_trial_selections')).rows.length,0);
+  globalThis.__npbMode='simulation';assert.equal((await request()).status,'unavailable');
+  assert.equal((await pg.query('SELECT * FROM free_trial_daily')).rows.length,0);
+  globalThis.__npbMode='ready';const first=await request();
+  assert.equal(first.game.league,'NPB');assert.equal(first.probabilities.home,.6);
+  assert.equal(first.predictionAt,'2026-10-12T04:00:00.000Z');
+  clock=Date.parse('2026-10-12T06:00:00Z');const live=await request();
+  assert.deepEqual(live.probabilities,first.probabilities);assert.equal(live.progress.state,'live');
+  await pg.exec('UPDATE free_trial_daily SET forecast=NULL;');
+  assert.equal((await request()).probabilities,undefined);
+  const key=JSON.stringify(['NPB',Date.parse(first.game.start),'北海道日本火腿鬥士','埼玉西武獅']);
+  const snapshot={schemaVersion:1,league:'NPB',date:first.day,fixtureKey:key,startTime:first.game.start,capturedAt:first.predictionAt,version:'npb-v1',fixture:{home:'埼玉西武獅',away:'北海道日本火腿鬥士'},win:first.probabilities,expectedFinal:first.expected};
+  const insert=async(id,payload)=>pg.query('INSERT INTO international_forecasts (id,league,fixture_key,date,start_time,captured_at,version,payload) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',[id,'NPB',key,first.day,first.game.start,payload.capturedAt,'npb-v1',JSON.stringify(payload)]);
+  await insert('late',{...snapshot,capturedAt:'2026-10-12T05:01:00Z'});
+  assert.equal((await request()).probabilities,undefined);
+  await insert('valid',snapshot);const restored=await request();
+  assert.deepEqual(restored.probabilities,first.probabilities);assert.equal(restored.predictionAt,first.predictionAt);
+ }finally{Date.now=realNow;delete globalThis.__npbDb;delete globalThis.__npbMode;await pg.close();}
+});
