@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-12",
+  "league": "KBO",
+  "sourceType": "independent_public_source_observation",
+  "provenance": "2026-10-12 18:38 Asia/Taipei prior observation; not a new GitHub Actions artifact",
+  "source": "Naver Sports public schedule",
+  "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-12&toDate=2026-10-12&page=1&pageSize=100",
+  "capturedAt": "2026-10-12T10:38:32.431Z",
+  "firstTeamGames": 3,
+  "excludedNonFirstTeamScheduleRows": 2,
+  "verifiedLiveChanges": [
+    {
+      "gameId": "20261012KTSS02026",
+      "away": "KT巫師",
+      "home": "三星獅",
+      "first": {
+        "requestedAt": "2026-10-12T10:34:22.726Z",
+        "receivedAt": "2026-10-12T10:34:26.595Z",
+        "status": "live",
+        "inning": "4回表",
+        "awayScore": 1,
+        "homeScore": 1
+      },
+      "second": {
+        "requestedAt": "2026-10-12T10:36:07.422Z",
+        "receivedAt": "2026-10-12T10:36:10.924Z",
+        "status": "live",
+        "inning": "4回表",
+        "awayScore": 2,
+        "homeScore": 1
+      },
+      "conservativeIntervalSeconds": 100.827,
+      "changes": {
+        "awayScore": {
+          "before": 1,
+          "after": 2
+        }
+      }
+    },
+    {
+      "gameId": "20261012LGHT02026",
+      "away": "LG雙子",
+      "home": "起亞虎",
+      "first": {
+        "requestedAt": "2026-10-12T10:36:07.422Z",
+        "receivedAt": "2026-10-12T10:36:10.924Z",
+        "status": "live",
+        "inning": "4回裏",
+        "awayScore": 1,
+        "homeScore": 1
+      },
+      "second": {
+        "requestedAt": "2026-10-12T10:38:29.476Z",
+        "receivedAt": "2026-10-12T10:38:32.431Z",
+        "status": "live",
+        "inning": "4回裏",
+        "awayScore": 1,
+        "homeScore": 2
+      },
+      "conservativeIntervalSeconds": 138.552,
+      "changes": {
+        "homeScore": {
+          "before": 1,
+          "after": 2
+        }
+      }
+    }
+  ],
+  "otherGame": {
+    "id": "20261012LTOB02026",
+    "away": "樂天巨人",
+    "home": "斗山熊",
+    "score": {
+      "away": 5,
+      "home": 2
+    },
+    "status": "live",
+    "qualifyingChange": false
+  },
+  "warnings": [
+    "Short-lived KBO schedule/detail score conflict observed at approximately 10:35:35Z; the schedule was briefly 1-1 when more recent game detail was 2-1.",
+    "API publication latency not independently verified."
+  ],
+  "unknownFields": {
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null
+  },
+  "deployed": false
+}
