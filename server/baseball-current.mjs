@@ -33,7 +33,7 @@ export async function collectLeague(league,options={}){
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
  const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
- const ids=npbScheduleIds(schedule.text),scheduleProof=npbScheduleProof(schedule,date),games=[],errors=[],warnings=[],npbTextPages=new Map();
+ const scheduleVerification={},ids=npbScheduleIds(schedule.text),scheduleProof=npbScheduleProof(schedule,date,scheduleVerification),games=[],errors=[],warnings=[],npbTextPages=new Map();
  if(!ids.length)throw new Error('No recognizable first-team schedule; not proof of no games');
  const anchors=[...schedule.text.matchAll(/<a\b[^>]*href=["'][^"']*\/npb\/game\/(\d+)\/(?:index|score)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)];
  await Promise.all(ids.map(async id=>{
@@ -89,5 +89,5 @@ export async function collectLeague(league,options={}){
    games.push(g);
   }catch(e){errors.push(id+': '+e.message);}
  }));
- return enrichLeaguePlayText({schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games,errors,warnings,scheduleProof,status:errors.length?'partial':'ok',liveLatencyVerified:false},{...options,npbTextPages});
+ return enrichLeaguePlayText({schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games,errors,warnings,scheduleProof,scheduleVerification,status:errors.length?'partial':'ok',liveLatencyVerified:false},{...options,npbTextPages});
 }

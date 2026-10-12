@@ -1,5 +1,25 @@
 /** Independent request-bounded refresh loops; hosting sleep still stops this process. */
 export const BASEBALL_LEAGUES = Object.freeze(['CPBL', 'NPB', 'KBO']);
+// Bounded public-source diagnostics: no player names or stored payload contents.
+function tableShape(game,kind,side){
+  const rows=game[kind]?.[side];if(!Array.isArray(rows))return {rows:'invalid'};
+  const nonNull=new Set(),positive=new Set();
+  for(const row of rows){
+    const metrics=kind==='innings'?{runs:row?.runs}:{...row?.stats,...(kind==='pitching'?{pitchCount:row?.pitchCount,outsRecorded:row?.outsRecorded}:{})};
+    for(const [key,value] of Object.entries(metrics)){
+      if(value!==null&&value!==undefined)nonNull.add(key);
+      if(typeof value==='number'&&value>0)positive.add(key);
+    }
+  }
+  return {rows:rows.length,nonNullMetricKeys:[...nonNull].sort().slice(0,30),positiveMetricKeys:[...positive].sort().slice(0,30)};
+}
+function npbStaleShape(game){
+  return {key:game.key,date:game.date,idType:typeof game.id,homeIdType:typeof game.home?.id,awayIdType:typeof game.away?.id,
+    rawStatus:String(game.rawStatus||'').slice(0,160),homeHits:game.home?.hits,awayHits:game.away?.hits,homeErrors:game.home?.errors,awayErrors:game.away?.errors,
+    liveStateObserved:game.liveStateObserved,liveChangesVerified:game.liveChangesVerified,
+    nonNullStateFields:['inning','half','balls','strikes','outs','bases','currentBatter','currentPitcher','currentAtBat'].filter(k=>game[k]!==null&&game[k]!==undefined),
+    tables:Object.fromEntries(['innings','batting','pitching'].map(kind=>[kind,Object.fromEntries(['home','away'].map(side=>[side,tableShape(game,kind,side)]))]))};
+}
 export function createBaseballRefreshLoops({getLive, getPregame, day,
   now=Date.now, schedule=setTimeout, cancel=clearTimeout, onTick=(_state)=>{}, staggerMs=15000}) {
   let stopped=true;
@@ -22,9 +42,16 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       state.status=feed.status;state.games=feed.games.length;
       state.sourceErrors=feed.sourceErrors||[];
       state.retiredFixtures=(feed.retiredFixtures||[]).map(g=>({id:g.id,reason:g.reason}));
+      if(league==='NPB'){
+        const proof=feed.scheduleProof;
+        state.scheduleVerification={available:!!proof,stage:feed.scheduleVerification?.stage,
+          date:proof?.date,sourceFetchedAt:proof?.source?.fetchedAt,
+          listedGames:proof?.listedGames,completedFirstStages:proof?.completedFirstStages};
+        state.retirementChecks=(feed.retirementChecks||[]).map(g=>({id:g.id,retired:g.retired,reason:g.reason}));
+      }
       state.staleFixtures=feed.games.filter(g=>g.sourceStale).map(g=>({id:g.id,status:g.status,
         homeId:g.home?.id,awayId:g.away?.id,homeScore:g.home?.score,awayScore:g.away?.score,
-        startTime:g.startTime,fetchedAt:g.source?.fetchedAt,url:g.source?.url}));
+        startTime:g.startTime,fetchedAt:g.source?.fetchedAt,url:g.source?.url,...(league==='NPB'?npbStaleShape(g):{})}));
       if(feed.stale||feed.status==='unavailable')throw Error('來源暫時無法更新');
       failures.set(league,0);state.succeededAt=new Date(now()).toISOString();state.error=null;
       const nextDate=league==='CPBL'&&feed.noGames&&/^\d{4}-\d{2}-\d{2}$/.test(feed.nextGameDate||'')&&feed.nextGameDate>date&&Date.parse(feed.nextGameDate)-Date.parse(date)<=7*86400000?feed.nextGameDate:null;

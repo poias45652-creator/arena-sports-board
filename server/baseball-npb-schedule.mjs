@@ -83,21 +83,30 @@ function completedSweeps(data,date){
 
 /** A dated, complete first-team calendar plus its exact CS first-stage bracket.
  * Unknown or partial markup cannot authorize removing a previously seen game. */
-export function npbScheduleProof(page,date){
+export function npbScheduleProof(page,date,diagnostics){
+ let stage='date';
  try{
-  if(!isDay(date)||page?.url!==scheduleUrl(date)||typeof page.text!=='string'||page.text.length>8000000||!Number.isFinite(Date.parse(page.fetchedAt)))return null;
+  if(!isDay(date))return null;
+  stage='source';
+  if(page?.url!==scheduleUrl(date)||typeof page.text!=='string'||page.text.length>8000000||!Number.isFinite(Date.parse(page.fetchedAt)))return null;
+  stage='canonical';
   const html=page.text,metas=[...html.matchAll(/<meta\b([^>]*)>/gi)].map(m=>attrs(m[1])).filter(a=>a.property==='og:url');
   if(metas.length!==1||metas[0].content!==page.url)return null;
+  stage='heading';
   const [year,month,day]=date.split('-').map(Number),weekday='日月火水木金土'[new Date(date+'T00:00:00Z').getUTCDay()],label=`${month}月${day}日（${weekday}）`;
   const headings=blocks(html,'h2').filter(b=>hasClass(b.attrs,'bb-head01__title')&&/^\d+月\d+日[（(]/.test(plain(b.body)));
   if(headings.length!==1||plain(headings[0].body)!==label)return null;
+  stage='menu';
   const menu=byId(html,'nav','sch_menu'),selected=blocks(menu.body,'li').filter(b=>hasClass(b.attrs,'bb-menuWhite__item--current'));
   if(selected.length!==1||blocks(selected[0].body,'a').length!==1||blocks(selected[0].body,'a')[0].attrs.href!=='/npb/schedule/first/all')return null;
+  stage='navigation';
   const navigation=blocks(byId(html,'nav','day_nav').body,'a').map(a=>a.attrs.href);
   if(![-1,1].every(n=>navigation.includes(`/npb/schedule/first/all?date=${shift(date,n)}`)))return null;
+  stage='cards';
   const listedGames=blocks(byId(html,'div','gm_card').body,'a').filter(a=>hasClass(a.attrs,'bb-score__content')).map(listedCard);
   if(!listedGames.length||listedGames.length>12||new Set(listedGames.map(g=>g.id)).size!==listedGames.length)return null;
   const collectorIds=npbScheduleIds(html);if(collectorIds.length!==listedGames.length||listedGames.some(g=>!collectorIds.includes(g.id)))return null;
+  stage='calendar';
   const calendar=byId(html,'table','wk_sche'),days=blocks(calendar.body,'tbody').filter(b=>blocks(b.body,'th').some(h=>hasClass(h.attrs,'bb-scheduleTable__head')&&plain(h.body)===label));
   if(days.length!==1)return null;
   const rows=blocks(days[0].body,'tr').filter(r=>hasClass(r.attrs,'bb-scheduleTable__row')),heads=blocks(days[0].body,'th');
@@ -106,39 +115,92 @@ export function npbScheduleProof(page,date){
   if(calendarGames.length!==listedGames.length||new Set(calendarGames.map(key)).size!==calendarGames.length||calendarGames.some(g=>!listedGames.some(c=>key(c)===key(g))))return null;
   // The adjacent date links and canonical URL establish the year. Keep the
   // explicit check here so a malformed numeric date cannot become provenance.
+  stage='date';
   if(year<2000||year>2100)return null;
+  stage='tournament';
   const completedFirstStages=completedSweeps(tournamentData(html),date);
-  return {schemaVersion:1,kind:KIND,league:'NPB',date,source:{provider:'sportsnavi',url:page.url,fetchedAt:page.fetchedAt},listedGames,completedFirstStages};
+  const proof={schemaVersion:1,kind:KIND,league:'NPB',date,source:{provider:'sportsnavi',url:page.url,fetchedAt:page.fetchedAt},listedGames,completedFirstStages};
+  stage='verified';return proof;
  }catch{return null;}
+ finally{
+  // Diagnostics contain only this bounded stage enum, never source HTML or
+  // exception messages. A missing/frozen diagnostics target changes no result.
+  if(diagnostics&&typeof diagnostics==='object'&&!Array.isArray(diagnostics))try{diagnostics.stage=stage;}catch{}
+ }
+}
+
+/** The existing retirement guards with a bounded explanation of the first
+ * rejecting guard. Dynamic reason suffixes come only from fixed field lists. */
+export function npbFixtureRetirementDecision(game,proof,now=Date.now()){
+ const reject=reason=>({retired:false,reason});
+ try{
+  if(!game)return reject('fixture_missing');
+  if(game.league!=='NPB')return reject('fixture_league');
+  if(!gameId(game.id))return reject('fixture_id');
+  if(game.key!==`NPB:${game.id}`)return reject('fixture_key');
+  if(!isDay(game.date))return reject('fixture_date');
+  if(!['pregame','unknown'].includes(game.status))return reject('fixture_status');
+  if(!Number.isFinite(now))return reject('clock_invalid');
+  if(dayInTaipei(new Date(now))!==game.date)return reject('fixture_day');
+  if(proof?.schemaVersion!==1)return reject('proof_schema');
+  if(proof.kind!==KIND)return reject('proof_kind');
+  if(proof.league!=='NPB')return reject('proof_league');
+  if(proof.date!==game.date)return reject('proof_date');
+  if(proof.source?.provider!=='sportsnavi')return reject('proof_provider');
+  if(proof.source.url!==scheduleUrl(game.date))return reject('proof_source_url');
+  const at=Date.parse(proof.source.fetchedAt),previous=Date.parse(game.source?.fetchedAt),start=Date.parse(game.startTime);
+  if(!Number.isFinite(at))return reject('proof_time_invalid');
+  if(!Number.isFinite(previous))return reject('fixture_time_invalid');
+  if(now-at< -60000)return reject('proof_time_future');
+  if(now-at>900000)return reject('proof_time_stale');
+  if(at<previous)return reject('proof_older_than_fixture');
+  if(!Number.isFinite(start))return reject('fixture_start_invalid');
+  if(new Date(start+9*3600000).toISOString().slice(0,10)!==game.date)return reject('fixture_start_date');
+  if(!['score','top'].some(part=>game.source?.url===`${ORIGIN}/npb/game/${game.id}/${part}`))return reject('fixture_source_url');
+  if(game.home?.score!==null)return reject('score_home_present');
+  if(game.away?.score!==null)return reject('score_away_present');
+  if(!teamsOk({homeId:game.home?.id,awayId:game.away?.id}))return reject('fixture_team_identity');
+  if(game.liveStateObserved)return reject('observed_live_state');
+  if(game.liveChangesVerified)return reject('verified_live_changes');
+  for(const field of ['inning','half','balls','strikes','outs','bases','currentBatter','currentPitcher','currentAtBat'])if(game[field]!==null&&game[field]!==undefined)return reject('play_field:'+field);
+  if(/試合終了|コールド|\d+回[表裏]|中断/.test(game.rawStatus||''))return reject('raw_status_played');
+  if(game.status==='unknown'&&!/予告先発|スタメン|見どころ|試合前|開始前/.test(game.rawStatus||''))return reject('unknown_status_without_pregame_marker');
+  for(const side of ['home','away']){
+   if(game[side].hits!==null&&game[side].hits!==undefined)return reject('team_metric:'+side+':hits');
+   if(game[side].errors!==null&&game[side].errors!==undefined)return reject('team_metric:'+side+':errors');
+   for(const kind of ['innings','batting','pitching'])if(game[kind]){
+    if(!Array.isArray(game[kind][side]))return reject('table_invalid:'+side+':'+kind);
+    if(game[kind][side].length)return reject('table_nonempty:'+side+':'+kind);
+   }
+  }
+  const listed=proof.listedGames;
+  if(!Array.isArray(listed))return reject('proof_listed_games_missing');
+  if(!listed.length)return reject('proof_listed_games_empty');
+  if(listed.length>12)return reject('proof_listed_games_excessive');
+  if(listed.some(g=>!gameId(g.id)||!teamsOk(g)))return reject('proof_listed_game_invalid');
+  if(new Set(listed.map(g=>g.id)).size!==listed.length)return reject('proof_listed_game_duplicate');
+  if(listed.some(g=>g.id===game.id))return reject('fixture_still_listed');
+  // A reissued ID or reversed venue for this matchup contradicts a stale
+  // tournament bracket. Keep the old record until its identity is reconciled.
+  if(listed.some(g=>g.homeId===game.home.id&&g.awayId===game.away.id||g.homeId===game.away.id&&g.awayId===game.home.id))return reject('matchup_still_listed');
+  if(!Array.isArray(proof.completedFirstStages))return reject('proof_series_missing');
+  const series=proof.completedFirstStages.filter(s=>s.homeId===game.home.id&&s.awayId===game.away.id);
+  if(!series.length)return reject('proof_series_no_match');
+  if(series.length!==1)return reject('proof_series_ambiguous');const s=series[0];
+  if(!isDay(s.startDate))return reject('series_start_invalid');
+  if(s.startDate.slice(0,4)!==game.date.slice(0,4))return reject('series_year_conflict');
+  if(shift(s.startDate,2)!==game.date)return reject('series_third_day_mismatch');
+  if(s.thirdGameDate!==game.date)return reject('series_date_conflict');
+  if(s.sourceUrl!==csUrl(s.startDate))return reject('series_source_url');
+  const winner=Array.isArray(s.wins)&&s.wins.length===2?s.wins[0]===2&&s.wins[1]===0?0:s.wins[0]===0&&s.wins[1]===2?1:-1:-1;
+  if(winner<0)return reject('series_not_sweep');
+  if(s.winnerId!==[s.homeId,s.awayId][winner])return reject('series_winner_mismatch');
+  if(s.eliminatedId!==[s.homeId,s.awayId][1-winner])return reject('series_eliminated_mismatch');
+  return {retired:true,reason:'npb_first_stage_completed'};
+ }catch{return reject('invalid_input');}
 }
 
 /** Remove only an unplayed, now-unneeded first-stage Game 3, never stale play. */
 export function isRetiredNpbFixture(game,proof,now=Date.now()){
- try{
-  if(!game||game.league!=='NPB'||!gameId(game.id)||game.key!==`NPB:${game.id}`||!isDay(game.date)||!['pregame','unknown'].includes(game.status))return false;
-  if(!Number.isFinite(now)||dayInTaipei(new Date(now))!==game.date||proof?.schemaVersion!==1||proof.kind!==KIND||proof.league!=='NPB'||proof.date!==game.date)return false;
-  if(proof.source?.provider!=='sportsnavi'||proof.source.url!==scheduleUrl(game.date))return false;
-  const at=Date.parse(proof.source.fetchedAt),previous=Date.parse(game.source?.fetchedAt),start=Date.parse(game.startTime);
-  if(!Number.isFinite(at)||!Number.isFinite(previous)||now-at< -60000||now-at>900000||at<previous||!Number.isFinite(start)||new Date(start+9*3600000).toISOString().slice(0,10)!==game.date)return false;
-  if(!['score','top'].some(part=>game.source?.url===`${ORIGIN}/npb/game/${game.id}/${part}`))return false;
-  if(game.home?.score!==null||game.away?.score!==null||!teamsOk({homeId:game.home?.id,awayId:game.away?.id}))return false;
-  if(game.liveStateObserved||game.liveChangesVerified||['inning','half','balls','strikes','outs','bases','currentBatter','currentPitcher','currentAtBat'].some(k=>game[k]!==null&&game[k]!==undefined))return false;
-  if(/試合終了|コールド|\d+回[表裏]|中断/.test(game.rawStatus||''))return false;
-  if(game.status==='unknown'&&!/予告先発|スタメン|見どころ|試合前|開始前/.test(game.rawStatus||''))return false;
-  for(const side of ['home','away']){
-   if(game[side].hits!==null&&game[side].hits!==undefined||game[side].errors!==null&&game[side].errors!==undefined)return false;
-   for(const kind of ['innings','batting','pitching'])if(game[kind]&&(!Array.isArray(game[kind][side])||game[kind][side].length))return false;
-  }
-  const listed=proof.listedGames;
-  if(!Array.isArray(listed)||!listed.length||listed.length>12||listed.some(g=>!gameId(g.id)||!teamsOk(g))||new Set(listed.map(g=>g.id)).size!==listed.length||listed.some(g=>g.id===game.id))return false;
-  // A reissued ID or reversed venue for this matchup contradicts a stale
-  // tournament bracket. Keep the old record until its identity is reconciled.
-  if(listed.some(g=>g.homeId===game.home.id&&g.awayId===game.away.id||g.homeId===game.away.id&&g.awayId===game.home.id))return false;
-  if(!Array.isArray(proof.completedFirstStages))return false;
-  const series=proof.completedFirstStages.filter(s=>s.homeId===game.home.id&&s.awayId===game.away.id);
-  if(series.length!==1)return false;const s=series[0];
-  if(!isDay(s.startDate)||s.startDate.slice(0,4)!==game.date.slice(0,4)||shift(s.startDate,2)!==game.date||s.thirdGameDate!==game.date||s.sourceUrl!==csUrl(s.startDate))return false;
-  const winner=Array.isArray(s.wins)&&s.wins.length===2?s.wins[0]===2&&s.wins[1]===0?0:s.wins[0]===0&&s.wins[1]===2?1:-1:-1;
-  return winner>=0&&s.winnerId===[s.homeId,s.awayId][winner]&&s.eliminatedId===[s.homeId,s.awayId][1-winner];
- }catch{return false;}
+ return npbFixtureRetirementDecision(game,proof,now).retired;
 }
