@@ -79,25 +79,32 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   // Reconcile all feeds together so a quarantined ID cannot return via fallback.
   // Preserve each competition identity; lower-division scores are never relabeled.
   const merged=reconcileFootballHistory([...live,...extraSuccess.flatMap(r=>r.games)],archive);
-  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games);const warnings:string[]=[];
-  if(missing.length)warnings.push(`${missing.length}份歷史來源未完成；歷史快照日期 ${footballArchiveCutoff.slice(0,10)}。`);
-  if(merged.conflicts)warnings.push(`${merged.conflicts}場歷史賽果衝突，已排除。`);
-  if(extraResults.some(r=>r.status==='rejected'))warnings.push('部分跨賽事近況未完成，僅採用已核對的賽果。');
-  if(analysis.historyMode==='recent-form')warnings.push(`已補充跨賽事近況：主隊${analysis.homeForm?.supplementGames||0}場、客隊${analysis.awayForm?.supplementGames||0}場；另行驗證此版本。`);
-  if([analysis.homeForm,analysis.awayForm].some(f=>f&&f.games<10))warnings.push('至少一隊少於10場樣本，估計較不穩定。');
+  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games);
+  const primaryHomeForm=analysis.homeForm,primaryAwayForm=analysis.awayForm;
   // The archive can fill a previous season only after that season ended.
   // These European seasons start in the named year and finish by June next year.
   if(missing.some(r=>(r.year===game.season||Date.UTC(r.year+1,6,1)>Date.parse(footballArchiveCutoff))&&!extraSuccess.some(e=>e.team===r.team&&e.year===r.year))){
     analysis.status='waiting';analysis.reason='本季賽果來源未完整更新，暫停分析以免遺漏最新比賽。';
     delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.lean;
   }
-  analysis.quality={label:warnings.length?'資料有限':'基本賽果完整',warnings,historyConflicts:merged.conflicts,archiveSupplementGames:merged.supplemented};
   const external=await externalRequest;
   if(external)analysis=applyExternalFootballAnalysis(game,analysis,merged.games,external);
   const market=await marketRequest;
   if(market)analysis=applyFootballMarketAnalysis(game,analysis,market);
-  else if(marketActive&&analysis.quality){analysis.quality.label='資料有限';analysis.quality.warnings.push('第二輪模型已通過，但聯賽年度來源暫時未更新，沿用既有分析。');}
-  return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:merged.supplemented?footballArchiveCutoff:null};
+  // Describe the history used by the final estimate, including an external
+  // baseline recovery that replaces the form without activating new parameters.
+  const adoptedLeagueHistory=!!analysis.external&&(analysis.homeForm!==primaryHomeForm||analysis.awayForm!==primaryAwayForm);
+  const historyConflicts=adoptedLeagueHistory?analysis.external!.conflicts:merged.conflicts;
+  const archiveSupplementGames=adoptedLeagueHistory?0:merged.supplemented;
+  const warnings:string[]=[];
+  if(missing.length)warnings.push(adoptedLeagueHistory?`${missing.length}份球隊歷史來源未完成；本場以已核對的聯賽歷史計算。`:`${missing.length}份歷史來源未完成；歷史快照日期 ${footballArchiveCutoff.slice(0,10)}。`);
+  if(historyConflicts)warnings.push(`${historyConflicts}場歷史賽果衝突，已排除。`);
+  if(!adoptedLeagueHistory&&extraResults.some(r=>r.status==='rejected'))warnings.push('部分跨賽事近況未完成，僅採用已核對的賽果。');
+  if(analysis.historyMode==='recent-form')warnings.push(`已補充跨賽事近況：主隊${analysis.homeForm?.supplementGames||0}場、客隊${analysis.awayForm?.supplementGames||0}場；另行驗證此版本。`);
+  if([analysis.homeForm,analysis.awayForm].some(f=>f&&f.games<10))warnings.push('至少一隊少於10場樣本，估計較不穩定。');
+  if(marketActive&&!market)warnings.push('第二輪模型已通過，但聯賽年度來源暫時未更新，沿用既有分析。');
+  analysis.quality={label:warnings.length?'資料有限':'基本賽果完整',warnings,historyConflicts,archiveSupplementGames};
+  return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 
 async function nationalGameAnalysis(game:FootballGame){

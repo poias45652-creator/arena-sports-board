@@ -51,3 +51,21 @@ test('integer predicted scores cannot tie or contradict the favored side',()=>{
  assert.equal(match.nbaDisplayedScore({home:88,away:88},{home:.5,away:.5}),null);
  assert.deepEqual(match.nbaDisplayedScore({home:110.2,away:105.3},{home:.6,away:.4}),{home:110,away:105,total:215,margin:5});
 });
+
+test('NBA shared market panel distinguishes a completed waiting report from an active request or failure',()=>{
+ const waiting={game,analysis:{...report.analysis,status:'waiting',expected:undefined,probabilities:undefined,playerContext:{status:'unavailable',reason:'outside_availability_window'}}};
+ const waitingHtml=render(Card,{game,report:waiting,sport:'NBA',now,unavailable:false,showAnalysis:true});
+ assert.ok(waitingHtml.includes('data-analysis-state="waiting"'));
+ assert.ok(waitingHtml.includes('開賽前 72 小時'));
+ assert.ok(!waitingHtml.includes('分析更新中'));
+ assert.ok(!waitingHtml.includes('正在計算'));
+ const failed=render(Card,{game,report:{game,error:'request failed'},sport:'NBA',now,unavailable:false,showAnalysis:true});
+ assert.ok(failed.includes('data-analysis-state="error"'));
+ assert.ok(failed.includes('分析更新失敗，將自動重試'));
+ const pending=render(Card,{game,sport:'NBA',now,unavailable:false,showAnalysis:true,oddsLoading:true});
+ assert.ok(pending.includes('data-analysis-state="loading"'));
+ assert.ok(pending.includes('玩法資料載入中'));
+ const unavailable=render(Card,{game,report:waiting,sport:'NBA',now,unavailable:true,showAnalysis:true});
+ assert.ok(unavailable.includes('data-analysis-state="unavailable"'));
+ assert.ok(unavailable.includes('賽程資料暫時無法確認'));
+});

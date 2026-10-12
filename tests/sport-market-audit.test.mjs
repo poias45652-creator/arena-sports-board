@@ -94,11 +94,52 @@ test('audit emits bounded allowlisted source metadata without credentials, raw r
 const code=ts.transpileModule(fs.readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
 const C=new Function('require','exports','React',code+'\nreturn exports.default;')(key=>{assert.equal(key,'@/lib/sport-super-markets');return m;},{},React);
 const analysis={status:'ready',capturedAt:new Date(now).toISOString(),expected:{home:2,away:1},probabilities:{home:.6,draw:.2,away:.2}};
-const render=s=>renderToStaticMarkup(React.createElement(C,{game:game(),analysis,snapshot:s,sport:'FOOTBALL',now}));
+const render=(s,props={})=>renderToStaticMarkup(React.createElement(C,{game:game(),analysis,snapshot:s,sport:'FOOTBALL',now,...props}));
 test('actual expanded component shows two repaired cards, only available play counts, and precise failure text',()=>{
  assert.ok(render(source()).includes('2 種玩法'));
  const s=source();s.sportGames[0].displayMarkets=s.sportGames[0].displayMarkets.slice(0,1);
  assert.ok(render(s).includes('1 種玩法'));assert.ok(render(s).includes('來源尚未提供此全場玩法'));
  s.fetchedAt=new Date(now-150000).toISOString();const html=render(s);
  assert.ok(html.includes('data-market-status="source_stale"'));assert.ok(html.includes('全場資料已過期'));assert.ok(!html.includes('2 種玩法'));assert.ok(!html.includes('尚未取得可配對的全場資料'));
+});
+test('an absent future fixture does not discard a ready model or invent available markets',()=>{
+ const s=source();s.sportGames[0].competition='eng.1';s.sportGames[0].home='阿森納';s.sportGames[0].away='切爾西';
+ const before=JSON.stringify(s),html=render(s);
+ assert.ok(html.includes('data-analysis-state="ready"'));assert.ok(html.includes('data-market-status="fixture_unmatched"'));
+ assert.ok(html.includes('來源尚未提供本場玩法'));assert.ok(html.includes('本場可確認的對應資料'));
+ assert.ok(!html.includes('分析更新中'));assert.ok(!html.includes('2 種玩法'));assert.ok(!html.includes('sport-market-quote'));
+ assert.equal(m.matchSportEvent(s,game(),'FOOTBALL',now),null);assert.equal(JSON.stringify(s),before);
+});
+test('completed insufficient-data and error reports expose their reason instead of indefinite loading',()=>{
+ const reason='歷史不足：主隊1場、客隊7場；各需至少5場。';
+ for(const [analysisState,analysisMessage,label] of [['waiting',reason,'分析資料不足'],['error','足球分析來源暫時無法讀取','分析更新失敗'],['unavailable','目前沒有可用的分析','分析暫不可用']]){
+  const html=render(source(),{analysis:null,analysisState,analysisMessage});
+  assert.ok(html.includes(`data-analysis-state="${analysisState}"`));assert.ok(html.includes(analysisMessage));assert.ok(html.includes(label));
+  assert.ok(html.includes('2 種玩法'));assert.ok(!html.includes('分析更新中'));assert.ok(!html.includes('分析載入中'));assert.ok(!html.includes('推薦'));
+ }
+ const html=render(source(),{analysis:{status:'waiting',reason,capturedAt:new Date(now).toISOString()}});
+ assert.ok(html.includes(reason));assert.ok(html.includes('data-analysis-state="waiting"'));
+});
+test('model loading and source loading are explicit independent states; stale or absent models cannot be promoted',()=>{
+ const idle=render(null,{analysis:undefined});
+ assert.ok(idle.includes('分析暫不可用'));assert.ok(idle.includes('尚未取得玩法資料'));assert.ok(!idle.includes('載入中'));
+ const modelLoading=render(source(),{analysis:undefined,analysisState:'loading'});
+ assert.ok(modelLoading.includes('分析載入中'));assert.ok(modelLoading.includes('2 種玩法'));assert.ok(!modelLoading.includes('玩法資料載入中'));
+ const sourceLoading=render(null,{sourceLoading:true});
+ assert.ok(sourceLoading.includes('data-analysis-state="ready"'));assert.ok(sourceLoading.includes('玩法資料載入中'));assert.ok(!sourceLoading.includes('分析載入中'));
+ const stale=render(source(),{analysis:{...analysis,capturedAt:new Date(now-900000).toISOString()},analysisState:'ready'});
+ assert.ok(stale.includes('data-analysis-state="stale"'));assert.ok(stale.includes('分析已過期'));assert.ok(!stale.includes('推薦'));
+ const invalid=render(source(),{analysis:undefined,analysisState:'ready'});
+ assert.ok(invalid.includes('data-analysis-state="unavailable"'));assert.ok(!invalid.includes('推薦'));
+ const retained=render(source(),{analysisState:'loading'});
+ assert.ok(retained.includes('data-analysis-state="ready"'));assert.ok(!retained.includes('分析載入中'));
+});
+test('source errors, stale data and paused markets stay distinct even without an available model',()=>{
+ const error=render(source(),{analysis:null,analysisState:'waiting',analysisMessage:'資料不足',error:'來源連線逾時'});
+ assert.ok(error.includes('玩法來源連線異常'));assert.ok(error.includes('來源連線逾時'));assert.ok(error.includes('資料不足'));assert.ok(!error.includes('2 種玩法'));
+ const s=source();s.fetchedAt=new Date(now-150000).toISOString();
+ const stale=render(s,{analysis:undefined,analysisState:'waiting'});
+ assert.ok(stale.includes('玩法資料已過期'));assert.ok(stale.includes('分析資料不足'));assert.ok(!stale.includes('2 種玩法'));
+ s.fetchedAt=new Date(now).toISOString();for(const market of s.sportGames[0].displayMarkets)for(const q of market.quotes)q.open=false;
+ const closed=render(s);assert.ok(closed.includes('玩法已暫停'));assert.ok(closed.includes('來源已暫停此全場玩法'));assert.ok(!closed.includes('全場獨贏'));
 });
