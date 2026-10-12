@@ -1,22 +1,21 @@
 import {plain,tableData,dayInTaipei,fetchPublic,parseKbo} from './baseball-live-providers.mjs';
-import {pitchingOuts} from './baseball-season-pitching.mjs';
+import {pitchingOuts,npbStatsPeriod} from './baseball-season-pitching.mjs';
 const NPB={巨人:['讀賣巨人','Central/G'],阪神:['阪神虎','Central/T'],DeNA:['橫濱 DeNA 海灣之星','Central/DB'],中日:['中日龍','Central/D'],広島:['廣島東洋鯉魚','Central/C'],ヤクルト:['東京養樂多燕子','Central/S'],ソフトバンク:['福岡軟銀鷹','Pacific/H'],日本ハム:['北海道日本火腿鬥士','Pacific/F'],オリックス:['歐力士猛牛','Pacific/B'],楽天:['東北樂天金鷲','Pacific/E'],西武:['埼玉西武獅','Pacific/L'],ロッテ:['千葉羅德海洋','Pacific/M']};
 const KBO={HT:'起亞虎',OB:'斗山熊',HH:'韓華鷹',LT:'樂天巨人',NC:'NC 恐龍',KT:'KT 巫師',LG:'LG 雙子',SS:'三星獅',SK:'SSG 登陸者',WO:'培證英雄'};
 const n=s=>/^\d+$/.test(String(s??''))?Number(s):null;
 const ip=o=>`${Math.floor(o/3)}${o%3?'.'+o%3:''}`;
 const stats=(o,er,k,w='',l='',bb='',h=null)=>({era:(er*27/o).toFixed(2),innings:ip(o),strikeouts:String(k),wins:String(w),losses:String(l),walks:String(bb),whip:h===null?'':((h+Number(bb))*3/o).toFixed(2),opponentAverage:''});
 const shift=(date,days)=>new Date(Date.parse(date+'T00:00:00Z')+days*86400000).toISOString().slice(0,10);
-export function parseNpbTeamTotals(html,date,kind){
+export function parseNpbTeamTotals(html,date,kind,observedAt){
  const title=plain(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'');
  if(!title.includes(date.slice(0,4)+'年度')||!title.includes(kind==='pitching'?'チーム投手成績':'チーム打撃成績'))throw Error('NPB 團隊表年度或類別不符');
- const stamp=plain(html).match(/(\d{4})年(\d{1,2})月(\d{1,2})日\s*現在/),throughDate=stamp?`${stamp[1]}-${stamp[2].padStart(2,'0')}-${stamp[3].padStart(2,'0')}`:'';
- if(!throughDate||throughDate>=date||shift(date,-4)>throughDate||throughDate.slice(0,4)!==date.slice(0,4))throw Error('NPB 團隊表截止日不符');
+ const period=npbStatsPeriod(html,date,observedAt);
  const required=kind==='pitching'?['チーム','試合','勝利','敗北','投球回','自責点','失点','安打','三振','四球','死球']:['チーム','試合','得点'];
  const t=tableData(html).find(t=>required.every(h=>t.rows[0]?.includes(h)));if(!t)throw Error('NPB 團隊表欄位變更');
  const [h,...rows]=t.rows;
  return rows.flatMap(r=>{const key=r[h.indexOf('チーム')]?.normalize('NFKC'),identity=NPB[key];if(!identity)return [];const get=k=>n(r[h.indexOf(k)]),games=get('試合');if(games===null||games<20)throw Error('NPB 團隊場數不足');
   const values=kind==='pitching'?{wins:get('勝利'),losses:get('敗北'),outs:pitchingOuts(r[h.indexOf('投球回')]),er:get('自責点'),allowed:get('失点'),hits:get('安打'),k:get('三振'),bb:get('四球'),hbp:get('死球')}:{scored:get('得点')};
-  if(Object.values(values).some(v=>v===null))throw Error('NPB 團隊表缺值');return [{team:identity[0],path:identity[1],games,throughDate,...values}];
+  if(Object.values(values).some(v=>v===null))throw Error('NPB 團隊表缺值');return [{team:identity[0],path:identity[1],games,...period,...values}];
  });
 }
 export function parseNpbRelief(html,total,date,observedAt,url){
@@ -29,7 +28,7 @@ export function parseNpbRelief(html,total,date,observedAt,url){
  for(const [i,key] of [[12,'hits'],[14,'k'],[16,'allowed'],[17,'er']])if(n(a[i])===null||n(b[i])===null||n(a[i])+n(b[i])!==total[key])throw Error('NPB 牛棚合計與官方不符：'+key);
  if(n(a[15])===null||n(b[15])===null||n(a[15])+n(b[15])!==total.bb+total.hbp)throw Error('NPB 四死球合計與官方不符');
  for(const [r,o] of [[a,ao],[b,bo]])if(!/^\d+(\.\d+)?$/.test(r[1])||Math.abs(Number(r[1])-Number(r[17])*27/o)>.025)throw Error('NPB 分項 ERA 不符');
- return {team:total.team,stats:stats(bo,n(b[17]),n(b[14]),n(b[3]),n(b[4])),source:{name:'NF3 本季後援分項（NPB 官方合計核對）',url,observedAt,throughDate:total.throughDate,scope:'season',games:total.games,note:'先發＋後援的場數、局數、責失、安打、三振、失分與四死球皆與官方核對。來源只有四死球合計，未冒充四壞或 WHIP。'}};
+ return {team:total.team,stats:stats(bo,n(b[17]),n(b[14]),n(b[3]),n(b[4])),source:{name:'NF3 本季後援分項（NPB 官方合計核對）',url,observedAt,throughDate:total.throughDate,seasonComplete:total.seasonComplete,seasonYear:total.seasonYear,scope:'season',games:total.games,note:'先發＋後援的場數、局數、責失、安打、三振、失分與四死球皆與官方核對。來源只有四死球合計，未冒充四壞或 WHIP。'}};
 }
 export function kboReliefGame(raw,relay,page,date){
  const g=parseKbo(raw,page,relay);if(g.status!=='final'||g.date>=date||g.date.slice(0,4)!==date.slice(0,4))throw Error('僅接受當日以前的韓職完賽紀錄');
@@ -62,8 +61,8 @@ export function createBullpenCollector({fetcher=fetch,now=Date.now}={}){
    // All requests remain public and stop on access denials. Never retry challenges.
    if(league==='NPB'){
     const official=[];
-    for(const division of ['c','p'])try{const [p,b]=await Promise.all(['tmp','tmb'].map(k=>get(`https://npb.jp/bis/${date.slice(0,4)}/stats/${k}_${division}.html`))),pit=parseNpbTeamTotals(p.text,date,'pitching'),bat=parseNpbTeamTotals(b.text,date,'batting');
-     for(const t of pit){const offense=bat.find(r=>r.team===t.team);if(!offense||offense.games!==t.games||offense.throughDate!==t.throughDate)throw Error('NPB 攻守表截止日不一致');const row={...t,scored:offense.scored,source:{name:'NPB 官方團隊攻守成績',url:p.url,observedAt:p.fetchedAt,throughDate:t.throughDate}};official.push(row);if(teams.includes(t.team))result.teamRuns.push(row);}
+    for(const division of ['c','p'])try{const [p,b]=await Promise.all(['tmp','tmb'].map(k=>get(`https://npb.jp/bis/${date.slice(0,4)}/stats/${k}_${division}.html`))),pit=parseNpbTeamTotals(p.text,date,'pitching',p.fetchedAt),bat=parseNpbTeamTotals(b.text,date,'batting',b.fetchedAt);
+     for(const t of pit){const offense=bat.find(r=>r.team===t.team);if(!offense||offense.games!==t.games||offense.throughDate!==t.throughDate||offense.seasonComplete!==t.seasonComplete)throw Error('NPB 攻守表截止日不一致');const row={...t,scored:offense.scored,source:{name:'NPB 官方團隊攻守成績',url:p.url,observedAt:p.fetchedAt,throughDate:t.throughDate,seasonComplete:t.seasonComplete,seasonYear:t.seasonYear}};official.push(row);if(teams.includes(t.team))result.teamRuns.push(row);}
     }catch(e){result.errors.push('NPB '+division+'：'+e.message);}
     const selected=official.filter(t=>teams.includes(t.team));for(let i=0;i<selected.length;i+=4)await Promise.all(selected.slice(i,i+4).map(async t=>{const url=`https://nf3.sakura.ne.jp/${t.path}/t/teamdata.htm`;try{const p=await get(url);result.rows.push(parseNpbRelief(p.text,t,date,p.fetchedAt,url));}catch(e){result.errors.push(t.team+'：'+e.message);}}));
    }else{

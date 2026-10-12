@@ -8,7 +8,7 @@ export type PregamePitchingStats = Record<'wins'|'losses'|'era'|'opponentAverage
 export type PregameSide = {
  team:string;teamCode:string;sourceTeam:string;record?:string;
  starter:{review?:{reviewedAt:string;note:string;sources:{name:string;url:string;observedAt:string}[]};name:string;throws:string|null;season:PregamePitchingStats;splits:SourceTable;recent:SourceTable;quality:string;warnings:string[];source?:{name:string;url:string;observedAt:string;publishedAt:string|null};statSources?:Partial<Record<keyof PregamePitchingStats,{name:string;url:string;observedAt:string;publishedAt:string|null}>>};
- bullpen:PregamePitchingStats|null;bullpenSource?:{name:string;url:string;observedAt:string;throughDate:string;scope:'season'|'recent';games:number;note:string;gameIds?:string[]};batting:SourceTable;battingWarnings?:string[];
+ bullpen:PregamePitchingStats|null;bullpenSource?:{name:string;url:string;observedAt:string;throughDate:string|null;seasonComplete?:boolean;seasonYear?:number;scope:'season'|'recent';games:number;note:string;gameIds?:string[]};batting:SourceTable;battingWarnings?:string[];
  pitchingSource?:PitchingImportSource;
  gameLogs?:CpblLogMetrics;
  retainedSource?:PregameGame['source'];
@@ -18,7 +18,7 @@ export type PregameGame = {
  id:string;league:string;date:string;start:string;away:PregameSide;home:PregameSide;
  source:{name:string;url:string;observedAt:string;publishedAt:string|null;sourceTitle:string;contentSha256:string};
  kind:string;liveVerified:boolean;comparison?:SourceTable;
- comparisonSource?:{name:string;url:string;observedAt:string;throughDate:string;games:number};
+ comparisonSource?:{name:string;url:string;observedAt:string;throughDate:string|null;seasonComplete?:boolean;seasonYear?:number;games:number};
  rules?:{league:'KBO';season:number;phase:'regular';maxInnings:11;sourceUrl:string;fixtureObservedAt:string};
 };
 export type PregameExclusion={start:string;away:string;home:string;status:string;observedAt:string;sourceUrl:string};

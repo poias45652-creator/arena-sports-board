@@ -21,14 +21,26 @@ export function pitcherStats(row,headers,labels){
  return stats;
 }
 function pageSource(name,url,observedAt,throughDate=null){return {name,url,observedAt,publishedAt:null,throughDate};}
+// NPB replaces its daily cutoff with an explicit completion marker at season end.
+// Keep that provenance instead of inventing a cutoff date or rejecting final totals.
+export function npbStatsPeriod(html,date,observedAt){
+ const text=plain(html),stamp=text.match(/(\d{4})年(\d{1,2})月(\d{1,2})日\s*現在/);
+ const throughDate=stamp?`${stamp[1]}-${stamp[2].padStart(2,'0')}-${stamp[3].padStart(2,'0')}`:null;
+ if(!stamp&&/<p\b[^>]*>\s*全日程終了\s*<\/p>/i.test(html)){
+  const at=Date.parse(observedAt);
+  if(!Number.isFinite(at)||dayInTaipei(new Date(at))!==date)throw Error('日職季末成績僅供當日取得後的賽前分析');
+  return {throughDate:null,seasonComplete:true,seasonYear:Number(date.slice(0,4))};
+ }
+ if(!throughDate||!Number.isFinite(Date.parse(throughDate))||throughDate>=date||throughDate.slice(0,4)!==date.slice(0,4)||Date.parse(date)-Date.parse(throughDate)>4*86400000)throw Error('日職統計截止日未核對、已過期或含當日紀錄');
+ return {throughDate,seasonComplete:false,seasonYear:Number(date.slice(0,4))};
+}
 export function parseNpbSeasonPitching(html,code,date,observedAt,url){
  const identity=NPB[code],title=plain(html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]||'');
  if(!identity||!title.includes(date.slice(0,4)+'年度')||!title.includes(identity[1])||!title.includes('個人投手成績'))throw Error('日職投手頁年度或球隊不符');
- const stamp=plain(html).match(/(\d{4})年(\d{1,2})月(\d{1,2})日\s*現在/),through=stamp?`${stamp[1]}-${stamp[2].padStart(2,'0')}-${stamp[3].padStart(2,'0')}`:null;
- if(!through||!Number.isFinite(Date.parse(through))||through>=date||Number(date.slice(0,4))!==Number(through.slice(0,4))||Date.parse(date)-Date.parse(through)>4*86400000)throw Error('日職統計截止日未核對、已過期或含當日紀錄');
+ const period=npbStatsPeriod(html,date,observedAt);
  const table=tableData(html).find(t=>t.rows[0]?.includes('選手')&&t.rows[0].includes('防御率')&&t.rows[0].includes('自責点'));
  if(!table)throw Error('日職投手表尚未取得');
- const [headers,...rows]=table.rows,source=pageSource('NPB 官方投手紀錄',url,observedAt,through);
+ const [headers,...rows]=table.rows,source={...pageSource('NPB 官方投手紀錄',url,observedAt,period.throughDate),...period};
  const labels={innings:'投球回',era:'防御率',hits:'安打',walks:'四球',earnedRuns:'自責点',wins:'勝利',losses:'敗北',strikeouts:'三振'};
  return rows.flatMap(raw=>{const row=raw.length===headers.length+1&&/^[*＊]?$/.test(raw[0])?raw.slice(1):raw;if(row.length!==headers.length)return [];const name=(row[headers.indexOf('選手')]||'').replace(/^[*＊]\s*/,''),stats=pitcherStats(row,headers,labels);return name&&stats?[{team:identity[0],name,stats,source,notes:['WHIP 由官方被安打、四球與投球出局數重算；未把觸身球加入。']}]:[];});
 }
