@@ -31,3 +31,29 @@ test('MLB-only response is not misreported as connected international odds',()=>
  assert.throws(()=>scopeMemberOdds({games:[]},'CPBL'),/只回傳美棒/);
  assert.throws(()=>scopeMemberOdds({internationalGames:[]},'UNKNOWN'),/不支援/);
 });
+test('Safari Load failed retries the shared GET and recovers the unchanged source snapshot',async()=>{
+ let calls=0;const waits=[],snapshot={games:[],sportGames:[{id:25092679}],fetchedAt:'2026-10-13T17:26:00Z'};
+ const read=createMemberOddsReader(async(path,options)=>{
+  assert.equal(path,'/api/member-odds');assert.equal(options.cache,'no-store');assert.equal(options.method,undefined);
+  if(++calls===1)throw new TypeError('Load failed');return Response.json(snapshot);
+ },async ms=>{waits.push(ms);});
+ const [football,nba]=await Promise.all([read(),read()]);assert.deepEqual(football,snapshot);assert.equal(nba,football);
+ assert.equal(calls,2);assert.deepEqual(waits,[750]);
+});
+test('interrupted response body and temporary HTML gateway responses recover',async()=>{
+ for(const first of [()=>({ok:true,status:200,json:async()=>{throw new TypeError('Load failed');}}),()=>new Response('<html>temporarily unavailable</html>',{status:502})]){
+  let calls=0;const read=createMemberOddsReader(async()=>++calls===1?first():Response.json({games:[],fetchedAt:'actual'}),async()=>{});
+  assert.equal((await read()).fetchedAt,'actual');assert.equal(calls,2);
+ }
+});
+test('transport retries end with a localized recoverable error, release the shared task, and never return old data',async()=>{
+ let offline=true,calls=0;const read=createMemberOddsReader(async()=>{calls++;if(offline)throw new TypeError('Load failed');return Response.json({games:[],fetchedAt:'new'});},async()=>{});
+ await assert.rejects(read(),error=>error.retryable&&/玩法資料傳輸中斷/.test(error.message)&&!error.message.includes('Load failed'));
+ assert.equal(calls,3);offline=false;assert.equal((await read()).fetchedAt,'new');assert.equal(calls,4);
+});
+test('HTTP 502 source authorization and source-format failures are not retried',async()=>{
+ for(const code of ['source_auth_expired','source_access_denied','source_format_changed','launch_format_changed']){
+  let calls=0;const read=createMemberOddsReader(async()=>{calls++;return Response.json({code,error:'需要重新確認來源'}, {status:502});},async()=>assert.fail('must not retry'));
+  await assert.rejects(read(),error=>!error.retryable&&error.message==='需要重新確認來源');assert.equal(calls,1);
+ }
+});
