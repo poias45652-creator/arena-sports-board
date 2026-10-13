@@ -40,6 +40,10 @@ const TEAM_NAMES:Record<string,string> = {
   'Bayern Munich':'拜仁慕尼黑','Borussia Dortmund':'多特蒙德','Bayer Leverkusen':'勒沃庫森','RB Leipzig':'RB萊比錫','Eintracht Frankfurt':'法蘭克福','VfB Stuttgart':'斯圖加特','VfL Wolfsburg':'沃爾夫斯堡','Borussia Mönchengladbach':'門興','SC Freiburg':'弗萊堡','Mainz':'美因茨','1. FC Union Berlin':'柏林聯','FC Augsburg':'奧格斯堡','TSG Hoffenheim':'霍芬海姆','Werder Bremen':'不來梅','Hamburg SV':'漢堡','1. FC Köln':'科隆','1. FC Heidenheim 1846':'海登海姆','St. Pauli':'聖保利',
   'Paris Saint-Germain':'巴黎聖日耳曼','Marseille':'馬賽','AS Monaco':'摩納哥','Monaco':'摩納哥','Lyon':'里昂','Lille':'里爾','Nice':'尼斯','Lens':'朗斯','Stade Rennais':'雷恩','Rennes':'雷恩','Strasbourg':'史特拉斯堡','Toulouse':'圖盧茲','Nantes':'南特','Brest':'布雷斯特','AJ Auxerre':'歐塞爾','Angers':'昂熱','Le Havre AC':'勒阿弗爾','Paris FC':'巴黎FC','Metz':'梅斯','Lorient':'洛里昂',
   'Benfica':'本菲卡','FC Porto':'波爾圖','Sporting CP':'里斯本競技','Ajax Amsterdam':'阿賈克斯','PSV Eindhoven':'PSV恩荷芬','Feyenoord Rotterdam':'飛燕諾','Celtic':'塞爾提克','Galatasaray':'加拉塔薩雷','Club Brugge':'布魯日','Union St.-Gilloise':'聖吉羅斯聯','Bodø/Glimt':'博多格林特',
+  // Senior clubs verified against the October 13/14 ESPN Champions League fixtures.
+  'Sabah FK':'沙巴巴庫','Slavia Prague':'布拉格斯拉維亞','Viking FK':'維京',
+  'LASK Linz':'林茨','Shakhtar Donetsk':'頓涅茨克礦工','AEK Athens':'AEK雅典',
+  'Fenerbahce':'費內巴切','Slovan Bratislava':'布拉迪斯拉發','Bodo/Glimt':'博多格林特',
 };
 export const footballDay=(date:Date|string=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));
 export const shiftFootballDay=(day:string,offset:number)=>new Date(Date.parse(day+'T12:00:00Z')+offset*86400000).toISOString().slice(0,10);

@@ -1,0 +1,736 @@
+{
+  "sources": [
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261013&limit=100",
+      "fetchedAt": "2026-10-13T15:32:44.400364+00:00",
+      "events": [
+        {
+          "id": "401915418",
+          "date": "2026-10-13T16:45Z",
+          "name": "Sporting CP at Lens",
+          "competitions": [
+            {
+              "date": "2026-10-13T16:45Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 12:45 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "175",
+                    "displayName": "Lens"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "2250",
+                    "displayName": "Sporting CP"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915436",
+          "date": "2026-10-13T16:45Z",
+          "name": "Slavia Prague at Sabah FK",
+          "competitions": [
+            {
+              "date": "2026-10-13T16:45Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 12:45 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "21922",
+                    "displayName": "Sabah FK"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "494",
+                    "displayName": "Slavia Prague"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915417",
+          "date": "2026-10-13T19:00Z",
+          "name": "Lille at Arsenal",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "359",
+                    "displayName": "Arsenal"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "166",
+                    "displayName": "Lille"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915412",
+          "date": "2026-10-13T19:00Z",
+          "name": "Manchester United at Atlético Madrid",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "1068",
+                    "displayName": "Atlético Madrid"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "360",
+                    "displayName": "Manchester United"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915435",
+          "date": "2026-10-13T19:00Z",
+          "name": "Barcelona at Galatasaray",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "432",
+                    "displayName": "Galatasaray"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "83",
+                    "displayName": "Barcelona"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915413",
+          "date": "2026-10-13T19:00Z",
+          "name": "Club Brugge at Internazionale",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "110",
+                    "displayName": "Internazionale"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "570",
+                    "displayName": "Club Brugge"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915434",
+          "date": "2026-10-13T19:00Z",
+          "name": "PSV Eindhoven at RB Leipzig",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "11420",
+                    "displayName": "RB Leipzig"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "148",
+                    "displayName": "PSV Eindhoven"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915411",
+          "date": "2026-10-13T19:00Z",
+          "name": "Bayern Munich at Viking FK",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "510",
+                    "displayName": "Viking FK"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "132",
+                    "displayName": "Bayern Munich"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915410",
+          "date": "2026-10-13T19:00Z",
+          "name": "Napoli at Villarreal",
+          "competitions": [
+            {
+              "date": "2026-10-13T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Tue, October 13th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "102",
+                    "displayName": "Villarreal"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "114",
+                    "displayName": "Napoli"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=20261014&limit=100",
+      "fetchedAt": "2026-10-13T15:32:44.647533+00:00",
+      "events": [
+        {
+          "id": "401915416",
+          "date": "2026-10-14T16:45Z",
+          "name": "Como at Feyenoord Rotterdam",
+          "competitions": [
+            {
+              "date": "2026-10-14T16:45Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 12:45 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "142",
+                    "displayName": "Feyenoord Rotterdam"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "2572",
+                    "displayName": "Como"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915415",
+          "date": "2026-10-14T16:45Z",
+          "name": "Liverpool at LASK Linz",
+          "competitions": [
+            {
+              "date": "2026-10-14T16:45Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 12:45 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "4411",
+                    "displayName": "LASK Linz"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "364",
+                    "displayName": "Liverpool"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915414",
+          "date": "2026-10-14T19:00Z",
+          "name": "Real Madrid at AS Roma",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "104",
+                    "displayName": "AS Roma"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "86",
+                    "displayName": "Real Madrid"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915409",
+          "date": "2026-10-14T19:00Z",
+          "name": "Fenerbahce at Aston Villa",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "362",
+                    "displayName": "Aston Villa"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "436",
+                    "displayName": "Fenerbahce"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915393",
+          "date": "2026-10-14T19:00Z",
+          "name": "Borussia Dortmund at Bodo/Glimt",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "2980",
+                    "displayName": "Bodo/Glimt"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "124",
+                    "displayName": "Borussia Dortmund"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915407",
+          "date": "2026-10-14T19:00Z",
+          "name": "Paris Saint-Germain at Manchester City",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "382",
+                    "displayName": "Manchester City"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "160",
+                    "displayName": "Paris Saint-Germain"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915408",
+          "date": "2026-10-14T19:00Z",
+          "name": "FC Porto at Real Betis",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "244",
+                    "displayName": "Real Betis"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "437",
+                    "displayName": "FC Porto"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915406",
+          "date": "2026-10-14T19:00Z",
+          "name": "AEK Athens at Shakhtar Donetsk",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "493",
+                    "displayName": "Shakhtar Donetsk"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "887",
+                    "displayName": "AEK Athens"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "401915405",
+          "date": "2026-10-14T19:00Z",
+          "name": "VfB Stuttgart at Slovan Bratislava",
+          "competitions": [
+            {
+              "date": "2026-10-14T19:00Z",
+              "timeValid": true,
+              "status": {
+                "clock": 0.0,
+                "displayClock": "0'",
+                "type": {
+                  "id": "1",
+                  "name": "STATUS_SCHEDULED",
+                  "state": "pre",
+                  "completed": false,
+                  "description": "Scheduled",
+                  "detail": "Wed, October 14th at 3:00 PM EDT",
+                  "shortDetail": "Scheduled"
+                }
+              },
+              "competitors": [
+                {
+                  "homeAway": "home",
+                  "team": {
+                    "id": "521",
+                    "displayName": "Slovan Bratislava"
+                  }
+                },
+                {
+                  "homeAway": "away",
+                  "team": {
+                    "id": "134",
+                    "displayName": "VfB Stuttgart"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

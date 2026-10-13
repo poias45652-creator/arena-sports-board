@@ -4,6 +4,8 @@ import fs from 'node:fs';
 import {moduleUrl} from './profile-loader.mjs';
 const {matchSportEvent,sportMarketStatus,sportTeamKey}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const {footballTeamName}=await import(moduleUrl('lib/football.ts'));
+const {parseFootballEvents}=await import(moduleUrl('lib/football.ts'));
+const {sportSourceAudit}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const audit=JSON.parse(fs.readFileSync('tests/fixtures/football-source-names-20261009.json'));
 const {games}=JSON.parse(fs.readFileSync('tests/fixtures/football-official-fixtures-20261009.json'));
 const now=Date.parse(audit.fetchedAt);
@@ -37,4 +39,46 @@ test('exact football aliases cannot merge reserves, women, youth teams, reversed
  assert.equal(matchSportEvent(snapshot,game,'FOOTBALL',now+150000),null);
  assert.notEqual(sportTeamKey('巴黎','FOOTBALL'),sportTeamKey('巴黎聖日門','FOOTBALL'));
  assert.equal(sportTeamKey('般尼茅夫','NBA'),'般尼茅夫');
+});
+
+const championsAudit=JSON.parse(fs.readFileSync('tests/fixtures/football-champions-source-20261013.json'));
+const championsOfficial=JSON.parse(fs.readFileSync('tests/fixtures/football-champions-official-20261013.json'));
+const championsGames=championsOfficial.sources.flatMap(s=>parseFootballEvents(s,'uefa.champions'));
+const championsNow=Date.parse(championsAudit.fetchedAt);
+const championsSnapshot={fetchedAt:championsAudit.fetchedAt,sportGames:championsAudit.fixtures.map(r=>({...r,league:'FOOTBALL',displayMarkets}))};
+// The captured production audit contains names, starts and availability only.
+// Synthetic quotes exercise the reader; they are never production prices.
+test('all 18 October 14/15 Taiwan-time Champions League fixtures match the captured source uniquely',()=>{
+ assert.equal(championsGames.length,18);assert.equal(championsSnapshot.sportGames.length,18);
+ const paired=new Set();
+ for(const game of championsGames){
+  const status=sportMarketStatus(championsSnapshot,game,'FOOTBALL',championsNow);
+  assert.equal(status.code,'matched',`${game.home.name} vs ${game.away.name}`);
+  assert.equal(status.availableCount,3);assert.ok(!paired.has(status.event.id));paired.add(status.event.id);
+  // Previously untranslated names may still be in cached reports after deploy.
+  const cached={...game,home:{...game.home,name:game.home.englishName},away:{...game.away,name:game.away.englishName}};
+  assert.equal(matchSportEvent(championsSnapshot,cached,'FOOTBALL',championsNow)?.id,status.event.id);
+ }
+ assert.deepEqual(sportSourceAudit(championsSnapshot,championsNow).unrecognizedTeamNames,[]);
+});
+test('reported Leipzig–PSV and Viking–Bayern games use their own source events',()=>{
+ for(const [id,sourceId] of [['401915434',25092676],['401915411',25092667]]){
+  const game=championsGames.find(g=>g.id===id);
+  assert.equal(matchSportEvent(championsSnapshot,game,'FOOTBALL',championsNow)?.id,sourceId);
+ }
+ assert.equal(footballTeamName('Viking FK'),'維京');
+ assert.equal(sportTeamKey('PSV埃因霍溫','FOOTBALL'),'PSV恩荷芬');
+});
+test('Champions League aliases still reject wrong opponents, venues, competitions, times and squads',()=>{
+ const game=championsGames.find(g=>g.id==='401915434');
+ for(const changed of [{...game,home:game.away,away:game.home},{...game,league:'eng.1'},
+  {...game,start:new Date(Date.parse(game.start)+3600000).toISOString()},
+  {...game,away:{...game.away,name:'Ajax Amsterdam'}},
+  ...['U21','(女)','預備隊'].map(suffix=>({...game,away:{...game.away,name:game.away.name+suffix}}))]){
+  assert.equal(matchSportEvent(championsSnapshot,changed,'FOOTBALL',championsNow),null);
+ }
+ assert.equal(matchSportEvent(championsSnapshot,game,'FOOTBALL',championsNow+150000),null);
+ const duplicate=structuredClone(championsSnapshot);duplicate.sportGames.push({...duplicate.sportGames.find(g=>g.id===25092676),id:999});
+ assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',championsNow).code,'fixture_ambiguous');
+ assert.notEqual(sportTeamKey('Viking FK','NBA'),sportTeamKey('維京','NBA'));
 });
