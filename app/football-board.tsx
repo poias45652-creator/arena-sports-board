@@ -122,7 +122,6 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsLoadin
     <div className="football-match"><FootballTeamIdentity team={game.home} side="home" league={game.league} day={footballDay(game.start)}/><b>{game.homeScore!==null&&game.awayScore!==null?`${game.homeScore} : ${game.awayScore}`:'VS'}</b><FootballTeamIdentity team={game.away} side="away" league={game.league} day={footballDay(game.start)}/></div>
     {(game.venue||game.neutral)&&<p className="football-venue">{game.neutral?'中立場・':''}{game.venue}</p>}
     {a?<>
-      {retainFootballForecast(game,now)&&<p className="football-venue">賽前預測・保留至今日 24:00</p>}
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
     </>:eligible?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}

@@ -87,7 +87,7 @@ test('expired and mismatched reports never display probabilities, while same-day
     const html=render(props);assert.ok(!html.includes('football-probabilities'));assert.ok(!html.includes('三組比分'));
   }
   const html=render({game:{...game,state:'live',homeScore:0,awayScore:0},report,now:Date.parse(game.start)+60000,unavailable:true});
-  assert.ok(html.includes('賽前預測・保留至今日 24:00'));
+  assert.ok(!html.includes('賽前預測・保留至今日 24:00'));
   assert.ok(html.includes((analysis.probabilities.home*100).toFixed(1)+'%'));
   assert.match(html,/三組比分(?:預測|情境)/);assert.equal((html.match(/class="football-score-label"/g)||[]).length,3);
   assert.ok(!html.includes('sport-market-details'));
