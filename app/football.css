@@ -85,3 +85,10 @@
 .football-profile-footer { color:#95a9c0;font-size:12px;margin-top:22px;text-align:right; }.football-profile-empty { padding:12px 0;color:#95a9c0;font-size:13px; }.football-profile-loading { display:flex;align-items:center;justify-content:center;gap:12px;min-height:220px;color:#b4c6dc; }.football-profile-retry { padding:9px 12px;border-radius:7px;border:1px solid #42536b;background:#101b2a;color:#dce6f2;cursor:pointer;font-size:13px; }
 @media(max-width:760px){.football-team-page{padding:0 16px 28px;}.football-profile-columns{grid-template-columns:minmax(0,1fr);gap:16px;}.football-profile-panel{padding:18px;}.football-profile-heading{gap:14px;margin:24px 0;}.football-profile-logo img{width:62px;height:62px;}.football-profile-stats>div{padding:13px 12px;}.football-profile-stats strong{font-size:23px;}.football-profile-nav{gap:10px;min-height:66px;}.football-profile-nav>span{font-size:12px;}}
 @media(max-width:380px){.football-profile-panel{padding:14px;}.football-profile-nav>span{display:none;}.football-profile-filters{gap:8px;}.football-profile-filters button,.football-profile-filters select{padding:7px 9px;}.football-profile-stats{gap:7px;}.football-profile-stats>div{padding:12px 8px;}.football-profile-stats strong{font-size:21px;}.football-profile-record>div:first-child{gap:12px;}}
+.football-market-reference {margin:0 18px 18px;padding:16px;border:1px solid #344b61;border-radius:8px;background:#091724;}
+.football-market-reference header,.football-market-reference>div {display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+.football-market-reference header strong {color:#facc15;}
+.football-market-reference a,.football-market-reference small {font-size:12px;color:#93a8bb;}
+.football-market-reference p {margin:12px 0;}
+.football-market-reference p strong {color:#7dd3fc;font-size:24px;}
+.football-market-reference small {display:block;line-height:1.6;margin-top:8px;}

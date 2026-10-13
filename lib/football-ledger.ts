@@ -1,8 +1,10 @@
 import type {Database} from '../db';
 import type {FootballAnalysis,FootballGame} from './football';
+import {uncalibratedCupAnalysis} from './football';
 import {readyFootballAnalysis,retainFootballForecast,type FootballReport} from './football-recommendations';
 
 export function validFootballForecast(game:FootballGame,analysis:FootballAnalysis,now=Date.now()){
+  if(uncalibratedCupAnalysis(game,analysis))return false;
   const captured=Date.parse(analysis.capturedAt),start=Date.parse(game.start),p=analysis.probabilities;
   return game.state==='scheduled'&&game.timeConfirmed&&analysis.status==='ready'&&!!p&&
     Number.isFinite(start)&&Number.isFinite(captured)&&captured<=now+5000&&now-captured<=120000&&now<start-60000&&captured<start-60000&&

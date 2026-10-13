@@ -15,9 +15,14 @@ export type FootballGame<L extends string=FootballLeague> = {
   home:FootballTeam;away:FootballTeam;homeScore:number|null;awayScore:number|null;
   state:'scheduled'|'live'|'final'|'other';statusName:string;statusLabel:string;
   neutral:boolean;venue:string;sourceUrl:string;
+  marketReference?:import('./football-market-reference').FootballMarketReference;
 };
 export type FootballForm = {games:number;venueGames:number;scored:number;conceded:number;recent:string[];latest:string|null;supplementGames:number;friendlyGames?:number};
 export type FootballFormOptions = {decayDays:number;venueWeight:number;competition?:string;otherCompetitionWeight?:number;friendlyWeight?:number};
+export const CUP_STRENGTH_REASON='跨聯賽對手強度尚未校正，暫不提供模型勝率與比分。';
+export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysis:FootballAnalysis|undefined){
+  return game.league==='uefa.champions'&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
+}
 export type FootballAnalysis = {
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
   calibration?:FootballCalibrationStatus;
@@ -159,6 +164,10 @@ export function analyzeFootball(game:FootballGame,history:FootballGame<string>[]
   }
   if(homeForm.games<5||awayForm.games<5)return {...base,historyMode,homeForm,awayForm,status:'waiting',reason:`歷史不足：主隊${homeForm.games}場、客隊${awayForm.games}場；各需至少5場。`};
   if([homeForm,awayForm].some(f=>!f.latest||cutoff-Date.parse(f.latest)>120*86400000))return {...base,homeForm,awayForm,status:'waiting',reason:'近期賽果超過120天，等待較新的比賽資料。'};
+  // A reduced sample weight does not translate domestic/qualifying goal rates
+  // onto the Champions League scale. The external opponent model can recover
+  // this report only when its own comparable-history requirements are met.
+  if(game.league==='uefa.champions'&&historyMode==='recent-form')return {...base,version:'football-cup-strength-required-v1',historyMode,homeForm,awayForm,status:'waiting',reason:CUP_STRENGTH_REASON};
   const clamp=(v:number)=>Math.max(.15,Math.min(5,v));
   const expected=parameters?calibratedFootballGoals(homeForm,awayForm,parameters,game.neutral):{home:clamp((homeForm.scored+awayForm.conceded)/2),away:clamp((awayForm.scored+homeForm.conceded)/2)};
   const result=footballDistribution(expected.home,expected.away,parameters?.rho||0),p=result.probabilities;

@@ -14,7 +14,7 @@ const history=reconcileFootballHistory(allSources.flatMap(s=>parseFootballTeamHi
 const mainHistory=history.filter(g=>!g.league.endsWith('_qual'));
 const qualifierSlugs=['uefa.champions_qual','uefa.europa_qual','uefa.europa.conf_qual'];
 
-test('recorded Sabah fixture recovers seven valid qualifying results while excluding its extra-time score',()=>{
+test('recorded Sabah qualifier history is retained without publishing uncalibrated cross-cup probabilities',()=>{
   const before=analyzeFootball(game,mainHistory,now,mainHistory);
   assert.equal(before.status,'waiting');
   assert.equal(before.homeForm.games,1);
@@ -24,15 +24,16 @@ test('recorded Sabah fixture recovers seven valid qualifying results while exclu
   assert.equal(qualifiers.filter(g=>g.statusName==='STATUS_FULL_TIME').length,7);
   assert.equal(qualifiers.find(g=>g.id==='401909192').statusName,'STATUS_FINAL_AET');
   const after=analyzeFootball(game,history,now,history);
-  assert.equal(after.status,'ready');
+  assert.equal(after.status,'waiting');
+  assert.match(after.reason,/對手強度尚未校正/);
   assert.equal(after.homeForm.games,8);
   assert.equal(after.homeForm.supplementGames,7);
   assert.equal(after.awayForm.games,7);
-  assert.equal(after.version,'football-recent-form-v1');
+  assert.equal(after.version,'football-cup-strength-required-v1');
   assert.equal(after.calibration.status,'baseline');
   assert.equal(after.calibration.holdoutGames,0);
-  assert.equal(after.scores.length,3);
-  assert.ok(Math.abs(after.probabilities.home+after.probabilities.draw+after.probabilities.away-1)<1e-10);
+  assert.equal(after.scores,undefined);
+  assert.equal(after.probabilities,undefined);
   const weighted=footballForm(game.home.id,'home',history,now,false,{decayDays:90,venueWeight:.6,competition:game.league,otherCompetitionWeight:.35});
   assert.deepEqual(after.homeForm,weighted);
   assert.notEqual(after.homeForm.scored,footballForm(game.home.id,'home',history,now).scored);
@@ -93,7 +94,7 @@ test('conflicting qualifier identities remain quarantined and healthy same-cup e
   assert.deepEqual(analyzeFootball(game,sufficient,now),analyzeFootball(game,sufficient,now,history));
 });
 
-test('full source collector keeps the recorded game identity and yields the recovered recent-form analysis',async()=>{
+test('full source collector retains qualifying evidence but waits for opponent-strength calibration',async()=>{
   const {footballGameAnalysis}=await import(moduleUrl('lib/football-source.ts'));
   const originalFetch=globalThis.fetch,originalNow=Date.now,calls=[];
   Date.now=()=>now;
@@ -112,11 +113,12 @@ test('full source collector keeps the recorded game identity and yields the reco
     assert.equal(result.game.home.id,'21922');
     assert.equal(result.game.away.id,'494');
     assert.equal(result.game.start,'2026-10-13T16:45:00.000Z');
-    assert.equal(result.analysis.status,'ready');
+    assert.equal(result.analysis.status,'waiting');
+    assert.match(result.analysis.reason,/對手強度尚未校正/);
     assert.equal(result.analysis.homeForm.games,8);
     assert.equal(result.analysis.homeForm.supplementGames,7);
     assert.equal(result.analysis.awayForm.games,7);
-    assert.equal(result.analysis.version,'football-recent-form-v1');
+    assert.equal(result.analysis.version,'football-cup-strength-required-v1');
     assert.ok(result.analysis.quality.warnings.some(w=>w.includes('主隊7場、客隊0場')));
     assert.ok(result.analysis.quality.warnings.some(w=>w.includes('少於10場')));
     for(const team of ['21922','494'])for(const season of [2026,2025])assert.ok(calls.includes(`all/teams/${team}/schedule?season=${season}`));

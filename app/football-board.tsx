@@ -4,6 +4,7 @@ import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
 import {FOOTBALL_LEAGUES,footballDay,shiftFootballDay,isFootballLeague,validFootballDay,type FootballGame,type FootballLeague} from '@/lib/football';
 import {footballFixtureKey,footballSourceStale,readyFootballAnalysis,retainFootballForecast,type FootballReport} from '@/lib/football-recommendations';
 import FootballTeamIdentity from './football-team';
+import FootballMarketReference from './football-market-reference';
 import FootballRecommendationsPane,{FootballAnalysisNumbers} from './football-recommendations';
 import {footballAnalysisPresentation,footballReportNeedsRefresh,footballRequestError,type FootballAnalysisActivity} from './football-report-refresh';
 import {createFootballReportQueue} from './football-report-queue';
@@ -125,6 +126,7 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsLoadin
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
     </>:eligible?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
+    {eligible&&!a&&!unavailable&&<FootballMarketReference game={game} now={now}/>}
     {eligible&&<SportMarkets game={game} analysis={a} analysisState={presentation.state} analysisMessage={presentation.message} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} sport="FOOTBALL" now={now}/>}
   </article>;
 }

@@ -37,6 +37,7 @@ function reasonCategory(analysis:FootballAnalysis|null|undefined){
     case '本年國家隊賽果來源尚未完整更新，等待最新資料。':return 'national_history_incomplete';
     case '國家隊對手強度資料尚未更新。':
     case '國家隊對手強度資料尚未完整更新。':return 'national_strength_unavailable';
+    case '跨聯賽對手強度尚未校正，暫不提供模型勝率與比分。':return 'cup_strength_unavailable';
     default:return typeof analysis.reason==='string'&&/^歷史不足：主隊\d+場、客隊\d+場；各需至少5場。$/.test(analysis.reason)?'history_insufficient':'other';
   }
 }
