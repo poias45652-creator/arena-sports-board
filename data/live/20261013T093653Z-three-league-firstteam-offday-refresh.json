@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-13",
+  "recordedAt": "2026-10-13T09:36:53Z",
+  "kind": "same_day_public_schedule_recheck",
+  "liveChangeVerified": false,
+  "observations": [
+    {
+      "league": "NPB",
+      "date": "2026-10-13",
+      "source": "SportsNavi",
+      "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-13",
+      "state": "off_day",
+      "firstTeamGames": 0,
+      "evidence": "Dated 10月13日（火） row says 試合はありません; adjacent 10/12 final and 10/14 upcoming rows excluded.",
+      "confirmedBy": "https://npb.jp/games/2026/schedule_climax_pl.html",
+      "liveGames": 0
+    },
+    {
+      "league": "KBO",
+      "date": "2026-10-13",
+      "source": "Naver public schedule JSON",
+      "url": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-13&toDate=2026-10-13&page=1&pageSize=100",
+      "state": "no_first_team_games",
+      "scheduleRows": 3,
+      "excludedRows": 3,
+      "excludedCategory": "kbaseballetc",
+      "firstTeamGames": 0,
+      "liveGames": 0,
+      "sourceRowsWithMissingTeamsNotUsed": true
+    },
+    {
+      "league": "CPBL",
+      "date": "2026-10-13",
+      "source": "CPBL public official advanced data homepage",
+      "url": "https://stats.cpbl.com.tw/",
+      "state": "off_day",
+      "firstTeamGames": 0,
+      "liveGames": 0,
+      "evidence": "10/13 週二／今日暫無賽程"
+    }
+  ],
+  "collector": {
+    "runId": 35589830427,
+    "latestCheckedAttempt": 45,
+    "runConclusion": "failure",
+    "artifactId": 11790738807,
+    "artifactCreatedAt": "2026-10-13T05:23:32Z",
+    "capturedAt": "2026-10-13T05:23:30.595Z",
+    "newAttemptDuringThisCheck": false,
+    "artifactReusedAsFresh": false,
+    "knownIssue": "NPB off day incorrectly classified as parse failure",
+    "sameDayDataFromIndependentPublicSources": true
+  },
+  "unsupportedFields": {
+    "CPBL_pitchCount": null,
+    "CPBL_balls": null,
+    "CPBL_strikes": null,
+    "CPBL_outs": null,
+    "CPBL_bases": null
+  },
+  "constraints": {
+    "productionChanged": false,
+    "deployed": false,
+    "sourceRestrictionBypass": false
+  },
+  "note": "No live first-team fixtures; 65-second double observation is not applicable. Previous observations retained."
+}
