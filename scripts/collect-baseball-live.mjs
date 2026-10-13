@@ -39,7 +39,7 @@ if(active){
   const old=before.get(g.key),interval=Date.parse(g.source.fetchedAt)-Date.parse(old?.source.fetchedAt);
   const sameTeams=!!old&&old.away?.id===g.away?.id&&old.home?.id===g.home?.id;
   const changes=old?materialChanges(old,g):{};
-  g.liveChangesVerified=!!old&&old.date===g.date&&sameTeams&&old.status==='live'&&g.status==='live'&&interval>=60000&&Object.keys(changes).length>0;
+  g.liveChangesVerified=!!old&&old.date===g.date&&sameTeams&&old.status==='live'&&g.status==='live'&&interval>=65000&&Object.keys(changes).length>0;
   if(g.liveChangesVerified)g.liveChangeProof={beforeHash:old.stateHash,afterHash:g.stateHash,beforeFetchedAt:old.source.fetchedAt,afterFetchedAt:g.source.fetchedAt,intervalSeconds:interval/1000,changes};
  }
 }
@@ -51,4 +51,5 @@ await copyFile('server/baseball-live-providers.mjs',output+'/baseball-live-provi
 await copyFile('server/baseball-current.mjs',output+'/baseball-current.mjs');
 await copyFile('scripts/collect-baseball-live.mjs',output+'/collect-baseball-live.mjs');
 console.log('VERIFIED_CURRENT_COLLECTION '+JSON.stringify(verification));
-if(latest.leagues.every(l=>l.games.length===0))process.exitCode=1;
+// Empty schedules are valid only when all collectors succeeded and the NPB no-game marker was verified.
+if(latest.leagues.every(l=>l.games.length===0)&&latest.leagues.some(l=>l.status!=='ok'||(l.league==='NPB'&&l.offDayVerified!==true)))process.exitCode=1;

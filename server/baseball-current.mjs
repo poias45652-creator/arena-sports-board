@@ -1,4 +1,4 @@
-import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb} from './baseball-live-providers.mjs';
+import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb,plain} from './baseball-live-providers.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
 /** NPB's selected-game detail page omits that game's sidebar identity card.
  * Match the exact opaque game ID from the dated schedule, not team-name guesses.
@@ -9,7 +9,17 @@ export async function collectLeague(league,options={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
  const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
  const ids=npbScheduleIds(schedule.text),games=[],errors=[];
- if(!ids.length)throw new Error('No recognizable first-team schedule; not proof of no games');
+ if(!ids.length){
+  // Require the requested date and the page's explicit no-game marker in the
+  // selected-day section. Other dates in the weekly sidebar do not count.
+  const selectedDay=plain(schedule.text).split('CS・日本シリーズトーナメント表')[0];
+  const [,month,day]=date.split('-').map(Number);
+  const dateMarker=new RegExp(`${month}月\\s*${day}日`);
+  if(dateMarker.test(selectedDay)&&/試合はありません/.test(selectedDay)){
+   return {schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games:[],errors:[],status:'ok',offDayVerified:true,offDayEvidence:{url:schedule.url,fetchedAt:schedule.fetchedAt,marker:'試合はありません'},liveLatencyVerified:false};
+  }
+  throw new Error('No recognizable first-team schedule; not proof of no games');
+ }
  const anchors=[...schedule.text.matchAll(/<a\b[^>]*href=["'][^"']*\/npb\/game\/(\d+)\/(?:index|score)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)];
  for(const id of ids){
   try{
