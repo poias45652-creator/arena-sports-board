@@ -6,6 +6,22 @@ const {superEntry,superEntryUrl}=await import(moduleUrl('lib/super-entry.ts'));
 const {credentialKey,encryptToken}=await import(moduleUrl('lib/tz-credentials.ts'));
 const secret=Buffer.alloc(32,4).toString('base64'),key=await credentialKey(secret),ticket='0123456789abcdef0123456789abcdef';
 const request=(origin='https://arena.test',extra={})=>new Request('https://arena.test/api/super-entry',{method:'POST',headers:{Origin:origin,'x-super-session':'browser:12345678-1234-1234-1234-123456789abc',...extra}});
+test('OFA/TZ URL launches accept optional or case-insensitive GET without replaying tickets',async()=>{
+ for(const member of ['a','ofa:test'])for(const mobile of [false,true])for(const method of [undefined,null,'','get',' GET ']){
+  const {db}=await setup();let calls=0;const host=member.startsWith('ofa:')?'sp1788.net':'hr9988.net';
+  const r=await superEntry(request('https://arena.test',{'x-super-device':mobile?'mobile':'desktop'}),member,db,secret,async()=>{
+   calls++;return Response.json({code:200,data:{game_method:method,game_url:'https://'+host+'/#/APILogin?MemID='+ticket,game_post:{}}});
+  });
+  assert.equal(r.status,200);assert.equal((await r.json()).url,'https://'+(mobile?'m.':'')+host+'/#/APILogin?MemID='+ticket);assert.equal(calls,1);
+ }
+});
+test('form launches and malformed method fields remain rejected without leaking payloads',async()=>{
+ for(const data of [{game_method:'POST'},{game_method:123},{game_post:{token:'private-form-token'}},{game_post:'private-form-token'},{game_post:[]}]){
+  const {db}=await setup();let calls=0;
+  const r=await superEntry(request(),'a',db,secret,async()=>{calls++;return Response.json({code:200,data:{game_url:'https://hr9988.net/#/APILogin?MemID='+ticket,...data}});});
+  assert.equal(r.status,502);assert.equal(calls,1);const body=await r.text();assert.ok(!body.includes(ticket));assert.ok(!body.includes('private-form-token'));
+ }
+});
 async function setup(){const sql=new DatabaseSync(':memory:');sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,encrypted_token TEXT,expires_at INTEGER,verified_at INTEGER); CREATE TABLE tz_binding_attempts(member_id TEXT PRIMARY KEY,allowed_at INTEGER,operation_id TEXT)');const db={prepare(q){const s=sql.prepare(q);let args=[];const stmt={bind(...v){args=v;return stmt;},async first(){return s.get(...args)??null;},async run(){return s.run(...args);}};return stmt;}};for(const id of ['a','b','ofa:test'])sql.prepare('INSERT INTO tz_bindings VALUES(?,?,?,?)').run(id,await encryptToken('private-token-'+id,id,key),Date.now()+600000,1);return {db,sql};}
 const valid=(url='https://hr9988.net/#/APILogin?MemID='+ticket)=>Response.json({code:200,data:{game_method:'GET',game_url:url,game_post:{}}});
 test('each owner receives only their own browser entry without consuming it or exposing TZ token',async()=>{const {db}=await setup(),calls=[];for(const member of ['a','b']){const r=await superEntry(request(),member,db,secret,async(u,o)=>{calls.push(u);assert.equal(u,'https://www.tz6868.com/api/v2/game/SUPER/login');assert.equal(o.headers.Authorization,'Bearer private-token-'+member);assert.equal(o.redirect,'manual');assert.equal(o.cache,'no-store');assert.equal(JSON.parse(o.body).game_device,'Desktop');return valid();});assert.equal(r.status,200);assert.match(r.headers.get('cache-control'),/private, no-store/);const d=await r.json();assert.equal(d.url,'https://hr9988.net/#/APILogin?MemID='+ticket);assert.ok(d.reuseUntil>Date.now());assert.equal(JSON.stringify(d).includes('private-token'),false);}assert.equal(calls.length,2);});

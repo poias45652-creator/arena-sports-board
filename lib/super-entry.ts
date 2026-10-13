@@ -4,7 +4,7 @@ import {requestOrigin} from './request-origin';
 import type {HrDatabase} from './hr9988-connection';
 const privacy={'Cache-Control':'private, no-store, max-age=0','Vary':'Cookie','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer'};
 const reply=(body:unknown,status=200)=>Response.json(body,{status,headers:privacy});
-import {superDeviceEntryUrl} from './super-entry-url';
+import {superDeviceEntryUrl,superLaunchIsGet,superLaunchShape} from './super-entry-url';
 export {superEntryUrl} from './super-entry-url';
 /** Issue an unconsumed, owner-specific browser entry. Never exchange its MemID on the server. */
 export async function superEntry(request:Request,memberId:string|null,db:HrDatabase,secret:string|undefined,fetcher:typeof fetch=fetch){
@@ -38,7 +38,10 @@ export async function superEntry(request:Request,memberId:string|null,db:HrDatab
   for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>65536){await reader.cancel();throw Error();}raw+=decoder.decode(value,{stream:true});}raw+=decoder.decode();
   const data=JSON.parse(raw),url=superDeviceEntryUrl(data?.data?.game_url,mobile);
   if(url&&new URL(url).hostname!==(isOfa?(mobile?'m.sp1788.net':'sp1788.net'):(mobile?'m.hr9988.net':'hr9988.net')))return reply({error:'來源回傳的 SUPER 網址與登入帳號不符。',code:'invalid_entry'},502);
-  if(String(data?.code)!=='200'||data?.data?.game_method!=='GET'||!url)return reply({error:'來源未提供有效的 SUPER 登入入口，請確認體育館權限。',code:'invalid_entry'},502);
+  if(String(data?.code)!=='200'||!superLaunchIsGet(data?.data)||!url){
+   console.warn('super-launch-format',JSON.stringify({flow:'browser',provider:isOfa?'ofa':'tz',...superLaunchShape(data?.data)}));
+   return reply({error:'來源未提供有效的 SUPER 登入入口，請稍後重試。',code:'invalid_entry'},502);
+  }
   const current=await db.prepare('SELECT encrypted_token,verified_at,expires_at FROM tz_bindings WHERE member_id=?').bind(memberId).first<{encrypted_token:string;verified_at:number;expires_at:number}>();
   if(!current||current.encrypted_token!==binding.encrypted_token||current.verified_at!==binding.verified_at||current.expires_at<=Date.now())return reply({error:'登入狀態已變更，請重新開啟 SUPER。',code:'binding_changed'},409);
   // This is a short local reuse window, not a claim about the upstream ticket expiry.
