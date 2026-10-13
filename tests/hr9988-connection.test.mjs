@@ -19,6 +19,23 @@ async function setup(){
  await add('a');return {sql,db,add};
 }
 const exchange={code:200,data:{loginID:'test-hr-session',mb:{mbID:'TEST-MEMBER'},Lang:'tw'}};
+test('OFA collector accepts methodless launches and mobile source hosts using its own token',async()=>{
+ for(const method of [undefined,'get','GET'])for(const host of ['sp1788.net','m.sp1788.net']){
+  const {db,sql,add}=await setup();await add('ofa:test');sql.prepare('UPDATE tz_bindings SET game_url=? WHERE member_id=?').run('https://sp1788.net/#/Games','ofa:test');
+  const calls=[];
+  const r=await hrConnection('ofa:test',db,secret,'connect',flow(calls,request=>{
+   if(!request.endpoint.includes('/SUPER/login'))return;
+   assert.equal(request.endpoint,'https://www.ofa1188.net/api/v2/game/SUPER/login');assert.equal(request.headers.Authorization,'Bearer tz-test-ofa:test');
+   return Response.json({code:200,data:{game_method:method,game_url:'https://'+host+'/#/APILogin?MemID=0123456789abcdef0123456789abcdef',game_post:{}}});
+  }));
+  assert.equal(r.status,200);assert.equal((await r.json()).connection.status,'connected');assert.equal(calls[1].endpoint,'https://sp1788.net/api/mb/sin/outApiLogin');assert.equal(calls.filter(c=>c.endpoint.includes('/SUPER/login')).length,1);
+ }
+});
+test('collector rejects POST payloads before exchanging a ticket',async()=>{
+ const {db}=await setup(),calls=[];
+ const r=await hrConnection('a',db,secret,'connect',flow(calls,()=>Response.json({code:200,data:{game_url:'https://hr9988.net/#/APILogin?MemID=0123456789abcdef0123456789abcdef',game_post:{token:'private-form-token'}}})));
+ assert.equal(r.status,502);assert.equal(calls.length,1);assert.equal((await r.json()).code,'launch_format_changed');
+});
 function flow(calls,hook){return async(endpoint,options)=>{
  const request={endpoint,headers:options.headers,body:JSON.parse(options.body)};calls.push(request);
  assert.equal(options.redirect,'manual');

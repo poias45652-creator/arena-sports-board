@@ -1,4 +1,5 @@
 import {claimSuperSession,releaseSuperSession} from './super-session-lock';
+import {superDeviceEntryUrl,superLaunchIsGet,superLaunchShape} from './super-entry-url';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 import {hrSportsRequests,parseHrGameDetail} from './hr9988';
 import type {SuperSnapshot} from './super007';
@@ -52,8 +53,13 @@ async function openSession(binding:Binding,key:CryptoKey,fetcher:typeof fetch):P
  try{launched=await post(isOfa?'https://www.ofa1188.net/api/v2/game/SUPER/login':'https://www.tz6868.com/api/v2/game/SUPER/login',isOfa?{game_return_url:'https://www.ofa1188.net',game_kind:'SPORT',game_device:'Desktop',game_money:''}:{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'},{Authorization:`Bearer ${token}`},fetcher);}
  catch(e){if(e instanceof HrError&&e.code==='source_auth_expired')throw new HrError('tz_auth_expired','授權已失效，請重新驗證帳號。',409);if(e instanceof HrError)throw new HrError(e.code,'體育館登入：'+e.message,e.status);throw e;}
  const data=launched.data;
- if(data?.game_method!=='GET'||typeof data?.game_url!=='string'||data.game_url.length>4096)throw new HrError('launch_format_changed','未回傳可辨識的體育館登入入口。');
+ if(!superLaunchIsGet(data)||typeof data?.game_url!=='string'||data.game_url.length>4096){
+  console.warn('super-launch-format',JSON.stringify({flow:'collector',provider:isOfa?'ofa':'tz',...superLaunchShape(data)}));
+  throw new HrError('launch_format_changed','未回傳可辨識的體育館登入入口。');
+ }
  let url:URL;try{url=new URL(data.game_url);}catch{throw new HrError('launch_format_changed','回傳的體育館網址無效。');}
+ // A source can return a mobile host even for a desktop API request.
+ const normalized=superDeviceEntryUrl(data.game_url,false);if(normalized)url=new URL(normalized);
  const origin=hrOrigin(url),fragment=url.hash.slice(1);
  if(url.hostname!==(isOfa?'sp1788.net':'hr9988.net')&&!(!isOfa&&url.hostname==='m.hr9988.net')&&!(!isOfa&&url.hostname==='www.hr9988.net'))throw new HrError('wrong_game_destination','SUPER 入口與登入來源不符。');
  const split=fragment.indexOf('?');
