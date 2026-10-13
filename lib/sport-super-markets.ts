@@ -1,7 +1,7 @@
 import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
 import {WNBA_TEAMS} from './wnba';
 import {NBA_TEAMS} from './nba';
-import {FOOTBALL_TEAM_NAMES} from './football';
+import {FOOTBALL_TEAM_NAMES,footballTeamName} from './football';
 export type SportFixture={id:string;league?:string;start:string;timeConfirmed:boolean;state:string;home:{id?:string;name:string;logo?:string};away:{id?:string;name:string;logo?:string}};
 export type SportQuote={kind:'spread'|'total'|'moneyline';line:number;boundary:number;parts?:number[];display:string;home:number;away:number;draw?:number;signature:string};
 export type SportEvent={id:number;home:string;away:string;spread:SportQuote|null;total:SportQuote|null;moneyline:SportQuote|null};
@@ -40,6 +40,9 @@ const footballAliases:Record<string,string>={
  '巴黎':'巴黎FC','利文斯':'勒芒',
  // Exact spellings in the October 12 source audit, verified against official fixtures.
  '利雲特':'萊萬特','紐卡素聯':'紐卡索聯','拖連奴':'都靈',
+ // October 13 production source spellings, checked against both full fixtures.
+ 'PSV埃因霍溫':'PSV恩荷芬','科木':'科莫','AS羅馬':'羅馬',
+ '皇家貝迪斯':'皇家貝提斯','波杜基林特':'博多格林特',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
@@ -47,7 +50,7 @@ const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐�
 // this league; never strip women/youth qualifiers from other competitions.
 const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));
 const registeredNames:Record<MarketSport,ReadonlySet<string>>={NBA:new Set(NBA_TEAMS.map(t=>t.name)),WNBA:new Set(WNBA_TEAMS.map(t=>t.name)),FOOTBALL:new Set(FOOTBALL_TEAM_NAMES)};
-export function sportTeamKey(name:string,sport?:MarketSport){const key=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='WNBA'?(wnbaAliases.get(key)??aliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
+export function sportTeamKey(name:string,sport?:MarketSport){const clean=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').trim(),key=(sport==='FOOTBALL'?footballTeamName(clean):clean).replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='WNBA'?(wnbaAliases.get(key)??aliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
 const marketTypes=(sport:MarketSport)=>sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
 function sourceTime(value:unknown){
  if(typeof value!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(value))return NaN;

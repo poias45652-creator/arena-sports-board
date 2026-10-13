@@ -1,0 +1,354 @@
+{
+  "schema": 1,
+  "revision": "sport-pairing-v3",
+  "fetchedAt": "2026-10-13T15:28:13.045Z",
+  "fixtureCount": 18,
+  "originalFixtureCount": 23,
+  "truncated": false,
+  "unrecognizedTeamNames": [
+    {
+      "sport": "FOOTBALL",
+      "name": "沙巴巴庫(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "布拉格斯拉維亞"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "PSV埃因霍溫"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "維京(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "科木"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "林茨(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "頓涅茨克礦工(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "AEK雅典"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "AS羅馬(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "皇家貝迪斯(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "費內巴切"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "布拉迪斯拉發(主)"
+    },
+    {
+      "sport": "FOOTBALL",
+      "name": "波杜基林特(主)"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": 25092665,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "朗斯(主)",
+      "away": "里斯本競技",
+      "start": "2026/10/14 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092661,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "沙巴巴庫(主)",
+      "away": "布拉格斯拉維亞",
+      "start": "2026/10/14 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092676,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "RB萊比錫(主)",
+      "away": "PSV埃因霍溫",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092677,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "國際米蘭(主)",
+      "away": "布魯日",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092679,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "阿仙奴(主)",
+      "away": "利爾",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092669,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "馬德里體育會(主)",
+      "away": "曼聯",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092678,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "加拉塔薩雷(主)",
+      "away": "巴塞隆拿",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092672,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "維拉利爾(主)",
+      "away": "拿玻里",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25092667,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "維京(主)",
+      "away": "拜仁慕尼黑",
+      "start": "2026/10/14 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095844,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "飛燕諾(主)",
+      "away": "科木",
+      "start": "2026/10/15 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095847,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "林茨(主)",
+      "away": "利物浦",
+      "start": "2026/10/15 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095853,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "曼城(主)",
+      "away": "巴黎聖日門",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095852,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "頓涅茨克礦工(主)",
+      "away": "AEK雅典",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095849,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "AS羅馬(主)",
+      "away": "皇家馬德里",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095850,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "皇家貝迪斯(主)",
+      "away": "波爾圖",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095851,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "阿斯頓維拉(主)",
+      "away": "費內巴切",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095854,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "布拉迪斯拉發(主)",
+      "away": "斯圖加特",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25095848,
+      "sport": "FOOTBALL",
+      "competition": "uefa.champions",
+      "leagueName": "歐洲冠軍聯賽",
+      "home": "波杜基林特(主)",
+      "away": "多特蒙德",
+      "start": "2026/10/15 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    }
+  ],
+  "source": "Render super-sport-pairing-audit",
+  "capturedAt": "2026-10-13T15:28:13.05341885Z"
+}
