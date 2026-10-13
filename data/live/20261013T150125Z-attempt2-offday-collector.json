@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-13",
+  "capturedAt": "2026-10-13T15:01:25.989Z",
+  "kind": "collector_offday_refresh",
+  "workflow": {
+    "name": "Current baseball collector",
+    "runId": 38411690456,
+    "runAttempt": 2,
+    "jobId": 115368774708,
+    "headSha": "7c87b400955242af5854025fc1b9a8efdb76f860",
+    "status": "completed",
+    "conclusion": "success",
+    "artifactId": 11824574503,
+    "artifactCreatedAt": "2026-10-13T15:01:30Z",
+    "artifactDigest": "sha256:b5a7b86c37107d3399ce931fb1cff70a4663022b22f9b043bea8af213b33718a"
+  },
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-13",
+        "fetchedAt": "2026-10-13T15:01:22.467Z",
+        "marker": "試合はありません"
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": null,
+      "note": "Collector returned zero eligible games; no independent first-team off-day marker inside this artifact."
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": null,
+      "note": "Collector returned zero eligible games; no independent first-team off-day marker inside this artifact."
+    }
+  },
+  "secondCapturePerformed": false,
+  "liveChangeVerified": false,
+  "qualifiedNumericChanges": 0,
+  "captureIntervalSeconds": null,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-13T15:01:29.022Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "unsupportedFields": {
+    "CPBL_pitchCount": null,
+    "CPBL_balls": null,
+    "CPBL_strikes": null,
+    "CPBL_outs": null,
+    "CPBL_bases": null
+  },
+  "productionChanged": false,
+  "deployed": false,
+  "note": "Verified using new artifact for run attempt 2, not attempt 1. No live first-team game at capture; >=65 s double polling not applicable. Historical evidence untouched."
+}
