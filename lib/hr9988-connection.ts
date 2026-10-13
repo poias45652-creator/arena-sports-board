@@ -79,9 +79,10 @@ async function collect(session:Session,fetcher:typeof fetch):Promise<SuperSnapsh
  try{
   const menu=await post(session.origin+'/api/GameInfo/Menu',{},auth,fetcher,true);
   try{requests=hrSportsRequests(menu);}catch{throw new HrError('odds_menu_changed','SUPER 選單格式改變，暫停讀取。');}
-  // At most three independent reads share the same session. Await all before releasing the lease.
+  // At most four independent reads share the same session, including the
+  // dedicated Champions category. Await all before releasing the lease.
   const results=await Promise.allSettled(requests.map(async request=>{
-   const name=request.CatID===101?'棒球':request.CatID===102?'籃球':'足球';
+   const name=request.CatID===101?'棒球':request.CatID===102?'籃球':request.CatID===31?'冠軍聯賽':'足球';
    try{const detail=await post(session.origin+'/api/GameInfo/GameDetail',request,auth,fetcher,true);return {CatID:request.CatID,CatName:name,Items:detail.data};}
    catch(e){if(e instanceof HrError)throw new HrError(e.code,name+'：'+e.message,e.status);throw e;}
   }));

@@ -37,6 +37,8 @@ export function hrBaseballRequest(value:unknown):{GameType:3;CatID:101;WagerType
 }
 
 // Categories and primary wager menu verified from the supplied SUPER captures.
+// SUPER's public GameOnlyCatID/tw lists 冠軍聯賽 separately as CatID 31
+// (2026-10-13). Read it only when present in the member's pregame menu.
 export function hrSportsRequests(value:unknown):{GameType:3;CatID:number;WagerTypeKey?:number|string}[]{
  const response=value as any;
  if(String(response?.code)!=='200'||!Array.isArray(response.data?.list))throw new Error('SUPER 賽事選單格式改變');
@@ -44,7 +46,7 @@ export function hrSportsRequests(value:unknown):{GameType:3;CatID:number;WagerTy
  if(menus.length>1)throw new Error('SUPER 賽前選單格式改變');
  if(!menus.length)return [];
  if(!Array.isArray(menus[0].LeftMenu?.item))throw new Error('SUPER 賽前選單格式改變');
- return [101,102,1].flatMap(CatID=>{
+ return [101,102,1,31].flatMap(CatID=>{
   const categories=menus[0].LeftMenu.item.filter((c:any)=>c?.catid===CatID);
   if(categories.length>1)throw new Error('SUPER 回傳重複分類');
   if(!categories.length)return [];
@@ -77,6 +79,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
  const response=value as any;
  if(String(response?.code)!=='200'||!Array.isArray(response.data)||!Number.isFinite(Date.parse(fetchedAt)))throw new Error('SUPER 資料回應格式無效');
  const games:any[]=[];const internationalGames:any[]=[];const sportGames:any[]=[];const sourceLeagues:{name:string;league:string|null;games:number}[]=[];
+ const sportCopies=new Map<string,{categories:Set<number>;row:any}>();
  for(const category of response.data){
   if(!category?.Items||!Array.isArray(category.Items.List))throw new Error('SUPER 賽事分類格式改變');
   for(const league of category.Items.List){
@@ -84,7 +87,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
    const name=String(league?.LeagueNameStr||'').trim();
    const code=name==='MLB 美國職棒'?'MLB':/^(CPBL\b|中華職棒|中華職業棒球)/i.test(name)?'CPBL':/^(NPB\b|日本職棒)/i.test(name)?'NPB':/^(KBO\b|韓國職棒)/i.test(name)?'KBO':null;
    if(code||/棒球|baseball/i.test(String(category.CatName||'')))sourceLeagues.push({name:name.slice(0,100),league:code,games:Array.isArray(league.Team)?league.Team.length:0});
-   const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1?'FOOTBALL':null;
+   const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1||category.CatID===31?'FOOTBALL':null;
    const competition=sport==='FOOTBALL'?hrFootballCompetition(name):null;
    if(!code&&!sport)continue;
    if(!Array.isArray(league.Team))throw new Error('SUPER MLB 賽事格式改變');
@@ -104,10 +107,24 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
       over:q.OverOdds??null,under:q.UnderOdds??null,...(sport==='FOOTBALL'?{drawPrice:q.DrewOdds??null}:{})
      }))}];
     });
-    (sport?sportGames:code==='MLB'?games:internationalGames).push({...(sport?{league:sport,competition,leagueName:name}:code==='MLB'?{}:{league:code,leagueName:name}),id:team.EvtID,home:team.HomeTeamStr,away:team.AwayTeamStr,start:team.ScheduleTimeStr,live:team.Live!==false,
+    const row={...(sport?{league:sport,competition,leagueName:name}:code==='MLB'?{}:{league:code,leagueName:name}),id:team.EvtID,home:team.HomeTeamStr,away:team.AwayTeamStr,start:team.ScheduleTimeStr,live:team.Live!==false,
      displayMarkets,
      // Preserve the existing full-game-only recommendation contract.
-     markets:displayMarkets.filter(m=>m.period==='full').map(m=>({type:m.type,quotes:m.quotes.filter(q=>q.open).map(({open,...q})=>q)}))});
+     markets:displayMarkets.filter(m=>m.period==='full').map(m=>({type:m.type,quotes:m.quotes.filter(q=>q.open).map(({open,...q})=>q)}))};
+    if(sport){
+     const key=sport+':'+row.id,previous=sportCopies.get(key);
+     // An identical event may be listed under both general football and its
+     // dedicated Champions category. Never choose between conflicting quotes
+     // or merge distinct event IDs, competitions, teams, or kickoff times.
+     if(previous){
+      if(sport==='FOOTBALL'&&competition==='uefa.champions'&&!previous.categories.has(category.CatID)&&JSON.stringify(previous.row)===JSON.stringify(row)){
+       previous.categories.add(category.CatID);continue;
+      }
+      throw new Error('SUPER 回傳重複運動賽事');
+     }
+     sportCopies.set(key,{categories:new Set([category.CatID]),row});
+    }
+    (sport?sportGames:code==='MLB'?games:internationalGames).push(row);
    }
   }
  }

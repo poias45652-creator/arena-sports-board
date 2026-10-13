@@ -211,20 +211,34 @@ test('login network failures never replay a credential exchange',async()=>{
  const response=await hrConnection('a',db,secret,'connect',flow(calls,()=>{throw new TypeError('network interrupted');}));
  assert.equal(response.status,502);assert.equal(calls.length,1);
 });
-test('all three sport reads run concurrently and retain the lease until every request settles',async()=>{
+test('all four category reads run concurrently and retain the lease until every request settles',async()=>{
  const {db,sql}=await setup();let ready,release;const started=new Promise(r=>ready=r),gate=new Promise(r=>release=r),seen=new Set();
  const task=hrConnection('a',db,secret,'connect',flow([],async request=>{
-  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[101,102,1].map(catid=>({catid,Items:[{WagerTypeKey:7}]}))}}]}});
+  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[101,102,1,31].map(catid=>({catid,Items:[{WagerTypeKey:7}]}))}}]}});
   if(!request.endpoint.endsWith('/GameDetail'))return;
-  seen.add(request.body.CatID);if(seen.size===3)ready();
+  seen.add(request.body.CatID);if(seen.size===4)ready();
   if(request.body.CatID===102)return new Response('unavailable',{status:503});
   await gate;
  }));
- await started;assert.equal(seen.size,3);await new Promise(r=>setTimeout(r,300));
+ await started;assert.equal(seen.size,4);await new Promise(r=>setTimeout(r,300));
  assert.ok(sql.prepare('SELECT busy_until FROM hr_connections').get().busy_until>Date.now());
  assert.equal((await hrConnection('a',db,secret,'read',flow([]))).status,429);
  release();const response=await task;assert.equal(response.status,502);assert.match((await response.json()).error,/籃球/);
  assert.equal(sql.prepare('SELECT snapshot FROM hr_connections').get().snapshot,null);
+});
+test('an authenticated dedicated Champions response is fetched, parsed and cached without a general football menu',async()=>{
+ const {db,sql}=await setup(),calls=[];
+ const category=JSON.parse(readFileSync(new URL('./fixtures/sport-super-game-details.json',import.meta.url),'utf8')).data.find(c=>c.CatID===1);
+ category.Items.List=category.Items.List.slice(0,1);category.Items.List[0].LeagueNameStr='歐洲冠軍聯賽';
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>{
+  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[{catid:31,Items:[{WagerTypeKey:9}]}]}}]}});
+  if(request.endpoint.endsWith('/GameDetail')){assert.deepEqual(request.body,{GameType:3,CatID:31,WagerTypeKey:9});return Response.json({code:200,data:category.Items});}
+ }));
+ assert.equal(response.status,200);const body=await response.json();
+ assert.ok(body.sportGames.length>0);assert.ok(body.sportGames.every(g=>g.league==='FOOTBALL'&&g.competition==='uefa.champions'));
+ assert.deepEqual(body.sourceDiagnostics.requests,[{GameType:3,CatID:31,WagerTypeKey:9}]);
+ assert.deepEqual(JSON.parse(sql.prepare('SELECT snapshot FROM hr_connections').get().snapshot).sportGames,body.sportGames);
+ const count=calls.length;await hrConnection('a',db,secret,'read',flow(calls));assert.equal(calls.length,count);
 });
 test('a source response taking longer than eight seconds completes without a forced disconnect',async()=>{
  const {db}=await setup();const base=flow([]);let delayed=false;
