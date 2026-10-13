@@ -16,6 +16,55 @@ test('menu reads the three supported pregame sports without changing baseball re
  const duplicate=structuredClone(menu);duplicate.data.list[0].LeftMenu.item.push(duplicate.data.list[0].LeftMenu.item.find(c=>c.catid===102));
  assert.throws(()=>hrSportsRequests(duplicate));
 });
+// CatID 31 is the dedicated 冠軍聯賽 category in SUPER's public
+// /api/GameInfo/GameOnlyCatID/tw response captured on 2026-10-13.
+// The event and all quotes below are synthetic regression data, not live odds.
+const championsNow=Date.parse('2026-10-13T10:25:00Z');
+const championsGame={id:'test-arsenal-lille',league:'uefa.champions',state:'scheduled',timeConfirmed:true,start:'2026-10-14T03:00:00+08:00',home:{name:'阿森納'},away:{name:'里爾'}};
+function championsCategory(){
+ const category=structuredClone(fixture().data.find(c=>c.CatID===1));
+ category.CatID=31;category.CatName='冠軍聯賽';
+ category.Items.List=category.Items.List.slice(0,1);
+ const league=category.Items.List[0];league.LeagueNameStr='歐洲冠軍聯賽';league.Team=league.Team.slice(0,1);
+ Object.assign(league.Team[0],{EvtID:910031,HomeTeamStr:'阿仙奴(主)',AwayTeamStr:'利爾',ScheduleTimeStr:'2026/10/14 03:00:00',Live:false});
+ return category;
+}
+const championsSnapshot=categories=>parseHrGameDetail({code:200,data:categories},new Date(championsNow).toISOString());
+test('dedicated Champions menu is collected even when general football is absent',()=>{
+ const input=structuredClone(menu),items=input.data.list[0].LeftMenu.item;
+ items.splice(items.findIndex(c=>c.catid===1),1,{catid:31,catName:'冠軍聯賽',Items:[{WagerTypeKey:9}]});
+ assert.deepEqual(hrSportsRequests(input).map(r=>r.CatID),[101,102,31]);
+ assert.deepEqual(hrSportsRequests(input).at(-1),{GameType:3,CatID:31,WagerTypeKey:9});
+ assert.deepEqual(hrBaseballRequest(input),hrBaseballRequest(menu));
+ input.data.list[0].GameType=2;assert.deepEqual(hrSportsRequests(input),[]);
+ input.data.list[0].GameType=3;items.push(structuredClone(items.find(c=>c.catid===31)));
+ assert.throws(()=>hrSportsRequests(input));
+});
+test('dedicated Champions events reach all three markets with exact cross-day Arsenal/Lille pairing',()=>{
+ const snapshot=championsSnapshot([championsCategory()]);
+ const matched=matchSportEvent(snapshot,championsGame,'FOOTBALL',championsNow);
+ assert.ok(matched);for(const kind of ['spread','total','moneyline'])assert.ok(matched[kind],kind);
+ assert.equal(snapshot.games.length,0);assert.equal(snapshot.sportGames.length,1);
+ for(const change of [{league:'eng.1'},{start:'2026-10-15T03:00:00+08:00'},{home:championsGame.away,away:championsGame.home},{state:'live'}])assert.equal(matchSportEvent(snapshot,{...championsGame,...change},'FOOTBALL',championsNow),null);
+ assert.equal(matchSportEvent(snapshot,championsGame,'FOOTBALL',championsNow+150000),null);
+ for(const name of ['歐洲女子冠軍聯賽','歐洲U19冠軍聯賽','其他冠軍聯賽']){
+  const category=championsCategory();category.Items.List[0].LeagueNameStr=name;
+  assert.equal(matchSportEvent(championsSnapshot([category]),championsGame,'FOOTBALL',championsNow),null);
+ }
+});
+test('identical cross-category Champions copies collapse, but conflicting or same-category duplicates fail closed',()=>{
+ const cup=championsCategory(),general=structuredClone(cup);general.CatID=1;general.CatName='足球';
+ for(const categories of [[general,cup],[cup,general]]){
+  const snapshot=championsSnapshot(categories);assert.equal(snapshot.sportGames.length,1);
+  assert.ok(matchSportEvent(snapshot,championsGame,'FOOTBALL',championsNow)?.spread);
+ }
+ assert.throws(()=>championsSnapshot([cup,cup]));
+ assert.throws(()=>championsSnapshot([general,cup,cup]));
+ for(const change of [t=>t.AwayTeamStr='其他球隊',t=>t.Wager[0].Odds[0].Status=0,t=>t.ScheduleTimeStr='2026/10/14 04:00:00']){
+  const conflict=structuredClone(cup);change(conflict.Items.List[0].Team[0]);
+  assert.throws(()=>championsSnapshot([general,conflict]));
+ }
+});
 test('captured Heat primary uses away 1-25 and total 228.5; alternate stays alternate',()=>{
  const snapshot=parseHrGameDetail(fixture(),captured),r=matchSportEvent(snapshot,nba,'NBA',now);
  assert.ok(r);assert.equal(snapshot.games.length,0);
