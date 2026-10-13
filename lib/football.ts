@@ -15,7 +15,6 @@ export type FootballGame<L extends string=FootballLeague> = {
   home:FootballTeam;away:FootballTeam;homeScore:number|null;awayScore:number|null;
   state:'scheduled'|'live'|'final'|'other';statusName:string;statusLabel:string;
   neutral:boolean;venue:string;sourceUrl:string;
-  marketReference?:import('./football-market-reference').FootballMarketReference;
 };
 export type FootballForm = {games:number;venueGames:number;scored:number;conceded:number;recent:string[];latest:string|null;supplementGames:number;friendlyGames?:number};
 export type FootballFormOptions = {decayDays:number;venueWeight:number;competition?:string;otherCompetitionWeight?:number;friendlyWeight?:number};
