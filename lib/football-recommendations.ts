@@ -1,4 +1,4 @@
-import {footballDay,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
+import {footballDay,uncalibratedCupAnalysis,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
 
 export type FootballReport={game?:FootballGame;analysis?:FootballAnalysis;error?:string;sourceFetchedAt?:string;archiveAsOf?:string;snapshotSaved?:boolean;retained?:boolean};
 export type ReadyFootballAnalysis=FootballAnalysis&{probabilities:NonNullable<FootballAnalysis['probabilities']>};
@@ -17,6 +17,7 @@ export function retainFootballForecast(game:FootballGame,now:number){
 export function readyFootballAnalysis(game:FootballGame,report:FootballReport|undefined,now:number,unavailable=false):ReadyFootballAnalysis|null{
   const analysis=report?.analysis,p=analysis?.probabilities,captured=Date.parse(analysis?.capturedAt||''),start=Date.parse(game.start);
   const retained=retainFootballForecast(game,now);
+  if(uncalibratedCupAnalysis(game,analysis))return null;
   if(report?.error||!Number.isFinite(now)||!Number.isFinite(start)||!game.timeConfirmed||report?.game?.state!=='scheduled'||footballFixtureKey(report?.game)!==footballFixtureKey(game)||analysis?.status!=='ready'||!p)return null;
   // After kickoff only the existing pregame snapshot is shown, until Taipei midnight.
   // Its age and a scoreboard outage cannot change or withdraw that prediction.

@@ -1,0 +1,5598 @@
+{
+  "capturedAt": "2026-10-13T16:20:52.430475+00:00",
+  "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/",
+  "note": "Trimmed actual pregame sources. The second source day is an empty test response outside the requested Taipei day. Prices are captured public market quotes, not YJ model forecasts.",
+  "sources": [
+    {
+      "path": "uefa.champions/scoreboard?dates=20261013&limit=100",
+      "data": {
+        "events": [
+          {
+            "id": "401915411",
+            "date": "2026-10-13T19:00Z",
+            "name": "Bayern Munich at Viking FK",
+            "season": {
+              "year": 2026,
+              "type": 14534,
+              "slug": "league-phase"
+            },
+            "status": {
+              "clock": 0.0,
+              "displayClock": "0'",
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Tue, October 13th at 3:00 PM EDT",
+                "shortDetail": "Scheduled"
+              }
+            },
+            "competitions": [
+              {
+                "date": "2026-10-13T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0.0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 13th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "id": "10880",
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": "0",
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK",
+                      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/510.png"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": "0",
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich",
+                      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png"
+                    }
+                  }
+                ],
+                "odds": [
+                  {
+                    "provider": {
+                      "id": "100",
+                      "name": "DraftKings",
+                      "priority": 1
+                    },
+                    "overUnder": 4.5,
+                    "moneyline": {
+                      "home": {
+                        "close": {
+                          "odds": "+1600"
+                        }
+                      },
+                      "draw": {
+                        "close": {
+                          "odds": "+950"
+                        }
+                      },
+                      "away": {
+                        "close": {
+                          "odds": "-900"
+                        }
+                      }
+                    },
+                    "pointSpread": {
+                      "home": {
+                        "close": {
+                          "odds": "-105",
+                          "line": "+2.5"
+                        }
+                      },
+                      "away": {
+                        "close": {
+                          "odds": "-130",
+                          "line": "-2.5"
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "uefa.champions/teams/510/schedule?season=2025",
+      "data": {
+        "team": {
+          "id": "510",
+          "displayName": "Viking FK"
+        },
+        "events": []
+      }
+    },
+    {
+      "path": "uefa.champions/teams/510/schedule?season=2026",
+      "data": {
+        "team": {
+          "id": "510",
+          "displayName": "Viking FK"
+        },
+        "events": [
+          {
+            "id": "401915448",
+            "date": "2026-09-09T16:45Z",
+            "name": "Viking FK at VfB Stuttgart",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-09-09T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "MHPArena",
+                  "address": {
+                    "city": "Stuttgart",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "134",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "134",
+                      "displayName": "VfB Stuttgart"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "uefa.champions/teams/132/schedule?season=2025",
+      "data": {
+        "team": {
+          "id": "132",
+          "displayName": "Bayern Munich"
+        },
+        "events": [
+          {
+            "id": "401862895",
+            "date": "2026-05-06T19:00Z",
+            "name": "Paris Saint-Germain at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-05-06T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "160",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "160",
+                      "displayName": "Paris Saint-Germain"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401862893",
+            "date": "2026-04-28T19:00Z",
+            "name": "Bayern Munich at Paris Saint-Germain",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-04-28T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Parc des Princes",
+                  "address": {
+                    "city": "Paris",
+                    "country": "France"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "160",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "160",
+                      "displayName": "Paris Saint-Germain"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401862891",
+            "date": "2026-04-15T19:00Z",
+            "name": "Real Madrid at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-04-15T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "86",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "86",
+                      "displayName": "Real Madrid"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401862886",
+            "date": "2026-04-07T19:00Z",
+            "name": "Bayern Munich at Real Madrid",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-04-07T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Santiago Bernabéu",
+                  "address": {
+                    "city": "Madrid",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "86",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "86",
+                      "displayName": "Real Madrid"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401862642",
+            "date": "2026-03-18T20:00Z",
+            "name": "Atalanta at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-03-18T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "105",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "105",
+                      "displayName": "Atalanta"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401862641",
+            "date": "2026-03-10T20:00Z",
+            "name": "Bayern Munich at Atalanta",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-03-10T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "New Balance Arena",
+                  "address": {
+                    "city": "Bergamo",
+                    "country": "Italy"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "105",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "105",
+                      "displayName": "Atalanta"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 6.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757793",
+            "date": "2026-01-28T20:00Z",
+            "name": "Bayern Munich at PSV Eindhoven",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-01-28T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Philips Stadion",
+                  "address": {
+                    "city": "Eindhoven",
+                    "country": "Netherlands"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "148",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "148",
+                      "displayName": "PSV Eindhoven"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757774",
+            "date": "2026-01-21T20:00Z",
+            "name": "Union St.-Gilloise at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-01-21T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "5807",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "5807",
+                      "displayName": "Union St.-Gilloise"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757744",
+            "date": "2025-12-09T17:45Z",
+            "name": "Sporting CP at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-12-09T17:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "2250",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "2250",
+                      "displayName": "Sporting CP"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757742",
+            "date": "2025-11-26T20:00Z",
+            "name": "Bayern Munich at Arsenal",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-11-26T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Emirates Stadium",
+                  "address": {
+                    "city": "London",
+                    "country": "England"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "359",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "359",
+                      "displayName": "Arsenal"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757709",
+            "date": "2025-11-04T20:00Z",
+            "name": "Bayern Munich at Paris Saint-Germain",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-11-04T20:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Parc des Princes",
+                  "address": {
+                    "city": "Paris",
+                    "country": "France"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "160",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "160",
+                      "displayName": "Paris Saint-Germain"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757703",
+            "date": "2025-10-22T19:00Z",
+            "name": "Club Brugge at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-10-22T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 120.0,
+                  "displayClock": "90'+2'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "570",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "570",
+                      "displayName": "Club Brugge"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757677",
+            "date": "2025-09-30T19:00Z",
+            "name": "Bayern Munich at Pafos",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-09-30T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Alphamega Stadium",
+                  "address": {
+                    "city": "Kolossi",
+                    "country": "Cyprus"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "22281",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "22281",
+                      "displayName": "Pafos"
+                    }
+                  },
+                  {
+                    "id": "132",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "757663",
+            "date": "2025-09-17T19:00Z",
+            "name": "Chelsea at Bayern Munich",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-09-17T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "363",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "363",
+                      "displayName": "Chelsea"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "uefa.champions/teams/132/schedule?season=2026",
+      "data": {
+        "team": {
+          "id": "132",
+          "displayName": "Bayern Munich"
+        },
+        "events": [
+          {
+            "id": "401915443",
+            "date": "2026-09-10T19:00Z",
+            "name": "Bodo/Glimt at Bayern Munich",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-09-10T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Allianz Arena",
+                  "address": {
+                    "city": "München",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "132",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  },
+                  {
+                    "id": "2980",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "all/teams/510/schedule?season=2025",
+      "data": {
+        "team": {
+          "id": "510",
+          "displayName": "Viking FK"
+        },
+        "events": [
+          {
+            "id": "727863",
+            "date": "2025-11-30T16:00Z",
+            "name": "Valerenga at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-11-30T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 60.0,
+                  "displayClock": "90'+1'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "2791",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "2791",
+                      "displayName": "Vålerenga"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727861",
+            "date": "2025-11-23T18:15Z",
+            "name": "Viking FK at Fredrikstad",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-11-23T18:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 540.0,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Fredrikstad Stadion",
+                  "address": {
+                    "city": "Fredrikstad",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3039",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "3039",
+                      "displayName": "Fredrikstad"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727847",
+            "date": "2025-11-08T17:00Z",
+            "name": "Hamarkameratene at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-11-08T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "21380",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "21380",
+                      "displayName": "Hamarkameratene"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727843",
+            "date": "2025-11-02T13:30Z",
+            "name": "Viking FK at Stromsgodset",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-11-02T13:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Marienlyst Stadion",
+                  "address": {
+                    "city": "Drammen",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "9811",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "9811",
+                      "displayName": "Stromsgodset"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727837",
+            "date": "2025-10-25T14:00Z",
+            "name": "Bryne at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-10-25T14:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "22530",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "22530",
+                      "displayName": "Bryne"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727826",
+            "date": "2025-10-19T12:30Z",
+            "name": "Viking FK at Tromso",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-10-19T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Romssa Arena",
+                  "address": {
+                    "city": "Tromsø",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "5270",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "5270",
+                      "displayName": "Tromso"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727816",
+            "date": "2025-10-05T12:30Z",
+            "name": "SK Brann at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-10-05T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "620",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "620",
+                      "displayName": "SK Brann"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727808",
+            "date": "2025-09-27T16:00Z",
+            "name": "Viking FK at Sarpsborg FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-09-27T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 660.0,
+                  "displayClock": "90'+11'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Sarpsborg Stadion",
+                  "address": {
+                    "city": "Sarpsborg",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "5002",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "5002",
+                      "displayName": "Sarpsborg FK"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727801",
+            "date": "2025-09-21T17:15Z",
+            "name": "Molde at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-09-21T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "2715",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "2715",
+                      "displayName": "Molde"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727797",
+            "date": "2025-09-14T15:00Z",
+            "name": "Viking FK at KFUM Oslo",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-09-14T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 540.0,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "KFUM Arena",
+                  "address": {
+                    "city": "Oslo",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "22165",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "22165",
+                      "displayName": "KFUM Oslo"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727787",
+            "date": "2025-08-31T15:00Z",
+            "name": "Rosenborg at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-08-31T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "438",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "438",
+                      "displayName": "Rosenborg"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "755181",
+            "date": "2025-08-13T16:00Z",
+            "name": "Viking FK at Istanbul Basaksehir",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "id": "20221",
+              "alternateId": "2468",
+              "name": "UEFA Conference League Qualifying",
+              "abbreviation": "UEFA Conference League Qualifying",
+              "shortName": "UECL Qualifying",
+              "midsizeName": "UEFA.EUROPA.CONF_QUAL",
+              "slug": "uefa.europa.conf_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-08-13T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Basaksehir Fatih Terim Stadium",
+                  "address": {
+                    "city": "Istanbul",
+                    "country": "Türkiye"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "7914",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "7914",
+                      "displayName": "Istanbul Basaksehir"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727765",
+            "date": "2025-08-10T17:15Z",
+            "name": "Viking FK at Sandefjord",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-08-10T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Jotun Arena",
+                  "address": {
+                    "city": "Sandefjord",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3279",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3279",
+                      "displayName": "Sandefjord"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "755153",
+            "date": "2025-08-07T17:00Z",
+            "name": "Istanbul Basaksehir at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "id": "20221",
+              "alternateId": "2468",
+              "name": "UEFA Conference League Qualifying",
+              "abbreviation": "UEFA Conference League Qualifying",
+              "shortName": "UECL Qualifying",
+              "midsizeName": "UEFA.EUROPA.CONF_QUAL",
+              "slug": "uefa.europa.conf_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-08-07T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "7914",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "7914",
+                      "displayName": "Istanbul Basaksehir"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "741896",
+            "date": "2025-07-31T18:00Z",
+            "name": "Viking FK at FC Koper",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "id": "20221",
+              "alternateId": "2468",
+              "name": "UEFA Conference League Qualifying",
+              "abbreviation": "UEFA Conference League Qualifying",
+              "shortName": "UECL Qualifying",
+              "midsizeName": "UEFA.EUROPA.CONF_QUAL",
+              "slug": "uefa.europa.conf_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-07-31T18:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "SRC Bonifika",
+                  "address": {
+                    "city": "Koper",
+                    "country": "Slovenia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3364",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "3364",
+                      "displayName": "FC Koper"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727756",
+            "date": "2025-07-27T12:30Z",
+            "name": "Viking FK at Bryne",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-07-27T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Bryne Stadion",
+                  "address": {
+                    "city": "Bryne",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "22530",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "22530",
+                      "displayName": "Bryne"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "741895",
+            "date": "2025-07-24T17:00Z",
+            "name": "FC Koper at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025-26 UEFA Conference League Qualifying"
+            },
+            "league": {
+              "id": "20221",
+              "alternateId": "2468",
+              "name": "UEFA Conference League Qualifying",
+              "abbreviation": "UEFA Conference League Qualifying",
+              "shortName": "UECL Qualifying",
+              "midsizeName": "UEFA.EUROPA.CONF_QUAL",
+              "slug": "uefa.europa.conf_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2025-07-24T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 7.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3364",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "3364",
+                      "displayName": "FC Koper"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727746",
+            "date": "2025-07-19T16:00Z",
+            "name": "Bodo/Glimt at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-07-19T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 720.0,
+                  "displayClock": "90'+12'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "2980",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727737",
+            "date": "2025-07-13T17:15Z",
+            "name": "Viking FK at SK Brann",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-07-13T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Brann Stadium",
+                  "address": {
+                    "city": "Bergen",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "620",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "620",
+                      "displayName": "SK Brann"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727732",
+            "date": "2025-07-05T14:00Z",
+            "name": "Stromsgodset at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-07-05T14:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "9811",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "9811",
+                      "displayName": "Stromsgodset"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727719",
+            "date": "2025-06-28T16:00Z",
+            "name": "Viking FK at Rosenborg",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-06-28T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lerkendal Stadium",
+                  "address": {
+                    "city": "Trondheim",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "438",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "438",
+                      "displayName": "Rosenborg"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727711",
+            "date": "2025-06-22T17:15Z",
+            "name": "Fredrikstad at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-06-22T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 180.0,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3039",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "3039",
+                      "displayName": "Fredrikstad"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727709",
+            "date": "2025-06-01T17:15Z",
+            "name": "Viking FK at Molde",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-06-01T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Aker Stadion",
+                  "address": {
+                    "city": "Molde",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "2715",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "2715",
+                      "displayName": "Molde"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727700",
+            "date": "2025-05-28T19:00Z",
+            "name": "Viking FK at Bodo/Glimt",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-05-28T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 540.0,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Aspmyra Stadion",
+                  "address": {
+                    "city": "Bodø/Glimt",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "2980",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727696",
+            "date": "2025-05-25T15:00Z",
+            "name": "Viking FK at Kristiansund BK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-05-25T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Nordmore Stadion",
+                  "address": {
+                    "city": "Kristiansund",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "6672",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "6672",
+                      "displayName": "Kristiansund BK"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727684",
+            "date": "2025-05-16T16:00Z",
+            "name": "Sandefjord at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-05-16T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 600.0,
+                  "displayClock": "90'+10'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3279",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3279",
+                      "displayName": "Sandefjord"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727682",
+            "date": "2025-05-11T17:15Z",
+            "name": "Viking FK at Haugesund",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-05-11T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Haugesund Sparebank Arena",
+                  "address": {
+                    "city": "Haugesund",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3327",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3327",
+                      "displayName": "Haugesund"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727671",
+            "date": "2025-05-04T15:00Z",
+            "name": "Sarpsborg FK at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-05-04T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "5002",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "5002",
+                      "displayName": "Sarpsborg FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727665",
+            "date": "2025-04-30T16:00Z",
+            "name": "Haugesund at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-04-30T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3327",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3327",
+                      "displayName": "Haugesund"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727664",
+            "date": "2025-04-27T17:15Z",
+            "name": "Tromso at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-04-27T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 600.0,
+                  "displayClock": "90'+10'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "5270",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "5270",
+                      "displayName": "Tromso"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727654",
+            "date": "2025-04-21T15:00Z",
+            "name": "Viking FK at Hamarkameratene",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-04-21T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 540.0,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Briskeby Arena",
+                  "address": {
+                    "city": "Hamar",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "21380",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "21380",
+                      "displayName": "Hamarkameratene"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727648",
+            "date": "2025-04-10T17:00Z",
+            "name": "Kristiansund BK at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-04-10T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "6672",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "6672",
+                      "displayName": "Kristiansund BK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727645",
+            "date": "2025-04-06T17:15Z",
+            "name": "KFUM Oslo at Viking FK",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-04-06T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lyse Arena",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "22165",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "22165",
+                      "displayName": "KFUM Oslo"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "727632",
+            "date": "2025-03-30T12:30Z",
+            "name": "Viking FK at Valerenga",
+            "season": {
+              "year": 2025,
+              "displayName": "2025 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2025-03-30T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Intility Arena",
+                  "address": {
+                    "city": "Oslo",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "2791",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "2791",
+                      "displayName": "Vålerenga"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "all/teams/510/schedule?season=2026",
+      "data": {
+        "team": {
+          "id": "510",
+          "displayName": "Viking FK"
+        },
+        "events": [
+          {
+            "id": "401843455",
+            "date": "2026-10-09T17:00Z",
+            "name": "Viking FK at SK Brann",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-10-09T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Brann Stadium",
+                  "address": {
+                    "city": "Bergen",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "620",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "620",
+                      "displayName": "SK Brann"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843444",
+            "date": "2026-09-20T15:00Z",
+            "name": "Lillestrom at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-09-20T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "987",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "987",
+                      "displayName": "Lillestrom"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843437",
+            "date": "2026-09-13T12:30Z",
+            "name": "Kristiansund BK at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-09-13T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 8.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "6672",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "6672",
+                      "displayName": "Kristiansund BK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401915448",
+            "date": "2026-09-09T16:45Z",
+            "name": "Viking FK at VfB Stuttgart",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League"
+            },
+            "league": {
+              "id": "775",
+              "alternateId": "2",
+              "name": "UEFA Champions League",
+              "abbreviation": "UEFA Champions League",
+              "shortName": "UEFA Champions League",
+              "midsizeName": "UEFA.CHAMPIONS",
+              "slug": "uefa.champions",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-09-09T16:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "MHPArena",
+                  "address": {
+                    "city": "Stuttgart",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "134",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "134",
+                      "displayName": "VfB Stuttgart"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401873920",
+            "date": "2026-09-04T19:00Z",
+            "name": "Viking FK at Sandefjord",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-09-04T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Jotun Arena",
+                  "address": {
+                    "city": "Sandefjord",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3279",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3279",
+                      "displayName": "Sandefjord"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401873919",
+            "date": "2026-08-30T15:00Z",
+            "name": "Aalesund at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-08-30T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3278",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3278",
+                      "displayName": "Aalesund"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401909157",
+            "date": "2026-08-26T19:00Z",
+            "name": "Dinamo Zagreb at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "id": "19874",
+              "alternateId": "2426",
+              "name": "UEFA Champions League Qualifying",
+              "abbreviation": "UEFA Champions League Qualifying",
+              "shortName": "UCL Qualifying",
+              "midsizeName": "UEFA.CHAMPIONS_QUAL",
+              "slug": "uefa.champions_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-08-26T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "597",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "597",
+                      "displayName": "Dinamo Zagreb"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401909158",
+            "date": "2026-08-18T19:00Z",
+            "name": "Viking FK at Dinamo Zagreb",
+            "season": {
+              "year": 2026,
+              "displayName": "2026-27 UEFA Champions League Qualifying"
+            },
+            "league": {
+              "id": "19874",
+              "alternateId": "2426",
+              "name": "UEFA Champions League Qualifying",
+              "abbreviation": "UEFA Champions League Qualifying",
+              "shortName": "UCL Qualifying",
+              "midsizeName": "UEFA.CHAMPIONS_QUAL",
+              "slug": "uefa.champions_qual",
+              "isTournament": true
+            },
+            "competitions": [
+              {
+                "date": "2026-08-18T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Maksimir Stadium",
+                  "address": {
+                    "city": "Zagreb",
+                    "country": "Croatia"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "597",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "597",
+                      "displayName": "Dinamo Zagreb"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401873930",
+            "date": "2026-08-14T17:00Z",
+            "name": "Viking FK at Rosenborg",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-08-14T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Lerkendal Stadion",
+                  "address": {
+                    "city": "Trondheim",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "438",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "438",
+                      "displayName": "Rosenborg"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401873929",
+            "date": "2026-08-08T14:00Z",
+            "name": "Sarpsborg FK at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-08-08T14:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 660.0,
+                  "displayClock": "90'+11'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "5002",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "5002",
+                      "displayName": "Sarpsborg FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401873931",
+            "date": "2026-08-01T16:00Z",
+            "name": "Viking FK at IK Start",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-08-01T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Sparebanken Sor Arena",
+                  "address": {
+                    "city": "Kristiansund",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "6750",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "6750",
+                      "displayName": "IK Start"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843395",
+            "date": "2026-07-26T17:15Z",
+            "name": "Viking FK at Aalesund",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-07-26T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Color Line Stadium",
+                  "address": {
+                    "city": "Aalesunds",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3278",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3278",
+                      "displayName": "Aalesund"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843362",
+            "date": "2026-07-22T17:00Z",
+            "name": "Viking FK at Lillestrom",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-07-22T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Arasen Stadion",
+                  "address": {
+                    "city": "Lillestrøm",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "987",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "987",
+                      "displayName": "Lillestrom"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843385",
+            "date": "2026-07-18T16:00Z",
+            "name": "Sandefjord at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-07-18T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "3279",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3279",
+                      "displayName": "Sandefjord"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843374",
+            "date": "2026-07-12T17:15Z",
+            "name": "Viking FK at Sarpsborg FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-07-12T17:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 300.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Sarpsborg Stadion",
+                  "address": {
+                    "city": "Sarpsborg",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "5002",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "5002",
+                      "displayName": "Sarpsborg FK"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843351",
+            "date": "2026-05-24T16:00Z",
+            "name": "Viking FK at Kristiansund BK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-05-24T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Nordmore Stadion",
+                  "address": {
+                    "city": "Kristiansund",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "6672",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "6672",
+                      "displayName": "Kristiansund BK"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843344",
+            "date": "2026-05-16T14:00Z",
+            "name": "IK Start at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-05-16T14:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 6.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "6750",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "6750",
+                      "displayName": "IK Start"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843337",
+            "date": "2026-05-10T15:00Z",
+            "name": "Viking FK at KFUM Oslo",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-05-10T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 180.0,
+                  "displayClock": "90'+3'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "KFUM Arena",
+                  "address": {
+                    "city": "Oslo",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "22165",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "22165",
+                      "displayName": "KFUM Oslo"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843326",
+            "date": "2026-05-01T16:00Z",
+            "name": "Rosenborg at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-05-01T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "438",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "438",
+                      "displayName": "Rosenborg"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843316",
+            "date": "2026-04-25T14:00Z",
+            "name": "Viking FK at Fredrikstad",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-04-25T14:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Fredrikstad Stadion",
+                  "address": {
+                    "city": "Fredrikstad",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "3039",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "3039",
+                      "displayName": "Fredrikstad"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843310",
+            "date": "2026-04-18T16:00Z",
+            "name": "SK Brann at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-04-18T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 540.0,
+                  "displayClock": "90'+9'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 3.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "620",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "620",
+                      "displayName": "SK Brann"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843301",
+            "date": "2026-04-11T16:00Z",
+            "name": "Bodo/Glimt at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-04-11T16:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 240.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 5.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "2980",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "2980",
+                      "displayName": "Bodo/Glimt"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843291",
+            "date": "2026-04-06T12:30Z",
+            "name": "Viking FK at Valerenga",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-04-06T12:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 480.0,
+                  "displayClock": "90'+8'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Intility Arena",
+                  "address": {
+                    "city": "Oslo",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "2791",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 0.0
+                    },
+                    "team": {
+                      "id": "2791",
+                      "displayName": "Vålerenga"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843284",
+            "date": "2026-03-21T17:00Z",
+            "name": "Molde at Viking FK",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-03-21T17:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 360.0,
+                  "displayClock": "90'+6'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Viking Stadion",
+                  "address": {
+                    "city": "Stavanger",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "510",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 4.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  },
+                  {
+                    "id": "2715",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "2715",
+                      "displayName": "Molde"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "401843275",
+            "date": "2026-03-14T15:00Z",
+            "name": "Viking FK at Hamarkameratene",
+            "season": {
+              "year": 2026,
+              "displayName": "2026 Norwegian Eliteserien"
+            },
+            "league": {
+              "id": "3960",
+              "alternateId": "13",
+              "name": "Norwegian Eliteserien",
+              "abbreviation": "Norwegian Eliteserien",
+              "shortName": "Norwegian Eliteserien",
+              "midsizeName": "NOR.1",
+              "slug": "nor.1",
+              "isTournament": false
+            },
+            "competitions": [
+              {
+                "date": "2026-03-14T15:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "addedClock": 420.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "neutralSite": false,
+                "venue": {
+                  "fullName": "Briskeby Stadion",
+                  "address": {
+                    "city": "Hamar",
+                    "country": "Norway"
+                  }
+                },
+                "competitors": [
+                  {
+                    "id": "21380",
+                    "homeAway": "home",
+                    "score": {
+                      "value": 2.0
+                    },
+                    "team": {
+                      "id": "21380",
+                      "displayName": "Hamarkameratene"
+                    }
+                  },
+                  {
+                    "id": "510",
+                    "homeAway": "away",
+                    "score": {
+                      "value": 1.0
+                    },
+                    "team": {
+                      "id": "510",
+                      "displayName": "Viking FK"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "path": "uefa.champions/scoreboard?dates=20261014&limit=100",
+      "data": {
+        "events": []
+      }
+    }
+  ]
+}

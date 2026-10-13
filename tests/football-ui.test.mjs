@@ -25,27 +25,28 @@ const SportMarkets=component('app/sport-markets.tsx',{'@/lib/sport-super-markets
 const FootballTeamIdentity=component('app/football-team.tsx',{'react':React,'@/lib/football-team-profile':profile}).default;
 const FootballAnalysisNumbers=declaration('app/football-recommendations.tsx','FootballAnalysisNumbers',{React,...scenarios,percent:n=>(n*100).toFixed(1)+'%'});
 const time=value=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
-const Card=declaration('app/football-board.tsx','FootballCard',{React,...football,...reports,...refresh,FootballTeamIdentity,FootballAnalysisNumbers,SportMarkets,time,RefreshCw:props=>React.createElement('svg',{'aria-hidden':true,...props})});
-const fixture=JSON.parse(readFileSync('tests/fixtures/football-qualifying-20261012.json','utf8'));
+const FootballMarketReference=component('app/football-market-reference.tsx',{'@/lib/football-market-reference':await import(moduleUrl('lib/football-market-reference.ts'))}).default;
+const Card=declaration('app/football-board.tsx','FootballCard',{React,...football,...reports,...refresh,FootballTeamIdentity,FootballAnalysisNumbers,FootballMarketReference,SportMarkets,time,RefreshCw:props=>React.createElement('svg',{'aria-hidden':true,...props})});
+const fixture=JSON.parse(readFileSync('tests/fixtures/football-final-quality-20261012.json','utf8'));
 const now=Date.parse(fixture.capturedAt);
 const schedule=fixture.sources.find(s=>s.url.endsWith('uefa.champions/scoreboard?dates=20261013&limit=100')).data;
-const game=football.parseFootballEvents(schedule,'uefa.champions').find(g=>g.id==='401915436');
+const game=football.parseFootballEvents(schedule,'uefa.champions').find(g=>g.id==='401915413');
 const {reconcileFootballHistory}=await import(moduleUrl('lib/football-history.ts'));
 const history=reconcileFootballHistory(fixture.sources.filter(s=>s.data.team).flatMap(s=>football.parseFootballTeamHistory(s.data,s.data.team.id)),[]).games;
-const analysis=football.analyzeFootball(game,history,now,history);
-const beforeHistory=history.filter(g=>!g.league.endsWith('_qual'));
+const analysis=football.analyzeFootball(game,history,now);
+const beforeHistory=[];
 const waiting=football.analyzeFootball(game,beforeHistory,now,beforeHistory);
 const snapshot={fetchedAt:fixture.capturedAt,sportGames:[{league:'FOOTBALL',competition:'eng.1',home:'阿森納',away:'切爾西',start:game.start,live:false,id:'different-fixture'}]};
 const base={game,now,unavailable:false,snapshot,oddsError:''};
 const render=props=>renderToStaticMarkup(React.createElement(Card,{...base,...props}));
 
-test('recorded Sabah card displays recovered probabilities and three scores independently of unopened markets',()=>{
+test('recorded same-cup Inter card keeps probabilities and three scores independently of unopened markets',()=>{
   assert.equal(analysis.status,'ready');
   const html=render({report:{game,analysis}});
   assert.ok(html.includes((analysis.probabilities.home*100).toFixed(1)+'%'));
   assert.match(html,/三組比分(?:預測|情境)/);assert.equal((html.match(/class="football-score-label"/g)||[]).length,3);
   assert.ok(html.includes('來源尚未提供本場玩法'));
-  assert.match(html,/10\/14\s+00:45/);
+  assert.match(html,/10\/14\s+03:00/);
   assert.ok(html.includes(profile.footballTeamHref(game.league,game.home.id,football.footballDay(game.start)).replaceAll('&','&amp;')));
   assert.ok(!html.includes('分析更新中'));
   assert.ok(!html.includes('全場獨贏'));
@@ -57,7 +58,7 @@ test('a completed short-history report exposes its exact reason and stays distin
   for(const activity of [undefined,'loading']){
     const html=render({report:{game,analysis:waiting},activity});
     assert.ok(html.includes('data-analysis-state="waiting"'));
-    assert.ok(html.includes('歷史不足：主隊1場、客隊7場；各需至少5場。'));
+    assert.ok(html.includes('歷史不足：主隊0場、客隊0場；各需至少5場。'));
     assert.ok(!html.includes('分析更新中'));
     assert.ok(!html.includes('football-probabilities'));
     assert.equal(html.includes('正在重新檢查來源'),!!activity);
@@ -110,4 +111,21 @@ test('floating recommendations only show loading for actual work and explain uns
     const unsupported=renderPane({analysisNotice:'目前的賽程來源尚未提供分析資料。'});assert.ok(unsupported.includes('目前的賽程來源尚未提供分析資料。'));assert.ok(!unsupported.includes('正在整理'));
     const complete=renderPane({reports:{[game.id]:{game,analysis}}});assert.ok(complete.includes((analysis.probabilities.home*100).toFixed(1)+'%'));
   }finally{Date.now=previous;}
+});
+
+test('reported Viking card labels verified market probabilities separately and never reuses the defective model scores',async()=>{
+  const sample=JSON.parse(readFileSync('tests/fixtures/football-viking-bayern-20261013.json','utf8'));
+  const clock=Date.parse(sample.capturedAt),event=sample.sources[0].data.events[0];
+  const g=football.parseFootballEvents({events:[event]},'uefa.champions')[0];
+  const {parseFootballMarketReference}=await import(moduleUrl('lib/football-market-reference.ts'));
+  g.marketReference=parseFootballMarketReference(event,g,sample.capturedAt);
+  const legacy={...analysis,status:'ready',historyMode:'recent-form',version:'football-recent-form-v1',capturedAt:sample.capturedAt,external:undefined,probabilities:{home:.446,draw:.187,away:.367,over25:.856,under25:.144,btts:.825},scores:[{home:2,away:2,probability:.068}]};
+  const props={game:g,now:clock,report:{game:g,analysis:legacy}};
+  const html=render(props);
+  assert.ok(html.includes('跨聯賽對手強度尚未校正'));
+  assert.ok(html.includes('市場參考'));assert.ok(html.includes('DraftKings'));assert.ok(html.includes('85.4%'));
+  assert.ok(html.includes('拜仁慕尼黑'));assert.ok(html.includes('讓 2.5 球'));
+  assert.ok(html.includes('非模型預測'));assert.ok(html.includes('擷取時間'));
+  for(const wrong of ['44.6%','36.7%','三組比分','模型大 2.5 球'])assert.ok(!html.includes(wrong),wrong);
+  for(const patch of [{now:clock+120000},{unavailable:true},{game:{...g,state:'live'},now:Date.parse(g.start)}])assert.ok(!render({...props,...patch}).includes('85.4%'));
 });
