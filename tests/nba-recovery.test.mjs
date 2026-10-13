@@ -1,5 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import ts from 'typescript';
 import {moduleUrl} from './profile-loader.mjs';
 const {nbaPage,BasketballSourceUnavailable}=await import(moduleUrl('lib/wnba-fetch.ts'));
 const {enrichNbaPlayerStrength}=await import(moduleUrl('lib/nba-player-strength-source.ts'));
@@ -27,4 +29,22 @@ test('NBA present but invalid official identities are discarded without erasing 
 test('expired NBA optional-player budget performs no network request',async t=>{
  let calls=0;t.mock.method(globalThis,'fetch',async()=>{calls++;throw Error('unexpected network');});
  await assert.rejects(officialAnalysisPlayer(123,Date.now()-1),BasketballSourceUnavailable);assert.equal(calls,0);
+});
+
+test('NBA and WNBA routes return waiting analysis without throwing on absent probabilities or saving a pick',async()=>{
+ const presentation=await import(moduleUrl('lib/nba-analysis.ts')),efficiency=await import(moduleUrl('lib/basketball-efficiency.ts'));
+ for(const league of ['nba','wnba'])for(const state of ['scheduled','final']){
+  const result={game:{...game,state},analysis:{status:'waiting',model:`${league}-efficiency-monte-carlo-v2`},sourceFetchedAt:new Date().toISOString()};
+  const dependencies={
+   '@/lib/basketball-efficiency':efficiency,'@/lib/nba-analysis':presentation,
+   '@/db':{getRawDb(){throw Error('Waiting report must not read database');}},'@/lib/daily-win-rate':{saveDailyForecast(){throw Error('Waiting report must not save pick');}},
+   '@/lib/nba-official':{},'@/lib/wnba-roster':{},
+   [`@/lib/${league}`]:{[`${league}Day`]:()=> '2026-10-14',[`valid${league==='nba'?'Nba':'Wnba'}Day`]:()=>true},
+   [`@/lib/${league}-source`]:{[`${league}GameAnalysis`]:async()=>result}
+  };
+  const code=ts.transpileModule(readFileSync(`app/api/${league}/route.ts`,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+  const exports={};new Function('require','exports',code)(key=>{assert.ok(key in dependencies,key);return dependencies[key];},exports);
+  const response=await exports.GET(new Request(`https://example.test/api/${league}?kind=analysis&date=2026-10-14&game=${game.id}`));
+  assert.equal(response.status,200);assert.deepEqual(await response.json(),{...result,dailySaved:false});
+ }
 });
