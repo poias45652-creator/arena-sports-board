@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-13",
+  "checkedAt": "2026-10-13T06:23:42.683Z",
+  "kind": "independent_offday_source_crosscheck",
+  "liveChangeVerified": false,
+  "sourceObservations": [
+    {
+      "league": "NPB",
+      "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-13",
+      "source": "SportsNavi",
+      "observation": "Visible dated schedule explicitly says 試合はありません (no games)",
+      "games": 0,
+      "checkedAt": "2026-10-13T06:23:42.683Z",
+      "confirmingSource": "https://npb.jp/games/2026/schedule_10_detail.html",
+      "state": "off_day"
+    },
+    {
+      "league": "KBO",
+      "url": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-13&toDate=2026-10-13&page=1&pageSize=100",
+      "source": "Naver",
+      "scheduleRows": 3,
+      "excludedByCategory": 3,
+      "excludedCategory": "kbaseballetc",
+      "firstTeamGames": 0,
+      "liveGames": 0,
+      "observation": "Three non-kbo-category rows had no identified first-team opponents; excluded",
+      "state": "off_day"
+    },
+    {
+      "league": "CPBL",
+      "source": "previous_same_day_collector_attempt45",
+      "state": "no_first_team_games_reported",
+      "games": 0,
+      "observedAt": "2026-10-13T05:23:30.595Z",
+      "verifiedFreshlyThisCheck": false,
+      "sourceLimitations": "Independent official CPBL schedule fetch timed out; retaining previous same-day collector result only"
+    }
+  ],
+  "collector": {
+    "runId": 35589830427,
+    "lastCheckedAttempt": 45,
+    "artifactId": 11790738807,
+    "artifactCreatedAt": "2026-10-13T05:23:32Z",
+    "capturedAt": "2026-10-13T05:23:30.595Z",
+    "runConclusion": "failure",
+    "runIssue": "No recognizable first-team schedule; not proof of no games",
+    "rerunAttempt": "blocked_by_safety_checks",
+    "newArtifactProduced": false
+  },
+  "constraints": {
+    "noZeroFilled": true,
+    "unknownPitchCount": null,
+    "productionModified": false,
+    "deployed": false
+  }
+}
