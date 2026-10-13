@@ -1,6 +1,6 @@
 import {nbaFixtureKey,type NbaGame} from './nba';
-import {analyzeEfficiency,efficiencyHistory,parseEfficiencyBox,type BasketballLeague,type EfficiencyBox,type Weights,DEFAULT_WEIGHTS} from './basketball-efficiency';
-import {wnbaPage,nbaPage} from './wnba-fetch';
+import {analyzeEfficiency,efficiencyHistory,type BasketballLeague,type EfficiencyBox,type Weights,DEFAULT_WEIGHTS} from './basketball-efficiency';
+import {fetchEfficiencyBox} from './basketball-box-source';
 const cache=new Map<string,{box:EfficiencyBox;expires:number}>(),pending=new Map<string,Promise<EfficiencyBox>>();
 let active=0;const queue:(()=>void)[]=[];
 async function box(game:NbaGame,league:BasketballLeague){
@@ -8,11 +8,7 @@ async function box(game:NbaGame,league:BasketballLeague){
  if(queue.length>=160)throw Error('效率資料更新忙碌中');
  const task=(async()=>{if(active>=8)await new Promise<void>(r=>queue.push(r));else active++;
   try{
-   const url=`https://site.api.espn.com/apis/site/v2/sports/basketball/${league.toLowerCase()}/summary?event=${game.id}`;
-   let raw:any;
-   if(league==='WNBA')raw=JSON.parse(await wnbaPage(url,12000));
-   else raw=JSON.parse(await nbaPage(url,12000));
-   const result=parseEfficiencyBox(raw,game,league),capturedAt=Date.now();
+   const result=await fetchEfficiencyBox(game,league),capturedAt=Date.now();
    if(cache.size>=1200)cache.delete(cache.keys().next().value!);cache.set(key,{box:result,expires:capturedAt+24*3600000});return result;
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(key));pending.set(key,task);return task;

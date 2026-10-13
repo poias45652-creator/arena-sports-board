@@ -33,5 +33,5 @@ export async function GET(request:Request){
    return Response.json({...result,dailySaved},{headers});
   }
   return Response.json(await nbaSchedule(day),{headers});
- }catch{return Response.json({error:'NBA 資料暫時無法更新，請稍後重試。'},{status:502,headers});}
+ }catch(error){console.error('nba-analysis-source-error',JSON.stringify({kind,day,game:p.get('game'),message:error instanceof Error?error.message:'source unavailable'}));return Response.json({error:'NBA 資料暫時無法更新，請稍後重試。'},{status:502,headers});}
 }

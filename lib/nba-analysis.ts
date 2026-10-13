@@ -43,6 +43,7 @@ export function readyNbaAnalysis(game:NbaGame,report:NbaReport|undefined,now=Dat
  return a;
 }
 export function nbaPick(game:NbaGame,a:NbaAnalysis){
+ if(a.status!=='ready'||!a.probabilities)return null;
  if('playerContext' in a&&a.playerContext&&!a.playerContext.recommendationEligible)return null;
  const p=a.probabilities!;
  if(Math.abs(p.home-p.away)<.002)return null;
