@@ -1,4 +1,5 @@
 import {selectFootballXgStrengthModel,footballXgStrengthAudit,footballXgStrengthRuntime,xgStrengthDistribution} from './football-xg-strength-model';
+import {cupPriorEstimate,CUP_PRIOR_VERSION} from './football-cup-prior';
 // Server-only external history and source adapters. Never import from client UI.
 import archive from '../data/football/external-history-20260927.json';
 import identities from '../data/football/external-team-map.json';
@@ -102,6 +103,14 @@ export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAna
   result={...analyzeFootball(game,asEspn,now),quality:base.quality,external:evidence};
  }
  const entry=strength?footballXgStrengthAudit(game.league):footballExternalAudit(game.league);
+ if(p&&entry&&!strength&&!features.enough&&game.league==='uefa.champions'){
+  const sparse=cupPriorEstimate(target,history,elo.difference(target),p,before);
+  if(sparse){
+   const distribution=footballDistribution(sparse.rates.home,sparse.rates.away,sparse.rates.rho),probs=distribution.probabilities;
+   const best=[{name:'主勝',p:probs.home},{name:'和局',p:probs.draw},{name:'客勝',p:probs.away}].sort((x,y)=>y.p-x.p);
+   return {...result,status:'ready',reason:'',capturedAt:new Date(now).toISOString(),version:CUP_PRIOR_VERSION,historyMode:'competition',homeForm:sparse.home,awayForm:sparse.away,expected:{home:sparse.rates.home,away:sparse.rates.away},...distribution,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',external:{...evidence,reasons:[],modelApplied:true},calibration:{status:'baseline',label:'歐冠小樣本對手強度模型',version:CUP_PRIOR_VERSION,reasons:['小樣本分支獨立驗證，不沿用完整樣本的驗收標籤'],holdoutGames:70,recentGames:53,uncertainty:'2019–2020年70場、2025年53場的小樣本檢查；2026年尚無可結算樣本，仍需累積上線後成效。'},notes:[`近一年歐冠資料池${sparse.poolGames}場；每隊至少1場近期歐冠賽果，保留實際樣本數。`,'使用賽前歐冠Elo差異、進球回歸、時間衰減與場地效果；不直接比較挪超等國內聯賽的原始進球率。','沿用既有歐冠進球與Elo係數；1／3／5場門檻以2017–2018年選擇，小樣本分支另立版本，不使用本場賠率或賽後資料。','預測為90分鐘含補時，不含加時與互射十二碼；小樣本不確定性較高。']};
+  }
+ }
  if(!p||!entry||!features.enough||(p.usesXg&&!features.xgEnough))return result;
  const rates=externalFootballRates(features.values,baseline.values,p),distribution=strength?xgStrengthDistribution(features.values,baseline.values,strength):footballDistribution(rates.home,rates.away,rates.rho),probs=distribution.probabilities,version=strength?footballXgStrengthRuntime.version:footballExternalRuntime.version;
  const best=[{name:'主勝',p:probs.home},{name:'和局',p:probs.draw},{name:'客勝',p:probs.away}].sort((x,y)=>y.p-x.p);

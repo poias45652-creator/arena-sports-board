@@ -1,0 +1,96 @@
+{
+  "createdAt": "2026-10-13T16:50:26.996Z",
+  "fixedCandidates": [
+    1,
+    3,
+    5
+  ],
+  "selectionCriterion": "2017–2018 log loss; fixed existing UEFA coefficients, no target-day outcomes",
+  "selected": "prior1",
+  "stats": {
+    "selection": {
+      "prior1": {
+        "n": 88,
+        "logLoss": 0.8726594276135272,
+        "brier": 0.5139770530974417,
+        "accuracy": 0.6022727272727273
+      },
+      "prior3": {
+        "n": 88,
+        "logLoss": 0.9254266466286107,
+        "brier": 0.5492147814223173,
+        "accuracy": 0.5568181818181818
+      },
+      "prior5": {
+        "n": 88,
+        "logLoss": 0.9344905682404657,
+        "brier": 0.5531164443958686,
+        "accuracy": 0.5568181818181818
+      },
+      "rawGoals": {
+        "n": 88,
+        "logLoss": 0.9407935266635192,
+        "brier": 0.5612353820265942,
+        "accuracy": 0.5568181818181818
+      }
+    },
+    "holdout": {
+      "prior1": {
+        "n": 70,
+        "logLoss": 0.9850024871588244,
+        "brier": 0.5875084420882225,
+        "accuracy": 0.5142857142857142
+      },
+      "prior3": {
+        "n": 70,
+        "logLoss": 0.9889807973744843,
+        "brier": 0.5896055486410093,
+        "accuracy": 0.5142857142857142
+      },
+      "prior5": {
+        "n": 70,
+        "logLoss": 0.991046847584345,
+        "brier": 0.5914780299679688,
+        "accuracy": 0.5285714285714286
+      },
+      "rawGoals": {
+        "n": 70,
+        "logLoss": 1.1152149049372486,
+        "brier": 0.6703836297633251,
+        "accuracy": 0.44285714285714284
+      }
+    },
+    "audit2025": {
+      "prior1": {
+        "n": 53,
+        "logLoss": 0.9260486482488393,
+        "brier": 0.5415098316031476,
+        "accuracy": 0.5471698113207547
+      },
+      "prior3": {
+        "n": 53,
+        "logLoss": 0.9006925765010767,
+        "brier": 0.524052858006409,
+        "accuracy": 0.6037735849056604
+      },
+      "prior5": {
+        "n": 53,
+        "logLoss": 0.9020247234687258,
+        "brier": 0.524697062747008,
+        "accuracy": 0.5849056603773585
+      },
+      "rawGoals": {
+        "n": 53,
+        "logLoss": 1.0856392719175894,
+        "brier": 0.6451073033307388,
+        "accuracy": 0.49056603773584906
+      }
+    }
+  },
+  "limitations": [
+    "The comparator uses unadjusted same-cup goal rates, not betting markets.",
+    "No 2026 settled small-sample case passed the predeclared eligibility filter in the captured data.",
+    "The existing regression coefficients were not refit; 2017–2018 selected among the declared 1/3/5-match floors.",
+    "This preliminary chronological audit is not a guarantee of future accuracy or profit."
+  ]
+}

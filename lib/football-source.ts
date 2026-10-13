@@ -1,5 +1,4 @@
 import {loadNationalFootballPool} from './football-national-source';
-import {parseFootballMarketReference} from './football-market-reference';
 import {attachCupXgEvidence} from './football-cup-xg-source';
 import {applyNationalFootballModel,NATIONAL_MODEL_VERSION} from './football-national-model';
 import {analyzeFootball,footballDay,isFootballNationalCompetition,needsFootballRecentForm,parseFootballEvents,parseFootballTeamHistory,shiftFootballDay,type FootballGame,type FootballLeague} from './football';
@@ -33,10 +32,7 @@ export async function footballSchedule(league:FootballLeague,day:string){
   // ESPN soccer accepts a single source day, not a dates range. Fetch both days
   // overlapping the Taiwan date, then filter by the actual kickoff timestamp.
   const results=await Promise.all([scoreboard(league,shiftFootballDay(day,-1)),scoreboard(league,day)]);
-  const games=[...new Map(results.flatMap(r=>parseFootballEvents(r.value,league).map(game=>{
-    const event=r.value.events.find((e:any)=>String(e.id)===game.id),marketReference=parseFootballMarketReference(event,game,r.fetchedAt);
-    return marketReference?{...game,marketReference}:game;
-  })).filter(g=>footballDay(g.start)===day).map(g=>[g.id,g])).values()];
+  const games=[...new Map(results.flatMap(r=>parseFootballEvents(r.value,league)).filter(g=>footballDay(g.start)===day).map(g=>[g.id,g])).values()];
   const rank=(g:FootballGame)=>g.state==='live'?0:g.state==='scheduled'?1:g.state==='final'?2:3;
   games.sort((a,b)=>rank(a)-rank(b)||Date.parse(a.start)-Date.parse(b.start));
   return {league,day,games,fetchedAt:results.map(r=>r.fetchedAt).sort()[0],source:'ESPN',calendar:results[1].value.leagues?.[0]?.calendar||[]};

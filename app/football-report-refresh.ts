@@ -1,5 +1,4 @@
 import type {FootballGame} from '@/lib/football';
-import {CUP_STRENGTH_REASON,uncalibratedCupAnalysis} from '@/lib/football';
 import {footballFixtureKey,readyFootballAnalysis,retainFootballForecast,type FootballReport} from '@/lib/football-recommendations';
 
 export type FootballAnalysisActivity='queued'|'loading';
@@ -33,7 +32,6 @@ export function footballAnalysisPresentation(game:FootballGame,report:FootballRe
   if(!analysisAvailable)return {state:'unavailable',message:notice||'目前的賽程來源尚未提供分析資料。'};
   if(report?.game&&footballFixtureKey(report.game)!==footballFixtureKey(game))return {state:'stale',message:'賽程已變更，將重新取得本場分析。'};
   if(report?.error)return {state:'error',message:report.error};
-  if(uncalibratedCupAnalysis(game,report?.analysis))return {state:'waiting',message:CUP_STRENGTH_REASON};
   if(report?.analysis?.status==='waiting')return {state:'waiting',message:report.analysis.reason||'來源資料不足，暫時無法計算分析。'};
   if(report?.analysis?.status==='closed')return {state:'unavailable',message:report.analysis.reason||'本場賽前分析已停止更新。'};
   if(report?.analysis)return {state:'stale',message:'分析資料已失效，將自動重新取得。'};
