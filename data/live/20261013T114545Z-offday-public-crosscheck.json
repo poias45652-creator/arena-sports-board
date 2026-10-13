@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-13",
+  "capturedAt": "2026-10-13T11:45:45.835Z",
+  "kind": "offday_public_recheck",
+  "liveChangeVerified": false,
+  "firstTeamGames": {
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0
+  },
+  "sourceChecks": [
+    {
+      "league": "NPB",
+      "url": "https://npb.jp/scores/",
+      "state": "no_scheduled_games",
+      "observation": "Official 2026-10-13 schedule explicitly says 試合がありません."
+    },
+    {
+      "league": "KBO",
+      "url": "https://yagu.today/calendar/2026/10",
+      "state": "no_first_team_games_in_secondary_calendar",
+      "observation": "Calendar displays October 12 games and October 13 with no team pairing.",
+      "directNaverResponseVerifiedThisRun": false
+    },
+    {
+      "league": "CPBL",
+      "url": "https://stats.cpbl.com.tw/",
+      "state": "no_scheduled_games",
+      "observation": "Official statistics homepage date 10/13 Tue states 今日暫無賽程."
+    }
+  ],
+  "collector": {
+    "runId": 35589830427,
+    "lastCheckedAttempt": 45,
+    "runStatus": "completed",
+    "runConclusion": "failure",
+    "artifactId": 11790738807,
+    "artifactCreatedAt": "2026-10-13T05:23:32Z",
+    "capturedAt": "2026-10-13T05:23:30.595Z",
+    "newRunProduced": false,
+    "rerunBlockedBySafetyChecks": true,
+    "oldArtifactUsedAsFresh": false
+  },
+  "unsupportedFields": {
+    "CPBL_pitchCount": null,
+    "CPBL_balls": null,
+    "CPBL_strikes": null,
+    "CPBL_outs": null,
+    "CPBL_bases": null
+  },
+  "productionChanged": false,
+  "deployed": false
+}
