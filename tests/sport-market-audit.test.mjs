@@ -136,7 +136,7 @@ test('model loading and source loading are explicit independent states; stale or
 });
 test('source errors, stale data and paused markets stay distinct even without an available model',()=>{
  const error=render(source(),{analysis:null,analysisState:'waiting',analysisMessage:'資料不足',error:'來源連線逾時'});
- assert.ok(error.includes('玩法來源連線異常'));assert.ok(error.includes('來源連線逾時'));assert.ok(error.includes('資料不足'));assert.ok(!error.includes('2 種玩法'));
+ assert.ok(error.includes('玩法資料載入失敗'));assert.ok(error.includes('來源連線逾時'));assert.ok(error.includes('資料不足'));assert.ok(!error.includes('2 種玩法'));
  const s=source();s.fetchedAt=new Date(now-150000).toISOString();
  const stale=render(s,{analysis:undefined,analysisState:'waiting'});
  assert.ok(stale.includes('玩法資料已過期'));assert.ok(stale.includes('分析資料不足'));assert.ok(!stale.includes('2 種玩法'));

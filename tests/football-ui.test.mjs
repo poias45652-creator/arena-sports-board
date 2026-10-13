@@ -73,6 +73,8 @@ test('queue, transport failure and an unsupported schedule produce different vis
   assert.ok(failed.includes('data-analysis-state="error"'));
   assert.ok(failed.includes('分析請求逾時'));
   assert.ok(failed.includes('玩法來源連線失敗'));
+  assert.ok(failed.includes('玩法資料載入失敗'));
+  assert.ok(failed.includes('重新取得玩法'));
   assert.ok(!failed.includes('animate-spin'));
   const unsupported=render({analysisAvailable:false,notice:'此賽程來源目前沒有分析資料',snapshot:null});
   assert.ok(unsupported.includes('data-analysis-state="unavailable"'));
