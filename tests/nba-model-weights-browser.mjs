@@ -18,10 +18,11 @@ try{
   const page=await context.newPage(),errors=[],requests=[];page.on('pageerror',e=>errors.push(String(e)));
   // The existing fixture session is sent only to this isolated HTTP server.
   // Production __Host cookies require HTTPS; production auth stays unchanged.
-  await page.route(origin+'/**',route=>route.continue({headers:{...route.request().headers(),cookie:'__Host-arena_tz='+'e'.repeat(64)}}));
+  await page.route(origin+'/**',async route=>{const response=await route.fetch({headers:{...route.request().headers(),cookie:'__Host-arena_tz='+'e'.repeat(64)}});await route.fulfill({response});});
   await page.clock.install({time:new Date('2026-09-29T16:00:00Z')});
   page.on('request',r=>{if(r.url().includes('/api/nba?')&&r.url().includes('kind=analysis'))requests.push(r.url());});
-  await page.goto(origin+'/?league=NBA&view=analysis&date=2026-10-09');
+  const navigation=await page.goto(origin+'/?league=NBA&view=analysis&date=2026-10-09');
+  assert.equal(navigation.status(),200);assert.ok(!page.url().includes('/login'),'fixture session accepted');
   const trigger=page.getByRole('button',{name:/模型比例/}),dialog=page.getByRole('dialog',{name:'NBA 籃球模型比例'});
   await trigger.waitFor();await trigger.click();await dialog.waitFor();
   assert.equal(await dialog.getByRole('slider').count(),5);
