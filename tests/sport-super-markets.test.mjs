@@ -122,6 +122,22 @@ test('identical general/Europa events collapse, but conflicting or same-category
   const conflict=structuredClone(cup);change(conflict.Items.List[0].Team[0]);assert.throws(()=>europaSnapshot([general,conflict]));
  }
 });
+test('observed Europa label inside category 31 and exact Celje/Salzburg spellings reach three match markets',()=>{
+ // Actual public identities/time captured at 2026-10-15T12:25:57Z;
+ // event IDs and quotes below remain synthetic regression data.
+ for(const [home,away,officialHome,officialAway] of [['採列(主)','奧摩尼亞','采列','奧摩尼亞'],['薩爾茨堡紅牛(主)','AC米蘭','薩爾斯堡紅牛','AC米蘭']]){
+  const category=championsCategory();category.Items.List[0].LeagueNameStr='歐足聯歐洲聯賽';
+  Object.assign(category.Items.List[0].Team[0],{HomeTeamStr:home,AwayTeamStr:away,ScheduleTimeStr:'2026/10/16 00:45:00'});
+  const snapshot=europaSnapshot([category]),game={...europaGame,start:'2026-10-16T00:45:00+08:00',home:{name:officialHome},away:{name:officialAway}};
+  const matched=matchSportEvent(snapshot,game,'FOOTBALL',europaNow);assert.ok(matched);
+  for(const kind of ['spread','total','moneyline'])assert.ok(matched[kind],kind);
+  for(const label of ['歐足聯歐洲聯賽-罰牌','歐足聯歐洲聯賽-角球','歐洲協會聯賽']){
+   category.Items.List[0].LeagueNameStr=label;
+   assert.equal(matchSportEvent(europaSnapshot([category]),game,'FOOTBALL',europaNow),null);
+  }
+  assert.notEqual(sportTeamKey(home+'U21','FOOTBALL'),sportTeamKey(officialHome,'FOOTBALL'));
+ }
+});
 test('captured Heat primary uses away 1-25 and total 228.5; alternate stays alternate',()=>{
  const snapshot=parseHrGameDetail(fixture(),captured),r=matchSportEvent(snapshot,nba,'NBA',now);
  assert.ok(r);assert.equal(snapshot.games.length,0);
