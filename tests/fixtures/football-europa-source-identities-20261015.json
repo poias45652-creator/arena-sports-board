@@ -1,0 +1,295 @@
+{
+  "capturedAt": "2026-10-15T12:33:44.320Z",
+  "source": "Authenticated SUPER GameInfo/GameDetail, CatID 31",
+  "leagueName": "歐足聯歐洲聯賽",
+  "fixtures": [
+    {
+      "id": 25098542,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "採列(主)",
+      "away": "奧摩尼亞",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098560,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "薩爾茨堡紅牛(主)",
+      "away": "AC米蘭",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098545,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "聖吉羅斯(主)",
+      "away": "皇家蘇斯達",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098557,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "布拉格斯巴達(主)",
+      "away": "利勒斯特羅姆",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098552,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "阿爾克馬爾(主)",
+      "away": "比爾舒華夏普爾",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098559,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "里昂(主)",
+      "away": "水晶宮",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098564,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "圖倫斯(主)",
+      "away": "桑德蘭",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098548,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "波茲南萊希(主)",
+      "away": "勒沃庫森",
+      "start": "2026/10/16 00:45:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098573,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "本菲卡(主)",
+      "away": "凱爾特人",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098572,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "薩格勒布戴拿模(主)",
+      "away": "安德萊赫特",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098571,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "切爾達(主)",
+      "away": "祖雲達斯",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098583,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "雷恩(主)",
+      "away": "OFI克雷迪",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098588,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "費倫茨瓦羅斯(主)",
+      "away": "皮爾森",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098585,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "馬賽(主)",
+      "away": "奧林匹亞科斯",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098587,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "霍芬海姆(主)",
+      "away": "貝西克塔斯",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098580,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "奈梅亨(主)",
+      "away": "索菲亞利夫斯基",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098622,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "喬治羅尼亞(主)",
+      "away": "阿拉特阿美尼亞",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    },
+    {
+      "id": 25098621,
+      "sport": "FOOTBALL",
+      "competition": "uefa.europa",
+      "leagueName": "歐足聯歐洲聯賽",
+      "home": "般尼茅夫(主)",
+      "away": "格拉茨風暴",
+      "start": "2026/10/16 03:00:00",
+      "live": false,
+      "availableMarkets": 3,
+      "marketStates": {
+        "spread": "ready",
+        "total": "ready",
+        "moneyline": "ready"
+      }
+    }
+  ]
+}
