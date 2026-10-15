@@ -54,11 +54,10 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUefaId": "250217953",
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://dsg-images.com/players/150x150/8140887.png"
     ]
   },
@@ -173,15 +172,13 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUrls": [
-      "https://img.sofascore.com/api/v1/player/2701812/image"
-    ],
-    "sofascoreId": "2701812",
-    "urls": [
+      "https://img.sofascore.com/api/v1/player/2701812/image",
       "https://dsg-images.com/players/150x150/8189183.png"
-    ]
+    ],
+    "sofascoreId": "2701812"
   },
   {
     "id": "385939",
@@ -209,10 +206,12 @@
     "birthDate": "1999-12-09",
     "number": "",
     "collect": true,
-    "previousPages": [],
-    "previousUrls": [],
-    "pages": [
+    "previousPages": [
       "https://www.flashscore.com/player/vaknin-idan/nk29TQQb/"
+    ],
+    "previousUrls": [],
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/1891113/image"
     ]
   },
   {
@@ -238,10 +237,9 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2695960/image"
     ]
   },
@@ -253,15 +251,13 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUrls": [
-      "https://img.sofascore.com/api/v1/player/2695961/image"
-    ],
-    "sofascoreId": "2695961",
-    "urls": [
+      "https://img.sofascore.com/api/v1/player/2695961/image",
       "https://dsg-images.com/players/150x150/8189182.png"
-    ]
+    ],
+    "sofascoreId": "2695961"
   },
   {
     "id": "409570",
@@ -286,15 +282,13 @@
     ],
     "birthDate": "",
     "number": "50",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUrls": [
-      "https://img.sofascore.com/api/v1/player/2658830/image"
-    ],
-    "sofascoreId": "2658830",
-    "urls": [
+      "https://img.sofascore.com/api/v1/player/2658830/image",
       "https://dsg-images.com/players/150x150/8171979.png"
-    ]
+    ],
+    "sofascoreId": "2658830"
   },
   {
     "id": "3128679",
@@ -304,12 +298,15 @@
     ],
     "birthDate": "",
     "number": "60",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2536323/image"
     ],
-    "sofascoreId": "2536323"
+    "sofascoreId": "2536323",
+    "pages": [
+      "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil"
+    ]
   },
   {
     "id": "3115027",
@@ -337,12 +334,11 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lechpoznan.pl/news%2C6%2Cpierwszy-oboz-olsztyna%2C47859.html"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2586895/image"
     ]
   },
@@ -386,19 +382,17 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/betim-hasanaj"
     ],
     "providerId": "2008642",
     "previousUrls": [
       "https://images.fotmob.com/image_resources/playerimages/2008642.png",
-      "https://img.sofascore.com/api/v1/player/2614196/image"
-    ],
-    "sofascoreId": "2614196",
-    "urls": [
+      "https://img.sofascore.com/api/v1/player/2614196/image",
       "https://dsg-images.com/players/150x150/8213754.png"
-    ]
+    ],
+    "sofascoreId": "2614196"
   },
   {
     "id": "416575",
@@ -442,19 +436,17 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/wahib-fadil"
     ],
     "providerId": "1665377",
     "previousUrls": [
       "https://images.fotmob.com/image_resources/playerimages/1665377.png",
-      "https://img.sofascore.com/api/v1/player/2475671/image"
-    ],
-    "sofascoreId": "2475671",
-    "urls": [
+      "https://img.sofascore.com/api/v1/player/2475671/image",
       "https://dsg-images.com/players/150x150/7938936.png"
-    ]
+    ],
+    "sofascoreId": "2475671"
   },
   {
     "id": "415398",
@@ -464,12 +456,10 @@
     ],
     "birthDate": "2008-07-06",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUrls": [
-      "https://www.nzs.si/sites/default/files/styles/person_medium/public/media/image/Letonja%20Tilen2.png.webp?itok=qUN3_Hnm"
-    ],
-    "urls": [
+      "https://www.nzs.si/sites/default/files/styles/person_medium/public/media/image/Letonja%20Tilen2.png.webp?itok=qUN3_Hnm",
       "https://img.sofascore.com/api/v1/player/1957867/image",
       "https://img.sofascore.com/api/v1/player/2640006/image"
     ]
@@ -488,11 +478,12 @@
     ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2229246/image",
+      "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg",
       "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg"
     ],
     "sofascoreId": "2229246",
     "urls": [
-      "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg"
+      "https://img.sofascore.com/api/v1/player/2229245/image"
     ]
   },
   {
@@ -581,12 +572,15 @@
     ],
     "birthDate": "",
     "number": "97",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2640773/image"
     ],
-    "sofascoreId": "2640773"
+    "sofascoreId": "2640773",
+    "pages": [
+      "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil"
+    ]
   },
   {
     "id": "3095852",
