@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-15T13:28:40.777700+00:00",
+  "verifiedAt": "2026-10-15T14:12:25.626461+00:00",
   "league": "uefa.europa",
   "season": 2026,
   "originalGapCount": 45,
@@ -826,50 +826,257 @@
       "artifactId": 11975734134,
       "artifactFile": "409599/photo-0.png",
       "localPath": "/images/players/football/409599-original.png"
-    }
-  ],
-  "unresolved": [
-    {
-      "id": "3093616",
-      "name": "Martun Hovhannisyan",
-      "teams": [
-        "20024"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.uefa.com/imgml/TP/players/1/2027/cutoff/250217953.webp",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://dsg-images.com/players/150x150/8140887.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        }
-      ]
     },
     {
+      "url": "https://photobooth.cdn.sports.ru/preset/tc_person/7/1c/4a10799984f488f1d62c6bf3c19d3.png",
+      "sha256": "e54165ff756341c910ac1cc6024c5d1da56b48d2b3b20161981bcfd4f633eacc",
+      "type": "image/png",
+      "width": 150,
+      "height": 150,
+      "bytes": 23851,
+      "transparent": false,
       "id": "3093908",
       "name": "Mikael Khudaverdyan",
       "teams": [
         "20024"
       ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.uefa.com/imgml/TP/players/1/2027/cutoff/250223109.webp",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://img.sofascore.com/api/v1/player/1931596/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        }
-      ]
+      "birthDate": "",
+      "sourceName": "Mikael Khudaverdyan",
+      "evidence": [
+        "https://www.sports.ru/tags/161169968/"
+      ],
+      "identity": "Provider profile names Mikael Khudaverdyan, midfielder at Ararat-Armenia, born 2006-07-07. The linked image is a real individual headshot. ESPN birthday is absent.",
+      "artifactId": 11979905649,
+      "artifactFile": "3093908/photo-0.png",
+      "localPath": "/images/players/football/3093908-original.png"
     },
+    {
+      "url": "https://www.goler.co.il/assets/pics/70671757501174.jpg",
+      "sha256": "4b81b19853525f033d6cdb8326234e400dd3b651f0d4867eaf1b69d7569c3eb9",
+      "type": "image/jpeg",
+      "width": 900,
+      "height": 1125,
+      "bytes": 219676,
+      "transparent": false,
+      "id": "387426",
+      "name": "Idan Vaknin",
+      "teams": [
+        "13083"
+      ],
+      "birthDate": "1999-12-09",
+      "sourceName": "Idan Vaknin",
+      "evidence": [
+        "https://www.goler.co.il/Article/28867",
+        "https://www.goler1.co.il/Article/20181",
+        "https://www.football.org.il/players/player/?player_id=101790"
+      ],
+      "identity": "Adult Idan Vaknin (December 1999), Hebrew עידן וקנין; published signing graphic explicitly spells IDAN VAKNIN. Not the youth goalkeeper Ido Vaknin. Photo is from Hapoel Herzliya; no roster association is changed.",
+      "artifactId": 11978588564,
+      "artifactFile": "387426/photo-1.jpeg",
+      "localPath": "/images/players/football/387426-original.jpg",
+      "displayCrop": {
+        "x": 420,
+        "y": 325,
+        "size": 370
+      }
+    },
+    {
+      "url": "https://photo.one.co.il/Image/GG/5%2C1/1745015.webp",
+      "sha256": "ee9e188ba9ce9e2f65083f391f94e3f68ac7d4851c05583eef5b10294b38ec56",
+      "type": "image/webp",
+      "width": 485,
+      "height": 269,
+      "bytes": 14106,
+      "transparent": false,
+      "id": "3128676",
+      "name": "Jonathan Greenbaum",
+      "teams": [
+        "13083"
+      ],
+      "birthDate": "",
+      "sourceName": "Jonathan Greenbaum",
+      "evidence": [
+        "https://amzaws.one.co.il/Article/464956.html"
+      ],
+      "identity": "Jonathan/Yonatan Greenbaum, Hebrew יונתן גרינבאום, August 2007, Maccabi Haifa youth to Hapoel Beer Sheva. Signing report identifies him with director Idan Brown and agent Royi Shpitelnik; player in red shirt and scarf, third from left.",
+      "artifactId": 11978626375,
+      "artifactFile": "3128676/photo-0.webp",
+      "localPath": "/images/players/football/3128676-original.webp",
+      "displayCrop": {
+        "x": 247,
+        "y": 5,
+        "size": 108
+      }
+    },
+    {
+      "url": "https://photo.one.co.il/Image/GG/5%2C1/1709270.webp",
+      "sha256": "c73402dad71741aab1532e1fc09262724f0a2102771bff59eadc5e59dd55ff28",
+      "type": "image/webp",
+      "width": 485,
+      "height": 269,
+      "bytes": 16246,
+      "transparent": false,
+      "id": "3102679",
+      "name": "Shlomo Dahan",
+      "teams": [
+        "13083"
+      ],
+      "birthDate": "",
+      "sourceName": "Shlomo Dahan",
+      "evidence": [
+        "https://www.one.co.il/Article/451210.html"
+      ],
+      "identity": "Shlomo/Shlomi Dahan, Hebrew שלומי דהן, Hapoel Beer Sheva 2008 youth player. Club-credited caption identifies him with his father and brother; player in the centre wearing the commemorative team shirt. Published December 2023.",
+      "artifactId": 11978588564,
+      "artifactFile": "3102679/photo-0.webp",
+      "localPath": "/images/players/football/3102679-original.webp",
+      "displayCrop": {
+        "x": 145,
+        "y": 0,
+        "size": 130
+      }
+    },
+    {
+      "url": "https://photo.one.co.il/Image/GG/5,1/1814037.webp",
+      "sha256": "7ff0d465653706aeb2f8df89a5555a25483a3b17104b70e6b0e13aa917ef5d0f",
+      "type": "image/webp",
+      "width": 485,
+      "height": 269,
+      "bytes": 21396,
+      "transparent": false,
+      "id": "3128679",
+      "name": "Yonatan Gilboa",
+      "teams": [
+        "13083"
+      ],
+      "birthDate": "",
+      "sourceName": "Yonatan Gilboa",
+      "evidence": [
+        "https://sites.one.co.il/Mobile/Article/25-26/149,0,0,0/518756.html"
+      ],
+      "identity": "Yonatan Gilboa, Hebrew יונתן גלבוע, Hapoel Beer Sheva 2008 youth midfielder. Explicit club-credited caption names Idan Brown and Yonatan Gilboa; Gilboa is the young player on the left in the red club shirt.",
+      "artifactId": 11978588564,
+      "artifactFile": "3128679/photo-5.webp",
+      "localPath": "/images/players/football/3128679-original.webp",
+      "displayCrop": {
+        "x": 113,
+        "y": 0,
+        "size": 140
+      }
+    },
+    {
+      "url": "https://image.vartoslo.no/387659.webp?format=jpg&height=548&imageId=387659&width=960",
+      "sha256": "a7aaff47b50e374aedb9ecde2ed24ffbc059d5b86b227a2d65f1031030f435be",
+      "type": "image/jpeg",
+      "width": 960,
+      "height": 548,
+      "bytes": 228720,
+      "transparent": false,
+      "id": "3138145",
+      "name": "Wahib Fadil",
+      "teams": [
+        "987"
+      ],
+      "birthDate": "",
+      "sourceName": "Wahib Fadil",
+      "evidence": [
+        "https://www.vartoslo.no/abel-william-stensrud-equinor-talentleir-equinors-talentleir/det-gror-godt-i-hovedstads-fotballen-her-er-mer-enn-et-helt-lag-oslogutter-samlet-pa-talentleir/387654",
+        "https://www.lsk.no/lag/wahib-fadil"
+      ],
+      "identity": "Wahib Fadil, born 2008-03-13, Hasle/Loren then Valerenga and Lillestrom. NFF-credited photograph from July 2022: caption explicitly lists the back row left-to-right and places Wahib second. Historical youth photo, not represented as a current club portrait.",
+      "artifactId": 11978588564,
+      "artifactFile": "3138145/photo-0.jpeg",
+      "localPath": "/images/players/football/3138145-original.jpg",
+      "displayCrop": {
+        "x": 234,
+        "y": 91,
+        "size": 85
+      }
+    },
+    {
+      "url": "https://www.shkodrasport.com/wp-content/uploads/2026/09/Betim-Hasanaj.jpg",
+      "sha256": "404a14a586d50acaa2cc2946e96503f30418ed6ea518dd32342f42e896aa84f2",
+      "type": "image/jpeg",
+      "width": 1280,
+      "height": 719,
+      "bytes": 198224,
+      "transparent": false,
+      "id": "3138999",
+      "name": "Betim Hasanaj",
+      "teams": [
+        "987"
+      ],
+      "birthDate": "",
+      "sourceName": "Betim Hasanaj",
+      "evidence": [
+        "https://www.shkodrasport.com/betim-hasanaj-debuton-me-ekipin-e-pare-te-lillestrom-90-minuta-dhe-fitore-3-0/",
+        "https://www.lsk.no/lag/betim-hasanaj"
+      ],
+      "identity": "Betim Hasanaj, Lillestrom defender born 2008-08-13; September 2026 debut report explicitly names him and uses a single-player action photograph. Frame selects the only footballer in yellow, not spectators.",
+      "artifactId": 11979492787,
+      "artifactFile": "3138999/photo-0.jpeg",
+      "localPath": "/images/players/football/3138999-original.jpg",
+      "displayCrop": {
+        "x": 455,
+        "y": 85,
+        "size": 200
+      }
+    },
+    {
+      "url": "https://sportime-admin.sigmalive.com/assets/components/phpthumbof/cache/anto.141f077cd2473f7ad2fdcd6a4a0f8e90.png",
+      "sha256": "1fe17c2b038a22b1b2b3e2ff7ee1876e787217e33b556ba525113cafb184cf36",
+      "type": "image/png",
+      "width": 1024,
+      "height": 576,
+      "bytes": 853073,
+      "transparent": false,
+      "id": "3141428",
+      "name": "Michalis Antoniou",
+      "teams": [
+        "617"
+      ],
+      "birthDate": "",
+      "sourceName": "Michalis Antoniou",
+      "evidence": [
+        "https://sportime-admin.sigmalive.com/podosfairo/kypros/a-katigoria/548502_epaggelmatiko-symvolaio-se-mihali-antonioy",
+        "https://www.ant1live.com/athlitika/672327_allos-enas-mikros-stin-omonoia-poios-einai-o-mihalis-antonioy"
+      ],
+      "identity": "Omonia academy defender Michalis Antoniou; March 2026 professional contract graphic explicitly names MICHALIS ANTONIOU. The official announcement reproduced by ANT1 gives 2008-09-03; other reports contain a date typo. ESPN birthday is absent.",
+      "artifactId": 11979492787,
+      "artifactFile": "3141428/photo-0.png",
+      "localPath": "/images/players/football/3141428-original.png",
+      "displayCrop": {
+        "x": 120,
+        "y": 40,
+        "size": 350
+      }
+    },
+    {
+      "url": "https://photobooth.cdn.sports.ru/preset/tc_person/a/24/c198bf2834c51a22bf7bb988cf260.png",
+      "sha256": "a5e6828fd4540dd48575b39d67bf749d1df3a8ee6c13a1ad0c7ce8ea6f46a2c1",
+      "type": "image/png",
+      "width": 150,
+      "height": 150,
+      "bytes": 23279,
+      "transparent": false,
+      "id": "3093616",
+      "name": "Martun Hovhannisyan",
+      "teams": [
+        "20024"
+      ],
+      "birthDate": "",
+      "sourceName": "Martun Hovhannisyan",
+      "evidence": [
+        "https://www.sports.ru/tags/161169967/",
+        "https://www.ffa.am/hy/players/41049/m-19t-havaqakan"
+      ],
+      "identity": "Martun Hovhannisyan, Armenian midfielder born 2008-10-01 at Ararat-Armenia; Russian provider profile and Armenian FA biography agree. Provider-linked photograph is a real individual headshot, unlike the rejected Sportaran/FA placeholders.",
+      "artifactFile": "3093616/photo-0.png",
+      "localPath": "/images/players/football/3093616-original.png",
+      "artifactId": 11979233852
+    }
+  ],
+  "unresolved": [
     {
       "id": "3128677",
       "name": "Yinon Elharar",
@@ -888,112 +1095,26 @@
           "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
           "bytes": 3233,
           "result": "rejected non-player image after visual review"
-        }
-      ]
-    },
-    {
-      "id": "387426",
-      "name": "Idan Vaknin",
-      "teams": [
-        "13083"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://www.flashscore.com/res/_fs/image/og/flashscore.png",
-          "sha256": "15b9f91bb14e3ee0fd076b5226788d55ee8fc83aa7537a02d063e593221e15c7",
-          "bytes": 8614,
-          "result": "rejected non-player image after visual review"
         },
         {
-          "url": "https://static.flashscore.com/res/_fs/image/2_others/bg.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://www.football.org.il/players/player/?player_id=215909",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://static.flashscore.com/res/_fs/image/2_others/gambling_france_18ans.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F",
+          "result": "No attributable player portrait found in published page",
+          "error": ""
         },
         {
-          "url": "https://static.flashscore.com/res/_fs/image/2_others/gambling_france_gouvernement.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://www.lequipe.fr/Football/FootballFicheJoueur140331.html",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://static.flashscore.com/res/image/empty-face-man-share.gif",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/nmYXzT6k-vRrbBFZE.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/QXzWF5Pq-nFp9NYMD.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/EgPNaES0-SEJWlytR.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/27Q16ikC-jHx7sfwr.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/0OLX3qBN-j3RXGnVE.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/image/data/2Pusm9S0-KbVn9zNU.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/_fs/image/2_others/gambling_greece1.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/_fs/image/2_others/gambling_greece2.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/_fs/image/9_stores/apple/en.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://static.flashscore.com/res/_fs/image/9_stores/google/en.svg",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://img.sofascore.com/api/v1/player/1891113/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        }
-      ]
-    },
-    {
-      "id": "3128676",
-      "name": "Jonathan Greenbaum",
-      "teams": [
-        "13083"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2695960/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
+          "url": "https://as.com/resultados/ficha/equipo/hapoel_beer_sheva/4294/plantilla/",
+          "result": "No attributable player portrait found in published page",
+          "error": ""
         }
       ]
     },
@@ -1015,47 +1136,26 @@
           "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
           "bytes": 3233,
           "result": "rejected non-player image after visual review"
-        }
-      ]
-    },
-    {
-      "id": "3102679",
-      "name": "Shlomo Dahan",
-      "teams": [
-        "13083"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2658830/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
         },
         {
-          "url": "https://dsg-images.com/players/150x150/8171979.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        }
-      ]
-    },
-    {
-      "id": "3128679",
-      "name": "Yonatan Gilboa",
-      "teams": [
-        "13083"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2536323/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
+          "url": "https://www.football.org.il/players/player/?player_id=204742",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8",
+          "result": "No attributable player portrait found in published page",
+          "error": ""
+        },
+        {
+          "url": "https://database.footballmanagerblog.org/fm26/players/2000531476-tomer-shimoni",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://www.lequipe.fr/Football/FootballFicheJoueur140332.html",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
         }
       ]
     },
@@ -1076,93 +1176,31 @@
           "url": "https://img.sofascore.com/api/v1/player/2801661/image",
           "error": "HTTP Error 404: Not Found",
           "result": "unavailable"
-        }
-      ]
-    },
-    {
-      "id": "3138999",
-      "name": "Betim Hasanaj",
-      "teams": [
-        "987"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://www.lsk.no/lag/betim-hasanaj",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
         },
         {
-          "url": "https://images.fotmob.com/image_resources/playerimages/2008642.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://images.fotmob.com/image_resources/playerimages/2333151.png",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
         },
         {
-          "url": "https://img.sofascore.com/api/v1/player/2614196/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
+          "url": "https://www.besoccer.com/player/julius-rogne-bakke-3699194",
+          "result": "unavailable",
+          "error": "HTTP Error 406: Not Acceptable"
         },
         {
-          "url": "https://dsg-images.com/players/150x150/8213754.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        }
-      ]
-    },
-    {
-      "id": "3138145",
-      "name": "Wahib Fadil",
-      "teams": [
-        "987"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://www.lsk.no/lag/wahib-fadil",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://onefootball.com/en/player/julius-rogne-bakke-706166",
+          "result": "No attributable player portrait found in published page",
+          "error": ""
         },
         {
-          "url": "https://images.fotmob.com/image_resources/playerimages/1665377.png",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2475671/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://dsg-images.com/players/150x150/7938936.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        }
-      ]
-    },
-    {
-      "id": "3141428",
-      "name": "Michalis Antoniou",
-      "teams": [
-        "617"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2640773/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil",
-          "error": "HTTP Error 403: Forbidden",
-          "result": "unavailable"
+          "url": "https://images.onefootball.com/players/180/706166.jpg",
+          "result": "rejected placeholder after visual review",
+          "error": ""
         }
       ]
     }
   ],
-  "acceptedCount": 33,
-  "remainingCount": 12,
-  "reviewMethod": "Source identity evidence and original photo bytes manually reviewed. No generated faces, name-only fuzzy matches, logos or silhouette placeholders accepted."
+  "acceptedCount": 42,
+  "remainingCount": 3,
+  "reviewMethod": "Source identity evidence and original photo bytes manually reviewed. No generated faces, name-only fuzzy matches, logos or silhouette placeholders accepted. Native-language captions identify each retained historical/signing photograph. Original image bytes are unchanged; reviewed square display crops isolate the named player using CSS only."
 }
