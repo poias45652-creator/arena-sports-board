@@ -23,6 +23,7 @@ import {getCpblGameLogs} from './cpbl-game-logs-store';
 import {supplementCpblGameLogs,cpblLogCoverage} from './cpbl-game-logs';
 import {saveInternationalForecasts} from './international-model-audit-store';
 import {buildRunAnalysis,type ModelLeague} from './baseball-run-analysis';
+import {internationalPregameHealth} from './international-pregame-health';
 
 export const getInternationalLive=createLiveFeed({day:dayInTaipei,
  collect:async(league:string,options:any)=>{
@@ -64,8 +65,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const forecastStorage=await saveInternationalForecasts(pregame),coverage=pregameMissing(pregame);
   const reports=pregame.games.map(g=>buildRunAnalysis(g,Date.now(),league as ModelLeague,true));
   const analysisCoverage={ready:reports.filter(r=>r.status==='ready'&&r.mode!=='simulation').length,simulated:reports.filter(r=>r.status==='ready'&&r.mode==='simulation').length,total:reports.length,blocked:reports.filter(r=>r.status!=='ready').map(r=>({start:r.fixture.start,away:r.fixture.away,home:r.fixture.home,status:r.status,reason:r.reason}))};
-  const partial=feed.status==='partial'||playsport.errors.length>0||publicPitching.errors.length>0||coverage.era<coverage.teams||coverage.whip<coverage.teams||coverage.starters<coverage.teams||analysisCoverage.ready<analysisCoverage.total;
-  const status=feed.stale?'stale':partial?'partial':'ready';
+  const status=internationalPregameHealth(feed,reports);
   const data={kind:league.toLowerCase()+'-pregame',status:pregame.games.length?status:league==='CPBL'&&feed.noGames?'ready':'unavailable',...(league==='CPBL'&&feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
    scope:'開啟網站時每 5 分鐘檢查公開來源；保存最後成功資料。歷史補充欄位保留原時間。',error:feed.error||null,storageError,forecastStorage,
    playsport:{games:playsport.snapshot.games.length,errors:playsport.errors},

@@ -7,6 +7,18 @@ import {renderToStaticMarkup} from 'react-dom/server';
 import {moduleUrl} from './profile-loader.mjs';
 
 const {internationalPregameNotice}=await import(moduleUrl('app/international-pregame-status.ts'));
+const {internationalPregameHealth}=await import(moduleUrl('lib/international-pregame-health.ts'));
+test('merged complete NPB data remains ready when an optional provider fails or fixtures have started',()=>{
+ const feed={status:'ok',stale:false},ready={status:'ready'},started={status:'started'};
+ assert.equal(internationalPregameHealth(feed,[ready,ready]),'ready');
+ assert.equal(internationalPregameHealth(feed,[ready,started]),'ready');
+ assert.equal(internationalPregameHealth(feed,[started,started]),'ready');
+ assert.equal(internationalPregameHealth(feed,[ready,{status:'waiting_data'}]),'partial');
+ assert.equal(internationalPregameHealth(feed,[{status:'ready',mode:'simulation'}]),'partial');
+ assert.equal(internationalPregameHealth({status:'partial'},[ready]),'partial');
+ assert.equal(internationalPregameHealth({status:'unavailable'},[ready]),'stale');
+ assert.equal(internationalPregameHealth({status:'ok',stale:true},[ready]),'stale');
+});
 const tomorrow='2026-10-13',today='2026-10-12';
 const unavailable={status:'unavailable',pregame:{date:tomorrow,games:[],observedAt:''},fetchedAt:null,playsport:{errors:['玩運彩 HTTP 403']}};
 test('unavailable with no records reports missing data without claiming retained data or analysis',()=>{
@@ -52,7 +64,8 @@ let clock=Date.parse('2026-10-12T11:00:00Z'),selectedDay='auto';
 function FixtureDate(...args){return args.length?new Date(...args):new Date(clock);}
 FixtureDate.now=()=>clock;FixtureDate.parse=Date.parse;FixtureDate.UTC=Date.UTC;
 const Box=({children})=>React.createElement('div',null,children),Empty=()=>null;
-const Button=({children,disabled})=>React.createElement('button',{disabled},children);
+const renderedButtons=[];
+const Button=({children,disabled,onClick})=>{renderedButtons.push({children,disabled,onClick});return React.createElement('button',{disabled},children);};
 const analysisSeen=[];
 const model=await import(moduleUrl('lib/baseball-run-analysis.ts'));
 const dependencies={
@@ -73,9 +86,9 @@ const board=ts.createSourceFile('board.tsx',readFileSync('app/international-boar
 let marketNode;function visit(node){if(ts.isJsxSelfClosingElement(node)&&node.tagName.getText(board)==='InternationalMarkets')marketNode=node;ts.forEachChild(node,visit);}visit(board);
 assert.ok(marketNode,'Test the actual Board forwarding expression');
 const wiringCode=ts.transpileModule('const element='+marketNode.getText(board),{fileName:'wiring.tsx',compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
-function renderSource(source,date,{league='NPB',loading=false,now=Date.parse('2026-10-12T11:00:00Z')}={}){
-  clock=now;selectedDay=date;analysisSeen.length=0;
-  const scope={React,InternationalMarkets:Markets,internationalPregameNotice,data:{pregame:source},analysisDate:date,league,loading,setAnalysisDate:()=>{},setRevision:()=>{},superData:{data:null,error:'',loading:false,refresh:async()=>{}}};
+function renderSource(source,date,{league='NPB',loading=false,now=Date.parse('2026-10-12T11:00:00Z'),onRefresh=()=>{},onOddsRefresh=async()=>{}}={}){
+  clock=now;selectedDay=date;analysisSeen.length=0;renderedButtons.length=0;
+  const scope={React,InternationalMarkets:Markets,internationalPregameNotice,data:{pregame:source},analysisDate:date,league,loading,setAnalysisDate:()=>{},setRevision:onRefresh,superData:{data:null,error:'',loading:false,refresh:onOddsRefresh}};
   const element=new Function(...Object.keys(scope),wiringCode+'\nreturn element;')(...Object.values(scope));
   assert.equal(element.props.pregame,source?.pregame,'Source records are forwarded unchanged');
   return renderToStaticMarkup(element);
@@ -101,4 +114,21 @@ test('same-day partial and stale notices leave real ready analyses intact with t
   }
   const ready=renderSource({status:'ready',pregame:snapshot},snapshot.date,{now});
   assert.match(ready,/data-analysis-status="ready"/);assert.doesNotMatch(ready,/賽前來源更新失敗|部分賽前來源尚未齊全/);
+});
+test('after first pitch the board explains why pregame recommendations stopped',()=>{
+ const snapshot=JSON.parse(readFileSync('data/playsport-capture-20260921.json','utf8')).find(x=>x.league==='NPB');
+ const html=renderSource({status:'ready',pregame:snapshot},snapshot.date,{now:Date.parse('2026-09-21T15:00:00Z')});
+ assert.match(html,/賽事均已開賽，賽前推薦已停止/);
+ assert.doesNotMatch(html,/部分賽前來源尚未齊全/);
+ assert.ok(analysisSeen.every(a=>a?.status==='started'));
+});
+
+test('analysis refresh reloads both fixture statistics and quotes, and mobile reading order puts games first',()=>{
+ const snapshot=JSON.parse(readFileSync('data/playsport-capture-20260921.json','utf8')).find(x=>x.league==='NPB');
+ let dataRefresh=0,oddsRefresh=0;
+ const html=renderSource({status:'ready',pregame:snapshot},snapshot.date,{now:Date.parse('2026-09-21T04:05:00Z'),onRefresh:()=>dataRefresh++,onOddsRefresh:async()=>{oddsRefresh++;}});
+ const button=renderedButtons.find(b=>b.children==='更新資料');
+ assert.ok(button);assert.equal(button.disabled,false);button.onClick();
+ assert.equal(dataRefresh,1);assert.equal(oddsRefresh,1);
+ assert.ok(html.indexOf('international-match-card')<html.indexOf('arena-analysis-summary'),'game cards precede the parlay form in the reading order');
 });
