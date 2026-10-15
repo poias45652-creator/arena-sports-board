@@ -46,5 +46,65 @@
     ],
     "url": "https://images.fotmob.com/image_resources/playerimages/1229360.png",
     "evidence": "https://www.fotmob.com/players/1229360/oleksandr-drambaev"
+  },
+  "3102773": {
+    "name": "Omar Sarr",
+    "birthDate": "",
+    "providerId": "1909894",
+    "providerName": "Omar Sarr",
+    "identity": "reviewed-name+team",
+    "teams": [
+      "441"
+    ],
+    "url": "https://images.fotmob.com/image_resources/playerimages/1909894.png",
+    "evidence": "https://www.rsca.be/en/news/omar-sarr-joins-rsca-futures"
+  },
+  "420945": {
+    "name": "Alexander De Ridder",
+    "birthDate": "2008-05-06",
+    "providerId": "1868486",
+    "providerName": "Alexander De Ridder",
+    "identity": "official-name+team; ESPN birth date differs from club (2008-06-05)",
+    "teams": [
+      "441"
+    ],
+    "url": "https://images.fotmob.com/image_resources/playerimages/1868486.png",
+    "evidence": "https://www.rsca.be/en/deridder2028"
+  },
+  "400474": {
+    "name": "Tiago Dias Freitas",
+    "birthDate": "2006-08-17",
+    "providerId": "1704818",
+    "providerName": "Tiago Freitas",
+    "identity": "reviewed-alias+birth+team",
+    "teams": [
+      "1929"
+    ],
+    "url": "https://images.fotmob.com/image_resources/playerimages/1704818.png",
+    "evidence": "https://www.slbenfica.pt/pt-pt/agora/noticias/2022/11/04/futebol-formacao-benfica-tiago-freitas-assina-contrato-profissional"
+  },
+  "222608": {
+    "name": "Babajide David",
+    "birthDate": "1996-01-13",
+    "providerId": "656495",
+    "providerName": "David Akintola",
+    "identity": "reviewed-alias+birth+team",
+    "teams": [
+      "617"
+    ],
+    "url": "https://images.fotmob.com/image_resources/playerimages/656495.png",
+    "evidence": "https://cfa.com.cy/Gr/player/78/12617669"
+  },
+  "74855": {
+    "name": "João Costa",
+    "birthDate": "1992-08-25",
+    "providerId": "362661",
+    "providerName": "Costinha",
+    "identity": "reviewed-alias+birth+team",
+    "teams": [
+      "21615"
+    ],
+    "url": "https://images.fotmob.com/image_resources/playerimages/362661.png",
+    "evidence": "https://www.footballdatabase.eu/en/player/details/176496--costinha"
   }
 }

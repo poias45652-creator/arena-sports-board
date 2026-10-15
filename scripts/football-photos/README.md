@@ -43,3 +43,24 @@ FotMob's public team/player endpoints; portraits retain their original pixels.
 ## Final reviewed coverage (2026-10-04)
 
 The final audited scope has 4,293 eligible players and 4,293 verified portraits. One erroneous Czechia association is recorded separately from the 4,294 raw identities. See the audit/research reports for all 31 additions, original hashes and source evidence. Three colliding ESPN identities use `football-roster-photo-corrections.json`; these portraits must only be served with the matching team, league and season. Do not promote these corrections to global ID replacements.
+
+## Europa supplement (2026-10-15)
+
+The latest 36-team Europa roster snapshot contains 1,137 distinct players. The
+supplement adds 638 portraits (633 transparent provider PNGs and five original
+club JPEGs), bringing catalog coverage to 1,092 players. Forty-five records
+remain without a verified available portrait; their IDs and reasons are in
+`docs/football-europa-photo-audit.json`. No generated or unrelated faces are used.
+
+The Europa identity and reviewed-source files are additive. Existing identities,
+historical coverage reports, context corrections, and roster statistics remain
+authoritative. Official club JPEGs are allowed only on reviewed hosts with an
+exact SHA-256 match. The same profile card and authenticated photo API serve all
+competitions.
+
+For a scoped refresh, pass `--league uefa.europa` to each collection phase up to
+`verify`. Review non-exact names, birthdays and club memberships before running
+`verify-reviewed-europa.py CACHE` and `merge-europa.py CACHE`. The merge command
+verifies cached bytes and writes only the Europa supplement and its audit. A
+scoped run cannot use the destructive `export` phase. The read-only GitHub
+workflow uploads evidence for review and never commits or publishes its results.

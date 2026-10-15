@@ -35,6 +35,26 @@ test('rosters use the authenticated photo endpoint instead of assumed ESPN heads
  const players=parseFootballRoster({team:{id:'579',isNational:true},season:{year:2026},athletes:[{id:'193649',displayName:'Arsen Beglaryan'}]},'uefa.nations','579',2026,team);
  assert.equal(players[0].photo,'/api/football-player-photo?player=193649&league=uefa.nations');
 });
+test('Europa supplements serve verified PNG and pinned club JPEG portraits through the existing API',async()=>{
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const base=JSON.parse(readFileSync('data/football-player-photos.json')).players;
+ const added=JSON.parse(readFileSync('data/football-europa-player-photos.json')).players;
+ const sources=JSON.parse(readFileSync('data/football-europa-reviewed-photo-sources.json'));
+ assert.ok(Object.keys(added).every(id=>!base[id]),'Europa additions must preserve prior league identities');
+ const jpeg=readFileSync('tests/fixtures/football-europa-3130341.jpg');
+ assert.equal(createHash('sha256').update(jpeg).digest('hex'),sources['3130341'].sha256);
+ const previous=globalThis.fetch;let count=0;
+ const get=id=>GET(new Request('http://localhost/api/football-player-photo?player='+id+'&league=uefa.europa'));
+ try{
+  globalThis.fetch=async url=>{count++;assert.equal(String(url),`https://images.fotmob.com/image_resources/playerimages/${added['332466'].providerId}.png`);return new Response(image,{headers:{'content-type':'image/png'}})};
+  const png=await get('332466');assert.equal(png.status,200);assert.equal(png.headers.get('content-type'),'image/png');assert.equal(count,1);
+  globalThis.fetch=async url=>{count++;assert.equal(String(url),sources['3130341'].url);return new Response(jpeg,{headers:{'content-type':'image/jpeg'}})};
+  const portrait=await get('3130341');assert.equal(portrait.status,200);assert.equal(portrait.headers.get('content-type'),'image/jpeg');assert.deepEqual(Buffer.from(await portrait.arrayBuffer()),jpeg);
+  await get('3130341');assert.equal(count,2);
+  globalThis.fetch=async()=>new Response(jpeg,{headers:{'content-type':'image/jpeg'}});
+  assert.equal((await get('389321')).status,404,'a different player image must fail the pinned hash');
+ }finally{globalThis.fetch=previous;}
+});
 test('reviewed supplements fill gaps without replacing live data or crossing identities',async()=>{
  const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
  const team={id:'384',name:'Crystal Palace',englishName:'Crystal Palace'};

@@ -6,8 +6,12 @@ import argparse,concurrent.futures,collections,datetime,hashlib,io,json,re,time,
 from pathlib import Path
 from difflib import SequenceMatcher
 from PIL import Image
-P=argparse.ArgumentParser();P.add_argument('--cache',required=True);P.add_argument('--season',type=int,required=True);P.add_argument('--phase',choices=['collect','match','enrich','verify','export'],required=True);a=P.parse_args();cache=Path(a.cache);cache.mkdir(parents=True,exist_ok=True)
-leagues={'eng.1':47,'esp.1':87,'ger.1':54,'ita.1':55,'fra.1':53,'uefa.champions':42,'uefa.nations':None}
+P=argparse.ArgumentParser();P.add_argument('--cache',required=True);P.add_argument('--season',type=int,required=True);P.add_argument('--phase',choices=['collect','match','enrich','verify','export'],required=True);P.add_argument('--league',action='append');a=P.parse_args();cache=Path(a.cache);cache.mkdir(parents=True,exist_ok=True)
+leagues={'eng.1':47,'esp.1':87,'ger.1':54,'ita.1':55,'fra.1':53,'uefa.champions':42,'uefa.europa':73,'uefa.nations':None}
+if a.league:
+ if any(code not in leagues for code in a.league):P.error('Unsupported football league')
+ leagues={code:leagues[code] for code in a.league}
+ if a.phase=='export':P.error('Scoped collection must be merged without replacing the existing catalog')
 ROOT='https://site.api.espn.com/apis/site/v2/sports/soccer';FM='https://www.fotmob.com/api/data/'
 def save(path,data):path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False,separators=(',',':')))
 def fetch(url,key):
@@ -52,7 +56,7 @@ def collect():
      for x in v:walk(x)
    walk(data['table'])
  # The public FIFA ranking in a national team page supplies verified national team IDs.
- ranks=fetch(FM+'teams?id=6718','fm-team-6718')['details']['fifaRanking']['rankings']['ranks']
+ ranks=fetch(FM+'teams?id=6718','fm-team-6718')['details']['fifaRanking']['rankings']['ranks'] if 'uefa.nations' in leagues else []
  aliases={'czech republic':'czechia','turkey':'turkiye','republic of ireland':'ireland','faroe islands':'faroe islands'}
  unknown=[]
  for t in teams.values():
@@ -134,7 +138,7 @@ def match():
  print('matched',len(matched),'unmatched',len(players)-len(matched),flush=True)
 
 def verify():
- matched=json.loads((cache/'matched.json').read_text());matched.update(json.loads((Path(__file__).resolve().parents[2]/'data/football-player-photo-overrides.json').read_text()));save(cache/'matched.json',matched);ids={p['providerId']:p for p in matched.values()};photos=cache/'photos';photos.mkdir(exist_ok=True)
+ matched=json.loads((cache/'matched.json').read_text());players=json.loads((cache/'espn-players.json').read_text());overrides=json.loads((Path(__file__).resolve().parents[2]/'data/football-player-photo-overrides.json').read_text());matched.update({key:value for key,value in overrides.items() if key in players});save(cache/'matched.json',matched);ids={p['providerId']:p for p in matched.values()};photos=cache/'photos';photos.mkdir(exist_ok=True)
  previous=json.loads((cache/'photo-audit.json').read_text()) if (cache/'photo-audit.json').exists() else {}
  def check(item):
   fid,p=item;path=photos/(fid+'.png')
