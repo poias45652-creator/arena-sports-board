@@ -415,7 +415,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ],
@@ -426,8 +426,7 @@
     "sofascoreId": "2801661",
     "pages": [],
     "urls": [
-      "https://images.multiball.forzafootball.net/photos/player/thumbnail/1221547549.jpg",
-      "https://objetos.estaticos-marca.com/assets/sports/headshots/football/305/png/144x144/756578.png"
+      "https://i.ytimg.com/vi/Z21x4BLOMEk/maxresdefault.jpg"
     ]
   },
   {
