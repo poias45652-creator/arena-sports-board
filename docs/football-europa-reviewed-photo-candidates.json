@@ -1,0 +1,62 @@
+[
+  {
+    "id": "3130341",
+    "name": "Konstantinos Papadakis",
+    "birthDate": "",
+    "teams": [
+      "1010"
+    ],
+    "number": "77",
+    "identity": "official-club-roster-name+shirt-number",
+    "evidence": "https://www.oficretefc.com/roster/",
+    "url": "https://www.oficretefc.com/wp-content/uploads/PAPADAKIS.jpg"
+  },
+  {
+    "id": "409601",
+    "name": "Thanos Asmarianakis",
+    "birthDate": "2009-01-05",
+    "teams": [
+      "1010"
+    ],
+    "number": "47",
+    "identity": "official-club-roster-name+shirt-number",
+    "evidence": "https://www.oficretefc.com/roster/",
+    "url": "https://www.oficretefc.com/wp-content/uploads/Asmarianakis-2.jpg"
+  },
+  {
+    "id": "417946",
+    "name": "Christos Tsalpatouros",
+    "birthDate": "2010-04-12",
+    "teams": [
+      "1010"
+    ],
+    "number": "83",
+    "identity": "official-club-roster-name+shirt-number",
+    "evidence": "https://www.oficretefc.com/roster/",
+    "url": "https://www.oficretefc.com/wp-content/uploads/Tsalpatouros-1.jpg"
+  },
+  {
+    "id": "389321",
+    "name": "Manolis Chnaris",
+    "birthDate": "2008-03-24",
+    "teams": [
+      "1010"
+    ],
+    "number": "91",
+    "identity": "official-club-roster-name+shirt-number",
+    "evidence": "https://www.oficretefc.com/roster/",
+    "url": "https://www.oficretefc.com/wp-content/uploads/Chnaris-1.jpg"
+  },
+  {
+    "id": "3102773",
+    "name": "Omar Sarr",
+    "birthDate": "",
+    "teams": [
+      "441"
+    ],
+    "number": "51",
+    "identity": "official-club-roster-name+shirt-number",
+    "evidence": "https://www.rsca.be/fr/squad/11",
+    "url": "https://cc-cdn.rsca.be/sites/default/files/styles/cc_960x1280/public/2026-08/SARR%20Omar.jpg?h=afdbdd61&itok=yoSpGhwb"
+  }
+]
