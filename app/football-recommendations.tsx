@@ -17,7 +17,6 @@ const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asi
 export function FootballAnalysisNumbers({analysis,showScores=true}:{analysis:ReadyFootballAnalysis;showScores?:boolean}){
   const p=analysis.probabilities,scenarios=footballScoreScenarios(analysis);
   return <>
-    {analysis.version==='football-europa-elo-sparse-v1'&&<p className="football-venue" title={analysis.calibration?.uncertainty}>小樣本估算・主隊 {analysis.homeForm?.games} 場／客隊 {analysis.awayForm?.games} 場歐霸紀錄，持續觀察中</p>}
     <div className="football-probabilities">{[['主勝',p.home],['和局',p.draw],['客勝',p.away]].map(([label,value])=><div key={String(label)}><span>{label}</span><strong>{percent(Number(value))}</strong></div>)}</div>
     <div className="football-probability-bar" aria-hidden="true"><span style={{width:p.home*100+'%'}}/><span style={{width:p.draw*100+'%'}}/><span style={{width:p.away*100+'%'}}/></div>
     <div className="football-goals"><div><span>模型大 2.5 球</span><b>{percent(p.over25)}</b></div><div><span>模型小 2.5 球</span><b>{percent(p.under25)}</b></div><div><span>雙方都進球</span><b>{percent(p.btts)}</b></div></div>

@@ -60,13 +60,33 @@ for row in club_checks:
     club_sources[eid] = {key: row[key] for key in ('url', 'sha256', 'type')}
     proofs[eid] = row
 
+# Keep the separately reviewed original assets when refreshing provider data.
+gap_review_path = root / 'docs/football-europa-portrait-gap-review.json'
+gap_review = read(gap_review_path) if gap_review_path.exists() else {'accepted': []}
+unresolved = {p['id']: p['reason'] for p in gap_review.get('unresolved', [])}
+for row in gap_review['accepted']:
+    eid = row['id']
+    if eid not in players:
+        continue
+    assert eid not in existing and eid not in existing_sources, eid
+    source = players[eid]
+    assert row['name'] == source['displayName'], eid
+    assert row['birthDate'] == str(source.get('dateOfBirth') or '')[:10], eid
+    extension = {'image/png': 'png', 'image/webp': 'webp', 'image/jpeg': 'jpg'}[row['type']]
+    assert row['localPath'] == f'/images/players/football/{eid}-original.{extension}'
+    data = (root / ('public' + row['localPath'])).read_bytes()
+    assert len(data) <= 2000000 and hashlib.sha256(data).hexdigest() == row['sha256']
+    added[eid] = {'name': row['name'], 'birthDate': row['birthDate']}
+    club_sources[eid] = {key: row[key] for key in ('url', 'sha256', 'type', 'localPath')}
+    proofs[eid] = row
+
 known = {eid for eid, p in existing.items() if p.get('providerId') or p.get('sourceUrl') or eid in existing_sources} | set(added)
 covered = set(players) & known
 missing = []
 for eid, player in players.items():
     if eid not in covered:
         missing.append({'id': eid, 'name': player['displayName'], 'teams': player['teams'],
-                        'reason': images[matched[eid]['providerId']]['error'] if eid in matched else 'No unambiguous identity match',
+                        'reason': unresolved.get(eid) or (images[matched[eid]['providerId']]['error'] if eid in matched else 'No unambiguous identity match'),
                         'providerId': matched.get(eid, {}).get('providerId')})
 stamp = datetime.datetime.now(datetime.timezone.utc).isoformat()
 save(root / 'data/football-europa-player-photos.json', {'version': 1, 'season': 2026, 'verifiedAt': stamp, 'players': added})
@@ -75,8 +95,9 @@ save(root / 'docs/football-europa-photo-audit.json', {
     'verifiedAt': stamp, 'season': 2026, 'league': 'uefa.europa', 'uniquePlayers': len(players),
     'previouslyCataloguedPhotos': len(covered) - len(added), 'addedPhotos': len(added),
     'addedTransparentPhotos': sum(p.get('photo', p).get('transparent', False) for p in proofs.values()),
-    'cataloguedPhotos': len(covered), 'source': 'ESPN 2026 Europa rosters; FotMob identity and portrait checks; reviewed official club portraits',
+    'cataloguedPhotos': len(covered), 'source': 'ESPN 2026 Europa rosters; FotMob identity and portrait checks; manually reviewed club and provider original portraits',
     'teams': [dict(id=r['team']['id'], name=r['team']['name'], total=len(r['players']), withPhoto=sum(str(p['id']) in covered for p in r['players'])) for r in rosters],
     'added': proofs, 'missing': missing, 'clubSourceChecks': club_checks,
+    'portraitGapReview': 'docs/football-europa-portrait-gap-review.json',
 })
 print('Added', len(added), 'portraits;', len(covered), '/', len(players), 'covered;', len(missing), 'remaining')

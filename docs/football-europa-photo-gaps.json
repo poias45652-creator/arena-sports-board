@@ -1,0 +1,742 @@
+[
+  {
+    "id": "407720",
+    "name": "Shirak Badalyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "2006-04-02",
+    "number": "12",
+    "collect": false,
+    "previousPages": [
+      "https://www.transfermarkt.com/shirak-badalyan/profil/spieler/1201879",
+      "https://sportball24.com/en/players/shirak-badalyan-shirak-badalyan/"
+    ],
+    "previousUrls": [
+      "https://sportball24.com/media/photos/2023/0810/ShirakBadal.webp"
+    ]
+  },
+  {
+    "id": "3102111",
+    "name": "Andranik Martirosyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://fcararat.am/en/first-team/players-ararat/player/50000515-Andranik%2BMartirosyan.html"
+    ],
+    "previousUrls": []
+  },
+  {
+    "id": "408530",
+    "name": "Vahe Petrosyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "2005-08-31",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250226140",
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2211368/image"
+    ],
+    "sofascoreId": "2211368"
+  },
+  {
+    "id": "3093616",
+    "name": "Martun Hovhannisyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250217953",
+    "previousUrls": [
+      "https://dsg-images.com/players/150x150/8140887.png"
+    ]
+  },
+  {
+    "id": "3093908",
+    "name": "Mikael Khudaverdyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": "22",
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250223109",
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1931596/image"
+    ],
+    "sofascoreId": "1931596"
+  },
+  {
+    "id": "403821",
+    "name": "Nikola Radnic",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2008-06-10",
+    "number": "49",
+    "collect": false,
+    "previousPages": [
+      "https://www.transfermarkt.com/nikola-radnic/profil/spieler/1071997"
+    ],
+    "previousUefaId": "250195271",
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1960022/image"
+    ],
+    "sofascoreId": "1960022"
+  },
+  {
+    "id": "421322",
+    "name": "Petar Zaja",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2008-03-27",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://semafor.hns.family/en/players/389308/petar-simun-zaja/"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2222575/image"
+    ],
+    "sofascoreId": "2222575"
+  },
+  {
+    "id": "413777",
+    "name": "Jona Benkotic",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2009-03-20",
+    "number": "31",
+    "collect": false,
+    "previousPages": [
+      "https://hns.team/en/players/391987/jona-benkotic/"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1861365/image"
+    ],
+    "sofascoreId": "1861365"
+  },
+  {
+    "id": "3098709",
+    "name": "Kaloyan Bozhkov Bozhkov",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250189871",
+    "providerId": "1936635",
+    "previousUrls": [
+      "https://images.fotmob.com/image_resources/playerimages/1936635.png",
+      "https://img.sofascore.com/api/v1/player/1587288/image"
+    ],
+    "sofascoreId": "1587288"
+  },
+  {
+    "id": "3140272",
+    "name": "Fuzy Taylor",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.transfermarkt.com/fuzy-taylor/profil/spieler/1313433"
+    ],
+    "providerId": "2030424",
+    "previousUrls": [
+      "https://images.fotmob.com/image_resources/playerimages/2030424.png"
+    ]
+  },
+  {
+    "id": "3128677",
+    "name": "Yinon Elharar",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2701812/image",
+      "https://dsg-images.com/players/150x150/8189183.png"
+    ],
+    "sofascoreId": "2701812"
+  },
+  {
+    "id": "385939",
+    "name": "Lior Shugar",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "2007-09-08",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.football.org.il/en/players/player/?player_id=201719"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1859713/image"
+    ],
+    "sofascoreId": "1859713"
+  },
+  {
+    "id": "387426",
+    "name": "Idan Vaknin",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "1999-12-09",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.flashscore.com/player/vaknin-idan/nk29TQQb/"
+    ],
+    "previousUrls": [],
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/1891113/image"
+    ]
+  },
+  {
+    "id": "3127402",
+    "name": "David Pilnick",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2692952/image"
+    ],
+    "sofascoreId": "2692952"
+  },
+  {
+    "id": "3128676",
+    "name": "Jonathan Greenbaum",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2695960/image"
+    ]
+  },
+  {
+    "id": "3128678",
+    "name": "Tomer Shimoni",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2695961/image",
+      "https://dsg-images.com/players/150x150/8189182.png"
+    ],
+    "sofascoreId": "2695961"
+  },
+  {
+    "id": "409570",
+    "name": "Amit Ohana",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "19",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2228586/image"
+    ],
+    "sofascoreId": "2228586"
+  },
+  {
+    "id": "3102679",
+    "name": "Shlomo Dahan",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "50",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2658830/image",
+      "https://dsg-images.com/players/150x150/8171979.png"
+    ],
+    "sofascoreId": "2658830"
+  },
+  {
+    "id": "3128679",
+    "name": "Yonatan Gilboa",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "60",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2536323/image"
+    ],
+    "sofascoreId": "2536323",
+    "pages": [
+      "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil"
+    ]
+  },
+  {
+    "id": "3115027",
+    "name": "Maksim Kononov",
+    "teams": [
+      "11505"
+    ],
+    "birthDate": "",
+    "number": "65",
+    "collect": false,
+    "previousPages": [
+      "https://www.transfermarkt.de/maksim-kononov/profil/spieler/1105398",
+      "https://www.lequipe.fr/Football/FootballFicheJoueur140315.html"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2660378/image"
+    ],
+    "sofascoreId": "2660378"
+  },
+  {
+    "id": "3144978",
+    "name": "Aleks Olsztyn",
+    "teams": [
+      "2990"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.lechpoznan.pl/news%2C6%2Cpierwszy-oboz-olsztyna%2C47859.html"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2586895/image"
+    ]
+  },
+  {
+    "id": "3110856",
+    "name": "Anton Todorov Manov",
+    "teams": [
+      "490"
+    ],
+    "birthDate": "",
+    "number": "39",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2670836/image"
+    ],
+    "sofascoreId": "2670836"
+  },
+  {
+    "id": "3144071",
+    "name": "Julius Rogne-Bakke",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2801661/image"
+    ],
+    "sofascoreId": "2801661"
+  },
+  {
+    "id": "3138999",
+    "name": "Betim Hasanaj",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.lsk.no/lag/betim-hasanaj"
+    ],
+    "providerId": "2008642",
+    "previousUrls": [
+      "https://images.fotmob.com/image_resources/playerimages/2008642.png",
+      "https://img.sofascore.com/api/v1/player/2614196/image",
+      "https://dsg-images.com/players/150x150/8213754.png"
+    ],
+    "sofascoreId": "2614196"
+  },
+  {
+    "id": "416575",
+    "name": "Isa Jallow",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "2009-05-20",
+    "number": "36",
+    "collect": false,
+    "previousPages": [
+      "https://www.lsk.no/lag/isa-jallow"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2354724/image"
+    ],
+    "sofascoreId": "2354724"
+  },
+  {
+    "id": "3108858",
+    "name": "Seun Akanji",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": "25",
+    "collect": false,
+    "previousPages": [
+      "https://www.lsk.no/lag/seun-akanji"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2654560/image"
+    ],
+    "sofascoreId": "2654560"
+  },
+  {
+    "id": "3138145",
+    "name": "Wahib Fadil",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.lsk.no/lag/wahib-fadil"
+    ],
+    "providerId": "1665377",
+    "previousUrls": [
+      "https://images.fotmob.com/image_resources/playerimages/1665377.png",
+      "https://img.sofascore.com/api/v1/player/2475671/image",
+      "https://dsg-images.com/players/150x150/7938936.png"
+    ],
+    "sofascoreId": "2475671"
+  },
+  {
+    "id": "415398",
+    "name": "Tilen Letonja",
+    "teams": [
+      "3362"
+    ],
+    "birthDate": "2008-07-06",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://www.nzs.si/sites/default/files/styles/person_medium/public/media/image/Letonja%20Tilen2.png.webp?itok=qUN3_Hnm",
+      "https://img.sofascore.com/api/v1/player/1957867/image",
+      "https://img.sofascore.com/api/v1/player/2640006/image"
+    ]
+  },
+  {
+    "id": "409599",
+    "name": "Charalambos Antonakakis",
+    "teams": [
+      "1010"
+    ],
+    "birthDate": "2009-01-05",
+    "number": "74",
+    "collect": false,
+    "previousPages": [
+      "https://www.oficretefc.com/genika/epangelmatias-o-antonakakis/"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2229246/image",
+      "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg",
+      "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg"
+    ],
+    "sofascoreId": "2229246",
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/2229245/image"
+    ]
+  },
+  {
+    "id": "409602",
+    "name": "Thanasis Sitmalidis",
+    "teams": [
+      "1010"
+    ],
+    "birthDate": "2008-05-18",
+    "number": "71",
+    "collect": false,
+    "previousPages": [
+      "https://www.oficretefc.com/genika/epangelmatias-o-sitmalidis/"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2229247/image",
+      "https://www.oficretefc.com/wp-content/uploads/oficretefc-sitmalidis-scaled.jpg"
+    ],
+    "sofascoreId": "2229247"
+  },
+  {
+    "id": "365708",
+    "name": "Alexandros Tsompanidis",
+    "teams": [
+      "435"
+    ],
+    "birthDate": "2004-08-05",
+    "number": "76",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1445564/image"
+    ],
+    "sofascoreId": "1445564"
+  },
+  {
+    "id": "382651",
+    "name": "Giorgos Viktoros",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2005-09-01",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1399482/image"
+    ],
+    "sofascoreId": "1399482"
+  },
+  {
+    "id": "408050",
+    "name": "Christos Konstantinidis",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2008-06-24",
+    "number": "90",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1979632/image"
+    ],
+    "sofascoreId": "1979632"
+  },
+  {
+    "id": "3095868",
+    "name": "Evripidis Pepis",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1427551/image"
+    ],
+    "sofascoreId": "1427551"
+  },
+  {
+    "id": "3141428",
+    "name": "Michalis Antoniou",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "97",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2640773/image"
+    ],
+    "sofascoreId": "2640773",
+    "pages": [
+      "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil"
+    ]
+  },
+  {
+    "id": "3095852",
+    "name": "Panagiotis Christoforou",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "92",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2543394/image"
+    ],
+    "sofascoreId": "2543394"
+  },
+  {
+    "id": "3122675",
+    "name": "Theos Ignatios Kazakeos",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "94",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2640774/image"
+    ],
+    "sofascoreId": "2640774"
+  },
+  {
+    "id": "173114",
+    "name": "Konstantinos Panagi",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2007-04-23",
+    "number": "91",
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250182638",
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1588519/image"
+    ],
+    "sofascoreId": "1588519"
+  },
+  {
+    "id": "409757",
+    "name": "Vladimiros Savva",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2008-05-21",
+    "number": "87",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1979666/image"
+    ],
+    "sofascoreId": "1979666"
+  },
+  {
+    "id": "3102178",
+    "name": "Teo Hupfauf",
+    "teams": [
+      "2790"
+    ],
+    "birthDate": "",
+    "number": "",
+    "collect": false,
+    "previousPages": [
+      "https://www.transfermarkt.com/teo-hupfauf/profil/spieler/1294141"
+    ],
+    "providerId": "2101298",
+    "previousUrls": [
+      "https://images.fotmob.com/image_resources/playerimages/2101298.png",
+      "https://img.sofascore.com/api/v1/player/2297264/image"
+    ],
+    "sofascoreId": "2297264"
+  },
+  {
+    "id": "403980",
+    "name": "Jonás Topic",
+    "teams": [
+      "433"
+    ],
+    "birthDate": "2008-06-08",
+    "number": "42",
+    "collect": false,
+    "previousPages": [
+      "https://sparta.cz/en/tymy/25-men-b/hraci/172-jonas-topic"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1931629/image"
+    ],
+    "sofascoreId": "1931629"
+  },
+  {
+    "id": "155691",
+    "name": "Danilo",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "2004-07-10",
+    "number": "57",
+    "collect": false,
+    "previousPages": [
+      "https://www.torreense.com/futebol-profissional/equipa-principal/plantel"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/1808044/image"
+    ],
+    "sofascoreId": "1808044"
+  },
+  {
+    "id": "3141707",
+    "name": "Gustavo Sousa Alhinho Alves Rijo",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "86",
+    "collect": false,
+    "previousPages": [
+      "https://www.torreense.com/futebol-profissional/sub-23-masculino/plantel"
+    ],
+    "previousUrls": []
+  },
+  {
+    "id": "3141708",
+    "name": "Marco André Moura Silva",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "75",
+    "collect": false,
+    "previousPages": [
+      "https://www.torreense.com/futebol-formacao/juniores-sub19-masculino/plantel"
+    ],
+    "previousUrls": [
+      "https://img.sofascore.com/api/v1/player/2690552/image"
+    ],
+    "sofascoreId": "2690552"
+  },
+  {
+    "id": "3123791",
+    "name": "João Vitor Gomes Chagas",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "61",
+    "collect": false,
+    "previousPages": [],
+    "previousUrls": []
+  }
+]

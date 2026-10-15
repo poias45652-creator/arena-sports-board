@@ -47,15 +47,19 @@ The final audited scope has 4,293 eligible players and 4,293 verified portraits.
 ## Europa supplement (2026-10-15)
 
 The latest 36-team Europa roster snapshot contains 1,137 distinct players. The
-supplement adds 638 portraits (633 transparent provider PNGs and five original
-club JPEGs), bringing catalog coverage to 1,092 players. Forty-five records
+supplement adds 671 portraits, bringing catalog coverage to 1,125 players.
+This includes 33 additional manually reviewed original images stored locally;
+their provenance and the 12 remaining gaps are recorded in
+`docs/football-europa-portrait-gap-review.json`. Twelve records
 remain without a verified available portrait; their IDs and reasons are in
 `docs/football-europa-photo-audit.json`. No generated or unrelated faces are used.
 
 The Europa identity and reviewed-source files are additive. Existing identities,
 historical coverage reports, context corrections, and roster statistics remain
 authoritative. Official club JPEGs are allowed only on reviewed hosts with an
-exact SHA-256 match. The same profile card and authenticated photo API serve all
+exact SHA-256 match. Reviewed local originals also require a fixed path, matching
+MIME type and exact SHA-256; they do not download from a provider at runtime.
+The merge script preserves these reviewed originals on refresh. The same profile card and authenticated photo API serve all
 competitions.
 
 For a scoped refresh, pass `--league uefa.europa` to each collection phase up to

@@ -105,6 +105,30 @@ test('Balog cutout is served from the reviewed local asset without an external d
   assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);assert.equal(downloads,0);
  }finally{globalThis.fetch=previous;}
 });
+test('all reviewed Europa gap portraits serve their original pinned bytes without network access',async()=>{
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const review=JSON.parse(readFileSync('docs/football-europa-portrait-gap-review.json'));
+ const audit=JSON.parse(readFileSync('docs/football-europa-photo-audit.json'));
+ const sources=JSON.parse(readFileSync('data/football-europa-reviewed-photo-sources.json'));
+ const catalog=JSON.parse(readFileSync('data/football-europa-player-photos.json')).players;
+ const base=JSON.parse(readFileSync('data/football-player-photos.json')).players;
+ assert.equal(review.accepted.length,33);assert.equal(review.unresolved.length,12);
+ assert.equal(new Set(review.accepted.map(p=>p.sha256)).size,33,'No repeated placeholder image');
+ assert.equal(audit.cataloguedPhotos,1125);assert.equal(audit.uniquePlayers-audit.cataloguedPhotos,review.unresolved.length);
+ assert.deepEqual(audit.missing.map(p=>p.id).sort(),review.unresolved.map(p=>p.id).sort());
+ const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Reviewed original must be served locally');};
+ try{
+  for(const p of review.accepted){
+   assert.ok(!base[p.id]);assert.equal(catalog[p.id].name,p.name);assert.equal(catalog[p.id].birthDate,p.birthDate);
+   const source=sources[p.id];assert.equal(source.localPath,p.localPath);assert.equal(source.sha256,p.sha256);
+   const bytes=readFileSync('public'+p.localPath);assert.equal(createHash('sha256').update(bytes).digest('hex'),p.sha256);
+   const response=await GET(new Request('http://localhost/api/football-player-photo?player='+p.id+'&league=uefa.europa'));
+   assert.equal(response.status,200,p.name);assert.equal(response.headers.get('content-type'),p.type);
+   assert.equal(response.headers.get('x-content-type-options'),'nosniff');assert.deepEqual(Buffer.from(await response.arrayBuffer()),bytes);
+  }
+  assert.equal(downloads,0);
+ }finally{globalThis.fetch=previous;}
+});
 test('team and season identity corrections require the reviewed source fingerprint',async()=>{
  const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
  const corrections=JSON.parse(readFileSync('data/football-roster-photo-corrections.json'));

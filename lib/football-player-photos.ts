@@ -37,10 +37,13 @@ async function discover(id:string,league:string):Promise<FootballPhotoIdentity|n
  discovered.set(id,{identity:value,expires:Date.now()+(value?86400000:3600000)});return value;
 }
 async function readPhoto(identity:FootballPhotoIdentity,verified?:ReviewedPhoto){
- // Background-removed portraits are reviewed repository assets. Only fixed
- // football portrait paths and exact reviewed bytes may use this local branch.
+ // Reviewed repository portraits preserve their audited bytes. Existing
+ // cutouts and original photos have separate fixed paths and MIME rules.
  if(verified?.localPath){
-  if(!/^\/images\/players\/football\/\d{1,12}-cutout\.webp$/.test(verified.localPath)||verified.type!=='image/webp'||!/^[a-f0-9]{64}$/.test(verified.sha256))return null;
+  const cutout=/^\/images\/players\/football\/\d{1,12}-cutout\.webp$/.test(verified.localPath);
+  const original=/^\/images\/players\/football\/\d{1,12}-original\.(png|webp|jpg)$/.exec(verified.localPath);
+  const expectedType=cutout?'image/webp':original?({'png':'image/png','webp':'image/webp','jpg':'image/jpeg'} as Record<string,string>)[original[1]]:'';
+  if(!expectedType||verified.type!==expectedType||!/^[a-f0-9]{64}$/.test(verified.sha256))return null;
   const bytes=await readFile(join(process.cwd(),'public',verified.localPath));
   if(bytes.length>2000000||createHash('sha256').update(bytes).digest('hex')!==verified.sha256)return null;
   return {bytes,type:verified.type,expires:Date.now()+86400000};
