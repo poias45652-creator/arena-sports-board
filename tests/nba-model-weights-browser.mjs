@@ -15,8 +15,10 @@ try{
  browser=await chromium.launch({headless:true});
  for(const [name,viewport] of [['desktop',{width:1440,height:1000}],['mobile',{width:390,height:844}]]){
   const context=await browser.newContext({viewport,locale:'zh-TW'});
-  await context.addCookies([{name:'__Host-arena_tz',value:'e'.repeat(64),url:origin,secure:true,httpOnly:true,sameSite:'Lax'}]);
   const page=await context.newPage(),errors=[],requests=[];page.on('pageerror',e=>errors.push(String(e)));
+  // The existing fixture session is sent only to this isolated HTTP server.
+  // Production __Host cookies require HTTPS; production auth stays unchanged.
+  await page.route(origin+'/**',route=>route.continue({headers:{...route.request().headers(),cookie:'__Host-arena_tz='+'e'.repeat(64)}}));
   await page.clock.install({time:new Date('2026-09-29T16:00:00Z')});
   page.on('request',r=>{if(r.url().includes('/api/nba?')&&r.url().includes('kind=analysis'))requests.push(r.url());});
   await page.goto(origin+'/?league=NBA&view=analysis&date=2026-10-09');
