@@ -7,8 +7,15 @@
     ],
     "birthDate": "2006-04-02",
     "number": "12",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.transfermarkt.com/shirak-badalyan/profil/spieler/1201879"
+    ],
+    "urls": [
+      "https://sportball24.com/media/photos/2023/0810/ShirakBadal.webp"
+    ],
+    "pages": [
+      "https://sportball24.com/en/players/shirak-badalyan-shirak-badalyan/"
     ]
   },
   {
@@ -19,7 +26,8 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://fcararat.am/en/first-team/players-ararat/player/50000515-Andranik%2BMartirosyan.html"
     ]
   },
@@ -31,7 +39,9 @@
     ],
     "birthDate": "2005-08-31",
     "number": "",
-    "uefaId": "250226140"
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250226140"
   },
   {
     "id": "3093616",
@@ -41,7 +51,9 @@
     ],
     "birthDate": "",
     "number": "",
-    "uefaId": "250217953"
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250217953"
   },
   {
     "id": "3093908",
@@ -51,7 +63,9 @@
     ],
     "birthDate": "",
     "number": "22",
-    "uefaId": "250223109"
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250223109"
   },
   {
     "id": "403821",
@@ -61,10 +75,11 @@
     ],
     "birthDate": "2008-06-10",
     "number": "49",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://www.transfermarkt.com/nikola-radnic/profil/spieler/1071997"
     ],
-    "uefaId": "250195271"
+    "previousUefaId": "250195271"
   },
   {
     "id": "421322",
@@ -74,7 +89,8 @@
     ],
     "birthDate": "2008-03-27",
     "number": "",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://semafor.hns.family/en/players/389308/petar-simun-zaja/"
     ]
   },
@@ -86,7 +102,8 @@
     ],
     "birthDate": "2009-03-20",
     "number": "31",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://hns.team/en/players/391987/jona-benkotic/"
     ]
   },
@@ -98,7 +115,13 @@
     ],
     "birthDate": "",
     "number": "",
-    "uefaId": "250189871"
+    "collect": true,
+    "previousPages": [],
+    "previousUefaId": "250189871",
+    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/1936635.png"
+    ],
+    "providerId": "1936635"
   },
   {
     "id": "3140272",
@@ -108,9 +131,14 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.transfermarkt.com/fuzy-taylor/profil/spieler/1313433"
-    ]
+    ],
+    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/2030424.png"
+    ],
+    "providerId": "2030424"
   },
   {
     "id": "3128677",
@@ -119,7 +147,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "385939",
@@ -129,7 +159,8 @@
     ],
     "birthDate": "2007-09-08",
     "number": "",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://www.football.org.il/en/players/player/?player_id=201719"
     ]
   },
@@ -140,7 +171,9 @@
       "13083"
     ],
     "birthDate": "1999-12-09",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3127402",
@@ -149,7 +182,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3128676",
@@ -158,7 +193,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3128678",
@@ -167,7 +204,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "409570",
@@ -176,7 +215,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": "19"
+    "number": "19",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3102679",
@@ -185,7 +226,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": "50"
+    "number": "50",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3128679",
@@ -194,7 +237,9 @@
       "13083"
     ],
     "birthDate": "",
-    "number": "60"
+    "number": "60",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3115027",
@@ -204,8 +249,12 @@
     ],
     "birthDate": "",
     "number": "65",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.transfermarkt.de/maksim-kononov/profil/spieler/1105398"
+    ],
+    "pages": [
+      "https://www.lequipe.fr/Football/FootballFicheJoueur140315.html"
     ]
   },
   {
@@ -215,7 +264,9 @@
       "2990"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3110856",
@@ -224,7 +275,9 @@
       "490"
     ],
     "birthDate": "",
-    "number": "39"
+    "number": "39",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3144071",
@@ -234,7 +287,8 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ]
   },
@@ -246,9 +300,14 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.lsk.no/lag/betim-hasanaj"
-    ]
+    ],
+    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/2008642.png"
+    ],
+    "providerId": "2008642"
   },
   {
     "id": "416575",
@@ -258,7 +317,8 @@
     ],
     "birthDate": "2009-05-20",
     "number": "36",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://www.lsk.no/lag/isa-jallow"
     ]
   },
@@ -270,7 +330,8 @@
     ],
     "birthDate": "",
     "number": "25",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://www.lsk.no/lag/seun-akanji"
     ]
   },
@@ -282,9 +343,14 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.lsk.no/lag/wahib-fadil"
-    ]
+    ],
+    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/1665377.png"
+    ],
+    "providerId": "1665377"
   },
   {
     "id": "415398",
@@ -293,7 +359,9 @@
       "3362"
     ],
     "birthDate": "2008-07-06",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "409599",
@@ -302,7 +370,12 @@
       "1010"
     ],
     "birthDate": "2009-01-05",
-    "number": "74"
+    "number": "74",
+    "collect": true,
+    "previousPages": [],
+    "pages": [
+      "https://www.oficretefc.com/genika/epangelmatias-o-antonakakis/"
+    ]
   },
   {
     "id": "409602",
@@ -311,7 +384,12 @@
       "1010"
     ],
     "birthDate": "2008-05-18",
-    "number": "71"
+    "number": "71",
+    "collect": true,
+    "previousPages": [],
+    "pages": [
+      "https://www.oficretefc.com/genika/epangelmatias-o-sitmalidis/"
+    ]
   },
   {
     "id": "365708",
@@ -320,7 +398,9 @@
       "435"
     ],
     "birthDate": "2004-08-05",
-    "number": "76"
+    "number": "76",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "382651",
@@ -329,7 +409,9 @@
       "617"
     ],
     "birthDate": "2005-09-01",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "408050",
@@ -338,7 +420,9 @@
       "617"
     ],
     "birthDate": "2008-06-24",
-    "number": "90"
+    "number": "90",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3095868",
@@ -347,7 +431,9 @@
       "617"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3141428",
@@ -356,7 +442,9 @@
       "617"
     ],
     "birthDate": "",
-    "number": "97"
+    "number": "97",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3095852",
@@ -365,7 +453,9 @@
       "617"
     ],
     "birthDate": "",
-    "number": "92"
+    "number": "92",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3122675",
@@ -374,7 +464,9 @@
       "617"
     ],
     "birthDate": "",
-    "number": "94"
+    "number": "94",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "173114",
@@ -384,7 +476,9 @@
     ],
     "birthDate": "2007-04-23",
     "number": "91",
-    "uefaId": "250182638"
+    "collect": false,
+    "previousPages": [],
+    "previousUefaId": "250182638"
   },
   {
     "id": "409757",
@@ -393,7 +487,9 @@
       "617"
     ],
     "birthDate": "2008-05-21",
-    "number": "87"
+    "number": "87",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3102178",
@@ -403,9 +499,14 @@
     ],
     "birthDate": "",
     "number": "",
-    "pages": [
+    "collect": true,
+    "previousPages": [
       "https://www.transfermarkt.com/teo-hupfauf/profil/spieler/1294141"
-    ]
+    ],
+    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/2101298.png"
+    ],
+    "providerId": "2101298"
   },
   {
     "id": "403980",
@@ -415,7 +516,8 @@
     ],
     "birthDate": "2008-06-08",
     "number": "42",
-    "pages": [
+    "collect": false,
+    "previousPages": [
       "https://sparta.cz/en/tymy/25-men-b/hraci/172-jonas-topic"
     ]
   },
@@ -426,7 +528,9 @@
       "21615"
     ],
     "birthDate": "2004-07-10",
-    "number": "57"
+    "number": "57",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3141707",
@@ -435,7 +539,12 @@
       "21615"
     ],
     "birthDate": "",
-    "number": "86"
+    "number": "86",
+    "collect": true,
+    "previousPages": [],
+    "pages": [
+      "https://www.torreense.com/futebol-profissional/sub-23-masculino/plantel"
+    ]
   },
   {
     "id": "3141708",
@@ -444,7 +553,9 @@
       "21615"
     ],
     "birthDate": "",
-    "number": "75"
+    "number": "75",
+    "collect": false,
+    "previousPages": []
   },
   {
     "id": "3123791",
@@ -453,6 +564,8 @@
       "21615"
     ],
     "birthDate": "",
-    "number": "61"
+    "number": "61",
+    "collect": false,
+    "previousPages": []
   }
 ]
