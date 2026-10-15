@@ -55,16 +55,18 @@
     "birthDate": "",
     "number": "",
     "collect": true,
-    "previousPages": [],
+    "previousPages": [
+      "https://fmtransferupdate.com/players/2000511890-martun-hovhannisyan"
+    ],
     "previousUefaId": "250217953",
     "previousUrls": [
       "https://dsg-images.com/players/150x150/8140887.png",
       "https://sportaran.com/media/photos/2026/0319/Martun.webp"
     ],
-    "pages": [
-      "https://fmtransferupdate.com/players/2000511890-martun-hovhannisyan"
-    ],
-    "urls": []
+    "pages": [],
+    "urls": [
+      "https://photobooth.cdn.sports.ru/preset/tc_person/a/24/c198bf2834c51a22bf7bb988cf260.png"
+    ]
   },
   {
     "id": "3093908",
@@ -181,7 +183,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/players/player/?player_id=215909",
       "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F"
@@ -279,7 +281,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/players/player/?player_id=204742",
       "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8"
@@ -437,7 +439,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/betim-hasanaj",
       "https://www.albinfo.ch/talenti-shqiptar-betim-hasanaj-firmos-me-lillestrom/",
@@ -645,7 +647,7 @@
     ],
     "birthDate": "",
     "number": "97",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil",
       "https://www.omonoiafc.com.cy/υπέγραψε-επαγγελματικό-συμβόλαιο-ο-μ/",
