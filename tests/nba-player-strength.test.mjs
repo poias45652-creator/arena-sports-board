@@ -50,3 +50,35 @@ test('expired or future snapshot cannot expose an old confident recommendation',
  }
 });
 test('NBA engine never applies NBA parameters to WNBA teams',()=>assert.equal(m.applyPlayerStrength({...game,home:{...game.home,league:'WNBA'},away:{...game.away,league:'WNBA'}},base,home,away,now),base));
+
+
+test('each NBA weight reaches the player forecast while the default fitted model is unchanged',async()=>{
+ const e=await import(moduleUrl('lib/basketball-efficiency.ts')),settings=await import(moduleUrl('lib/nba-model-weights.ts'));
+ const metrics=(patch={})=>({games:20,ortg:110,drtg:110,pace:100,threePct:.35,threeRate:.4,ftRate:.25,observations:Array.from({length:20},(_,i)=>({offense:110+(i%2?4:-4),defense:110+(i%2?5:-5),three:.35+(i%2?.04:-.04),freeThrows:.25+(i%2?.03:-.03),margin:i%2?10:-10})),...patch});
+ const h=metrics({ortg:124,drtg:106,threePct:.43,ftRate:.34}),a=metrics();
+ const report=weights=>{
+  const calculation=e.projectEfficiency(h,a,'NBA',false,weights);
+  return {...base,customWeights:!settings.isDefaultNbaWeights(weights),weightsKey:e.weightKey(weights),inputs:{calculation},expected:{home:calculation.home,away:calculation.away,total:calculation.home+calculation.away,margin:calculation.home-calculation.away}};
+ };
+ const defaults=report([20,20,20,20,20]),unchanged=m.applyPlayerStrength(game,defaults,home,away,now);
+ const oldProjection=m.applyPlayerStrength(game,{...defaults,inputs:undefined},home,away,now);
+ for(const key of ['expected','probabilities','playerContext'])assert.deepEqual(unchanged[key],oldProjection[key]);
+ assert.equal(settings.nbaEfficiencyWeightShift(defaults),0);
+ const defaultCalculation=defaults.inputs.calculation;
+ for(let i=0;i<5;i++){
+  const weights=[20,20,20,20,20];weights[i]=90;
+  const custom=report(weights),calculation=custom.inputs.calculation,actual=m.applyPlayerStrength(game,custom,home,away,now);
+  const difference=calculation.home-calculation.away-(defaultCalculation.home-defaultCalculation.away);
+  assert.ok(Math.abs(settings.nbaEfficiencyWeightShift(custom)-difference)<1e-9);
+  assert.equal(actual.status,'ready');assert.equal(actual.customWeights,true);assert.equal(actual.playerContext.calibrated,false);
+  assert.notEqual(actual.expected.margin,unchanged.expected.margin,'slider '+i+' changes final margin');
+  assert.notEqual(actual.probabilities.home,unchanged.probabilities.home,'slider '+i+' changes final probability');
+  assert.equal(actual.probabilities.home+actual.probabilities.away,1);
+ }
+});
+
+test('saved NBA weights validate the schema and safely recover corrupt or unusable settings',async()=>{
+ const s=await import(moduleUrl('lib/nba-model-weights.ts'));
+ assert.deepEqual(s.readNbaWeights(s.writeNbaWeights([80,10,5,5,0])),[80,10,5,5,0]);
+ for(const raw of [null,'{','{}','null','{"version":2,"weights":[80,10,5,5,0]}',...[[0,0,0,0,0],[101,0,0,0,0],[20,20],['20',20,20,20,20]].map(weights=>JSON.stringify({version:1,weights}))])assert.deepEqual(s.readNbaWeights(raw),[20,20,20,20,20]);
+});

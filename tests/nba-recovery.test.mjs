@@ -36,7 +36,7 @@ test('NBA and WNBA routes return waiting analysis without throwing on absent pro
  for(const league of ['nba','wnba'])for(const state of ['scheduled','final']){
   const result={game:{...game,state},analysis:{status:'waiting',model:`${league}-efficiency-monte-carlo-v2`},sourceFetchedAt:new Date().toISOString()};
   const dependencies={
-   '@/lib/basketball-efficiency':efficiency,'@/lib/nba-analysis':presentation,
+   '@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':await import(moduleUrl('lib/nba-model-weights.ts')),'@/lib/nba-analysis':presentation,
    '@/db':{getRawDb(){throw Error('Waiting report must not read database');}},'@/lib/daily-win-rate':{saveDailyForecast(){throw Error('Waiting report must not save pick');}},
    '@/lib/nba-official':{},'@/lib/wnba-roster':{},
    [`@/lib/${league}`]:{[`${league}Day`]:()=> '2026-10-14',[`valid${league==='nba'?'Nba':'Wnba'}Day`]:()=>true},
@@ -47,4 +47,26 @@ test('NBA and WNBA routes return waiting analysis without throwing on absent pro
   const response=await exports.GET(new Request(`https://example.test/api/${league}?kind=analysis&date=2026-10-14&game=${game.id}`));
   assert.equal(response.status,200);assert.deepEqual(await response.json(),{...result,dailySaved:false});
  }
+});
+
+
+test('custom NBA forecasts cannot overwrite the shared daily ledger; equivalent default ratios still save',async()=>{
+ const efficiency=await import(moduleUrl('lib/basketball-efficiency.ts')),settings=await import(moduleUrl('lib/nba-model-weights.ts'));
+ let saved=0,queries=[];
+ const result={game,analysis:base};
+ const dependencies={
+  '@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':settings,'@/lib/nba-analysis':{nbaPick:()=>({})},
+  '@/db':{getRawDb:()=>({})},'@/lib/daily-win-rate':{saveDailyForecast:async()=>{saved++;return true;}},
+  '@/lib/nba-official':{},'@/lib/nba':{nbaDay:()=> '2026-10-14',validNbaDay:()=>true},
+  '@/lib/nba-source':{nbaGameAnalysis:async(day,id,weights)=>{queries.push(weights);return result;}}
+ };
+ const code=ts.transpileModule(readFileSync('app/api/nba/route.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+ const exports={};new Function('require','exports',code)(key=>{assert.ok(key in dependencies,key);return dependencies[key];},exports);
+ for(const [weights,expected] of [['80,10,5,5,0',false],['20,20,20,20,20',true],['10,10,10,10,10',true]]){
+  const response=await exports.GET(new Request(`https://example.test/api/nba?kind=analysis&date=2026-10-14&game=${game.id}&weights=${weights}`));
+  assert.equal(response.status,200);assert.equal((await response.json()).dailySaved,expected);
+ }
+ assert.equal(saved,2);assert.deepEqual(queries[0],[80,10,5,5,0]);
+ const response=await exports.GET(new Request(`https://example.test/api/nba?kind=analysis&date=2026-10-14&game=${game.id}&weights=0,0,0,0,0`));
+ assert.equal(response.status,400);assert.equal(queries.length,3);
 });

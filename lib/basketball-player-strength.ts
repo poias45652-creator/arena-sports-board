@@ -1,5 +1,6 @@
 import type {NbaGame} from './nba';
 import type {EfficiencyAnalysis} from './basketball-efficiency';
+import {nbaEfficiencyWeightShift} from './nba-model-weights';
 export type PlayerAvailability='out'|'doubtful'|'questionable'|'probable'|'expected'|'unknown';
 export type PlayerEvidence={id:number;name:string;status:PlayerAvailability;publishedAt?:string;sourceUrl:string;minutesCap?:number;minutesConfirmed?:boolean};
 export type PlayerRating={games:number;rate:number;minutes:number;lastPlayed:number;sampleMinutes:number;points:number;rebounds:number;assists:number;steals:number;blocks:number;turnovers:number;name:string;sourceId:string};
@@ -66,7 +67,8 @@ function applyPlayerStrength(game:NbaGame,base:EfficiencyAnalysis,homeEvidence:P
  // adjustment is explicitly a scenario estimate, not a calibrated win rate.
  const relevance=(t:TeamStats)=>context.preseason?Math.exp(-Math.max(0,(now/1000-t.lastPlayed)/86400-30)/90):1;
  const features=(hs:number,as:number)=>[game.neutral?0:1,hs-as,h.net*relevance(h)-a.net*relevance(a),h.sos*relevance(h)-a.sos*relevance(a),Math.min(7,(Date.parse(game.start)/1000-h.lastPlayed)/86400)-Math.min(7,(Date.parse(game.start)/1000-a.lastPlayed)/86400)];
- const project=(x:number[])=>x.reduce((n,v,i)=>n+v*model.coefficients[i],0);
+ const efficiencyWeightShift=league==='NBA'?nbaEfficiencyWeightShift(base):0;
+ const project=(x:number[])=>x.reduce((n,v,i)=>n+v*model.coefficients[i],0)+efficiencyWeightShift;
  const x=features(value(home),value(away)),margin=project(x);
  const strengthScenario=(e:PlayerEvidence[],s:'low'|'central'|'high')=>allocateMinutes(e,context.preseason,s).reduce((n,p)=>n+p.minutes*(playerRatings[String(p.id)]?.rate??.30),0);
  const margins:number[]=[];for(const hs of ['low','central','high'] as const)for(const as of ['low','central','high'] as const)margins.push(project(features(strengthScenario(homeEvidence,hs),strengthScenario(awayEvidence,as))));
@@ -74,7 +76,7 @@ function applyPlayerStrength(game:NbaGame,base:EfficiencyAnalysis,homeEvidence:P
  const round=(x:number)=>Math.round(x*10)/10,total=base.expected.total,homeScore=round((total+margin)/2),awayScore=round((total-margin)/2);
  const minutesConfirmed=[...home,...away].filter(p=>p.minutes>0).every(p=>p.minutesConfirmed);
  const uncertain=[...home,...away].some(p=>['unknown','questionable','doubtful'].includes(p.status)&&p.minutesHigh>12);
- return {...base,model:league==='NBA'?'nba-player-opponent-v3':'wnba-player-opponent-v3',capturedAt:new Date(now).toISOString(),simulation:undefined,expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:homeProbability,away:1-homeProbability},playerContext:{...context,status:'applied',marginSigma:model.sigma,calibrated:!context.preseason&&model.regularSeasonValidated,home,away,minutesConfirmed,recommendationEligible:!context.preseason&&!uncertain,homeOpponentNet:h.sos,awayOpponentNet:a.sos,marginRange:[Math.min(...margins),Math.max(...margins)],probabilityRange:[Math.min(...probabilities),Math.max(...probabilities)],features:x,coefficients:model.coefficients}};
+ return {...base,model:league==='NBA'?'nba-player-opponent-v3':'wnba-player-opponent-v3',capturedAt:new Date(now).toISOString(),simulation:undefined,expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:homeProbability,away:1-homeProbability},playerContext:{...context,status:'applied',marginSigma:model.sigma,calibrated:!base.customWeights&&!context.preseason&&model.regularSeasonValidated,home,away,minutesConfirmed,recommendationEligible:!context.preseason&&!uncertain,homeOpponentNet:h.sos,awayOpponentNet:a.sos,marginRange:[Math.min(...margins),Math.max(...margins)],probabilityRange:[Math.min(...probabilities),Math.max(...probabilities)],features:x,coefficients:model.coefficients}};
 }
 
 

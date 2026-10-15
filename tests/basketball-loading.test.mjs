@@ -4,6 +4,8 @@ import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 import React from 'react';
 import {moduleUrl} from './profile-loader.mjs';
+const weightSettings=await import(moduleUrl('lib/nba-model-weights.ts'));
+const efficiency=await import(moduleUrl('lib/basketball-efficiency.ts'));
 const refreshPolicy=await import(moduleUrl('app/basketball-report-refresh.ts'));
 const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
@@ -38,7 +40,7 @@ test('last reader aborts transport; failure is retried and league/date caches st
 
 // Execute real component effects with deterministic hook slots and event targets.
 // No API, network, browser or account is needed for lifecycle regressions.
-function mountBoard(request){
+function mountBoard(request,eligible=false){
  const slots=[],effects=[];let cursor=0;
  const hooks={
   useState(initial){const i=cursor++;if(!(i in slots))slots[i]=typeof initial==='function'?initial():initial;return [slots[i],next=>{slots[i]=typeof next==='function'?next(slots[i]):next;}];},
@@ -46,7 +48,7 @@ function mountBoard(request){
   useEffect(run,deps){const i=cursor++,old=slots[i];if(!old||deps.some((v,j)=>v!==old.deps[j])){slots[i]={deps,cleanup:old?.cleanup};effects.push(()=>{slots[i].cleanup?.();slots[i].cleanup=run();});}}
  };
  const nba={nbaDay:()=> '2026-10-05',validNbaDay:()=>true,shiftNbaDay:day=>day,NBA_TEAMS:[],nbaFixtureKey:g=>g.id};
- const dependencies={react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':{DEFAULT_WEIGHTS:[20,20,20,20,20],weightKey:w=>w.join(','),normalizedWeights:w=>w},'@/lib/nba-analysis':{nbaEligible:()=>false,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
+ const dependencies={react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':weightSettings,'./nba-model-weights':{default:function NbaModelWeights(){}},'@/lib/nba-analysis':{nbaEligible:()=>eligible,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
  const code=ts.transpileModule(readFileSync('app/nba-board.tsx','utf8'),{fileName:'board.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const exports={};new Function('require','exports','React',code)(key=>{if(key.endsWith('.css'))return {};assert.ok(key in dependencies,key);return dependencies[key];},exports,React);
  return {render(props={}){cursor=0;const tree=exports.default({view:'live',onViewChange(){},...props});effects.splice(0).forEach(run=>run());return tree;},dispose(){for(const slot of slots)slot?.cleanup?.();}};
@@ -65,7 +67,7 @@ test('refresh retains cards, failures retain last success, hidden polls pause an
  const snapshot=(day,id)=>({day,games:[{id,state:'scheduled'}],fetchedAt:new Date().toISOString()});
  const cards=tree=>elements(tree,e=>e.type?.name==='NbaCard').map(e=>e.props.game.id);
  try{
-  board.render();assert.equal(calls.length,1);calls[0].resolve(snapshot('2026-10-05','first'));await flush();assert.deepEqual(cards(board.render()),['first']);
+  board.render();board.render();assert.equal(calls.length,1);calls[0].resolve(snapshot('2026-10-05','first'));await flush();assert.deepEqual(cards(board.render()),['first']);
   window.dispatchEvent(new Event('arena-refresh-all'));assert.equal(calls.length,2);assert.deepEqual(cards(board.render()),['first']);
   window.dispatchEvent(new Event('arena-refresh-all'));assert.equal(calls.length,2);
   calls[1].reject(Error('offline'));await flush();assert.deepEqual(cards(board.render()),['first']);
@@ -86,4 +88,33 @@ test('manual update dispatches schedules before waiting for SUPER',async()=>{
  const events=[],reply=deferred(),scope={updateLock:{current:false},setUpdatingAll(){},setUpdateNotice(){},league:'NBA',window:{dispatchEvent:e=>events.push(e.type)},fetch:()=>reply.promise,Event,AbortSignal};
  const update=new Function(...Object.keys(scope),code+';return updateAll;')(...Object.values(scope));
  const task=update();assert.deepEqual(events,['arena-refresh-all']);reply.resolve(Response.json({}));await task;assert.deepEqual(events,['arena-refresh-all','arena-odds-change']);
+});
+
+
+test('NBA applied weights reload from storage, abort old reports and never leak into WNBA',async t=>{
+ const oldWindow=globalThis.window,oldDocument=globalThis.document;
+ const window=new EventTarget(),document=new EventTarget(),storage=new Map();
+ window.location={search:''};window.localStorage={getItem:k=>storage.get(k)??null,setItem:(k,v)=>storage.set(k,v)};document.hidden=false;
+ globalThis.window=window;globalThis.document=document;
+ t.mock.method(globalThis,'setTimeout',()=>0);t.mock.method(globalThis,'clearTimeout',()=>{});
+ t.mock.method(globalThis,'setInterval',()=>0);t.mock.method(globalThis,'clearInterval',()=>{});
+ const calls=[],request=(url,signal)=>{const task=deferred();calls.push({...task,url,signal});return task.promise;};
+ const snapshot={day:'2026-10-05',games:[{id:'123',state:'scheduled'}],fetchedAt:new Date().toISOString()};
+ const modal=tree=>elements(tree,e=>e.type?.name==='NbaModelWeights')[0];
+ const reports=tree=>elements(tree,e=>e.type?.name==='NbaCard').map(e=>e.props.report);
+ let board=mountBoard(request,true);
+ try{
+  board.render();board.render();calls[0].resolve(snapshot);await flush();
+  assert.match(calls[1].url,/weights=20,20,20,20,20/);
+  modal(board.render()).props.onApply([80,10,5,5,0]);board.render();
+  assert.equal(calls[1].signal.aborted,true);assert.deepEqual(reports(board.render()),[undefined]);
+  calls[1].resolve({analysis:{marker:'stale'}});await flush();assert.deepEqual(reports(board.render()),[undefined]);
+  calls[2].resolve(snapshot);await flush();assert.match(calls[3].url,/weights=80,10,5,5,0/);
+  calls[3].resolve({analysis:{marker:'custom'}});await flush();assert.equal(reports(board.render())[0].analysis.marker,'custom');
+  assert.deepEqual(weightSettings.readNbaWeights(storage.get(weightSettings.NBA_WEIGHT_STORAGE_KEY)),[80,10,5,5,0]);
+  board.dispose();board=mountBoard(request,true);board.render();board.render();
+  calls[4].resolve(snapshot);await flush();assert.match(calls[5].url,/weights=80,10,5,5,0/);
+  board.render({league:'WNBA'});board.render({league:'WNBA'});assert.equal(modal(board.render({league:'WNBA'})),undefined);
+  calls[6].resolve(snapshot);await flush();assert.match(calls[7].url,/^\/api\/wnba\?.*weights=20,20,20,20,20/);
+ }finally{board.dispose();globalThis.window=oldWindow;globalThis.document=oldDocument;}
 });
