@@ -65,6 +65,53 @@ test('identical cross-category Champions copies collapse, but conflicting or sam
   assert.throws(()=>championsSnapshot([general,conflict]));
  }
 });
+// Category 932 is deliberately synthetic: the collector must discover the ID
+// from the authenticated menu label, rather than assume a production number.
+const europaNow=Date.parse('2026-10-15T12:00:00Z');
+const europaGame={id:'test-juventus-rennes',league:'uefa.europa',state:'scheduled',timeConfirmed:true,start:'2026-10-23T00:45:00+08:00',home:{name:'尤文圖斯'},away:{name:'雷恩'}};
+function europaCategory(){
+ const category=championsCategory();category.CatID=932;category.CatName='歐足總歐霸聯賽';
+ category.Items.List[0].LeagueNameStr='歐足總歐霸聯賽';
+ Object.assign(category.Items.List[0].Team[0],{EvtID:910932,HomeTeamStr:'祖雲達斯(主)',AwayTeamStr:'雷恩',ScheduleTimeStr:'2026/10/23 00:45:00'});
+ return category;
+}
+const europaSnapshot=categories=>parseHrGameDetail({code:200,data:categories},new Date(europaNow).toISOString());
+test('Europa category follows the authenticated pregame label and wager key, without a fixed ID',()=>{
+ for(const name of ['歐霸','歐足總歐霸聯賽','歐洲足總歐霸聯賽','UEFA Europa League']){
+  const input=structuredClone(menu);input.data.list[0].LeftMenu.item.push({catid:932,catName:name,Items:[{WagerTypeKey:'17'}]});
+  assert.deepEqual(hrSportsRequests(input).at(-1),{GameType:3,CatID:932,WagerTypeKey:'17'});
+  assert.deepEqual(hrBaseballRequest(input),hrBaseballRequest(menu));
+  input.data.list[0].GameType=2;assert.deepEqual(hrSportsRequests(input),[]);
+ }
+ for(const name of ['歐洲協會聯賽','歐霸聯賽U21','歐洲女子聯賽','其他歐霸','熱門']){
+  const input=structuredClone(menu);input.data.list[0].LeftMenu.item.push({catid:932,catName:name,Items:[{WagerTypeKey:17}]});
+  assert.deepEqual(hrSportsRequests(input),hrSportsRequests(menu));
+ }
+ for(const id of [888888,0,-1,1.5,'932']){
+  const input=structuredClone(menu);input.data.list[0].LeftMenu.item.push({catid:id,catName:'歐霸',Items:[]});
+  assert.throws(()=>hrSportsRequests(input));
+ }
+ const duplicate=structuredClone(menu);duplicate.data.list[0].LeftMenu.item.push(...[932,933].map(catid=>({catid,catName:'歐霸',Items:[]})));
+ assert.throws(()=>hrSportsRequests(duplicate));
+});
+test('Europa category reaches all three markets and retains exact league, time, and team guards',()=>{
+ const snapshot=europaSnapshot([europaCategory()]),matched=matchSportEvent(snapshot,europaGame,'FOOTBALL',europaNow);
+ assert.ok(matched);for(const kind of ['spread','total','moneyline'])assert.ok(matched[kind],kind);
+ for(const change of [{league:'uefa.champions'},{start:'2026-10-16T00:45:00+08:00'},{home:europaGame.away,away:europaGame.home},{home:{name:'尤文圖斯U21'}}])assert.equal(matchSportEvent(snapshot,{...europaGame,...change},'FOOTBALL',europaNow),null);
+ assert.equal(matchSportEvent(snapshot,europaGame,'FOOTBALL',europaNow+150000),null);
+ for(const label of ['歐洲協會聯賽','歐洲女子聯賽','歐霸聯賽U21']){
+  const category=europaCategory();category.Items.List[0].LeagueNameStr=label;
+  assert.equal(matchSportEvent(europaSnapshot([category]),europaGame,'FOOTBALL',europaNow),null);
+ }
+});
+test('identical general/Europa events collapse, but conflicting or same-category events are rejected',()=>{
+ const cup=europaCategory(),general=structuredClone(cup);general.CatID=1;general.CatName='足球';
+ for(const categories of [[cup,general],[general,cup]])assert.equal(europaSnapshot(categories).sportGames.length,1);
+ assert.throws(()=>europaSnapshot([cup,cup]));
+ for(const change of [t=>t.AwayTeamStr='其他球隊',t=>t.Wager[0].Odds[0].Status=0,t=>t.ScheduleTimeStr='2026/10/23 01:45:00']){
+  const conflict=structuredClone(cup);change(conflict.Items.List[0].Team[0]);assert.throws(()=>europaSnapshot([general,conflict]));
+ }
+});
 test('captured Heat primary uses away 1-25 and total 228.5; alternate stays alternate',()=>{
  const snapshot=parseHrGameDetail(fixture(),captured),r=matchSportEvent(snapshot,nba,'NBA',now);
  assert.ok(r);assert.equal(snapshot.games.length,0);

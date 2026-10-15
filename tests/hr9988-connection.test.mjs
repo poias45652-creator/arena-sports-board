@@ -211,16 +211,16 @@ test('login network failures never replay a credential exchange',async()=>{
  const response=await hrConnection('a',db,secret,'connect',flow(calls,()=>{throw new TypeError('network interrupted');}));
  assert.equal(response.status,502);assert.equal(calls.length,1);
 });
-test('all four category reads run concurrently and retain the lease until every request settles',async()=>{
+test('all five category reads run concurrently and retain the lease until every request settles',async()=>{
  const {db,sql}=await setup();let ready,release;const started=new Promise(r=>ready=r),gate=new Promise(r=>release=r),seen=new Set();
  const task=hrConnection('a',db,secret,'connect',flow([],async request=>{
-  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[101,102,1,31].map(catid=>({catid,Items:[{WagerTypeKey:7}]}))}}]}});
+  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[101,102,1,31,932].map(catid=>({catid,...(catid===932?{catName:'歐霸'}:{}),Items:[{WagerTypeKey:7}]}))}}]}});
   if(!request.endpoint.endsWith('/GameDetail'))return;
-  seen.add(request.body.CatID);if(seen.size===4)ready();
+  seen.add(request.body.CatID);if(seen.size===5)ready();
   if(request.body.CatID===102)return new Response('unavailable',{status:503});
   await gate;
  }));
- await started;assert.equal(seen.size,4);await new Promise(r=>setTimeout(r,300));
+ await started;assert.equal(seen.size,5);await new Promise(r=>setTimeout(r,300));
  assert.ok(sql.prepare('SELECT busy_until FROM hr_connections').get().busy_until>Date.now());
  assert.equal((await hrConnection('a',db,secret,'read',flow([]))).status,429);
  release();const response=await task;assert.equal(response.status,502);assert.match((await response.json()).error,/籃球/);
@@ -237,6 +237,20 @@ test('an authenticated dedicated Champions response is fetched, parsed and cache
  assert.equal(response.status,200);const body=await response.json();
  assert.ok(body.sportGames.length>0);assert.ok(body.sportGames.every(g=>g.league==='FOOTBALL'&&g.competition==='uefa.champions'));
  assert.deepEqual(body.sourceDiagnostics.requests,[{GameType:3,CatID:31,WagerTypeKey:9}]);
+ assert.deepEqual(JSON.parse(sql.prepare('SELECT snapshot FROM hr_connections').get().snapshot).sportGames,body.sportGames);
+ const count=calls.length;await hrConnection('a',db,secret,'read',flow(calls));assert.equal(calls.length,count);
+});
+test('authenticated Europa category uses its own menu ID and preserves the competition through caching',async()=>{
+ const {db,sql}=await setup(),calls=[];
+ const category=JSON.parse(readFileSync(new URL('./fixtures/sport-super-game-details.json',import.meta.url),'utf8')).data.find(c=>c.CatID===1);
+ category.Items.List=category.Items.List.slice(0,1);category.Items.List[0].LeagueNameStr='歐足總歐霸聯賽';
+ const response=await hrConnection('a',db,secret,'connect',flow(calls,request=>{
+  if(request.endpoint.endsWith('/Menu'))return Response.json({code:200,data:{list:[{GameType:3,LeftMenu:{item:[{catid:932,catName:'歐足總歐霸聯賽',Items:[{WagerTypeKey:17}]}]}}]}});
+  if(request.endpoint.endsWith('/GameDetail')){assert.deepEqual(request.body,{GameType:3,CatID:932,WagerTypeKey:17});return Response.json({code:200,data:category.Items});}
+ }));
+ assert.equal(response.status,200);const body=await response.json();
+ assert.ok(body.sportGames.length>0);assert.ok(body.sportGames.every(g=>g.league==='FOOTBALL'&&g.competition==='uefa.europa'));
+ assert.deepEqual(body.sourceDiagnostics.requests,[{GameType:3,CatID:932,WagerTypeKey:17}]);
  assert.deepEqual(JSON.parse(sql.prepare('SELECT snapshot FROM hr_connections').get().snapshot).sportGames,body.sportGames);
  const count=calls.length;await hrConnection('a',db,secret,'read',flow(calls));assert.equal(calls.length,count);
 });

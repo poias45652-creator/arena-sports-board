@@ -38,7 +38,8 @@ export function hrBaseballRequest(value:unknown):{GameType:3;CatID:101;WagerType
 
 // Categories and primary wager menu verified from the supplied SUPER captures.
 // SUPER's public GameOnlyCatID/tw lists 冠軍聯賽 separately as CatID 31
-// (2026-10-13). Read it only when present in the member's pregame menu.
+// (2026-10-13). Europa can have its own category too: use the exact competition
+// name and ID supplied by the authenticated pregame menu, never guess its ID.
 export function hrSportsRequests(value:unknown):{GameType:3;CatID:number;WagerTypeKey?:number|string}[]{
  const response=value as any;
  if(String(response?.code)!=='200'||!Array.isArray(response.data?.list))throw new Error('SUPER 賽事選單格式改變');
@@ -46,7 +47,11 @@ export function hrSportsRequests(value:unknown):{GameType:3;CatID:number;WagerTy
  if(menus.length>1)throw new Error('SUPER 賽前選單格式改變');
  if(!menus.length)return [];
  if(!Array.isArray(menus[0].LeftMenu?.item))throw new Error('SUPER 賽前選單格式改變');
- return [101,102,1,31].flatMap(CatID=>{
+ const known=[101,102,1,31];
+ const europa=menus[0].LeftMenu.item.filter((c:any)=>!known.includes(c?.catid)&&hrFootballCompetition(String(c?.catName||''))==='uefa.europa');
+ if(europa.length>1)throw new Error('SUPER 回傳重複歐霸分類');
+ if(europa.some((c:any)=>!Number.isSafeInteger(c.catid)||c.catid<=0||c.catid===888888))throw new Error('SUPER 歐霸分類代碼無效');
+ return [...known,...europa.map((c:any)=>c.catid)].flatMap(CatID=>{
   const categories=menus[0].LeftMenu.item.filter((c:any)=>c?.catid===CatID);
   if(categories.length>1)throw new Error('SUPER 回傳重複分類');
   if(!categories.length)return [];
@@ -68,7 +73,7 @@ export function hrFootballCompetition(name:string):string|null{
   [/^(?:德甲|德國(?:足球)?甲(?:級|組)聯賽)$/,'ger.1'],
   [/^(?:法甲|法國(?:足球)?甲(?:級|組)聯賽)$/,'fra.1'],
   [/^(?:歐冠|歐洲(?:足球)?冠軍聯賽|歐洲聯賽冠軍[盃杯])(?:[-－]?(?:資格賽|外圍賽|附加賽|聯賽階段|小組賽|淘汰賽))?$/,'uefa.champions'],
-  [/^(?:歐霸|歐霸聯賽|歐霸[盃杯]|歐聯[盃杯]|歐羅巴(?:聯賽|[盃杯])?|歐洲(?:足總)?歐霸聯賽|歐洲(?:足總)?(?:聯賽|聯盟[盃杯])|UEFAEuropaLeague)(?:[-－]?(?:資格賽|外圍賽|附加賽|聯賽階段|小組賽|淘汰賽))?$/i,'uefa.europa'],
+  [/^(?:歐霸|歐霸聯賽|歐霸[盃杯]|歐聯[盃杯]|歐羅巴(?:聯賽|[盃杯])?|歐(?:洲)?足總歐霸聯賽|歐洲歐霸聯賽|歐洲(?:足總)?(?:聯賽|聯盟[盃杯])|UEFAEuropaLeague)(?:[-－]?(?:資格賽|外圍賽|附加賽|聯賽階段|小組賽|淘汰賽))?$/i,'uefa.europa'],
   [/^(?:歐國聯|歐洲國家聯賽|歐洲足總國家聯賽)(?:[-－]?[ABCD](?:聯賽|組)?)?$/,'uefa.nations']
  ];
  return rules.find(([rule])=>rule.test(key))?.[1]??null;
@@ -88,7 +93,8 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
    const name=String(league?.LeagueNameStr||'').trim();
    const code=name==='MLB 美國職棒'?'MLB':/^(CPBL\b|中華職棒|中華職業棒球)/i.test(name)?'CPBL':/^(NPB\b|日本職棒)/i.test(name)?'NPB':/^(KBO\b|韓國職棒)/i.test(name)?'KBO':null;
    if(code||/棒球|baseball/i.test(String(category.CatName||'')))sourceLeagues.push({name:name.slice(0,100),league:code,games:Array.isArray(league.Team)?league.Team.length:0});
-   const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1||category.CatID===31?'FOOTBALL':null;
+   const europaCategory=Number.isSafeInteger(category.CatID)&&category.CatID>0&&![101,102,888888].includes(category.CatID)&&hrFootballCompetition(String(category.CatName||''))==='uefa.europa';
+   const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1||category.CatID===31||europaCategory?'FOOTBALL':null;
    const competition=sport==='FOOTBALL'?hrFootballCompetition(name):null;
    if(!code&&!sport)continue;
    if(!Array.isArray(league.Team))throw new Error('SUPER MLB 賽事格式改變');
@@ -115,10 +121,10 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
     if(sport){
      const key=sport+':'+row.id,previous=sportCopies.get(key);
      // An identical event may be listed under both general football and its
-     // dedicated Champions category. Never choose between conflicting quotes
+     // dedicated Champions/Europa category. Never choose between conflicting quotes
      // or merge distinct event IDs, competitions, teams, or kickoff times.
      if(previous){
-      if(sport==='FOOTBALL'&&competition==='uefa.champions'&&!previous.categories.has(category.CatID)&&JSON.stringify(previous.row)===JSON.stringify(row)){
+      if(sport==='FOOTBALL'&&['uefa.champions','uefa.europa'].includes(competition??'')&&!previous.categories.has(category.CatID)&&JSON.stringify(previous.row)===JSON.stringify(row)){
        previous.categories.add(category.CatID);continue;
       }
       throw new Error('SUPER 回傳重複運動賽事');
