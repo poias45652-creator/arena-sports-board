@@ -48,10 +48,10 @@ function mountBoard(request,eligible=false){
   useEffect(run,deps){const i=cursor++,old=slots[i];if(!old||deps.some((v,j)=>v!==old.deps[j])){slots[i]={deps,cleanup:old?.cleanup};effects.push(()=>{slots[i].cleanup?.();slots[i].cleanup=run();});}}
  };
  const nba={nbaDay:()=> '2026-10-05',validNbaDay:()=>true,shiftNbaDay:day=>day,NBA_TEAMS:[],nbaFixtureKey:g=>g.id};
- const dependencies={react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':weightSettings,'./nba-model-weights':{default:function NbaModelWeights(){}},'@/lib/nba-analysis':{nbaEligible:()=>eligible,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
+ const dependencies={'./basketball-live-center':{default:function BasketballLiveCenter(){}},'./basketball-standings':{default:function BasketballStandings(){}},react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':weightSettings,'./nba-model-weights':{default:function NbaModelWeights(){}},'@/lib/nba-analysis':{nbaEligible:()=>eligible,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
  const code=ts.transpileModule(readFileSync('app/nba-board.tsx','utf8'),{fileName:'board.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const exports={};new Function('require','exports','React',code)(key=>{if(key.endsWith('.css'))return {};assert.ok(key in dependencies,key);return dependencies[key];},exports,React);
- return {render(props={}){cursor=0;const tree=exports.default({view:'live',onViewChange(){},...props});effects.splice(0).forEach(run=>run());return tree;},dispose(){for(const slot of slots)slot?.cleanup?.();}};
+ return {render(props={}){cursor=0;const tree=exports.default({view:eligible?'analysis':'live',onViewChange(){},...props});effects.splice(0).forEach(run=>run());return tree;},dispose(){for(const slot of slots)slot?.cleanup?.();}};
 }
 function elements(tree,predicate){if(!tree||typeof tree!=='object')return [];if(Array.isArray(tree))return tree.flatMap(x=>elements(x,predicate));return [...(predicate(tree)?[tree]:[]),...elements(tree.props?.children,predicate)];}
 
@@ -65,14 +65,14 @@ test('refresh retains cards, failures retain last success, hidden polls pause an
  t.mock.method(globalThis,'setInterval',()=>0);t.mock.method(globalThis,'clearInterval',()=>{});
  const calls=[],board=mountBoard((url,signal)=>{const task=deferred();calls.push({...task,url,signal});return task.promise;});
  const snapshot=(day,id)=>({day,games:[{id,state:'scheduled'}],fetchedAt:new Date().toISOString()});
- const cards=tree=>elements(tree,e=>e.type?.name==='NbaCard').map(e=>e.props.game.id);
+ const cards=tree=>elements(tree,e=>e.type?.name==='BasketballLiveCenter').flatMap(e=>e.props.games.map(g=>g.id));
  try{
   board.render();board.render();assert.equal(calls.length,1);calls[0].resolve(snapshot('2026-10-05','first'));await flush();assert.deepEqual(cards(board.render()),['first']);
   window.dispatchEvent(new Event('arena-refresh-all'));assert.equal(calls.length,2);assert.deepEqual(cards(board.render()),['first']);
   window.dispatchEvent(new Event('arena-refresh-all'));assert.equal(calls.length,2);
   calls[1].reject(Error('offline'));await flush();assert.deepEqual(cards(board.render()),['first']);
   document.hidden=true;document.dispatchEvent(new Event('visibilitychange'));window.dispatchEvent(new Event('arena-refresh-all'));assert.equal(calls.length,2);
-  assert.ok(![...timers.values()].some(t=>t.ms===30000));
+  assert.ok(![...timers.values()].some(t=>t.ms===10000));
   document.hidden=false;document.dispatchEvent(new Event('visibilitychange'));assert.equal(calls.length,3);
   const input=elements(board.render(),e=>e.type==='input'&&e.props.type==='date')[0];input.props.onChange({target:{value:'2026-10-06'}});
   board.render();assert.equal(calls[2].signal.aborted,true);assert.equal(calls[3].url,'/api/nba?date=2026-10-06');
@@ -114,7 +114,7 @@ test('NBA applied weights reload from storage, abort old reports and never leak 
   assert.deepEqual(weightSettings.readNbaWeights(storage.get(weightSettings.NBA_WEIGHT_STORAGE_KEY)),[80,10,5,5,0]);
   board.dispose();board=mountBoard(request,true);board.render();board.render();
   calls[4].resolve(snapshot);await flush();assert.match(calls[5].url,/weights=80,10,5,5,0/);
-  board.render({league:'WNBA'});board.render({league:'WNBA'});assert.equal(modal(board.render({league:'WNBA'})),undefined);
+  board.render({league:'WNBA'});board.render({league:'WNBA'});assert.equal(modal(board.render({league:'WNBA'})).props.league,'WNBA');
   calls[6].resolve(snapshot);await flush();assert.match(calls[7].url,/^\/api\/wnba\?.*weights=20,20,20,20,20/);
  }finally{board.dispose();globalThis.window=oldWindow;globalThis.document=oldDocument;}
 });

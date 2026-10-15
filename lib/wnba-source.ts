@@ -20,7 +20,7 @@ async function source(path:string,ttl=30000){
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(path));pending.set(path,task);return task;
 }
-const scoreboard=(day:string)=>source(`scoreboard?dates=${day.replaceAll('-','')}&limit=100`);
+const scoreboard=(day:string)=>source(`scoreboard?dates=${day.replaceAll('-','')}&limit=100`,8000);
 export async function wnbaSchedule(day:string):Promise<WnbaBoard>{
  const rows=await Promise.all([scoreboard(shiftWnbaDay(day,-1)),scoreboard(day)]);
  const games=reconcileWnbaGames(rows.flatMap(r=>parseWnbaEvents(r.value))).filter(g=>wnbaDay(g.start)===day).sort((a,b)=>Date.parse(a.start)-Date.parse(b.start));

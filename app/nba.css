@@ -310,3 +310,85 @@
 .nba-model-dialog footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:10px}.nba-model-dialog footer button{min-height:42px;padding:8px 14px;border-radius:22px;color:#ffda37;font-size:14px;font-weight:700}.nba-model-dialog footer .nba-model-reset{margin-right:auto;padding-left:0}
 .nba-model-dialog footer .nba-model-apply{background:#ffda37;color:#101720;min-width:74px}.nba-model-dialog footer .nba-model-apply:not(:disabled):hover{color:#101720;background:#ffe66a}.nba-model-dialog footer button:disabled{opacity:.4;cursor:not-allowed}.nba-model-dialog button:focus-visible,.nba-model-trigger:focus-visible{outline:2px solid #ffda37;outline-offset:4px}
 @media(max-width:600px){.nba-tabs-row{gap:10px}.nba-tabs-row .nba-tabs{flex-basis:100%}.nba-model-trigger{margin-left:auto}.nba-model-dialog{border-radius:18px}.nba-model-dialog form{padding:20px}.nba-model-dialog h2{font-size:20px}.nba-model-context{align-items:flex-start;flex-direction:column;gap:4px}.nba-model-sliders{gap:19px}.nba-model-dialog footer{gap:4px}.nba-model-dialog footer button{font-size:13px;padding:8px 11px}}
+/* Shared NBA / WNBA match centre. */
+.nba-board { --nba-accent:#ffdb37; }
+.nba-tabs-row { flex-wrap:wrap; }
+.nba-tabs-row .nba-tabs { flex-wrap:wrap; gap:.35rem 1.3rem; }
+.basketball-live-caption,.basketball-play-order { color:#92a5bb; font-size:.78rem; margin:.3rem 0 .85rem; }
+.basketball-game-strip { display:flex; overflow-x:auto; gap:.85rem; padding:.3rem 0 1rem; margin-bottom:1.7rem; scrollbar-color:#8396aa #1b2838; scroll-snap-type:x proximity; }
+.basketball-game-strip>button { flex:0 0 290px; display:grid; align-content:center; gap:.85rem; min-height:200px; padding:1.1rem; border:1px solid #35475d; border-radius:.65rem; background:#101f2f; text-align:center; cursor:pointer; scroll-snap-align:start; }
+.basketball-game-strip>button[aria-pressed=true] { border-color:#ffdb37; background:#1c2e3b; box-shadow:inset 0 0 0 1px #ffdb371a; }
+.basketball-game-strip>button>span { color:#9baec4; font-size:.85rem; font-weight:700; }
+.basketball-game-strip>button>span.nba-live { color:#4fdec1; justify-content:center; }
+.basketball-game-strip>button>div { display:flex; align-items:center; justify-content:center; gap:.7rem; }
+.basketball-game-strip img { object-fit:contain; width:40px; height:40px; }
+.basketball-game-strip b { font-size:1.8rem; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.basketball-game-strip strong { font-size:.9rem; line-height:1.6; }
+.basketball-game-strip time { color:#9aadc3; font-size:.76rem; }
+.basketball-detail { min-width:0; }
+.basketball-scoreboard { position:relative; padding:1.5rem 1.2rem 1rem; border:1px solid #34465b; border-radius:.75rem; background:#0e1b2a; margin-bottom:1.2rem; }
+.basketball-scoreboard h2 { width:max-content; max-width:100%; margin:-2.3rem auto 1.3rem; padding:.65rem 1rem; border-radius:.5rem; color:#101820; background:#ffdb37; font-size:1.05rem; font-weight:850; box-shadow:0 0 20px #ffdb3725; }
+.basketball-scoreboard h2 small { margin-left:.3rem; font-size:.8rem; }
+.basketball-score-meta { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:.7rem; color:#a7b7ca; font-size:.8rem; }
+.basketball-score-meta button { padding:.5rem; border:1px solid #34465b; border-radius:.4rem; cursor:pointer; }
+.basketball-scoreboard .nba-match { max-width:680px; margin:0 auto; }
+.basketball-scoreboard .nba-match-score { font-size:2.8rem; }
+.basketball-venue { text-align:center; color:#8397b0; font-size:.75rem; margin-top:1rem; }
+.basketball-live-columns { display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr); gap:1.25rem; align-items:start; }
+.basketball-boxscore,.basketball-playbyplay { min-width:0; padding:1rem; background:#0d1a29; border:1px solid #31445b; border-radius:.7rem; }
+.basketball-live-columns h3,.basketball-team-comparison h3 { font-size:1.1rem; font-weight:800; margin-bottom:1rem; }
+.basketball-live-columns h3 small { font-size:.65rem; margin-left:.3rem; color:#8ca1ba; letter-spacing:.08em; }
+.basketball-live-columns .nba-filters { margin-bottom:1rem; }
+.basketball-live-columns .nba-filters button { border:1px solid #35475c; }
+.basketball-live-columns .nba-filters button[aria-pressed=true] { background:#ffdb37; border-color:#ffdb37; color:#101820; font-weight:800; }
+.basketball-player-card { border:1px solid #34485f; border-radius:.65rem; padding:1rem; background:#101f30; margin-top:.85rem; }
+.basketball-player-card header { display:flex; align-items:center; gap:.65rem; margin-bottom:1rem; }
+.basketball-player-card header>div { min-width:0; }
+.basketball-player-card strong { font-size:.95rem; overflow-wrap:anywhere; }
+.basketball-player-card header small { display:block; color:#91a4ba; font-size:.7rem; margin-top:.25rem; }
+.basketball-player-photo { display:inline-flex; width:48px; height:48px; flex-shrink:0; align-items:center; justify-content:center; color:#8b9eb5; }
+.basketball-player-photo img { width:48px; height:48px; object-fit:contain; }
+.basketball-player-numbers { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.55rem; }
+.basketball-player-numbers>div { min-width:0; display:grid; gap:.45rem; padding:.75rem .65rem; border:1px solid #34475e; border-top:3px solid #ffdb37; border-radius:.4rem; }
+.basketball-player-numbers span { font-size:.68rem; color:#9aadc5; white-space:nowrap; }
+.basketball-player-numbers b { font-size:1.4rem; font-variant-numeric:tabular-nums; }
+.basketball-player-card details { margin-top:.8rem; }
+.basketball-player-card summary { display:flex; align-items:center; gap:.35rem; width:max-content; margin-left:auto; padding:.35rem .7rem; color:#ffdb37; border:1px solid #7b8ba0; border-radius:2rem; font-size:.74rem; font-weight:700; cursor:pointer; list-style:none; }
+.basketball-player-card summary::-webkit-details-marker { display:none; }
+.basketball-player-card details[open] summary svg { transform:rotate(180deg); }
+.basketball-player-card dl { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.7rem 1rem; padding-top:1rem; font-size:.78rem; }
+.basketball-player-card dl>div { display:flex; justify-content:space-between; gap:.5rem; border-bottom:1px solid #293b50; padding-bottom:.4rem; }
+.basketball-player-card dt { color:#9babc0; }.basketball-player-card dd { font-weight:700; font-variant-numeric:tabular-nums; }
+.basketball-play { margin:0 -1rem; border-bottom:1px solid #33445b; }
+.basketball-play header { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; padding:.7rem .85rem; background:#243549; }
+.basketball-play header>span { display:flex; align-items:center; gap:.5rem; font-size:.85rem; }
+.basketball-play time { color:#a6b6c9; font-size:.7rem; white-space:nowrap; }
+.basketball-play>div { padding:1rem; }
+.basketball-play-player { display:flex; align-items:center; gap:.6rem; margin-bottom:.5rem; font-size:.9rem; }
+.basketball-play p { line-height:1.7; font-size:.84rem; overflow-wrap:anywhere; }
+.basketball-play small { display:block; color:#a1b3c8; font-size:.75rem; margin-top:.7rem; font-variant-numeric:tabular-nums; }
+.basketball-play[data-scoring=true] small { color:#ffdb37; }
+.basketball-empty { color:#91a6bf; text-align:center; padding:2rem 1rem; font-size:.85rem; line-height:1.7; }
+.basketball-load-more { width:100%; min-height:44px; padding:.7rem; margin-top:1rem; color:#ffdb37; border:1px solid #53616b; border-radius:.5rem; cursor:pointer; }
+.basketball-team-comparison { max-width:680px; margin:1.3rem auto; padding:1.1rem; border:1px solid #34465b; border-radius:.65rem; background:#0e1c2b; }
+.basketball-team-comparison>div { display:grid; grid-template-columns:1fr 1fr 1fr; gap:.8rem; padding:.5rem; text-align:center; font-size:.83rem; border-bottom:1px solid #24374c; }
+.basketball-team-comparison span { color:#96abc1; }
+.basketball-overview { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; margin-bottom:1.3rem; }
+.basketball-overview>div { display:grid; gap:.6rem; padding:1.2rem; background:#101f2f; border:1px solid #314459; border-radius:.7rem; }
+.basketball-overview span { color:#95a9c0; font-size:.8rem; }.basketball-overview strong { color:#ffdb37; font-size:2rem; }
+.basketball-overview nav { grid-column:1/-1; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+.basketball-overview button { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.1rem; text-align:left; border:1px solid #34465b; border-radius:.6rem; background:#14283a; font-size:.85rem; cursor:pointer; }
+.basketball-standings { padding:1.25rem; border:1px solid #32465a; border-radius:.75rem; background:#0d1b2b; min-width:0; }
+.basketball-standings>header { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1rem; }
+.basketball-standings h2 { font-size:1.35rem; font-weight:800; }.basketball-standings header p { margin-top:.4rem; color:#94a8bf; font-size:.8rem; }
+.basketball-standings header>div:last-child { display:flex; flex-wrap:wrap; gap:.6rem; align-items:center; }
+.basketball-standings label { display:flex; align-items:center; gap:.45rem; color:#9cafc5; font-size:.8rem; }
+.basketball-standings select,.basketball-standings header button { min-height:40px; padding:.4rem .7rem; border:1px solid #34485f; border-radius:.4rem; color:#edf3fa; background:#152539; }
+.basketball-standings h3 { margin:1.5rem 0 .7rem; font-size:1rem; font-weight:800; color:#ffdb37; }
+.basketball-standings table { width:100%; border-collapse:collapse; white-space:nowrap; text-align:center; font-size:.8rem; font-variant-numeric:tabular-nums; }
+.basketball-standings th,.basketball-standings td { padding:.85rem .65rem; border-bottom:1px solid #293c52; }
+.basketball-standings thead { color:#a4b6cb; background:#192c40; }.basketball-standings tbody tr:nth-child(even) { background:#122235; }
+.basketball-standings th a { display:flex; align-items:center; gap:.5rem; text-align:left; }.basketball-standings th img { object-fit:contain; }
+@media(max-width:1000px) { .basketball-live-columns { grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); }.basketball-player-numbers { gap:.3rem; }.basketball-player-numbers>div { padding:.65rem .4rem; } }
+@media(max-width:760px) { .basketball-live-columns { grid-template-columns:minmax(0,1fr); }.basketball-game-strip>button { flex-basis:265px; }.basketball-overview { grid-template-columns:repeat(2,minmax(0,1fr)); }.basketball-overview nav { grid-template-columns:1fr; gap:.6rem; }.basketball-scoreboard .nba-match-score { font-size:1.8rem; }.basketball-standings { padding:1rem .7rem; } }
+@media(max-width:420px) { .nba-tabs-row .nba-tabs { gap:.15rem .85rem; }.nba-tabs-row .nba-tabs button { font-size:.76rem; }.basketball-scoreboard { padding-inline:.7rem; }.basketball-scoreboard .nba-team-logo { width:65px; height:65px; }.basketball-scoreboard .nba-team strong { font-size:.75rem; }.basketball-player-card { padding:.8rem; } }

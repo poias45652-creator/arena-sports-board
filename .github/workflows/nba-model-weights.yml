@@ -1,8 +1,15 @@
-name: NBA model weights
+name: Basketball pages and model weights
 on:
   pull_request:
     paths:
       - 'app/nba*.tsx'
+      - 'app/basketball-*.tsx'
+      - 'app/api/wnba/route.ts'
+      - 'lib/wnba-source.ts'
+      - 'lib/nba-source.ts'
+      - 'tests/basketball-live*'
+      - 'tests/wnba-model-weights.test.mjs'
+      - 'tests/fixtures/basketball-live/**'
       - 'app/nba.css'
       - 'app/api/nba/route.ts'
       - 'lib/nba-model-weights.ts'
@@ -31,14 +38,18 @@ jobs:
       - run: npm run build
       - name: Install browser test tools separately
         run: |
-          npm install --prefix /tmp/nba-browser playwright@1.62.1
-          /tmp/nba-browser/node_modules/.bin/playwright install --with-deps chromium
+          npm install --prefix /tmp/basketball-browser playwright@1.51.1
+          /tmp/basketball-browser/node_modules/.bin/playwright install --with-deps chromium
       - name: Verify desktop and mobile weights against the built application
         run: node tests/nba-model-weights-browser.mjs
+      - name: Verify NBA and WNBA match centres on desktop and mobile
+        run: node tests/basketball-live-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: nba-model-weights-${{ github.run_id }}
-          path: evidence/nba-weights/
+          path: |
+            evidence/nba-weights/
+            evidence/basketball-live/
           retention-days: 7
           if-no-files-found: warn

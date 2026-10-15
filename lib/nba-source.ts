@@ -20,7 +20,7 @@ async function source(path:string,ttl=30000){
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(path));pending.set(path,task);return task;
 }
-const scoreboard=(day:string)=>source(`scoreboard?dates=${day.replaceAll('-','')}&limit=100`);
+const scoreboard=(day:string)=>source(`scoreboard?dates=${day.replaceAll('-','')}&limit=100`,8000);
 export async function nbaSchedule(day:string):Promise<NbaBoard>{
  const rows=await Promise.all([scoreboard(shiftNbaDay(day,-1)),scoreboard(day)]);
  const games=reconcileNbaGames(rows.flatMap(r=>parseNbaEvents(r.value))).filter(g=>nbaDay(g.start)===day).sort((a,b)=>Date.parse(a.start)-Date.parse(b.start));

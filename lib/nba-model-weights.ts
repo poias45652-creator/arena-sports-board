@@ -1,6 +1,7 @@
 import {DEFAULT_WEIGHTS,normalizedWeights,weightKey,type Weights,type EfficiencyAnalysis} from './basketball-efficiency';
 
 export const NBA_WEIGHT_STORAGE_KEY='yj:nba:model-weights:v1';
+export const basketballWeightStorageKey=(league:'NBA'|'WNBA')=>league==='NBA'?NBA_WEIGHT_STORAGE_KEY:'yj:wnba:model-weights:v1';
 export const NBA_WEIGHT_LABELS=['進攻效率','防守效率','三分命中率','罰球出手率','節奏'] as const;
 export const defaultNbaWeights=()=>[...DEFAULT_WEIGHTS] as Weights;
 export const isDefaultNbaWeights=(weights:readonly number[])=>weightKey(weights)===weightKey(DEFAULT_WEIGHTS);

@@ -1,3 +1,5 @@
+import {basketballDetail,basketballStandings} from '@/lib/basketball-live-source';
+import {isDefaultNbaWeights} from '@/lib/nba-model-weights';
 import {parseWeights} from '@/lib/basketball-efficiency';
 import {wnbaRoster} from '@/lib/wnba-roster';
 import {wnbaDay,wnbaSeason,wnbaTeam,validWnbaDay} from '@/lib/wnba';
@@ -9,8 +11,19 @@ export const dynamic='force-dynamic';
 export async function GET(request:Request){
  const p=new URL(request.url).searchParams,kind=p.get('kind')||'schedule',day=p.get('date')||wnbaDay();
  const headers={'Cache-Control':'private, no-store'};
- if(!['schedule','analysis','next','team','team-season','team-official'].includes(kind)||!validWnbaDay(day)||Math.abs(Date.parse(day)-Date.parse(wnbaDay()))>370*86400000)return Response.json({error:'WNBA 查詢參數錯誤'},{status:400,headers});
+ if(!['schedule','detail','standings','analysis','next','team','team-season','team-official'].includes(kind)||!validWnbaDay(day)||Math.abs(Date.parse(day)-Date.parse(wnbaDay()))>370*86400000)return Response.json({error:'WNBA 查詢參數錯誤'},{status:400,headers});
  try{
+  if(kind==='standings'){
+   const season=Number(p.get('season')||wnbaSeason(day)),phase=Number(p.get('phase')||2);
+   if(!Number.isInteger(season)||season<1997||season>wnbaSeason(wnbaDay())||![1,2,3].includes(phase))return Response.json({error:'排名查詢參數錯誤'},{status:400,headers});
+   return Response.json(await basketballStandings('WNBA',season,phase),{headers});
+  }
+  if(kind==='detail'){
+   const id=p.get('game')||'';if(!/^\d{1,12}$/.test(id))return Response.json({error:'賽事編號錯誤'},{status:400,headers});
+   const schedule=await wnbaSchedule(day),game=schedule.games.find(g=>g.id===id);
+   if(!game)return Response.json({error:'本日查無此賽事'},{status:404,headers});
+   return Response.json(await basketballDetail(game,'WNBA'),{headers});
+  }
   if(kind==='team-official'||kind==='team-season'){
    const id=p.get('team')||'';if(!wnbaTeam(id))return Response.json({error:'球隊不存在'},{status:404,headers});
    if(kind==='team-official')return Response.json(await wnbaRoster(id),{headers});
@@ -25,7 +38,7 @@ export async function GET(request:Request){
    let weights;try{weights=parseWeights(p.get('weights'));}catch{return Response.json({error:'分析權重錯誤'},{status:400,headers});}
    const result=await wnbaGameAnalysis(day,id,weights);if(!result)return Response.json({error:'本日查無此賽事'},{status:404,headers});
    const pick=result.analysis?nbaPick(result.game,result.analysis):null;
-   let dailySaved=false;if(pick)try{dailySaved=await saveDailyForecast(getRawDb(),'WNBA',result.game,result.analysis!.probabilities!,result.analysis!.capturedAt,result.analysis!.model);}catch{/* Recommendation still renders; ledger retries on the next pregame analysis. */}
+   let dailySaved=false;if(pick&&isDefaultNbaWeights(weights))try{dailySaved=await saveDailyForecast(getRawDb(),'WNBA',result.game,result.analysis!.probabilities!,result.analysis!.capturedAt,result.analysis!.model);}catch{/* Recommendation still renders; ledger retries on the next pregame analysis. */}
    return Response.json({...result,dailySaved},{headers});
   }
   return Response.json(await wnbaSchedule(day),{headers});

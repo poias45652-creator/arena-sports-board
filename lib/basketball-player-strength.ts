@@ -67,7 +67,7 @@ function applyPlayerStrength(game:NbaGame,base:EfficiencyAnalysis,homeEvidence:P
  // adjustment is explicitly a scenario estimate, not a calibrated win rate.
  const relevance=(t:TeamStats)=>context.preseason?Math.exp(-Math.max(0,(now/1000-t.lastPlayed)/86400-30)/90):1;
  const features=(hs:number,as:number)=>[game.neutral?0:1,hs-as,h.net*relevance(h)-a.net*relevance(a),h.sos*relevance(h)-a.sos*relevance(a),Math.min(7,(Date.parse(game.start)/1000-h.lastPlayed)/86400)-Math.min(7,(Date.parse(game.start)/1000-a.lastPlayed)/86400)];
- const efficiencyWeightShift=league==='NBA'?nbaEfficiencyWeightShift(base):0;
+ const efficiencyWeightShift=nbaEfficiencyWeightShift(base);
  const project=(x:number[])=>x.reduce((n,v,i)=>n+v*model.coefficients[i],0)+efficiencyWeightShift;
  const x=features(value(home),value(away)),margin=project(x);
  const strengthScenario=(e:PlayerEvidence[],s:'low'|'central'|'high')=>allocateMinutes(e,context.preseason,s).reduce((n,p)=>n+p.minutes*(playerRatings[String(p.id)]?.rate??.30),0);
