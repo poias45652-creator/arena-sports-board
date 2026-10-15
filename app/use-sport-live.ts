@@ -2,7 +2,8 @@
 import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
 import {scheduleLiveUntil} from '@/lib/sport-live';
-const sources=[['NBA','/api/nba'],['WNBA','/api/wnba'],...['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','uefa.nations'].map(code=>[code,`/api/football?league=${code}`])] as const;
+import {FOOTBALL_LEAGUES} from '@/lib/football';
+const sources=[['NBA','/api/nba'],['WNBA','/api/wnba'],...FOOTBALL_LEAGUES.map(({code})=>[code,`/api/football?league=${code}`])] as const;
 export function useSportLive(){
  const [until,setUntil]=useState<Record<string,number>>({}),[now,setNow]=useState(Date.now);
  useEffect(()=>{

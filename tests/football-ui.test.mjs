@@ -52,6 +52,15 @@ test('recorded same-cup Inter card keeps probabilities and three scores independ
   assert.ok(!html.includes('animate-spin'));
 });
 
+test('Europa uses the Champions card layout, score scenarios and league-specific team links',()=>{
+  const europa={...game,league:'uefa.europa'};
+  const html=render({game:europa,report:{game:europa,analysis}});
+  assert.ok(html.includes('football-probabilities'));
+  assert.equal((html.match(/class="football-score-label"/g)||[]).length,3);
+  assert.ok(html.includes(profile.footballTeamHref('uefa.europa',game.home.id,football.footballDay(game.start)).replaceAll('&','&amp;')));
+  assert.ok(!html.includes('competition=uefa.champions'));
+});
+
 test('a completed short-history report exposes its exact reason and stays distinct from a retry in flight',()=>{
   assert.equal(waiting.status,'waiting');
   for(const activity of [undefined,'loading']){

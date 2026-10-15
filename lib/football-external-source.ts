@@ -4,13 +4,13 @@ import {cupPriorEstimate,CUP_PRIOR_VERSION} from './football-cup-prior';
 import archive from '../data/football/external-history-20260927.json';
 import identities from '../data/football/external-team-map.json';
 import quarantine from '../data/football/external-quarantine.json';
-import {analyzeFootball,footballDistribution,parseFootballEvents,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
+import {analyzeFootball,footballDistribution,isFootballClubCup,parseFootballEvents,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
 import {externalAsGame,externalDayCutoff,externalFootballFeatures,FootballElo,type ExternalFootballGame} from './football-xg-features';
 import {externalFootballRates,footballExternalRuntime,footballExternalAudit,selectExternalFootballModel} from './football-external-model';
 const SLUGS:Partial<Record<FootballLeague,string>>={'eng.1':'EPL','esp.1':'La_liga','ita.1':'Serie_A','ger.1':'Bundesliga','fra.1':'Ligue_1'};
 const map=identities.teams as Record<string,{name:string;understat:string|null;openfootball:string|null}>;
 const reverse=new Map<string,string>();for(const [id,v] of Object.entries(map))for(const key of [v.understat,v.openfootball])if(key)reverse.set(key,id);
-const externalId=(id:string,league:FootballLeague)=>league==='uefa.champions'?(map[id]?.openfootball||'espn:'+id):map[id]?.understat||null;
+const externalId=(id:string,league:FootballLeague)=>league==='uefa.europa'?'espn:'+id:league==='uefa.champions'?(map[id]?.openfootball||'espn:'+id):map[id]?.understat||null;
 const archived:ExternalFootballGame[]=archive.games.map(r=>({id:String(r[0]),league:String(r[1]) as FootballLeague,start:String(r[2]),homeId:String(r[3]),awayId:String(r[4]),homeGoals:Number(r[5]),awayGoals:Number(r[6]),homeXg:r[7]===null?null:Number(r[7]),awayXg:r[8]===null?null:Number(r[8]),neutral:!!r[9]}));
 type ExcludedFixture={pair:string;day:number};
 type Context={history:ExternalFootballGame[];fetchedAt:string;teams:Set<string>;conflicts:number;sources:string[];excluded?:ExcludedFixture[]};
@@ -69,10 +69,10 @@ export async function loadExternalFootballContext(league:FootballLeague,now=Date
  if(hit&&hit.expires>now){if(hit.error)throw hit.error;return hit.value!;}if(pending.has(key))return pending.get(key)!;
  const task=(async()=>{
   let live:ExternalFootballGame[]=[],teams=new Set<string>(),sources:string[];
-  if(league==='uefa.champions'){
-   const responses=await Promise.all([year-1,year].map(y=>fetchJson(`https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.champions/scoreboard?dates=${y}&limit=1000`)));
-   for(const d of responses){if(!Array.isArray(d.events)||d.events.length>=1000)throw Error('歐冠年度資料不完整');for(const g of parseFootballEvents(d,league)){teams.add(externalId(g.home.id,league)!);teams.add(externalId(g.away.id,league)!);const r=fromEspn(g);if(r&&Date.parse(r.start)<now)live.push(r);}}
-   sources=['OpenFootball','ESPN'];
+  if(isFootballClubCup(league)){
+   const responses=await Promise.all([year-1,year].map(y=>fetchJson(`https://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard?dates=${y}&limit=1000`)));
+   for(const d of responses){if(!Array.isArray(d.events)||d.events.length>=1000)throw Error('歐洲盃賽年度資料不完整');for(const g of parseFootballEvents(d,league)){teams.add(externalId(g.home.id,league)!);teams.add(externalId(g.away.id,league)!);const r=fromEspn(g);if(r&&Date.parse(r.start)<now)live.push(r);}}
+   sources=league==='uefa.champions'?['OpenFootball','ESPN']:['ESPN'];
   }else{
    const slug=SLUGS[league];if(!slug)throw Error('沒有對應xG來源');
    const d=await fetchJson(`https://understat.com/getLeagueData/${slug}/${season}`,{'X-Requested-With':'XMLHttpRequest','Referer':`https://understat.com/league/${slug}/${season}`});
