@@ -1,3 +1,4 @@
+import type {FootballModelSettings} from './football-model-weights';
 import {loadNationalFootballPool} from './football-national-source';
 import {attachCupXgEvidence} from './football-cup-xg-source';
 import {applyNationalFootballModel,NATIONAL_MODEL_VERSION} from './football-national-model';
@@ -50,14 +51,14 @@ export async function nextFootballDay(league:FootballLeague,day:string){
   }
   return {day:null};
 }
-export async function footballGameAnalysis(league:FootballLeague,day:string,id:string){
+export async function footballGameAnalysis(league:FootballLeague,day:string,id:string,settings?:FootballModelSettings){
   const schedule=await footballSchedule(league,day),game=schedule.games.find(g=>g.id===id);
   if(!game)return null;
   if(game.state!=='scheduled'||!game.timeConfirmed||Date.parse(game.start)<=Date.now())return {game,analysis:analyzeFootball(game,[]),sourceFetchedAt:schedule.fetchedAt};
-  if(isFootballNationalCompetition(league))return nationalGameAnalysis(game);
-  const marketActive=!!selectFootballMarketModel(league);
+  if(isFootballNationalCompetition(league))return nationalGameAnalysis(game,settings);
+  const model=settings?.model||'auto',marketActive=(model==='auto'||model==='score')&&!!selectFootballMarketModel(league);
   const marketRequest=marketActive?loadFootballMarketContext(league).catch(()=>null):Promise.resolve(null);
-  const externalRequest=marketActive?Promise.resolve(null):loadExternalFootballContext(league).catch(()=>null);
+  const externalRequest=!marketActive&&(model==='auto'||model==='elo')?loadExternalFootballContext(league).catch(()=>null):Promise.resolve(null);
   const years=[game.season,game.season-1];
   const requests=[game.home.id,game.away.id].flatMap(team=>years.map(year=>({team,year})));
   const results=await Promise.allSettled(requests.map(async({team,year})=>{
@@ -68,7 +69,7 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   const success=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]);
   const missing=results.flatMap((r,i)=>r.status==='rejected'?[requests[i]]:[]);
   const live=success.flatMap(r=>parseFootballEvents(r.value,league)),archive=archivedFootballHistory(league,game.home.id,game.away.id);
-  const initial=reconcileFootballHistory(live,archive,league),initialAnalysis=analyzeFootball(game,initial.games);
+  const initial=reconcileFootballHistory(live,archive,league),initialAnalysis=analyzeFootball(game,initial.games,Date.now(),[],settings);
   const sparse=[{team:game.home.id,form:initialAnalysis.homeForm},{team:game.away.id,form:initialAnalysis.awayForm}].filter(r=>needsFootballRecentForm(r.form,Date.now())||missing.some(m=>m.team===r.team));
   const extraRequests=sparse.flatMap(({team})=>years.map(year=>({team,year})));
   const extraResults=await Promise.allSettled(extraRequests.map(async({team,year})=>{
@@ -79,7 +80,7 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   // Reconcile all feeds together so a quarantined ID cannot return via fallback.
   // Preserve each competition identity; lower-division scores are never relabeled.
   const merged=reconcileFootballHistory([...live,...extraSuccess.flatMap(r=>r.games)],archive);
-  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games);
+  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games,settings);
   const primaryHomeForm=analysis.homeForm,primaryAwayForm=analysis.awayForm;
   // The archive can fill a previous season only after that season ended.
   // These European seasons start in the named year and finish by June next year.
@@ -88,9 +89,9 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
     delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.lean;
   }
   const external=await externalRequest;
-  if(external)analysis=applyExternalFootballAnalysis(game,analysis,merged.games,external);
+  if(external)analysis=applyExternalFootballAnalysis(game,analysis,merged.games,external,Date.now(),settings);
   const market=await marketRequest;
-  if(market)analysis=applyFootballMarketAnalysis(game,analysis,market);
+  if(market)analysis=applyFootballMarketAnalysis(game,analysis,market,Date.now(),settings);
   // Describe the history used by the final estimate, including an external
   // baseline recovery that replaces the form without activating new parameters.
   const adoptedLeagueHistory=!!analysis.external&&(analysis.homeForm!==primaryHomeForm||analysis.awayForm!==primaryAwayForm);
@@ -104,10 +105,13 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   if([analysis.homeForm,analysis.awayForm].some(f=>f&&f.games<10))warnings.push('至少一隊少於10場樣本，估計較不穩定。');
   if(marketActive&&!market)warnings.push('第二輪模型已通過，但聯賽年度來源暫時未更新，沿用既有分析。');
   analysis.quality={label:warnings.length?'資料有限':'基本賽果完整',warnings,historyConflicts,archiveSupplementGames};
+  if((model==='elo'&&!analysis.external?.modelApplied)||(model==='score'&&analysis.external?.modelFamily!=='score-market')||(model==='calibrated'&&analysis.calibration?.status!=='applied')){
+    analysis={...analysis,status:'waiting',reason:'此場缺少所選模型所需的資料，可改回依來源自動選模。'};delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.scoreDistribution;delete analysis.lean;
+  }
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 
-async function nationalGameAnalysis(game:FootballGame){
+async function nationalGameAnalysis(game:FootballGame,settings?:FootballModelSettings){
   const poolRequest=loadNationalFootballPool();
   // National competitions span multi-year cycles. Request both calendar years
   // together and preserve each event's competition; do not load club xG models.
@@ -120,11 +124,11 @@ async function nationalGameAnalysis(game:FootballGame){
   }));
   const success=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]),missing=results.flatMap((r,i)=>r.status==='rejected'?[requests[i]]:[]);
   const merged=reconcileFootballHistory(success.flatMap(r=>r.games),[]);
-  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games);const warnings:string[]=[];
+  let analysis=analyzeFootball(game,merged.games,Date.now(),merged.games,settings);const warnings:string[]=[];
   const pool=await poolRequest;
   if(pool){
     const context=reconcileFootballHistory(success.flatMap(r=>r.games),pool.games);
-    analysis=applyNationalFootballModel(game,analysis,context.games);
+    analysis=applyNationalFootballModel(game,analysis,context.games,Date.now(),settings);
     if(Date.now()-Date.parse(pool.fetchedAt)>6*3600000)warnings.push('對手強度資料使用最近48小時內快照，來源更新稍後重試。');
   }else if(analysis.status==='ready'){
     analysis={...analysis,status:'waiting',version:NATIONAL_MODEL_VERSION,reason:'國家隊對手強度資料尚未更新。'};

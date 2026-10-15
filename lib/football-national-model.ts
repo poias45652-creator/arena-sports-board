@@ -1,3 +1,4 @@
+import type {FootballModelSettings} from './football-model-weights';
 import {footballDistribution,isFootballNationalCompetition,type FootballGame,type FootballAnalysis} from './football';
 import {reconcileFootballHistory} from './football-history';
 export const NATIONAL_MODEL_VERSION='football-national-opponent-v2';
@@ -40,15 +41,16 @@ export function fitNationalFootball(history:FootballGame<string>[],before:number
   }
   return {intercept:b[0],homeEffect:b[1],teams,games:rows.length,through:before};
 }
-export function nationalExpectedGoals(game:FootballGame,fit:NationalFit,now:number){
+export function nationalExpectedGoals(game:FootballGame,fit:NationalFit,now:number,settings?:FootballModelSettings){
   const h=fit.teams[game.home.id],a=fit.teams[game.away.id];
   if(!h||!a||[h,a].some(t=>t.games<5||t.effectiveGames<3||now-t.latest>120*DAY)||fit.through>now||now-fit.through>DAY)return null;
   const venue=game.neutral?0:fit.homeEffect/2,clamp=(v:number)=>Math.max(.15,Math.min(5,Math.exp(v)));
-  return {home:clamp(fit.intercept+venue+h.attack+a.defense),away:clamp(fit.intercept-venue+a.attack+h.defense)};
+  const weights=settings?.weights.elo,attack=weights?weights[0]/50:1,defense=weights?weights[1]/50:1;
+  return {home:clamp(fit.intercept+venue+h.attack*attack+a.defense*defense),away:clamp(fit.intercept-venue+a.attack*attack+h.defense*defense)};
 }
-export function applyNationalFootballModel(game:FootballGame,base:FootballAnalysis,history:FootballGame<string>[],now=Date.now()):FootballAnalysis{
+export function applyNationalFootballModel(game:FootballGame,base:FootballAnalysis,history:FootballGame<string>[],now=Date.now(),settings?:FootballModelSettings):FootballAnalysis{
   if(!isFootballNationalCompetition(game.league)||base.status!=='ready'||game.state!=='scheduled'||!game.timeConfirmed||Date.parse(game.start)<=now)return base;
-  const fit=fitNationalFootball(history.filter(g=>g.id!==game.id),Math.min(now,Date.parse(game.start))),expected=fit&&nationalExpectedGoals(game,fit,now);
+  const fit=fitNationalFootball(history.filter(g=>g.id!==game.id),Math.min(now,Date.parse(game.start))),expected=fit&&nationalExpectedGoals(game,fit,now,settings);
   if(!fit||!expected){const result={...base,status:'waiting' as const,reason:'國家隊對手強度資料尚未完整更新。',version:NATIONAL_MODEL_VERSION};delete result.probabilities;delete result.expected;delete result.scores;delete result.lean;return result;}
   const result=footballDistribution(expected.home,expected.away),p=result.probabilities,best=[{name:'主勝',p:p.home},{name:'和局',p:p.draw},{name:'客勝',p:p.away}].sort((a,b)=>b.p-a.p);
   return {...base,version:NATIONAL_MODEL_VERSION,expected,...result,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',
