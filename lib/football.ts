@@ -52,7 +52,7 @@ const TEAM_NAMES:Record<string,string> = {
   'LASK Linz':'林茨','Shakhtar Donetsk':'頓涅茨克礦工','AEK Athens':'AEK雅典',
   'Fenerbahce':'費內巴切','Slovan Bratislava':'布拉迪斯拉發','Bodo/Glimt':'博多格林特',
   // Senior clubs in the Europa League source; keep team IDs as the identity.
-  'AZ Alkmaar':'阿爾克馬爾',"Hapoel Be'er":'比爾舒華夏普爾','Lech Poznan':'波茲南萊克',
+  'AZ Alkmaar':'阿爾克馬爾',"Hapoel Be'er":'比爾舒華夏普爾',"Hapoel Be'er Sheva":'比爾舒華夏普爾','LASK':'林茨','Lech Poznan':'波茲南萊克',
   'NK Celje':'采列','Omonia Nicosia':'奧摩尼亞','RB Salzburg':'薩爾斯堡紅牛',
   'Sparta Prague':'布拉格斯巴達','Lillestrom':'利勒斯特羅姆','Torreense':'托倫斯',
   'SK Sturm Graz':'格拉茨風暴','Dinamo Zagreb':'札格瑞布迪納摩','Anderlecht':'安德萊赫特',

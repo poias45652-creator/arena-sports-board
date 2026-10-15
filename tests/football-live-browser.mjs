@@ -26,7 +26,11 @@ try{
   assert.ok((await page.locator('.football-stat-panel').textContent()).includes('52.2%'));assert.ok((await page.locator('.football-match-info').textContent()).includes('43,951'));
   await page.locator('.football-substitutes').first().locator('summary').click();assert.ok(await page.locator('.football-lineups .football-lineup-player:visible').count()>22);
   await page.getByRole('group',{name:'足球事件篩選'}).getByRole('button',{name:'進球',exact:true}).click();assert.equal(await page.locator('.football-event').count(),5);
-  await page.getByRole('group',{name:'足球紀錄類型'}).getByRole('button',{name:'逐球文字'}).click();assert.equal(await page.locator('.football-commentary').count(),30);await page.getByRole('button',{name:'載入較早紀錄',exact:true}).click();assert.equal(await page.locator('.football-commentary').count(),60);
+  await page.locator('.football-event details summary').first().click();assert.match(await page.locator('.football-event details p[lang="zh-Hant"]').first().textContent(),/進球|射入|烏龍/);
+  await page.getByRole('group',{name:'足球紀錄類型'}).getByRole('button',{name:'逐球文字'}).click();assert.equal(await page.locator('.football-commentary').count(),30);
+  assert.equal(await page.locator('.football-commentary p[lang="zh-Hant"]').count(),30);assert.match(await page.locator('.football-commentary').first().textContent(),/比賽結束/);assert.doesNotMatch(await page.locator('.football-events').textContent(),/Attempt |Foul by |Substitution,|is shown|wins a free kick|尚待翻譯/);
+  await page.locator('.football-commentary').first().scrollIntoViewIfNeeded();await page.screenshot({path:`${directory}/${size}-commentary-zh.png`});
+  await page.getByRole('button',{name:'載入較早紀錄',exact:true}).click();assert.equal(await page.locator('.football-commentary').count(),60);
   await page.getByRole('group',{name:'足球紀錄類型'}).getByRole('button',{name:'重要事件'}).click();await page.getByRole('group',{name:'足球事件篩選'}).getByRole('button',{name:'全部',exact:true}).click();
   await page.locator('.football-board').evaluate(el=>scrollTo(0,el.getBoundingClientRect().top+scrollY-170));await page.screenshot({path:`${directory}/${size}-overview.png`});
   await page.locator('.football-score-layout').evaluate(el=>scrollTo(0,el.getBoundingClientRect().top+scrollY-170));await page.screenshot({path:`${directory}/${size}-scoreboard.png`});

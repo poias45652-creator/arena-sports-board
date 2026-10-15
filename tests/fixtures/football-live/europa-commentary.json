@@ -1,0 +1,525 @@
+{
+  "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.europa/summary?event=401915573",
+  "capturedAt": "2026-10-15T18:40:33.401544+00:00",
+  "teams": [
+    {
+      "id": "140",
+      "displayName": "AZ Alkmaar",
+      "abbreviation": "AZ"
+    },
+    {
+      "id": "13083",
+      "displayName": "Hapoel Be'er",
+      "abbreviation": "HBE"
+    }
+  ],
+  "players": [
+    "Jari De Busser",
+    "Wesley Hoedt",
+    "Wouter Goes",
+    "Mees De Wit",
+    "Seiya Maikuma",
+    "Valdemar Byskov",
+    "Peer Koopmeiners",
+    "Dave Kwakman",
+    "Bendegúz Kovács",
+    "Ro-Zangelo Daal",
+    "Ayoub Oufkir",
+    "Mateo Chávez",
+    "Wassim Bouziane",
+    "Jordy Clasie",
+    "Denso Kasius",
+    "Rion Ichihara",
+    "Weslley Patati",
+    "Lewis Schouten",
+    "Mexx Meerdink",
+    "Elijah Dijkstra",
+    "Rome-Jayden Owusu-Oduro",
+    "Jerolldino Bergraaf",
+    "Calvin Stengs",
+    "Ofir Marciano",
+    "Idan Nachmias",
+    "Djibril Diop",
+    "Pedro Amador",
+    "Guy Mizrahi",
+    "Lucas Ventura",
+    "Eliel Peretz",
+    "Forson Amankwah",
+    "Igor Zlatanovic",
+    "Zahi Ahmed",
+    "Mohamad Abu Rumi",
+    "Miguel Vítor",
+    "Adrián Ugarriza",
+    "Jonathan Shani",
+    "Niv Yehoshua",
+    "Ofir Davidadze",
+    "Itay Rotman",
+    "Amir Ganah",
+    "Mohammad Knaan",
+    "Marco Wolff",
+    "João Victor",
+    "Javon East"
+  ],
+  "commentary": [
+    {
+      "clock": "",
+      "text": "Lineups are announced and players are warming up."
+    },
+    {
+      "clock": "",
+      "text": "First Half begins."
+    },
+    {
+      "clock": "1'",
+      "text": "Offside, Hapoel Be'er Sheva. Igor Zlatanovic is caught offside."
+    },
+    {
+      "clock": "3'",
+      "text": "Foul by Muhammad Abu Rumi (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "3'",
+      "text": "Ro-Zangelo Daal (AZ) wins a free kick on the left wing."
+    },
+    {
+      "clock": "4'",
+      "text": "Foul by Wesley Hoedt (AZ)."
+    },
+    {
+      "clock": "4'",
+      "text": "Igor Zlatanovic (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "6'",
+      "text": "Corner, AZ. Conceded by Guy Mizrahi."
+    },
+    {
+      "clock": "6'",
+      "text": "Corner, AZ. Conceded by Pedro Amador."
+    },
+    {
+      "clock": "7'",
+      "text": "Attempt missed. Wouter Goes (AZ) header from very close range is just a bit too high. Assisted by Valdemar Byskov with a cross following a corner."
+    },
+    {
+      "clock": "11'",
+      "text": "Foul by Muhammad Abu Rumi (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "11'",
+      "text": "Ro-Zangelo Daal (AZ) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "12'",
+      "text": "Attempt blocked. Dave Kwakman (AZ) right footed shot from outside the box is blocked. Assisted by Ro-Zangelo Daal."
+    },
+    {
+      "clock": "17'",
+      "text": "Foul by Eliel Peretz (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "17'",
+      "text": "Dave Kwakman (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "18'",
+      "text": "Foul by Amankwah Forson (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "18'",
+      "text": "Mees de Wit (AZ) wins a free kick on the left wing."
+    },
+    {
+      "clock": "22'",
+      "text": "Foul by Djibril Diop (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "22'",
+      "text": "Bendegúz Kovács (AZ) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "26'",
+      "text": "Foul by Eliel Peretz (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "26'",
+      "text": "Dave Kwakman (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "28'",
+      "text": "Attempt blocked. Ayoub Oufkir (AZ) left footed shot from the right side of the box is blocked. Assisted by Dave Kwakman."
+    },
+    {
+      "clock": "30'",
+      "text": "Foul by Lucas Ventura (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "30'",
+      "text": "Ayoub Oufkir (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "31'",
+      "text": "Attempt saved. Valdemar Byskov (AZ) right footed shot from outside the box is saved in the bottom right corner by Ofir Marciano (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "31'",
+      "text": "Corner, AZ. Conceded by Ofir Marciano."
+    },
+    {
+      "clock": "31'",
+      "text": "Attempt blocked. Wesley Hoedt (AZ) left footed shot from the centre of the box is blocked."
+    },
+    {
+      "clock": "33'",
+      "text": "Lucas Ventura (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "33'",
+      "text": "Foul by Seiya Maikuma (AZ)."
+    },
+    {
+      "clock": "34'",
+      "text": "Foul by Zahi Ahmed (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "34'",
+      "text": "Seiya Maikuma (AZ) wins a free kick on the right wing."
+    },
+    {
+      "clock": "37'",
+      "text": "Attempt saved. Valdemar Byskov (AZ) left footed shot from the left side of the box is saved in the top left corner by Ofir Marciano (Hapoel Be'er Sheva). Assisted by Bendegúz Kovács."
+    },
+    {
+      "clock": "37'",
+      "text": "Corner, AZ. Conceded by Ofir Marciano."
+    },
+    {
+      "clock": "38'",
+      "text": "Lucas Ventura (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "38'",
+      "text": "Foul by Dave Kwakman (AZ)."
+    },
+    {
+      "clock": "39'",
+      "text": "Foul by Muhammad Abu Rumi (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "39'",
+      "text": "Mees de Wit (AZ) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "39'",
+      "text": "Foul by Pedro Amador (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "39'",
+      "text": "Seiya Maikuma (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "39'",
+      "text": "Pedro Amador (Hapoel Be'er Sheva) is shown the yellow card for a bad foul."
+    },
+    {
+      "clock": "40'",
+      "text": "Muhammad Abu Rumi (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "40'",
+      "text": "Foul by Mees de Wit (AZ)."
+    },
+    {
+      "clock": "41'",
+      "text": "Attempt blocked. Bendegúz Kovács (AZ) left footed shot from the left side of the six yard box is blocked. Assisted by Ro-Zangelo Daal."
+    },
+    {
+      "clock": "41'",
+      "text": "Eliel Peretz (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "41'",
+      "text": "Foul by Seiya Maikuma (AZ)."
+    },
+    {
+      "clock": "43'",
+      "text": "Attempt missed. Ro-Zangelo Daal (AZ) right footed shot from outside the box is just a bit too high. Assisted by Ayoub Oufkir."
+    },
+    {
+      "clock": "45'",
+      "text": "Attempt blocked. Bendegúz Kovács (AZ) left footed shot from outside the box is blocked. Assisted by Jari De Busser."
+    },
+    {
+      "clock": "45'",
+      "text": "Idan Nachmias (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "45'",
+      "text": "Foul by Seiya Maikuma (AZ)."
+    },
+    {
+      "clock": "45'",
+      "text": "Seiya Maikuma (AZ) is shown the yellow card."
+    },
+    {
+      "clock": "45'",
+      "text": "Fourth official has announced 1 minutes of added time."
+    },
+    {
+      "clock": "45'+1'",
+      "text": "Lucas Ventura (Hapoel Be'er Sheva) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "45'+1'",
+      "text": "Foul by Dave Kwakman (AZ)."
+    },
+    {
+      "clock": "45'+2'",
+      "text": "First Half ends, AZ 0, Hapoel Be'er Sheva 0."
+    },
+    {
+      "clock": "45'",
+      "text": "Second Half begins AZ 0, Hapoel Be'er Sheva 0."
+    },
+    {
+      "clock": "46'",
+      "text": "Foul by Zahi Ahmed (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "46'",
+      "text": "Ayoub Oufkir (AZ) wins a free kick on the right wing."
+    },
+    {
+      "clock": "48'",
+      "text": "Attempt blocked. Ayoub Oufkir (AZ) left footed shot from the centre of the box is blocked. Assisted by Seiya Maikuma."
+    },
+    {
+      "clock": "49'",
+      "text": "Goal! AZ 1, Hapoel Be'er Sheva 0. Peer Koopmeiners (AZ) right footed shot from the centre of the box to the bottom left corner. Assisted by Valdemar Byskov with a through ball."
+    },
+    {
+      "clock": "51'",
+      "text": "Delay in match because of an injury Idan Nachmias (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "52'",
+      "text": "Eliel Peretz (Hapoel Be'er Sheva) is shown the yellow card."
+    },
+    {
+      "clock": "52'",
+      "text": "Ayoub Oufkir (AZ) is shown the yellow card."
+    },
+    {
+      "clock": "53'",
+      "text": "Substitution, Hapoel Be'er Sheva. Miguel Vítor replaces Idan Nachmias because of an injury."
+    },
+    {
+      "clock": "53'",
+      "text": "Delay over. They are ready to continue."
+    },
+    {
+      "clock": "54'",
+      "text": "Igor Zlatanovic (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "54'",
+      "text": "Foul by Wesley Hoedt (AZ)."
+    },
+    {
+      "clock": "55'",
+      "text": "Goal! AZ 1, Hapoel Be'er Sheva 1. Amankwah Forson (Hapoel Be'er Sheva) left footed shot from the centre of the box to the centre of the goal. Assisted by Zahi Ahmed."
+    },
+    {
+      "clock": "57'",
+      "text": "Corner, Hapoel Be'er Sheva. Conceded by Wouter Goes."
+    },
+    {
+      "clock": "60'",
+      "text": "Miguel Vítor (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "60'",
+      "text": "Foul by Ro-Zangelo Daal (AZ)."
+    },
+    {
+      "clock": "61'",
+      "text": "Substitution, AZ. Denso Kasius replaces Seiya Maikuma."
+    },
+    {
+      "clock": "61'",
+      "text": "Substitution, AZ. Calvin Stengs replaces Ayoub Oufkir."
+    },
+    {
+      "clock": "62'",
+      "text": "Substitution, Hapoel Be'er Sheva. Javon East replaces Muhammad Abu Rumi."
+    },
+    {
+      "clock": "62'",
+      "text": "Substitution, Hapoel Be'er Sheva. Niv Yehoshua replaces Eliel Peretz."
+    },
+    {
+      "clock": "63'",
+      "text": "Attempt saved. Javon East (Hapoel Be'er Sheva) right footed shot from the right side of the box is saved in the centre of the goal by Jari De Busser (AZ). Assisted by Igor Zlatanovic."
+    },
+    {
+      "clock": "65'",
+      "text": "Attempt saved. Dave Kwakman (AZ) right footed shot from outside the box is saved in the centre of the goal by Ofir Marciano (Hapoel Be'er Sheva). Assisted by Denso Kasius."
+    },
+    {
+      "clock": "66'",
+      "text": "Javon East (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "66'",
+      "text": "Foul by Mees de Wit (AZ)."
+    },
+    {
+      "clock": "67'",
+      "text": "Javon East (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "67'",
+      "text": "Foul by Peer Koopmeiners (AZ)."
+    },
+    {
+      "clock": "68'",
+      "text": "Attempt blocked. Zahi Ahmed (Hapoel Be'er Sheva) right footed shot from outside the box is blocked. Assisted by Niv Yehoshua."
+    },
+    {
+      "clock": "68'",
+      "text": "Delay in match because of an injury Dave Kwakman (AZ)."
+    },
+    {
+      "clock": "69'",
+      "text": "Delay over. They are ready to continue."
+    },
+    {
+      "clock": "70'",
+      "text": "Handball by Peer Koopmeiners (AZ)."
+    },
+    {
+      "clock": "74'",
+      "text": "Penalty conceded by Djibril Diop (Hapoel Be'er Sheva) after a foul in the penalty area."
+    },
+    {
+      "clock": "74'",
+      "text": "Penalty AZ. Bendegúz Kovács draws a foul in the penalty area."
+    },
+    {
+      "clock": "75'",
+      "text": "VAR Decision: Penalty AZ."
+    },
+    {
+      "clock": "76'",
+      "text": "Djibril Diop (Hapoel Be'er Sheva) is shown the yellow card for a bad foul."
+    },
+    {
+      "clock": "76'",
+      "text": "Substitution, AZ. Mexx Meerdink replaces Bendegúz Kovács."
+    },
+    {
+      "clock": "76'",
+      "text": "Substitution, AZ. Mateo Chávez replaces Mees de Wit."
+    },
+    {
+      "clock": "77'",
+      "text": "Goal! AZ 2, Hapoel Be'er Sheva 1. Mexx Meerdink (AZ) converts the penalty with a left footed shot to the high centre of the goal."
+    },
+    {
+      "clock": "78'",
+      "text": "Substitution, Hapoel Be'er Sheva. João Victor replaces Zahi Ahmed."
+    },
+    {
+      "clock": "78'",
+      "text": "Substitution, Hapoel Be'er Sheva. Adrián Ugarriza replaces Igor Zlatanovic."
+    },
+    {
+      "clock": "78'",
+      "text": "Lucas Ventura (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "78'",
+      "text": "Foul by Calvin Stengs (AZ)."
+    },
+    {
+      "clock": "78'",
+      "text": "Calvin Stengs (AZ) is shown the yellow card for a bad foul."
+    },
+    {
+      "clock": "81'",
+      "text": "Attempt saved. Amankwah Forson (Hapoel Be'er Sheva) left footed shot from a difficult angle on the left is saved in the bottom left corner by Jari De Busser (AZ). Assisted by Guy Mizrahi with a cross."
+    },
+    {
+      "clock": "81'",
+      "text": "Foul by Javon East (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "81'",
+      "text": "Ro-Zangelo Daal (AZ) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "82'",
+      "text": "Attempt saved. Calvin Stengs (AZ) right footed shot from the centre of the box is saved in the top centre of the goal by Ofir Marciano (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "83'",
+      "text": "Denso Kasius (AZ) is shown the yellow card for a bad foul."
+    },
+    {
+      "clock": "86'",
+      "text": "Amankwah Forson (Hapoel Be'er Sheva) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "86'",
+      "text": "Foul by Calvin Stengs (AZ)."
+    },
+    {
+      "clock": "86'",
+      "text": "Substitution, AZ. Weslley Patati replaces Ro-Zangelo Daal."
+    },
+    {
+      "clock": "86'",
+      "text": "Offside, Hapoel Be'er Sheva. Javon East is caught offside."
+    },
+    {
+      "clock": "89'",
+      "text": "Foul by Pedro Amador (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "89'",
+      "text": "Calvin Stengs (AZ) wins a free kick in the defensive half."
+    },
+    {
+      "clock": "90'",
+      "text": "Attempt missed. Javon East (Hapoel Be'er Sheva) with an attempt from the centre of the box is close, but misses to the right. Assisted by Niv Yehoshua with a cross."
+    },
+    {
+      "clock": "90'",
+      "text": "Foul by Djibril Diop (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "90'",
+      "text": "Mexx Meerdink (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "90'",
+      "text": "Fourth official has announced 6 minutes of added time."
+    },
+    {
+      "clock": "90'+1'",
+      "text": "Foul by Adrián Ugarriza (Hapoel Be'er Sheva)."
+    },
+    {
+      "clock": "90'+1'",
+      "text": "Dave Kwakman (AZ) wins a free kick in the attacking half."
+    },
+    {
+      "clock": "90'+1'",
+      "text": "Adrián Ugarriza (Hapoel Be'er Sheva) is shown the yellow card for a bad foul."
+    },
+    {
+      "clock": "90'+3'",
+      "text": "Corner, AZ. Conceded by Guy Mizrahi."
+    }
+  ]
+}
