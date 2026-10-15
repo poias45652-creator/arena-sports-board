@@ -79,6 +79,33 @@ export function hrFootballCompetition(name:string):string|null{
  return rules.find(([rule])=>rule.test(key))?.[1]??null;
 }
 
+/** Group public football metadata before bounding it so repeated leagues from
+ * other sports cannot hide a dedicated cup at the end of the response. */
+export function hrFootballSourceCoverage(categories:any[]){
+ type CoverageRow={category:number;name:string;competition:string|null;games:number;firstStart:string|null;lastStart:string|null;examples:{home:string;away:string;start:string}[]};
+ const rows=new Map<string,CoverageRow>();
+ const safe=(v:unknown,max:number)=>typeof v==='string'?v.slice(0,max):'';
+ for(const c of categories){
+  if(![1,31].includes(c?.CatID)&&hrFootballCompetition(safe(c?.CatName,100))!=='uefa.europa')continue;
+  for(const l of Array.isArray(c.Items?.List)?c.Items.List:[]){
+   const name=safe(l?.LeagueNameStr,100),key=c.CatID+':'+name;
+   const row:CoverageRow=rows.get(key)??{category:c.CatID,name,competition:hrFootballCompetition(name),games:0,firstStart:null,lastStart:null,examples:[]};
+   const teams=Array.isArray(l?.Team)?l.Team:[];row.games+=teams.length;
+   for(const t of teams){
+    const start=safe(t?.ScheduleTimeStr,40);
+    if(/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(start)){
+     if(!row.firstStart||start<row.firstStart)row.firstStart=start;
+     if(!row.lastStart||start>row.lastStart)row.lastStart=start;
+    }
+    if(row.examples.length<2&&(c.CatID===31||/歐洲|歐霸|歐羅|冠軍|UEFA/i.test(name)))row.examples.push({home:safe(t?.HomeTeamStr,80),away:safe(t?.AwayTeamStr,80),start});
+   }
+   rows.set(key,row);
+  }
+ }
+ const priority=(r:{category:number;name:string;competition:string|null})=>r.category===31?0:r.competition==='uefa.europa'?1:/歐洲|歐霸|歐羅|冠軍|UEFA/i.test(r.name)?2:3;
+ return {leagueCount:rows.size,truncated:rows.size>80,leagues:[...rows.values()].sort((a,b)=>priority(a)-priority(b)).slice(0,80)};
+}
+
 let lastBasketballShapeLoggedAt=0,lastSportPairingLoggedAt=0;
 /** Parse the observed GameDetail shape, without inventing a fetch timestamp. */
 export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnapshot {
