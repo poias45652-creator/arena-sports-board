@@ -38,11 +38,10 @@
     ],
     "birthDate": "2005-08-31",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUefaId": "250226140",
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2211368/image"
     ],
     "sofascoreId": "2211368"
@@ -55,10 +54,13 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUefaId": "250217953",
-    "previousUrls": []
+    "previousUrls": [],
+    "urls": [
+      "https://dsg-images.com/players/150x150/8140887.png"
+    ]
   },
   {
     "id": "3093908",
@@ -68,11 +70,10 @@
     ],
     "birthDate": "",
     "number": "22",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUefaId": "250223109",
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1931596/image"
     ],
     "sofascoreId": "1931596"
@@ -85,13 +86,12 @@
     ],
     "birthDate": "2008-06-10",
     "number": "49",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.transfermarkt.com/nikola-radnic/profil/spieler/1071997"
     ],
     "previousUefaId": "250195271",
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1960022/image"
     ],
     "sofascoreId": "1960022"
@@ -104,12 +104,11 @@
     ],
     "birthDate": "2008-03-27",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://semafor.hns.family/en/players/389308/petar-simun-zaja/"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2222575/image"
     ],
     "sofascoreId": "2222575"
@@ -122,12 +121,11 @@
     ],
     "birthDate": "2009-03-20",
     "number": "31",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://hns.team/en/players/391987/jona-benkotic/"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1861365/image"
     ],
     "sofascoreId": "1861365"
@@ -140,14 +138,12 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUefaId": "250189871",
     "providerId": "1936635",
     "previousUrls": [
-      "https://images.fotmob.com/image_resources/playerimages/1936635.png"
-    ],
-    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/1936635.png",
       "https://img.sofascore.com/api/v1/player/1587288/image"
     ],
     "sofascoreId": "1587288"
@@ -179,11 +175,13 @@
     "number": "",
     "collect": true,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2701812/image"
     ],
-    "sofascoreId": "2701812"
+    "sofascoreId": "2701812",
+    "urls": [
+      "https://dsg-images.com/players/150x150/8189183.png"
+    ]
   },
   {
     "id": "385939",
@@ -193,12 +191,11 @@
     ],
     "birthDate": "2007-09-08",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/en/players/player/?player_id=201719"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1859713/image"
     ],
     "sofascoreId": "1859713"
@@ -211,9 +208,12 @@
     ],
     "birthDate": "1999-12-09",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
-    "previousUrls": []
+    "previousUrls": [],
+    "pages": [
+      "https://www.flashscore.com/player/vaknin-idan/nk29TQQb/"
+    ]
   },
   {
     "id": "3127402",
@@ -223,10 +223,9 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2692952/image"
     ],
     "sofascoreId": "2692952"
@@ -239,9 +238,12 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
-    "previousUrls": []
+    "previousUrls": [],
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/2695960/image"
+    ]
   },
   {
     "id": "3128678",
@@ -253,11 +255,13 @@
     "number": "",
     "collect": true,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2695961/image"
     ],
-    "sofascoreId": "2695961"
+    "sofascoreId": "2695961",
+    "urls": [
+      "https://dsg-images.com/players/150x150/8189182.png"
+    ]
   },
   {
     "id": "409570",
@@ -267,10 +271,9 @@
     ],
     "birthDate": "",
     "number": "19",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2228586/image"
     ],
     "sofascoreId": "2228586"
@@ -285,11 +288,13 @@
     "number": "50",
     "collect": true,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2658830/image"
     ],
-    "sofascoreId": "2658830"
+    "sofascoreId": "2658830",
+    "urls": [
+      "https://dsg-images.com/players/150x150/8171979.png"
+    ]
   },
   {
     "id": "3128679",
@@ -299,10 +304,9 @@
     ],
     "birthDate": "",
     "number": "60",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2536323/image"
     ],
     "sofascoreId": "2536323"
@@ -315,13 +319,12 @@
     ],
     "birthDate": "",
     "number": "65",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.transfermarkt.de/maksim-kononov/profil/spieler/1105398",
       "https://www.lequipe.fr/Football/FootballFicheJoueur140315.html"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2660378/image"
     ],
     "sofascoreId": "2660378"
@@ -335,10 +338,12 @@
     "birthDate": "",
     "number": "",
     "collect": true,
-    "previousPages": [],
-    "previousUrls": [],
-    "pages": [
+    "previousPages": [
       "https://www.lechpoznan.pl/news%2C6%2Cpierwszy-oboz-olsztyna%2C47859.html"
+    ],
+    "previousUrls": [],
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/2586895/image"
     ]
   },
   {
@@ -349,10 +354,9 @@
     ],
     "birthDate": "",
     "number": "39",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2670836/image"
     ],
     "sofascoreId": "2670836"
@@ -365,12 +369,11 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2801661/image"
     ],
     "sofascoreId": "2801661"
@@ -389,12 +392,13 @@
     ],
     "providerId": "2008642",
     "previousUrls": [
-      "https://images.fotmob.com/image_resources/playerimages/2008642.png"
-    ],
-    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/2008642.png",
       "https://img.sofascore.com/api/v1/player/2614196/image"
     ],
-    "sofascoreId": "2614196"
+    "sofascoreId": "2614196",
+    "urls": [
+      "https://dsg-images.com/players/150x150/8213754.png"
+    ]
   },
   {
     "id": "416575",
@@ -404,12 +408,11 @@
     ],
     "birthDate": "2009-05-20",
     "number": "36",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/isa-jallow"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2354724/image"
     ],
     "sofascoreId": "2354724"
@@ -422,12 +425,11 @@
     ],
     "birthDate": "",
     "number": "25",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/seun-akanji"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2654560/image"
     ],
     "sofascoreId": "2654560"
@@ -446,12 +448,13 @@
     ],
     "providerId": "1665377",
     "previousUrls": [
-      "https://images.fotmob.com/image_resources/playerimages/1665377.png"
-    ],
-    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/1665377.png",
       "https://img.sofascore.com/api/v1/player/2475671/image"
     ],
-    "sofascoreId": "2475671"
+    "sofascoreId": "2475671",
+    "urls": [
+      "https://dsg-images.com/players/150x150/7938936.png"
+    ]
   },
   {
     "id": "415398",
@@ -463,9 +466,12 @@
     "number": "",
     "collect": true,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://www.nzs.si/sites/default/files/styles/person_medium/public/media/image/Letonja%20Tilen2.png.webp?itok=qUN3_Hnm"
+    ],
+    "urls": [
+      "https://img.sofascore.com/api/v1/player/1957867/image",
+      "https://img.sofascore.com/api/v1/player/2640006/image"
     ]
   },
   {
@@ -480,12 +486,14 @@
     "previousPages": [
       "https://www.oficretefc.com/genika/epangelmatias-o-antonakakis/"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2229246/image",
       "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg"
     ],
-    "sofascoreId": "2229246"
+    "sofascoreId": "2229246",
+    "urls": [
+      "https://www.oficretefc.com/wp-content/uploads/oficretefc-antonakakis-scaled.jpg"
+    ]
   },
   {
     "id": "409602",
@@ -495,12 +503,11 @@
     ],
     "birthDate": "2008-05-18",
     "number": "71",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.oficretefc.com/genika/epangelmatias-o-sitmalidis/"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2229247/image",
       "https://www.oficretefc.com/wp-content/uploads/oficretefc-sitmalidis-scaled.jpg"
     ],
@@ -514,10 +521,9 @@
     ],
     "birthDate": "2004-08-05",
     "number": "76",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1445564/image"
     ],
     "sofascoreId": "1445564"
@@ -530,10 +536,9 @@
     ],
     "birthDate": "2005-09-01",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1399482/image"
     ],
     "sofascoreId": "1399482"
@@ -546,10 +551,9 @@
     ],
     "birthDate": "2008-06-24",
     "number": "90",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1979632/image"
     ],
     "sofascoreId": "1979632"
@@ -562,10 +566,9 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1427551/image"
     ],
     "sofascoreId": "1427551"
@@ -578,10 +581,9 @@
     ],
     "birthDate": "",
     "number": "97",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2640773/image"
     ],
     "sofascoreId": "2640773"
@@ -594,10 +596,9 @@
     ],
     "birthDate": "",
     "number": "92",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2543394/image"
     ],
     "sofascoreId": "2543394"
@@ -610,10 +611,9 @@
     ],
     "birthDate": "",
     "number": "94",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2640774/image"
     ],
     "sofascoreId": "2640774"
@@ -626,11 +626,10 @@
     ],
     "birthDate": "2007-04-23",
     "number": "91",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
     "previousUefaId": "250182638",
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1588519/image"
     ],
     "sofascoreId": "1588519"
@@ -643,10 +642,9 @@
     ],
     "birthDate": "2008-05-21",
     "number": "87",
-    "collect": true,
+    "collect": false,
     "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1979666/image"
     ],
     "sofascoreId": "1979666"
@@ -659,15 +657,13 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.transfermarkt.com/teo-hupfauf/profil/spieler/1294141"
     ],
     "providerId": "2101298",
     "previousUrls": [
-      "https://images.fotmob.com/image_resources/playerimages/2101298.png"
-    ],
-    "urls": [
+      "https://images.fotmob.com/image_resources/playerimages/2101298.png",
       "https://img.sofascore.com/api/v1/player/2297264/image"
     ],
     "sofascoreId": "2297264"
@@ -680,12 +676,11 @@
     ],
     "birthDate": "2008-06-08",
     "number": "42",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://sparta.cz/en/tymy/25-men-b/hraci/172-jonas-topic"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1931629/image"
     ],
     "sofascoreId": "1931629"
@@ -698,16 +693,14 @@
     ],
     "birthDate": "2004-07-10",
     "number": "57",
-    "collect": true,
-    "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "collect": false,
+    "previousPages": [
+      "https://www.torreense.com/futebol-profissional/equipa-principal/plantel"
+    ],
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1808044/image"
     ],
-    "sofascoreId": "1808044",
-    "pages": [
-      "https://www.torreense.com/futebol-profissional/equipa-principal/plantel"
-    ]
+    "sofascoreId": "1808044"
   },
   {
     "id": "3141707",
@@ -731,16 +724,14 @@
     ],
     "birthDate": "",
     "number": "75",
-    "collect": true,
-    "previousPages": [],
-    "previousUrls": [],
-    "urls": [
+    "collect": false,
+    "previousPages": [
+      "https://www.torreense.com/futebol-formacao/juniores-sub19-masculino/plantel"
+    ],
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2690552/image"
     ],
-    "sofascoreId": "2690552",
-    "pages": [
-      "https://www.torreense.com/futebol-formacao/juniores-sub19-masculino/plantel"
-    ]
+    "sofascoreId": "2690552"
   },
   {
     "id": "3123791",

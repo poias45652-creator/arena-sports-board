@@ -20,8 +20,8 @@ cache = Path(sys.argv[1]); cache.mkdir(parents=True,exist_ok=True)
 rows = json.loads((root/'docs/football-europa-photo-gaps.json').read_text())
 def fetch(url):
     with urllib.request.urlopen(url,timeout=25) as response:
-        data=response.read(4_000_001)
-        assert len(data)<=4_000_000
+        data=response.read(8_000_001)
+        assert len(data)<=8_000_000
         return data
 
 def inspect(row):
@@ -56,7 +56,7 @@ def inspect(row):
         if url in seen:continue
         seen.add(url)
         try:
-            data=fetch(url);assert 100<=len(data)<=2_000_000
+            data=fetch(url);assert 100<=len(data)<=8_000_000
             im=Image.open(io.BytesIO(data));im.load()
             assert im.format in {'PNG','JPEG','WEBP'} and 80<=im.width<=4096 and 80<=im.height<=4096
             filename=f"photo-{len(photos)}.{im.format.lower()}";(folder/filename).write_bytes(data)
