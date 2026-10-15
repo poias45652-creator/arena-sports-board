@@ -6,7 +6,10 @@
       "20024"
     ],
     "birthDate": "2006-04-02",
-    "number": "12"
+    "number": "12",
+    "pages": [
+      "https://www.transfermarkt.com/shirak-badalyan/profil/spieler/1201879"
+    ]
   },
   {
     "id": "3102111",
@@ -15,7 +18,10 @@
       "20024"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://fcararat.am/en/first-team/players-ararat/player/50000515-Andranik%2BMartirosyan.html"
+    ]
   },
   {
     "id": "408530",
@@ -24,7 +30,8 @@
       "20024"
     ],
     "birthDate": "2005-08-31",
-    "number": ""
+    "number": "",
+    "uefaId": "250226140"
   },
   {
     "id": "3093616",
@@ -33,7 +40,8 @@
       "20024"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "uefaId": "250217953"
   },
   {
     "id": "3093908",
@@ -42,7 +50,8 @@
       "20024"
     ],
     "birthDate": "",
-    "number": "22"
+    "number": "22",
+    "uefaId": "250223109"
   },
   {
     "id": "403821",
@@ -51,7 +60,11 @@
       "597"
     ],
     "birthDate": "2008-06-10",
-    "number": "49"
+    "number": "49",
+    "pages": [
+      "https://www.transfermarkt.com/nikola-radnic/profil/spieler/1071997"
+    ],
+    "uefaId": "250195271"
   },
   {
     "id": "421322",
@@ -60,7 +73,10 @@
       "597"
     ],
     "birthDate": "2008-03-27",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://semafor.hns.family/en/players/389308/petar-simun-zaja/"
+    ]
   },
   {
     "id": "413777",
@@ -69,7 +85,10 @@
       "597"
     ],
     "birthDate": "2009-03-20",
-    "number": "31"
+    "number": "31",
+    "pages": [
+      "https://hns.team/en/players/391987/jona-benkotic/"
+    ]
   },
   {
     "id": "3098709",
@@ -78,7 +97,8 @@
       "597"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "uefaId": "250189871"
   },
   {
     "id": "3140272",
@@ -87,7 +107,10 @@
       "597"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.transfermarkt.com/fuzy-taylor/profil/spieler/1313433"
+    ]
   },
   {
     "id": "3128677",
@@ -105,7 +128,10 @@
       "13083"
     ],
     "birthDate": "2007-09-08",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.football.org.il/en/players/player/?player_id=201719"
+    ]
   },
   {
     "id": "387426",
@@ -177,7 +203,10 @@
       "11505"
     ],
     "birthDate": "",
-    "number": "65"
+    "number": "65",
+    "pages": [
+      "https://www.transfermarkt.de/maksim-kononov/profil/spieler/1105398"
+    ]
   },
   {
     "id": "3144978",
@@ -204,7 +233,10 @@
       "987"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
+    ]
   },
   {
     "id": "3138999",
@@ -213,7 +245,10 @@
       "987"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.lsk.no/lag/betim-hasanaj"
+    ]
   },
   {
     "id": "416575",
@@ -222,7 +257,10 @@
       "987"
     ],
     "birthDate": "2009-05-20",
-    "number": "36"
+    "number": "36",
+    "pages": [
+      "https://www.lsk.no/lag/isa-jallow"
+    ]
   },
   {
     "id": "3108858",
@@ -231,7 +269,10 @@
       "987"
     ],
     "birthDate": "",
-    "number": "25"
+    "number": "25",
+    "pages": [
+      "https://www.lsk.no/lag/seun-akanji"
+    ]
   },
   {
     "id": "3138145",
@@ -240,7 +281,10 @@
       "987"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.lsk.no/lag/wahib-fadil"
+    ]
   },
   {
     "id": "415398",
@@ -339,7 +383,8 @@
       "617"
     ],
     "birthDate": "2007-04-23",
-    "number": "91"
+    "number": "91",
+    "uefaId": "250182638"
   },
   {
     "id": "409757",
@@ -357,7 +402,10 @@
       "2790"
     ],
     "birthDate": "",
-    "number": ""
+    "number": "",
+    "pages": [
+      "https://www.transfermarkt.com/teo-hupfauf/profil/spieler/1294141"
+    ]
   },
   {
     "id": "403980",
@@ -366,7 +414,10 @@
       "433"
     ],
     "birthDate": "2008-06-08",
-    "number": "42"
+    "number": "42",
+    "pages": [
+      "https://sparta.cz/en/tymy/25-men-b/hraci/172-jonas-topic"
+    ]
   },
   {
     "id": "155691",
