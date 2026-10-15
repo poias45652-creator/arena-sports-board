@@ -1,0 +1,407 @@
+[
+  {
+    "id": "407720",
+    "name": "Shirak Badalyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "2006-04-02",
+    "number": "12"
+  },
+  {
+    "id": "3102111",
+    "name": "Andranik Martirosyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "408530",
+    "name": "Vahe Petrosyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "2005-08-31",
+    "number": ""
+  },
+  {
+    "id": "3093616",
+    "name": "Martun Hovhannisyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3093908",
+    "name": "Mikael Khudaverdyan",
+    "teams": [
+      "20024"
+    ],
+    "birthDate": "",
+    "number": "22"
+  },
+  {
+    "id": "403821",
+    "name": "Nikola Radnic",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2008-06-10",
+    "number": "49"
+  },
+  {
+    "id": "421322",
+    "name": "Petar Zaja",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2008-03-27",
+    "number": ""
+  },
+  {
+    "id": "413777",
+    "name": "Jona Benkotic",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "2009-03-20",
+    "number": "31"
+  },
+  {
+    "id": "3098709",
+    "name": "Kaloyan Bozhkov Bozhkov",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3140272",
+    "name": "Fuzy Taylor",
+    "teams": [
+      "597"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3128677",
+    "name": "Yinon Elharar",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "385939",
+    "name": "Lior Shugar",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "2007-09-08",
+    "number": ""
+  },
+  {
+    "id": "387426",
+    "name": "Idan Vaknin",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "1999-12-09",
+    "number": ""
+  },
+  {
+    "id": "3127402",
+    "name": "David Pilnick",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3128676",
+    "name": "Jonathan Greenbaum",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3128678",
+    "name": "Tomer Shimoni",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "409570",
+    "name": "Amit Ohana",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "19"
+  },
+  {
+    "id": "3102679",
+    "name": "Shlomo Dahan",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "50"
+  },
+  {
+    "id": "3128679",
+    "name": "Yonatan Gilboa",
+    "teams": [
+      "13083"
+    ],
+    "birthDate": "",
+    "number": "60"
+  },
+  {
+    "id": "3115027",
+    "name": "Maksim Kononov",
+    "teams": [
+      "11505"
+    ],
+    "birthDate": "",
+    "number": "65"
+  },
+  {
+    "id": "3144978",
+    "name": "Aleks Olsztyn",
+    "teams": [
+      "2990"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3110856",
+    "name": "Anton Todorov Manov",
+    "teams": [
+      "490"
+    ],
+    "birthDate": "",
+    "number": "39"
+  },
+  {
+    "id": "3144071",
+    "name": "Julius Rogne-Bakke",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3138999",
+    "name": "Betim Hasanaj",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "416575",
+    "name": "Isa Jallow",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "2009-05-20",
+    "number": "36"
+  },
+  {
+    "id": "3108858",
+    "name": "Seun Akanji",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": "25"
+  },
+  {
+    "id": "3138145",
+    "name": "Wahib Fadil",
+    "teams": [
+      "987"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "415398",
+    "name": "Tilen Letonja",
+    "teams": [
+      "3362"
+    ],
+    "birthDate": "2008-07-06",
+    "number": ""
+  },
+  {
+    "id": "409599",
+    "name": "Charalambos Antonakakis",
+    "teams": [
+      "1010"
+    ],
+    "birthDate": "2009-01-05",
+    "number": "74"
+  },
+  {
+    "id": "409602",
+    "name": "Thanasis Sitmalidis",
+    "teams": [
+      "1010"
+    ],
+    "birthDate": "2008-05-18",
+    "number": "71"
+  },
+  {
+    "id": "365708",
+    "name": "Alexandros Tsompanidis",
+    "teams": [
+      "435"
+    ],
+    "birthDate": "2004-08-05",
+    "number": "76"
+  },
+  {
+    "id": "382651",
+    "name": "Giorgos Viktoros",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2005-09-01",
+    "number": ""
+  },
+  {
+    "id": "408050",
+    "name": "Christos Konstantinidis",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2008-06-24",
+    "number": "90"
+  },
+  {
+    "id": "3095868",
+    "name": "Evripidis Pepis",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "3141428",
+    "name": "Michalis Antoniou",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "97"
+  },
+  {
+    "id": "3095852",
+    "name": "Panagiotis Christoforou",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "92"
+  },
+  {
+    "id": "3122675",
+    "name": "Theos Ignatios Kazakeos",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "",
+    "number": "94"
+  },
+  {
+    "id": "173114",
+    "name": "Konstantinos Panagi",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2007-04-23",
+    "number": "91"
+  },
+  {
+    "id": "409757",
+    "name": "Vladimiros Savva",
+    "teams": [
+      "617"
+    ],
+    "birthDate": "2008-05-21",
+    "number": "87"
+  },
+  {
+    "id": "3102178",
+    "name": "Teo Hupfauf",
+    "teams": [
+      "2790"
+    ],
+    "birthDate": "",
+    "number": ""
+  },
+  {
+    "id": "403980",
+    "name": "Jonás Topic",
+    "teams": [
+      "433"
+    ],
+    "birthDate": "2008-06-08",
+    "number": "42"
+  },
+  {
+    "id": "155691",
+    "name": "Danilo",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "2004-07-10",
+    "number": "57"
+  },
+  {
+    "id": "3141707",
+    "name": "Gustavo Sousa Alhinho Alves Rijo",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "86"
+  },
+  {
+    "id": "3141708",
+    "name": "Marco André Moura Silva",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "75"
+  },
+  {
+    "id": "3123791",
+    "name": "João Vitor Gomes Chagas",
+    "teams": [
+      "21615"
+    ],
+    "birthDate": "",
+    "number": "61"
+  }
+]
