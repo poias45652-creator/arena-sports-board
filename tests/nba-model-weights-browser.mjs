@@ -54,9 +54,9 @@ try{
   assert.deepEqual(JSON.parse(await saved()).weights,[20,20,20,20,20]);
   assert.deepEqual(errors,[]);
   results.push({viewport:name,passed:true,requests,customExpected:report.analysis.expected,customWeights:report.analysis.weightsKey});
-  await context.close();
+  await page.unrouteAll({behavior:'ignoreErrors'});await context.close();
  }
  writeFileSync(directory+'/result.json',JSON.stringify({commit:process.env.GITHUB_SHA,results},null,2));
  console.log('Desktop and mobile passed: draft, cancel, Escape, zero guard, apply, real API, reload, reset, viewport.');
-}catch(error){if(browser)for(const context of browser.contexts())for(const page of context.pages())await page.screenshot({path:directory+'/failure.png'}).catch(()=>{});throw error;}
-finally{writeFileSync(directory+'/server.log',output);await browser?.close();server.kill('SIGTERM');if(server.exitCode===null)await new Promise(resolve=>server.once('exit',resolve));}
+}catch(error){writeFileSync(directory+'/failure.json',JSON.stringify({error:String(error),stack:error.stack,results},null,2));if(browser)for(const context of browser.contexts())for(const page of context.pages())await page.screenshot({path:directory+'/failure.png'}).catch(()=>{});throw error;}
+finally{writeFileSync(directory+'/server.log',output);if(browser)for(const context of browser.contexts())for(const page of context.pages())await page.unrouteAll({behavior:'ignoreErrors'});await browser?.close();server.kill('SIGTERM');if(server.exitCode===null)await new Promise(resolve=>server.once('exit',resolve));}
