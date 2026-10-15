@@ -1,0 +1,8 @@
+{
+  "recordedAt": "2026-10-15T11:35:00Z",
+  "type": "Post-coverage implementation decision; not a preregistered promotion",
+  "reason": "The 2026 feed has zero settled fixtures eligible for the sparse branch. The next sparse fixtures are still scheduled. The original full-promotion gate therefore remains failed for this branch.",
+  "decision": "Use the Champions observational-baseline behavior only when the independently fitted full Europa model passes all original gates, every available sparse selection/holdout/2025 audit passes, and the sole failed gate is zero 2026 sparse fixtures. Keep sparse.enabled=false and expose calibration.status=baseline, actual sample counts, and the absent 2026 audit.",
+  "unchanged": "No coefficients, prior selection, outcome thresholds or train/selection/holdout partitions were retuned. Do not call the sparse branch a promoted/calibrated model. Other failures still block it.",
+  "selectedPriorMatches": 3
+}

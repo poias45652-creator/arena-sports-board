@@ -2,16 +2,17 @@ import {selectFootballXgStrengthModel,footballXgStrengthAudit,footballXgStrength
 import {cupPriorEstimate,CUP_PRIOR_VERSION} from './football-cup-prior';
 // Server-only external history and source adapters. Never import from client UI.
 import archive from '../data/football/external-history-20260927.json';
+import europaArchive from '../data/football/europa-history-20261015.json';
 import identities from '../data/football/external-team-map.json';
 import quarantine from '../data/football/external-quarantine.json';
 import {analyzeFootball,footballDistribution,isFootballClubCup,parseFootballEvents,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
 import {externalAsGame,externalDayCutoff,externalFootballFeatures,FootballElo,type ExternalFootballGame} from './football-xg-features';
-import {externalFootballRates,footballExternalRuntime,footballExternalAudit,selectExternalFootballModel} from './football-external-model';
+import {externalFootballRates,footballExternalRuntime,footballEuropaRuntime,footballExternalAudit,selectExternalFootballModel} from './football-external-model';
 const SLUGS:Partial<Record<FootballLeague,string>>={'eng.1':'EPL','esp.1':'La_liga','ita.1':'Serie_A','ger.1':'Bundesliga','fra.1':'Ligue_1'};
 const map=identities.teams as Record<string,{name:string;understat:string|null;openfootball:string|null}>;
 const reverse=new Map<string,string>();for(const [id,v] of Object.entries(map))for(const key of [v.understat,v.openfootball])if(key)reverse.set(key,id);
 const externalId=(id:string,league:FootballLeague)=>league==='uefa.europa'?'espn:'+id:league==='uefa.champions'?(map[id]?.openfootball||'espn:'+id):map[id]?.understat||null;
-const archived:ExternalFootballGame[]=archive.games.map(r=>({id:String(r[0]),league:String(r[1]) as FootballLeague,start:String(r[2]),homeId:String(r[3]),awayId:String(r[4]),homeGoals:Number(r[5]),awayGoals:Number(r[6]),homeXg:r[7]===null?null:Number(r[7]),awayXg:r[8]===null?null:Number(r[8]),neutral:!!r[9]}));
+const archived:ExternalFootballGame[]=[...archive.games,...europaArchive.games].map(r=>({id:String(r[0]),league:String(r[1]) as FootballLeague,start:String(r[2]),homeId:String(r[3]),awayId:String(r[4]),homeGoals:Number(r[5]),awayGoals:Number(r[6]),homeXg:r[7]===null?null:Number(r[7]),awayXg:r[8]===null?null:Number(r[8]),neutral:!!r[9]}));
 type ExcludedFixture={pair:string;day:number};
 type Context={history:ExternalFootballGame[];fetchedAt:string;teams:Set<string>;conflicts:number;sources:string[];excluded?:ExcludedFixture[]};
 const cache=new Map<string,{expires:number;value?:Context;error?:Error}>(),pending=new Map<string,Promise<Context>>();
@@ -103,6 +104,15 @@ export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAna
   result={...analyzeFootball(game,asEspn,now),quality:base.quality,external:evidence};
  }
  const entry=strength?footballXgStrengthAudit(game.league):footballExternalAudit(game.league);
+ if(p&&entry&&!strength&&!features.enough&&game.league==='uefa.europa'&&(footballEuropaRuntime.sparse.enabled||footballEuropaRuntime.sparse.observationEnabled)){
+  const audit=footballEuropaRuntime.sparse,sparse=cupPriorEstimate(target,history,elo.difference(target),p,before,audit.priorMatches);
+  if(sparse){
+   const distribution=footballDistribution(sparse.rates.home,sparse.rates.away,sparse.rates.rho),probs=distribution.probabilities;
+   const best=[{name:'主勝',p:probs.home},{name:'和局',p:probs.draw},{name:'客勝',p:probs.away}].sort((x,y)=>y.p-x.p);
+   const version='football-europa-elo-sparse-v1';
+   return {...result,status:'ready',reason:'',capturedAt:new Date(now).toISOString(),version,historyMode:'competition',homeForm:sparse.home,awayForm:sparse.away,expected:{home:sparse.rates.home,away:sparse.rates.away},...distribution,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',external:{...evidence,reasons:[],modelApplied:true},calibration:{status:'baseline',label:'歐霸小樣本對手強度模型・觀察中',version,reasons:['2026年尚無可結算的小樣本，未取得完整校準驗收標籤'],holdoutGames:audit.sampleSizes.holdout,recentGames:audit.sampleSizes.audit2025,uncertainty:`2019–2020年${audit.sampleSizes.holdout}場、2025年${audit.sampleSizes.audit2025}場的小樣本檢查；2026年尚無可結算樣本，小樣本不確定性較高。`},notes:[`近一年歐霸資料池${sparse.poolGames}場；每隊至少1場近期歐霸賽果，保留實際樣本數。`,'使用歐霸自己的歷史進球與Elo係數；國內聯賽進球與歐冠係數不混用。',`${audit.priorMatches}場先驗以2017–2018年歐霸資料選擇；樣本越少，估計越靠近歐霸資料池均值。`,'預測為90分鐘含補時，不含加時與互射十二碼；未使用本場賠率或賽後資料。']};
+  }
+ }
  if(p&&entry&&!strength&&!features.enough&&game.league==='uefa.champions'){
   const sparse=cupPriorEstimate(target,history,elo.difference(target),p,before);
   if(sparse){
@@ -112,7 +122,7 @@ export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAna
   }
  }
  if(!p||!entry||!features.enough||(p.usesXg&&!features.xgEnough))return result;
- const rates=externalFootballRates(features.values,baseline.values,p),distribution=strength?xgStrengthDistribution(features.values,baseline.values,strength):footballDistribution(rates.home,rates.away,rates.rho),probs=distribution.probabilities,version=strength?footballXgStrengthRuntime.version:footballExternalRuntime.version;
+ const rates=externalFootballRates(features.values,baseline.values,p),distribution=strength?xgStrengthDistribution(features.values,baseline.values,strength):footballDistribution(rates.home,rates.away,rates.rho),probs=distribution.probabilities,version=strength?footballXgStrengthRuntime.version:game.league==='uefa.europa'?footballEuropaRuntime.version:footballExternalRuntime.version;
  const best=[{name:'主勝',p:probs.home},{name:'和局',p:probs.draw},{name:'客勝',p:probs.away}].sort((x,y)=>y.p-x.p);
  return {...result,status:'ready',reason:'',capturedAt:new Date(now).toISOString(),version,historyMode:'competition',homeForm:features.home,awayForm:features.away,expected:{home:rates.home,away:rates.away},...distribution,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',external:{...evidence,modelApplied:true},calibration:{status:'applied',label:strength?'xG與對手強度校準・觀察中':'外部資料校準・觀察中',version,reasons:[],holdoutGames:entry.sampleSizes.holdout,recentGames:entry.sampleSizes.audit2026,uncertainty:'獨立歷史測試與近期驗收通過，仍需持續觀察上線後表現。'},notes:[`${context.sources.join('＋')}逐場資料；${p.usesXg?'加入歷史xG、':'使用歷史進球、'}對手Elo、時間衰減及場地差異。`,'所有特徵只用預測當日之前的有效賽果；不使用本場賽後xG或收盤賠率。',strength?'2021–2022選模、2023–2024時間保留測試；2025、2026另行驗收，與現行聯賽模型比較。':'2019–2020獨立測試；2025、2026另行驗收。候選未通過的聯賽保留原模型。','尚未納入確認先發與傷停；歷史改善不保證未來命中率或獲利。']};
 }

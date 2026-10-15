@@ -17,6 +17,7 @@ const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asi
 export function FootballAnalysisNumbers({analysis,showScores=true}:{analysis:ReadyFootballAnalysis;showScores?:boolean}){
   const p=analysis.probabilities,scenarios=footballScoreScenarios(analysis);
   return <>
+    {analysis.version==='football-europa-elo-sparse-v1'&&<p className="football-venue" title={analysis.calibration?.uncertainty}>小樣本估算・主隊 {analysis.homeForm?.games} 場／客隊 {analysis.awayForm?.games} 場歐霸紀錄，持續觀察中</p>}
     <div className="football-probabilities">{[['主勝',p.home],['和局',p.draw],['客勝',p.away]].map(([label,value])=><div key={String(label)}><span>{label}</span><strong>{percent(Number(value))}</strong></div>)}</div>
     <div className="football-probability-bar" aria-hidden="true"><span style={{width:p.home*100+'%'}}/><span style={{width:p.draw*100+'%'}}/><span style={{width:p.away*100+'%'}}/></div>
     <div className="football-goals"><div><span>模型大 2.5 球</span><b>{percent(p.over25)}</b></div><div><span>模型小 2.5 球</span><b>{percent(p.under25)}</b></div><div><span>雙方都進球</span><b>{percent(p.btts)}</b></div></div>
@@ -25,7 +26,7 @@ export function FootballAnalysisNumbers({analysis,showScores=true}:{analysis:Rea
   </>;
 }
 
-type Props={snapshot:any;oddsError:string;sourceLoading?:boolean;games:FootballGame[];reports:Record<string,FootballReport>;analysisActivity?:Record<string,'queued'|'loading'>;analysisNotice?:string;league:FootballLeague;leagueName:string;day:string;now:number;sourceFetchedAt?:string;unavailable:boolean;loading:boolean};
+type Props={snapshot:any;oddsError:string;oddsErrorCode?:string;sourceLoading?:boolean;games:FootballGame[];reports:Record<string,FootballReport>;analysisActivity?:Record<string,'queued'|'loading'>;analysisNotice?:string;league:FootballLeague;leagueName:string;day:string;now:number;sourceFetchedAt?:string;unavailable:boolean;loading:boolean};
 export default function FootballRecommendationsPane(props:Props){
   const id=useId(),workspace=useSuperWorkspace();
   const docked=workspace?.activePane===id&&!!workspace.host;
@@ -42,7 +43,7 @@ export default function FootballRecommendationsPane(props:Props){
         {retainFootballForecast(row.game,clock)&&<p>賽前預測・保留至今日 24:00</p>}
         <div className="football-recommendation-match"><div><small>主隊</small><a className="football-team-link" href={footballTeamHref(props.league,row.game.home.id,props.day)} aria-label={`查看${row.game.home.name}球隊數據`}><strong>{row.game.home.name}</strong></a></div><b>{row.game.homeScore!==null&&row.game.awayScore!==null?`${row.game.homeScore} : ${row.game.awayScore}`:'VS'}</b><div><small>客隊</small><a className="football-team-link" href={footballTeamHref(props.league,row.game.away.id,props.day)} aria-label={`查看${row.game.away.name}球隊數據`}><strong>{row.game.away.name}</strong></a></div></div>
         <dl className="football-recommendation-directions">{[['勝負推薦',row.result],['雙方進球',row.btts]].map(([label,pick])=>typeof pick==='object'&&pick&&<div key={String(label)}><dt>{String(label)}</dt><dd><strong>{pick.label}</strong><b>{percent(pick.probability)}</b></dd></div>)}</dl>
-        <FootballAnalysisNumbers analysis={row.analysis}/><SportMarkets game={row.game} analysis={row.analysis} snapshot={props.snapshot} sourceLoading={props.sourceLoading} error={props.oddsError} sport="FOOTBALL" now={clock}/>
+        <FootballAnalysisNumbers analysis={row.analysis}/><SportMarkets game={row.game} analysis={row.analysis} snapshot={props.snapshot} sourceLoading={props.sourceLoading} error={props.oddsError} errorCode={props.oddsErrorCode} sport="FOOTBALL" now={clock}/>
       </article>):<p className="football-recommendations-empty" role="status">{props.analysisNotice||(unavailable?'推薦資料暫時無法取得':pending?'正在整理足球推薦…':'目前沒有可用的賽前推薦')}</p>}
     </section>,workspace!.host!)}
   </>;

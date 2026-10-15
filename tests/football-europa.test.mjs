@@ -50,8 +50,8 @@ test('Europa analysis uses its own history and keeps the same three-score contra
   const foreign=history.map(g=>({...g,league:'uefa.champions'}));
   assert.equal(f.analyzeFootball(game,foreign,now).probabilities,undefined);
   const cross=f.analyzeFootball(game,[],now,foreign);
-  assert.equal(cross.status,'ready');assert.equal(cross.historyMode,'recent-form');
-  assert.equal(cross.version,'football-recent-form-v1');
+  assert.equal(cross.status,'waiting');assert.equal(cross.historyMode,'recent-form');
+  assert.equal(cross.version,'football-cup-strength-required-v1');assert.equal(cross.probabilities,undefined);
   assert.equal(cross.calibration.status,'baseline');assert.equal(cross.calibration.holdoutGames,0);
 });
 
@@ -66,7 +66,7 @@ test('Europa annual recovery requests its own league and preserves ESPN team ide
   globalThis.fetch=async url=>{paths.push(String(url));return Response.json(final);};
   try{
     const context=await external.loadExternalFootballContext(league,now);
-    assert.equal(context.history.length,18);assert.deepEqual(context.sources,['ESPN']);
+    assert.ok(context.history.length>5000);assert.ok(context.history.some(g=>g.id==='espn:'+game.id));assert.deepEqual(context.sources,['ESPN']);
     assert.ok(context.history.every(g=>g.league===league&&g.homeId.startsWith('espn:')&&g.awayId.startsWith('espn:')));
     assert.equal(paths.length,2);assert.ok(paths.every(p=>p.includes('/uefa.europa/scoreboard?dates=')));
   }finally{globalThis.fetch=original;}

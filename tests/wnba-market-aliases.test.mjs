@@ -1,3 +1,4 @@
+const oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
@@ -40,7 +41,7 @@ test('the WNBA fix preserves source freshness, time, league, orientation and dup
 });
 test('the actual WNBA analysis panel renders market outcomes even when availability is unconfirmed',()=>{
  const code=ts.transpileModule(readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
- const C=new Function('require','exports','React',code+';return exports.default;')(key=>{assert.equal(key,'@/lib/sport-super-markets');return m;},{},React);
+ const C=new Function('require','exports','React',code+';return exports.default;')(key=>{if(key==='@/lib/member-odds-client')return oddsClient;assert.equal(key,'@/lib/sport-super-markets');return m;},{},React);
  const analysis={status:'ready',capturedAt:at,expected:{home:85,away:81,total:166,margin:4},probabilities:{home:.624,away:.376},totalSigma:15,playerContext:{status:'applied',marginSigma:12,recommendationEligible:false,preseason:false}};
  const html=renderToStaticMarkup(React.createElement(C,{game:game(fixtures[1]),analysis,snapshot:source(),sport:'WNBA',now}));
  for(const label of ['3 種玩法','全場讓分','全場大小分','全場獨贏','全贏','中洞贏','62.4%'])assert.ok(html.includes(label),label);

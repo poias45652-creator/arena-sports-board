@@ -1,11 +1,13 @@
 import runtime from '../data/football/external-calibration-runtime.json';
+import europaRuntime from '../data/football/europa-calibration-runtime.json';
 import type {FootballLeague} from './football';
 export type ExternalFootballParameters={decayDays:number;venueWeight:number;blend:number;homeIntercept:number;awayIntercept:number;goalAttack:number;goalDefense:number;xgAttack:number;xgDefense:number;elo:number;rho:number;usesXg:boolean};
 export const footballExternalRuntime=runtime;
-export function footballExternalAudit(league:FootballLeague){return (runtime.leagues as Partial<Record<FootballLeague,typeof runtime.leagues[keyof typeof runtime.leagues]>>)[league];}
+export const footballEuropaRuntime=europaRuntime;
+export function footballExternalAudit(league:FootballLeague){return league==='uefa.europa'?europaRuntime.full:(runtime.leagues as Partial<Record<FootballLeague,typeof runtime.leagues[keyof typeof runtime.leagues]>>)[league];}
 export function selectExternalFootballModel(league:FootballLeague,now=Date.now()){
- const entry=footballExternalAudit(league);
- return entry?.enabled&&now>=Date.parse(runtime.createdAt)&&now<Date.parse(runtime.expiresAt)?entry.parameters as ExternalFootballParameters:null;
+ const entry=footballExternalAudit(league),artifact=league==='uefa.europa'?europaRuntime:runtime;
+ return entry?.enabled&&now>=Date.parse(artifact.createdAt)&&now<Date.parse(artifact.expiresAt)?entry.parameters as ExternalFootballParameters:null;
 }
 export function externalFootballRates(input:number[],baseline:number[],p:ExternalFootballParameters){
  const [hs,hc,as,ac,hx,hxa,ax,axa,diff,neutral]=input,clamp=(n:number)=>Math.max(.15,Math.min(5,n)),ih=neutral?(p.homeIntercept+p.awayIntercept)/2:p.homeIntercept,ia=neutral?(p.homeIntercept+p.awayIntercept)/2:p.awayIntercept;

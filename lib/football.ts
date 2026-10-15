@@ -22,7 +22,7 @@ export type FootballFormOptions = {decayDays:number;venueWeight:number;competiti
 export const CUP_STRENGTH_REASON='跨聯賽對手強度尚未校正，暫不提供模型勝率與比分。';
 export const isFootballClubCup=(league:string)=>league==='uefa.champions'||league==='uefa.europa';
 export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysis:FootballAnalysis|undefined){
-  return game.league==='uefa.champions'&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
+  return isFootballClubCup(game.league)&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
 }
 export type FootballAnalysis = {
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
@@ -176,7 +176,7 @@ export function analyzeFootball(game:FootballGame,history:FootballGame<string>[]
   // A reduced sample weight does not translate domestic/qualifying goal rates
   // onto the Champions League scale. The external opponent model can recover
   // this report only when its own comparable-history requirements are met.
-  if(game.league==='uefa.champions'&&historyMode==='recent-form')return {...base,version:'football-cup-strength-required-v1',historyMode,homeForm,awayForm,status:'waiting',reason:CUP_STRENGTH_REASON};
+  if(isFootballClubCup(game.league)&&historyMode==='recent-form')return {...base,version:'football-cup-strength-required-v1',historyMode,homeForm,awayForm,status:'waiting',reason:CUP_STRENGTH_REASON};
   const clamp=(v:number)=>Math.max(.15,Math.min(5,v));
   const expected=parameters?calibratedFootballGoals(homeForm,awayForm,parameters,game.neutral):{home:clamp((homeForm.scored+awayForm.conceded)/2),away:clamp((awayForm.scored+homeForm.conceded)/2)};
   const result=footballDistribution(expected.home,expected.away,parameters?.rho||0),p=result.probabilities;

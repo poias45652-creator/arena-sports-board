@@ -21,7 +21,7 @@ function declaration(file,name,scope){
   const code=ts.transpileModule(node.getText(source).replace(/^export\s+/,''),{fileName:file,compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
   return new Function(...Object.keys(scope),code+'\nreturn '+name+';')(...Object.values(scope));
 }
-const SportMarkets=component('app/sport-markets.tsx',{'@/lib/sport-super-markets':await import(moduleUrl('lib/sport-super-markets.ts'))}).default;
+const SportMarkets=component('app/sport-markets.tsx',{'@/lib/member-odds-client':await import(moduleUrl('lib/member-odds-client.ts')),'@/lib/sport-super-markets':await import(moduleUrl('lib/sport-super-markets.ts'))}).default;
 const FootballTeamIdentity=component('app/football-team.tsx',{'react':React,'@/lib/football-team-profile':profile}).default;
 const FootballAnalysisNumbers=declaration('app/football-recommendations.tsx','FootballAnalysisNumbers',{React,...scenarios,percent:n=>(n*100).toFixed(1)+'%'});
 const time=value=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -102,6 +102,13 @@ test('expired and mismatched reports never display probabilities, while same-day
   assert.ok(html.includes((analysis.probabilities.home*100).toFixed(1)+'%'));
   assert.match(html,/三組比分(?:預測|情境)/);assert.equal((html.match(/class="football-score-label"/g)||[]).length,3);
   assert.ok(!html.includes('sport-market-details'));
+});
+test('member connection failures expose the correct recovery action without hiding ready football analysis',()=>{
+ for(const [oddsErrorCode,label] of [['not_connected','重新連接 SUPER'],['source_auth_expired','重新連接 SUPER'],['tz_auth_expired','重新登入並連接']]){
+  const html=render({report:{game,analysis},oddsError:'具體授權問題',oddsErrorCode});
+  assert.ok(html.includes(label));assert.ok(html.includes('具體授權問題'));
+  assert.ok(!html.includes('玩法資料載入失敗'));assert.ok(html.includes('football-probabilities'));
+ }
 });
 
 if(process.env.FOOTBALL_UI_PREVIEW_PATH){

@@ -126,7 +126,7 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
  let binding:Binding|null=null,operationId:string|undefined,sourceOwner:string|undefined;
  try{
   binding=await db.prepare('SELECT member_id, encrypted_token, expires_at, verified_at, game_url FROM tz_bindings WHERE member_id = ?').bind(memberId).first<Binding>();
-  if(!binding)return reply({error:'請先綁定帳號。',code:'binding_required'},409);
+  if(!binding){console.warn('member-odds-state',JSON.stringify({mode,code:'binding_required',status:409}));return reply({error:'請先綁定帳號。',code:'binding_required'},409);}
   let row=await db.prepare('SELECT * FROM hr_connections WHERE member_id = ?').bind(memberId).first<Connection>();
   if(mode==='status')return reply(publicStatus(row,binding));
   if(binding.expires_at<=Date.now())throw new HrError('tz_auth_expired','授權已到期，請重新驗證帳號。',409);
@@ -172,6 +172,7 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
   return reply({...snapshot,connection:{status:'connected',fetchedAt:snapshot.fetchedAt,gameCount:snapshot.games.length,message:'SUPER 資料已取得。'}});
  }catch(e){
   const error=e instanceof HrError?e:new HrError('service_unavailable','會員資料服務暫時無法使用，請稍後重試。',503);
+  console.warn('member-odds-state',JSON.stringify({mode,code:error.code,status:error.status}));
   if(operationId&&binding){try{await db.prepare('UPDATE hr_connections SET last_error=?,error_code=?,busy_until=? WHERE member_id=? AND operation_id=? AND binding_version=?').bind(error.message,error.code,Date.now()+15000,memberId,operationId,binding.verified_at).run();}catch{}}
   return reply({error:error.message,code:error.code,source:'hr9988',games:[],fetchedAt:null},error.status);
  }finally{if(sourceOwner)await releaseSuperSession(db,memberId,sourceOwner).catch(()=>{});}

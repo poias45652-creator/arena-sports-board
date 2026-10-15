@@ -1,7 +1,22 @@
 // All league panels use the same private snapshot. Share only the in-flight
 // request; never cache it across sign-ins or change its source timestamp.
 export class MemberOddsError extends Error{
- constructor(message:string,public retryable=false){super(message);}
+ constructor(message:string,public retryable=false,public code=''){super(message);}
+}
+export function memberOddsRecovery(code:string){
+ if(['signin_required','binding_required','tz_auth_expired'].includes(code))return {summary:'玩法授權已到期',label:'重新登入並連接',action:'signin'} as const;
+ if(['not_connected','source_auth_expired','binding_changed'].includes(code))return {summary:'玩法需要重新連接',label:'重新連接 SUPER',action:'connect'} as const;
+ if(code==='super_in_use')return {summary:'SUPER 使用中',label:'重新取得玩法',action:'refresh'} as const;
+ if(code==='connection_busy')return {summary:'玩法正在更新',label:'重新取得玩法',action:'refresh'} as const;
+ if(code==='game_url_required')return {summary:'請先設定 SUPER 賽事網址',label:'重新取得玩法',action:'refresh'} as const;
+ return {summary:'玩法資料載入失敗',label:'重新取得玩法',action:'refresh'} as const;
+}
+// A user gesture chooses this action. Polling remains read-only and can never
+// replace a session being used in the separate SUPER workspace.
+export function recoverMemberOdds(code:string){
+ const recovery=memberOddsRecovery(code);
+ if(recovery.action==='signin'){window.location.assign('/login?reason=renew');return;}
+ window.dispatchEvent(new Event(recovery.action==='connect'?'arena-connect-odds':'arena-odds-change'));
 }
 export function memberOddsRequestError(error:unknown):MemberOddsError{
  if(error instanceof MemberOddsError)return error;
@@ -39,7 +54,7 @@ export function createMemberOddsReader(fetcher:typeof fetch=(...args)=>fetch(...
       // Source authorization failures can also use HTTP 502. Only these
       // explicit temporary codes may retry; never reconnect or log in here.
       const retryable=body.code?['connection_busy','source_unreachable','source_unavailable','service_unavailable'].includes(body.code):transientStatus;
-      throw new MemberOddsError(body.error||'玩法來源暫時無法連線',retryable);
+      throw new MemberOddsError(body.error||'玩法來源暫時無法連線',retryable,typeof body.code==='string'?body.code:'');
      }
      return body;
     }catch(error){

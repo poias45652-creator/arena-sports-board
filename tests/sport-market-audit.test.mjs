@@ -1,3 +1,4 @@
+const oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -92,7 +93,7 @@ test('audit emits bounded allowlisted source metadata without credentials, raw r
  assert.equal(m.sportSourceAudit(many,now).fixtures.length,120);assert.equal(m.sportSourceAudit(many,now).truncated,true);
 });
 const code=ts.transpileModule(fs.readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
-const C=new Function('require','exports','React',code+'\nreturn exports.default;')(key=>{assert.equal(key,'@/lib/sport-super-markets');return m;},{},React);
+const C=new Function('require','exports','React',code+'\nreturn exports.default;')(key=>{if(key==='@/lib/member-odds-client')return oddsClient;assert.equal(key,'@/lib/sport-super-markets');return m;},{},React);
 const analysis={status:'ready',capturedAt:new Date(now).toISOString(),expected:{home:2,away:1},probabilities:{home:.6,draw:.2,away:.2}};
 const render=(s,props={})=>renderToStaticMarkup(React.createElement(C,{game:game(),analysis,snapshot:s,sport:'FOOTBALL',now,...props}));
 test('actual expanded component shows two repaired cards, only available play counts, and precise failure text',()=>{
