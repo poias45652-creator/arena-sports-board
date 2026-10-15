@@ -1,7 +1,7 @@
 import {claimSuperSession,releaseSuperSession} from './super-session-lock';
 import {superDeviceEntryUrl,superLaunchIsGet,superLaunchShape} from './super-entry-url';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
-import {hrSportsRequests,parseHrGameDetail} from './hr9988';
+import {hrSportsRequests,hrFootballCompetition,parseHrGameDetail} from './hr9988';
 import type {SuperSnapshot} from './super007';
 
 type Statement={bind(...values:unknown[]):Statement;first<T=any>():Promise<T|null>;run():Promise<unknown>};
@@ -72,6 +72,7 @@ async function openSession(binding:Binding,key:CryptoKey,fetcher:typeof fetch):P
  if(!text(loginID)||!text(mbID))throw new HrError('exchange_format_changed','SUPER 登入回應缺少會員授權，尚未連接。');
  return {origin,loginID,mbID};
 }
+let lastCoverageLoggedAt=0;
 async function collect(session:Session,fetcher:typeof fetch):Promise<SuperSnapshot>{
  hrOrigin(new URL(session.origin));if(!text(session.loginID)||!text(session.mbID))throw new HrError('source_auth_expired','保存的 SUPER 授權無效，請重新連接。');
  const auth={SSSLANG:'tw',SSSToken:session.loginID,SSSMBID:session.mbID};
@@ -79,16 +80,26 @@ async function collect(session:Session,fetcher:typeof fetch):Promise<SuperSnapsh
  try{
   const menu=await post(session.origin+'/api/GameInfo/Menu',{},auth,fetcher,true);
   try{requests=hrSportsRequests(menu);}catch{throw new HrError('odds_menu_changed','SUPER 選單格式改變，暫停讀取。');}
-  // At most four independent reads share the same session, including the
-  // dedicated Champions category. Await all before releasing the lease.
+  const menuCategories=menu.data.list.find((m:any)=>m.GameType===3)?.LeftMenu.item??[];
+  // At most five independent reads share the same session, including the
+  // dedicated European cups. Await all before releasing the lease.
   const results=await Promise.allSettled(requests.map(async request=>{
-   const name=request.CatID===101?'棒球':request.CatID===102?'籃球':request.CatID===31?'冠軍聯賽':'足球';
+   const name=request.CatID===101?'棒球':request.CatID===102?'籃球':request.CatID===31?'冠軍聯賽':request.CatID===1?'足球':menuCategories.find((c:any)=>c.catid===request.CatID).catName;
    try{const detail=await post(session.origin+'/api/GameInfo/GameDetail',request,auth,fetcher,true);return {CatID:request.CatID,CatName:name,Items:detail.data};}
    catch(e){if(e instanceof HrError)throw new HrError(e.code,name+'：'+e.message,e.status);throw e;}
   }));
   const failed=results.find(r=>r.status==='rejected');if(failed?.status==='rejected')throw failed.reason;
   const categories=results.flatMap(r=>r.status==='fulfilled'?[r.value]:[]);
   raw={code:200,data:categories};
+  // Only bounded, public competition metadata. No member/session fields,
+  // source response dumps or prices; include unrecognized labels for diagnosis.
+  if(Date.now()-lastCoverageLoggedAt>=300000){
+   lastCoverageLoggedAt=Date.now();
+   console.info('super-source-coverage',JSON.stringify({fetchedAt:new Date().toISOString(),
+    categories:menuCategories.slice(0,40).map((c:any)=>({id:Number.isSafeInteger(c.catid)?c.catid:null,name:String(c.catName||'').slice(0,80),selected:requests.some(r=>r.CatID===c.catid)})),
+    leagues:categories.flatMap(c=>(Array.isArray(c.Items?.List)?c.Items.List:[]).map((l:any)=>({category:c.CatID,name:String(l.LeagueNameStr||'').slice(0,100),competition:hrFootballCompetition(String(l.LeagueNameStr||'')),games:Array.isArray(l.Team)?l.Team.length:0}))).slice(0,100)
+   }));
+  }
  }catch(e){if(e instanceof HrError)throw new HrError(e.code,'SUPER 資料：'+e.message,e.status);throw e;}
  try{
   const snapshot=parseHrGameDetail(raw,new Date().toISOString());

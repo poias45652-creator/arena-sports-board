@@ -73,7 +73,7 @@ test('Europa annual recovery requests its own league and preserves ESPN team ide
 });
 
 test('Europa source labels match exactly and cannot capture Champions, Conference, youth or women competitions',()=>{
-  for(const label of ['歐霸','歐霸聯賽','歐洲足總歐霸聯賽','歐洲聯賽','歐羅巴聯賽','歐霸盃','歐聯盃','歐洲聯盟杯','UEFA Europa League','歐洲聯賽-聯賽階段'])assert.equal(hrFootballCompetition(label),league,label);
+  for(const label of ['歐霸','歐足總歐霸聯賽','歐霸聯賽','歐洲足總歐霸聯賽','歐洲聯賽','歐羅巴聯賽','歐霸盃','歐聯盃','歐洲聯盟杯','UEFA Europa League','歐洲聯賽-聯賽階段'])assert.equal(hrFootballCompetition(label),league,label);
   assert.equal(hrFootballCompetition('歐洲聯賽冠軍盃'),'uefa.champions');
   for(const label of ['歐洲協會聯賽','歐洲足總歐洲協會聯賽','歐羅巴協會聯賽','歐洲U19聯賽','歐洲女子聯賽','歐霸聯賽U21'])assert.equal(hrFootballCompetition(label),null,label);
   const start=new Date(Date.parse(game.start)+8*3600000).toISOString().slice(0,19).replaceAll('-','/').replace('T',' ');
