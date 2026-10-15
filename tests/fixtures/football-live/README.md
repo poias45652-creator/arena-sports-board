@@ -12,3 +12,5 @@ Unrelated articles, videos, betting offers and repeated links are omitted; IDs, 
 Used by parser tests and the isolated built-application browser fixture. They do not replace production sources. Missing statistics stay missing; points per game is calculated from points / games because the captured source reports ppg=0.
 
 `logo-142.png`, `logo-2572.png`, `player-335870.png` and `player-332573.png` are captured ESPN PNGs for those exact identifiers, used only to make browser visual checks independent of external image timing.
+
+`europa-commentary.json` records the 115 available play-by-play entries from ESPN event 401915573 (AZ–Hapoel), captured 2026-10-15 UTC. It retains source team/player spellings and commentary for the reported Chinese-localization regression; unrelated summary fields are omitted.
