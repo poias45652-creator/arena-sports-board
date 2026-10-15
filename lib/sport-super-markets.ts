@@ -45,6 +45,11 @@ const footballAliases:Record<string,string>={
  '皇家貝迪斯':'皇家貝提斯','波杜基林特':'博多格林特',
  // October 15 authenticated Europa coverage, verified against ESPN fixtures.
  '採列':'采列','薩爾茨堡紅牛':'薩爾斯堡紅牛',
+ // Remaining identities in the full 18-fixture capture at 12:33:44Z.
+ '聖吉羅斯':'聖吉羅斯聯','皇家蘇斯達':'皇家社會','圖倫斯':'托倫斯',
+ '波茲南萊希':'波茲南萊克','凱爾特人':'塞爾提克','薩格勒布戴拿模':'札格瑞布迪納摩',
+ 'OFI克雷迪':'OFI克里特','皮爾森':'比爾森勝利','索菲亞利夫斯基':'索菲亞列夫斯基',
+ '喬治羅尼亞':'雅蓋隆尼亞','阿拉特阿美尼亞':'阿拉拉特亞美尼亞',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};

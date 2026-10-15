@@ -7,8 +7,8 @@ const f=await import(moduleUrl('lib/football.ts'));
 const source=await import(moduleUrl('lib/football-source.ts'));
 const external=await import(moduleUrl('lib/football-external-source.ts'));
 const {selectExternalFootballModel}=await import(moduleUrl('lib/football-external-model.ts'));
-const {hrFootballCompetition}=await import(moduleUrl('lib/hr9988.ts'));
-const {sportSourceAudit,matchSportEvent}=await import(moduleUrl('lib/sport-super-markets.ts'));
+const {hrFootballCompetition,parseHrGameDetail}=await import(moduleUrl('lib/hr9988.ts'));
+const {sportSourceAudit,matchSportEvent,sportTeamKey}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const {scheduleLiveUntil}=await import(moduleUrl('lib/sport-live.ts'));
 const fixture=JSON.parse(readFileSync('tests/fixtures/football-europa-20261015.json','utf8'));
 const league='uefa.europa',day='2026-10-16',now=Date.parse('2026-10-15T10:00:00Z');
@@ -89,4 +89,31 @@ test('Europa live scores light the shared football badge only for a fresh matchi
   assert.ok(scheduleLiveUntil(board,league,day,liveNow)>liveNow);
   assert.equal(scheduleLiveUntil(board,'uefa.champions',day,liveNow),0);
   assert.equal(scheduleLiveUntil(board,league,day,liveNow+120000),0);
+});
+
+
+test('all 18 authenticated Europa source fixtures pair uniquely to the independently captured ESPN schedule',()=>{
+  const recorded=JSON.parse(readFileSync('tests/fixtures/football-europa-source-identities-20261015.json','utf8'));
+  const capturedNow=Date.parse(recorded.capturedAt);
+  assert.equal(recorded.fixtures.length,18);assert.equal(games.length,18);
+  // Actual identity metadata only. Wagers are synthetic, since private source
+  // prices are neither needed nor retained in this regression fixture.
+  const syntheticWager=JSON.parse(readFileSync('tests/fixtures/sport-super-game-details.json','utf8')).data.find(c=>c.CatID===1).Items.List[0].Team[0].Wager;
+  const response={code:200,data:[{CatID:31,CatName:'冠軍聯賽',Items:{List:[{LeagueNameStr:recorded.leagueName,Team:recorded.fixtures.map(r=>({EvtID:r.id,HomeTeamStr:r.home,AwayTeamStr:r.away,ScheduleTimeStr:r.start,Live:r.live,EvtStatus:1,Wager:structuredClone(syntheticWager)}))}]}}]};
+  const snapshot=parseHrGameDetail(response,recorded.capturedAt),matchedIds=new Set();
+  for(const game of games){
+    const matched=matchSportEvent(snapshot,game,'FOOTBALL',capturedNow);
+    assert.ok(matched,game.home.name+' / '+game.away.name);matchedIds.add(matched.id);
+    const actual=recorded.fixtures.find(r=>r.id===matched.id);
+    assert.equal(actual.availableMarkets,3);assert.deepEqual(Object.values(actual.marketStates),['ready','ready','ready']);
+    for(const kind of ['spread','total','moneyline'])assert.ok(matched[kind],kind);
+    assert.equal(matchSportEvent(snapshot,{...game,league:'uefa.champions'},'FOOTBALL',capturedNow),null);
+    assert.equal(matchSportEvent(snapshot,{...game,home:game.away,away:game.home},'FOOTBALL',capturedNow),null);
+    assert.equal(matchSportEvent(snapshot,{...game,start:new Date(Date.parse(game.start)+7*86400000).toISOString()},'FOOTBALL',capturedNow),null);
+  }
+  assert.equal(matchedIds.size,18);assert.deepEqual(sportSourceAudit(snapshot,capturedNow).unrecognizedTeamNames,[]);
+  for(const r of recorded.fixtures)for(const name of [r.home,r.away]){
+    assert.notEqual(sportTeamKey(name+'U21','FOOTBALL'),sportTeamKey(name,'FOOTBALL'));
+    assert.notEqual(sportTeamKey(name+'(女)','FOOTBALL'),sportTeamKey(name,'FOOTBALL'));
+  }
 });
