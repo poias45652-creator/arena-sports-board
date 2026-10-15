@@ -28,7 +28,7 @@ export function NbaAnalysisNumbers({game,analysis}:{game:NbaGame;analysis:NbaAna
  const context='playerContext' in analysis?analysis.playerContext:undefined;
  const p=analysis.probabilities!,e=analysis.expected!,pick=nbaPick(game,analysis),display=nbaDisplayedProbabilities(p),score=nbaDisplayedScore(e,p);
  return <div className="nba-analysis-numbers">
-  <div className="nba-analysis-heading"><span>賽前預測</span><small>{context?.status==='unavailable'?'球隊數據推估・球員資料更新中':context?.status==='applied'?(context.preseason?'熱身賽情境推估':context.calibrated?'球員實力推估':'球員情境推估'):analysis.model.includes('monte-carlo')?'效率模擬':'近況推估'}</small></div>
+  <div className="nba-analysis-heading"><span>賽前預測</span><small>{'customWeights' in analysis&&analysis.customWeights?'自訂比例・':''}{context?.status==='unavailable'?'球隊數據推估・球員資料更新中':context?.status==='applied'?(context.preseason?'熱身賽情境推估':context.calibrated?'球員實力推估':'球員情境推估'):analysis.model.includes('monte-carlo')?'效率模擬':'近況推估'}</small></div>
   <div className="nba-forecast-score"><span>預估比分<small>客：主</small></span><b>{score?.away??'—'}<i>:</i>{score?.home??'—'}</b></div>
   <div className="nba-probabilities"><div><span>客勝</span><strong>{display.away}</strong></div><div><span>主勝</span><strong>{display.home}</strong></div></div>
   <div className="nba-probability-bar" aria-hidden="true"><i style={{width:`${p.away*100}%`}}/><i style={{width:`${p.home*100}%`}}/></div>

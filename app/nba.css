@@ -291,3 +291,22 @@
 
 .nba-player-card span{display:block;overflow-wrap:anywhere;margin-top:4px}.nba-player-card img{flex-shrink:0}
 .nba-player-card div>span{display:block;margin-top:3px}.nba-profile-caption a{color:#e9be56}.nba-profile>.nba-profile-inner>.nba-source-link{display:inline-block;margin-right:18px}
+.nba-tabs-row{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nba-tabs-row .nba-tabs{flex:1;margin-bottom:0}
+.nba-model-trigger{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:10px 16px;border:1px solid #40536b;border-radius:8px;background:#1a2b3c;color:#f6f8fc;font-size:14px;font-weight:700;white-space:nowrap}
+.nba-model-trigger:hover{border-color:#ffda37;color:#ffda37}.nba-model-trigger small{color:#ffda37;font-size:11px}
+.nba-weights-notice{margin:10px 0;color:#b8cadb;font-size:13px}
+.nba-model-dialog{position:fixed;inset:0;margin:auto;width:min(550px,calc(100vw - 28px));max-height:calc(100dvh - 28px);padding:0;overflow:auto;border:1px solid #33475d;border-radius:24px;background:#0d1b2a;color:#f3f6fb;box-shadow:0 28px 100px #0008}
+.nba-model-dialog::backdrop{background:#020914ba;backdrop-filter:blur(3px)}
+.nba-model-dialog form{padding:24px}.nba-model-dialog header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.nba-model-dialog h2{margin:0;font-size:23px;font-weight:700;line-height:1.4}.nba-model-close{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;border-radius:50%;color:#b6c4d5}.nba-model-close:hover{background:#26394d;color:white}
+.nba-model-dialog p{font-size:14px;line-height:1.65;color:#9eafc4;margin:16px 0}.nba-model-context{display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid #04c7b5;border-radius:8px;padding:10px 12px;color:#19dfca;font-size:14px;font-weight:700}.nba-model-context span{color:#a8bacc;font-weight:400;font-size:12px}
+.nba-model-dialog .nba-model-hint{font-size:13px;margin:14px 0 20px}.nba-model-sliders{display:grid;gap:22px}
+.nba-model-sliders label{display:grid;gap:14px}.nba-model-sliders label>span{display:flex;justify-content:space-between;gap:16px;font-size:15px;font-weight:600}.nba-model-sliders output{color:#ffda37;font-weight:500;font-variant-numeric:tabular-nums}
+.nba-model-sliders input{appearance:none;-webkit-appearance:none;width:calc(100% - 32px);height:5px;border-radius:4px;margin:7px 16px 9px;cursor:pointer;outline-offset:7px}
+.nba-model-sliders input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;height:18px;width:18px;border-radius:50%;background:#94a4ba;border:2px solid #fff;box-shadow:0 0 0 8px transparent}
+.nba-model-sliders input::-moz-range-thumb{height:14px;width:14px;border-radius:50%;background:#94a4ba;border:2px solid #fff}
+.nba-model-dialog .nba-model-storage{font-size:12px;margin:23px 0 14px;color:#8598af}.nba-model-dialog .nba-model-error{color:#ffb3ab;margin:16px 0 0}
+.nba-model-dialog footer{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:10px}.nba-model-dialog footer button{min-height:42px;padding:8px 14px;border-radius:22px;color:#ffda37;font-size:14px;font-weight:700}.nba-model-dialog footer .nba-model-reset{margin-right:auto;padding-left:0}
+.nba-model-dialog footer .nba-model-apply{background:#ffda37;color:#101720;min-width:74px}.nba-model-dialog footer .nba-model-apply:not(:disabled):hover{color:#101720;background:#ffe66a}.nba-model-dialog footer button:disabled{opacity:.4;cursor:not-allowed}.nba-model-dialog button:focus-visible,.nba-model-trigger:focus-visible{outline:2px solid #ffda37;outline-offset:4px}
+@media(max-width:600px){.nba-tabs-row{gap:10px}.nba-tabs-row .nba-tabs{flex-basis:100%}.nba-model-trigger{margin-left:auto}.nba-model-dialog{border-radius:18px}.nba-model-dialog form{padding:20px}.nba-model-dialog h2{font-size:20px}.nba-model-context{align-items:flex-start;flex-direction:column;gap:4px}.nba-model-sliders{gap:19px}.nba-model-dialog footer{gap:4px}.nba-model-dialog footer button{font-size:13px;padding:8px 11px}}
