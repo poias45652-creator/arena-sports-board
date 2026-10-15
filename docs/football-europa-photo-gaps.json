@@ -183,7 +183,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/players/player/?player_id=215909",
       "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F"
@@ -280,7 +280,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/players/player/?player_id=204742",
       "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8"
@@ -426,7 +426,8 @@
     "sofascoreId": "2801661",
     "pages": [],
     "urls": [
-      "https://i.ytimg.com/vi/Z21x4BLOMEk/maxresdefault.jpg"
+      "https://images.multiball.forzafootball.net/photos/player/thumbnail/1221547549.jpg",
+      "https://objetos.estaticos-marca.com/assets/sports/headshots/football/305/png/144x144/756578.png"
     ]
   },
   {
