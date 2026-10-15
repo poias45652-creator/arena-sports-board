@@ -54,16 +54,17 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUefaId": "250217953",
     "previousUrls": [
-      "https://dsg-images.com/players/150x150/8140887.png"
-    ],
-    "pages": [],
-    "urls": [
+      "https://dsg-images.com/players/150x150/8140887.png",
       "https://sportaran.com/media/photos/2026/0319/Martun.webp"
-    ]
+    ],
+    "pages": [
+      "https://fmtransferupdate.com/players/2000511890-martun-hovhannisyan"
+    ],
+    "urls": []
   },
   {
     "id": "3093908",
@@ -180,9 +181,10 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
-      "https://www.football.org.il/players/player/?player_id=215909"
+      "https://www.football.org.il/players/player/?player_id=215909",
+      "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F"
     ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2701812/image",
@@ -190,7 +192,8 @@
     ],
     "sofascoreId": "2701812",
     "pages": [
-      "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F"
+      "https://www.lequipe.fr/Football/FootballFicheJoueur140331.html",
+      "https://as.com/resultados/ficha/equipo/hapoel_beer_sheva/4294/plantilla/"
     ],
     "urls": []
   },
@@ -219,7 +222,7 @@
     ],
     "birthDate": "1999-12-09",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.flashscore.com/player/vaknin-idan/nk29TQQb/",
       "https://www.football.org.il/players/player/?player_id=101790"
@@ -276,9 +279,10 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
-      "https://www.football.org.il/players/player/?player_id=204742"
+      "https://www.football.org.il/players/player/?player_id=204742",
+      "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8"
     ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2695961/image",
@@ -286,7 +290,8 @@
     ],
     "sofascoreId": "2695961",
     "pages": [
-      "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8"
+      "https://database.footballmanagerblog.org/fm26/players/2000531476-tomer-shimoni",
+      "https://www.lequipe.fr/Football/FootballFicheJoueur140332.html"
     ],
     "urls": []
   },
@@ -313,7 +318,7 @@
     ],
     "birthDate": "",
     "number": "50",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.football.org.il/players/player/?player_id=207407",
       "https://www.365scores.com/football/player/shlomo-dahan-241621",
@@ -337,7 +342,7 @@
     ],
     "birthDate": "",
     "number": "60",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil",
       "https://www.football.org.il/players/player/?player_id=205307"
@@ -409,7 +414,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ],
@@ -435,7 +440,9 @@
     "collect": true,
     "previousPages": [
       "https://www.lsk.no/lag/betim-hasanaj",
-      "https://www.albinfo.ch/talenti-shqiptar-betim-hasanaj-firmos-me-lillestrom/"
+      "https://www.albinfo.ch/talenti-shqiptar-betim-hasanaj-firmos-me-lillestrom/",
+      "https://www.hudl.com/profile/29692735",
+      "https://www.besoccer.com/player/betim-hasanaj-3807221"
     ],
     "providerId": "2008642",
     "previousUrls": [
@@ -446,8 +453,8 @@
     ],
     "sofascoreId": "2614196",
     "pages": [
-      "https://www.hudl.com/profile/29692735",
-      "https://www.besoccer.com/player/betim-hasanaj-3807221"
+      "https://www.shkodrasport.com/betim-hasanaj-debuton-me-ekipin-e-pare-te-lillestrom-90-minuta-dhe-fitore-3-0/",
+      "https://newsport.al/moshat-u17-u19/debutimi-historik-betim-hasanaj-shperblen-besimin-e-lillestrom-ta-i537361"
     ],
     "urls": []
   },
@@ -493,7 +500,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.lsk.no/lag/wahib-fadil",
       "https://www.lsk.no/nyheter/scoret-i-debuten-da-lsk-avanserte-videre-i-cupen"
@@ -646,12 +653,15 @@
     ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2640773/image",
-      "https://protathlima.cyprustimes.com/wp-content/uploads/2026/03/anto.jpg"
+      "https://protathlima.cyprustimes.com/wp-content/uploads/2026/03/anto.jpg",
+      "https://www.ant1live.com/sites/default/files/styles/main/public/2026-03/%CE%BC%CE%B9%CF%87%CE%B1%CE%BB%CE%B7%CF%82%20%CE%B1%CE%BD%CF%84%CF%89%CE%BD%CE%B9%CE%BF%CF%85.jpg?itok=N2RLdG8H"
     ],
     "sofascoreId": "2640773",
-    "pages": [],
+    "pages": [
+      "https://www.alphanews.live/sports/omonoia-epangelmatiko-symvolaio-kai-ston-michali-antoniou/"
+    ],
     "urls": [
-      "https://www.ant1live.com/sites/default/files/styles/main/public/2026-03/%CE%BC%CE%B9%CF%87%CE%B1%CE%BB%CE%B7%CF%82%20%CE%B1%CE%BD%CF%84%CF%89%CE%BD%CE%B9%CE%BF%CF%85.jpg?itok=N2RLdG8H"
+      "https://sportime-admin.sigmalive.com/assets/components/phpthumbof/cache/anto.141f077cd2473f7ad2fdcd6a4a0f8e90.png"
     ]
   },
   {
