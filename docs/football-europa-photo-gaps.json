@@ -172,13 +172,17 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2701812/image",
       "https://dsg-images.com/players/150x150/8189183.png"
     ],
-    "sofascoreId": "2701812"
+    "sofascoreId": "2701812",
+    "pages": [
+      "https://www.football.org.il/players/player/?player_id=215909"
+    ],
+    "urls": []
   },
   {
     "id": "385939",
@@ -205,13 +209,16 @@
     ],
     "birthDate": "1999-12-09",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
       "https://www.flashscore.com/player/vaknin-idan/nk29TQQb/"
     ],
-    "previousUrls": [],
-    "urls": [
+    "previousUrls": [
       "https://img.sofascore.com/api/v1/player/1891113/image"
+    ],
+    "urls": [],
+    "pages": [
+      "https://www.football.org.il/players/player/?player_id=101790"
     ]
   },
   {
@@ -237,10 +244,16 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2695960/image"
+    ],
+    "pages": [
+      "https://www.football.org.il/players/player/?player_id=182015"
+    ],
+    "urls": [
+      "https://photo.one.co.il/Image/GG/5%2C1/1745015.webp"
     ]
   },
   {
@@ -251,13 +264,17 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2695961/image",
       "https://dsg-images.com/players/150x150/8189182.png"
     ],
-    "sofascoreId": "2695961"
+    "sofascoreId": "2695961",
+    "pages": [
+      "https://www.football.org.il/players/player/?player_id=204742"
+    ],
+    "urls": []
   },
   {
     "id": "409570",
@@ -282,13 +299,17 @@
     ],
     "birthDate": "",
     "number": "50",
-    "collect": false,
+    "collect": true,
     "previousPages": [],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2658830/image",
       "https://dsg-images.com/players/150x150/8171979.png"
     ],
-    "sofascoreId": "2658830"
+    "sofascoreId": "2658830",
+    "pages": [
+      "https://www.football.org.il/players/player/?player_id=207407"
+    ],
+    "urls": []
   },
   {
     "id": "3128679",
@@ -298,15 +319,18 @@
     ],
     "birthDate": "",
     "number": "60",
-    "collect": false,
-    "previousPages": [],
+    "collect": true,
+    "previousPages": [
+      "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil"
+    ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2536323/image"
     ],
     "sofascoreId": "2536323",
     "pages": [
-      "https://www.zerozero.pt/jogador/yonatan-gilboa/3575309/fotos-de-perfil"
-    ]
+      "https://www.football.org.il/players/player/?player_id=205307"
+    ],
+    "urls": []
   },
   {
     "id": "3115027",
@@ -382,7 +406,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
       "https://www.lsk.no/lag/betim-hasanaj"
     ],
@@ -392,7 +416,11 @@
       "https://img.sofascore.com/api/v1/player/2614196/image",
       "https://dsg-images.com/players/150x150/8213754.png"
     ],
-    "sofascoreId": "2614196"
+    "sofascoreId": "2614196",
+    "pages": [
+      "https://www.albinfo.ch/talenti-shqiptar-betim-hasanaj-firmos-me-lillestrom/"
+    ],
+    "urls": []
   },
   {
     "id": "416575",
@@ -436,7 +464,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
       "https://www.lsk.no/lag/wahib-fadil"
     ],
@@ -446,7 +474,11 @@
       "https://img.sofascore.com/api/v1/player/2475671/image",
       "https://dsg-images.com/players/150x150/7938936.png"
     ],
-    "sofascoreId": "2475671"
+    "sofascoreId": "2475671",
+    "pages": [
+      "https://www.lsk.no/nyheter/scoret-i-debuten-da-lsk-avanserte-videre-i-cupen"
+    ],
+    "urls": []
   },
   {
     "id": "415398",
@@ -572,14 +604,19 @@
     ],
     "birthDate": "",
     "number": "97",
-    "collect": false,
-    "previousPages": [],
+    "collect": true,
+    "previousPages": [
+      "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil"
+    ],
     "previousUrls": [
       "https://img.sofascore.com/api/v1/player/2640773/image"
     ],
     "sofascoreId": "2640773",
     "pages": [
-      "https://www.zerozero.pt/jogador/michalis-antoniou/3652546/fotos-de-perfil"
+      "https://www.omonoiafc.com.cy/υπέγραψε-επαγγελματικό-συμβόλαιο-ο-μ/"
+    ],
+    "urls": [
+      "https://protathlima.cyprustimes.com/wp-content/uploads/2026/03/anto.jpg"
     ]
   },
   {
