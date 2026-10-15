@@ -22,8 +22,7 @@ export default function BaseballModelWeights({league,settings,onApply}:{league:B
   {([['moneyline','全場獨贏'],['fullGamePk','全場零讓分']] as const).map(([key,label])=><label className="baseball-model-select" key={key}><span>{label}</span><select aria-label={label+'套用模型'} value={draft[key]} onChange={e=>setDraft({...draft,[key]:e.target.value as BaseballModelFamily})}>{Object.entries(BASEBALL_MODEL_NAMES).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></label>)}
   <div className="baseball-model-tabs" role="group" aria-label="棒球模型種類">{Object.entries(BASEBALL_MODEL_NAMES).map(([key,name])=><button type="button" key={key} aria-pressed={tab===key} onClick={()=>setTab(key as BaseballModelFamily)}>{tab===key?'✓　':''}{name}</button>)}</div>
   <div className="baseball-model-sliders">{Object.entries(weights).map(([key,value])=><label htmlFor={id+'-'+key} key={key}><span>{BASEBALL_FACTOR_LABELS[key as keyof typeof BASEBALL_FACTOR_LABELS]}<output>{value.toFixed(1)}%</output></span><input id={id+'-'+key} type="range" min="0" max="100" step="0.1" value={value} aria-valuetext={value.toFixed(1)+'%'} style={{background:`linear-gradient(to right,#ffdb35 ${value}%,#8d9eb2 ${value}%)`}} onChange={e=>setDraft({...draft,weights:{...draft.weights,[tab]:rebalanceBaseballWeight(weights,key as keyof typeof weights,Number(e.target.value))}})}/></label>)}</div>
-  <p className="baseball-model-hint">調整一項後，其餘依原比例分配。多因子比較戰績、先發與可用分項；逐局得分以攻守及投手資料推算比分分布，其他讓分、大小與上半場玩法使用此模型。缺資料仍保留中性權重，不把缺漏當成 0 分。</p>
-  <p className="baseball-model-hint">比例僅保存在此瀏覽器的本聯盟。自訂試算尚未回測校準，不會寫入共用模型成績。</p></div>
+  </div>
   <footer><button type="button" className="baseball-model-reset" onClick={()=>setDraft({...draft,weights:{...draft.weights,[tab]:defaultBaseballSettings().weights[tab]}})}>還原此模型預設</button><button type="button" onClick={close}>取消</button><button type="submit" className="baseball-model-apply">套用</button></footer>
  </form></dialog></>;
 }
