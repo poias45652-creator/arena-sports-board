@@ -5,6 +5,7 @@ import ts from 'typescript';
 
 const routeSource=readFileSync('app/api/football/route.ts','utf8').replace(/^import .*;\n/gm,'');
 const traceSource=readFileSync('lib/football-route-observability.ts','utf8');
+const weightsSource=readFileSync('lib/football-model-weights.ts','utf8');
 let serial=0;
 async function loadRoute(options={}){
   const harness=`
@@ -19,6 +20,7 @@ async function loadRoute(options={}){
     const isFootballLeague=value=>['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','uefa.nations'].includes(value);
     const validFootballDay=value=>/^\\d{4}-\\d{2}-\\d{2}$/.test(value)&&Number.isFinite(Date.parse(value))&&new Date(value).toISOString().slice(0,10)===value;
     const getRawDb=()=>{called('db');return {fixtureDb:true};};
+    const footballModelCatalog=()=>({models:[{id:'recent',available:true,enabled:[true,true,false,false,false]}]});
     async function footballGameAnalysis(...args){called('analysis',args);return fixture.report??null;}
     async function footballSchedule(league,day){called('schedule',[league,day]);return fixture.schedule??{league,day,games:[],fetchedAt:'2026-10-12T11:00:00Z',calendar:['2026-10-13']};}
     async function nextFootballDay(...args){called('next',args);return {day:'2026-10-13'};}
@@ -28,7 +30,7 @@ async function loadRoute(options={}){
     async function saveFootballResults(...args){called('save_results',args);return 0;}
     async function saveDailyResults(...args){called('save_daily_results',args);return 0;}
   `;
-  const source=ts.transpileModule(traceSource+'\n'+harness+'\n'+routeSource+'\n// instance '+serial++,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
+  const source=ts.transpileModule(weightsSource+'\n'+traceSource+'\n'+harness+'\n'+routeSource+'\n// instance '+serial++,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
   const mod=await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
   mod.configure(options);return mod;
 }
@@ -38,6 +40,14 @@ const context={league:'uefa.champions',date:'2026-10-14',kind:'analysis',game:'1
 const waiting=()=>({status:'waiting',reason:'歷史不足：主隊3場、客隊4場；各需至少5場。',version:'fixture-version',capturedAt:'2026-10-12T11:00:00Z',homeForm:{games:3,supplementGames:2},awayForm:{games:4,supplementGames:0},quality:{historyConflicts:1,archiveSupplementGames:2},notes:[]});
 const ready=()=>({...waiting(),status:'ready',reason:'',probabilities:{home:.4,draw:.3,away:.3,over25:.5,under25:.5,btts:.5}});
 const report=(analysis=waiting(),started=false)=>({game:{id:'12345',league:'uefa.champions',start:new Date(Date.now()+(started?-1:1)*86400000).toISOString()},analysis,sourceFetchedAt:'2026-10-12T11:00:00Z'});
+
+test('custom model requests reach analysis but never read or write shared prediction ledgers',async()=>{
+ for(const started of [false,true]){
+  const mod=await loadRoute({report:report(ready(),started)}),settings={model:'auto',weights:{recent:[80,20,0,0,0]}};
+  const response=await mod.GET(request('kind=analysis&league=eng.1&date=2026-10-14&game=12345&settings='+encodeURIComponent(JSON.stringify(settings)))),data=await response.json();
+  assert.equal(response.status,200);assert.equal(data.custom,true);assert.equal(data.snapshotSaved,false);assert.equal(data.dailySaved,false);assert.deepEqual(stages(mod),['analysis']);assert.deepEqual(mod.calls[0].args[3],settings);assert.match(data.analysis.version,/-custom-v1$/);
+ }
+});
 
 test('football source failures log bounded context and elapsed category, preserving the public error',async()=>{
   const error=new DOMException('fixture-cookie-private Bearer fixture-token-private <html>private upstream body</html>','TimeoutError');

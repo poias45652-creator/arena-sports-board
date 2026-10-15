@@ -1,3 +1,4 @@
+import {footballWeightedParameters,type FootballModelSettings} from './football-model-weights';
 // Server-only expanded score history for the accepted DE/IT market model.
 import archive from '../data/football/market-history-20260928.json';
 import {type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
@@ -25,8 +26,8 @@ export async function loadFootballMarketContext(league:FootballLeague):Promise<F
   cache.set(key,{expires:Date.now()+30*60000,value});return value;
  })().catch(e=>{const error=e instanceof Error?e:new Error('聯賽來源失敗');cache.set(key,{expires:Date.now()+30000,error});throw error;}).finally(()=>pending.delete(key));pending.set(key,task);return task;
 }
-export function applyFootballMarketAnalysis(game:FootballGame,base:FootballAnalysis,context:FootballMarketContext,now=Date.now()):FootballAnalysis{
- const p=selectFootballMarketModel(game.league,now),entry=footballMarketAudit(game.league),age=now-Date.parse(context.fetchedAt),kickoff=Date.parse(game.start),fixture=context.fixtures.get(game.id);
+export function applyFootballMarketAnalysis(game:FootballGame,base:FootballAnalysis,context:FootballMarketContext,now=Date.now(),settings?:FootballModelSettings):FootballAnalysis{
+ const raw=selectFootballMarketModel(game.league,now),p=raw?footballWeightedParameters(raw,settings,'score',['goalAttack','goalDefense','','','elo']):null,entry=footballMarketAudit(game.league),age=now-Date.parse(context.fetchedAt),kickoff=Date.parse(game.start),fixture=context.fixtures.get(game.id);
  if(!p||!entry||!fixture||fixture.state!=='scheduled'||fixture.home.id!==game.home.id||fixture.away.id!==game.away.id||Date.parse(fixture.start)!==kickoff||game.state!=='scheduled'||!game.timeConfirmed||!Number.isFinite(kickoff)||kickoff<=now||!Number.isFinite(age)||age<0||age>35*60000)return base;
  const before=Math.min(externalDayCutoff(new Date(now).toISOString()),externalDayCutoff(game.start));
  const history=context.history.filter(g=>g.league===game.league&&g.state==='final'&&g.statusName==='STATUS_FULL_TIME'&&g.homeScore!==null&&g.awayScore!==null&&Date.parse(g.start)<before);

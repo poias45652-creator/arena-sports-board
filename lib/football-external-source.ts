@@ -1,3 +1,4 @@
+import {footballWeightedParameters,type FootballModelSettings} from './football-model-weights';
 import {selectFootballXgStrengthModel,footballXgStrengthAudit,footballXgStrengthRuntime,xgStrengthDistribution} from './football-xg-strength-model';
 import {cupPriorEstimate,CUP_PRIOR_VERSION} from './football-cup-prior';
 // Server-only external history and source adapters. Never import from client UI.
@@ -84,14 +85,15 @@ export async function loadExternalFootballContext(league:FootballLeague,now=Date
  })().catch(e=>{cache.set(key,{expires:Date.now()+30000,error:e instanceof Error?e:new Error('外部來源失敗')});throw e;}).finally(()=>pending.delete(key));
  pending.set(key,task);return task;
 }
-export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAnalysis,primary:FootballGame<string>[],context:Context,now=Date.now()):FootballAnalysis{
+export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAnalysis,primary:FootballGame<string>[],context:Context,now=Date.now(),settings?:FootballModelSettings):FootballAnalysis{
  const h=externalId(game.home.id,game.league),a=externalId(game.away.id,game.league);
  const age=now-Date.parse(context.fetchedAt),kickoff=Date.parse(game.start);
  if(!h||!a||!context.teams.has(h)||!context.teams.has(a)||game.state!=='scheduled'||!game.timeConfirmed||!Number.isFinite(kickoff)||kickoff<=now||!Number.isFinite(age)||age<0||age>35*60000)return base;
  const merged=mergeExternalFootballHistory(context.history,primary.filter(g=>g.league===game.league).map(fromEspn).filter((g):g is ExternalFootballGame=>!!g),context.excluded);
  const before=Math.min(externalDayCutoff(new Date(now).toISOString()),externalDayCutoff(game.start)),history=merged.games.filter(g=>Date.parse(g.start)<before);
  const target={homeId:h,awayId:a,start:new Date(now).toISOString(),league:game.league,neutral:game.neutral},elo=new FootballElo();for(const g of history)elo.update(g);
- const strength=selectFootballXgStrengthModel(game.league,now),p=strength||selectExternalFootballModel(game.league,now),baseline=externalFootballFeatures(target,history,elo.difference(target),{decayDays:90,venueWeight:strength?0:.6},before);
+ const rawStrength=selectFootballXgStrengthModel(game.league,now),rawExternal=selectExternalFootballModel(game.league,now),keys=['goalAttack','goalDefense','xgAttack','xgDefense','elo'];
+ const strength=rawStrength?footballWeightedParameters(rawStrength,settings,'elo',keys):null,p=strength||(rawExternal?footballWeightedParameters(rawExternal,settings,'elo',keys):null),baseline=externalFootballFeatures(target,history,elo.difference(target),{decayDays:90,venueWeight:strength?0:.6},before);
  const features=externalFootballFeatures(target,history,elo.difference(target),p||{decayDays:90,venueWeight:.6},before);
  const reasons:string[]=[];
  if(!p)reasons.push('本聯賽新候選未啟用或已過期，保留原模型。');
