@@ -47,12 +47,15 @@ The final audited scope has 4,293 eligible players and 4,293 verified portraits.
 ## Europa supplement (2026-10-15)
 
 The latest 36-team Europa roster snapshot contains 1,137 distinct players. The
-supplement adds 682 portraits, bringing catalog coverage to 1,136 players.
-This includes 44 additional manually reviewed original images stored locally;
-their provenance and the 1 remaining gap are recorded in
-`docs/football-europa-portrait-gap-review.json`. One record
-remains without a verified available portrait; their IDs and reasons are in
-`docs/football-europa-photo-audit.json`. No generated or unrelated faces are used.
+supplement adds 683 portraits, bringing catalog coverage to all 1,137 players.
+This includes all 45 manually reviewed original images stored locally; their
+provenance is recorded in `docs/football-europa-portrait-gap-review.json`.
+The final addition, Julius Rogne-Bakke, is explicitly identified as the far-right
+player by the public left-to-right caption on a Romerikes Blad photograph
+credited to Rune Haavelmoen. The source image stays unchanged; the existing CSS
+frame shows his portrait. The current snapshot has no remaining gaps, as
+recorded in `docs/football-europa-photo-audit.json`. No generated or unrelated
+faces are used.
 
 The Europa identity and reviewed-source files are additive. Existing identities,
 historical coverage reports, context corrections, and roster statistics remain

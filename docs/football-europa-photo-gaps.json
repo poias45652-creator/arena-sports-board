@@ -415,7 +415,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": true,
+    "collect": false,
     "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ],
@@ -426,9 +426,8 @@
     "sofascoreId": "2801661",
     "pages": [],
     "urls": [
-      "https://g.acdn.no/api/lumina/backend/ami-large/ece5/rome/2026/4/26/14/16012047-fce8-4854-8c7c-ebc7cc1d35dd.jpg"
-    ],
-    "researchContext": "Public lead image from Romerikes Blad 2026-04-26; public caption identifies six players, Julius Rogne-Bakke at far right. Article body is paywalled and is not accessed."
+      "https://i.ytimg.com/vi/Z21x4BLOMEk/maxresdefault.jpg"
+    ]
   },
   {
     "id": "3138999",
