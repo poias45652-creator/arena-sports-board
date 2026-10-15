@@ -82,13 +82,14 @@ export function hrFootballCompetition(name:string):string|null{
 /** Group public football metadata before bounding it so repeated leagues from
  * other sports cannot hide a dedicated cup at the end of the response. */
 export function hrFootballSourceCoverage(categories:any[]){
- const rows=new Map<string,{category:number;name:string;competition:string|null;games:number;firstStart:string|null;lastStart:string|null;examples:{home:string;away:string;start:string}[]}>();
+ type CoverageRow={category:number;name:string;competition:string|null;games:number;firstStart:string|null;lastStart:string|null;examples:{home:string;away:string;start:string}[]};
+ const rows=new Map<string,CoverageRow>();
  const safe=(v:unknown,max:number)=>typeof v==='string'?v.slice(0,max):'';
  for(const c of categories){
   if(![1,31].includes(c?.CatID)&&hrFootballCompetition(safe(c?.CatName,100))!=='uefa.europa')continue;
   for(const l of Array.isArray(c.Items?.List)?c.Items.List:[]){
    const name=safe(l?.LeagueNameStr,100),key=c.CatID+':'+name;
-   const row=rows.get(key)??{category:c.CatID,name,competition:hrFootballCompetition(name),games:0,firstStart:null,lastStart:null,examples:[]};
+   const row:CoverageRow=rows.get(key)??{category:c.CatID,name,competition:hrFootballCompetition(name),games:0,firstStart:null,lastStart:null,examples:[]};
    const teams=Array.isArray(l?.Team)?l.Team:[];row.games+=teams.length;
    for(const t of teams){
     const start=safe(t?.ScheduleTimeStr,40);
