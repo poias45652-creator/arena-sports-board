@@ -1,7 +1,7 @@
 import {claimSuperSession,releaseSuperSession} from './super-session-lock';
 import {superDeviceEntryUrl,superLaunchIsGet,superLaunchShape} from './super-entry-url';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
-import {hrSportsRequests,hrFootballCompetition,parseHrGameDetail} from './hr9988';
+import {hrSportsRequests,hrFootballSourceCoverage,parseHrGameDetail} from './hr9988';
 import type {SuperSnapshot} from './super007';
 
 type Statement={bind(...values:unknown[]):Statement;first<T=any>():Promise<T|null>;run():Promise<unknown>};
@@ -97,7 +97,7 @@ async function collect(session:Session,fetcher:typeof fetch):Promise<SuperSnapsh
    lastCoverageLoggedAt=Date.now();
    console.info('super-source-coverage',JSON.stringify({fetchedAt:new Date().toISOString(),
     categories:menuCategories.slice(0,40).map((c:any)=>({id:Number.isSafeInteger(c.catid)?c.catid:null,name:String(c.catName||'').slice(0,80),selected:requests.some(r=>r.CatID===c.catid)})),
-    leagues:categories.flatMap(c=>(Array.isArray(c.Items?.List)?c.Items.List:[]).map((l:any)=>({category:c.CatID,name:String(l.LeagueNameStr||'').slice(0,100),competition:hrFootballCompetition(String(l.LeagueNameStr||'')),games:Array.isArray(l.Team)?l.Team.length:0}))).slice(0,100)
+    ...hrFootballSourceCoverage(categories)
    }));
   }
  }catch(e){if(e instanceof HrError)throw new HrError(e.code,'SUPER 資料：'+e.message,e.status);throw e;}

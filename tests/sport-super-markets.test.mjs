@@ -2,7 +2,7 @@ import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {moduleUrl} from './profile-loader.mjs';
-const {parseHrGameDetail,hrSportsRequests,hrBaseballRequest}=await import(moduleUrl('lib/hr9988.ts'));
+const {parseHrGameDetail,hrSportsRequests,hrBaseballRequest,hrFootballSourceCoverage}=await import(moduleUrl('lib/hr9988.ts'));
 const {matchSportEvent,settleSportGrid,basketballMarketGrid,footballMarketGrids,sportTeamKey,sportQuoteLabel,preferredSportOutcome}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const fixture=()=>JSON.parse(readFileSync(new URL('./fixtures/sport-super-game-details.json',import.meta.url),'utf8'));
 const menu=JSON.parse(readFileSync(new URL('./fixtures/sport-super-menu.json',import.meta.url),'utf8'));
@@ -76,6 +76,16 @@ function europaCategory(){
  return category;
 }
 const europaSnapshot=categories=>parseHrGameDetail({code:200,data:categories},new Date(europaNow).toISOString());
+test('source coverage retains late cup categories, groups repeated league blocks, and only emits public metadata',()=>{
+ const ordinary={CatID:1,Items:{List:Array.from({length:120},(_,i)=>({LeagueNameStr:'其他聯賽'+i,Team:[]}))}};
+ const cup=europaCategory();cup.CatID=31;cup.Items.List[0].LeagueNameStr='尚未識別的歐洲聯賽名稱';
+ cup.Items.List[0].Team[0].privateToken='DO-NOT-LOG';cup.Items.List.push(structuredClone(cup.Items.List[0]));
+ const result=hrFootballSourceCoverage([{CatID:102,Items:{List:Array(200).fill({LeagueNameStr:'籃球',Team:[]})}},ordinary,cup]);
+ assert.equal(result.leagueCount,121);assert.equal(result.truncated,true);assert.equal(result.leagues.length,80);
+ const first=result.leagues[0];assert.equal(first.category,31);assert.equal(first.competition,null);assert.equal(first.games,2);
+ assert.equal(first.firstStart,'2026/10/23 00:45:00');assert.equal(first.lastStart,first.firstStart);assert.equal(first.examples.length,2);
+ assert.deepEqual(Object.keys(first.examples[0]),['home','away','start']);assert.ok(!JSON.stringify(result).includes('DO-NOT-LOG'));assert.ok(!JSON.stringify(result).includes('Wager'));
+});
 test('Europa category follows the authenticated pregame label and wager key, without a fixed ID',()=>{
  for(const name of ['歐霸','歐足總歐霸聯賽','歐洲足總歐霸聯賽','UEFA Europa League']){
   const input=structuredClone(menu);input.data.list[0].LeftMenu.item.push({catid:932,catName:name,Items:[{WagerTypeKey:'17'}]});
