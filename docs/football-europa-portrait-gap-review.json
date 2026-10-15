@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-15T14:12:25.626461+00:00",
+  "verifiedAt": "2026-10-15T14:33:52.971493+00:00",
   "league": "uefa.europa",
   "season": 2026,
   "originalGapCount": 45,
@@ -1074,91 +1074,65 @@
       "artifactFile": "3093616/photo-0.png",
       "localPath": "/images/players/football/3093616-original.png",
       "artifactId": 11979233852
-    }
-  ],
-  "unresolved": [
-    {
-      "id": "3128677",
-      "name": "Yinon Elharar",
-      "teams": [
-        "13083"
-      ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2701812/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://dsg-images.com/players/150x150/8189183.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        },
-        {
-          "url": "https://www.football.org.il/players/player/?player_id=215909",
-          "result": "unavailable",
-          "error": "HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://www.sport5.co.il/Player/1639/53291/%D7%99%D7%A0%D7%95%D7%9F",
-          "result": "No attributable player portrait found in published page",
-          "error": ""
-        },
-        {
-          "url": "https://www.lequipe.fr/Football/FootballFicheJoueur140331.html",
-          "result": "unavailable",
-          "error": "HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://as.com/resultados/ficha/equipo/hapoel_beer_sheva/4294/plantilla/",
-          "result": "No attributable player portrait found in published page",
-          "error": ""
-        }
-      ]
     },
     {
+      "url": "https://scontent-lga3-2.cdninstagram.com/v/t51.82787-15/649229260_17897084211259940_1782079277382118681_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&ig_cache_key=MzUwMTIxMDk5MjM1NzA5NTUwNg%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNBUk9VU0VMX0lURU0ueHBpZHMuMTA2My5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=a_C1WZ_dAIcQ7kNvwFKvVnq&_nc_oc=Ado3G_jMeGmKAuqOqlFt5meyV0TDh_quYsSoj3j8bfkYLMeTmPQ_M3n8LH1u5_rC8kk&_nc_zt=23&_nc_ht=scontent-lga3-2.cdninstagram.com&_nc_gid=uNhQomILV6oCIdOW1s3Ypg&_nc_ss=7ba8c&oh=00_AQNSwjOJ62oF3o61BBYeQAp3Ae0hwYwVaa4rqQLJ2PcUkA&oe=6AD6A881",
+      "sha256": "7cb981e48e1b2f53390603b1fa0cf9d3efd7cb4ecef8a433370079bdd0a196b1",
+      "type": "image/jpeg",
+      "width": 1063,
+      "height": 706,
+      "bytes": 143236,
+      "transparent": false,
       "id": "3128678",
       "name": "Tomer Shimoni",
       "teams": [
         "13083"
       ],
-      "reason": "No verified accessible portrait; searched sources returned missing files, denied requests or non-player placeholders.",
-      "attempts": [
-        {
-          "url": "https://img.sofascore.com/api/v1/player/2695961/image",
-          "error": "HTTP Error 404: Not Found",
-          "result": "unavailable"
-        },
-        {
-          "url": "https://dsg-images.com/players/150x150/8189182.png",
-          "sha256": "c420bb50139cb27cc4cf5cb31f7fb46007fb2ceeaa0d8e3bb8024b949427a302",
-          "bytes": 3233,
-          "result": "rejected non-player image after visual review"
-        },
-        {
-          "url": "https://www.football.org.il/players/player/?player_id=204742",
-          "result": "unavailable",
-          "error": "HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://www.sport5.co.il/Player/1639/53294/%D7%AA%D7%95%D7%9E%D7%A8",
-          "result": "No attributable player portrait found in published page",
-          "error": ""
-        },
-        {
-          "url": "https://database.footballmanagerblog.org/fm26/players/2000531476-tomer-shimoni",
-          "result": "unavailable",
-          "error": "HTTP Error 403: Forbidden"
-        },
-        {
-          "url": "https://www.lequipe.fr/Football/FootballFicheJoueur140332.html",
-          "result": "unavailable",
-          "error": "HTTP Error 403: Forbidden"
-        }
-      ]
+      "birthDate": "",
+      "sourceName": "Tomer Shimoni",
+      "evidence": [
+        "https://www.instagram.com/p/DCWzN0ToRg-/"
+      ],
+      "identity": "Official HBS Academy signing announcement dated 2024-11-14 explicitly names defender Tomer Shimoni (תומר שמעוני), a Hapoel Beer Sheva academy player in the 2008 age group. First carousel image is the single footballer in club kit; second image shows the signing with a club representative. Not the adult handball player with the same name.",
+      "artifactId": 11980933576,
+      "artifactFile": "3128678/photo-0.jpeg",
+      "localPath": "/images/players/football/3128678-original.jpg",
+      "displayCrop": {
+        "x": 385,
+        "y": 15,
+        "size": 340
+      }
     },
+    {
+      "url": "https://scontent-sjc6-1.cdninstagram.com/v/t51.82787-15/612588290_18039685001721641_7202135005944748779_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=107&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=x2YYjZaJUaUQ7kNvwG5V7zw&_nc_oc=AdqNUdjMk2M0MtqYpVx-j8yI_q2xHav91T0jkRqN80IvGSOGuasczSoiAYeG6E374qw&_nc_zt=23&_nc_ht=scontent-sjc6-1.cdninstagram.com&_nc_gid=h2z7VrCcQVz_5cwifHr1nA&_nc_ss=7f60f&oh=00_AQPhezPvjk8QrAqZqLKe9eNpGdrykkYpU9qEeMjlrTPlLA&oe=6AD6CA98",
+      "sha256": "43c5ef2ddc1f883622dacc1f30881bf7715fbf6bfb044ec07d951785eab32478",
+      "type": "image/jpeg",
+      "width": 360,
+      "height": 640,
+      "bytes": 32345,
+      "transparent": false,
+      "id": "3128677",
+      "name": "Yinon Elharar",
+      "teams": [
+        "13083"
+      ],
+      "birthDate": "",
+      "sourceName": "Yinon Elharar",
+      "evidence": [
+        "https://www.instagram.com/reel/DTNcaXpjZuh/"
+      ],
+      "identity": "Top Level Sport Management public signing announcement dated 2026-01-07 explicitly identifies Yinon Elharar (ינון אלהרר), born 2008, Hapoel Beer Sheva U19 left back. Published video poster visibly spells YINON ELHARAR beside the only player. CSS frame selects his head and upper shirt, excluding the play symbol; original poster bytes are preserved.",
+      "artifactId": 11980933576,
+      "artifactFile": "3128677/photo-0.jpeg",
+      "localPath": "/images/players/football/3128677-original.jpg",
+      "displayCrop": {
+        "x": 98,
+        "y": 175,
+        "size": 122
+      }
+    }
+  ],
+  "unresolved": [
     {
       "id": "3144071",
       "name": "Julius Rogne-Bakke",
@@ -1196,11 +1170,37 @@
           "url": "https://images.onefootball.com/players/180/706166.jpg",
           "result": "rejected placeholder after visual review",
           "error": ""
+        },
+        {
+          "url": "https://www.lsk.no/lag/julius-rogne-bakke",
+          "result": "Official profile confirms name and 2009-09-13 birth date, but contains no player photo"
+        },
+        {
+          "url": "https://www.lsk.no/akademiet/lagene-vare/LSK-G17",
+          "result": "Official G17 page has no individual player portraits"
+        },
+        {
+          "url": "https://www.lsk.no/akademiet/lagene-vare/LSK-G19",
+          "result": "Official G19 page has no individual player portraits"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=Z21x4BLOMEk",
+          "result": "Public match thumbnail shows unidentified outfield players; video retrieval requires sign-in and was stopped"
+        },
+        {
+          "url": "https://images.multiball.forzafootball.net/photos/player/thumbnail/1221547549.jpg",
+          "result": "unavailable",
+          "error": "HTTP Error 403: Forbidden"
+        },
+        {
+          "url": "https://objetos.estaticos-marca.com/assets/sports/headshots/football/305/png/144x144/756578.png",
+          "result": "unavailable",
+          "error": "HTTP Error 404: Not Found"
         }
       ]
     }
   ],
-  "acceptedCount": 42,
-  "remainingCount": 3,
+  "acceptedCount": 44,
+  "remainingCount": 1,
   "reviewMethod": "Source identity evidence and original photo bytes manually reviewed. No generated faces, name-only fuzzy matches, logos or silhouette placeholders accepted. Native-language captions identify each retained historical/signing photograph. Original image bytes are unchanged; reviewed square display crops isolate the named player using CSS only."
 }

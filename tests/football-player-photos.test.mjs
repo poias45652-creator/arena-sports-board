@@ -112,9 +112,9 @@ test('all reviewed Europa gap portraits serve their original pinned bytes withou
  const sources=JSON.parse(readFileSync('data/football-europa-reviewed-photo-sources.json'));
  const catalog=JSON.parse(readFileSync('data/football-europa-player-photos.json')).players;
  const base=JSON.parse(readFileSync('data/football-player-photos.json')).players;
- assert.equal(review.accepted.length,42);assert.equal(review.unresolved.length,3);
- assert.equal(new Set(review.accepted.map(p=>p.sha256)).size,42,'No repeated placeholder image');
- assert.equal(audit.cataloguedPhotos,1134);assert.equal(audit.uniquePlayers-audit.cataloguedPhotos,review.unresolved.length);
+ assert.equal(review.accepted.length,44);assert.equal(review.unresolved.length,1);
+ assert.equal(new Set(review.accepted.map(p=>p.sha256)).size,44,'No repeated placeholder image');
+ assert.equal(audit.cataloguedPhotos,1136);assert.equal(audit.uniquePlayers-audit.cataloguedPhotos,review.unresolved.length);
  assert.deepEqual(audit.missing.map(p=>p.id).sort(),review.unresolved.map(p=>p.id).sort());
  const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Reviewed original must be served locally');};
  try{
