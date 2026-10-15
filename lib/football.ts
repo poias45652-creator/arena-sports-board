@@ -6,6 +6,7 @@ export const FOOTBALL_LEAGUES = [
   {code:'ger.1',name:'德甲',fullName:'德國甲級聯賽'},
   {code:'fra.1',name:'法甲',fullName:'法國甲級聯賽'},
   {code:'uefa.champions',name:'歐冠',fullName:'歐洲冠軍聯賽'},
+  {code:'uefa.europa',name:'歐霸',fullName:'歐洲足總歐霸聯賽'},
   {code:'uefa.nations',name:'歐國聯',fullName:'歐洲足總國家聯賽'},
 ] as const;
 export type FootballLeague = typeof FOOTBALL_LEAGUES[number]['code'];
@@ -19,6 +20,7 @@ export type FootballGame<L extends string=FootballLeague> = {
 export type FootballForm = {games:number;venueGames:number;scored:number;conceded:number;recent:string[];latest:string|null;supplementGames:number;friendlyGames?:number};
 export type FootballFormOptions = {decayDays:number;venueWeight:number;competition?:string;otherCompetitionWeight?:number;friendlyWeight?:number};
 export const CUP_STRENGTH_REASON='跨聯賽對手強度尚未校正，暫不提供模型勝率與比分。';
+export const isFootballClubCup=(league:string)=>league==='uefa.champions'||league==='uefa.europa';
 export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysis:FootballAnalysis|undefined){
   return game.league==='uefa.champions'&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
 }
@@ -48,6 +50,14 @@ const TEAM_NAMES:Record<string,string> = {
   'Sabah FK':'沙巴巴庫','Slavia Prague':'布拉格斯拉維亞','Viking FK':'維京',
   'LASK Linz':'林茨','Shakhtar Donetsk':'頓涅茨克礦工','AEK Athens':'AEK雅典',
   'Fenerbahce':'費內巴切','Slovan Bratislava':'布拉迪斯拉發','Bodo/Glimt':'博多格林特',
+  // Senior clubs in the Europa League source; keep team IDs as the identity.
+  'AZ Alkmaar':'阿爾克馬爾',"Hapoel Be'er":'比爾舒華夏普爾','Lech Poznan':'波茲南萊克',
+  'NK Celje':'采列','Omonia Nicosia':'奧摩尼亞','RB Salzburg':'薩爾斯堡紅牛',
+  'Sparta Prague':'布拉格斯巴達','Lillestrom':'利勒斯特羅姆','Torreense':'托倫斯',
+  'SK Sturm Graz':'格拉茨風暴','Dinamo Zagreb':'札格瑞布迪納摩','Anderlecht':'安德萊赫特',
+  'Ferencvaros':'費倫茨瓦羅斯','Viktoria Plzen':'比爾森勝利','Jagiellonia Bialystok':'雅蓋隆尼亞',
+  'Ararat-Armenia':'阿拉拉特亞美尼亞','Olympiacos':'奧林匹亞科斯','NEC Nijmegen':'奈梅亨',
+  'Levski Sofia':'索菲亞列夫斯基','OFI Crete':'OFI克里特','Besiktas':'貝西克塔斯',
 };
 export const footballDay=(date:Date|string=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));
 export const shiftFootballDay=(day:string,offset:number)=>new Date(Date.parse(day+'T12:00:00Z')+offset*86400000).toISOString().slice(0,10);

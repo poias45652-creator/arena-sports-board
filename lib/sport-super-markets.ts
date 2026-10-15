@@ -1,7 +1,7 @@
 import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
 import {WNBA_TEAMS} from './wnba';
 import {NBA_TEAMS} from './nba';
-import {FOOTBALL_TEAM_NAMES,footballTeamName} from './football';
+import {FOOTBALL_LEAGUES,FOOTBALL_TEAM_NAMES,footballTeamName} from './football';
 export type SportFixture={id:string;league?:string;start:string;timeConfirmed:boolean;state:string;home:{id?:string;name:string;logo?:string};away:{id?:string;name:string;logo?:string}};
 export type SportQuote={kind:'spread'|'total'|'moneyline';line:number;boundary:number;parts?:number[];display:string;home:number;away:number;draw?:number;signature:string};
 export type SportEvent={id:number;home:string;away:string;spread:SportQuote|null;total:SportQuote|null;moneyline:SportQuote|null};
@@ -139,7 +139,7 @@ export function sportMarketStatus(snapshot:any,game:SportFixture,sport:MarketSpo
 // Metadata only for auditing current source coverage. No raw responses, prices,
 // accounts, tokens, URLs, or member IDs are retained. Bounds are explicit.
 export function sportSourceAudit(snapshot:any,now=Date.now()){
- const supported=new Set(['eng.1','esp.1','ita.1','ger.1','fra.1','uefa.champions','uefa.nations']);
+ const supported=new Set<string>(FOOTBALL_LEAGUES.map(l=>l.code));
  const rows=(Array.isArray(snapshot?.sportGames)?snapshot.sportGames:[]).filter((r:any)=>r&&(['NBA','WNBA'].includes(r.league)||r.league==='FOOTBALL'&&supported.has(r.competition)));
  const safe=(v:unknown,n=100)=>typeof v==='string'?v.slice(0,n):'';
  const unrecognizedTeamNames=[...new Map(rows.slice(0,120).flatMap((r:any)=>[r.home,r.away].filter(name=>!registeredNames[r.league as MarketSport].has(sportTeamKey(safe(name),r.league))).map(name=>[`${r.league}:${safe(name)}`,{sport:r.league,name:safe(name)}] as const))).values()];
