@@ -1,15 +1,17 @@
 import catalog from '../data/football-player-photos.json';
 import reviewedSources from '../data/football-reviewed-photo-sources.json';
+import europaCatalog from '../data/football-europa-player-photos.json';
+import europaReviewedSources from '../data/football-europa-reviewed-photo-sources.json';
 import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
 import {join} from 'node:path';
 import {isFootballLeague} from './football';
 import {sameFootballPhotoIdentity,safeFootballPhotoUrl,validFootballPhotoBytes,type FootballPhotoIdentity} from './football-photo-identity';
 import {footballRosterPhotoCorrection,hasFootballRosterPhotoCorrection} from './football-roster-photo-corrections';
-const identities=catalog.players as Record<string,FootballPhotoIdentity>;
+const identities={...europaCatalog.players,...catalog.players} as Record<string,FootballPhotoIdentity>;
 type ReviewedPhoto={url:string;sha256:string;type:string;localPath?:string};
-const reviewed=reviewedSources as Record<string,ReviewedPhoto>;
-const reviewedHosts=new Set(['assets.bundesliga.com','assets.laliga.com','cagliaricalcio.com','cdn.realsociedad.eus','images.ctfassets.net','images.fotmob.com','img.a.transfermarkt.technology','img.uefa.com','media-cdn.cortextech.io','media-sdp.legaseriea.it','mediaverse.sevillafc.hiway.media','res.cloudinary.com','statics-maker.llt-services.com','www.fc-union-berlin.de','www.glimt.no','www.osasuna.es','www.slavia.cz','www.valenciacf.com']);
+const reviewed={...europaReviewedSources,...reviewedSources} as Record<string,ReviewedPhoto>;
+const reviewedHosts=new Set(['assets.bundesliga.com','assets.laliga.com','cagliaricalcio.com','cc-cdn.rsca.be','cdn.realsociedad.eus','images.ctfassets.net','images.fotmob.com','img.a.transfermarkt.technology','img.uefa.com','media-cdn.cortextech.io','media-sdp.legaseriea.it','mediaverse.sevillafc.hiway.media','res.cloudinary.com','statics-maker.llt-services.com','www.fc-union-berlin.de','www.glimt.no','www.oficretefc.com','www.osasuna.es','www.slavia.cz','www.valenciacf.com']);
 type Photo={bytes:Uint8Array;type:string;expires:number};
 const cache=new Map<string,Photo>(),discovered=new Map<string,{identity:FootballPhotoIdentity|null;expires:number}>();
 const unavailable=new Map<string,number>();
@@ -44,7 +46,7 @@ async function readPhoto(identity:FootballPhotoIdentity,verified?:ReviewedPhoto)
   return {bytes,type:verified.type,expires:Date.now()+86400000};
  }
  const url=verified?.url||identity.sourceUrl||(identity.providerId?`https://images.fotmob.com/image_resources/playerimages/${identity.providerId}.png`:'');
- if(verified){const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hash||!reviewedHosts.has(u.hostname)||!/^[a-f0-9]{64}$/.test(verified.sha256)||!['image/png','image/webp'].includes(verified.type))return null;}
+ if(verified){const u=new URL(url);if(u.protocol!=='https:'||u.username||u.password||u.port||u.hash||!reviewedHosts.has(u.hostname)||!/^[a-f0-9]{64}$/.test(verified.sha256)||!['image/png','image/webp','image/jpeg'].includes(verified.type))return null;}
  else if(!safeFootballPhotoUrl(url))return null;
  const maxBytes=verified?2000000:1000000;
  const r=await fetch(url,{cache:'no-store',signal:AbortSignal.timeout(10000),redirect:'error'});
