@@ -78,6 +78,11 @@ export default function Home(){
     }catch{setUpdateNotice('SUPER 連線逾時或失敗，請再按立即更新重試。');}
     finally{window.dispatchEvent(new Event('arena-odds-change'));await stats;setUpdatingAll(false);updateLock.current=false;}
   }
+  useEffect(()=>{
+    const connect=()=>void updateAll();
+    window.addEventListener('arena-connect-odds',connect);
+    return()=>window.removeEventListener('arena-connect-odds',connect);
+  },[updateAll]);
 
   const filteredGames=liveGames.filter(g=>scoreFilter==='all'||scoreFilter==='live'&&g.live||scoreFilter==='final'&&g.final||scoreFilter==='upcoming'&&!g.live&&!g.final);
   return <SuperWorkspace league={league}><main className="arena-shell min-h-screen text-slate-100" data-sport={league==='FOOTBALL'?'football':(league==='NBA'||league==='WNBA')?'basketball':'baseball'}>

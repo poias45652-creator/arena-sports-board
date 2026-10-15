@@ -11,7 +11,7 @@ function component(file,dependencies){
  const code=ts.transpileModule(readFileSync(file,'utf8'),{fileName:file,compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  return new Function('require','exports','React',code+'\nreturn exports;')(key=>{if(key in dependencies)return dependencies[key];throw Error('Unmapped dependency '+key);},{},React);
 }
-const sportMarkets=component('app/sport-markets.tsx',{'@/lib/sport-super-markets':await import(moduleUrl('lib/sport-super-markets.ts'))});
+const sportMarkets=component('app/sport-markets.tsx',{'@/lib/member-odds-client':await import(moduleUrl('lib/member-odds-client.ts')),'@/lib/sport-super-markets':await import(moduleUrl('lib/sport-super-markets.ts'))});
 const match=component('app/nba-match.tsx',{'@/lib/nba':n,'@/lib/nba-analysis':m});
 const parsed=ts.createSourceFile('nba-board.tsx',readFileSync('app/nba-board.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
 const node=parsed.statements.find(x=>ts.isFunctionDeclaration(x)&&x.name?.text==='NbaCard');

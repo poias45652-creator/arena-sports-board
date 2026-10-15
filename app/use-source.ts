@@ -2,14 +2,14 @@
 import {useState,useRef,useCallback,useEffect} from 'react';
 import {readMemberOdds,scopeMemberOdds,memberOddsRequestError} from '@/lib/member-odds-client';
 export function useSource<T>(kind:string,interval:number){
- const [data,setData]=useState<T|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true);
+ const [data,setData]=useState<T|null>(null),[error,setError]=useState(''),[errorCode,setErrorCode]=useState(''),[loading,setLoading]=useState(true);
  const busy=useRef(false),controller=useRef<AbortController|null>(null),generation=useRef(0);
  const retryTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),failures=useRef(0);
  const refresh=useCallback(async(force=false)=>{
   if(busy.current&&!force)return;
   clearTimeout(retryTimer.current);
   if(force)controller.current?.abort();
-  const version=++generation.current;busy.current=true;setLoading(true);setError('');const c=new AbortController();controller.current=c;
+  const version=++generation.current;busy.current=true;setLoading(true);setError('');setErrorCode('');const c=new AbortController();controller.current=c;
   const timer=setTimeout(()=>c.abort(),kind.startsWith('member-odds')?75000:35000);
   try{
    let j;
@@ -19,7 +19,7 @@ export function useSource<T>(kind:string,interval:number){
    if(version===generation.current){setData(j);setError('');failures.current=0;}
   }catch(e){if(version===generation.current){
    if(kind.startsWith('member-odds')){
-    const failure=memberOddsRequestError(e);setData(null);setError(failure.message);
+    const failure=memberOddsRequestError(e);setData(null);setError(failure.message);setErrorCode(failure.code);
     if(failure.retryable)retryTimer.current=setTimeout(()=>{if(document.visibilityState!=='hidden')void refresh();},Math.min(60000,15000*2**Math.min(failures.current++,2)));
    }else setError(e instanceof Error&&e.name!=='AbortError'?e.message:'更新逾時，稍後自動重試。');
   }}
@@ -35,5 +35,5 @@ export function useSource<T>(kind:string,interval:number){
   return()=>{clearInterval(timer);clearTimeout(retryTimer.current);generation.current++;busy.current=false;controller.current?.abort();window.removeEventListener('arena-odds-change',changed);window.removeEventListener('arena-refresh-all',changed);document.removeEventListener('visibilitychange',resume);window.removeEventListener('online',resume);window.removeEventListener('pageshow',resume);};
  },[refresh,interval,kind]);
  const publicRefresh=useCallback(()=>refresh(),[refresh]);
- return {data,error,loading,refresh:publicRefresh};
+ return {data,error,errorCode,loading,refresh:publicRefresh};
 }

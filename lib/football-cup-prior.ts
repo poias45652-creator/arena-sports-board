@@ -7,7 +7,7 @@ export const CUP_PRIOR_VERSION='football-cup-elo-sparse-v1';
 // 2017–2018 log loss: one match won. Historical 2019–2020 and 2025 checks are
 // separate; no team-specific override or market quote enters the estimate.
 export function cupPriorEstimate(target:Pick<ExternalFootballGame,'homeId'|'awayId'|'start'|'neutral'|'league'>,history:ExternalFootballGame[],eloDifference:number,p:ExternalFootballParameters,before:number,priorMatches=1){
-  if(target.league!=='uefa.champions'||p.usesXg||!Number.isFinite(before)||!Number.isFinite(eloDifference)||![1,3,5].includes(priorMatches))return null;
+  if(!['uefa.champions','uefa.europa'].includes(target.league)||p.usesXg||!Number.isFinite(before)||!Number.isFinite(eloDifference)||![1,3,5].includes(priorMatches))return null;
   const rows=history.filter(g=>g.league===target.league&&Date.parse(g.start)<before&&Date.parse(g.start)>=before-365*86400000);
   if(rows.length<30)return null;
   const features=externalFootballFeatures(target,rows,eloDifference,p,before);

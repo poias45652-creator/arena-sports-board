@@ -1,0 +1,18 @@
+{
+  "version": "football-europa-goals-elo-v1",
+  "recordedAt": "2026-10-15T11:28:00Z",
+  "recordedBeforeCollectionAndFitting": true,
+  "source": "ESPN Europa annual scoreboards; only unambiguous 90-minute full-time results",
+  "warmup": "2011",
+  "training": "2012-2016",
+  "selection": "2017-2018",
+  "holdout": "2019-2020",
+  "audits": ["2025", "2026 before collection"],
+  "method": "Champions method with independently fitted Europa coefficients. Same regularized Poisson likelihood, Elo, rolling 365 days / maximum 20 matches, UTC-day cutoff, decay and venue candidates. No xG assumed. Never use domestic rates to compare cup entrants.",
+  "candidates": {"decayDays": [90, 180], "venueWeight": [0, 0.6], "baselineBlend": [0.25, 0.5, 0.75, 1], "sparsePriorMatches": [1, 3, 5]},
+  "selection": "Fit only 2012-2016 complete-history fixtures. Choose full-model candidates using 2017-2018 1X2 log loss subject to original Champions Brier / binary Brier gates. Choose sparse prior using 2017-2018 sparse-fixture 1X2 log loss only.",
+  "promotion": {"minimumTrainingGames": 180, "minimumSelectionGames": 80, "minimumHoldoutGames": 80, "minimumAuditGames": 60, "logLossImprovesEveryEvaluation": true, "brierNotWorseEveryEvaluation": true, "maximumBinaryBrierIncrease": 0.002},
+  "sparsePromotion": {"minimumSelectionGames": 20, "minimumHoldoutGames": 20, "minimumAuditGames": 20, "logLossImprovesEveryEvaluation": true, "brierNotWorseEveryEvaluation": true},
+  "sparseEligibility": "At least 30 previous own-competition matches in 365 days; each team at least one result within 120 days. Actual team counts remain visible. No zero-history estimate or forced five-game count.",
+  "fallback": "If a branch fails its predeclared gates, do not promote it. Preserve waiting state and explain actual coverage. No outcome-based retuning."
+}

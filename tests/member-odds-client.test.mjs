@@ -3,7 +3,7 @@ import test from 'node:test';
 import {readFileSync} from 'node:fs';
 import ts from 'typescript';
 const code=ts.transpileModule(readFileSync('lib/member-odds-client.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
-const {createMemberOddsReader,scopeMemberOdds}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+const {createMemberOddsReader,scopeMemberOdds,memberOddsRecovery,recoverMemberOdds}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
 test('simultaneous MLB and international panels share one authenticated snapshot request',async()=>{
  let release,calls=0;const gate=new Promise(r=>release=r);
  const snapshot={games:[{id:1}],internationalGames:[{id:2,league:'CPBL'},{id:3,league:'KBO'}],fetchedAt:'2026-09-19T11:00:00Z'};
@@ -56,4 +56,20 @@ test('HTTP 502 source authorization and source-format failures are not retried',
   let calls=0;const read=createMemberOddsReader(async()=>{calls++;return Response.json({code,error:'需要重新確認來源'}, {status:502});},async()=>assert.fail('must not retry'));
   await assert.rejects(read(),error=>!error.retryable&&error.message==='需要重新確認來源');assert.equal(calls,1);
  }
+});
+test('409 recovery preserves the source code and requires a user action to connect or sign in',async t=>{
+ const old=globalThis.window,events=[],locations=[];
+ globalThis.window={dispatchEvent:event=>events.push(event.type),location:{assign:path=>locations.push(path)}};
+ t.after(()=>{globalThis.window=old;});
+ for(const code of ['not_connected','source_auth_expired','binding_changed','tz_auth_expired','binding_required','super_in_use']){
+  const calls=[];const read=createMemberOddsReader(async(path,options)=>{calls.push({path,options});return Response.json({code,error:'具體來源錯誤'},{status:409});},async()=>assert.fail('authorization never retries'));
+  await assert.rejects(read(),error=>error.code===code&&error.message==='具體來源錯誤'&&!error.retryable);
+  assert.equal(calls.length,1);assert.equal(calls[0].options.method,undefined);
+ }
+ assert.deepEqual(events,[]);assert.deepEqual(locations,[]);
+ recoverMemberOdds('not_connected');assert.deepEqual(events,['arena-connect-odds']);
+ recoverMemberOdds('source_auth_expired');assert.equal(events.at(-1),'arena-connect-odds');
+ recoverMemberOdds('tz_auth_expired');assert.deepEqual(locations,['/login?reason=renew']);
+ recoverMemberOdds('super_in_use');assert.equal(events.at(-1),'arena-odds-change');
+ assert.equal(memberOddsRecovery('not_connected').summary,'玩法需要重新連接');
 });
