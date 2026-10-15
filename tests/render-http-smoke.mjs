@@ -8,7 +8,28 @@ async function request(path,status,options={}){
  assert.equal(response.status,status,`${path}: ${await response.clone().text()}`);checks++;return response;
 }
 const login=await request('/login',200);const loginHtml=await login.text();assert.match(loginHtml,/聯繫作者/);assert.match(loginHtml,/href="\/free-trial"[^>]*>免費推薦<\/a>/);
-const trial=await request('/free-trial',200);assert.match(await trial.text(),/免費推薦/);
+const trial=await request('/free-trial',200);const trialHtml=await trial.text();assert.match(trialHtml,/免費推薦/);
+for(const html of [loginHtml,trialHtml]){
+ assert.match(html,/<title>[^<]*星準<\/title>/);
+ assert.doesNotMatch(html,/YJ體育分析|YJ SPORTS ANALYTICS|src="\/yj-logo\.png"/);
+ assert.match(html,/name="apple-mobile-web-app-title" content="星準"/);
+ assert.match(html,/rel="apple-touch-icon"[^>]*href="\/brand\/xingzhun-icon-180-v1\.png"/);
+ assert.match(html,/property="og:image"[^>]*xingzhun-cover-v1\.jpg/);
+}
+for(const [path,size] of [
+ ['/brand/xingzhun-icon-32-v1.png',32],['/brand/xingzhun-icon-180-v1.png',180],
+ ['/brand/xingzhun-icon-192-v1.png',192],['/brand/xingzhun-icon-512-v1.png',512],
+ ['/apple-touch-icon.png',180],['/apple-touch-icon-precomposed.png',180],['/yj-app-icon.png',180],
+]){
+ const response=await request(path,200);assert.match(response.headers.get('content-type'),/image\/png/);
+ const png=Buffer.from(await response.arrayBuffer());assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');
+ assert.equal(png.readUInt32BE(16),size);assert.equal(png.readUInt32BE(20),size);
+}
+const manifest=await (await request('/manifest.webmanifest',200)).json();
+assert.equal(manifest.name,'星準');assert.equal(manifest.short_name,'星準');
+assert.ok(manifest.icons.every(icon=>icon.src.startsWith('/brand/xingzhun-')));
+await request('/brand/xingzhun-cover-v1.jpg',200);
+await request('/favicon.ico',200);
 await request('/yj-logo.png',200);
 await request('/api/health',200);
 const session=await request('/api/session',200);assert.equal((await session.json()).signedIn,false);
