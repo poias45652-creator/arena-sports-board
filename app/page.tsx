@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 
 import { teamZh, gameDetailZh } from "./zh";
 import Pregame from './pregame';
+import BaseballModelWeights,{useBaseballModelSettings} from './baseball-model-weights';
+import {BASEBALL_MODEL_NAMES} from '@/lib/baseball-model-settings';
 import TeamName from './team-name';
 import PlayerLink from './player-link';
 import Standings from './standings';
@@ -49,6 +51,7 @@ function mapGame(game:any):LiveGame{
 }
 
 export default function Home(){
+  const baseballModel=useBaseballModelSettings('MLB');
   const leagueLive=useLeagueLive(),sportLive=useSportLive();
   const [updatingAll,setUpdatingAll]=useState(false),[updateNotice,setUpdateNotice]=useState('');
   const updateLock=useRef(false);
@@ -107,9 +110,9 @@ export default function Home(){
       {(league==='NBA'||league==='WNBA')&&<><nav className="baseball-league-switcher" aria-label="籃球聯盟切換">{([['NBA','美國職籃'],['WNBA','美國女子職籃']] as const).map(([code,name])=><button type="button" key={code} aria-pressed={league===code} onClick={()=>selectLeague(code)}><b>{code}</b><span>{name}</span>{sportLive[code]&&<i>LIVE</i>}</button>)}</nav><NbaBoard key={league} league={league} view={view} onViewChange={selectView}/></>}
       {league==='NPB'&&<div data-super-league="NPB"><InternationalBoard league="NPB" initialView={view} onViewChange={selectView}/></div>}
       <div data-super-league="MLB" hidden={league!=='MLB'}>
-      <div className="league-heading arena-league-heading" data-view={view}><div><h1><span className="league-title-code">MLB</span> <span>美國職棒</span></h1></div></div>
-      <Tabs value={view} onValueChange={selectView} className="league-workspace" data-view={view}>
-        <TabsList className="league-tabs" aria-label="美國職棒頁面"><TabsTrigger value="overview">概覽</TabsTrigger><TabsTrigger value="standings">戰績排名</TabsTrigger><TabsTrigger value="teams">球隊一覽</TabsTrigger><TabsTrigger value="live">即時比分</TabsTrigger><TabsTrigger value="analysis">賽前分析・串關</TabsTrigger></TabsList>
+      <div className="baseball-league-heading"><div><h1><span className="league-title-code">MLB</span> 美國職棒</h1><p>獨贏：{BASEBALL_MODEL_NAMES[baseballModel.settings.moneyline]} · 零讓分：{BASEBALL_MODEL_NAMES[baseballModel.settings.fullGamePk]}</p></div><BaseballModelWeights league="MLB" settings={baseballModel.settings} onApply={baseballModel.apply}/></div>{baseballModel.notice&&<p className="baseball-model-notice" role="status">{baseballModel.notice}</p>}
+      <Tabs value={view} onValueChange={selectView} className="league-workspace baseball-workspace" data-view={view}>
+        <TabsList className="league-tabs" aria-label="美國職棒頁面"><TabsTrigger value="overview">概覽</TabsTrigger><TabsTrigger value="live">即時比分</TabsTrigger><TabsTrigger value="analysis">賽前分析・串關</TabsTrigger><TabsTrigger value="standings">戰績排名</TabsTrigger><TabsTrigger value="teams">球隊一覽</TabsTrigger></TabsList>
         <TabsContent value={view} className="space-y-6">
         {view==='teams'&&<TeamsDirectory/>}
         {view==='live'&&<LiveScoreboard/>}
@@ -122,7 +125,7 @@ export default function Home(){
         {scoreError?<div className="p-5 text-sm text-rose-200">即時比分暫時無法更新：{scoreError}</div>:<div className="score-grid">{filteredGames.map(game=><div key={game.id} className="score-card"><div className="mb-3 flex items-center justify-between text-xs font-bold"><span className={game.live?"text-rose-300":"text-slate-500"}>{game.live?"進行中":game.final?"已完賽":game.detail.includes("開賽")?"賽前":"賽事狀態"}</span><span className="text-slate-500">{game.detail}</span></div><div className="grid grid-cols-[1fr_auto] gap-x-3 gap-y-2 text-sm"><span className="font-bold"><TeamName team={{id:game.awayId,name:game.away}}/></span><b className="text-lg text-[#ffd538]">{game.awayScore??"—"}</b><span className="font-bold"><TeamName team={{id:game.homeId,name:game.home}}/></span><b className="text-lg text-[#ffd538]">{game.homeScore??"—"}</b></div>{(game.live||game.final)&&<details className="game-expand"><summary>逐局比分與場況</summary><LiveDetails game={game}/></details>}</div>)}{!filteredGames.length&&<div className="p-6 text-sm text-slate-400">{!scoreUpdatedAt?"正在取得賽事…":scoreFilter==="all"?"今天沒有美職棒賽事":"目前沒有符合此狀態的賽事"}</div>}</div>}
       </section>
       </div>
-      <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame/></div>
+      <div hidden={view==='live'||view==='standings'||view==='teams'} className="analysis-workspace"><Pregame settings={baseballModel.settings}/></div>
       </TabsContent></Tabs>
       </div>
 

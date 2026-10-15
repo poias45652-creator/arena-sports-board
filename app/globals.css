@@ -418,3 +418,72 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, body *::-webkit-scrollbar { di
 .baseball-league-switcher button span { font-size:.8rem; }
 .baseball-league-switcher button i { font-size:.65rem; color:#ff7185; font-style:normal; font-weight:800; }
 .baseball-league-switcher button:focus-visible { outline:2px solid #ffd538; outline-offset:3px; }
+
+/* Baseball follows the shared match-centre navigation and reference model dialog. */
+.baseball-league-heading { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:1.5rem 0 1rem; }
+.baseball-league-heading h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; line-height:1.25; }
+.baseball-league-heading p { margin-top:.55rem; color:#9cacc0; font-size:.85rem; }
+.baseball-model-trigger { display:inline-flex; align-items:center; gap:.6rem; flex-shrink:0; padding:.8rem 1rem; border:1px solid #40536b; border-radius:10px; background:#0d1b2b; font-weight:700; }
+.baseball-model-trigger:hover { border-color:#ffdb35; }
+.baseball-model-trigger small,.baseball-model-tag { color:#04cfbb; font-size:.75rem; font-weight:500; }
+.baseball-model-notice { color:#7ce5d3; font-size:.85rem; margin-bottom:1rem; }
+.baseball-model-dialog { color:#f2f5fa; background:#0d1b2b; border:1px solid #26394d; border-radius:28px; width:min(540px,calc(100vw - 32px)); max-height:calc(100dvh - 48px); padding:0; margin:auto; box-shadow:0 24px 100px #0009; overflow:hidden; }
+.baseball-model-dialog::backdrop { background:#020912c9; backdrop-filter:blur(3px); }
+.baseball-model-dialog form { display:flex; flex-direction:column; max-height:calc(100dvh - 50px); }
+.baseball-model-dialog header { display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:28px 30px 14px; flex-shrink:0; }
+.baseball-model-dialog h2 { font-size:1.6rem; font-weight:700; }
+.baseball-model-dialog header button { display:grid; place-items:center; min-height:36px; min-width:36px; color:#a1b1c4; }
+.baseball-model-body { padding:0 30px 20px; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#52677d transparent; }
+.baseball-model-body>p { color:#9aabbd; line-height:1.65; margin:6px 0 20px; }
+.baseball-model-body h3 { margin:12px 0; font-size:1rem; font-weight:750; }
+.baseball-model-body h3 small { color:#9aabbd; font-weight:400; margin-left:.5rem; }
+.baseball-model-select { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:15px 0; }
+.baseball-model-select select { color:#f2f5fa; background:#0d1b2b; font-weight:700; border-bottom:1px solid #758395; border-radius:0; padding:.5rem 1rem .5rem 0; min-width:130px; }
+.baseball-model-tabs { display:flex; border:1px solid #e1e8f0; border-radius:999px; overflow:hidden; margin:24px 0; }
+.baseball-model-tabs button { flex:1; padding:.8rem .5rem; font-weight:700; }
+.baseball-model-tabs button[aria-pressed=true] { color:#052725; background:#00cbb9; }
+.baseball-model-tabs button+button { border-left:1px solid #e1e8f0; }
+.baseball-model-sliders label { display:block; margin:24px 0 30px; }
+.baseball-model-sliders label>span { display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; line-height:1.5; }
+.baseball-model-sliders output { color:#ffdc35; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.baseball-model-sliders input { display:block; width:calc(100% - 12px); margin:24px 6px 0; appearance:none; height:6px; border-radius:10px; cursor:pointer; }
+.baseball-model-sliders input::-webkit-slider-thumb { appearance:none; width:24px; height:24px; border-radius:50%; background:#a6b1c0; border:2px solid white; }
+.baseball-model-sliders input::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:#a6b1c0; border:2px solid white; }
+.baseball-model-sliders input:focus-visible { outline:3px solid #00cbb9; outline-offset:8px; }
+.baseball-model-body .baseball-model-hint { font-size:.8rem; margin-bottom:0; }
+.baseball-model-dialog footer { display:flex; justify-content:flex-end; align-items:center; flex-wrap:wrap; gap:12px 22px; border-top:1px solid #25384d; padding:18px 30px 24px; background:#0d1b2b; flex-shrink:0; }
+.baseball-model-dialog footer button { min-height:44px; color:#ffdb35; font-weight:700; }
+.baseball-model-dialog footer .baseball-model-reset { margin-right:auto; }
+.baseball-model-dialog footer .baseball-model-apply { padding:.6rem 1.7rem; border-radius:999px; background:#ffdb35; color:#091523; }
+.baseball-calculation-details { margin:1rem 0; color:#a6b6ca; font-size:.8rem; }
+.baseball-calculation-details summary { cursor:pointer; color:#bccbdb; }
+.baseball-calculation-details p { margin:.7rem 0; line-height:1.7; }
+.baseball-calculation-details table { width:100%; margin-top:.7rem; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+.baseball-calculation-details th,.baseball-calculation-details td { padding:.5rem .3rem; text-align:right; border-bottom:1px solid #28394c; }
+.baseball-calculation-details th:first-child,.baseball-calculation-details td:first-child { text-align:left; }
+.baseball-workspace[data-view=analysis]>.league-tabs { width:100%; justify-content:flex-start; margin-bottom:1.5rem; }
+.baseball-workspace[data-view=analysis] .arena-pregame-toolbar { width:100%; justify-content:flex-start; }
+.baseball-workspace[data-view=analysis] .arena-analysis-board { display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,360px); align-items:start; gap:1.2rem; }
+.baseball-workspace[data-view=analysis] .arena-analysis-controls { width:100%; min-height:0; text-align:left; grid-column:1; grid-row:1; }
+.baseball-workspace[data-view=analysis] .arena-analysis-controls>.flex { justify-content:flex-start; }
+.baseball-workspace[data-view=analysis] .arena-analysis-games { grid-column:1; grid-row:2; }
+.baseball-workspace[data-view=analysis] .arena-analysis-summary { position:sticky; top:130px; width:100%; grid-column:2; grid-row:1/3; }
+.baseball-workspace[data-view=analysis] .arena-parlay-top { height:auto; min-height:0; max-height:calc(100dvh - 155px); overflow:auto; }
+@media(max-width:900px){
+ .baseball-workspace[data-view=analysis] .arena-analysis-board { grid-template-columns:minmax(0,1fr); }
+ .baseball-workspace[data-view=analysis] .arena-analysis-summary { position:static; grid-column:1; grid-row:3; }
+ .baseball-workspace[data-view=analysis] .arena-analysis-games { grid-row:2; }
+ .baseball-workspace[data-view=analysis] .arena-parlay-top { max-height:none; }
+}
+@media(max-width:480px){
+ .baseball-league-heading { align-items:flex-start; gap:.6rem; }
+ .baseball-league-heading h1 { font-size:1.3rem; }
+ .baseball-league-heading p { max-width:210px; line-height:1.7; font-size:.72rem; }
+ .baseball-model-trigger { padding:.7rem; font-size:.9rem; gap:.4rem; }
+ .baseball-model-trigger small { display:none; }
+ .baseball-model-dialog header { padding:22px 22px 12px; }
+ .baseball-model-dialog h2 { font-size:1.4rem; }
+ .baseball-model-body { padding:0 22px 16px; }
+ .baseball-model-dialog footer { padding:12px 22px 18px; gap:6px 20px; }
+ .baseball-model-dialog footer .baseball-model-reset { flex-basis:100%; margin:0; text-align:right; }
+}
