@@ -4,7 +4,7 @@ import {SlidersHorizontal,X} from 'lucide-react';
 import {normalizedWeights,type Weights} from '@/lib/basketball-efficiency';
 import {defaultNbaWeights,isDefaultNbaWeights,NBA_WEIGHT_LABELS} from '@/lib/nba-model-weights';
 
-export default function NbaModelWeights({weights,onApply}:{weights:Weights;onApply:(weights:Weights)=>void}){
+export default function NbaModelWeights({weights,onApply,league='NBA'}:{league?:'NBA'|'WNBA';weights:Weights;onApply:(weights:Weights)=>void}){
  const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null),id=useId();
  const [draft,setDraft]=useState<Weights>([...weights]);
  const hasWeight=draft.some(v=>v>0),percentages=hasWeight?normalizedWeights(draft):[0,0,0,0,0];
@@ -13,7 +13,7 @@ export default function NbaModelWeights({weights,onApply}:{weights:Weights;onApp
   <button ref={trigger} type="button" className="nba-model-trigger" aria-haspopup="dialog" onClick={()=>{setDraft([...weights]);dialog.current?.showModal();}}><SlidersHorizontal size={17}/><span>模型比例</span>{!isDefaultNbaWeights(weights)&&<small>自訂</small>}</button>
   <dialog ref={dialog} className="nba-model-dialog" aria-labelledby={id+'-title'} aria-describedby={id+'-description'} onClick={e=>{if(e.target===e.currentTarget){const r=e.currentTarget.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)close();}}}>
    <form onSubmit={e=>{e.preventDefault();if(hasWeight){onApply([...draft]);close();}}}>
-    <header><h2 id={id+'-title'}>NBA 籃球模型比例</h2><button type="button" className="nba-model-close" aria-label="關閉模型比例" onClick={close}><X size={20}/></button></header>
+    <header><h2 id={id+'-title'}>{league} 籃球模型比例</h2><button type="button" className="nba-model-close" aria-label="關閉模型比例" onClick={close}><X size={20}/></button></header>
     <p id={id+'-description'}>調整五項效率指標的比重，按「套用」重新計算賽前分析。</p>
     <div className="nba-model-context">球員情境<span>沿用現役陣容與傷停資料</span></div>
     <p className="nba-model-hint">比例依總和換算為 100%；球員上場時間與傷停判定維持原設定。</p>

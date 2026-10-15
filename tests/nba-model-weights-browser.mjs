@@ -3,7 +3,7 @@ import {spawn} from 'node:child_process';
 import {setTimeout as delay} from 'node:timers/promises';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
-const {chromium}=await import('/tmp/nba-browser/node_modules/playwright/index.mjs');
+const {chromium}=await import(process.env.BASKETBALL_PLAYWRIGHT_MODULE||'/tmp/basketball-browser/node_modules/playwright/index.mjs');
 const origin='http://127.0.0.1:3030',directory='evidence/nba-weights',key='yj:nba:model-weights:v1';
 mkdirSync(directory,{recursive:true});
 const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3030'],{env:{...process.env,YJ_RENDER_HTTP_TEST:'1',YJ_FOOTBALL_ADMIN_SMOKE:'1',YJ_BACKGROUND_REFRESH:'0',DATABASE_URL:'postgresql://local-test/fixture',TZ_BINDING_KEY:Buffer.alloc(32).toString('base64'),PLATFORM_ADMIN_USERNAME:'render-test-admin',APP_ORIGIN:origin,NODE_OPTIONS:'--import ./tests/nba-http-preload.mjs'},stdio:['ignore','pipe','pipe']});
