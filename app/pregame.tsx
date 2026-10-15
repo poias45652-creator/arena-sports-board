@@ -1,11 +1,11 @@
 "use client";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState, useMemo, type ReactNode } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select,SelectContent,SelectItem,SelectTrigger,SelectValue } from '@/components/ui/select';
 import { RefreshCw } from 'lucide-react';
 import { doubleheaderLabel,matchStartLabel,isMlbPostseason,canShowPregameMarkets,fresh,isPregame,shiftDay,taipeiDay,type Kind,type Leg,type Match,type Schedule,type Snapshot } from '@/lib/baseball';
 import Markets from './markets';
-import {winnerAnalysis,winnerParlayProbability} from '@/lib/winner-analysis';
+import {winnerParlayProbability} from '@/lib/winner-analysis';
 import MatchInningBoard from './match-inning-board';
 import {matchScore,showMatchScoreboard,type MatchScoreSnapshot} from '@/lib/match-scoreboard';
 import {superOdds,type SuperSnapshot} from '@/lib/super007';
@@ -19,9 +19,13 @@ import Link from 'next/link';
 import {matchOdds} from '@/lib/pinnacle';
 import {boardQuote,binaryOutcome} from '@/lib/board-markets';
 import MarketOutcomes from './market-outcomes';
+import BaseballModelDetails from './baseball-model-details';
 
+import {mlbInningProjection,mlbSelectedWinner,mlbRunsFresh} from '@/lib/mlb-model-analysis';
+import {baseballSettingsSignature,BASEBALL_MODEL_NAMES,type BaseballModelSettings} from '@/lib/baseball-model-settings';
 const stamp=(s:string|undefined)=>s?new Date(s).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}):'尚未取得';
-export default function Pregame(){
+export default function Pregame({settings}:{settings:BaseballModelSettings}){
+  const modelSignature=baseballSettingsSignature(settings);
   const [parlayMode,setParlayMode]=useState<'markets'|'winner'>('markets');
   const [evaluation,setEvaluation]=useState<any>(null);
   const updateResults=useCallback((value:any)=>setEvaluation(value),[]);
@@ -59,7 +63,9 @@ export default function Pregame(){
   const sources=[{title:'個別投手',kind:'pitcher' as Kind,...pitchers},{title:'團隊打擊',kind:'batter-team' as Kind,...batting},{title:'團隊投球',kind:'pitcher-team' as Kind,...pitching}];
   const moneyline=(g:Match)=>boardQuote(matchOdds(g,odds.data),'moneyline');
   const moneylineOK=!odds.error&&fresh(odds.data?.fetchedAt,now,150000);
-  const model=(g:Match)=>winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK);
+  const projections=useMemo(()=>new Map((schedule.data?.games||[]).map(g=>[g.id,mlbInningProjection(g,runs.data,settings.weights.innings)])),[schedule.data,runs.data,modelSignature]);
+  const model=(g:Match,market:'moneyline'|'fullGamePk'='moneyline')=>mlbSelectedWinner(g,analysis[g.id]?.report,now,scheduleOK,settings,market,projections.get(g.id)||null,mlbRunsFresh(runs.data,runs.error,now));
+  useEffect(()=>{setLegs([]);setNotice('');},[modelSignature]);
   const probability=(g:Match)=>model(g).homeWin;
   const unavailable=(g:Match)=>{
     if(!scheduleOK)return '賽程更新中或已過期';
@@ -85,7 +91,7 @@ export default function Pregame(){
   }
   function recommend(){const used=new Set<number>();const next:Leg[]=[];for(const g of [...eligible].sort((a,b)=>Number(model(b).status==='ready')-Number(model(a).status==='ready')||Math.abs(probability(b)!-.5)-Math.abs(probability(a)!-.5))){const p=probability(g)!;if(p===.5||used.has(g.home.id)||used.has(g.away.id))continue;used.add(g.home.id);used.add(g.away.id);next.push({gameId:g.id,side:p>.5?'home':'away'});if(next.length===count)break;}setLegs(next.map(leg=>({...leg,quote:moneyline(eligible.find(g=>g.id===leg.gameId)!)?.signature})));setNotice(next.length<count?`只有 ${next.length} 場符合條件，不勉強湊滿 ${count} 關。`:'');}
   function matchHeader(g:Match,expectedRunsInfo:ReactNode){
-    const h=probability(g),pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
+    const state=model(g),h=state.homeWin,pre=isPregame(g,now),show=pre&&scheduleOK&&h!==null;
     const score=matchScore(g,scores.data,day),showScoreboard=showMatchScoreboard(g,score);
     const gameLabel=doubleheaderLabel(g);
     const sourceStart=matchOdds(g,odds.data)?.sourceStart;
@@ -117,11 +123,12 @@ export default function Pregame(){
         })}
         {showScoreboard&&<MatchInningBoard match={g} score={score} fetchedAt={scores.data?.date===day?scores.data.fetchedAt:undefined} error={scores.error} now={now}/>}
       </div>
+      {pre&&<BaseballModelDetails family={settings.moneyline} factors={state.factors} coverage={state.coverage} notes={[state.reason,...(projections.get(g.id)?.notes||[])]}/>}
     </>;
   }
   function winnerOptions(g:Match){
     const state=model(g),h=state.homeWin,reason=unavailable(g),q=moneylineOK&&canShowPregameMarkets(g,now)?moneyline(g):null;
-    return <section aria-label="全場獨贏選項" data-analysis-status={state.status} className="space-y-3"><h5 className="text-sm font-bold">全場獨贏</h5><div className="grid gap-4 sm:grid-cols-2">{(['away','home'] as const).map(side=>{
+    return <section aria-label="全場獨贏選項" data-analysis-status={state.status} className="space-y-3"><h5 className="text-sm font-bold">全場獨贏 <small className="baseball-model-tag">{BASEBALL_MODEL_NAMES[settings.moneyline]}</small></h5><div className="grid gap-4 sm:grid-cols-2">{(['away','home'] as const).map(side=>{
       const probability=h===null?null:side==='home'?h:1-h,r=!reason&&state.canEstimate&&probability!==null?binaryOutcome(probability):null;
       const active=legs.some(l=>l.gameId===g.id&&l.side===side&&l.quote===q?.signature);
       return <Button key={side} aria-pressed={active} variant={active?'default':'outline'} disabled={!!reason} onClick={()=>choose(g,side)} className="market-option-card h-auto w-full items-start whitespace-normal p-3 text-left"><span className="block w-full">
@@ -157,6 +164,6 @@ export default function Pregame(){
     {schedule.error&&<p role="alert" className="arena-pregame-status text-rose-300">{schedule.error} 暫停串關計算。</p>}
     {schedule.loading&&!schedule.data&&<p role="status" className="arena-pregame-status">正在取得賽程，尚無比分或勝率。</p>}
     <GameContext games={selectedGames} onChange={updateAnalysis} onResults={updateResults}/>
-    <Markets analysis={analysis} key={day} games={selectedGames} now={now} data={runs.data} error={runs.error} scheduleOK={scheduleOK} scheduleMessage={schedule.error?'賽程更新失敗，稍後自動重試。':!schedule.data?'正在取得賽程，請稍候…':''} odds={odds.data} oddsError={odds.error} oddsLoading={odds.loading} refreshOdds={odds.refresh} renderMatchHeader={matchHeader} renderWinnerOptions={winnerOptions} winnerPanel={winnerPanel} parlayMode={parlayMode} onParlayModeChange={setParlayMode}/>
+    <Markets settings={settings} projections={projections} winnerModel={model} analysis={analysis} key={day+modelSignature} games={selectedGames} now={now} data={runs.data} error={runs.error} scheduleOK={scheduleOK} scheduleMessage={schedule.error?'賽程更新失敗，稍後自動重試。':!schedule.data?'正在取得賽程，請稍候…':''} odds={odds.data} oddsError={odds.error} oddsLoading={odds.loading} refreshOdds={odds.refresh} renderMatchHeader={matchHeader} renderWinnerOptions={winnerOptions} winnerPanel={winnerPanel} parlayMode={parlayMode} onParlayModeChange={setParlayMode}/>
   </section>;
 }

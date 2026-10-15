@@ -1,4 +1,5 @@
 import {baseProbability, fresh, isPregame, type Match} from './baseball';
+import type {MultiWeights} from './baseball-model-settings';
 import {multifactorWin} from './multifactor-win';
 import type {AnalysisReport} from './pregame-analysis';
 
@@ -17,9 +18,9 @@ const measured = (value: unknown): value is number =>
  * The underlying model, 60% starter budget and 80% full-data gate are unchanged.
  * Never promote partial inputs, expired reports or mismatched starters to ready. */
 export function winnerAnalysis(
-  game: Match, report: AnalysisReport | undefined, now: number, scheduleOK: boolean,
+  game: Match, report: AnalysisReport | undefined, now: number, scheduleOK: boolean, weights?:MultiWeights,
 ): WinnerAnalysis {
-  const model = multifactorWin(game, report, now);
+  const model = multifactorWin(game, report, now, weights);
   const missing = model.factors.filter(factor => factor.score === null).map(factor => factor.name);
   let blocked = '';
   if (!scheduleOK) blocked = '賽程資料尚未取得或已過期';

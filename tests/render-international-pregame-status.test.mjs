@@ -74,12 +74,12 @@ const dependencies={
   '@/components/ui/tabs':{Tabs:Box,TabsList:Box,TabsTrigger:Box,TabsContent:Box},
   '@/components/ui/select':{Select:Box,SelectContent:Box,SelectItem:Box,SelectTrigger:Box,SelectValue:Empty},
   'lucide-react':{RefreshCw:Empty},
-  './parlay-pane':{default:Box},'./market-outcomes':{default:Empty},'./international-team-logo':{default:Empty},
+  './baseball-model-details':{default:Empty},'./parlay-pane':{default:Box},'./market-outcomes':{default:Empty},'./international-team-logo':{default:Empty},
   './international-profile-link':{InternationalTeamLink:Box,NpbPlayerLink:({name})=>name},
   './international-market-analysis':{default:({analysis})=>{analysisSeen.push(analysis);return React.createElement('output',{'data-analysis-status':analysis?.status||'missing'},analysis?.win?'existing analysis':'no analysis');}},
   '@/lib/baseball-run-analysis':model,
 };
-for(const file of ['board-markets','international-market-options','international-fixtures','international-board-fixtures','international-teams','international-pregame'])dependencies['@/lib/'+file]=await import(moduleUrl('lib/'+file+'.ts'));
+for(const file of ['baseball-model-settings','board-markets','international-market-options','international-fixtures','international-board-fixtures','international-teams','international-pregame'])dependencies['@/lib/'+file]=await import(moduleUrl('lib/'+file+'.ts'));
 const compiled=ts.transpileModule(readFileSync('app/international-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
 const Markets=new Function('require','exports','React','Date',compiled+'\nreturn exports.default;')(key=>{assert.ok(key in dependencies,'Mapped dependency: '+key);return dependencies[key];},{},React,FixtureDate);
 const board=ts.createSourceFile('board.tsx',readFileSync('app/international-board.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);
@@ -88,7 +88,7 @@ assert.ok(marketNode,'Test the actual Board forwarding expression');
 const wiringCode=ts.transpileModule('const element='+marketNode.getText(board),{fileName:'wiring.tsx',compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
 function renderSource(source,date,{league='NPB',loading=false,now=Date.parse('2026-10-12T11:00:00Z'),onRefresh=()=>{},onOddsRefresh=async()=>{}}={}){
   clock=now;selectedDay=date;analysisSeen.length=0;renderedButtons.length=0;
-  const scope={React,InternationalMarkets:Markets,internationalPregameNotice,data:{pregame:source},analysisDate:date,league,loading,setAnalysisDate:()=>{},setRevision:onRefresh,superData:{data:null,error:'',loading:false,refresh:onOddsRefresh}};
+  const scope={React,baseballModel:{settings:dependencies['@/lib/baseball-model-settings'].defaultBaseballSettings()},InternationalMarkets:Markets,internationalPregameNotice,data:{pregame:source},analysisDate:date,league,loading,setAnalysisDate:()=>{},setRevision:onRefresh,superData:{data:null,error:'',loading:false,refresh:onOddsRefresh}};
   const element=new Function(...Object.keys(scope),wiringCode+'\nreturn element;')(...Object.values(scope));
   assert.equal(element.props.pregame,source?.pregame,'Source records are forwarded unchanged');
   return renderToStaticMarkup(element);

@@ -36,11 +36,12 @@ const source=ts.createSourceFile('markets.tsx',readFileSync('app/markets.tsx','u
 const component=source.statements.find(n=>ts.isFunctionDeclaration(n)&&n.name?.text==='Markets');
 const names=['result','options','preferred','recommend','marketPanel','buildSingleRecommendations'];
 const code=ts.transpileModule(component.body.statements.filter(n=>ts.isFunctionDeclaration(n)&&names.includes(n.name?.text)).map(n=>n.getText(source)).join('\n'),{fileName:'pk-ui.tsx',compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
+const {defaultBaseballSettings,BASEBALL_MODEL_NAMES}=await import(moduleUrl('lib/baseball-model-settings.ts'));
 const React={Fragment:'fragment',createElement:(type,props,...children)=>({type,props:props??{},children})};
 const nodes=t=>Array.isArray(t)?t.flatMap(nodes):t&&typeof t==='object'?[t,...(t.children||[]).flatMap(nodes)]:[];
 function ui({g=game,report,scheduleOK=true,blocked='',q=quote}={}){
  let selected=[];
- const scope={...board,React,formatSpreadLine,formatPickLine,matchOdds,winnerAnalysis,now,scheduleOK,analysis:report?{[g.id]:{report}}:{},games:[g],fixtures:[g],orderedGames:[g],models:new Map([[g.id,{full:grid,half:scoreGrid(4.8*5/9,5*5/9,false)}]]),quote:(_g,key)=>key==='spread'?q:null,reason:()=>blocked,
+ const scope={...board,React,settings:defaultBaseballSettings(),BASEBALL_MODEL_NAMES,winnerModel:game=>winnerAnalysis(game,report,now,scheduleOK),formatSpreadLine,formatPickLine,matchOdds,winnerAnalysis,now,scheduleOK,analysis:report?{[g.id]:{report}}:{},games:[g],fixtures:[g],orderedGames:[g],models:new Map([[g.id,{full:grid,half:scoreGrid(4.8*5/9,5*5/9,false)}]]),quote:(_g,key)=>key==='spread'?q:null,reason:()=>blocked,
   count:1,setPicks:p=>{selected=p;},setNotice:()=>{},picks:[],automatic:true,oddsOK:true,oddsError:'',odds:{games:[{...g,home:g.home.name,away:g.away.name,spread:q,total:null,start:g.date}],fetchedAt:stamp},Button:'button',TeamName:'team',MarketOutcomes:'outcomes',Input:'input',manualLines:()=>({spread:'0',total:'8.5'}),update:()=>{},add:()=>{},label:(_g,p)=>p.key+':'+p.side,pct:p=>(p*100).toFixed(1)+'%'};
  const api=new Function(...Object.keys(scope),code+'\nreturn {result,options,preferred,recommend,marketPanel,buildSingleRecommendations};')(...Object.values(scope));return {...api,selected:()=>selected};
 }

@@ -1,12 +1,12 @@
 "use client";
-import {useMemo,useState,useEffect,useRef,type ReactNode} from 'react';
+import {useState,useEffect,useRef,type ReactNode} from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
 import {fresh,canShowPregameMarkets,isPregame,type Match} from '@/lib/baseball';
 import {orderMatchCards} from '@/lib/match-card-order';
-import {expectedRuns,scoreGrid,validLine,type RunSnapshot} from '@/lib/markets';
+import {validLine,type RunSnapshot} from '@/lib/markets';
 import {matchOdds,type OddsSnapshot,type Quote,type MarketKey} from '@/lib/pinnacle';
 import {BOARD_MARKETS,binaryOutcome,boardQuote,boardSides,boardMarketLabel,isFullGamePk,isHalfMarket,makeBoardPick,sameBoardPick,settleBoard,type BoardPick} from '@/lib/board-markets';
 import {formatSpreadLine,formatPickLine} from '@/lib/market-display';
@@ -16,13 +16,15 @@ import TeamName from './team-name';
 import MarketOutcomes from './market-outcomes';
 import ParlayPane from './parlay-pane';
 import {useSuperWorkspace} from './super-workspace';
-import {winnerAnalysis} from '@/lib/winner-analysis';
+import type {WinnerAnalysis} from '@/lib/winner-analysis';
+import type {mlbInningProjection} from '@/lib/mlb-model-analysis';
+import {baseballSettingsSignature,BASEBALL_MODEL_NAMES,type BaseballModelSettings} from '@/lib/baseball-model-settings';
 
 const pct=(p:number)=>(p*100).toFixed(1)+'%';
 const optionName=(g:Match,p:BoardPick)=>p.key==='firstHalfOddEven'?(p.side==='over'?'單':'雙'):p.market==='total'?(p.side==='over'?'大':'小'):<TeamName team={g[p.side as 'home'|'away']}/>;
 function label(g:Match,p:BoardPick){return <>{boardMarketLabel(p.key)} · {optionName(g,p)} {p.key==='firstHalfOddEven'?'':formatPickLine(p)}</>;}
 
-export default function Markets({analysis,games,now,data,error,scheduleOK,scheduleMessage,odds,oddsError,oddsLoading,refreshOdds,renderMatchHeader,renderWinnerOptions,winnerPanel,parlayMode,onParlayModeChange}:{analysis:Record<number,AnalysisState>;games:Match[];now:number;data:RunSnapshot|null;error:string;scheduleOK:boolean;scheduleMessage:string;odds:OddsSnapshot|null;oddsError:string;oddsLoading:boolean;refreshOdds:()=>Promise<void>;renderMatchHeader:(game:Match,expectedRunsInfo:ReactNode)=>ReactNode;renderWinnerOptions:(game:Match)=>ReactNode;winnerPanel:ReactNode;parlayMode:'markets'|'winner';onParlayModeChange:(mode:'markets'|'winner')=>void}){
+export default function Markets({settings,projections,winnerModel,analysis,games,now,data,error,scheduleOK,scheduleMessage,odds,oddsError,oddsLoading,refreshOdds,renderMatchHeader,renderWinnerOptions,winnerPanel,parlayMode,onParlayModeChange}:{settings:BaseballModelSettings;projections:Map<number,ReturnType<typeof mlbInningProjection>>;winnerModel:(g:Match,market?:'moneyline'|'fullGamePk')=>WinnerAnalysis;analysis:Record<number,AnalysisState>;games:Match[];now:number;data:RunSnapshot|null;error:string;scheduleOK:boolean;scheduleMessage:string;odds:OddsSnapshot|null;oddsError:string;oddsLoading:boolean;refreshOdds:()=>Promise<void>;renderMatchHeader:(game:Match,expectedRunsInfo:ReactNode)=>ReactNode;renderWinnerOptions:(game:Match)=>ReactNode;winnerPanel:ReactNode;parlayMode:'markets'|'winner';onParlayModeChange:(mode:'markets'|'winner')=>void}){
  const [mode,setMode]=useState('super007');
  const [showSingles,setShowSingles]=useState(false);
  const [floatingMode,setFloatingMode]=useState<'singles'|'parlay'>('singles');
@@ -35,12 +37,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  const sourceName=odds?.source==='hr9988'?'SUPER':odds?.source||'自動來源';
  const oddsOK=!oddsError&&fresh(odds?.fetchedAt,now,150000),automatic=mode==='super007';
  const dataOK=!error&&fresh(data?.fetchedAt,now,25*60000);
- const models=useMemo(()=>new Map(games.map(g=>{
-  const runs=data?expectedRuns(g,data):null;
-  // Non-PK markets retain the score model. First-half estimates use five
-  // of nine innings at the same scoring rate and keep ties without extra innings.
-  return [g.id,runs?{runs,full:scoreGrid(runs.away,runs.home),half:scoreGrid(runs.away*5/9,runs.home*5/9,false)}:null];
- })),[games,data]);
+ const models=projections;
  const fixtures=games.filter(g=>isPregame(g,now));
  const manualLines=(g:Match)=>inputs[g.id]||{spread:(models.get(g.id)?.runs.home??0)>=(models.get(g.id)?.runs.away??0)?'-1.5':'1.5',total:'8.5'};
  function quote(g:Match,key:MarketKey):Quote|null{
@@ -55,7 +52,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  function result(p:BoardPick){
   const g=games.find(g=>g.id===p.gameId),model=models.get(p.gameId),q=g?quote(g,p.key):null;
   if(!g||reason(g)||!model||!q||q.signature!==p.quote||q.line!==p.line)return null;
-  const win=isFullGamePk(p)?winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK):null;
+  const win=isFullGamePk(p)?winnerModel(g,'fullGamePk'):null;
   return settleBoard(isHalfMarket(p.key)?model.half:model.full,p,win?.canEstimate?win.homeWin:null);
  }
  function options(g:Match,key:BoardPick['key']){
@@ -91,11 +88,11 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
  const orderedGames=orderMatchCards(games,g=>canShowPregameMarkets(g,now)?matchOdds(g,odds):null,oddsOK);
  function marketPanel(g:Match,key:BoardPick['key']){
   const q=quote(g,key),rows=options(g,key),recommended=preferred(rows);
-  const win=q&&isFullGamePk(makeBoardPick(g.id,key,'home',q))?winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK):null;
+  const win=q&&isFullGamePk(makeBoardPick(g.id,key,'home',q))?winnerModel(g,'fullGamePk'):null;
   const blocked=reason(g)||(win&&!win.canEstimate?win.reason:'');
   const sourceIssue=matchOdds(g,odds)?.issues?.[key];
   return <section className="space-y-3" aria-label={boardMarketLabel(key)}>
-   <h5 className="font-bold">{boardMarketLabel(key)}</h5>
+   <h5 className="font-bold">{boardMarketLabel(key)} <small className="baseball-model-tag">{BASEBALL_MODEL_NAMES[win?settings.fullGamePk:'innings']}</small></h5>
    {(key==='spread'||key==='total')&&!automatic?<><Input aria-label={boardMarketLabel(key)+'自訂數值'} type="number" step="0.25" min={key==='spread'?-10:.5} max={key==='spread'?10:30} value={manualLines(g)[key]} onChange={e=>update(g,key,e.target.value)}/><p className="text-sm text-slate-400">自訂參考線 請核對實際數值</p></>:q&&key!=='firstHalfOddEven'?<p className="market-line">{key==='total'||key==='firstHalfTotal'?q.display??q.line:formatSpreadLine(q,'home')}</p>:null}
    <div className="grid gap-3 md:grid-cols-2">{boardSides(key).map(side=>{
     const row=rows.find(x=>x.pick.side===side),p=row?.pick,r=row?.result,active=!!p&&picks.some(x=>sameBoardPick(x,p));
@@ -115,7 +112,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
    const items:ReactNode[]=[],highlights:{score:number;title:ReactNode}[]=[];
    for(const {key} of BOARD_MARKETS){
     if(key==='moneyline'){
-     const state=winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK),q=boardQuote(matchOdds(g,odds),'moneyline');
+     const state=winnerModel(g),q=boardQuote(matchOdds(g,odds),'moneyline');
      if(!oddsOK||!q||!state.canRecommend||!state.favoredSide||state.homeWin===null)continue;
      const side=state.favoredSide,outcome=binaryOutcome(side==='home'?state.homeWin:1-state.homeWin);
      if(outcome)highlights.push({score:outcome.win,title:<>全場獨贏 · <TeamName team={g[side]}/></>});
@@ -133,7 +130,7 @@ export default function Markets({analysis,games,now,data,error,scheduleOK,schedu
   return cards;
  }
  const singleCards=buildSingleRecommendations();
- const singleScope=JSON.stringify(games.map(g=>{const win=winnerAnalysis(g,analysis[g.id]?.report,now,scheduleOK);return [g.id,g.date,g.home.id,g.away.id,g.home.pitcherId,g.away.pitcherId,win.status,win.homeWin];}));
+ const singleScope=baseballSettingsSignature(settings)+JSON.stringify(games.map(g=>{const win=winnerModel(g);return [g.id,g.date,g.home.id,g.away.id,g.home.pitcherId,g.away.pitcherId,win.status,win.homeWin];}));
  useEffect(()=>{
   if(savedSingles.current?.scope!==singleScope)savedSingles.current=null;
   if(scheduleOK&&oddsOK&&dataOK)savedSingles.current={scope:singleScope,at:now,cards:singleCards};

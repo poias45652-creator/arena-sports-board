@@ -1,4 +1,6 @@
 'use client';
+import {BASEBALL_MODEL_NAMES} from '@/lib/baseball-model-settings';
+import {internationalMarketQuote} from '@/lib/international-market-options';
 import {Button} from '@/components/ui/button';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {BOARD_MARKETS,boardMarketLabel} from '@/lib/board-markets';
@@ -14,6 +16,9 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
 }){
  const source=INTERNATIONAL_MARKET_SOURCE[market];
  const options=internationalMarketOptions(game,league,source.period,source.type);
+ const q=internationalMarketQuote(game,source.period,source.type),zero=source.period==='full'&&source.type!=='104'&&source.type!=='105'&&q?.line===0&&(q.parts===undefined||q.parts.length>0&&q.parts.every(n=>n===0));
+ const family=analysis?.personalModel?.settings[market==='moneyline'?'moneyline':'fullGamePk'];
+ const model=market==='moneyline'||zero?family||'innings':'innings';
  const total=source.type==='104',oddEven=source.type==='105';
  const outcomes=isModelLeague(league)?marketOutcomes(game,market,analysis,quotesFresh,league):[];
  const ranked=[...outcomes].sort((a,b)=>b.expectedProfit-a.expectedProfit);
@@ -29,7 +34,7 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
     </TabsList></div>
     <TabsContent value={market} className="pt-4">
      <section className="space-y-3" aria-label={boardMarketLabel(market)}>
-      <h5 className="font-bold">{boardMarketLabel(market)}</h5>
+      <h5 className="font-bold">{boardMarketLabel(market)} <small className="baseball-model-tag">{BASEBALL_MODEL_NAMES[model]}</small></h5>
       <p className="market-line">{options.length?(options[0].lineLabel||boardMarketLabel(market)):'盤口尚未取得'}</p>
       <div className="grid gap-3 md:grid-cols-2">{(['home','away'] as const).map((side,i)=>{
        const pick=options.find(p=>p.side===side),active=!!pick&&picks.some(p=>p.key===pick.key);
@@ -50,7 +55,7 @@ export default function InternationalMarketAnalysis({league,game,market,onMarket
       })}</div>
       {tied&&<p className="text-sm text-amber-200">兩側預期收益接近，暫無明顯推薦方向。</p>}
       {!tied&&belowThreshold&&<p className="text-sm text-amber-200">兩側預期收益均未大於 0，僅標示相對較有利的一側。串關另按獲利機率排序，不代表正預期收益。</p>}
-      {!outcomes.length&&!status&&<p className="text-sm text-amber-200">{analysis?.reason||'分析或報價資料尚未齊全，暫無推薦。'}</p>}
+      {!outcomes.length&&!status&&<p className="text-sm text-amber-200">{analysis?.reason||(model==='multifactor'&&analysis?.personalModel?.multifactor.homeWin===null?'多因子必要的戰績或先發成績未齊，暫無勝率。':'分析或報價資料尚未齊全，暫無推薦。')}</p>}
       {status&&<p role="status" className="text-sm text-amber-200">{status}</p>}
       {!isModelLeague(league)&&<p className="text-sm text-slate-400">分析資料待齊，機率尚未產生。</p>}
      </section>

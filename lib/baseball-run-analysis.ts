@@ -1,3 +1,4 @@
+import {BASEBALL_MODEL_NAMES,BASEBALL_FACTOR_LABELS,INNINGS_DEFAULTS,normalizeBaseballWeights,parseBaseballSettings,type BaseballModelSettings,type InningWeights,type MultiWeights} from './baseball-model-settings';
 import {pitcherIdentity} from './international-pitcher-identity';
 import {scoreGrid,settle,type Outcome,type Settlement} from './markets';
 import {internationalTeam} from './international-teams';
@@ -20,12 +21,13 @@ export type RunModelInput={team:string;starter:string;scored:number;allowed:numb
 /** Fixed weights apply to the regulation run projection after sample-size shrinkage.
  * They are input coefficients, not percentage-point win bonuses or fitted importance.
  * Extra innings exclude the starter and normalize the remaining factors to 100%. */
-export function inningRunRate(bat:RunModelInput,pit:RunModelInput,inning:number):number{
- const w=RUN_MODEL_WEIGHTS;
+export function inningRunRate(bat:RunModelInput,pit:RunModelInput,inning:number,weights?:InningWeights):number{
+ const custom=weights?normalizeBaseballWeights(weights,INNINGS_DEFAULTS):null;
+ const w=custom?{starter:custom.starter/100,offense:custom.offense/100,defense:custom.defense/100,bullpen:custom.bullpen/100}:RUN_MODEL_WEIGHTS;
  const other=w.offense*bat.offense+w.defense*pit.defense+w.bullpen*pit.bullpenEra;
- return (inning<=9?w.starter*pit.starterEra+other:other/(w.offense+w.defense+w.bullpen))/9;
+ return (inning<=9?w.starter*pit.starterEra+other:(w.offense+w.defense+w.bullpen?other/(w.offense+w.defense+w.bullpen):(bat.offense+pit.defense)/2))/9;
 }
-export type RunAnalysis={mode?:'simulation';assumptions?:string[];version:string;status:'ready'|'waiting_data'|'started';reason:string;fixture:Fixture;capturedAt:string;inputs:Partial<Record<Side,RunModelInput>>;notes:string[];expected:{away:number;home:number}|null;win:{away:number;home:number;draw:number}|null;grids:{full:Outcome[];firstHalf:Outcome[]}|null};
+export type RunAnalysis={personalModel?:{settings:BaseballModelSettings;multifactor:ReturnType<typeof internationalMultifactor>;inningsWin:{away:number;home:number;draw:number}};mode?:'simulation';assumptions?:string[];version:string;status:'ready'|'waiting_data'|'started';reason:string;fixture:Fixture;capturedAt:string;inputs:Partial<Record<Side,RunModelInput>>;notes:string[];expected:{away:number;home:number}|null;win:{away:number;home:number;draw:number}|null;grids:{full:Outcome[];firstHalf:Outcome[]}|null};
 const number=(value:unknown,max=30):number|null=>{const s=String(value??'').trim();if(!/^\d+(?:\.\d+)?$/.test(s))return null;const n=Number(s);return Number.isFinite(n)&&n>=0&&n<=max?n:null;};
 const innings=(value:unknown)=>{const m=String(value??'').trim().match(/^(\d+)(?:\.([012]))?$/);return m?Number(m[1])+Number(m[2]||0)/3:null;};
 const countGames=(s:string)=>{const m=s?.match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/);return m?Number(m[1])+Number(m[2])+Number(m[3]):null;};
@@ -34,6 +36,36 @@ const team=(s:string,league:ModelLeague)=>internationalTeam(s.replace(/\s*[（(]
 export const analysisStartTime=(start:string)=>Date.parse(start.replaceAll('/','-').replace(' ','T')+'+08:00');
 export const analysisFixtureKey=(g:Fixture,league:ModelLeague='NPB')=>JSON.stringify([league,analysisStartTime(g.start),team(g.away,league),team(g.home,league)]);
 const validObserved=(at:string,start:number,now:number)=>{const time=Date.parse(at);return Number.isFinite(time)&&time<=now&&time<start&&now-time<=MAX_SOURCE_AGE;};
+
+/** Personal multi-factor trial. Only source-backed observations enter a factor;
+ * no synthetic lineup, fatigue, injury, weather or home-field advantage is inferred. */
+export function internationalMultifactor(g:PregameGame,now:number,league:ModelLeague,weights:MultiWeights){
+ const start=analysisStartTime(g.start),table=g.comparison;
+ const values=(side:Side)=>{
+  const t=g[side],at=t.retainedSource?.observedAt||g.source.observedAt;
+  const row=table?.rows.filter(r=>r[table.headers.indexOf('類別')]==='本季'&&team(r[table.headers.indexOf('球隊')]||'',league)===team(t.team,league));
+  const record=row?.length===1?row[0][table!.headers.indexOf('勝敗')]?.match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/):null;
+  const w=record?Number(record[1]):0,l=record?Number(record[2]):0;
+  const season=record&&w+l>=20&&validObserved(g.comparisonSource?.observedAt||at,start,now)?(w+10)/(w+l+20):null;
+  const known=!!t.starter.name&&t.starter.quality==='source_reported'&&(!t.starter.review||Date.parse(t.starter.review.reviewedAt)<=now)&&(!t.starter.source||validObserved(t.starter.source.observedAt,start,now));
+  const stat=(key:'era'|'whip')=>known&&validObserved(t.starter.statSources?.[key]?.observedAt||at,start,now)?number(t.starter.season[key]):null;
+  const recent=t.starter.recent,di=recent.headers.indexOf('日期'),ii=recent.headers.indexOf('投球局'),ei=recent.headers.indexOf('責失'),seen=new Set<string>();
+  const rows=known&&validObserved(at,start,now)?recent.rows.filter(r=>{const d=r[di],time=Date.parse(d+'T00:00:00+08:00');if(!/^\d{4}-\d{2}-\d{2}$/.test(d||'')||d>=g.date||!Number.isFinite(time)||start-time>60*86400000||seen.has(d))return false;seen.add(d);return true;}).sort((a,b)=>b[di].localeCompare(a[di])).slice(0,5).map(r=>({ip:innings(r[ii]),er:number(r[ei])})).filter(r=>r.ip!==null&&r.ip>0&&r.er!==null):[];
+  const recentEra=rows.length>=3?9*rows.reduce((n,r)=>n+r.er!,0)/rows.reduce((n,r)=>n+r.ip!,0):null;
+  return {season,starterEra:stat('era'),starterWhip:stat('whip'),starterRecentEra:recentEra};
+ };
+ const h=values('home'),a=values('away');
+ const factors=Object.entries(weights).map(([key,weight])=>{
+  const home=h[key as keyof typeof h]??null,away=a[key as keyof typeof a]??null;
+  const log5=key==='season'&&home!==null&&away!==null?(home-home*away)/(home+away-2*home*away):null;
+  const score=home===null||away===null?null:key==='season'?2*log5!-1:Math.max(-1,Math.min(1,(away-home)/(key==='starterWhip'?.8:4)));
+  return {name:BASEBALL_FACTOR_LABELS[key as keyof MultiWeights],weight,home,away,score,contribution:score===null?0:weight*score/2};
+ });
+ const core=[h.season,a.season,h.starterEra,a.starterEra,h.starterWhip,a.starterWhip].every(n=>n!==null);
+ const homeWin=core ? .5+factors.reduce((n,f)=>n+f.contribution,0)/100:null;
+ const observedAt=[g.source.observedAt,g.comparisonSource?.observedAt,...sides.flatMap(side=>[g[side].retainedSource?.observedAt,g[side].starter.statSources?.era?.observedAt,g[side].starter.statSources?.whip?.observedAt])].filter((at):at is string=>!!at&&Number.isFinite(Date.parse(at))).sort((a,b)=>Date.parse(a)-Date.parse(b))[0];
+ return {homeWin,factors,observedAt,coverage:factors.filter(f=>f.score!==null).reduce((n,f)=>n+f.weight,0),missing:factors.filter(f=>f.score===null&&f.weight>0).map(f=>f.name)};
+}
 
 function modelInput(g:PregameGame,side:Side,now:number,notes:string[],league:ModelLeague):RunModelInput|string{
  const t=g[side],label=side==='away'?'客隊':'主隊',table=g.comparison,start=analysisStartTime(g.start);
@@ -119,7 +151,8 @@ export function scoreDistribution(away:number[],home:number[],automaticRunnerSco
  return mass>0?result.map(o=>({...o,p:o.p/mass})):[];
 }
 
-export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague='NPB',allowSimulation=false):RunAnalysis{
+export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague='NPB',allowSimulation=false,settings?:BaseballModelSettings):RunAnalysis{
+ const personal=settings?parseBaseballSettings(settings):null;
  const fixture={start:g.start,away:g.away.team,home:g.home.team,starters:{away:g.away.starter.name,home:g.home.starter.name}};
  const report:RunAnalysis={version:MODEL_VERSION[league],status:'waiting_data',reason:'',fixture,capturedAt:new Date(now).toISOString(),inputs:{},notes:[MODEL_NOTE,...(league==='CPBL'?['10 局起突破僵局的二壘跑者，額外得分機率暫設 60%；為未校準假設，非來源統計。']:[])],expected:null,win:null,grids:null};
  const stop=(reason:string,status:RunAnalysis['status']='waiting_data')=>({...report,status,reason});
@@ -145,12 +178,18 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  if(report.mode==='simulation')report.notes.push('資料不足・模擬推演：替代參數不是投手實測成績；未校準，不代表實際勝率。',...report.assumptions!);
  const a=report.inputs.away!,h=report.inputs.home!;
  const cap=league==='KBO'?11:12;
- const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1));
+ const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1,personal?.weights.innings)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1,personal?.weights.innings));
  const expected={away:away.slice(0,9).reduce((a,b)=>a+b,0),home:home.slice(0,9).reduce((a,b)=>a+b,0)};
  if(Object.values(expected).some(n=>n<=0||n>15))return stop('預期得分超出可計算範圍');
  const full=scoreDistribution(away,home,league==='CPBL'?.6:0),firstHalf=scoreGrid(away.slice(0,5).reduce((a,b)=>a+b,0),home.slice(0,5).reduce((a,b)=>a+b,0),false);
  if(!full.length||!firstHalf.length)return stop('比分分布無法計算');
  const win=full.reduce((r,o)=>{r[o.away>o.home?'away':o.home>o.away?'home':'draw']+=o.p;return r;},{away:0,home:0,draw:0});
+ if(personal){
+  const multifactor=internationalMultifactor(g,now,league,personal.weights.multifactor),personalModel={settings:personal,multifactor,inningsWin:win};
+  const selected=personal.moneyline==='innings'?win:multifactor.homeWin===null?null:{home:multifactor.homeWin*(1-win.draw),away:(1-multifactor.homeWin)*(1-win.draw),draw:win.draw};
+  report.notes.push(`目前獨贏：${BASEBALL_MODEL_NAMES[personal.moneyline]}；零讓分：${BASEBALL_MODEL_NAMES[personal.fullGamePk]}。`, '多因子只分配非和局的勝負機率；和局機率由逐局得分模型保留。', ...multifactor.missing.map(name=>name+'缺少可用實測，該權重保持中性。'));
+  return {...report,personalModel,status:'ready',expected,win:selected,grids:{full,firstHalf},notes:[...new Set(report.notes)]};
+ }
  return {...report,status:'ready',expected,win,grids:{full,firstHalf},notes:[...new Set(report.notes)]};
 }
 
@@ -170,7 +209,7 @@ function simulationInput(g:PregameGame,side:Side,now:number,league:ModelLeague,a
  const era=number(t.starter.season.era),ip=innings(t.starter.season.innings);
  const starterTimes=['era','innings'].map(field=>t.starter.statSources?.[field as 'era'|'innings']?.observedAt||t.retainedSource?.observedAt||g.source.observedAt);
  const known=!!t.starter.name&&t.starter.quality==='source_reported'&&era!==null&&ip!==null&&ip>0&&starterTimes.every(at=>validObserved(at,start,now))&&(!t.starter.source||validObserved(t.starter.source.observedAt,start,now))&&(!t.starter.review||Date.parse(t.starter.review.reviewedAt)<=now);
- if(!known)assumptions.push(t.team+'：先發項以團隊失分或中性假設推演，保留 60% 權重。');
+ if(!known)assumptions.push(t.team+'：先發項以團隊失分或中性假設推演，保留先發項權重。');
  const bp=t.gameLogs?.bullpen,bpAt=bp?t.gameLogs!.observedAt:t.bullpenSource?.observedAt||g.source.observedAt;
  const bpEra=bp?number(bp.era):number(t.bullpen?.era),bpIp=bp?bp.outs/3:innings(t.bullpen?.innings);
  const usable=bpEra!==null&&bpIp!==null&&bpIp>0&&validObserved(bpAt,start,now);
@@ -182,6 +221,8 @@ export function matchingRunAnalysis(game:Fixture,reports:Map<string,RunAnalysis>
  const r=reports.get(analysisFixtureKey(game,league));if(!r||!validAnalysisVersion(r,league))return null;
  if(game.live||now>=analysisStartTime(game.start))return {...r,status:'started',reason:'已開賽，停止賽前估算',win:null,expected:null,grids:null};
  if(sides.some(side=>game.starters?.[side]&&pitcherIdentity(game.starters[side]!,league,game[side])!==pitcherIdentity(r.fixture.starters?.[side]||'',league,game[side])))return {...r,status:'waiting_data',reason:'先發已變更，等待新投手成績',win:null,expected:null,grids:null};
+ const multi=r.personalModel?.multifactor,usesMulti=r.personalModel&&(r.personalModel.settings.moneyline==='multifactor'||r.personalModel.settings.fullGamePk==='multifactor');
+ if(usesMulti&&multi?.homeWin!==null&&multi&&!validObserved(multi.observedAt,analysisStartTime(game.start),now))return {...r,status:'waiting_data',reason:'多因子統計已過期，等待來源更新',win:null,expected:null,grids:null};
  if(Object.values(r.inputs).some(s=>!validObserved(s.teamObservedAt,analysisStartTime(game.start),now)||!validObserved(s.starterObservedAt,analysisStartTime(game.start),now)||(s.bullpenMode!=='team_defense'&&!validObserved(s.bullpenObservedAt,analysisStartTime(game.start),now))))return {...r,status:'waiting_data',reason:'分析資料已過期，等待來源更新',win:null,expected:null,grids:null};
  return r;
 }
@@ -198,7 +239,14 @@ export function marketOutcomes(game:{id:number|string;home:string;away:string;di
    result={win,loss:1-win,push:0,partialWin:0,partialLoss:0,winWeight:win,lossWeight:1-win};
   }else{
    const total=source.type==='104';
-   result=settle(grid,{gameId:0,market:total?'total':'spread',side:total?(pick.side==='home'?'over':'under'):pick.side,line:q.line,boundary:q.boundary,parts:q.parts});
+   const zero=source.period==='full'&&!total&&q.line===0&&(q.parts===undefined||(q.parts.length>0&&q.parts.every(n=>n===0)));
+   const family=report.personalModel?.settings[key==='moneyline'?'moneyline':'fullGamePk'];
+   if(report.personalModel&&(key==='moneyline'||zero)&&family==='multifactor'){
+    const p=report.personalModel.multifactor.homeWin;if(p===null)return [];
+    const draw=report.personalModel.inningsWin.draw;
+    // Preserve the provider's draw boundary (refund / split settlement) via the existing settler.
+    result=settle([{away:0,home:1,p:p*(1-draw)},{away:1,home:0,p:(1-p)*(1-draw)},{away:0,home:0,p:draw}],{gameId:0,market:'spread',side:pick.side,line:0,boundary:q.boundary,parts:q.parts});
+   }else result=settle(grid,{gameId:0,market:total?'total':'spread',side:total?(pick.side==='home'?'over':'under'):pick.side,line:q.line,boundary:q.boundary,parts:q.parts});
   }
   return result?[{pick,result,expectedProfit:result.winWeight*pick.price-result.lossWeight}]:[];
  });

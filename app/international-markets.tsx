@@ -1,7 +1,9 @@
 'use client';
 import {useEffect,useMemo,useState} from 'react';
+import {baseballSettingsSignature,type BaseballModelSettings} from '@/lib/baseball-model-settings';
 import {Button} from '@/components/ui/button';
 import MarketOutcomes from './market-outcomes';
+import BaseballModelDetails from './baseball-model-details';
 import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
 import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
 import {RefreshCw} from 'lucide-react';
@@ -28,15 +30,17 @@ function scheduleGame(g:{id:string;label:string;date?:string}){
  const match=g.label.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+·\s+(.+?)（客）\s+(?:vs|\d+：\d+)\s+(.+?)（主）/);
  return match?{id:`schedule-${g.id}`,sourceId:g.id,start:`${match[1]} ${match[2]}:00`,away:match[3],home:match[4],live:false,displayMarkets:[]}:null;
 }
-export default function InternationalMarkets({league,schedule,standings,starters,pregame,pregameNotice,odds,dataLoading,onRefreshData,onDateChange}:{onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData;pregameNotice?:InternationalPregameNotice|null}){
+export default function InternationalMarkets({settings,league,schedule,standings,starters,pregame,pregameNotice,odds,dataLoading,onRefreshData,onDateChange}:{settings:BaseballModelSettings;onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData;pregameNotice?:InternationalPregameNotice|null}){
  const {data,error,loading:busy,refresh}=odds;
+ const modelSignature=baseballSettingsSignature(settings);
+ useEffect(()=>{setPicks([]);setNotice('');},[modelSignature]);
  const [now,setNow]=useState(Date.now());
  const [day,setDay]=useState('auto'),[count,setCount]=useState(3),[parlayMode,setParlayMode]=useState('markets'),[notice,setNotice]=useState('');
  const [picks,setPicks]=useState<Pick[]>([]);
  const [marketTabs,setMarketTabs]=useState<Record<string,MarketKey>>({});
  useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t);},[]);
  const modelLeague=isModelLeague(league)?league:'NPB',hasModel=isModelLeague(league);
- const analysisReports=useMemo(()=>new Map(hasModel?(pregame?.games||[]).map(g=>{const report=buildRunAnalysis(g,Date.now(),modelLeague,true);return [analysisFixtureKey(report.fixture,modelLeague),report] as const;}):[]),[hasModel,modelLeague,pregame]);
+ const analysisReports=useMemo(()=>new Map(hasModel?(pregame?.games||[]).map(g=>{const report=buildRunAnalysis(g,Date.now(),modelLeague,true,settings);return [analysisFixtureKey(report.fixture,modelLeague),report] as const;}):[]),[hasModel,modelLeague,pregame,modelSignature]);
  const fresh=!!data?.fetchedAt&&now-Date.parse(data.fetchedAt)<=150000&&now-Date.parse(data.fetchedAt)>=-60000&&!error;
  const options=(g:any,selectedPeriod='full',selectedType='103')=>internationalMarketOptions(g,league,selectedPeriod,selectedType);
  const hasOptions=(g:any)=>BOARD_MARKETS.some(({key})=>{const s=INTERNATIONAL_MARKET_SOURCE[key];return options(g,s.period,s.type).length>0;});
@@ -102,6 +106,7 @@ export default function InternationalMarkets({league,schedule,standings,starters
      return <article key={g.id} className="panel international-match-card overflow-hidden">
      <div className="flex flex-wrap justify-between gap-2 px-5 pt-4 text-sm text-slate-400"><span>{g.start}（台灣）{g.venue?` · ${g.venue}`:''}</span><span>{analysis?.expected?`九局得分期望：客 ${analysis.expected.away.toFixed(1)}／主 ${analysis.expected.home.toFixed(1)}，合計 ${(analysis.expected.away+analysis.expected.home).toFixed(1)} 分${analysis.win?` · 和局 ${(analysis.win.draw*100).toFixed(1)}%`:''}`:started?'已開賽，停止賽前估算':'得分期望：—'}</span></div>
      <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2><InternationalTeamLink league={league} name={g[side]}>{cleanTeam(g[side])}</InternationalTeamLink><small>（{side==='home'?'主':'客'}）</small></h2><span><small>{analysis?.mode==='simulation'?'模擬勝率':'勝率'}</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{league==='NPB'?<NpbPlayerLink links={starters?.playerLinks} team={g[side]} name={g.starters?.[side]||'尚未取得'}/>:g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
+     {!started&&analysis&&<div className="px-5"><BaseballModelDetails family={settings.moneyline} factors={settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]} coverage={settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.coverage:undefined} notes={analysis.notes}/></div>}
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
     {!games.length&&<div className="panel p-5">{sourceMessage||(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`)}</div>}

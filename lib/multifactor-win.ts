@@ -1,20 +1,17 @@
 import {baseProbability,fresh,type Match} from './baseball';
+import {MULTIFACTOR_DEFAULTS,normalizeBaseballWeights,type MultiWeights} from './baseball-model-settings';
 import type {AnalysisReport} from './pregame-analysis';
 export const WIN_MODEL_VERSION='multifactor-trial-v2-sp60';
 // Starter factors retain their 2:1:1 ratio, now totaling 60%.
 // Scale all other factors by 40/60 without rounding the calculation coefficients.
-export const WIN_FACTOR_WEIGHTS=Object.freeze({
- season:20*2/3,starterEra:30,starterWhip:15,starterRecentEra:15,
- lineup:20*2/3,bullpenPitches:7*2/3,bullpenBackToBack:3*2/3,
- injuries:4*2/3,weatherPark:3*2/3,homeAdvantage:3*2/3,
-});
+export const WIN_FACTOR_WEIGHTS=Object.freeze({...MULTIFACTOR_DEFAULTS});
 export type WinFactor={name:string;weight:number;home:number|null;away:number|null;score:number|null;contribution:number;rule:string};
 const valid=(x:unknown):x is number=>typeof x==='number'&&Number.isFinite(x)&&x>=0;
 const clamp=(x:number)=>Math.max(-1,Math.min(1,x));
 /** Explicit engineering trial, not fitted or calibrated. Missing weights stay neutral;
  * never redistribute them to the season record or imply unavailable data was used. */
-export function multifactorWin(g:Match,report:AnalysisReport|undefined,now:number){
- const p=baseProbability(g),factors:WinFactor[]=[],w=WIN_FACTOR_WEIGHTS;
+export function multifactorWin(g:Match,report:AnalysisReport|undefined,now:number,weights?:MultiWeights){
+ const p=baseProbability(g),factors:WinFactor[]=[],w=weights?normalizeBaseballWeights(weights,MULTIFACTOR_DEFAULTS)||WIN_FACTOR_WEIGHTS:WIN_FACTOR_WEIGHTS;
  const aligned=!!report&&fresh(report.capturedAt,now,300000)&&report.game.id===g.id&&report.game.date===g.date&&report.game.season===g.season&&(['home','away'] as const).every(s=>report.game[s].id===g[s].id&&report.game[s].pitcherId===g[s].pitcherId);
  const f=aligned?report!.features:{};
  const add=(name:string,weight:number,home:unknown,away:unknown,scale:number,lower:boolean,rule:string)=>{
