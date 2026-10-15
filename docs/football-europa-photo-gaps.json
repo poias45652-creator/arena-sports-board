@@ -415,7 +415,7 @@
     ],
     "birthDate": "",
     "number": "",
-    "collect": false,
+    "collect": true,
     "previousPages": [
       "https://www.fotball.no/fotballdata/person/profil/?fiksId=3934694"
     ],
@@ -426,8 +426,11 @@
     "sofascoreId": "2801661",
     "pages": [],
     "urls": [
-      "https://i.ytimg.com/vi/Z21x4BLOMEk/maxresdefault.jpg"
-    ]
+      "https://scontent-sjc3-1.xx.fbcdn.net/v/t51.82787-15/588998499_17997077111845661_4402487613700065398_n.jpg?stp=dst-jpegr_tt6&cstp=mx1440x1080&ctp=s590x590&_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=CixWJKhRJ08Q7kNvwF603I4&_nc_oc=Adoadr_DkYO_2_8KdkKEXwBM8OYLP9bLjSd6a1unR_osKOW_EcBG-UrnKL466_2YHpI&_nc_zt=23&se=-1&_nc_ht=scontent-sjc3-1.xx&_nc_gid=5jRBNTQhO5fD6LyhKMvxTQ&_nc_ss=7b289&oh=00_AQN-GpNOxv-PS3DDJsAAEIbHw1gfUtyUNkAbVLHKezOsXQ&oe=6AD6AB00",
+      "https://scontent-sjc6-1.xx.fbcdn.net/v/t51.82787-15/587796365_17997077126845661_7660287532007214103_n.jpg?stp=dst-jpegr_tt6&cstp=mx1440x1085&ctp=s590x590&_nc_cat=100&ccb=1-7&_nc_sid=127cfc&_nc_ohc=BXPUgaH1OUAQ7kNvwHcdh9Q&_nc_oc=AdpjPKppzb8sko-zj9kZjpBzK779p6aBkYo3bTWyVIHYjpoz7FL3kdmid6DfEtiBIgA&_nc_zt=23&se=-1&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5jRBNTQhO5fD6LyhKMvxTQ&_nc_ss=7b289&oh=00_AQMyTwin8BUCkaNEyylvBpbnat1rH7m6V-OxZEtqUmKnuA&oe=6AD6D678",
+      "https://scontent-sjc6-1.xx.fbcdn.net/v/t51.82787-15/590499051_17997077135845661_5554139781805981465_n.jpg?stp=dst-jpegr_tt6&cstp=mx1440x1085&ctp=s590x590&_nc_cat=104&ccb=1-7&_nc_sid=127cfc&_nc_ohc=6M9K9-6qJREQ7kNvwGdLsOo&_nc_oc=AdoFaGNqUT51RzmzodxYt8GKcE37wq4dbQRfByDYrmapo1ItIkJZCOOiZ0yWVorPUM8&_nc_zt=23&se=-1&_nc_ht=scontent-sjc6-1.xx&_nc_gid=5jRBNTQhO5fD6LyhKMvxTQ&_nc_ss=7b289&oh=00_AQPsPyWLLSPt1fmCBwfwqeXknxE5MwtXrfnNzterU9ETSg&oe=6AD6B773"
+    ],
+    "researchContext": "LSK official G17 2025 awards post; Julius named teammate of year. Inspect certificates and individual captions before assigning any face."
   },
   {
     "id": "3138999",
