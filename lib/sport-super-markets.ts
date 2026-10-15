@@ -43,6 +43,8 @@ const footballAliases:Record<string,string>={
  // October 13 production source spellings, checked against both full fixtures.
  'PSV埃因霍溫':'PSV恩荷芬','科木':'科莫','AS羅馬':'羅馬',
  '皇家貝迪斯':'皇家貝提斯','波杜基林特':'博多格林特',
+ // October 15 authenticated Europa coverage, verified against ESPN fixtures.
+ '採列':'采列','薩爾茨堡紅牛':'薩爾斯堡紅牛',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
