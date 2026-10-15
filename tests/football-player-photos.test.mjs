@@ -112,9 +112,9 @@ test('all reviewed Europa gap portraits serve their original pinned bytes withou
  const sources=JSON.parse(readFileSync('data/football-europa-reviewed-photo-sources.json'));
  const catalog=JSON.parse(readFileSync('data/football-europa-player-photos.json')).players;
  const base=JSON.parse(readFileSync('data/football-player-photos.json')).players;
- assert.equal(review.accepted.length,33);assert.equal(review.unresolved.length,12);
- assert.equal(new Set(review.accepted.map(p=>p.sha256)).size,33,'No repeated placeholder image');
- assert.equal(audit.cataloguedPhotos,1125);assert.equal(audit.uniquePlayers-audit.cataloguedPhotos,review.unresolved.length);
+ assert.equal(review.accepted.length,42);assert.equal(review.unresolved.length,3);
+ assert.equal(new Set(review.accepted.map(p=>p.sha256)).size,42,'No repeated placeholder image');
+ assert.equal(audit.cataloguedPhotos,1134);assert.equal(audit.uniquePlayers-audit.cataloguedPhotos,review.unresolved.length);
  assert.deepEqual(audit.missing.map(p=>p.id).sort(),review.unresolved.map(p=>p.id).sort());
  const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Reviewed original must be served locally');};
  try{
@@ -128,6 +128,20 @@ test('all reviewed Europa gap portraits serve their original pinned bytes withou
   }
   assert.equal(downloads,0);
  }finally{globalThis.fetch=previous;}
+});
+test('photo framing isolates reviewed subjects and never applies to a different name',async()=>{
+ const {footballPortraitStyle}=await import(moduleUrl('lib/football-portrait-framing.ts'));
+ const frames=JSON.parse(readFileSync('data/football-europa-photo-framing.json'));
+ const review=JSON.parse(readFileSync('docs/football-europa-portrait-gap-review.json'));
+ for(const [id,f] of Object.entries(frames)){
+  const photo=review.accepted.find(p=>p.id===id);assert.ok(photo?.localPath);
+  assert.equal(f.width,photo.width);assert.equal(f.height,photo.height);assert.equal(f.name,photo.name);
+  assert.ok(f.x>=0&&f.y>=0&&f.size>0&&f.x+f.size<=f.width&&f.y+f.size<=f.height);
+  const style=footballPortraitStyle(id,f.name);assert.ok(style);
+  assert.ok(Math.abs(style.width/style.height-f.width/f.height)<1e-10,'framing must preserve photo proportions');
+  assert.equal(footballPortraitStyle(id,'Unrelated Player'),undefined);
+ }
+ assert.equal(footballPortraitStyle('193649','Arsen Beglaryan'),undefined,'existing portraits retain their layout');
 });
 test('team and season identity corrections require the reviewed source fingerprint',async()=>{
  const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));

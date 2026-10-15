@@ -6,6 +6,8 @@ on:
       - 'scripts/football-photos/research-gaps.py'
       - 'docs/football-europa-photo-gaps.json'
       - '.github/workflows/football-europa-photo-gaps.yml'
+      - 'scripts/football-photos/review-framing.mjs'
+      - 'data/football-europa-photo-framing.json'
 permissions:
   contents: read
 jobs:
@@ -27,5 +29,29 @@ jobs:
         with:
           name: europa-gap-evidence-${{ github.run_id }}-${{ github.run_attempt }}
           path: /tmp/europa-gaps
+          retention-days: 7
+          if-no-files-found: error
+  framing:
+    if: startsWith(github.head_ref, 'fix/yj-europa-portrait-gaps-')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm install --prefix /tmp/portrait-browser playwright@1.62.1
+      - run: /tmp/portrait-browser/node_modules/.bin/playwright install --with-deps chromium
+      - run: node scripts/football-photos/review-framing.mjs /tmp/europa-portrait-framing
+        env:
+          PORTRAIT_PLAYWRIGHT_MODULE: /tmp/portrait-browser/node_modules/playwright/index.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: europa-portrait-framing-${{ github.run_id }}
+          path: /tmp/europa-portrait-framing
           retention-days: 7
           if-no-files-found: error

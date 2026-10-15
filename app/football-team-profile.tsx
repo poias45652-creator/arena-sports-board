@@ -41,6 +41,7 @@ import {
 } from "@/lib/football-team-details";
 import "./football.css";
 import "./football-team-profile.css";
+import {footballPortraitStyle} from "@/lib/football-portrait-framing";
 
 const decimal = (n: number | null | undefined) =>
     typeof n === "number" ? n.toFixed(2) : "—",
@@ -766,6 +767,7 @@ function FootballPlayers({
   );
 }
 function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
+  const portraitStyle = footballPortraitStyle(p.id, p.name);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
   useEffect(() => {
@@ -779,15 +781,16 @@ function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
         {failed ? (
           <UserRound size={48} aria-label="尚無球員照片" />
         ) : (
-          <img
+          <span className="football-player-photo-frame"><img
             src={p.photo + (attempt ? `&retry=${attempt}` : "")}
             alt={p.name}
+            style={portraitStyle}
             decoding="async"
             width={100}
             height={100}
             loading="lazy"
             onError={() => setFailed(true)}
-          />
+          /></span>
         )}
       </div>
       <h3>
