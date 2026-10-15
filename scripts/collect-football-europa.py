@@ -24,4 +24,4 @@ requests = [(f'team-{league.replace(".", "-")}-{team}-{year}', root + f'{league}
 with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
     sources += list(pool.map(collect, requests))
 (out / 'manifest.json').write_text(json.dumps({'collectedAt': datetime.datetime.now(datetime.timezone.utc).isoformat(), 'sources': sources}, indent=2))
-print(json.dumps({'files': len(sources), 'teams': len(teams), 'annualEvents': {s['file']: s['events'] for s in sources if s['file'].startswith('annual')}))
+print(json.dumps({'files': len(sources), 'teams': len(teams), 'annualEvents': {s['file']: s['events'] for s in sources if s['file'].startswith('annual')}}))
