@@ -794,8 +794,8 @@ function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
         )}
       </div>
       <h3>
-        <a href={p.href} target="_blank" rel="noreferrer">
-          {p.name} ↗
+        <a href={p.href}>
+          {p.name} →
         </a>
       </h3>
       <p>

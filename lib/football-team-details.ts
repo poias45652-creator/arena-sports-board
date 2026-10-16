@@ -274,7 +274,7 @@ export function parseFootballRoster(
       country: correction?.identity?.country || String(p.citizenship || supplement?.country || ""),
       height: correction?.identity?.height || String(p.displayHeight || supplement?.height || ""),
       photo,
-      href: correction?.source || `https://www.espn.com/soccer/player/stats/_/id/${playerId}`,
+      href: `/players/football/${league}/${playerId}?team=${id}&season=${season}`,
       appearances: stat("appearances"),
       goals: stat("totalGoals"),
       assists: stat("goalAssists"),

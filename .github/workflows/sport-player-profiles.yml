@@ -1,0 +1,44 @@
+name: Sport player profiles
+on:
+  pull_request:
+    paths:
+      - 'app/sport-player-profile*'
+      - 'app/players/**'
+      - 'app/api/sport-player/**'
+      - 'app/nba-team-profile.tsx'
+      - 'app/football-team-profile.tsx'
+      - 'lib/*player-profile*'
+      - 'lib/sport-player-fetch.ts'
+      - 'lib/football-team-details.ts'
+      - 'tests/sport-player-profile*'
+      - 'tests/fixtures/player-profiles/**'
+      - '.github/workflows/sport-player-profiles.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: node --test tests/sport-player-profile.test.mjs
+      - run: npm run build
+      - name: Install browser
+        run: |
+          npm install --prefix /tmp/player-browser playwright@1.56.1
+          /tmp/player-browser/node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify all three sports on phones and desktop
+        run: node tests/sport-player-profile-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sport-player-profiles-${{ github.run_id }}
+          path: evidence/player-profile-browser/
+          retention-days: 7
