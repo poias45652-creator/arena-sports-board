@@ -12,7 +12,7 @@ const code=f=>baseCode(f).replace("'./request-origin'",JSON.stringify(originModu
 const credentials=url(code('tz-credentials.ts')),session=url(code('arena-session.ts')),binding=url(code('tz-binding-service.ts').replace("'./tz-credentials'",JSON.stringify(credentials)));
 const {tzLogin}=await import(url(code('tz-login.ts').replace("'./turnstile'",JSON.stringify(url(code('turnstile.ts')))).replace("'./arena-session'",JSON.stringify(session)).replace("'./tz-binding-service'",JSON.stringify(binding)).replace("'./tz-credentials'",JSON.stringify(credentials))));
 const {readSession}=await import(session);
-function db({approved=true}={}){const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');for(const f of ['0002_empty_spot','0003_steady_professor_monster','0004_magical_dagger','0005_smiling_wolverine','0006_wide_nightcrawler'])sql.exec(readFileSync('drizzle/'+f+'.sql','utf8'));if(approved)sql.prepare('INSERT INTO account_access VALUES (?,?,?,?)').run('tz:123',1,null,Date.now());return {sql,prepare(q){const s=sql.prepare(q);let a=[];return {bind(...v){a=v;return this},async first(){return s.get(...a)||null},async all(){return {results:s.all(...a)}},async run(){return s.run(...a)}}},async batch(ss){sql.exec('BEGIN');try{const values=[];for(const s of ss)values.push(await s.run());sql.exec('COMMIT');return values;}catch(e){sql.exec('ROLLBACK');throw e;}}};}
+function db({approved=true}={}){const sql=new DatabaseSync(':memory:');sql.exec('PRAGMA foreign_keys=ON');for(const f of ['0002_empty_spot','0003_steady_professor_monster','0004_magical_dagger','0005_smiling_wolverine','0006_wide_nightcrawler','0013_account_login_activity'])sql.exec(readFileSync('drizzle/'+f+'.sql','utf8'));if(approved)sql.prepare('INSERT INTO account_access VALUES (?,?,?,?)').run('tz:123',1,null,Date.now());return {sql,prepare(q){const s=sql.prepare(q);let a=[];return {bind(...v){a=v;return this},async first(){return s.get(...a)||null},async all(){return {results:s.all(...a)}},async run(){return s.run(...a)}}},async batch(ss){sql.exec('BEGIN');try{const values=[];for(const s of ss)values.push(await s.run());sql.exec('COMMIT');return values;}catch(e){sql.exec('ROLLBACK');throw e;}}};}
 const secret=Buffer.alloc(32,8).toString('base64');
 const request=(method='POST',cookie='',origin='https://site.test')=>new Request('https://site.test/api/session',{method,headers:{origin,'Content-Type':'application/json',cookie},...(method==='POST'?{body:JSON.stringify({username:'test-user',password:'test-password'})}:{})});
 const source=async()=>Response.json({code:200,data:{user_id:123,username:'test-user',token:'a.'+Buffer.from(JSON.stringify({exp:Math.floor(Date.now()/1000)+7200})).toString('base64url')+'.b'}});
@@ -36,6 +36,61 @@ const adminStub=url('export async function isSiteAdmin(){return globalThis.accou
 const dbStub=url('export function getRawDb(){return globalThis.accountTestDb}');
 const adminSource=ts.transpileModule(readFileSync('app/api/admin/accounts/route.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const adminRoute=await import(url(adminSource.replace("'@/lib/request-origin'",JSON.stringify(originModule)).replace("'@/app/admin-access'",JSON.stringify(adminStub)).replace("'@/db'",JSON.stringify(dbStub)).replace("'@/lib/arena-session'",JSON.stringify(session))));
+test('admin sees successful login time, live session state and retained history after logout',async()=>{
+ const d=db({approved:false});globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
+ const listing=async()=>(await (await adminRoute.GET()).json()).accounts[0];
+ const realNow=Date.now,startedAt=realNow();
+ try{
+  Date.now=()=>startedAt;
+  assert.equal((await tzLogin(request(),d,secret,source)).status,403);
+  assert.equal((await listing()).lastLogin,null);assert.equal((await listing()).signedIn,0);
+  assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM account_login_activity').get().n,0);
+  d.sql.prepare('INSERT INTO account_access VALUES (?,1,NULL,?)').run('tz:123',startedAt);
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  const login=await tzLogin(request(),d,secret,source);assert.equal(login.status,200);
+  const cookie=login.headers.get('set-cookie').split(';')[0];
+  assert.equal((await listing()).lastLogin,startedAt);assert.equal((await listing()).signedIn,1);
+  Date.now=()=>startedAt+5000;
+  assert.equal((await tzLogin(request('GET',cookie),d,secret,source)).status,200);
+  assert.equal((await listing()).lastLogin,startedAt,'status polling is not a new login');
+  assert.equal((await tzLogin(request('DELETE',cookie),d,secret,source)).status,200);
+  assert.equal((await listing()).lastLogin,startedAt);assert.equal((await listing()).signedIn,0);
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  assert.equal((await tzLogin(request(),d,secret,async()=>new Response('',{status:401}))).status,422);
+  assert.equal((await listing()).lastLogin,startedAt,'failed login preserves the last successful time');
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  const again=await tzLogin(request(),d,secret,source);assert.equal(again.status,200);
+  assert.equal((await listing()).lastLogin,startedAt+5000);assert.equal((await listing()).signedIn,1);
+  d.sql.prepare('DELETE FROM account_login_activity').run();
+  assert.equal((await listing()).lastLogin,null,'legacy sessions must not invent history from verification');
+  assert.equal((await listing()).signedIn,1,'an existing valid session is still signed in');
+ }finally{Date.now=realNow;d.sql.close();delete globalThis.accountTestDb;delete globalThis.accountTestAdmin;}
+});
+
+test('admin signed-in status agrees with session validation for expiry, revocation and disabled grants',async()=>{
+ const d=db();const login=await tzLogin(request(),d,secret,source);const cookie=login.headers.get('set-cookie').split(';')[0];
+ globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
+ const realNow=Date.now,now=realNow();
+ Date.now=()=>now;
+ try{
+  const lastLogin=d.sql.prepare('SELECT last_login_at FROM account_login_activity').get().last_login_at;
+  const checks=[
+   ['UPDATE arena_sessions SET expires_at=?',[now]],
+   ['UPDATE tz_bindings SET expires_at=?',[now]],
+   ['UPDATE account_access SET expires_at=?',[now]],
+   ['UPDATE account_access SET enabled=0',[]],
+   ['DELETE FROM account_access',[]]
+  ];
+  for(const [query,args]of checks){
+   d.sql.prepare('UPDATE arena_sessions SET expires_at=?').run(now+3600000);
+   d.sql.prepare('UPDATE tz_bindings SET expires_at=?').run(now+3600000);
+   d.sql.prepare('UPDATE account_access SET enabled=1,expires_at=NULL').run();
+   d.sql.prepare(query).run(...args);
+   const row=(await (await adminRoute.GET()).json()).accounts[0];
+   assert.equal(row.signedIn,0,query);assert.equal(await readSession(d,cookie),null,query);assert.equal(row.lastLogin,lastLogin);
+  }
+ }finally{Date.now=realNow;d.sql.close();delete globalThis.accountTestDb;delete globalThis.accountTestAdmin;}
+});
 test('account management rejects non-admin users and cross-site changes',async()=>{
  globalThis.accountTestAdmin=false;globalThis.accountTestDb=undefined;
  assert.equal((await adminRoute.GET()).status,403);
@@ -167,7 +222,7 @@ test('deletion removes only the selected member, revokes cookies and requires fr
  d.sql.prepare('INSERT INTO hr_connections (member_id,binding_version,busy_until,operation_id) VALUES (?,?,?,?)').run('tz:123',Date.now(),0,'test-operation');
  globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
  assert.equal((await adminRoute.DELETE(deleteRequest())).status,200);
- for(const table of ['tz_bindings','account_access','arena_sessions','hr_connections'])assert.equal(d.sql.prepare(`SELECT COUNT(*) AS n FROM ${table} WHERE member_id=?`).get('tz:123').n,0);
+ for(const table of ['tz_bindings','account_access','arena_sessions','account_login_activity','hr_connections'])assert.equal(d.sql.prepare(`SELECT COUNT(*) AS n FROM ${table} WHERE member_id=?`).get('tz:123').n,0);
  assert.equal(await readSession(d,cookie),null);
  assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM arena_sessions WHERE member_id=?').get('tz:other').n,1);
  assert.equal(d.sql.prepare('SELECT enabled FROM account_access WHERE member_id=?').get('tz:other').enabled,1);

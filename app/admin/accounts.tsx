@@ -1,13 +1,13 @@
 'use client';
-import {useEffect,useRef,useState} from 'react';
+import {useCallback,useEffect,useRef,useState} from 'react';
 import {Button} from '@/components/ui/button';
 import {Input} from '@/components/ui/input';
 import {Switch} from '@/components/ui/switch';
 import {accountExpiryInput,parseAccountExpiry} from '@/lib/account-expiry';
 import {AlertDialog,AlertDialogTrigger,AlertDialogContent,AlertDialogHeader,AlertDialogTitle,AlertDialogDescription,AlertDialogFooter,AlertDialogCancel,AlertDialogAction} from '@/components/ui/alert-dialog';
-type Account={memberId:string;username:string;enabled:number;expiresAt:number|null;lastLogin:number;accessState:'pending'|'disabled'|'expired'|'active';isAdmin:number};
+type Account={memberId:string;username:string;enabled:number;expiresAt:number|null;lastLogin:number|null;signedIn:number;accessState:'pending'|'disabled'|'expired'|'active';isAdmin:number};
 const date=accountExpiryInput;
-function AccountRow({account,onSaved}:{account:Account;onSaved:()=>void}){
+function AccountRow({account,onSaved,statusAvailable}:{account:Account;onSaved:()=>void;statusAvailable:boolean}){
  const [enabled,setEnabled]=useState(account.enabled===1),[until,setUntil]=useState(date(account.expiresAt)),[busy,setBusy]=useState(false),[message,setMessage]=useState('');
  const [confirmDelete,setConfirmDelete]=useState(false);
  const expiryField=useRef<HTMLInputElement>(null);
@@ -23,7 +23,7 @@ function AccountRow({account,onSaved}:{account:Account;onSaved:()=>void}){
  const status=pending?'待授權':account.enabled!==1?'已停用':account.expiresAt&&account.expiresAt<=Date.now()?'已到期':'已授權';
  return <div className="rounded-xl border border-slate-700 bg-[#0c1928] p-4 space-y-3">
   <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="font-bold text-lg break-all">{account.username}{admin&&<span className="ml-2 text-sm text-slate-400">主管理員</span>}</h3><span className={status==='已授權'?'text-emerald-300':'text-amber-300'}>{status}</span></div>
-  <p className="text-sm text-slate-400">最近帳號驗證：{new Date(account.lastLogin).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}（台灣）</p>
+  <div className="space-y-2 text-sm"><p className="text-slate-400">最後登入時間：{account.lastLogin===null?'尚無紀錄（下次成功登入後顯示）':`${new Date(account.lastLogin).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false})}（台灣）`}</p><p className="flex flex-wrap items-center gap-2"><span className="text-slate-400">目前登入狀態：</span><span className={`inline-flex items-center gap-2 rounded-full px-3 py-1 ${!statusAvailable?'bg-amber-400/10 text-amber-300':account.signedIn===1?'bg-emerald-400/10 text-emerald-300':'bg-slate-400/10 text-slate-300'}`}><span aria-hidden="true" className="size-2 rounded-full bg-current"/>{!statusAvailable?'暫時無法確認':account.signedIn===1?'登入中':'未登入'}</span></p></div>
   <div className="flex flex-wrap items-center gap-4">
    {!pending&&<label className="flex items-center gap-2"><Switch checked={enabled} onCheckedChange={setEnabled} disabled={busy||admin}/>允許使用</label>}
    <label className="flex min-w-0 max-w-full flex-wrap items-center gap-2">使用至<Input ref={expiryField} aria-label={`${account.username} 到期時間（台灣）`} type="datetime-local" step="1" min="1970-01-01T08:00:01" max="2099-12-31T23:59:59" className="w-full min-w-0 sm:w-[17rem]" value={until} onChange={e=>setUntil(e.target.value.length===16?`${e.target.value}:00`:e.target.value)} disabled={busy||admin}/></label>
@@ -37,8 +37,9 @@ function AccountRow({account,onSaved}:{account:Account;onSaved:()=>void}){
 }
 export default function Accounts(){
  const [accounts,setAccounts]=useState<Account[]>([]),[search,setSearch]=useState(''),[tab,setTab]=useState<'pending'|'active'|'inactive'>('pending'),[loading,setLoading]=useState(true),[error,setError]=useState('');
- async function load(){setError('');try{const r=await fetch('/api/admin/accounts',{cache:'no-store'});const d=await r.json();if(!r.ok)throw new Error(d.error||'讀取失敗');setAccounts(d.accounts);}catch(e){setError(e instanceof Error?e.message:'讀取失敗');}finally{setLoading(false);}}
- useEffect(()=>{void load()},[]);
+ const requestRef=useRef<AbortController|null>(null);
+ const load=useCallback(async()=>{requestRef.current?.abort();const controller=new AbortController();requestRef.current=controller;try{const r=await fetch('/api/admin/accounts',{cache:'no-store',signal:controller.signal});const d=await r.json();if(!r.ok)throw new Error(d.error||'讀取失敗');if(controller.signal.aborted)return;setAccounts(d.accounts);setError('');}catch(e){if(!controller.signal.aborted)setError(e instanceof Error?e.message:'讀取失敗');}finally{if(!controller.signal.aborted)setLoading(false);}},[]);
+ useEffect(()=>{void load();const refresh=()=>{if(document.visibilityState==='visible')void load()};const timer=setInterval(refresh,15000);window.addEventListener('focus',refresh);document.addEventListener('visibilitychange',refresh);return()=>{clearInterval(timer);window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',refresh);requestRef.current?.abort();}},[load]);
  const pendingCount=accounts.filter(a=>a.accessState==='pending').length;
  const activeCount=accounts.filter(a=>a.accessState==='active').length;
  const inactiveCount=accounts.length-pendingCount-activeCount;
@@ -46,9 +47,10 @@ export default function Accounts(){
  return <section className="panel p-5 space-y-4">
   <div className="flex flex-wrap justify-between items-center gap-3"><h1 className="text-2xl font-bold">帳號授權管理</h1><Button variant="outline" onClick={()=>{setLoading(true);void load()}} disabled={loading}>重新載入</Button></div>
   <p className="text-slate-300">使用者先以自己的平台帳號驗證，驗證成功後會列入待授權。管理員授權後才能登入網站；停用或到期會立即停止存取。</p>
+  <p className="text-sm text-slate-400">登入狀態每 15 秒自動更新。「登入中」表示登入仍有效，不代表正在操作頁面。</p>
   <div className="flex flex-wrap gap-2" role="group" aria-label="授權狀態"><Button aria-pressed={tab==='pending'} variant={tab==='pending'?'default':'outline'} onClick={()=>setTab('pending')}>待授權（{pendingCount}）</Button><Button aria-pressed={tab==='active'} variant={tab==='active'?'default':'outline'} onClick={()=>setTab('active')}>已授權（{activeCount}）</Button><Button aria-pressed={tab==='inactive'} variant={tab==='inactive'?'default':'outline'} onClick={()=>setTab('inactive')}>已停用／到期（{inactiveCount}）</Button></div>
   <Input aria-label="搜尋帳號" placeholder="搜尋帳號" value={search} onChange={e=>setSearch(e.target.value)}/>
   {error&&<p role="alert" className="text-red-300">{error}</p>}
-  {loading?<p>正在讀取帳號…</p>:<><p className="text-sm text-slate-400">共 {shown.length} 個帳號</p><div className="grid gap-4 xl:grid-cols-2">{shown.map(a=><AccountRow key={`${a.memberId}:${a.accessState}:${a.enabled}:${a.expiresAt}`} account={a} onSaved={()=>void load()}/>)}</div>{!shown.length&&<p>{search.trim()?'沒有符合搜尋條件的帳號。':tab==='pending'?'目前沒有待授權帳號。':tab==='active'?'目前沒有已授權帳號。':'目前沒有已停用或到期帳號。'}</p>}</>}
+  {loading?<p>正在讀取帳號…</p>:<><p className="text-sm text-slate-400">共 {shown.length} 個帳號</p><div className="grid gap-4 xl:grid-cols-2">{shown.map(a=><AccountRow key={`${a.memberId}:${a.accessState}:${a.enabled}:${a.expiresAt}`} account={a} statusAvailable={!error} onSaved={()=>void load()}/>)}</div>{!shown.length&&<p>{search.trim()?'沒有符合搜尋條件的帳號。':tab==='pending'?'目前沒有待授權帳號。':tab==='active'?'目前沒有已授權帳號。':'目前沒有已停用或到期帳號。'}</p>}</>}
  </section>;
 }

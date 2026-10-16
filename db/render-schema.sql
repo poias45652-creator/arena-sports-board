@@ -63,6 +63,11 @@ CREATE TABLE IF NOT EXISTS "arena_sessions" (
 CREATE INDEX IF NOT EXISTS "arena_sessions_member" ON "arena_sessions" ("member_id");
 
 CREATE INDEX IF NOT EXISTS "arena_sessions_expiry" ON "arena_sessions" ("expires_at");
+CREATE TABLE IF NOT EXISTS "account_login_activity" (
+	"member_id" text PRIMARY KEY NOT NULL,
+	"last_login_at" bigint NOT NULL,
+	FOREIGN KEY ("member_id") REFERENCES "tz_bindings"("member_id") ON UPDATE no action ON DELETE cascade
+);
 CREATE TABLE IF NOT EXISTS "account_access" (
 	"member_id" text PRIMARY KEY NOT NULL,
 	"enabled" bigint DEFAULT 1 NOT NULL,

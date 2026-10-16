@@ -20,6 +20,9 @@ export const hrConnections=sqliteTable('hr_connections',{
 export const arenaSessions=sqliteTable('arena_sessions',{
  tokenHash:text('token_hash').primaryKey(),memberId:text('member_id').notNull().references(()=>tzBindings.memberId,{onDelete:'cascade'}),expiresAt:integer('expires_at').notNull()
 },t=>[index('arena_sessions_member').on(t.memberId),index('arena_sessions_expiry').on(t.expiresAt)]);
+export const accountLoginActivity=sqliteTable('account_login_activity',{
+ memberId:text('member_id').primaryKey().references(()=>tzBindings.memberId,{onDelete:'cascade'}),lastLoginAt:integer('last_login_at').notNull()
+});
 export const accountAccess=sqliteTable('account_access',{
  memberId:text('member_id').primaryKey(),enabled:integer('enabled').notNull().default(1),expiresAt:integer('expires_at'),updatedAt:integer('updated_at').notNull(),
 });

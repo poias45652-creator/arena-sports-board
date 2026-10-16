@@ -6,7 +6,11 @@ export const dynamic='force-dynamic';
 const reply=(data:any,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store'}});
 export async function GET(){
  if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- try{const result=await getRawDb().prepare("SELECT b.member_id AS memberId,b.username,b.verified_at AS lastLogin,COALESCE(a.enabled,0) AS enabled,a.expires_at AS expiresAt,CASE WHEN a.member_id IS NULL THEN 'pending' WHEN a.enabled<>1 THEN 'disabled' WHEN a.expires_at IS NOT NULL AND a.expires_at<=? THEN 'expired' ELSE 'active' END AS accessState,CASE WHEN lower(b.username) IN (?,?) THEN 1 ELSE 0 END AS isAdmin FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' ORDER BY (a.member_id IS NULL) DESC,b.verified_at DESC").bind(Date.now(),PLATFORM_ADMIN_USERNAME,'vrvtest01').all();return reply({accounts:result.results});}catch{return reply({error:'帳號清單暫時無法讀取'},503);}
+ try{
+  const now=Date.now();
+  const result=await getRawDb().prepare("SELECT b.member_id AS memberId,b.username,l.last_login_at AS lastLogin,COALESCE(a.enabled,0) AS enabled,a.expires_at AS expiresAt,CASE WHEN a.member_id IS NULL THEN 'pending' WHEN a.enabled<>1 THEN 'disabled' WHEN a.expires_at IS NOT NULL AND a.expires_at<=? THEN 'expired' ELSE 'active' END AS accessState,CASE WHEN lower(b.username) IN (?,?) THEN 1 ELSE 0 END AS isAdmin,CASE WHEN b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) AND EXISTS (SELECT 1 FROM arena_sessions s WHERE s.member_id=b.member_id AND s.expires_at>?) THEN 1 ELSE 0 END AS signedIn FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id LEFT JOIN account_login_activity l ON l.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' ORDER BY (a.member_id IS NULL) DESC,b.verified_at DESC").bind(now,PLATFORM_ADMIN_USERNAME,'vrvtest01',now,now,now).all();
+  return reply({accounts:result.results});
+ }catch{return reply({error:'帳號清單暫時無法讀取'},503);}
 }
 export async function PATCH(request:Request){
  if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
@@ -37,6 +41,7 @@ export async function DELETE(request:Request){
   if(account.username!==confirmUsername)return reply({error:'帳號資料已變更，請重新載入後確認'},409);
   await db.batch([
    db.prepare('DELETE FROM arena_sessions WHERE member_id=?').bind(memberId),
+   db.prepare('DELETE FROM account_login_activity WHERE member_id=?').bind(memberId),
    db.prepare('DELETE FROM hr_connections WHERE member_id=?').bind(memberId),
    db.prepare('DELETE FROM account_access WHERE member_id=?').bind(memberId),
    db.prepare('DELETE FROM tz_binding_attempts WHERE member_id=?').bind(memberId),

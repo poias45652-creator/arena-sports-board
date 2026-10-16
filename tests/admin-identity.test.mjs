@@ -142,7 +142,7 @@ function grantDb(access=null){
   },async run(){
    if(sql.startsWith('INSERT INTO account_access')){assert.match(sql,/ON CONFLICT\(member_id\) DO NOTHING$/);db.access??={enabled:1,expires_at:null};}
    else if(sql.startsWith('INSERT INTO arena_sessions'))db.sessionIssued=db.access?.enabled===1&&(db.access.expires_at===null||db.access.expires_at>Date.now());
-   else assert.match(sql,/^(INSERT INTO tz_bindings|DELETE FROM (tz_bindings|tz_binding_attempts|arena_sessions))/);
+   else assert.match(sql,/^(INSERT INTO (tz_bindings|account_login_activity)|DELETE FROM (tz_bindings|tz_binding_attempts|arena_sessions))/);
   }};
  },async batch(statements){for(const statement of statements)await statement.run();}};
  return db;
@@ -180,9 +180,9 @@ for(const[k,v]of Object.entries(accountMocks))accountSource=accountSource.replac
 const accounts=await import(url(accountSource));
 function accountDb(){
  const sql=new DatabaseSync(':memory:');
- sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,username TEXT,verified_at INTEGER);CREATE TABLE account_access(member_id TEXT PRIMARY KEY,enabled INTEGER,expires_at INTEGER,updated_at INTEGER);CREATE TABLE arena_sessions(member_id TEXT);CREATE TABLE hr_connections(member_id TEXT);CREATE TABLE tz_binding_attempts(member_id TEXT);');
+ sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,username TEXT,verified_at INTEGER,expires_at INTEGER);CREATE TABLE account_login_activity(member_id TEXT PRIMARY KEY,last_login_at INTEGER);CREATE TABLE account_access(member_id TEXT PRIMARY KEY,enabled INTEGER,expires_at INTEGER,updated_at INTEGER);CREATE TABLE arena_sessions(member_id TEXT,expires_at INTEGER);CREATE TABLE hr_connections(member_id TEXT);CREATE TABLE tz_binding_attempts(member_id TEXT);');
  for(const [id,username] of [['tz:primary','render-test-admin'],['tz:new','VRVTEST01'],['tz:member','ordinary-member'],['ofa:other','vrvtest01']]){
-  sql.prepare('INSERT INTO tz_bindings VALUES (?,?,?)').run(id,username,Date.now());sql.prepare('INSERT INTO account_access VALUES (?,1,NULL,?)').run(id,Date.now());
+  sql.prepare('INSERT INTO tz_bindings VALUES (?,?,?,?)').run(id,username,Date.now(),Date.now()+3600000);sql.prepare('INSERT INTO account_access VALUES (?,1,NULL,?)').run(id,Date.now());
  }
  return {sql,prepare(query){const statement=sql.prepare(query);let args=[];return {bind(...values){args=values;return this;},async first(){return statement.get(...args)||null;},async all(){return {results:statement.all(...args)};},async run(){return statement.run(...args);}};},async batch(statements){for(const statement of statements)await statement.run();}};
 }

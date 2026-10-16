@@ -48,9 +48,11 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  if(access.expires_at!==null&&access.expires_at<=Date.now())return response({code:'access_expired',error:'網站授權已到期，請聯繫作者續期。'},403,sessionCookie('',0));
  const session=[...crypto.getRandomValues(new Uint8Array(32))].map(n=>n.toString(16).padStart(2,'0')).join('');
  const expires=Math.min(binding.expires_at,now+12*3600000),oldToken=sessionToken(request.headers.get('cookie'));
+ const sessionHash=await hash(session),signedInAt=Date.now();
  await db.batch([
  db.prepare('DELETE FROM arena_sessions WHERE member_id=? OR token_hash=? OR expires_at<=?').bind(member,oldToken?await hash(oldToken):'',now),
- db.prepare('INSERT INTO arena_sessions (token_hash,member_id,expires_at) SELECT ?,?,? WHERE EXISTS (SELECT 1 FROM account_access WHERE member_id=? AND enabled=1 AND (expires_at IS NULL OR expires_at>?))').bind(await hash(session),member,expires,member,Date.now())
+ db.prepare('INSERT INTO arena_sessions (token_hash,member_id,expires_at) SELECT ?,?,? WHERE EXISTS (SELECT 1 FROM account_access WHERE member_id=? AND enabled=1 AND (expires_at IS NULL OR expires_at>?))').bind(sessionHash,member,expires,member,signedInAt),
+ db.prepare('INSERT INTO account_login_activity (member_id,last_login_at) SELECT s.member_id,? FROM arena_sessions s JOIN tz_bindings b ON b.member_id=s.member_id JOIN account_access a ON a.member_id=s.member_id WHERE s.token_hash=? AND s.expires_at>? AND b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) ON CONFLICT(member_id) DO UPDATE SET last_login_at=excluded.last_login_at').bind(signedInAt,sessionHash,signedInAt,signedInAt,signedInAt)
  ]);
  if(!await readSession(db,sessionCookie(session,1)))return response({error:'帳號使用權已變更，請聯絡管理員'},403,sessionCookie('',0));
  return response({signedIn:true,username:binding.username,source},200,sessionCookie(session,Math.floor((expires-now)/1000)));
