@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-16",
+  "capturedAt": "2026-10-16T15:00:23.331Z",
+  "runId": 38411690456,
+  "runAttempt": 19,
+  "jobId": 117038237065,
+  "artifactId": 12053613872,
+  "artifactCreatedAt": "2026-10-16T15:00:25Z",
+  "artifactSha256": "2fe90249a445d0d2686f378c8e9d3bbd3a0f4ddb6d987854b2becb06346826f5",
+  "artifactDigestMatchesDownloadedZip": true,
+  "artifactUrl": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/38411690456/attempts/19",
+  "collectorBranch": "data/live-source-probe-20260915",
+  "collectorHeadSha": "7c87b400955242af5854025fc1b9a8efdb76f860",
+  "collectorRunStatus": "success",
+  "secondCapturePerformed": false,
+  "qualifiedNewLiveChanges": 0,
+  "priorSameDayLiveProofRetained": true,
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 2,
+      "pregame": 0,
+      "live": 0,
+      "final": 2,
+      "games": [
+        {
+          "key": "NPB:2021039482",
+          "away": "橫濱DeNA海灣之星",
+          "awayScore": 4,
+          "home": "阪神虎",
+          "homeScore": 0,
+          "status": "final",
+          "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021039482/score",
+          "sourceFetchedAt": "2026-10-16T15:00:20.654Z",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "lineupConfirmation": "not_verified"
+        },
+        {
+          "key": "NPB:2021039488",
+          "away": "日本火腿鬥士",
+          "awayScore": 2,
+          "home": "福岡軟銀鷹",
+          "homeScore": 6,
+          "status": "final",
+          "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021039488/score",
+          "sourceFetchedAt": "2026-10-16T15:00:20.886Z",
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "lineupConfirmation": "not_verified"
+        }
+      ],
+      "pitchingRows": 18
+    },
+    "KBO": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 0,
+      "officialOffDayVerified": false
+    },
+    "CPBL": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 0,
+      "officialOffDayVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "checkedAt": "2026-10-16T15:00:24.292Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 2,
+        "readBack": 2,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      }
+    ]
+  },
+  "notes": [
+    "Fresh final-state collector capture, not an additional live-to-live change.",
+    "Existing October 16 live evidence remains retained from earlier attempts.",
+    "All unknown values remain null; zero games for KBO/CPBL does not independently prove official off-days.",
+    "Artifact is the complete source of normalized box-score and player-stat data."
+  ]
+}
