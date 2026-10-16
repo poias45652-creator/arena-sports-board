@@ -24,6 +24,7 @@ import {supplementCpblGameLogs,cpblLogCoverage} from './cpbl-game-logs';
 import {saveInternationalForecasts} from './international-model-audit-store';
 import {buildRunAnalysis,type ModelLeague} from './baseball-run-analysis';
 import {internationalPregameHealth} from './international-pregame-health';
+import {storedPregameResponse} from './international-pregame-snapshot';
 
 export const getInternationalLive=createLiveFeed({day:dayInTaipei,
  collect:async(league:string,options:any)=>{
@@ -38,6 +39,12 @@ export const getInternationalLive=createLiveFeed({day:dayInTaipei,
  write:(snapshot:any)=>writeLiveSnapshot(getRawDb(),snapshot)
 });
 
+// This path reads the already-verified public snapshot without waiting for any external provider.
+export async function getStoredInternationalPregame(league:string,date:string){
+ const stored=await getRawDb().prepare('SELECT payload FROM baseball_pregame WHERE league=? AND date=? LIMIT 1').bind(league,date).first<{payload:string}>();
+ return stored?storedPregameResponse(league,date,stored.payload):null;
+}
+
 const pending=new Map<string,Promise<any>>(),cache=new Map<string,{until:number;data:any}>();
 export async function getInternationalPregame(league:string,date=dayInTaipei()){
  if(!['CPBL','NPB','KBO'].includes(league)||!/^\d{4}-\d{2}-\d{2}$/.test(date))throw Error('Invalid league/date');
@@ -49,7 +56,9 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const liveTask=getInternationalLive(league,date);
   const publicTask=liveTask.then((feed:any)=>collectSeasonPitching(league,date,feed.games.filter((g:any)=>g.status==='pregame'&&!g.sourceStale).flatMap((g:any)=>[internationalTeam(g.away.name,league),internationalTeam(g.home.name,league)])));
   const bullpenTask=liveTask.then((feed:any)=>collectBullpens(league,date,feed.games.filter((g:any)=>g.status==='pregame'&&!g.sourceStale).flatMap((g:any)=>[internationalTeam(g.away.name,league),internationalTeam(g.home.name,league)])));
-  const [feed,playsport,kboHistory,cpblLogs,publicPitching,publicBullpen]=await Promise.all([liveTask,fetchPlaysportPregame(league,date),league==='KBO'?getKboRunHistory():null,league==='CPBL'?getCpblGameLogs(Number(date.slice(0,4))):null,publicTask,bullpenTask]);
+  // NPB uses Sportsnavi fixtures plus NPB official pitching, team and bullpen records.
+  // The optional Playsport provider rejects this host and must not delay NPB responses.
+  const [feed,playsport,kboHistory,cpblLogs,publicPitching,publicBullpen]=await Promise.all([liveTask,league==='NPB'?Promise.resolve({snapshot:{games:[]} as unknown as PregameData,errors:[] as string[]}):fetchPlaysportPregame(league,date),league==='KBO'?getKboRunHistory():null,league==='CPBL'?getCpblGameLogs(Number(date.slice(0,4))):null,publicTask,bullpenTask]);
   if(playsport.snapshot.games.length)archives.push(playsport.snapshot);
   let pregame=supplementCpblPitchers(applyCpblPitcherReview(currentPregame(league,date,feed,archives)),cpblSeason);
   pregame=applyKboPitcherReview(pregame);
@@ -66,7 +75,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const reports=pregame.games.map(g=>buildRunAnalysis(g,Date.now(),league as ModelLeague,true));
   const analysisCoverage={ready:reports.filter(r=>r.status==='ready'&&r.mode!=='simulation').length,simulated:reports.filter(r=>r.status==='ready'&&r.mode==='simulation').length,total:reports.length,blocked:reports.filter(r=>r.status!=='ready').map(r=>({start:r.fixture.start,away:r.fixture.away,home:r.fixture.home,status:r.status,reason:r.reason}))};
   const status=internationalPregameHealth(feed,reports);
-  const data={kind:league.toLowerCase()+'-pregame',status:pregame.games.length?status:league==='CPBL'&&feed.noGames?'ready':'unavailable',...(league==='CPBL'&&feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
+  const data={kind:league.toLowerCase()+'-pregame',...(league==='NPB'?{sourceStrategy:'sportsnavi-npb-official'}:{}),status:pregame.games.length?status:league==='CPBL'&&feed.noGames?'ready':'unavailable',...(league==='CPBL'&&feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
    scope:'開啟網站時每 5 分鐘檢查公開來源；保存最後成功資料。歷史補充欄位保留原時間。',error:feed.error||null,storageError,forecastStorage,
    playsport:{games:playsport.snapshot.games.length,errors:playsport.errors},
    statsFallback:{rows:publicPitching.rows.length,sources:[...publicPitching.sources,...publicBullpen.sources],errors:[...publicPitching.errors,...publicBullpen.errors],scope:publicPitching.scope},
