@@ -132,3 +132,11 @@ test('analysis refresh reloads both fixture statistics and quotes, and mobile re
  assert.equal(dataRefresh,1);assert.equal(oddsRefresh,1);
  assert.ok(html.indexOf('international-match-card')<html.indexOf('arena-analysis-summary'),'game cards precede the parlay form in the reading order');
 });
+
+
+test('多因子缺少必要來源時回報部分就緒，觸發快速自動恢復',()=>{
+ const feed={status:'ok'},personalModel={multifactor:{homeWin:null}};
+ assert.equal(internationalPregameHealth(feed,[{status:'ready',personalModel}]),'partial');
+ assert.equal(internationalPregameHealth(feed,[{status:'ready',personalModel:{multifactor:{homeWin:.6}}}]),'ready');
+ assert.equal(internationalPregameHealth(feed,[{status:'started',personalModel}]),'ready');
+});
