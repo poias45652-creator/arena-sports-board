@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-16",
+  "capturedAt": "2026-10-16T07:53:49.273Z",
+  "kind": "collector_pregame_refresh",
+  "purpose": "Daily first-team data validation; not production",
+  "workflow": {
+    "name": "Current baseball collector",
+    "runId": 38411690456,
+    "runAttempt": 12,
+    "jobId": 116871758729,
+    "status": "completed",
+    "conclusion": "success",
+    "artifactId": 12033495329,
+    "artifactCreatedAt": "2026-10-16T07:53:51Z",
+    "artifactDigest": "sha256:399fda76601d1decccef97240568e48674e8c956b596a766a8465f77806767e8"
+  },
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 2,
+      "pregame": 2,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "games": [
+        {
+          "key": "NPB:2021039482",
+          "away": "橫濱DeNA海灣之星",
+          "home": "阪神虎",
+          "status": "pregame",
+          "startTime": "2026-10-16T09:00:00.000Z",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021039482/score",
+          "fetchedAt": "2026-10-16T07:53:46.766Z"
+        },
+        {
+          "key": "NPB:2021039488",
+          "away": "日本火腿鬥士",
+          "home": "福岡軟銀鷹",
+          "status": "pregame",
+          "startTime": "2026-10-16T09:00:00.000Z",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "source": "https://baseball.yahoo.co.jp/npb/game/2021039488/score",
+          "fetchedAt": "2026-10-16T07:53:47.220Z"
+        }
+      ]
+    },
+    "KBO": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": null
+    }
+  },
+  "secondCapturePerformed": false,
+  "liveChangesVerified": false,
+  "qualifiedNumericChanges": 0,
+  "captureIntervalSeconds": null,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-16T07:53:50.470Z",
+    "NPB": {
+      "written": 2,
+      "readBack": 2,
+      "duplicateWrites": 0,
+      "passed": true
+    },
+    "KBO": {
+      "written": 0,
+      "readBack": 0,
+      "duplicateWrites": 0,
+      "passed": true
+    },
+    "CPBL": {
+      "written": 0,
+      "readBack": 0,
+      "duplicateWrites": 0,
+      "passed": true
+    },
+    "productionWritten": false
+  },
+  "unsupportedFields": {
+    "CPBL_pitchCount": null,
+    "CPBL_balls": null,
+    "CPBL_strikes": null,
+    "CPBL_outs": null,
+    "CPBL_bases": null
+  },
+  "productionChanged": false,
+  "deployed": false,
+  "notes": "Only pregame fixtures at this capture, >=65 second dual live capture not applicable. Zero-game collector response alone does not prove an official off-day; no lineups treated as confirmed."
+}
