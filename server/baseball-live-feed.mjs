@@ -1,6 +1,6 @@
 import {retainFixtureStart} from './baseball-live-retention.mjs';
 import {baseballBackgroundStatus} from './baseball-background-state.mjs';
-import {isRetiredNpbFixture,npbFixtureRetirementDecision} from './baseball-npb-schedule.mjs';
+import {isRetiredNpbFixture,npbFixtureRetirementDecision,isVerifiedNpbOffday} from './baseball-npb-schedule.mjs';
 /** Shared-source feed. No account credentials leave this server. */
 export function createLiveFeed({collect,read,write,day,now=Date.now}) {
  const cache=new Map(),pending=new Map();
@@ -26,10 +26,11 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
     if(fresh?.league!==league||fresh.date!==date||!Array.isArray(fresh.games))throw new Error('No verified current-date games');
     if(!fresh.games.length){
      const proof=fresh.scheduleProof,ids=new Set(['cpbl.t.1','cpbl.t.2','cpbl.t.5','cpbl.t.6','cpbl.t.7','cpbl.t.8']);
-     const verified=league==='CPBL'&&proof?.date===date&&proof.listedGames===0&&
+     const cpblOffday=league==='CPBL'&&proof?.date===date&&proof.listedGames===0&&
       proof.teams?.length===6&&new Set(proof.teams.map(t=>t.teamId)).size===6&&
       proof.teams.every(t=>ids.has(t.teamId)&&t.from<=date&&t.through>=date&&
-       Number.isFinite(Date.parse(t.fetchedAt))&&now()-Date.parse(t.fetchedAt)>=-60000&&now()-Date.parse(t.fetchedAt)<=900000)&&
+       Number.isFinite(Date.parse(t.fetchedAt))&&now()-Date.parse(t.fetchedAt)>=-60000&&now()-Date.parse(t.fetchedAt)<=900000);
+     const verified=(cpblOffday||league==='NPB'&&isVerifiedNpbOffday(proof,date,now()))&&
       fresh.status==='ok'&&Array.isArray(fresh.errors)&&fresh.errors.length===0&&older.size===0;
      if(!verified)throw new Error('No verified current-date games');
      const value={schemaVersion:1,league,date,games:[],status:'ok',stale:false,noGames:true,

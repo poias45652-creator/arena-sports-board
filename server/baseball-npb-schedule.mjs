@@ -110,6 +110,17 @@ export function npbScheduleProof(page,date,diagnostics){
   stage='navigation';
   const navigation=blocks(byId(html,'nav','day_nav').body,'a').map(a=>a.attrs.href);
   if(![-1,1].every(n=>navigation.includes(`/npb/schedule/first/all?date=${shift(date,n)}`)))return null;
+  // An empty response is not an off day. Both the selected day's explicit
+  // message and its dated weekly-calendar row must confirm no first-team games.
+  if(npbScheduleIds(html).length===0){
+   stage='offday';
+   const messages=blocks(html,'p').filter(p=>hasClass(p.attrs,'bb-noData')&&plain(p.body)==='試合はありません');
+   const calendar=byId(html,'table','wk_sche'),days=blocks(calendar.body,'tbody').filter(b=>blocks(b.body,'th').some(h=>hasClass(h.attrs,'bb-scheduleTable__head')&&plain(h.body)===label));
+   if(messages.length!==1||days.length!==1)return null;
+   const rows=blocks(days[0].body,'tr'),cells=blocks(days[0].body,'td'),heads=blocks(days[0].body,'th');
+   if(rows.length!==1||heads.length!==1||cells.length!==1||!hasClass(cells[0].attrs,'bb-scheduleTable__data--nogame')||plain(cells[0].body)!=='試合はありません'||blocks(days[0].body,'a').length)return null;
+   stage='verified';return {schemaVersion:1,kind:'npb-verified-offday',league:'NPB',date,noGames:true,listedGames:[],source:{provider:'sportsnavi',url:page.url,fetchedAt:page.fetchedAt}};
+  }
   stage='cards';
   const listedGames=blocks(byId(html,'div','gm_card').body,'a').filter(a=>hasClass(a.attrs,'bb-score__content')).map(listedCard);
   if(!listedGames.length||listedGames.length>12||new Set(listedGames.map(g=>g.id)).size!==listedGames.length)return null;
@@ -135,6 +146,11 @@ export function npbScheduleProof(page,date,diagnostics){
   // exception messages. A missing/frozen diagnostics target changes no result.
   if(diagnostics&&typeof diagnostics==='object'&&!Array.isArray(diagnostics))try{diagnostics.stage=stage;}catch{}
  }
+}
+
+export function isVerifiedNpbOffday(proof,date,now=Date.now()){
+ const age=now-Date.parse(proof?.source?.fetchedAt);
+ return isDay(date)&&proof?.schemaVersion===1&&proof.kind==='npb-verified-offday'&&proof.league==='NPB'&&proof.date===date&&proof.noGames===true&&Array.isArray(proof.listedGames)&&proof.listedGames.length===0&&proof.source?.provider==='sportsnavi'&&proof.source.url===scheduleUrl(date)&&Number.isFinite(age)&&age>=-60000&&age<=900000;
 }
 
 /** The existing retirement guards with a bounded explanation of the first
