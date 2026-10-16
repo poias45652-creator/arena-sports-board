@@ -1,0 +1,248 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-16",
+  "capturedAt": "2026-10-16T11:49:32.565Z",
+  "runId": 38411690456,
+  "runAttempt": 17,
+  "jobId": 116957031639,
+  "artifactId": 12043982606,
+  "artifactCreatedAt": "2026-10-16T11:49:35Z",
+  "artifactSha256": "3f563b2c78efadd4c3c58d04311975c869d7a9711b362dcc97cc040dac7b63fe",
+  "artifactComparedToRunAttempt": 16,
+  "previousArtifactId": 12042661117,
+  "previousArtifactSha256": "71259dcbf3b8c9c1de122fe220b6c7c3cf1f8081f34bf1a1e7851b44eda1befd",
+  "freshArtifactVerified": true,
+  "status": "success",
+  "capture1": "2026-10-16T11:48:24.695Z",
+  "capture2": "2026-10-16T11:49:32.565Z",
+  "secondCapturePerformed": true,
+  "secondCaptureQualifiedChanges": 0,
+  "crossRunLiveToLiveProof": [
+    {
+      "key": "NPB:2021039482",
+      "from": "2026-10-16T11:16:10.739Z",
+      "to": "2026-10-16T11:48:22.345Z",
+      "before": {
+        "status": "live",
+        "awayScore": 3,
+        "homeScore": 0,
+        "inning": 7
+      },
+      "after": {
+        "status": "live",
+        "awayScore": 4,
+        "homeScore": 0,
+        "inning": 9
+      },
+      "changes": {
+        "awayScore": {
+          "before": 3,
+          "after": 4
+        },
+        "inning": {
+          "before": 7,
+          "after": 9
+        }
+      },
+      "intervalSeconds": 1931.61
+    },
+    {
+      "key": "NPB:2021039488",
+      "from": "2026-10-16T11:16:11.017Z",
+      "to": "2026-10-16T11:48:22.574Z",
+      "before": {
+        "status": "live",
+        "awayScore": 2,
+        "homeScore": 5,
+        "inning": 7
+      },
+      "after": {
+        "status": "live",
+        "awayScore": 2,
+        "homeScore": 6,
+        "inning": 8
+      },
+      "changes": {
+        "homeScore": {
+          "before": 5,
+          "after": 6
+        },
+        "inning": {
+          "before": 7,
+          "after": 8
+        }
+      },
+      "intervalSeconds": 1931.56
+    }
+  ],
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 2,
+      "pregame": 0,
+      "live": 1,
+      "final": 1,
+      "games": [
+        {
+          "key": "NPB:2021039482",
+          "date": "2026-10-16",
+          "startTime": "2026-10-16T09:00:00.000Z",
+          "away": {
+            "id": "3",
+            "name": "橫濱DeNA海灣之星",
+            "score": 4,
+            "hits": 10,
+            "errors": 2
+          },
+          "home": {
+            "id": "5",
+            "name": "阪神虎",
+            "score": 0,
+            "hits": 2,
+            "errors": 1
+          },
+          "status": "final",
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "currentPitcher": null,
+          "lineupConfirmation": "not_verified",
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039482/score",
+            "fetchedAt": "2026-10-16T11:49:30.657Z",
+            "httpDate": "Fri, 16 Oct 2026 11:49:22 GMT",
+            "cacheAgeSeconds": 8
+          }
+        },
+        {
+          "key": "NPB:2021039488",
+          "date": "2026-10-16",
+          "startTime": "2026-10-16T09:00:00.000Z",
+          "away": {
+            "id": "8",
+            "name": "日本火腿鬥士",
+            "score": 2,
+            "hits": 8,
+            "errors": 0
+          },
+          "home": {
+            "id": "12",
+            "name": "福岡軟銀鷹",
+            "score": 6,
+            "hits": 11,
+            "errors": 1
+          },
+          "status": "live",
+          "inning": 8,
+          "half": "bottom",
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "currentPitcher": null,
+          "lineupConfirmation": "not_verified",
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039488/score",
+            "fetchedAt": "2026-10-16T11:49:30.888Z",
+            "httpDate": "Fri, 16 Oct 2026 11:49:24 GMT",
+            "cacheAgeSeconds": 6
+          }
+        }
+      ],
+      "withinRunCapture1": [
+        {
+          "key": "NPB:2021039482",
+          "status": "live",
+          "awayScore": 4,
+          "homeScore": 0,
+          "inning": 9,
+          "half": "bottom",
+          "sourceFetchedAt": "2026-10-16T11:48:22.345Z"
+        },
+        {
+          "key": "NPB:2021039488",
+          "status": "live",
+          "awayScore": 2,
+          "homeScore": 6,
+          "inning": 8,
+          "half": "bottom",
+          "sourceFetchedAt": "2026-10-16T11:48:22.574Z"
+        }
+      ],
+      "withinRunCapture2": [
+        {
+          "key": "NPB:2021039482",
+          "status": "final",
+          "awayScore": 4,
+          "homeScore": 0,
+          "inning": null,
+          "sourceFetchedAt": "2026-10-16T11:49:30.657Z"
+        },
+        {
+          "key": "NPB:2021039488",
+          "status": "live",
+          "awayScore": 2,
+          "homeScore": 6,
+          "inning": 8,
+          "half": "bottom",
+          "sourceFetchedAt": "2026-10-16T11:49:30.888Z"
+        }
+      ]
+    },
+    "KBO": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 0,
+      "officialOffDayVerified": false
+    },
+    "CPBL": {
+      "status": "ok",
+      "errors": [],
+      "firstTeamGames": 0,
+      "officialOffDayVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "checkedAt": "2026-10-16T11:49:33.902Z",
+    "NPB": {
+      "written": 2,
+      "readBack": 2,
+      "duplicateWrites": 0,
+      "passed": true
+    },
+    "KBO": {
+      "written": 0,
+      "readBack": 0,
+      "duplicateWrites": 0,
+      "passed": true
+    },
+    "CPBL": {
+      "written": 0,
+      "readBack": 0,
+      "duplicateWrites": 0,
+      "passed": true
+    }
+  },
+  "productionChanged": false,
+  "notes": [
+    "Cross-run proof compares two source records both captured during live status; >65 seconds. The current attempt's two captures have no numeric live-to-live change.",
+    "Exact full player and pitch data, where available, remain in ZIP artifact/local saved copy; unknown fields remain null.",
+    "No official off-day claim for KBO/CPBL."
+  ]
+}
