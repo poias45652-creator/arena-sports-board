@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-16",
+  "capturedAt": "2026-10-16T08:45:12.748Z",
+  "runId": 38411690456,
+  "runAttempt": 13,
+  "jobId": 116890251323,
+  "artifactId": 12035017865,
+  "artifactCreatedAt": "2026-10-16T08:45:17Z",
+  "artifactDigest": "sha256:a4fd1d4b7fbfce5d7aba48e81ee2b0336d394a9058e46586d5ce3016f3375d0c",
+  "status": "success",
+  "leagues": {
+    "NPB": {
+      "pregame": 2,
+      "live": 0,
+      "final": 0,
+      "firstTeamGames": 2
+    },
+    "KBO": {
+      "firstTeamGames": 0,
+      "offDayVerified": null
+    },
+    "CPBL": {
+      "firstTeamGames": 0,
+      "offDayVerified": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "databaseTest": {
+    "NPB": {
+      "written": 2,
+      "readBack": 2,
+      "duplicateWrites": 0
+    },
+    "productionWritten": false
+  },
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0
+}
