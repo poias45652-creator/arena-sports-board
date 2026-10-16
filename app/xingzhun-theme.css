@@ -1,0 +1,134 @@
+/* Approved 星準 visual system. Decorations never intercept controls. */
+.xz-theme {
+  --xz-gold:#d8ad63;
+  --xz-gold-light:#f6dba4;
+  --xz-edge:#aa844c;
+  --xz-rule:rgba(216,173,99,.25);
+  --xz-panel:#09131f;
+  --xz-panel-deep:#060d16;
+  --xz-ornament:url('/brand/xingzhun-baseball-corner-v1.svg');
+  --primary:#e6b957;
+  --primary-foreground:#100d07;
+  --border:rgba(216,173,99,.35);
+  --ring:#e6b957;
+}
+.arena-shell.xz-theme[data-sport="basketball"] {
+  --xz-gold:#e8ad62;
+  --xz-gold-light:#ffe1b1;
+  --xz-edge:#b67a3c;
+  --xz-panel:#10151c;
+  --xz-panel-deep:#090f15;
+  --xz-ornament:url('/brand/xingzhun-basketball-corner-v1.svg');
+}
+.arena-shell.xz-theme[data-sport="football"] {
+  --xz-gold:#debf78;
+  --xz-gold-light:#fff0b9;
+  --xz-edge:#a89558;
+  --xz-panel:#061a19;
+  --xz-panel-deep:#041110;
+  --xz-ornament:url('/brand/xingzhun-football-corner-v1.svg');
+}
+.arena-shell.xz-theme[data-sport] { background:#030911; }
+.arena-shell.xz-theme[data-sport]::before {
+  background-color:#030911;
+  background-image:linear-gradient(180deg,rgba(3,9,17,.22),rgba(3,9,17,.42)),url('/brand/xingzhun-baseball-bg-v1.webp');
+  background-position:center center;
+  background-size:cover;
+}
+.arena-shell.xz-theme[data-sport="basketball"]::before {
+  background-image:linear-gradient(180deg,rgba(6,9,14,.2),rgba(6,9,14,.44)),url('/brand/xingzhun-basketball-bg-v1.webp');
+}
+.arena-shell.xz-theme[data-sport="football"]::before {
+  background-image:linear-gradient(180deg,rgba(2,12,13,.18),rgba(2,12,13,.42)),url('/brand/xingzhun-football-bg-v1.webp');
+}
+.arena-shell.xz-theme>header {
+  background:linear-gradient(115deg,rgba(4,11,19,.97),rgba(10,19,29,.94));
+  border-bottom:1px solid var(--xz-edge);
+  box-shadow:0 4px 24px #0006,inset 0 -1px #f6dba412;
+}
+.arena-shell.xz-theme>header img[alt="星準"],.yj-login.xz-theme img[alt="星準"] {
+  border:1px solid var(--xz-edge); border-radius:8px; box-shadow:0 0 16px #e6b95716;
+}
+.arena-shell.xz-theme :is(.panel,.nba-card,.nba-heading,.football-content-panel,.football-card,.football-standings,.league-switcher,.league-summary) {
+  position:relative;
+  border-color:var(--xz-edge);
+  background:linear-gradient(130deg,var(--xz-panel),var(--xz-panel-deep));
+  box-shadow:inset 0 0 0 1px #f6dba418,0 12px 32px #0005;
+}
+.arena-shell.xz-theme :is(.panel,.nba-card,.football-content-panel,.football-card,.football-standings) {
+  border-width:1px; border-style:solid; border-radius:16px;
+}
+.arena-shell.xz-theme :is(.panel,.nba-card,.nba-heading,.football-content-panel,.football-card,.league-switcher)::after {
+  content:""; position:absolute; inset:5px; z-index:1; border:1px solid #f6dba426;
+  border-radius:inherit; pointer-events:none;
+  background:url('/brand/xingzhun-star-v1.svg') left top/18px 18px no-repeat,url('/brand/xingzhun-star-v1.svg') right bottom/18px 18px no-repeat;
+}
+.arena-shell.xz-theme[data-sport="baseball"] .panel {
+  background-image:var(--xz-ornament),linear-gradient(130deg,var(--xz-panel),var(--xz-panel-deep));
+  background-size:105px 105px,auto; background-position:right top,center; background-repeat:no-repeat;
+}
+.arena-shell.xz-theme[data-sport="basketball"] :is(.nba-card,.nba-heading) {
+  background-image:var(--xz-ornament),linear-gradient(130deg,var(--xz-panel),var(--xz-panel-deep));
+  background-size:230px 230px,auto; background-position:right top,center; background-repeat:no-repeat;
+}
+.arena-shell.xz-theme[data-sport="football"] :is(.football-content-panel,.football-card) {
+  background-image:var(--xz-ornament),linear-gradient(130deg,var(--xz-panel),var(--xz-panel-deep));
+  background-size:180px 180px,auto; background-position:right bottom,center; background-repeat:no-repeat;
+}
+.arena-shell.xz-theme :is(.score-card,.nba-card-analysis,.international-lineups>div) { background:var(--xz-panel-deep); }
+.arena-shell.xz-theme .nba-card>header { background:var(--xz-panel)!important; border-bottom-color:var(--xz-rule); }
+.arena-shell.xz-theme :is(.nba-card-analysis,.football-card-top,.nba-board-meta,.score-filters,.nba-estimates,.nba-form) { border-color:var(--xz-rule); }
+.arena-shell.xz-theme :is(.nba-board,.nba-profile,.nba-recommendations) { --nba-accent:var(--xz-gold-light); --nba-border:var(--xz-edge); --nba-panel:var(--xz-panel); }
+.arena-shell.xz-theme .nba-tabs { background:var(--xz-panel-deep); border-color:var(--xz-edge); }
+.arena-shell.xz-theme .nba-court-art { opacity:.17; }
+.arena-shell.xz-theme :is(.football-heading,.baseball-league-heading,.nba-toolbar) { text-shadow:0 2px 10px #000; }
+/* Native buttons, date controls and tabs keep their existing semantics. */
+.xz-theme :is([data-slot="button"][data-variant="outline"],.header-action,.league-switcher button,.baseball-league-switcher button,.league-tabs [data-slot="tabs-trigger"],.football-leagues button,.football-page-tabs button,.football-date button,.football-date label,.football-model-tag,.nba-date button,.nba-date label,.baseball-model-trigger,.football-model-trigger,.nba-model-trigger) {
+  border:1px solid var(--xz-edge);
+  color:#f2eee5;
+  background:linear-gradient(135deg,#17212ad9,var(--xz-panel-deep));
+  box-shadow:inset 0 1px 0 #fff1;
+}
+.xz-theme :is([data-slot="button"][data-variant="default"],.league-switcher button[aria-pressed="true"],.football-primary,.baseball-model-apply,.football-model-apply,.nba-model-apply) {
+  border:1px solid #f3d79e;
+  background:linear-gradient(115deg,#c18d37 0%,#f0cc78 42%,#f8d992 58%,#d6a64d 100%);
+  color:#161106;
+  box-shadow:inset 0 1px 0 #fff7,0 2px 12px #c18d3720;
+}
+.xz-theme :is(.baseball-league-switcher button[aria-pressed="true"],.league-tabs [data-state="active"],.football-leagues button[aria-pressed="true"],.football-page-tabs button[aria-pressed="true"],.nba-filters button[aria-pressed="true"],.football-filters button[aria-pressed="true"]) {
+  border-color:var(--xz-gold-light); color:var(--xz-gold-light);
+  background:linear-gradient(120deg,#cf9d332a,var(--xz-panel-deep));
+  box-shadow:inset 0 0 0 1px #f6dba41a,0 0 12px #d8ad6318;
+}
+.arena-shell.xz-theme[data-sport="football"] :is(.football-leagues button[aria-pressed="true"],.football-page-tabs button[aria-pressed="true"]) {
+  background:linear-gradient(125deg,#143c2b,#061a19); box-shadow:0 0 10px #debf782b;
+}
+.xz-theme :is(button,a,input,select):focus-visible { outline:2px solid var(--xz-gold-light); outline-offset:3px; }
+.xz-theme :is(button,a)[data-slot="button"]:hover:not(:disabled),.xz-theme .league-switcher button:hover { filter:brightness(1.12); }
+.xz-theme :is(.baseball-model-dialog,.football-model-dialog,.nba-model-dialog) {
+  border:1px solid var(--xz-gold); background:var(--xz-panel); box-shadow:inset 0 0 0 4px #f6dba40b,0 25px 90px #000b;
+}
+.xz-theme :is(.baseball-model-dialog,.football-model-dialog,.nba-model-dialog) header { background:transparent; }
+/* Login retains the approved moving background and adopts the gold frame. */
+.yj-login.xz-theme { align-items:flex-start; padding-top:clamp(12rem,32svh,22rem); padding-bottom:4rem; }
+.yj-login.xz-theme>.panel {
+  position:relative; border:1px solid #f0cf89; border-radius:24px;
+  background:linear-gradient(135deg,rgba(8,18,30,.97),rgba(4,11,19,.96));
+  box-shadow:inset 0 0 0 5px #090f19,inset 0 0 0 6px #b98b46,0 0 28px #d8ad632b,0 24px 80px #0008;
+}
+.yj-login.xz-theme>.panel::after {
+  content:""; position:absolute; inset:5px; pointer-events:none; border-radius:20px;
+  background:url('/brand/xingzhun-star-v1.svg') left top/24px 24px no-repeat,url('/brand/xingzhun-star-v1.svg') right bottom/24px 24px no-repeat;
+}
+.yj-login.xz-theme input { border:1px solid #c59a58; background:linear-gradient(110deg,#111d28,#0a1420); box-shadow:inset 0 1px 0 #f8d99215; }
+.yj-login.xz-theme [data-variant="destructive"] { border:1px solid #d3a45c; background:linear-gradient(120deg,#9e363b,#6c2029); }
+@media(max-width:640px) {
+  .arena-shell.xz-theme[data-sport]::before { background-position:center center; }
+  .arena-shell.xz-theme :is(.panel,.nba-card,.football-content-panel,.football-card,.football-standings) { border-radius:13px; }
+  .arena-shell.xz-theme[data-sport="baseball"] .panel { background-size:76px 76px,auto; }
+  .arena-shell.xz-theme :is(.panel,.nba-card,.nba-heading,.football-content-panel,.football-card,.league-switcher)::after { background-size:13px 13px; }
+  .yj-login.xz-theme>.panel { padding:28px; }
+}
+@media(max-height:600px) and (orientation:landscape) {
+  .yj-login.xz-theme { padding-top:2rem; padding-bottom:2rem; }
+}

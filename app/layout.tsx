@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./xingzhun-theme.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.APP_ORIGIN || "https://arena-sports-board.onrender.com"),
