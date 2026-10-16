@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {moduleUrl} from './profile-loader.mjs';
+const {startPregamePolling,requestPregame,PregameRequestError}=await import(moduleUrl('lib/international-pregame-client.ts'));
+const {storedPregameResponse}=await import(moduleUrl('lib/international-pregame-snapshot.ts'));
+const date='2026-10-16',pregame={league:'NPB',date,observedAt:date+'T05:00:00Z',games:[{league:'NPB',date,start:date+' 17:00:00',away:{starter:{era:2.64,whip:1.2}},home:{starter:{era:2.51,whip:1}},source:{observedAt:date+'T05:00:00Z'}}]},ready={status:'ready',pregame};
+const tick=()=>new Promise(r=>setImmediate(r));
+function harness(request){const values=[],errors=[],timers=[];const poller=startPregamePolling({league:'NPB',date,request,onValue:v=>values.push(v),onError:e=>errors.push(e),setTimer:(fn,ms)=>{timers.push({fn,ms});return 1},clearTimer:()=>{}});return {values,errors,timers,...poller};}
+test('同日留存接手首次斷線，五秒後自動恢復完整分析',async()=>{let calls=0;const h=harness(async(_l,_d,_s,stored)=>{if(stored)return ready;if(!calls++)throw Error('offline');return ready});await tick();assert.equal(h.values[0].status,'refreshing');assert.equal(h.values[0].pregame.games[0].away.starter.era,2.64);assert.equal(h.errors.length,1);assert.equal(h.timers.at(-1).ms,5000);h.timers.at(-1).fn();await tick();assert.equal(h.values.at(-1),ready);assert.equal(h.timers.at(-1).ms,300000);h.stop();});
+test('來源尚未備齊也會快速重試，重試間隔最多三十秒',async()=>{const h=harness(async()=>({...ready,status:'unavailable'}));await tick();for(const expected of [5000,10000,20000,30000,30000]){assert.equal(h.timers.at(-1).ms,expected);h.timers.at(-1).fn();await tick();}h.stop();});
+test('登入失效交回登入處理，不重複發出請求',async()=>{const h=harness(async()=>{throw new PregameRequestError('請重新登入',401)});await tick();assert.equal(h.errors[0].status,401);assert.equal(h.timers.length,0);h.stop();});
+test('較晚返回的留存資料不能覆蓋新資料',async()=>{let resolve;const h=harness((_l,_d,_s,stored)=>stored?new Promise(r=>resolve=r):Promise.resolve(ready));await tick();resolve({...ready,status:'stale'});await tick();assert.deepEqual(h.values,[ready]);h.stop();});
+test('切換日期或聯盟後，不套用已取消的舊請求',async()=>{let resolve;const h=harness((_l,_d,_s,stored)=>stored?Promise.reject(Error()):new Promise(r=>resolve=r));h.stop();resolve(ready);await tick();assert.equal(h.values.length,0);assert.equal(h.timers.length,0);});
+test('回傳日期與聯盟必須完全符合請求',async()=>{for(const bad of [{...pregame,date:'2026-10-15'},{...pregame,league:'KBO'},{...pregame,games:null}])await assert.rejects(requestPregame('NPB',date,new AbortController().signal,false,async()=>Response.json({pregame:bad})));});
+test('同日留存保留原始時間與統計，不冒充新抓取資料',()=>{const data=storedPregameResponse('NPB',date,JSON.stringify(pregame),Date.parse(date+'T06:00:00Z'));assert.equal(data.fetchedAt,pregame.observedAt);assert.equal(data.status,'refreshing');assert.deepEqual(data.pregame,pregame);for(const bad of [null,'{',{}, {...pregame,date:'2026-10-15'}, {...pregame,league:'KBO'}, {...pregame,observedAt:'2026-10-17T00:00:00Z'},{...pregame,games:[]}])assert.equal(storedPregameResponse('NPB',date,bad,Date.parse(date+'T06:00:00Z')),null);});

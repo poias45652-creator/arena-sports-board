@@ -1,6 +1,7 @@
 import {parseInternational,sourceLinks} from '@/lib/international';
-import {getInternationalPregame} from '@/lib/international-feed';
+import {getInternationalPregame,getStoredInternationalPregame} from '@/lib/international-feed';
 import {baseballBackgroundStatus} from '@/server/baseball-background-state.mjs';
+import {dayInTaipei} from '@/server/baseball-current.mjs';
 import {npbProfileLinks} from '@/lib/international-player-photos';
 export const dynamic='force-dynamic';
 type Entry={data:any;until:number};
@@ -13,6 +14,11 @@ export async function GET(request:Request){
  if(/^(npb|kbo|cpbl)-pregame$/.test(kind)){
   const date=u.searchParams.get('date')||undefined;
   if(date&&(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date))||new Date(date).toISOString().slice(0,10)!==date))return Response.json({error:'無效的賽事日期'},{status:400});
+  if(u.searchParams.get('mode')==='stored'){
+   const league=kind.split('-')[0].toUpperCase(),day=date||dayInTaipei();
+   try{const snapshot=await getStoredInternationalPregame(league,day);return Response.json(snapshot||{status:'unavailable',error:'尚無同日留存資料'}, {status:snapshot?200:404,headers:{'Cache-Control':'private, no-store'}});}
+   catch{return Response.json({status:'unavailable',error:'同日資料暫時無法讀取'},{status:503,headers:{'Cache-Control':'private, no-store'}});}
+  }
   const data=await getInternationalPregame(kind.split('-')[0].toUpperCase(),date),background=baseballBackgroundStatus();
   return Response.json({...data,automaticBackgroundSync:background.enabled,background,scope:background.enabled?'伺服器運行期間背景更新；休眠與重啟仍會中斷。歷史欄位保留原時間。':data.scope},{headers:{'Cache-Control':'no-store'}});
  }

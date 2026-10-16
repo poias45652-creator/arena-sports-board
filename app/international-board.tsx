@@ -20,6 +20,7 @@ import type {PregameData} from '@/lib/international-pregame';
 import type {NpbPlayerLinks} from '@/lib/international-profile-links';
 import {taipeiFixtureDay} from '@/lib/international-board-fixtures';
 import {internationalPregameNotice} from './international-pregame-status';
+import {startPregamePolling,PregameRequestError} from '@/lib/international-pregame-client';
 const names={CPBL:'中華職棒',NPB:'日本職棒',KBO:'韓國職棒'};
 type League=keyof typeof names;
 type Data={playerLinks?:NpbPlayerLinks;tables?:SourceTable[];games?:{id:string;label:string;url?:string;date?:string}[];status?:string;error?:string;fetchedAt?:string;scope?:string;pregame?:PregameData};
@@ -46,16 +47,16 @@ export default function InternationalBoard({league,initialView="analysis",onView
  },[league,revision]);
  useEffect(()=>{
   if(!analysisDate)return;
-  const c=new AbortController();let busy=false;
-  // The selected fixture day can be tomorrow even while the local date is today.
   setData(old=>({...old,pregame:old.pregame?.pregame?.date===analysisDate?old.pregame:{}}));
-  async function load(){if(busy||document.hidden)return;busy=true;try{
-   const r=await fetch(`/api/international?kind=${league.toLowerCase()}-pregame&date=${encodeURIComponent(analysisDate)}`,{cache:'no-store',signal:AbortSignal.any([c.signal,AbortSignal.timeout(45000)])});
-   if(!r.ok)throw new Error();const value=await r.json();
-   if(!c.signal.aborted&&value.pregame?.date===analysisDate)setData(old=>({...old,pregame:value}));
-  }catch{if(!c.signal.aborted)setData(old=>({...old,pregame:{...old.pregame,error:'來源暫時無法取得',status:'stale'}}))}finally{busy=false}}
-  const resume=()=>{if(!document.hidden)void load()};void load();const timer=setInterval(()=>void load(),300000);document.addEventListener('visibilitychange',resume);
-  return()=>{c.abort();clearInterval(timer);document.removeEventListener('visibilitychange',resume)};
+  const poller=startPregamePolling({league,date:analysisDate,visible:()=>!document.hidden,
+   onValue:value=>setData(old=>({...old,pregame:value})),
+   onError:error=>{
+    if(error instanceof PregameRequestError&&[401,403].includes(error.status)){window.location.assign('/login');return;}
+    setData(old=>({...old,pregame:{...old.pregame,error:'連線暫時中斷，正在自動重新取得同日資料。',status:'stale'}}));
+   }});
+  const resume=()=>{if(!document.hidden)void poller.refresh();};
+  document.addEventListener('visibilitychange',resume);window.addEventListener('online',resume);window.addEventListener('pageshow',resume);
+  return()=>{poller.stop();document.removeEventListener('visibilitychange',resume);window.removeEventListener('online',resume);window.removeEventListener('pageshow',resume);};
  },[league,analysisDate,revision]);
  useEffect(()=>{setGameData(undefined);if(!game||!['NPB','CPBL'].includes(league))return;const c=new AbortController();setGameLoading(true);fetch(league==='CPBL'?`/api/international?kind=cpbl-game&url=${encodeURIComponent(data.schedule?.games?.find(g=>g.id===game)?.url||'')}`:`/api/international?kind=${liveTab==='preview'?'npb-preview':'npb-game'}&id=${encodeURIComponent(game)}`,{signal:c.signal}).then(async r=>{if(!r.ok)throw new Error();return r.json()}).then(value=>{if(!c.signal.aborted)setGameData(value)}).catch(()=>{if(!c.signal.aborted)setGameData({error:'單場紀錄讀取失敗'})}).finally(()=>{if(!c.signal.aborted)setGameLoading(false)});return()=>c.abort()},[game,league,revision,liveTab]);
  const directory=Object.values(profileTeams[league]);
