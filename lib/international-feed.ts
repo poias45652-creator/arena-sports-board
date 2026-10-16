@@ -22,7 +22,8 @@ import {applyKboPitcherReview} from './kbo-reviewed-pitcher';
 import {getCpblGameLogs} from './cpbl-game-logs-store';
 import {supplementCpblGameLogs,cpblLogCoverage} from './cpbl-game-logs';
 import {saveInternationalForecasts} from './international-model-audit-store';
-import {buildRunAnalysis,type ModelLeague} from './baseball-run-analysis';
+import {buildRunAnalysis,matchingRunAnalysis,analysisFixtureKey,type ModelLeague} from './baseball-run-analysis';
+import {defaultBaseballSettings} from './baseball-model-settings';
 import {internationalPregameHealth} from './international-pregame-health';
 import {storedPregameResponse} from './international-pregame-snapshot';
 
@@ -72,8 +73,14 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
     .bind(key,league,date,pregame.observedAt,JSON.stringify(pregame)).run();
   }catch{storageError='本次賽前資料未能保存，重新載入時可能顯示較舊資料';}
   const forecastStorage=await saveInternationalForecasts(pregame),coverage=pregameMissing(pregame);
-  const reports=pregame.games.map(g=>buildRunAnalysis(g,Date.now(),league as ModelLeague,true));
-  const analysisCoverage={ready:reports.filter(r=>r.status==='ready'&&r.mode!=='simulation').length,simulated:reports.filter(r=>r.status==='ready'&&r.mode==='simulation').length,total:reports.length,blocked:reports.filter(r=>r.status!=='ready').map(r=>({start:r.fixture.start,away:r.fixture.away,home:r.fixture.home,status:r.status,reason:r.reason}))};
+  // Validate the same default model and source dependencies that the board uses,
+  // so a missing multi-factor input cannot report healthy and defer recovery.
+  const analysisNow=Date.now(),modelLeague=league as ModelLeague;
+  const reports=pregame.games.map(g=>{
+   const report=buildRunAnalysis(g,analysisNow,modelLeague,true,defaultBaseballSettings());
+   return matchingRunAnalysis(report.fixture,new Map([[analysisFixtureKey(report.fixture,modelLeague),report]]),analysisNow,modelLeague)!;
+  });
+  const analysisCoverage={multifactorReady:reports.filter(r=>r.status==='ready'&&r.personalModel?.multifactor.homeWin!=null&&r.win!==null).length,ready:reports.filter(r=>r.status==='ready'&&r.mode!=='simulation').length,simulated:reports.filter(r=>r.status==='ready'&&r.mode==='simulation').length,total:reports.length,blocked:reports.filter(r=>r.status!=='ready').map(r=>({start:r.fixture.start,away:r.fixture.away,home:r.fixture.home,status:r.status,reason:r.reason}))};
   const status=internationalPregameHealth(feed,reports);
   const data={kind:league.toLowerCase()+'-pregame',...(league==='NPB'?{sourceStrategy:'sportsnavi-npb-official'}:{}),status:pregame.games.length?status:feed.noGames?'ready':'unavailable',...(feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
    scope:'開啟網站時每 5 分鐘檢查公開來源；保存最後成功資料。歷史補充欄位保留原時間。',error:feed.error||null,storageError,forecastStorage,

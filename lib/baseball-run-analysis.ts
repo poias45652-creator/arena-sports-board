@@ -46,24 +46,35 @@ export function internationalMultifactor(g:PregameGame,now:number,league:ModelLe
   const row=table?.rows.filter(r=>r[table.headers.indexOf('類別')]==='本季'&&team(r[table.headers.indexOf('球隊')]||'',league)===team(t.team,league));
   const record=row?.length===1?row[0][table!.headers.indexOf('勝敗')]?.match(/^(\d+)-(\d+)-(\d+)(?:\s|$)/):null;
   const w=record?Number(record[1]):0,l=record?Number(record[2]):0;
-  const season=record&&w+l>=20&&validObserved(g.comparisonSource?.observedAt||at,start,now)?(w+10)/(w+l+20):null;
+  const seasonAt=g.comparisonSource?.observedAt||at;
+  const season=record&&w+l>=20&&validObserved(seasonAt,start,now)?(w+10)/(w+l+20):null;
   const known=!!t.starter.name&&t.starter.quality==='source_reported'&&(!t.starter.review||Date.parse(t.starter.review.reviewedAt)<=now)&&(!t.starter.source||validObserved(t.starter.source.observedAt,start,now));
-  const stat=(key:'era'|'whip')=>known&&validObserved(t.starter.statSources?.[key]?.observedAt||at,start,now)?number(t.starter.season[key]):null;
+  const statAt=(key:'era'|'whip')=>t.starter.statSources?.[key]?.observedAt||at;
+  const stat=(key:'era'|'whip')=>known&&validObserved(statAt(key),start,now)?number(t.starter.season[key]):null;
   const recent=t.starter.recent,di=recent.headers.indexOf('日期'),ii=recent.headers.indexOf('投球局'),ei=recent.headers.indexOf('責失'),seen=new Set<string>();
   const rows=known&&validObserved(at,start,now)?recent.rows.filter(r=>{const d=r[di],time=Date.parse(d+'T00:00:00+08:00');if(!/^\d{4}-\d{2}-\d{2}$/.test(d||'')||d>=g.date||!Number.isFinite(time)||start-time>60*86400000||seen.has(d))return false;seen.add(d);return true;}).sort((a,b)=>b[di].localeCompare(a[di])).slice(0,5).map(r=>({ip:innings(r[ii]),er:number(r[ei])})).filter(r=>r.ip!==null&&r.ip>0&&r.er!==null):[];
   const recentEra=rows.length>=3?9*rows.reduce((n,r)=>n+r.er!,0)/rows.reduce((n,r)=>n+r.ip!,0):null;
-  return {season,starterEra:stat('era'),starterWhip:stat('whip'),starterRecentEra:recentEra};
+  return {season,starterEra:stat('era'),starterWhip:stat('whip'),starterRecentEra:recentEra,
+   observed:{season:seasonAt,starterEra:statAt('era'),starterWhip:statAt('whip'),starterRecentEra:at},
+   starterObservedAt:t.starter.source?.observedAt};
  };
  const h=values('home'),a=values('away');
  const factors=Object.entries(weights).map(([key,weight])=>{
-  const home=h[key as keyof typeof h]??null,away=a[key as keyof typeof a]??null;
+  const home=h[key as keyof typeof h.observed]??null,away=a[key as keyof typeof a.observed]??null;
   const log5=key==='season'&&home!==null&&away!==null?(home-home*away)/(home+away-2*home*away):null;
   const score=home===null||away===null?null:key==='season'?2*log5!-1:Math.max(-1,Math.min(1,(away-home)/(key==='starterWhip'?.8:4)));
   return {name:BASEBALL_FACTOR_LABELS[key as keyof MultiWeights],weight,home,away,score,contribution:score===null?0:weight*score/2};
  });
  const core=[h.season,a.season,h.starterEra,a.starterEra,h.starterWhip,a.starterWhip].every(n=>n!==null);
  const homeWin=core ? .5+factors.reduce((n,f)=>n+f.contribution,0)/100:null;
- const observedAt=[g.source.observedAt,g.comparisonSource?.observedAt,...sides.flatMap(side=>[g[side].retainedSource?.observedAt,g[side].starter.statSources?.era?.observedAt,g[side].starter.statSources?.whip?.observedAt])].filter((at):at is string=>!!at&&Number.isFinite(Date.parse(at))).sort((a,b)=>Date.parse(a)-Date.parse(b))[0];
+ // Follow the observations that actually supplied the estimate. A retained
+ // page may be old while its season/ERA/WHIP fields were independently refreshed;
+ // unavailable recent form stays neutral and must not expire those fresh fields.
+ const observations=[g.source.observedAt,...[h,a].flatMap(side=>[
+  side.observed.season,side.observed.starterEra,side.observed.starterWhip,side.starterObservedAt,
+  ...(weights.starterRecentEra>0&&h.starterRecentEra!==null&&a.starterRecentEra!==null?[side.observed.starterRecentEra]:[])
+ ])];
+ const observedAt=observations.filter((at):at is string=>!!at&&Number.isFinite(Date.parse(at))).sort((a,b)=>Date.parse(a)-Date.parse(b))[0];
  return {homeWin,factors,observedAt,coverage:factors.filter(f=>f.score!==null).reduce((n,f)=>n+f.weight,0),missing:factors.filter(f=>f.score===null&&f.weight>0).map(f=>f.name)};
 }
 

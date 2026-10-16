@@ -76,3 +76,43 @@ test('an earlier WHIP observation cannot stay usable after its own freshness win
  const r=buildRunAnalysis(g,now,'NPB',false,defaultBaseballSettings());assert.ok(r.personalModel.multifactor.homeWin!==null);
  const expired=matchingRunAnalysis(r.fixture,new Map([[analysisFixtureKey(r.fixture),r]]),now+31*60000);assert.equal(expired.win,null);assert.match(expired.reason,/多因子統計已過期/);
 });
+
+
+test('日職官方欄位更新後，未使用的舊備份不會讓全場讓分誤報多因子統計已過期',()=>{
+ const g=structuredClone(npb),old=new Date(now-48*3600000).toISOString();
+ g.source.observedAt=stamp;g.comparisonSource={observedAt:stamp};
+ for(const side of ['home','away']){
+  const t=g[side];t.retainedSource={...g.source,observedAt:old};
+  t.starter.source={observedAt:stamp};
+  t.starter.statSources=Object.fromEntries(['era','whip','innings'].map(field=>[field,{observedAt:stamp}]));
+  t.bullpenSource={observedAt:stamp};
+ }
+ const before=JSON.stringify(g),r=buildRunAnalysis(g,now,'NPB',false,defaultBaseballSettings());
+ const matched=matchingRunAnalysis(r.fixture,new Map([[analysisFixtureKey(r.fixture),r]]),now);
+ assert.equal(matched.status,'ready');assert.ok(matched.win);assert.ok(matched.grids);
+ assert.equal(matched.personalModel.multifactor.observedAt,stamp);
+ assert.equal(matched.personalModel.multifactor.factors.find(f=>f.name===settingsApi.BASEBALL_FACTOR_LABELS.starterRecentEra).score,null);
+ const fixture={...r.fixture,id:1,displayMarkets:[{period:'full',type:103,quotes:[{homeLine:'1+30',awayLine:'',homePrice:'.95',awayPrice:'.95',primary:true,open:true}]}]};
+ const outcomes=marketOutcomes(fixture,'spread',matched,true);
+ assert.equal(outcomes.length,2);assert.ok(outcomes.every(o=>Number.isFinite(o.result.win)&&o.result.win>0));
+ assert.equal(JSON.stringify(g),before);
+});
+
+test('實際採用的先發公告與近期成績到期後仍須阻擋舊多因子結果',()=>{
+ for(const dependency of ['announcement','recent']){
+  const g=structuredClone(npb),old=new Date(now-35.5*3600000).toISOString();
+  if(dependency==='announcement')g.home.starter.source={observedAt:old};
+  else{
+   for(const side of ['home','away']){
+    const t=g[side];t.retainedSource={...g.source,observedAt:old};
+    t.starter.recent={headers:['日期','投球局','責失'],rows:[['2026-09-18','6','2'],['2026-09-12','6','1'],['2026-09-06','6','3']]};
+    t.starter.statSources=Object.fromEntries(['era','whip','innings'].map(field=>[field,{observedAt:stamp}]));
+    t.bullpenSource={observedAt:stamp};
+   }
+   g.comparisonSource={observedAt:stamp};
+  }
+  const r=buildRunAnalysis(g,now,'NPB',false,defaultBaseballSettings());assert.ok(r.win);
+  const matched=matchingRunAnalysis(r.fixture,new Map([[analysisFixtureKey(r.fixture),r]]),now+31*60000);
+  assert.equal(matched.win,null);assert.match(matched.reason,/多因子統計已過期/);
+ }
+});
