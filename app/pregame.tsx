@@ -19,7 +19,6 @@ import Link from 'next/link';
 import {matchOdds} from '@/lib/pinnacle';
 import {boardQuote,binaryOutcome} from '@/lib/board-markets';
 import MarketOutcomes from './market-outcomes';
-import BaseballModelDetails from './baseball-model-details';
 
 import {mlbInningProjection,mlbSelectedWinner,mlbRunsFresh} from '@/lib/mlb-model-analysis';
 import {baseballSettingsSignature,BASEBALL_MODEL_NAMES,type BaseballModelSettings} from '@/lib/baseball-model-settings';
@@ -123,7 +122,6 @@ export default function Pregame({settings}:{settings:BaseballModelSettings}){
         })}
         {showScoreboard&&<MatchInningBoard match={g} score={score} fetchedAt={scores.data?.date===day?scores.data.fetchedAt:undefined} error={scores.error} now={now}/>}
       </div>
-      {pre&&<BaseballModelDetails family={settings.moneyline} factors={state.factors} coverage={state.coverage} notes={[state.reason,...(projections.get(g.id)?.notes||[])]}/>}
     </>;
   }
   function winnerOptions(g:Match){
