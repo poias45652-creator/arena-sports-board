@@ -49,6 +49,25 @@ test('admin disable persists and revokes only the targeted member sessions',asyn
  assert.equal(r.status,200);assert.equal(d.sql.prepare('SELECT enabled FROM account_access').get().enabled,0);assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM arena_sessions').get().n,0);
 });
 
+test('admin-selected expiry persists to the second and access ends exactly at that instant',async()=>{
+ const d=db();
+ const login=await tzLogin(request(),d,secret,source);
+ const cookie=login.headers.get('set-cookie').split(';')[0];
+ globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
+ const expiresAt=Math.floor(Date.now()/1000)*1000+60000;
+ const saved=await adminRoute.PATCH(new Request('https://site.test/api/admin/accounts',{method:'PATCH',headers:{origin:'https://site.test','Content-Type':'application/json'},body:JSON.stringify({memberId:'tz:123',enabled:true,expiresAt})}));
+ assert.equal(saved.status,200);
+ assert.equal((await (await adminRoute.GET()).json()).accounts[0].expiresAt,expiresAt);
+ const realNow=Date.now;
+ try {
+  Date.now=()=>expiresAt-1;
+  assert.equal((await readSession(d,cookie)).memberId,'tz:123');
+  Date.now=()=>expiresAt;
+  assert.equal(await readSession(d,cookie),null);
+  assert.equal((await (await adminRoute.GET()).json()).accounts[0].accessState,'expired');
+ } finally {Date.now=realNow;d.sql.close();delete globalThis.accountTestDb;delete globalThis.accountTestAdmin;}
+});
+
 test('Turnstile rejects missing tokens and missing configuration before contacting tz',async()=>{const d=db();const fetcher=async()=>{throw new Error('must not contact source')};assert.equal((await tzLogin(request(),d,secret,fetcher,'private-key',true)).status,403);assert.equal((await tzLogin(request(),d,secret,fetcher,undefined,true)).status,503);assert.equal(d.sql.prepare('SELECT * FROM arena_sessions').all().length,0);});
 const {verifyTurnstile}=await import(url(code('turnstile.ts')));
 test('Turnstile requires successful verification, exact hostname and login action',async()=>{
