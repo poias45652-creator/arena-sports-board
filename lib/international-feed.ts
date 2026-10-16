@@ -75,7 +75,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const reports=pregame.games.map(g=>buildRunAnalysis(g,Date.now(),league as ModelLeague,true));
   const analysisCoverage={ready:reports.filter(r=>r.status==='ready'&&r.mode!=='simulation').length,simulated:reports.filter(r=>r.status==='ready'&&r.mode==='simulation').length,total:reports.length,blocked:reports.filter(r=>r.status!=='ready').map(r=>({start:r.fixture.start,away:r.fixture.away,home:r.fixture.home,status:r.status,reason:r.reason}))};
   const status=internationalPregameHealth(feed,reports);
-  const data={kind:league.toLowerCase()+'-pregame',...(league==='NPB'?{sourceStrategy:'sportsnavi-npb-official'}:{}),status:pregame.games.length?status:league==='CPBL'&&feed.noGames?'ready':'unavailable',...(league==='CPBL'&&feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
+  const data={kind:league.toLowerCase()+'-pregame',...(league==='NPB'?{sourceStrategy:'sportsnavi-npb-official'}:{}),status:pregame.games.length?status:feed.noGames?'ready':'unavailable',...(feed.noGames?{noGames:true,nextGameDate:feed.nextGameDate}:{}),pregame,fetchedAt:pregame.observedAt||null,checkedAt:feed.checkedAt,pollAfterMs:300000,automaticBackgroundSync:false,
    scope:'開啟網站時每 5 分鐘檢查公開來源；保存最後成功資料。歷史補充欄位保留原時間。',error:feed.error||null,storageError,forecastStorage,
    playsport:{games:playsport.snapshot.games.length,errors:playsport.errors},
    statsFallback:{rows:publicPitching.rows.length,sources:[...publicPitching.sources,...publicBullpen.sources],errors:[...publicPitching.errors,...publicBullpen.errors],scope:publicPitching.scope},
@@ -84,6 +84,6 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
    ...(cpblLogs?{gameLogs:{...cpblLogCoverage(cpblLogs.snapshot,date),error:cpblLogs.error}}:{}),
    missing:['完整傷停與臨時更換先發通知',...(league==='CPBL'?['中職已用非官網逐場日誌重算團隊與可核對投手成績；仍缺完整投球數、未取得先發及未通過核對的逐場明細']:['牛棚最近數日用量']),'團隊基準已完成首輪回測與校準研究；完整先發／牛棚模型尚未通過驗證，已接入真實賽前留存',...(league==='KBO'?['双重賽與季後賽規則尚未接入，暫停這些場次的估算']:[])]};
   console.info('international-pregame-summary',JSON.stringify({league,date,status:data.status,coverage,analysisCoverage,fallbackRows:publicPitching.rows.length,sourceErrors:[...playsport.errors,...publicPitching.errors],missingStart:feed.games.filter((g:any)=>!g.startTime).length,unknownStatus:feed.games.filter((g:any)=>g.status==='unknown').length}));
-  if(cache.size>12)cache.clear();cache.set(key,{until:Date.now()+(feed.stale?60000:300000),data});return data;
+  if(cache.size>12)cache.clear();cache.set(key,{until:Date.now()+(data.status==='ready'?300000:30000),data});return data;
  })().finally(()=>pending.delete(key));pending.set(key,task);return task;
 }

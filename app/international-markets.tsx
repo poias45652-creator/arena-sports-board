@@ -30,7 +30,7 @@ function scheduleGame(g:{id:string;label:string;date?:string}){
  const match=g.label.match(/^(\d{4}-\d{2}-\d{2})\s+(\d{2}:\d{2})\s+·\s+(.+?)（客）\s+(?:vs|\d+：\d+)\s+(.+?)（主）/);
  return match?{id:`schedule-${g.id}`,sourceId:g.id,start:`${match[1]} ${match[2]}:00`,away:match[3],home:match[4],live:false,displayMarkets:[]}:null;
 }
-export default function InternationalMarkets({settings,league,schedule,standings,starters,pregame,pregameNotice,odds,dataLoading,onRefreshData,onDateChange}:{settings:BaseballModelSettings;onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData;pregameNotice?:InternationalPregameNotice|null}){
+export default function InternationalMarkets({settings,league,schedule,standings,starters,pregame,pregameNotice,noGames,odds,dataLoading,onRefreshData,onDateChange}:{settings:BaseballModelSettings;noGames?:boolean;onDateChange?:(date:string)=>void;dataLoading:boolean;onRefreshData:()=>void;odds:{data:any;error:string;loading:boolean;refresh:()=>Promise<void>};league:string;schedule?:ScheduleData;standings?:StandingsData;starters?:StandingsData&{fetchedAt?:string;status?:string;playerLinks?:NpbPlayerLinks};pregame?:PregameData;pregameNotice?:InternationalPregameNotice|null}){
  const {data,error,loading:busy,refresh}=odds;
  const modelSignature=baseballSettingsSignature(settings);
  useEffect(()=>{setPicks([]);setNotice('');},[modelSignature]);
@@ -109,7 +109,7 @@ export default function InternationalMarkets({settings,league,schedule,standings
      {!started&&analysis&&<div className="px-5"><BaseballModelDetails family={settings.moneyline} factors={settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]} coverage={settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.coverage:undefined} notes={analysis.notes}/></div>}
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
-    {!games.length&&<div className="panel p-5">{sourceMessage||(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`)}</div>}
+    {!games.length&&<div className="panel p-5">{sourceMessage||(noGames?`${targetDay} ${league==='NPB'?'日職一軍':league}沒有安排賽事。`:(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`))}</div>}
    </div>
    <div className="arena-analysis-summary"><ParlayPane><aside className="panel space-y-4 p-5">
     <h3 className="text-lg font-black">串關組合</h3>

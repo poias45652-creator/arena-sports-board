@@ -34,7 +34,7 @@ export async function collectLeague(league,options={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
  const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
  const scheduleVerification={},ids=npbScheduleIds(schedule.text),scheduleProof=npbScheduleProof(schedule,date,scheduleVerification),games=[],errors=[],warnings=[],npbTextPages=new Map();
- if(!ids.length)throw new Error('No recognizable first-team schedule; not proof of no games');
+ if(!ids.length&&!scheduleProof?.noGames)throw new Error('No recognizable first-team schedule; not proof of no games');
  const anchors=[...schedule.text.matchAll(/<a\b[^>]*href=["'][^"']*\/npb\/game\/(\d+)\/(?:index|score)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)];
  await Promise.all(ids.map(async id=>{
   try{
