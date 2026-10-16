@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-16T10:07:40.448Z",
+  "observedAt": "2026-10-16T15:00:23.331Z",
   "dateAsiaTaipei": "2026-10-16",
   "currentGames": {
     "NPB": 2,
@@ -16,14 +16,14 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "live",
+    "NPB": "final",
     "KBO": "no_first_team_games_collector_not_independently_officially_verified",
     "CPBL": "no_first_team_games_collector_not_independently_officially_verified"
   },
   "databaseTest": {
-    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "environment": "isolated GitHub Actions PostgreSQL 16",
     "productionWritten": false,
-    "checkedAt": "2026-10-16T10:07:41.464Z",
+    "checkedAt": "2026-10-16T15:00:24.292Z",
     "inserted": 2,
     "readBack": 2,
     "duplicateInserts": 0,
@@ -883,7 +883,7 @@
         "verified": true,
         "verifiedAt": "2026-10-16T10:07:40.448Z",
         "source": "sportsnavi",
-        "state": "live",
+        "state": "final",
         "games": 2,
         "method": "same-day in-run live-to-live numeric change, separate source timestamps >65 seconds",
         "proof": [
@@ -908,48 +908,50 @@
               }
             }
           }
-        ]
+        ],
+        "retainedSameDayLiveProof": true
       },
       "KBO": {
         "verified": false,
         "source": "naver",
-        "state": "no_first_team_games_in_collector",
+        "state": "no_games_in_collector",
         "games": 0,
         "officialOffDayVerified": false
       },
       "CPBL": {
         "verified": false,
         "source": "yahoo-tw",
-        "state": "no_first_team_games_in_collector",
+        "state": "no_games_in_collector",
         "games": 0,
         "officialOffDayVerified": false
       },
       "allVerified": false,
-      "reason": "NPB: two same-day live-to-live numeric changes from current attempt 15; KBO/CPBL: no first-team games returned, not independently off-day verified.",
-      "evidenceRetainedIn": "GitHub Actions artifact 12039112153 (data/live/ new observation submission blocked)",
+      "reason": "NPB earlier same-day live-to-live changes retained; latest attempt 19 confirms two final games. KBO/CPBL no games returned, off-days not independently confirmed.",
+      "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-10-16T10:07:40.448Z",
-        "liveGames": 2,
+        "capturedAt": "2026-10-16T15:00:23.331Z",
+        "liveGames": 0,
         "pregameGames": {
           "NPB": 0,
           "KBO": 0,
           "CPBL": 0
         },
         "finalGames": {
-          "NPB": 0,
+          "NPB": 2,
           "KBO": 0,
           "CPBL": 0
         },
-        "secondCapturePerformed": true,
-        "qualifiedNumericChanges": 2,
-        "artifactId": 12039112153,
-        "artifactCreatedAt": "2026-10-16T10:07:42Z",
+        "secondCapturePerformed": false,
+        "captureIntervalSeconds": null,
+        "qualifiedNumericChanges": 0,
+        "artifactId": 12053613872,
+        "artifactCreatedAt": "2026-10-16T15:00:25Z",
         "runId": 38411690456,
-        "runAttempt": 15,
-        "jobId": 116920373814,
-        "observationPath": null,
-        "artifactSha256": "1825e3b9efdde512144456a8819e1babac4b70c6a8d497b264f1310d94c3e7fd",
-        "gitHubEvidenceFileCommitted": false
+        "runAttempt": 19,
+        "jobId": 117038237065,
+        "observationPath": "data/live/20261016T150023Z-attempt19-npb-finals-collector.json",
+        "artifactSha256": "2fe90249a445d0d2686f378c8e9d3bbd3a0f4ddb6d987854b2becb06346826f5",
+        "gitHubEvidenceFileCommitted": true
       }
     }
   },
@@ -1061,16 +1063,17 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-16",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json",
+    "latestObservationPath": "data/live/20261016T150023Z-attempt19-npb-finals-collector.json",
     "evidenceObservationPaths": [
       "data/live/20261016T075349Z-attempt12-npb-pregame-collector.json",
-      "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json"
+      "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json",
+      "data/live/20261016T150023Z-attempt19-npb-finals-collector.json"
     ],
     "NPB": {
       "verified": true,
       "verifiedAt": "2026-10-16T10:07:40.448Z",
       "source": "sportsnavi",
-      "state": "live",
+      "state": "final",
       "games": 2,
       "method": "same-day in-run live-to-live numeric change, separate source timestamps >65 seconds",
       "proof": [
@@ -1095,7 +1098,8 @@
             }
           }
         }
-      ]
+      ],
+      "priorSameDayLiveProofRetained": true
     },
     "KBO": {
       "verified": false,
@@ -1118,24 +1122,24 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12039112153,
-    "newEvidenceCommitPending": true
+    "latestRunArtifactId": 12053613872,
+    "newEvidenceCommitPending": false
   },
-  "nextAction": "Continue daily. Preserve same-day live captures. GitHub create_file currently blocked; retain artifact 12039112153 and sync its evidence when allowed. Do not change main/Render/prod.",
+  "nextAction": "Continue daily collection. Preserve prior 2026-10-16 live proofs and final-state evidence; revalidate new local-day games. No main/Render/production writes.",
   "latestRun": {
     "runId": 38411690456,
-    "runAttempt": 15,
-    "jobId": 116920373814,
-    "artifactId": 12039112153,
-    "artifactCreatedAt": "2026-10-16T10:07:42Z",
-    "capturedAt": "2026-10-16T10:07:40.448Z",
-    "observationPath": null,
+    "runAttempt": 19,
+    "jobId": 117038237065,
+    "artifactId": 12053613872,
+    "artifactCreatedAt": "2026-10-16T15:00:25Z",
+    "capturedAt": "2026-10-16T15:00:23.331Z",
+    "observationPath": "data/live/20261016T150023Z-attempt19-npb-finals-collector.json",
     "status": "completed",
     "conclusion": "success",
     "staleArtifactUsed": false,
-    "evidenceCommitPending": true
+    "evidenceCommitPending": false
   },
-  "latestObservationCommit": "de0af5b1e46b78de8d856639bd04ec53b721adbe",
+  "latestObservationCommit": "8a19b4eaa6b434c20b1793f0157eb1ff510e72ce",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
