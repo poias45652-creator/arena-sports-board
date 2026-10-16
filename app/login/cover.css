@@ -2,6 +2,47 @@
 .yj-login-background { position:fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; background:#030a12; }
 .yj-login-background img { display:block; width:100%; height:100%; object-fit:cover; }
 .yj-login-shade { position:fixed; inset:0; z-index:1; background:rgba(3,10,18,.18); pointer-events:none; }
+
+/* The login emblem and wordmark share a single centered axis. */
+.yj-login .xz-login-brand {
+ display:flex; flex-direction:column; align-items:center; gap:12px;
+ width:100%; text-align:center;
+}
+.yj-login .xz-login-brand img {
+ display:block; width:80px; height:80px; object-fit:contain;
+ border:1px solid var(--xz-edge,#aa844c); border-radius:16px;
+ box-shadow:0 0 24px #d8ad6330;
+}
+.yj-login .xz-login-title {
+ margin:0; padding-left:.2em;
+ font-family:"Arial Black","Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+ font-size:clamp(2.5rem,6vw,3rem); font-weight:900; line-height:1.25;
+ letter-spacing:.2em; color:#f6dba4; transform:skewX(-7deg);
+ filter:drop-shadow(0 2px 0 #805624) drop-shadow(0 0 12px #e6b95735);
+}
+@supports ((background-clip:text) or (-webkit-background-clip:text)) {
+ .yj-login .xz-login-title {
+  background:linear-gradient(115deg,#bd8532 0%,#f9d992 25%,#fff8df 42%,#d4a24c 54%,#fff1c5 70%,#c18d37 100%);
+  background-size:220% 100%; background-clip:text; -webkit-background-clip:text;
+  color:transparent; -webkit-text-fill-color:transparent;
+  animation:xz-login-gold-sheen 7s ease-in-out infinite;
+ }
+}
+.yj-login .xz-login-brand::after {
+ content:""; width:124px; height:1px; margin-top:3px;
+ background:linear-gradient(90deg,transparent,#e6b957,transparent);
+ box-shadow:0 0 10px #e6b95745;
+}
+@keyframes xz-login-gold-sheen {
+ 0%,100% { background-position:0% 50%; }
+ 50% { background-position:100% 50%; }
+}
+@media (prefers-reduced-motion:reduce) {
+ .yj-login .xz-login-title { animation:none; }
+}
+@media (forced-colors:active) {
+ .yj-login .xz-login-title { background:none; color:CanvasText; -webkit-text-fill-color:CanvasText; filter:none; }
+}
 @media (min-aspect-ratio:1/1) {
  .yj-login-background::before { content:""; position:absolute; inset:-24px; background:url('/brand/xingzhun-background-still-v1.webp') center/cover no-repeat; filter:blur(24px); opacity:.22; }
  .yj-login-background img { position:relative; width:auto; max-width:none; margin-inline:auto; object-fit:contain; mask-image:linear-gradient(to right,transparent,#000 15%,#000 85%,transparent); }
