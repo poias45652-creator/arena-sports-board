@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-16T08:45:12.748Z",
+  "observedAt": "2026-10-16T10:07:40.448Z",
   "dateAsiaTaipei": "2026-10-16",
   "currentGames": {
     "NPB": 2,
@@ -16,14 +16,14 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "pregame",
+    "NPB": "live",
     "KBO": "no_first_team_games_collector_not_independently_officially_verified",
     "CPBL": "no_first_team_games_collector_not_independently_officially_verified"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-16T08:45:15.490Z",
+    "checkedAt": "2026-10-16T10:07:41.464Z",
     "inserted": 2,
     "readBack": 2,
     "duplicateInserts": 0,
@@ -880,11 +880,35 @@
     },
     "2026-10-16": {
       "NPB": {
-        "verified": false,
+        "verified": true,
+        "verifiedAt": "2026-10-16T10:07:40.448Z",
         "source": "sportsnavi",
-        "state": "pregame",
+        "state": "live",
         "games": 2,
-        "notApplicableYet": true
+        "method": "same-day in-run live-to-live numeric change, separate source timestamps >65 seconds",
+        "proof": [
+          {
+            "key": "NPB:2021039482",
+            "intervalSeconds": 67.759,
+            "changes": {
+              "inning": {
+                "before": 3,
+                "after": 4
+              }
+            }
+          },
+          {
+            "key": "NPB:2021039488",
+            "intervalSeconds": 67.771,
+            "changes": {
+              "pitchCount": {
+                "pitcher": "加藤 貴之",
+                "before": 46,
+                "after": 48
+              }
+            }
+          }
+        ]
       },
       "KBO": {
         "verified": false,
@@ -901,13 +925,13 @@
         "officialOffDayVerified": false
       },
       "allVerified": false,
-      "reason": "16:45 Taipei pregame capture only; no live games, paired >=65s verification not applicable. Zero games does not independently prove official off day.",
-      "evidenceRetainedIn": "data/live/",
+      "reason": "NPB: two same-day live-to-live numeric changes from current attempt 15; KBO/CPBL: no first-team games returned, not independently off-day verified.",
+      "evidenceRetainedIn": "GitHub Actions artifact 12039112153 (data/live/ new observation submission blocked)",
       "latestObservation": {
-        "capturedAt": "2026-10-16T08:45:12.748Z",
-        "liveGames": 0,
+        "capturedAt": "2026-10-16T10:07:40.448Z",
+        "liveGames": 2,
         "pregameGames": {
-          "NPB": 2,
+          "NPB": 0,
           "KBO": 0,
           "CPBL": 0
         },
@@ -916,16 +940,16 @@
           "KBO": 0,
           "CPBL": 0
         },
-        "secondCapturePerformed": false,
-        "captureIntervalSeconds": null,
-        "qualifiedNumericChanges": 0,
-        "artifactId": 12035017865,
-        "artifactCreatedAt": "2026-10-16T08:45:17Z",
+        "secondCapturePerformed": true,
+        "qualifiedNumericChanges": 2,
+        "artifactId": 12039112153,
+        "artifactCreatedAt": "2026-10-16T10:07:42Z",
         "runId": 38411690456,
-        "runAttempt": 13,
-        "jobId": 116890251323,
-        "observationPath": "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json",
-        "evidenceCommit": "de0af5b1e46b78de8d856639bd04ec53b721adbe"
+        "runAttempt": 15,
+        "jobId": 116920373814,
+        "observationPath": null,
+        "artifactSha256": "1825e3b9efdde512144456a8819e1babac4b70c6a8d497b264f1310d94c3e7fd",
+        "gitHubEvidenceFileCommitted": false
       }
     }
   },
@@ -1043,10 +1067,35 @@
       "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json"
     ],
     "NPB": {
-      "verified": false,
-      "state": "pregame",
+      "verified": true,
+      "verifiedAt": "2026-10-16T10:07:40.448Z",
+      "source": "sportsnavi",
+      "state": "live",
       "games": 2,
-      "source": "sportsnavi"
+      "method": "same-day in-run live-to-live numeric change, separate source timestamps >65 seconds",
+      "proof": [
+        {
+          "key": "NPB:2021039482",
+          "intervalSeconds": 67.759,
+          "changes": {
+            "inning": {
+              "before": 3,
+              "after": 4
+            }
+          }
+        },
+        {
+          "key": "NPB:2021039488",
+          "intervalSeconds": 67.771,
+          "changes": {
+            "pitchCount": {
+              "pitcher": "加藤 貴之",
+              "before": 46,
+              "after": 48
+            }
+          }
+        }
+      ]
     },
     "KBO": {
       "verified": false,
@@ -1068,20 +1117,23 @@
       "bases": null
     },
     "allScheduledLeaguesVerified": false,
-    "allThreeLeaguesLiveVerified": false
+    "allThreeLeaguesLiveVerified": false,
+    "latestRunArtifactId": 12039112153,
+    "newEvidenceCommitPending": true
   },
-  "nextAction": "Continue daily collector; after today's NPB 17:00 Asia/Taipei start, require two same-match LIVE observations at least 65 seconds apart to verify material numeric changes. Keep unsupported fields null and avoid production changes.",
+  "nextAction": "Continue daily. Preserve same-day live captures. GitHub create_file currently blocked; retain artifact 12039112153 and sync its evidence when allowed. Do not change main/Render/prod.",
   "latestRun": {
     "runId": 38411690456,
-    "runAttempt": 13,
-    "jobId": 116890251323,
-    "artifactId": 12035017865,
-    "artifactCreatedAt": "2026-10-16T08:45:17Z",
-    "capturedAt": "2026-10-16T08:45:12.748Z",
-    "observationPath": "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json",
+    "runAttempt": 15,
+    "jobId": 116920373814,
+    "artifactId": 12039112153,
+    "artifactCreatedAt": "2026-10-16T10:07:42Z",
+    "capturedAt": "2026-10-16T10:07:40.448Z",
+    "observationPath": null,
     "status": "completed",
     "conclusion": "success",
-    "staleArtifactUsed": false
+    "staleArtifactUsed": false,
+    "evidenceCommitPending": true
   },
   "latestObservationCommit": "de0af5b1e46b78de8d856639bd04ec53b721adbe",
   "historyRetention": {
