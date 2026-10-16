@@ -132,3 +132,8 @@
 @media(max-height:600px) and (orientation:landscape) {
   .yj-login.xz-theme { padding-top:2rem; padding-bottom:2rem; }
 }
+
+/* A wrapped phone header must scroll away instead of covering the standings. */
+@media(max-width:767px) {
+  .arena-shell.xz-theme>header { position:relative; top:auto; }
+}
