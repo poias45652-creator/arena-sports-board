@@ -63,7 +63,9 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
   byFixture.set(k,{id:previous?.id||live.id,league,date,start,kind:'pregame_snapshot',liveVerified:false,...(league==='CPBL'&&['REGULAR_SEASON','POSTSEASON'].includes(live.seasonPhase)?{seasonPhase:live.seasonPhase}:{}),source,away:sideData('away'),home:sideData('home'),...(previous?.comparison?{comparison:previous.comparison,comparisonSource:previous.comparisonSource,rules:previous.rules}:{})});
  }
  const games=[...byFixture.values()].filter(g=>!excluded.has(key(g))).sort((a,b)=>a.start.localeCompare(b.start));
- return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:[...games.map(g=>g.source.observedAt),...[...excluded.values()].map(g=>g.observedAt)].sort().at(-1)||'',games};
+ // A cancellation must not freshen the statistics of a retained game. Only an
+ // empty, exclusion-only snapshot uses its cancellation observation for storage.
+ return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||[...excluded.values()].map(g=>g.observedAt).sort().at(-1)||'',games};
 }
 export function pregameMissing(snapshot:PregameData){
  const teams=snapshot.games.flatMap(g=>[g.away,g.home]);
