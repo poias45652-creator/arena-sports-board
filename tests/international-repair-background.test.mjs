@@ -49,6 +49,13 @@ test('today and tomorrow caches coexist, and retained clocks are persisted',asyn
  const first=await get('NPB',base.date);assert.equal(first.games[0].startTime,base.startTime);assert.equal(saved.games[0].startTime,base.startTime);
  await get('NPB','2026-09-23');await get('NPB',base.date);assert.equal(calls,2);
 });
+test('retired conditional fixtures refresh the archive even on a live-only day or offday',async()=>{
+ for(const games of [[],[{status:'live',startTime:'2026-09-22T05:00:00Z'}]]){
+  const calls=[],h=harness(async league=>({...feed(league),games,retiredFixtures:league==='NPB'?[{id:'retired',reason:'npb_final_stage_completed'}]:[]}),async(league,date)=>calls.push(league+':'+date));
+  h.loop.start();for(const job of h.jobs.splice(0))job.fn();await flush();
+  assert.ok(calls.includes('NPB:2026-09-22'));assert.equal(calls.includes('KBO:2026-09-22'),false);h.loop.stop();
+ }
+});
 test('NPB probable-starter label enables only verified future fixtures',()=>{
  const g={...base,startTime:'2026-09-23T09:00:00Z',date:'2026-09-23',status:'unknown',rawStatus:'日本ハム 18:00 予告先発 楽天',away:{score:null},home:{score:null}};
  assert.equal(recoverNpbPregameState(structuredClone(g)).status,'pregame');

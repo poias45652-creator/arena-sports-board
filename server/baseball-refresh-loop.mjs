@@ -56,7 +56,7 @@ export function createBaseballRefreshLoops({getLive, getPregame, day,
       failures.set(league,0);state.succeededAt=new Date(now()).toISOString();state.error=null;
       const nextDate=league==='CPBL'&&feed.noGames&&/^\d{4}-\d{2}-\d{2}$/.test(feed.nextGameDate||'')&&feed.nextGameDate>date&&Date.parse(feed.nextGameDate)-Date.parse(date)<=7*86400000?feed.nextGameDate:null;
       const statsDate=nextDate||date,statKey=league+':'+statsDate;
-      if((nextDate||feed.games.some(g=>g.status==='pregame'&&!g.sourceStale))&&
+      if((nextDate||feed.retiredFixtures?.length||feed.games.some(g=>g.status==='pregame'&&!g.sourceStale))&&
           (!statsAt.has(statKey)||now()-statsAt.get(statKey)>=300000)) {
         statsAt.set(statKey,now());
         try {await getPregame(league,statsDate);} catch {statsAt.delete(statKey);state.error='場況已更新；賽前統計暫時失敗';}
