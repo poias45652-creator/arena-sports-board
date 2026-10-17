@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-17",
+  "capturedAt": "2026-10-17T10:07:08.999Z",
+  "source": "Current baseball collector",
+  "runId": 38411690456,
+  "runAttempt": 24,
+  "jobId": 117370272442,
+  "artifactId": 12097711987,
+  "artifactCreatedAt": "2026-10-17T10:07:11Z",
+  "artifactSha256": "d0635e1800351929a2743a0d99d47fa6dfddec1f5088e965bcc9c3e05cd1f2bf",
+  "secondCapturePerformed": false,
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "games": [
+        {
+          "key": "NPB:2021039483",
+          "away": "橫濱DeNA海灣之星",
+          "home": "阪神虎",
+          "awayScore": 8,
+          "homeScore": 5,
+          "status": "final",
+          "sourceFetchedAt": "2026-10-17T10:07:05.794Z"
+        }
+      ],
+      "newLiveChangeProof": false
+    },
+    "KBO": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "error": "KBO date/ID conflict",
+      "zeroGamesProvesOffday": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "error": "Not CPBL regular season",
+      "zeroGamesProvesOffday": false,
+      "unverifiedFieldsStayNull": true
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "checkedAt": "2026-10-17T10:07:10.265Z",
+    "NPB": {
+      "written": 1,
+      "readBack": 1,
+      "duplicates": 0
+    },
+    "KBO": {
+      "written": 0
+    },
+    "CPBL": {
+      "written": 0
+    }
+  },
+  "notes": [
+    "NPB status final, so no within-run second LIVE sample. Older live evidence remains valid and is not overwritten.",
+    "KBO and CPBL zero valid games result from parser errors, not verified off days.",
+    "No main branch, Render, production database, credentials, or deployment touched."
+  ]
+}
