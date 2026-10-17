@@ -8,29 +8,29 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-16T15:00:23.331Z",
-  "dateAsiaTaipei": "2026-10-16",
+  "observedAt": "2026-10-17T10:46:20.129Z",
+  "dateAsiaTaipei": "2026-10-17",
   "currentGames": {
-    "NPB": 2,
+    "NPB": 1,
     "KBO": 0,
     "CPBL": 0
   },
   "currentStates": {
     "NPB": "final",
-    "KBO": "no_first_team_games_collector_not_independently_officially_verified",
-    "CPBL": "no_first_team_games_collector_not_independently_officially_verified"
+    "KBO": "parser_date_id_conflict_not_verified_offday",
+    "CPBL": "parser_rejects_postseason_not_verified_offday"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16",
     "productionWritten": false,
-    "checkedAt": "2026-10-16T15:00:24.292Z",
-    "inserted": 2,
-    "readBack": 2,
+    "checkedAt": "2026-10-17T10:46:21.318Z",
+    "inserted": 1,
+    "readBack": 1,
     "duplicateInserts": 0,
     "passed": true
   },
   "firstStartTaipei": {
-    "NPB": "2026-10-16T17:00:00+08:00",
+    "NPB": "2026-10-17T13:00:00+08:00",
     "KBO": null,
     "CPBL": null
   },
@@ -953,6 +953,41 @@
         "artifactSha256": "2fe90249a445d0d2686f378c8e9d3bbd3a0f4ddb6d987854b2becb06346826f5",
         "gitHubEvidenceFileCommitted": true
       }
+    },
+    "2026-10-17": {
+      "NPB": {
+        "verified": true,
+        "verifiedAt": "2026-10-17T07:23:11.973Z",
+        "source": "sportsnavi",
+        "state": "final",
+        "games": 1,
+        "verificationMethod": "same-day cross-run live-to-live score and inning changes (Attempt 21 → 22), interval 3292.956s; latest Attempt25 final, not new live proof"
+      },
+      "KBO": {
+        "verified": false,
+        "source": "naver",
+        "games": 0,
+        "state": "parser_date_id_conflict"
+      },
+      "CPBL": {
+        "verified": false,
+        "source": "yahoo-tw",
+        "games": 0,
+        "state": "parser_rejected_postseason",
+        "pitchCount": null
+      },
+      "allVerified": false,
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-17T10:46:20.129Z",
+        "artifactId": 12098333663,
+        "artifactCreatedAt": "2026-10-17T10:46:23Z",
+        "runId": 38411690456,
+        "runAttempt": 25,
+        "jobId": 117377379454,
+        "observationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
+        "newEvidenceCommitPending": true
+      }
     }
   },
   "parserFixes": [
@@ -1061,58 +1096,28 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-16",
+    "date": "2026-10-17",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261016T150023Z-attempt19-npb-finals-collector.json",
-    "evidenceObservationPaths": [
-      "data/live/20261016T075349Z-attempt12-npb-pregame-collector.json",
-      "data/live/20261016T084512Z-attempt13-npb-pregame-collector.json",
-      "data/live/20261016T150023Z-attempt19-npb-finals-collector.json"
-    ],
+    "latestObservationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
     "NPB": {
       "verified": true,
-      "verifiedAt": "2026-10-16T10:07:40.448Z",
+      "verifiedAt": "2026-10-17T07:23:11.973Z",
       "source": "sportsnavi",
       "state": "final",
-      "games": 2,
-      "method": "same-day in-run live-to-live numeric change, separate source timestamps >65 seconds",
-      "proof": [
-        {
-          "key": "NPB:2021039482",
-          "intervalSeconds": 67.759,
-          "changes": {
-            "inning": {
-              "before": 3,
-              "after": 4
-            }
-          }
-        },
-        {
-          "key": "NPB:2021039488",
-          "intervalSeconds": 67.771,
-          "changes": {
-            "pitchCount": {
-              "pitcher": "加藤 貴之",
-              "before": 46,
-              "after": 48
-            }
-          }
-        }
-      ],
-      "priorSameDayLiveProofRetained": true
+      "games": 1,
+      "method": "cross-run LIVE to LIVE >=65 second numeric score/inning changes retained from Attempt 22",
+      "newLiveProofThisRun": false
     },
     "KBO": {
       "verified": false,
-      "state": "no_games_in_collector",
+      "state": "parser_date_id_conflict",
       "games": 0,
-      "source": "naver",
       "officialOffDayVerified": false
     },
     "CPBL": {
       "verified": false,
-      "state": "no_games_in_collector",
+      "state": "parser_rejected_postseason",
       "games": 0,
-      "source": "yahoo-tw",
       "officialOffDayVerified": false,
       "pitchCount": null,
       "balls": null,
@@ -1122,22 +1127,22 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12053613872,
-    "newEvidenceCommitPending": false
+    "latestRunArtifactId": 12098333663,
+    "newEvidenceCommitPending": true
   },
-  "nextAction": "Continue daily collection. Preserve prior 2026-10-16 live proofs and final-state evidence; revalidate new local-day games. No main/Render/production writes.",
+  "nextAction": "Retry safe isolated-branch parser amendment for CPBL POSTSEASON and KBO original-date IDs with live-source validation, append today's observation to data/live, keep main/Render/production unchanged.",
   "latestRun": {
     "runId": 38411690456,
-    "runAttempt": 19,
-    "jobId": 117038237065,
-    "artifactId": 12053613872,
-    "artifactCreatedAt": "2026-10-16T15:00:25Z",
-    "capturedAt": "2026-10-16T15:00:23.331Z",
-    "observationPath": "data/live/20261016T150023Z-attempt19-npb-finals-collector.json",
+    "runAttempt": 25,
+    "jobId": 117377379454,
+    "artifactId": 12098333663,
+    "artifactCreatedAt": "2026-10-17T10:46:23Z",
+    "capturedAt": "2026-10-17T10:46:20.129Z",
+    "observationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
     "status": "completed",
     "conclusion": "success",
     "staleArtifactUsed": false,
-    "evidenceCommitPending": false
+    "evidenceCommitPending": true
   },
   "latestObservationCommit": "8a19b4eaa6b434c20b1793f0157eb1ff510e72ce",
   "historyRetention": {
