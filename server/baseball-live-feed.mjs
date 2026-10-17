@@ -24,6 +24,16 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
    try{
     const fresh=await collect(league,{date});
     if(fresh?.league!==league||fresh.date!==date||!Array.isArray(fresh.games))throw new Error('No verified current-date games');
+    const freshKeys=new Set(fresh.games.map(g=>g.key));
+    // The dated calendar and completed bracket must agree before an unplayed
+    // conditional fixture is retired, including a verified day with no games.
+    const retirementChecks=league==='NPB'?[...older.values()].filter(g=>!freshKeys.has(g.key))
+     .map(g=>({id:g.id,key:g.key,...npbFixtureRetirementDecision(g,fresh.scheduleProof,now())})):[];
+    const confirmed=new Map(retirementChecks.filter(g=>g.retired).map(g=>[g.key,g.reason]));
+    const retiredFixtures=[...older.values()].filter(g=>confirmed.has(g.key))
+     .map(g=>({key:g.key,id:g.id,league:g.league,date:g.date,startTime:g.startTime,home:g.home.name,away:g.away.name,
+      previousFetchedAt:g.source.fetchedAt,reason:confirmed.get(g.key),source:fresh.scheduleProof.source}));
+    const retiredKeys=new Set(retiredFixtures.map(g=>g.key));
     if(!fresh.games.length){
      const proof=fresh.scheduleProof,ids=new Set(['cpbl.t.1','cpbl.t.2','cpbl.t.5','cpbl.t.6','cpbl.t.7','cpbl.t.8']);
      const cpblOffday=league==='CPBL'&&proof?.date===date&&proof.listedGames===0&&
@@ -31,10 +41,10 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
       proof.teams.every(t=>ids.has(t.teamId)&&t.from<=date&&t.through>=date&&
        Number.isFinite(Date.parse(t.fetchedAt))&&now()-Date.parse(t.fetchedAt)>=-60000&&now()-Date.parse(t.fetchedAt)<=900000);
      const verified=(cpblOffday||league==='NPB'&&isVerifiedNpbOffday(proof,date,now()))&&
-      fresh.status==='ok'&&Array.isArray(fresh.errors)&&fresh.errors.length===0&&older.size===0;
+      fresh.status==='ok'&&Array.isArray(fresh.errors)&&fresh.errors.length===0&&older.size===retiredKeys.size;
      if(!verified)throw new Error('No verified current-date games');
      const value={schemaVersion:1,league,date,games:[],status:'ok',stale:false,noGames:true,
-      scheduleProof:proof,nextGameDate:fresh.nextGameDate,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,
+      scheduleProof:proof,retiredFixtures,retirementChecks,nextGameDate:fresh.nextGameDate,checkedAt:new Date(now()).toISOString(),collectedAt:fresh.collectedAt,
       pollAfterMs:300000,liveLatencyVerified:false,automaticBackgroundSync:baseballBackgroundStatus().enabled,background:baseballBackgroundStatus()};
      cache.set(key,{value,until:now()+300000});return value;
     }
@@ -44,17 +54,6 @@ export function createLiveFeed({collect,read,write,day,now=Date.now}) {
      if(!Number.isFinite(age)||age< -60000||age>900000)throw new Error('Invalid source observation time');
     }
     const errors=Array.isArray(fresh.errors)?fresh.errors:[];
-    const freshKeys=new Set(fresh.games.map(g=>g.key));
-    // A conditional CS third game disappears after a verified 2–0 series.
-    // Only retire an unplayed exact fixture with dated schedule/bracket proof;
-    // missing live/final games and ordinary source failures still stay stale.
-    const retirementChecks=league==='NPB'?[...older.values()].filter(g=>!freshKeys.has(g.key))
-     .map(g=>({id:g.id,key:g.key,...npbFixtureRetirementDecision(g,fresh.scheduleProof,now())})):[];
-    const confirmedKeys=new Set(retirementChecks.filter(g=>g.retired).map(g=>g.key));
-    const retiredFixtures=[...older.values()].filter(g=>confirmedKeys.has(g.key))
-     .map(g=>({key:g.key,id:g.id,league:g.league,date:g.date,startTime:g.startTime,home:g.home.name,away:g.away.name,
-      previousFetchedAt:g.source.fetchedAt,reason:'npb_first_stage_completed',source:fresh.scheduleProof.source}));
-    const retiredKeys=new Set(retiredFixtures.map(g=>g.key));
     const games=new Map([...older].filter(([k])=>!retiredKeys.has(k)).map(([k,g])=>[k,{...g,sourceStale:true}]));
     const accepted=[];
     for(const g of fresh.games){

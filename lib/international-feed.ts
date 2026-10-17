@@ -67,7 +67,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   if(kboHistory)pregame=supplementKboTeamRuns(pregame,kboHistory);
   if(cpblLogs)pregame=supplementCpblGameLogs(pregame,cpblLogs.snapshot);
   pregame=supplementBullpens(pregame,publicBullpen);
-  if(pregame.games.length)try{
+  if(pregame.games.length||pregame.excludedFixtures?.length)try{
    await getRawDb().prepare(`INSERT INTO baseball_pregame (key,league,date,observed_at,payload) VALUES (?,?,?,?,?)
     ON CONFLICT(key) DO UPDATE SET observed_at=excluded.observed_at,payload=excluded.payload WHERE excluded.observed_at>=baseball_pregame.observed_at`)
     .bind(key,league,date,pregame.observedAt,JSON.stringify(pregame)).run();

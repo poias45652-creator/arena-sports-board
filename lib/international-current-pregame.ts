@@ -23,10 +23,10 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
  for(const a of archives)if(a.league===league&&a.date===date)for(const x of a.excludedFixtures||[])if(x.start.startsWith(date+' '))excluded.set(excludedKey(x),x);
  const key=(g:PregameGame)=>`${g.start}|${internationalTeam(g.away.team,league)}|${internationalTeam(g.home.team,league)}`;
  for(const archive of archives){if(archive?.league!==league||archive.date!==date)continue;for(const g of archive.games){const old=byFixture.get(key(g));if(!old||Date.parse(g.source.observedAt)>Date.parse(old.source.observedAt))byFixture.set(key(g),g);}}
- // Carry the live feed's verified series completion into the pregame archive,
- // otherwise an obsolete conditional third game would reappear from storage.
+ // Carry verified series completion into the pregame archive, otherwise an
+ // obsolete conditional fixture would reappear from storage after a restart.
  for(const retired of feed.retiredFixtures||[]){
-  if(league!=='NPB'||retired.league!==league||retired.date!==date||retired.reason!=='npb_first_stage_completed'||
+  if(league!=='NPB'||retired.league!==league||retired.date!==date||!['npb_first_stage_completed','npb_final_stage_completed'].includes(retired.reason)||
      !Number.isFinite(Date.parse(retired.startTime))||!Number.isFinite(Date.parse(retired.source?.fetchedAt))||
      retired.source?.url!==`https://baseball.yahoo.co.jp/npb/schedule/?date=${date}`)continue;
   const x={start:taipeiStart(retired.startTime),away:retired.away,home:retired.home,status:'cancelled',
@@ -63,7 +63,7 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
   byFixture.set(k,{id:previous?.id||live.id,league,date,start,kind:'pregame_snapshot',liveVerified:false,...(league==='CPBL'&&['REGULAR_SEASON','POSTSEASON'].includes(live.seasonPhase)?{seasonPhase:live.seasonPhase}:{}),source,away:sideData('away'),home:sideData('home'),...(previous?.comparison?{comparison:previous.comparison,comparisonSource:previous.comparisonSource,rules:previous.rules}:{})});
  }
  const games=[...byFixture.values()].filter(g=>!excluded.has(key(g))).sort((a,b)=>a.start.localeCompare(b.start));
- return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:games.map(g=>g.source.observedAt).sort().at(-1)||'',games};
+ return {excludedFixtures:[...excluded.values()],schemaVersion:1,league,season:Number(date.slice(0,4)),date,observedAt:[...games.map(g=>g.source.observedAt),...[...excluded.values()].map(g=>g.observedAt)].sort().at(-1)||'',games};
 }
 export function pregameMissing(snapshot:PregameData){
  const teams=snapshot.games.flatMap(g=>[g.away,g.home]);
