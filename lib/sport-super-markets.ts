@@ -52,6 +52,9 @@ const footballAliases:Record<string,string>={
  '喬治羅尼亞':'雅蓋隆尼亞','阿拉特阿美尼亞':'阿拉拉特亞美尼亞',
  // October 16 screenshots: Fulham versus Hull City, October 17 at 22:00 Taipei.
  '侯城':'赫爾城',
+ // Lazio's full-name regional spellings: HKJC uses 拉素, the club's Chinese
+ // site uses 拉齐奥. Keep exact senior-team aliases; never strip squad suffixes.
+ '拉素':'拉齊奧','拉齐奥':'拉齊奧',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
@@ -184,10 +187,20 @@ export function basketballMarketGrid(mean:number,sigma:number,kind:'margin'|'tot
 }
 export function footballMarketGrids(analysis:any):{margin:SportGrid;total:SportGrid}|null{
  const d=analysis?.scoreDistribution,e=analysis?.expected;
- if(!d||!e||Math.abs(d.home-e.home)>1e-6||Math.abs(d.away-e.away)>1e-6||!Array.isArray(d.scores))return null;
+ if(!d||!e||![d.home,d.away,e.home,e.away].every(n=>Number.isFinite(n)&&n>=0)||Math.abs(d.home-e.home)>1e-6||Math.abs(d.away-e.away)>1e-6||!Array.isArray(d.scores)||!d.scores.length)return null;
  const rows=d.scores;
- if(rows.some((r:any)=>!Number.isInteger(r.home)||!Number.isInteger(r.away)||!Number.isFinite(r.probability)||r.probability<0)||Math.abs(rows.reduce((n:number,r:any)=>n+r.probability,0)-1)>1e-6)return null;
+ const seen=new Set<string>();
+ for(const r of rows){
+  if(!r||!Number.isInteger(r.home)||!Number.isInteger(r.away)||r.home<0||r.away<0||!Number.isFinite(r.probability)||r.probability<0||r.probability>1)return null;
+  const key=`${r.home}:${r.away}`;if(seen.has(key))return null;seen.add(key);
+ }
+ if(Math.abs(rows.reduce((n:number,r:any)=>n+r.probability,0)-1)>1e-6)return null;
  const p=analysis.probabilities;
- if(!p||(['home','draw','away'] as const).some(side=>Math.abs(rows.filter((r:any)=>side==='home'?r.home>r.away:side==='away'?r.home<r.away:r.home===r.away).reduce((n:number,r:any)=>n+r.probability,0)-p[side])>1e-5))return null;
+ if(!p||(['home','draw','away'] as const).some(side=>!Number.isFinite(p[side])||p[side]<0||p[side]>1||Math.abs(rows.filter((r:any)=>side==='home'?r.home>r.away:side==='away'?r.home<r.away:r.home===r.away).reduce((n:number,r:any)=>n+r.probability,0)-p[side])>1e-5))return null;
+ for(const side of ['over25','under25','btts'] as const){
+  if(p[side]===undefined)continue;
+  const mass=rows.filter((r:any)=>side==='over25'?r.home+r.away>2:side==='under25'?r.home+r.away<=2:r.home>0&&r.away>0).reduce((n:number,r:any)=>n+r.probability,0);
+  if(!Number.isFinite(p[side])||Math.abs(mass-p[side])>1e-5)return null;
+ }
  return {margin:rows.map((r:any)=>({value:r.home-r.away,p:r.probability})),total:rows.map((r:any)=>({value:r.home+r.away,p:r.probability}))};
 }

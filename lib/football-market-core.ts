@@ -41,5 +41,8 @@ export function marketFootballDistribution(r:{home:number;away:number;rho:number
  }
  const probabilities={home:0,draw:0,away:0,over25:0,under25:0,btts:0},expected={home:0,away:0};
  for(const s of scores){s.probability/=z;probabilities[s.home>s.away?'home':s.home<s.away?'away':'draw']+=s.probability;probabilities[s.home+s.away>2?'over25':'under25']+=s.probability;if(s.home>0&&s.away>0)probabilities.btts+=s.probability;expected.home+=s.home*s.probability;expected.away+=s.away*s.probability;}
- return {probabilities,expected,scores:scores.sort((x,y)=>y.probability-x.probability).slice(0,3)};
+ // Keep the complete calibrated grid together with its own expectations.
+ // Returning only the top three scores leaves callers with a previous model's
+ // scoreDistribution, which cannot settle the new model's handicap/total.
+ return {probabilities,expected,scoreDistribution:{...expected,rho,scores},scores:[...scores].sort((x,y)=>y.probability-x.probability).slice(0,3)};
 }
