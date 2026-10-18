@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-18",
+  "capturedAt": "2026-10-18T09:20:04.408Z",
+  "source": "Current baseball collector",
+  "runId": 38411690456,
+  "runAttempt": 33,
+  "jobId": 117638543095,
+  "artifactId": 12131514512,
+  "artifactCreatedAt": "2026-10-18T09:20:05Z",
+  "artifactSha256": "e91311d05444093705abc571c7fe5447bbbfe05bc7bdff61f5c6f34ba354cadf",
+  "artifactVerifiedByLocalZipSha256": true,
+  "staleArtifactUsed": false,
+  "conclusion": "failure",
+  "secondCapturePerformed": false,
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "offDayVerified": true,
+      "firstTeamGames": 0,
+      "gameState": "no_games",
+      "errors": []
+    },
+    "KBO": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "gameState": "unknown_parser_failed",
+      "errors": [
+        "KBO date/ID conflict"
+      ],
+      "zeroGamesProvesOffday": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "gameState": "unknown_parser_failed",
+      "errors": [
+        "Not CPBL regular season"
+      ],
+      "zeroGamesProvesOffday": false,
+      "pitchCount": null,
+      "lineupConfirmation": "not_verified"
+    }
+  },
+  "isolatedDatabaseTest": "skipped_collector_failed",
+  "liveChangeProof": false,
+  "productionWritten": false,
+  "notes": [
+    "Rerun uses original workflow head SHA; no validated collector live state.",
+    "Only exact-date first-team games eligible; KBO and CPBL not marked off-day based on parser errors.",
+    "Local syntax and simulated KBO reschedule/CPBL postseason parser tests passed; GitHub isolated source update was blocked; not considered real-source verified.",
+    "GitHub Action artifact overwrite deleted prior artifact; ZIP copy downloaded for this run.",
+    "No guessed zero values for unknown fields; no changes to main, Render or production."
+  ]
+}
