@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-18",
+  "capturedAt": "2026-10-18T05:56:19.477Z",
+  "source": "Current baseball collector",
+  "runId": 38411690456,
+  "runAttempt": 30,
+  "jobId": 117600713829,
+  "artifactId": 12126479936,
+  "artifactCreatedAt": "2026-10-18T05:56:20Z",
+  "artifactSha256": "3665ad228652624c67627bb43a88f181f5297db4878b2da53c6cd91e42c6625a",
+  "conclusion": "failure",
+  "secondCapturePerformed": false,
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "offDayVerified": true,
+      "firstTeamGames": 0,
+      "gameState": "no_games",
+      "errors": []
+    },
+    "KBO": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "gameState": "unknown_parser_failed",
+      "errors": [
+        "KBO date/ID conflict"
+      ],
+      "zeroGamesProvesOffday": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGamesValidated": 0,
+      "gameState": "unknown_parser_failed",
+      "errors": [
+        "Not CPBL regular season"
+      ],
+      "zeroGamesProvesOffday": false
+    }
+  },
+  "isolatedDatabaseTest": "skipped_collector_failed",
+  "productionWritten": false,
+  "liveChangeProof": false,
+  "notes": [
+    "No false score or missing stat field zero-fills.",
+    "No qualifying live observation. No main, Render or production change."
+  ]
+}
