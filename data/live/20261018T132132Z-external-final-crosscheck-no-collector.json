@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-18",
+  "checkedAt": "2026-10-18T13:21:32.922Z",
+  "observationType": "public_source_crosscheck_without_new_collector_attempt",
+  "collectorRerun": {
+    "attempted": true,
+    "status": "blocked_by_safety_checks",
+    "newAttempt": false,
+    "newArtifact": false,
+    "newCapturedAt": false,
+    "referenceLatestValidatedRunId": 39121599531,
+    "referenceAttempt": 2,
+    "referenceArtifactId": 12134064478,
+    "referenceCapturedAt": "2026-10-18T11:04:09.232Z",
+    "mustNotTreatReferenceAsNew": true
+  },
+  "externalCrosscheck": {
+    "NPB": {
+      "status": "offday_per_previously_verified_collector",
+      "freshIndependentFetchThisRun": false
+    },
+    "KBO": {
+      "status": "final",
+      "away": "LG雙子",
+      "home": "起亞虎",
+      "awayScore": 3,
+      "homeScore": 6,
+      "source": "https://www.koreajoongangdaily.com/sports/kia-tigers-within-one-game-of-advancement-after-thrashing-lg-twins-63-in-2nd-game-of-postseason/12926122",
+      "collectedByCollectorThisRun": false
+    },
+    "CPBL": {
+      "status": "final",
+      "phase": "一軍總冠軍賽",
+      "away": "中信兄弟",
+      "home": "味全龍",
+      "awayScore": 1,
+      "homeScore": 3,
+      "source": "https://stats.cpbl.com.tw/schedule/2026-C-2",
+      "finalPageHasInningTotals": true,
+      "finalPageHasPitchCountTable": true,
+      "collectorStatusAt19_04Taipei": "pregame",
+      "fallbackAutoParserVerified": false,
+      "realTimeLatencyVerified": false,
+      "pitchCountForNormalizedFeed": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false
+    }
+  },
+  "twoObservations65SecondsApart": false,
+  "qualifiedLiveChanges": 0,
+  "productionModified": false,
+  "mainModified": false,
+  "renderModified": false,
+  "requiresFollowUp": "Re-run latest validated collector when connector permits; independently validate CPBL final-status source and parser on isolated branch; preserve unsupported fields null."
+}
