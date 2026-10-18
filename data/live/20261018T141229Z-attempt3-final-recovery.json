@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-18",
+  "capturedAt": "2026-10-18T14:12:29.087Z",
+  "runId": 39121599531,
+  "jobId": 117697370704,
+  "runAttempt": 3,
+  "runAttemptConfirmedByApi": false,
+  "artifactId": 12138698800,
+  "artifactCreatedAt": "2026-10-18T14:12:31Z",
+  "artifactSha256": "1330ec5bfb988c20ec48157abd7913bdc562eae675250d4a9fd1ffdfbe8f08e9",
+  "result": "success",
+  "NPB": {
+    "offDayVerified": true,
+    "games": 0
+  },
+  "KBO": {
+    "status": "final",
+    "score": "LG 3 : 6 KIA",
+    "pitchingRows": 12,
+    "lineupRows": 18
+  },
+  "CPBL": {
+    "status": "final",
+    "score": "中信兄弟 1 : 3 味全龍",
+    "pitchingRows": 8,
+    "lineupRows": 31,
+    "pitchCount": null
+  },
+  "databaseTest": "passed isolated PostgreSQL 16",
+  "secondCapturePerformed": false,
+  "liveChangesVerified": false,
+  "productionChanged": false
+}
