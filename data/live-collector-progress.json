@@ -8,29 +8,27 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-17T10:46:20.129Z",
-  "dateAsiaTaipei": "2026-10-17",
+  "observedAt": "2026-10-18T05:56:19.477Z",
+  "dateAsiaTaipei": "2026-10-18",
   "currentGames": {
-    "NPB": 1,
+    "NPB": 0,
     "KBO": 0,
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "final",
+    "NPB": "no_first_team_games_official_offday_marker_verified",
     "KBO": "parser_date_id_conflict_not_verified_offday",
     "CPBL": "parser_rejects_postseason_not_verified_offday"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16",
     "productionWritten": false,
-    "checkedAt": "2026-10-17T10:46:21.318Z",
-    "inserted": 1,
-    "readBack": 1,
-    "duplicateInserts": 0,
-    "passed": true
+    "checkedAt": null,
+    "passed": null,
+    "reason": "Attempt 30 collection returned no qualified first-team games; database test skipped after exit code 1"
   },
   "firstStartTaipei": {
-    "NPB": "2026-10-17T13:00:00+08:00",
+    "NPB": null,
     "KBO": null,
     "CPBL": null
   },
@@ -988,6 +986,43 @@
         "observationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
         "newEvidenceCommitPending": true
       }
+    },
+    "2026-10-18": {
+      "NPB": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "verified_no_games",
+        "games": 0,
+        "source": "sportsnavi",
+        "offDayVerified": true
+      },
+      "KBO": {
+        "verified": false,
+        "source": "naver",
+        "games": 0,
+        "state": "parser_date_id_conflict_not_verified_offday"
+      },
+      "CPBL": {
+        "verified": false,
+        "source": "yahoo-tw",
+        "games": 0,
+        "state": "parser_rejected_postseason_not_verified_offday",
+        "pitchCount": null
+      },
+      "allVerified": false,
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-18T05:56:19.477Z",
+        "artifactId": 12126479936,
+        "artifactCreatedAt": "2026-10-18T05:56:20Z",
+        "runId": 38411690456,
+        "runAttempt": 30,
+        "jobId": 117600713829,
+        "observationPath": "data/live/20261018T055619Z-attempt30-failed-collector.json",
+        "collectorConclusion": "failure",
+        "secondCapturePerformed": false,
+        "qualifiedNumericChanges": 0
+      }
     }
   },
   "parserFixes": [
@@ -1096,29 +1131,26 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-17",
+    "date": "2026-10-18",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
+    "latestObservationPath": "data/live/20261018T055619Z-attempt30-failed-collector.json",
     "NPB": {
-      "verified": true,
-      "verifiedAt": "2026-10-17T07:23:11.973Z",
-      "source": "sportsnavi",
-      "state": "final",
-      "games": 1,
-      "method": "cross-run LIVE to LIVE >=65 second numeric score/inning changes retained from Attempt 22",
-      "newLiveProofThisRun": false
+      "verified": false,
+      "notApplicableToday": true,
+      "state": "verified_no_games",
+      "games": 0
     },
     "KBO": {
       "verified": false,
+      "officialOffDayVerified": false,
       "state": "parser_date_id_conflict",
-      "games": 0,
-      "officialOffDayVerified": false
+      "games": 0
     },
     "CPBL": {
       "verified": false,
+      "officialOffDayVerified": false,
       "state": "parser_rejected_postseason",
       "games": 0,
-      "officialOffDayVerified": false,
       "pitchCount": null,
       "balls": null,
       "strikes": null,
@@ -1127,27 +1159,30 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12098333663,
-    "newEvidenceCommitPending": true
+    "latestRunArtifactId": 12126479936,
+    "newEvidenceCommitPending": false
   },
-  "nextAction": "Retry safe isolated-branch parser amendment for CPBL POSTSEASON and KBO original-date IDs with live-source validation, append today's observation to data/live, keep main/Render/production unchanged.",
+  "nextAction": "Only on isolated branch: fix CPBL POSTSEASON and KBO rescheduled ID parser after real-source verification; avoid overwriting action artifacts, retain history. main, Render, production and credentials must not be changed.",
   "latestRun": {
     "runId": 38411690456,
-    "runAttempt": 25,
-    "jobId": 117377379454,
-    "artifactId": 12098333663,
-    "artifactCreatedAt": "2026-10-17T10:46:23Z",
-    "capturedAt": "2026-10-17T10:46:20.129Z",
-    "observationPath": "data/live/20261017T104620Z-attempt25-npb-final-kbo-cpbl-parser-errors-collector.json",
+    "runAttempt": 30,
+    "jobId": 117600713829,
+    "artifactId": 12126479936,
+    "artifactCreatedAt": "2026-10-18T05:56:20Z",
+    "artifactSha256": "3665ad228652624c67627bb43a88f181f5297db4878b2da53c6cd91e42c6625a",
+    "capturedAt": "2026-10-18T05:56:19.477Z",
+    "observationPath": "data/live/20261018T055619Z-attempt30-failed-collector.json",
     "status": "completed",
-    "conclusion": "success",
+    "conclusion": "failure",
     "staleArtifactUsed": false,
-    "evidenceCommitPending": true
+    "evidenceCommitPending": false,
+    "isolatedDatabaseTest": "skipped"
   },
-  "latestObservationCommit": "8a19b4eaa6b434c20b1793f0157eb1ff510e72ce",
+  "latestObservationCommit": "d84c34f79d75da7da4e8d0bc9337f1517cac394f",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
-    "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history."
+    "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
+    "artifactOverwriteIssue": "Workflow artifact name baseball-current, overwrite true and retention-days 7. Previous artifact deleted on re-run; isolated workflow fix not applied."
   }
 }
