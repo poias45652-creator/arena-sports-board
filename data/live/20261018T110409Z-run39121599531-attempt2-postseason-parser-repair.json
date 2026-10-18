@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-18",
+  "capturedAt": "2026-10-18T11:04:09.232Z",
+  "source": "Current baseball collector / GitHub Actions",
+  "runId": 39121599531,
+  "runAttempt": 2,
+  "jobId": 117658481237,
+  "runHeadSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "artifactId": 12134064478,
+  "artifactCreatedAt": "2026-10-18T11:04:11Z",
+  "artifactSha256": "77e00795ca3d192df64b5bddc827d7c2a6b22f136618a0397a07a2f7c37485d6",
+  "artifactVerifiedByLocalZipSha256": true,
+  "artifactOldDataUsed": false,
+  "conclusion": "success",
+  "parserFix": {
+    "commit": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+    "file": "server/baseball-live-providers.mjs",
+    "branch": "data/live-source-probe-20260915",
+    "actualSourceRetested": true,
+    "kboRescheduledGameId": "33331018LGHT02026",
+    "cpblSeasonPhase": "POSTSEASON"
+  },
+  "secondCapturePerformed": false,
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "offDayVerified": true,
+      "officialFirstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": []
+    },
+    "KBO": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "errors": [],
+      "games": [
+        {
+          "id": "33331018LGHT02026",
+          "away": "LG雙子",
+          "home": "起亞虎",
+          "awayScore": 3,
+          "homeScore": 6,
+          "status": "final",
+          "date": "2026-10-18",
+          "startTime": "2026-10-18T05:00:00.000Z",
+          "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/33331018LGHT02026/game-polling"
+        }
+      ],
+      "pitchingRows": 12,
+      "lineupRows": 18,
+      "lineupOfficialConfirmation": false
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "games": [
+        {
+          "id": "261018002",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "awayScore": null,
+          "homeScore": null,
+          "status": "pregame",
+          "startTime": "2026-10-18T09:05:00.000Z",
+          "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261018002/"
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficialConfirmation": false
+    }
+  },
+  "isolatedDatabaseTest": {
+    "environment": "GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "checkedAt": "2026-10-18T11:04:10.241Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1
+      }
+    ]
+  },
+  "externalCPBLSourceQualityFinding": {
+    "url": "https://stats.cpbl.com.tw/schedule/2026-C-2",
+    "seenAs": "live",
+    "reportedScore": {
+      "away": 1,
+      "home": 3
+    },
+    "reportedInning": "6 top",
+    "notCollectorOutput": true,
+    "notVerifiedWithTwoTimestampedPolls": true,
+    "doNotTreatAsValidatedLiveFeed": true,
+    "disagreement": "Yahoo-TW Collector still returns pregame at 19:04 local despite external webpage already presenting live 1-3 6th top. Possible delayed or stale provider status; needs live fallback & >=65s checks."
+  },
+  "sameDayQualifiedLiveChangeProof": false,
+  "mainModified": false,
+  "renderModified": false,
+  "productionDatabaseWritten": false,
+  "productionDeployed": false,
+  "limitations": [
+    "No qualifying live game seen by collector, so 65-second secondary observation not triggered.",
+    "Independent CPBL page snapshot is unverified as real-time live; not eligible for website live feed without two timestamped observations.",
+    "Workflow artifact overwrite policy remains unchanged; raw ZIP locally downloaded before further reruns."
+  ]
+}
