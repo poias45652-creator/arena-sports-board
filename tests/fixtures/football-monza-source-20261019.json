@@ -1,0 +1,77 @@
+{
+  "capturedAt": "2026-10-19T11:30:28.501Z",
+  "source": "Render super-sport-pairing-audit; fixture identity and availability only; no prices captured.",
+  "fixture": {
+    "id": 25112206,
+    "sport": "FOOTBALL",
+    "competition": "ita.1",
+    "leagueName": "意大利甲級聯賽",
+    "home": "蒙扎(主)",
+    "away": "卡利亞里",
+    "start": "2026/10/20 00:30:00",
+    "live": false,
+    "availableMarkets": 3,
+    "marketStates": {
+      "spread": "ready",
+      "total": "ready",
+      "moneyline": "ready"
+    }
+  },
+  "scheduleSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/ita.1/scoreboard?dates=20261019&limit=100",
+  "schedule": {
+    "events": [
+      {
+        "id": "401874762",
+        "date": "2026-10-19T16:30Z",
+        "season": {
+          "year": 2026,
+          "type": 14240,
+          "slug": "2026-27-italian-serie-a"
+        },
+        "competitions": [
+          {
+            "date": "2026-10-19T16:30Z",
+            "timeValid": true,
+            "status": {
+              "clock": 0.0,
+              "displayClock": "0'",
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Mon, October 19th at 12:30 PM EDT",
+                "shortDetail": "Scheduled"
+              }
+            },
+            "venue": {
+              "id": "2470",
+              "fullName": "U-Power Stadium",
+              "address": {
+                "city": "Monza",
+                "country": "Italy"
+              }
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "team": {
+                  "id": "4007",
+                  "displayName": "Monza"
+                }
+              },
+              {
+                "homeAway": "away",
+                "team": {
+                  "id": "2925",
+                  "displayName": "Cagliari"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

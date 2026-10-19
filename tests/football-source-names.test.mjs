@@ -1,11 +1,74 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import ts from 'typescript';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
 import {moduleUrl} from './profile-loader.mjs';
 const {matchSportEvent,sportMarketStatus,sportTeamKey}=await import(moduleUrl('lib/sport-super-markets.ts'));
-const {footballTeamName}=await import(moduleUrl('lib/football.ts'));
+const {footballTeamName,footballDistribution}=await import(moduleUrl('lib/football.ts'));
 const {parseFootballEvents}=await import(moduleUrl('lib/football.ts'));
 const {sportSourceAudit}=await import(moduleUrl('lib/sport-super-markets.ts'));
+const monzaCapture=JSON.parse(fs.readFileSync('tests/fixtures/football-monza-source-20261019.json'));
+const monzaNow=Date.parse(monzaCapture.capturedAt);
+const monzaGame=()=>parseFootballEvents(monzaCapture.schedule,'ita.1')[0];
+// Production metadata proves identity and availability, not the prices.
+// Quotes and model below are synthetic regression inputs, never live recommendations.
+const monzaSnapshot=()=>({source:'test-only',fetchedAt:monzaCapture.capturedAt,sportGames:[{
+ ...monzaCapture.fixture,league:'FOOTBALL',displayMarkets:[
+  {type:101,period:'full',quotes:[{primary:true,open:true,homeLine:'0.5',awayLine:'',homePrice:.9,awayPrice:.95}]},
+  {type:102,period:'full',quotes:[{primary:true,open:true,total:'2.5',over:.9,under:.95}]},
+  {type:110,period:'full',quotes:[{primary:true,open:true,homePrice:2.8,awayPrice:1.2,drawPrice:2.5}]},
+ ]
+}]});
+
+test('October 19 Monza source name joins the official fixture and cached English cards',()=>{
+ const game=monzaGame(),snapshot=monzaSnapshot();
+ assert.equal(game.home.id,'4007');assert.equal(game.away.id,'2925');
+ assert.equal(game.start,'2026-10-19T16:30:00.000Z');
+ assert.equal(game.home.name,'蒙扎');assert.equal(game.home.englishName,'Monza');
+ for(const homeName of ['Monza','蒙扎']){
+  const result=sportMarketStatus(snapshot,{...game,home:{...game.home,name:homeName}},'FOOTBALL',monzaNow);
+  assert.equal(result.code,'matched');assert.equal(result.event.id,25112206);
+  assert.equal(result.availableCount,3);
+ }
+ assert.deepEqual(sportSourceAudit(snapshot,monzaNow).unrecognizedTeamNames,[]);
+ for(const name of ['Monza','蒙扎','蒙扎(主)',' 蒙扎（主） '])assert.equal(sportTeamKey(name,'FOOTBALL'),'蒙扎');
+});
+
+test('Monza localization preserves team, squad, league, time and unique-source guards',()=>{
+ const game=monzaGame();
+ for(const sport of ['NBA','WNBA'])assert.equal(sportTeamKey('Monza',sport),'Monza');
+ for(const name of ['Monza U21','Monza Women','蒙扎U21','蒙扎女足','蒙扎預備隊']){
+  assert.notEqual(sportTeamKey(name,'FOOTBALL'),'蒙扎');
+  assert.equal(matchSportEvent(monzaSnapshot(),{...game,home:{...game.home,name}},'FOOTBALL',monzaNow),null);
+ }
+ for(const patch of [{home:game.away,away:game.home},{away:{name:'羅馬'}},{league:'uefa.champions'},{start:'2026-10-20T16:30:00Z'}]){
+  assert.equal(matchSportEvent(monzaSnapshot(),{...game,...patch},'FOOTBALL',monzaNow),null);
+ }
+ assert.equal(matchSportEvent(monzaSnapshot(),game,'FOOTBALL',monzaNow+150000),null);
+ const duplicate=monzaSnapshot();duplicate.sportGames.push({...duplicate.sportGames[0],id:999});
+ assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',monzaNow).code,'fixture_ambiguous');
+});
+
+test('real Monza market component renders recommendations after pairing, and suppresses unavailable inputs',async()=>{
+ const markets=await import(moduleUrl('lib/sport-super-markets.ts'));
+ const oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
+ const code=ts.transpileModule(fs.readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+ const Component=new Function('require','exports','React',code+'\nreturn exports.default;')(key=>{
+  if(key==='@/lib/member-odds-client')return oddsClient;
+  assert.equal(key,'@/lib/sport-super-markets');return markets;
+ },{},React);
+ const analysis={status:'ready',capturedAt:monzaCapture.capturedAt,expected:{home:1,away:1.5},...footballDistribution(1,1.5)};
+ const render=(snapshot,model=analysis)=>renderToStaticMarkup(React.createElement(Component,{game:monzaGame(),snapshot,analysis:model,sport:'FOOTBALL',now:monzaNow}));
+ const html=render(monzaSnapshot());
+ assert.match(html,/data-market-status="matched"/);assert.ok(html.includes('2 種玩法'));
+ assert.equal((html.match(/>推薦<\/em>/g)||[]).length,2);
+ assert.ok(!html.includes('玩法配對待確認'));
+ const closed=monzaSnapshot();for(const market of closed.sportGames[0].displayMarkets)market.quotes[0].open=false;
+ const stale={...analysis,capturedAt:new Date(monzaNow-15*60000).toISOString()};
+ for(const output of [render(null),render(closed),render(monzaSnapshot(),stale),render(monzaSnapshot(),{...analysis,scoreDistribution:undefined})])assert.ok(!output.includes('>推薦</em>'));
+});
 const audit=JSON.parse(fs.readFileSync('tests/fixtures/football-source-names-20261009.json'));
 const {games}=JSON.parse(fs.readFileSync('tests/fixtures/football-official-fixtures-20261009.json'));
 const now=Date.parse(audit.fetchedAt);

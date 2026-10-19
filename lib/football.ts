@@ -38,6 +38,8 @@ export type FootballAnalysis = {
   scores?:{home:number;away:number;probability:number}[];lean?:string;notes:string[];
 };
 const TEAM_NAMES:Record<string,string> = {
+  // October 19 ESPN fixture 401874762 and SUPER event 25112206: exact senior club identity.
+  'Monza':'蒙扎',
   'Málaga':'馬拉加','Malaga':'馬拉加','SC Paderborn 07':'帕德博恩','SV Elversberg':'艾禾斯堡','Frosinone':'弗洛西諾尼',
   'England':'英格蘭','Scotland':'蘇格蘭','Wales':'威爾斯','Northern Ireland':'北愛爾蘭','Republic of Ireland':'愛爾蘭','Ireland':'愛爾蘭','France':'法國','Germany':'德國','Italy':'義大利','Spain':'西班牙','Portugal':'葡萄牙','Netherlands':'荷蘭','Belgium':'比利時','Switzerland':'瑞士','Austria':'奧地利','Denmark':'丹麥','Norway':'挪威','Sweden':'瑞典','Finland':'芬蘭','Iceland':'冰島','Poland':'波蘭','Czechia':'捷克','Czech Republic':'捷克','Slovakia':'斯洛伐克','Slovenia':'斯洛維尼亞','Croatia':'克羅埃西亞','Serbia':'塞爾維亞','Bosnia-Herzegovina':'波士尼亞與赫塞哥維納','Bosnia and Herzegovina':'波士尼亞與赫塞哥維納','Montenegro':'蒙特內哥羅','North Macedonia':'北馬其頓','Albania':'阿爾巴尼亞','Kosovo':'科索沃','Greece':'希臘','Türkiye':'土耳其','Turkey':'土耳其','Hungary':'匈牙利','Romania':'羅馬尼亞','Bulgaria':'保加利亞','Ukraine':'烏克蘭','Belarus':'白俄羅斯','Moldova':'摩爾多瓦','Estonia':'愛沙尼亞','Latvia':'拉脫維亞','Lithuania':'立陶宛','Georgia':'喬治亞','Armenia':'亞美尼亞','Azerbaijan':'亞塞拜然','Kazakhstan':'哈薩克','Israel':'以色列','Cyprus':'賽普勒斯','Malta':'馬爾他','Luxembourg':'盧森堡','Liechtenstein':'列支敦斯登','Andorra':'安道爾','San Marino':'聖馬利諾','Gibraltar':'直布羅陀','Faroe Islands':'法羅群島',
   'AFC Bournemouth':'伯恩茅斯','Racing Santander':'桑坦德競技','Venezia':'威尼斯','Troyes':'特魯瓦','Le Mans':'勒芒',
