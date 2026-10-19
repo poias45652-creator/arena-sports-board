@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "timezone": "Asia/Taipei",
+  "capturedAt": "2026-10-19T08:10:44.718Z",
+  "runId": 39121599531,
+  "runAttempt": 7,
+  "jobId": 117955600688,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "artifactId": 12171647043,
+  "artifactCreatedAt": "2026-10-19T08:10:47Z",
+  "artifactSha256": "bc23e250d876b06448b64e1b6b8c14bc294f5c72296c66efd81b90d69d7be8fb",
+  "artifactVerification": {
+    "method": "downloaded ZIP SHA-256 compared to GitHub Actions artifact digest",
+    "matched": true,
+    "runAttemptVerifiedFromRunAPI": true
+  },
+  "collectorResults": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-19",
+        "fetchedAt": "2026-10-19T08:10:41.655Z",
+        "marker": "試合はありません"
+      }
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "stateCounts": {
+    "NPB": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "KBO": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "CPBL": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    }
+  },
+  "liveCount": 0,
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "passed": true,
+    "productionWritten": false,
+    "rowsWritten": 0,
+    "rowsReadBack": 0,
+    "note": "Zero-game test only; does not validate current-day real-game writes"
+  },
+  "historicalEvidencePreserved": true,
+  "workflowArtifactOverwriteObserved": true,
+  "productionChanged": false,
+  "note": "New successful Attempt 7 is independently verified; prior Attempt 6 artifact was replaced due to workflow overwrite setting. No first-team games collected on 2026-10-19; KBO/CPBL zero-game response is not an official off-day marker."
+}
