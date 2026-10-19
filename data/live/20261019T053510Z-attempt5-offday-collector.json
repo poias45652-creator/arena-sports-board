@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "timezone": "Asia/Taipei",
+  "capturedAt": "2026-10-19T05:35:10.380Z",
+  "runId": 39121599531,
+  "runAttempt": 5,
+  "jobId": 117906679229,
+  "runConclusion": "success",
+  "artifactId": 12164894938,
+  "artifactCreatedAt": "2026-10-19T05:35:13Z",
+  "artifactSha256": "7d59c654d1423288b5721d2ed155a6e2623d51b224327f171c894e6bd220750a",
+  "collectorResults": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "sourceOffDayFlag": true
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "officialOffDaySourceFlag": false
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "officialOffDaySourceFlag": false,
+      "pitchCount": null
+    }
+  },
+  "liveCount": 0,
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "databaseTest": {
+    "isolatedPostgres16": true,
+    "passed": true,
+    "rowsWritten": 0
+  },
+  "historicalCapture": true,
+  "note": "Historical evidence from successful Attempt 5 captured at 05:35 UTC, verified earlier. This is NOT a new workflow attempt. 2026-10-19 subsequent rerun request blocked by safety checks. All older data/live evidence remains in place."
+}
