@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "timezone": "Asia/Taipei",
+  "capturedAt": "2026-10-19T11:01:37.008Z",
+  "runId": 39121599531,
+  "runAttempt": 10,
+  "jobId": 118023390832,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "sourceBranch": "data/live-source-probe-20260915",
+  "artifactId": 12181921216,
+  "artifactCreatedAt": "2026-10-19T11:01:40Z",
+  "artifactSha256": "48e1693064814f614682959e740eb4b07be254b15de9ae7354b90555c5055eb5",
+  "artifactVerification": {
+    "method": "Downloaded original ZIP, computed SHA-256 and confirmed GitHub artifact digest; checked current.json capturedAt, run API attempt and creation date.",
+    "matched": true
+  },
+  "collectorResults": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDayMarkerVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-19",
+        "fetchedAt": "2026-10-19T11:01:34.172Z",
+        "marker": "試合はありません"
+      }
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "stateCounts": {
+    "NPB": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "KBO": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "CPBL": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    }
+  },
+  "liveCount": 0,
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "qualifiedNumericChanges": 0,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "passed": true,
+    "productionWritten": false,
+    "rowsWritten": 0,
+    "rowsReadBack": 0,
+    "note": "No games on current date; zero-row smoke test does not verify real-game ingestion."
+  },
+  "workflowArtifactOverwriteObserved": true,
+  "productionChanged": false,
+  "notified": false,
+  "note": "NPB official off-day marker verified. KBO/CPBL zero games with no official off-day source flag. No live state, so 65-second second capture not applicable."
+}
