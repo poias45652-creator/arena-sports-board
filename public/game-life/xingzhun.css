@@ -48,3 +48,6 @@ input,select{background:linear-gradient(110deg,#111d28,#0a1420);border:1px solid
 .site-return{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;white-space:nowrap;font-weight:700}
 .site-return:focus-visible{outline:2px solid #f6dba4;outline-offset:3px}
 @media(max-width:700px){header{flex-wrap:wrap}.header-actions{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.header-actions .ghost{padding:10px 4px;font-size:12px;white-space:nowrap}}
+
+/* Health crises and emotional care are playable, persistent story interruptions. */
+.care-status{border-top:1px solid #e8a0b845;margin:18px 0;padding:16px 0}.care-status>b{color:#e8b9cb}.care-status p,.care-status small{font-size:12px;line-height:1.8}.care-status small{display:block;margin:8px 0;color:#e5c489}.care-status button{width:100%;margin:10px 0;font-size:12px;padding:10px 5px}.care-status summary{cursor:pointer;font-size:12px;padding:10px 0}.care-stage{padding:12px 0}.care-stage h2{margin-top:20px}.care-stage>.topline{flex-wrap:wrap}.care-stage .choice strong{line-height:1.8}.care-note{font-size:12px!important;color:#b8c5d6!important;margin-top:20px}.care-diagnosis{border:1px solid #d3a2b05e;background:#372737;color:#f4cbdc;padding:14px 18px;border-radius:10px;margin:20px 0}
