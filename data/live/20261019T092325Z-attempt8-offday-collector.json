@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-19",
+  "timezone": "Asia/Taipei",
+  "capturedAt": "2026-10-19T09:23:25.657Z",
+  "runId": 39121599531,
+  "runAttempt": 8,
+  "jobId": 117984181443,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "sourceBranch": "data/live-source-probe-20260915",
+  "sourceCommit": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "artifactId": 12176672388,
+  "artifactCreatedAt": "2026-10-19T09:23:27Z",
+  "artifactSha256": "8f7e39cc244bb062ce7e107b6a777dcc11c18cfa400dd7844b78ff2eb76d4884",
+  "artifactVerification": {
+    "method": "Downloaded actual ZIP bytes and computed SHA-256; exact match with GitHub artifact digest; current ZIP current.json capturedAt and workflow API run_attempt matched",
+    "matched": true
+  },
+  "collectorResults": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDayMarkerVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-19",
+        "fetchedAt": "2026-10-19T09:23:22.852Z",
+        "marker": "試合はありません"
+      }
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "errors": [],
+      "officialOffDaySourceFlag": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "stateCounts": {
+    "NPB": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "KBO": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    },
+    "CPBL": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0
+    }
+  },
+  "liveCount": 0,
+  "secondCapturePerformed": false,
+  "captureIntervalSeconds": null,
+  "qualifiedNumericChanges": 0,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "passed": true,
+    "productionWritten": false,
+    "rowsWritten": 0,
+    "rowsReadBack": 0,
+    "note": "No current-day games; zero-row test does not prove real-game DB ingestion."
+  },
+  "workflowArtifactOverwriteObserved": true,
+  "productionChanged": false,
+  "notified": false,
+  "note": "NPB explicitly has a verified no-game indicator. KBO/CPBL returned zero games with successful collectors but no official off-day marker. No live observed; no 65-second interval required. Historical evidence preserved."
+}
