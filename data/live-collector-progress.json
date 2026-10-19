@@ -8,8 +8,8 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-18T05:56:19.477Z",
-  "dateAsiaTaipei": "2026-10-18",
+  "observedAt": "2026-10-19T09:23:25.657Z",
+  "dateAsiaTaipei": "2026-10-19",
   "currentGames": {
     "NPB": 0,
     "KBO": 0,
@@ -17,15 +17,17 @@
   },
   "currentStates": {
     "NPB": "no_first_team_games_official_offday_marker_verified",
-    "KBO": "parser_date_id_conflict_not_verified_offday",
-    "CPBL": "parser_rejects_postseason_not_verified_offday"
+    "KBO": "zero_games_collector_ok_offday_not_officially_verified",
+    "CPBL": "zero_games_collector_ok_offday_not_officially_verified"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16",
     "productionWritten": false,
-    "checkedAt": null,
-    "passed": null,
-    "reason": "Attempt 30 collection returned no qualified first-team games; database test skipped after exit code 1"
+    "checkedAt": "2026-10-19T09:23:26.708Z",
+    "passed": true,
+    "rowsWritten": 0,
+    "rowsReadBack": 0,
+    "reason": "Zero games on 2026-10-19; only zero-row duplicate/write/readback checks passed; real-game writes untested today."
   },
   "firstStartTaipei": {
     "NPB": null,
@@ -1023,6 +1025,57 @@
         "secondCapturePerformed": false,
         "qualifiedNumericChanges": 0
       }
+    },
+    "2026-10-19": {
+      "NPB": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_official_marker_verified",
+        "games": 0,
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_collector_ok_offday_not_officially_verified",
+        "games": 0,
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_collector_ok_offday_not_officially_verified",
+        "games": 0,
+        "source": "yahoo-tw"
+      },
+      "allVerified": false,
+      "reason": "No live first-team game on 2026-10-19; all collectors report zero games and status ok. NPB official no-game source marker verified, KBO and CPBL do not have an official no-game marker. Live-change comparison not applicable.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-19T09:23:25.657Z",
+        "artifactId": 12176672388,
+        "artifactCreatedAt": "2026-10-19T09:23:27Z",
+        "artifactSha256": "8f7e39cc244bb062ce7e107b6a777dcc11c18cfa400dd7844b78ff2eb76d4884",
+        "runId": 39121599531,
+        "runAttempt": 8,
+        "jobId": 117984181443,
+        "observationPath": "data/live/20261019T092325Z-attempt8-offday-collector.json",
+        "collectorConclusion": "success",
+        "liveGames": 0,
+        "pregameGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "finalGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "secondCapturePerformed": false,
+        "captureIntervalSeconds": null,
+        "qualifiedNumericChanges": 0
+      }
     }
   },
   "parserFixes": [
@@ -1131,9 +1184,9 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-18",
+    "date": "2026-10-19",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261018T055619Z-attempt30-failed-collector.json",
+    "latestObservationPath": "data/live/20261019T092325Z-attempt8-offday-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -1143,13 +1196,15 @@
     "KBO": {
       "verified": false,
       "officialOffDayVerified": false,
-      "state": "parser_date_id_conflict",
+      "notApplicableToday": true,
+      "state": "zero_games_collector_ok",
       "games": 0
     },
     "CPBL": {
       "verified": false,
       "officialOffDayVerified": false,
-      "state": "parser_rejected_postseason",
+      "notApplicableToday": true,
+      "state": "zero_games_collector_ok",
       "games": 0,
       "pitchCount": null,
       "balls": null,
@@ -1159,26 +1214,26 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12126479936,
+    "latestRunArtifactId": 12176672388,
     "newEvidenceCommitPending": false
   },
-  "nextAction": "Only on isolated branch: fix CPBL POSTSEASON and KBO rescheduled ID parser after real-source verification; avoid overwriting action artifacts, retain history. main, Render, production and credentials must not be changed.",
+  "nextAction": "Continue daily same-day collection; on live games verify >=65 seconds and real game state changes, keep unverified fields null. On isolated branch only: remove overwrite true, reconcile older parser-index incidents and verify full ingestion with actual games; never touch main or production.",
   "latestRun": {
-    "runId": 38411690456,
-    "runAttempt": 30,
-    "jobId": 117600713829,
-    "artifactId": 12126479936,
-    "artifactCreatedAt": "2026-10-18T05:56:20Z",
-    "artifactSha256": "3665ad228652624c67627bb43a88f181f5297db4878b2da53c6cd91e42c6625a",
-    "capturedAt": "2026-10-18T05:56:19.477Z",
-    "observationPath": "data/live/20261018T055619Z-attempt30-failed-collector.json",
+    "runId": 39121599531,
+    "runAttempt": 8,
+    "jobId": 117984181443,
+    "artifactId": 12176672388,
+    "artifactCreatedAt": "2026-10-19T09:23:27Z",
+    "artifactSha256": "8f7e39cc244bb062ce7e107b6a777dcc11c18cfa400dd7844b78ff2eb76d4884",
+    "capturedAt": "2026-10-19T09:23:25.657Z",
+    "observationPath": "data/live/20261019T092325Z-attempt8-offday-collector.json",
     "status": "completed",
-    "conclusion": "failure",
+    "conclusion": "success",
     "staleArtifactUsed": false,
     "evidenceCommitPending": false,
-    "isolatedDatabaseTest": "skipped"
+    "isolatedDatabaseTest": "passed_zero_rows_only"
   },
-  "latestObservationCommit": "d84c34f79d75da7da4e8d0bc9337f1517cac394f",
+  "latestObservationCommit": "40b6dfe86d7be19c9b5e32bc6cad0c7c7c7de60e",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
