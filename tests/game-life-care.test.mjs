@@ -73,7 +73,7 @@ test('legacy v3 saves gain a deterministic mood without changing RNG, and malfor
 
 test('the real published UI shows mood, a playable care stage and professional counseling',()=>{
  const {ctx,nodes}=runtime(true);vm.runInContext("$('name').value='照護測試';$('number').value=7;$('position').value='投手';$('seed-mode').value='fixed';$('seed').value='care-ui';$('pace').value='quick';start();s.health=10;advance()",ctx);
- assert(nodes['major-moment'].open);assert(nodes['major-moment'].innerHTML.includes('醫療暫停'));assert(nodes.game.innerHTML.includes('重大動畫：開啟'));assert(nodes.game.innerHTML.includes('心情'));assert(nodes.game.innerHTML.includes('接受球隊安排的手術'));assert(!nodes.game.innerHTML.includes('onclick="seasonTraining('));
+ assert(nodes['major-moment'].open);assert(nodes['major-moment'].innerHTML.includes('醫療暫停'));vm.runInContext('openHub()',ctx);assert(nodes['career-hub-content'].innerHTML.includes('重大動畫：開啟'));vm.runInContext('closeHub()',ctx);assert(nodes.game.innerHTML.includes('心情'));assert(nodes.game.innerHTML.includes('接受球隊安排的手術'));assert(!nodes.game.innerHTML.includes('onclick="seasonTraining('));
  vm.runInContext("careChoice('team');careRecover('rehab');careRecover('rehab');s.mood=20;s.care.lowMoodSteps=3;advance();careChoice('team')",ctx);
  assert(nodes.game.innerHTML.includes('憂鬱症'));assert(nodes.game.innerHTML.includes('完成本次心理輔導'));assert(nodes.game.innerHTML.includes('onclick="careRecover('));
 });

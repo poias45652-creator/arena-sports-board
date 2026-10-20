@@ -42,15 +42,15 @@ test('simple presentation reads state without changing it and escapes actual con
  Easy.training(s,E);Easy.flow(s);Easy.status(s,E);Easy.goal(s,J,E);const html=Easy.contracts(s);
  assert.equal(JSON.stringify(s),before);assert(!html.includes('<img'));assert(!html.includes('<script>'));assert(html.includes('&lt;img'));assert(html.includes('10'));
 });
-test('real UI defaults to four direction cards; switching modes, maps and themes preserves all save data',()=>{
+test('real UI presents three primary directions plus an optional challenge; menu and preferences preserve saves',()=>{
  const {ctx,nodes,memory}=runtime(true);
  vm.runInContext("$('name').value='輕鬆玩法測試';$('number').value=7;$('position').value='投手';$('seed-mode').value='fixed';$('seed').value='easy-ui';$('pace').value='full';$('length').value='short';start()",ctx);
- assert.equal((nodes.game.innerHTML.match(/class="easy-plan"/g)||[]).length,4);assert(!nodes.game.innerHTML.includes('growth-intensities'));
+ assert.equal((nodes.game.innerHTML.match(/class="easy-plan"/g)||[]).length,4);assert.equal((nodes.game.innerHTML.split('<details')[0].match(/class="easy-plan"/g)||[]).length,3);assert(!nodes.game.innerHTML.includes('growth-intensities'));
  const before=vm.runInContext('JSON.stringify(s)',ctx),slots=Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save'));
  vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('growth-intensities'));
  vm.runInContext("setPlayMode('simple');setJourneyView('story');setJourneyTheme('paper');setJourneyView('play');setPlayMode('invalid')",ctx);
  assert.equal(vm.runInContext('JSON.stringify(s)',ctx),before);assert.deepEqual(Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save')),slots);assert.equal(memory['xingzhun-play-mode-v1'],'simple');
- vm.runInContext("easyPlan('trust')",ctx);assert(nodes.game.innerHTML.includes('本季目標'));assert.equal(vm.runInContext('s.phase',ctx),'event');assert.equal(vm.runInContext('s.sessions',ctx),3);
+ vm.runInContext("easyPlan('trust')",ctx);assert(nodes.game.innerHTML.includes('名單公布的前一天'));vm.runInContext('openHub()',ctx);assert(nodes['career-hub-content'].innerHTML.includes('本季目標'));assert.equal(vm.runInContext('s.phase',ctx),'event');assert.equal(vm.runInContext('s.sessions',ctx),3);
 });
 test('one-click preparation keeps three sports within eight seasons with varied events and no added turns',t=>{
  for(const sport of [0,1,2]){
