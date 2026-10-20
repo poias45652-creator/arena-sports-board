@@ -57,3 +57,8 @@ test('old saves gain no retroactive titles or random rolls, malformed new fields
  const s=player();const old=clone(s);same(E.migrate(old),s);assert.equal(old.romance,undefined);assert.equal(old.feats,undefined);const titled=player(2);T.settle(titled,match(titled,{pts:32}),logctx);for(const edit of [x=>x.feats.titles.push(x.feats.titles[0]),x=>x.feats.titles[0].id='keeper',x=>x.feats.awakening={age:16,key:'fake',active:true}]){const bad=clone(titled);edit(bad);assert.throws(()=>E.migrate(bad));}
  const r=dating();drama(r,'temptation',1);const bad=clone(r);bad.romance.pending.id='romance-unknown';assert.throws(()=>E.migrate(bad));
 });
+
+test('later relationship mistakes still receive their promised consequences after an earlier repair',()=>{
+ const s=dating();for(const [age,id,choice]of [[19,'temptation',1],[20,'exposed',0],[21,'rebuild',0],[23,'ex-message',1],[24,'exposed',0],[25,'rebuild',0]]){s.age=age;s.mood=65;if(s.romance?.pending)assert.equal(R.pick(s,{random:()=>0}),'romance-'+id);drama(s,id,choice);}
+ assert.equal(s.romance.history.filter(h=>h.id==='romance-exposed').length,2);assert.equal(s.romance.bond,'together');same(E.migrate(clone(s)),s);
+});
