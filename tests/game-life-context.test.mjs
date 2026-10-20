@@ -76,7 +76,7 @@ test('live match state survives save/load and UI uses the actual occupied bases 
  for(let seed=0;seed<10;seed++){
   const s=E.create({sport:0,pos:'投手',seed:`saved-bases-${seed}`,pace:'full'});s.phase='ready';E.advance(s);if(s.phase!=='arena-moment')continue;
   const saved=copy(s),legacy=copy(s);delete legacy.arena.season.moment.match.recentPlateAppearances;delete legacy.arena.season.live.recentPlateAppearances;assert.doesNotThrow(()=>E.migrate(legacy));const corrupt=copy(s);corrupt.arena.season.moment.match.recentPlateAppearances=[{label:'invalid'}];assert.throws(()=>E.migrate(corrupt));const loaded=E.migrate(saved);assert.deepEqual(copy(loaded.arena.season.moment),saved.arena.season.moment);assert.equal(loaded.rng,s.rng);
-  const html=UI.stage(loaded),m=loaded.arena.season.moment.match;assert(html.includes('這個局面怎麼形成'));assert.equal((html.match(/class="occupied"/g)||[]).length,m.bases.filter(Boolean).length);
+  const html=UI.stage(loaded),m=loaded.arena.season.moment.match;assert(html.includes('這個局面怎麼形成'));assert.equal((html.match(/class="(?:diamond-base )?occupied"/g)||[]).length,m.bases.filter(Boolean).length);
   E.arenaAuto(s);E.arenaAuto(loaded);assert.deepEqual(snapshot(s.arena.season.highlight.match),snapshot(loaded.arena.season.highlight.match));E.validate(loaded);
  }
 });

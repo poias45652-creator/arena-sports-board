@@ -3,8 +3,8 @@
 'use strict';
 const PARTNERS=['以晴','若安','沐彤','予夏','語棠','映柔','子寧','心妍'];
 const partner=s=>s.family?.partner||PARTNERS[((s.lineage?.generation||1)-1)%PARTNERS.length];
-function scene(s,e){if(!e?.id.startsWith('family-'))return e;const name=partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText)}))}}
-const LABELS={meet:'第一次相遇',date:'成為戀人',distance:'一起走過遠距離',marry:'結為夫妻',birth:'孩子出生',coach:'第一次陪孩子練球'};
+function scene(s,e){if(!e?.id.startsWith('family-'))return e;const separated=s.romance?.bond==='separated'&&e.id==='family-coach',name=separated?'場邊的教練':partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText)}))}}
+const LABELS={meet:'第一次相遇',date:'成為戀人',distance:'感情的第一次考驗',marry:'結為夫妻',birth:'孩子出生',coach:'第一次陪孩子練球'};
 const FOCUS={technique:{name:'細膩技術',index:0},athletic:{name:'運動天賦',index:1},mind:{name:'大心臟',index:2}};
 const option=(label,hint,action,resultText,effect={mood:5})=>({label,hint,effect,familyAction:action,resultText});
 const story=(id,title,place,line,text,options)=>({id:'family-'+id,title,category:'球場之外 · 家的故事',chainOnly:true,once:true,minAge:id==='meet'?17:id==='date'?18:id==='marry'?20:id==='birth'?21:19,scene:{place,voice:'以晴',line},text,options});
@@ -43,6 +43,7 @@ const EVENTS=[
 function next(s){
  if(s.retired||s.age<17)return null;
  const f=s.family;if(!f)return 'family-meet';
+ if(s.romance?.bond==='separated')return f.child&&!f.milestones.some(m=>m.id==='coach')?'family-coach':null;
  if(f.settled||f.stage==='single'||f.milestones.some(m=>m.age===s.age))return null;
  const has=id=>f.milestones.some(m=>m.id===id);
  if(f.stage==='met'&&s.age>=18)return 'family-date';
