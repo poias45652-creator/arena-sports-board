@@ -17,3 +17,5 @@ body[data-theme=paper] .focus-game{--focus-text:#243e41}body[data-theme=paper] .
 @media(prefers-reduced-motion:reduce){.focus-stage,.scene-resolution,.focus-game .action-feedback{animation:none!important}.focus-stage button{transition:none!important}.focus-stage button:hover:not(:disabled),.focus-stage button:active:not(:disabled){transform:none!important}}
 
 .focus-identity h2{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.name-title{display:inline-flex;align-items:center;gap:5px;border:1px solid #65dce980;border-radius:7px;padding:5px 9px;background:linear-gradient(110deg,#093d4c,#302e55);color:#a9f5ff;font-size:12px;line-height:1.4;letter-spacing:.04em;box-shadow:inset 0 0 12px #65dce912,0 0 10px #65dce914}.name-title small{color:#efdc9c}
+
+.fields label:has(#country){grid-column:1/-1}.fields label:has(#country) small{display:block;margin-top:8px;line-height:1.6;color:var(--muted)}

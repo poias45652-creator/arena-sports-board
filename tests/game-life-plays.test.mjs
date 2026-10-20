@@ -21,7 +21,7 @@ test('all manual choices in three sports animate actual decisions with unchanged
  }
 });
 test('fast completion uses the decision score rather than later simulated final scores',()=>{
- let different=0;for(const sport of [0,1,2]){const s=fixture(sport,sport===0?'bat':'offence'),b=P.snapshot(s,0);act(s,0);const h=(sport===1?s.football:s.arena).season.highlight,e=P.result(b,s),own=h.match.home===s.team,final=[own?h.match.hg:h.match.ag,own?h.match.ag:h.match.hg];const expected=sport===1&&!b.ownHome?[h.after[1],h.after[0]]:copy(h.after);assert.deepEqual(copy(e.play.to),expected);if(JSON.stringify(final)!==JSON.stringify(expected))different++}assert(different>=2);
+ let different=0;for(const sport of [0,1,2]){const s=fixture(sport,sport===0?'bat':'offence'),b=P.snapshot(s,0);act(s,0);const h=(sport===1?s.football:s.arena).season.highlight;h.match.hg+=10;const e=P.result(b,s),own=h.match.home===s.team,final=[own?h.match.hg:h.match.ag,own?h.match.ag:h.match.hg];const expected=sport===1&&!b.ownHome?[h.after[1],h.after[0]]:copy(h.after);assert.deepEqual(copy(e.play.to),expected);if(JSON.stringify(final)!==JSON.stringify(expected))different++}assert(different>=2);
 });
 test('invalid choices, coach auto-play, medical interruption and reload never fabricate a manual animation',()=>{
  const s=fixture(0,'bat');assert.equal(P.snapshot(s,-1),null);assert.equal(P.snapshot(s,null),null);const b=P.snapshot(s,0);assert.equal(P.result(b,s),null);E.arenaAuto(s);assert.equal(P.result(b,s),null);

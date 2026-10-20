@@ -80,6 +80,7 @@ function inherit(parent,params,create,ovr){
  child.caps=child.caps.map((cap,i)=>Math.min(99,Math.max(parent.caps[i],child.potential-3+(i===FOCUS[params.focus].index?6:0))));
  child.a=child.a.map((n,i)=>Math.min(child.caps[i],n+4+(parent.family.child.focus&&FOCUS[parent.family.child.focus].index===i?6:0)));
  child.peak=ovr(child);
+ if(child.origin)(typeof module!=='undefined'?require('./origins.js'):root.XZOrigins).start(child,child.peak);
  child.lineage={v:1,generation,parentId:params.parentId,parentName:parent.name,parentPotential:parent.potential,parentAge:parent.age,parentSeasons:parent.history.length,parentCups:parent.proCups,elapsedYears:Math.max(0,16-(parent.age-parent.family.child.bornAt)),focus:params.focus};
  child.log.unshift(`16歲｜接過${parent.name}的 ${parent.number} 號球衣。天賦上限 ${parent.potential} → ${child.potential}，這次由你寫下自己的故事。`);
  return child;
