@@ -208,6 +208,7 @@ event('chapter-return','改動作之後的第一封信','去年一起研究動�
  choice('把時間留給恢復','健康 +6、體力 +16，下一次再挑戰。',{health:6,energy:16})
 ],{category:'一年後的回聲',chainOnly:true,once:true})
 );
+const storytelling=typeof module!=='undefined'?require('./storytelling.js'):root.XZStorytelling;storytelling.enrich(EVENTS);
 // Balance negative condition costs once, alongside the actual displayed event data.
 for(const e of EVENTS)for(const c of e.options){for(const key of ['effect','good','bad'])if(c[key]){c[key]={...c[key]};if(c[key].health<0)c[key].health=-Math.ceil(-c[key].health*1.6);if(c[key].morale<0)c[key].morale=-Math.ceil(-c[key].morale*1.75)}c.hint=c.hint.replace(/(健康|士氣)(\s*[-−]\s*)(\d+)/g,(_,label,sep,n)=>label+sep+Math.ceil(+n*(label==='健康'?1.6:1.75)))}
 const COUNTS=Object.freeze({events:EVENTS.filter(e=>!e.chainOnly).length,sequels:EVENTS.filter(e=>e.chainOnly&&!e.id.startsWith('legacy-')).length,endings:ENDINGS.length});
