@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "capturedAt": "2026-10-20T08:03:35.039Z",
+  "runId": 39121599531,
+  "runAttempt": 17,
+  "jobId": 118521031943,
+  "artifactId": 12248968440,
+  "artifactCreatedAt": "2026-10-20T08:03:38Z",
+  "artifactSha256": "1b309a8b605c7bc4f4da567c6ac687aa568cfb077a5c4c356976077050e9e838",
+  "verified": true,
+  "states": {
+    "NPB": {
+      "games": 0,
+      "offDayVerified": true
+    },
+    "KBO": {
+      "pregame": 1,
+      "live": 0
+    },
+    "CPBL": {
+      "pregame": 1,
+      "live": 0
+    }
+  },
+  "secondCapturePerformed": false,
+  "isolatedDatabaseTestPassed": true,
+  "productionChanged": false
+}
