@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "dateAsiaTaipei": "2026-10-20",
+  "capturedAt": "2026-10-20T12:16:59.236Z",
+  "runId": 39121599531,
+  "runAttempt": 21,
+  "jobId": 118621185082,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "workflow": "Current baseball collector",
+  "workflowHeadSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "artifactId": 12262309689,
+  "artifactCreatedAt": "2026-10-20T12:17:01Z",
+  "artifactSha256": "d0f7a4ea3e318d3d481d46eb7c2b1cd99b906fbd596e1cb7f112bda8a3013e67",
+  "sha256Verified": true,
+  "sourceArtifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/39121599531",
+  "validation": {
+    "onlySameDayFirstTeamGames": true,
+    "secondCapturePerformed": true,
+    "productionChanged": false,
+    "unsupportedFieldsPreservedNull": true,
+    "sourceLineupOfficiallyConfirmed": false
+  },
+  "NPB": {
+    "games": 0,
+    "status": "no_games",
+    "offDayVerified": true,
+    "source": "sportsnavi",
+    "errors": []
+  },
+  "KBO": {
+    "games": 1,
+    "status": "live",
+    "gameId": "33331020HTLG02026",
+    "away": "起亞虎",
+    "home": "LG雙子",
+    "awayScore": 10,
+    "homeScore": 1,
+    "inning": 8,
+    "half": "top",
+    "balls": 1,
+    "strikes": 0,
+    "outs": 1,
+    "bases": [
+      false,
+      false,
+      false
+    ],
+    "source": "naver",
+    "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/33331020HTLG02026/game-polling",
+    "liveVerified": true,
+    "liveStateObserved": true,
+    "liveChangeProof": {
+      "beforeFetchedAt": "2026-10-20T12:15:48.793Z",
+      "afterFetchedAt": "2026-10-20T12:16:57.396Z",
+      "intervalSeconds": 68.603,
+      "beforeHash": "5e1226ea8b3a5b41cbd88158f50a8d3b401dd3cc851929e6c1c253f01a7cc67e",
+      "afterHash": "c823c6cc3d4e3491fffded0fb31238db181d6ae89111e984ff714d3d244f2575",
+      "changes": {
+        "strikes": {
+          "before": 1,
+          "after": 0
+        },
+        "outs": {
+          "before": 0,
+          "after": 1
+        },
+        "homePitching": {
+          "55121:pitchCount": {
+            "before": 2,
+            "after": 5
+          },
+          "55121:outsRecorded": {
+            "before": 0,
+            "after": 1
+          }
+        }
+      }
+    },
+    "errors": []
+  },
+  "CPBL": {
+    "games": 1,
+    "status": "live",
+    "gameId": "261020003",
+    "away": "味全龍",
+    "home": "中信兄弟",
+    "awayScore": 0,
+    "homeScore": 0,
+    "inning": null,
+    "half": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null,
+    "source": "yahoo-tw",
+    "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261020003/",
+    "liveWithinRunChangesVerified": false,
+    "withinRunCaptureIntervalSeconds": 67.821,
+    "crossRunLiveChangesVerified": true,
+    "crossRunLiveChangeProof": {
+      "previousRunAttempt": 20,
+      "previousObservationPath": "data/live/20261020T110801Z-attempt20-kbo-cpbl-live-verified.json",
+      "previousFetchedAt": "2026-10-20T11:08:01.898Z",
+      "currentFetchedAt": "2026-10-20T12:16:59.228Z",
+      "intervalSeconds": 4137.33,
+      "sameGameAndPitchers": true,
+      "changes": {
+        "awayPitching": {
+          "cpbl.p.3288:outsRecorded": {
+            "before": 4,
+            "after": 15
+          }
+        },
+        "homePitching": {
+          "cpbl.p.3436:outsRecorded": {
+            "before": 6,
+            "after": 15
+          }
+        }
+      }
+    },
+    "notes": [
+      "Two fresh within-attempt LIVE source captures are 67.821s apart but CPBL values were unchanged inside that window.",
+      "Across the retained Attempt 20 LIVE observation and new Attempt 21 LIVE observation the same pitchers' outsRecorded advanced; this is a valid same-day >65s cross-run proof, not a claim of intra-run CPBL numeric changes.",
+      "Source score is 0-0; unsupported inning/half/B/S/O/bases/pitchCount remain null; source-listed lineup not officially confirmed."
+    ],
+    "errors": []
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "knownGaps": [
+    "Historical workflow rerun checks out fixed older head SHA; artifact overwrite true (7-day retention) remains unchanged.",
+    "Provider publication time unavailable; only fetchedAt and HTTP Date recorded.",
+    "CPBL pitchCount and live B/S/O/inning/half/bases are not available, remain null."
+  ]
+}
