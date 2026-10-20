@@ -1,0 +1,122 @@
+{
+  "version": "football-cup-opponent-shrink-v2-20261020",
+  "enabled": true,
+  "createdAt": "2026-10-20T04:57:39.225683+00:00",
+  "expiresAt": "2026-12-26T14:58:43.990410+00:00",
+  "parameters": {
+    "priorGames": 1,
+    "opponentWeight": 1,
+    "blend": 0.25
+  },
+  "sampleSizes": {
+    "selection": 217,
+    "holdout": 636,
+    "audit2025": 169,
+    "audit2026": 96
+  },
+  "comparison": {
+    "selection": {
+      "legacy": {
+        "n": 217,
+        "logLoss": 0.9391386540337889,
+        "brier": 0.5537936298480666
+      },
+      "candidate": {
+        "n": 217,
+        "logLoss": 0.9406707345463902,
+        "brier": 0.5548470798982944
+      }
+    },
+    "holdout": {
+      "legacy": {
+        "n": 636,
+        "logLoss": 0.9337573073684692,
+        "brier": 0.5503033132350731
+      },
+      "candidate": {
+        "n": 636,
+        "logLoss": 0.9315118730092669,
+        "brier": 0.549047207305299
+      }
+    },
+    "audit2025": {
+      "legacy": {
+        "n": 169,
+        "logLoss": 0.9613667293025617,
+        "brier": 0.5711938074097997
+      },
+      "candidate": {
+        "n": 169,
+        "logLoss": 0.9575215142741672,
+        "brier": 0.5686767234504142
+      }
+    },
+    "audit2026": {
+      "legacy": {
+        "n": 96,
+        "logLoss": 0.9559833353754321,
+        "brier": 0.5685617129512132
+      },
+      "candidate": {
+        "n": 96,
+        "logLoss": 0.9489798060026243,
+        "brier": 0.5638356057095584
+      }
+    }
+  },
+  "sparseComparison": {
+    "selection": {
+      "legacy": {
+        "n": 88,
+        "logLoss": 0.8726594276135272,
+        "brier": 0.5139770530974417
+      },
+      "candidate": {
+        "n": 88,
+        "logLoss": 0.877738362320768,
+        "brier": 0.5165446537784965
+      }
+    },
+    "holdout": {
+      "legacy": {
+        "n": 273,
+        "logLoss": 0.9454595248884201,
+        "brier": 0.5582072909142934
+      },
+      "candidate": {
+        "n": 273,
+        "logLoss": 0.9411395488303858,
+        "brier": 0.5556868820216332
+      }
+    },
+    "audit2025": {
+      "legacy": {
+        "n": 53,
+        "logLoss": 0.9260486482488393,
+        "brier": 0.5415098316031476
+      },
+      "candidate": {
+        "n": 53,
+        "logLoss": 0.9166008234763114,
+        "brier": 0.5350142450373796
+      }
+    },
+    "audit2026": {
+      "legacy": {
+        "n": 13,
+        "logLoss": 0.9522222950507833,
+        "brier": 0.5702823954808058
+      },
+      "candidate": {
+        "n": 13,
+        "logLoss": 0.9077968607077156,
+        "brier": 0.5393715666250375
+      }
+    }
+  },
+  "limitations": [
+    "2017–2018 selection is slightly worse than legacy; improvements in later splits are modest, not a statistical significance claim.",
+    "No confirmed lineups, injuries or actual xG in this correction."
+  ],
+  "baselineCommit": "b6d37fdc4875ef385a77217198ba95ac8f510299"
+}

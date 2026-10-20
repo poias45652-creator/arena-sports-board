@@ -1,3 +1,4 @@
+import {cupAdjustedEstimate,selectCupAdjustment,footballCupAdjustmentRuntime} from './football-cup-adjustment';
 import {footballWeightedParameters,type FootballModelSettings} from './football-model-weights';
 import {selectFootballXgStrengthModel,footballXgStrengthAudit,footballXgStrengthRuntime,xgStrengthDistribution} from './football-xg-strength-model';
 import {cupPriorEstimate,CUP_PRIOR_VERSION} from './football-cup-prior';
@@ -106,6 +107,17 @@ export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAna
   result={...analyzeFootball(game,asEspn,now),quality:base.quality,external:evidence};
  }
  const entry=strength?footballXgStrengthAudit(game.league):footballExternalAudit(game.league);
+ const cupOptions=selectCupAdjustment(now);
+ if(p&&entry&&!strength&&cupOptions&&game.league==='uefa.champions'){
+  const corrected=cupAdjustedEstimate(target,history,elo.difference(target),p,before,cupOptions);
+  if(corrected){
+   const distribution=footballDistribution(corrected.rates.home,corrected.rates.away,corrected.rates.rho),probs=distribution.probabilities;
+   const best=[{name:'主勝',p:probs.home},{name:'和局',p:probs.draw},{name:'客勝',p:probs.away}].sort((x,y)=>y.p-x.p);
+   const audit=footballCupAdjustmentRuntime,version=audit.version;
+   return {...result,status:'ready',reason:'',capturedAt:new Date(now).toISOString(),version,historyMode:'competition',homeForm:features.home,awayForm:features.away,expected:{home:corrected.rates.home,away:corrected.rates.away},...distribution,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',external:{...evidence,reasons:[],modelApplied:true},cupAdjustment:{priorGames:cupOptions.priorGames,opponentWeight:cupOptions.opponentWeight,blend:cupOptions.blend,homeEffectiveGames:corrected.home.effectiveGames,awayEffectiveGames:corrected.away.effectiveGames,homeReliability:corrected.home.reliability,awayReliability:corrected.away.reliability},calibration:{status:'applied',label:'歐冠對手強度與小樣本校正・觀察中',version,reasons:[],holdoutGames:audit.sampleSizes.holdout,recentGames:audit.sampleSizes.audit2026,uncertainty:'歷史驗證誤差小幅改善，尚不代表統計顯著；小樣本與上線後表現仍需觀察。'},notes:[`近一年歐冠資料池${corrected.poolGames}場；近期樣本按時間衰減，樣本較少時逐步向賽事平均收斂。`,'歷史每場進失球依當時對手攻守表現修正，只使用該場之前的資料。',`新修正占${cupOptions.blend*100}%，其餘保留既有進球與Elo估計；不對指定球隊加分。`,'2017–2018年選模；2019–2024年獨立驗證，2025與2026年另行檢查。','尚未納入實際xG、確認先發與傷停；預測為90分鐘含補時，不含加時與互射十二碼。']};
+  }
+ }
+
  if(p&&entry&&!strength&&!features.enough&&game.league==='uefa.europa'&&(footballEuropaRuntime.sparse.enabled||footballEuropaRuntime.sparse.observationEnabled)){
   const audit=footballEuropaRuntime.sparse,sparse=cupPriorEstimate(target,history,elo.difference(target),p,before,audit.priorMatches);
   if(sparse){

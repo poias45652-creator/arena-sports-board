@@ -1,0 +1,818 @@
+{
+  "createdAt": "2026-10-20T04:56:53.898Z",
+  "dataCapturedAt": "2026-10-20T04:48:34.504Z",
+  "selection": "2017–2018 log loss only; frozen existing UEFA coefficients; 2019–2024 holdout, 2025/2026 audits never select candidates",
+  "candidates": [
+    {
+      "priorGames": 1,
+      "opponentWeight": 0,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 0,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 0,
+      "blend": 1
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 0.5,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 0.5,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 0.5,
+      "blend": 1
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 1,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 1,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 1,
+      "opponentWeight": 1,
+      "blend": 1
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0,
+      "blend": 1
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0.5,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0.5,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 0.5,
+      "blend": 1
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 1,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 1,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 3,
+      "opponentWeight": 1,
+      "blend": 1
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0,
+      "blend": 1
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0.5,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0.5,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 0.5,
+      "blend": 1
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 1,
+      "blend": 0.25
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 1,
+      "blend": 0.5
+    },
+    {
+      "priorGames": 5,
+      "opponentWeight": 1,
+      "blend": 1
+    }
+  ],
+  "selected": {
+    "priorGames": 1,
+    "opponentWeight": 1,
+    "blend": 0.25
+  },
+  "accepted": true,
+  "comparison": {
+    "selection": {
+      "legacy": {
+        "n": 217,
+        "logLoss": 0.9391386540337889,
+        "brier": 0.5537936298480666
+      },
+      "candidate": {
+        "n": 217,
+        "logLoss": 0.9406707345463902,
+        "brier": 0.5548470798982944
+      }
+    },
+    "holdout": {
+      "legacy": {
+        "n": 636,
+        "logLoss": 0.9337573073684692,
+        "brier": 0.5503033132350731
+      },
+      "candidate": {
+        "n": 636,
+        "logLoss": 0.9315118730092669,
+        "brier": 0.549047207305299
+      }
+    },
+    "audit2025": {
+      "legacy": {
+        "n": 169,
+        "logLoss": 0.9613667293025617,
+        "brier": 0.5711938074097997
+      },
+      "candidate": {
+        "n": 169,
+        "logLoss": 0.9575215142741672,
+        "brier": 0.5686767234504142
+      }
+    },
+    "audit2026": {
+      "legacy": {
+        "n": 96,
+        "logLoss": 0.9559833353754321,
+        "brier": 0.5685617129512132
+      },
+      "candidate": {
+        "n": 96,
+        "logLoss": 0.9489798060026243,
+        "brier": 0.5638356057095584
+      }
+    }
+  },
+  "sparseComparison": {
+    "selection": {
+      "legacy": {
+        "n": 88,
+        "logLoss": 0.8726594276135272,
+        "brier": 0.5139770530974417
+      },
+      "candidate": {
+        "n": 88,
+        "logLoss": 0.877738362320768,
+        "brier": 0.5165446537784965
+      }
+    },
+    "holdout": {
+      "legacy": {
+        "n": 273,
+        "logLoss": 0.9454595248884201,
+        "brier": 0.5582072909142934
+      },
+      "candidate": {
+        "n": 273,
+        "logLoss": 0.9411395488303858,
+        "brier": 0.5556868820216332
+      }
+    },
+    "audit2025": {
+      "legacy": {
+        "n": 53,
+        "logLoss": 0.9260486482488393,
+        "brier": 0.5415098316031476
+      },
+      "candidate": {
+        "n": 53,
+        "logLoss": 0.9166008234763114,
+        "brier": 0.5350142450373796
+      }
+    },
+    "audit2026": {
+      "legacy": {
+        "n": 13,
+        "logLoss": 0.9522222950507833,
+        "brier": 0.5702823954808058
+      },
+      "candidate": {
+        "n": 13,
+        "logLoss": 0.9077968607077156,
+        "brier": 0.5393715666250375
+      }
+    }
+  },
+  "stats": {
+    "selection": {
+      "legacy": {
+        "n": 217,
+        "logLoss": 0.9391386540337889,
+        "brier": 0.5537936298480666
+      },
+      "prior1-opponent0-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9415359315702345,
+        "brier": 0.5553803478261489
+      },
+      "prior1-opponent0-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9446128846828642,
+        "brier": 0.5574765652452919
+      },
+      "prior1-opponent0-blend1": {
+        "n": 217,
+        "logLoss": 0.9526905477554286,
+        "brier": 0.563106612815592
+      },
+      "prior1-opponent0.5-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9411198961763886,
+        "brier": 0.555126953975345
+      },
+      "prior1-opponent0.5-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9437673731322416,
+        "brier": 0.5569514942671511
+      },
+      "prior1-opponent0.5-blend1": {
+        "n": 217,
+        "logLoss": 0.9509405981890238,
+        "brier": 0.5619774295899934
+      },
+      "prior1-opponent1-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9406707345463902,
+        "brier": 0.5548470798982944
+      },
+      "prior1-opponent1-blend0.5": {
+        "n": 217,
+        "logLoss": 0.942900432585506,
+        "brier": 0.5564062016077547
+      },
+      "prior1-opponent1-blend1": {
+        "n": 217,
+        "logLoss": 0.9493278841676606,
+        "brier": 0.5609422606267765
+      },
+      "prior3-opponent0-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9423212837500391,
+        "brier": 0.5559194530592662
+      },
+      "prior3-opponent0-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9471402887932456,
+        "brier": 0.5592246626806142
+      },
+      "prior3-opponent0-blend1": {
+        "n": 217,
+        "logLoss": 0.9614392931721608,
+        "brier": 0.5692215740485862
+      },
+      "prior3-opponent0.5-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9420590278059406,
+        "brier": 0.5557585273749429
+      },
+      "prior3-opponent0.5-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9465784434693728,
+        "brier": 0.558867421559244
+      },
+      "prior3-opponent0.5-blend1": {
+        "n": 217,
+        "logLoss": 0.9601526966833857,
+        "brier": 0.5683537664206523
+      },
+      "prior3-opponent1-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9417656608795938,
+        "brier": 0.5555731293127468
+      },
+      "prior3-opponent1-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9459697754757356,
+        "brier": 0.558472153304384
+      },
+      "prior3-opponent1-blend1": {
+        "n": 217,
+        "logLoss": 0.9588351925009886,
+        "brier": 0.5674556764771173
+      },
+      "prior5-opponent0-blend0.25": {
+        "n": 217,
+        "logLoss": 0.942546814887905,
+        "brier": 0.5560811727983199
+      },
+      "prior5-opponent0-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9481137080181983,
+        "brier": 0.5599068423643757
+      },
+      "prior5-opponent0-blend1": {
+        "n": 217,
+        "logLoss": 0.9654240967940483,
+        "brier": 0.5720289107220172
+      },
+      "prior5-opponent0.5-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9423538801131274,
+        "brier": 0.5559623510551468
+      },
+      "prior5-opponent0.5-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9476909737709023,
+        "brier": 0.5596355879698272
+      },
+      "prior5-opponent0.5-blend1": {
+        "n": 217,
+        "logLoss": 0.9644156089948396,
+        "brier": 0.5713405387880662
+      },
+      "prior5-opponent1-blend0.25": {
+        "n": 217,
+        "logLoss": 0.9421338439502405,
+        "brier": 0.5558224209030844
+      },
+      "prior5-opponent1-blend0.5": {
+        "n": 217,
+        "logLoss": 0.9472205265127043,
+        "brier": 0.5593264772461171
+      },
+      "prior5-opponent1-blend1": {
+        "n": 217,
+        "logLoss": 0.9633369692034676,
+        "brier": 0.5705939448661276
+      }
+    },
+    "holdout": {
+      "legacy": {
+        "n": 636,
+        "logLoss": 0.9337573073684692,
+        "brier": 0.5503033132350731
+      },
+      "prior1-opponent0-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9321394434406863,
+        "brier": 0.5494894884405159
+      },
+      "prior1-opponent0-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9314713315332066,
+        "brier": 0.5492270724013314
+      },
+      "prior1-opponent0-blend1": {
+        "n": 636,
+        "logLoss": 0.9325844910834746,
+        "brier": 0.5502636412600326
+      },
+      "prior1-opponent0.5-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9318369280957178,
+        "brier": 0.5492775992789038
+      },
+      "prior1-opponent0.5-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9308839324347341,
+        "brier": 0.5488111804839702
+      },
+      "prior1-opponent0.5-blend1": {
+        "n": 636,
+        "logLoss": 0.9314810862819026,
+        "brier": 0.5494620376872164
+      },
+      "prior1-opponent1-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9315118730092669,
+        "brier": 0.549047207305299
+      },
+      "prior1-opponent1-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9303107612756613,
+        "brier": 0.5483998407017104
+      },
+      "prior1-opponent1-blend1": {
+        "n": 636,
+        "logLoss": 0.9306360303080392,
+        "brier": 0.5488328220850255
+      },
+      "prior3-opponent0-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9320551139985823,
+        "brier": 0.5494932379903275
+      },
+      "prior3-opponent0-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9324036028645192,
+        "brier": 0.5499152371397229
+      },
+      "prior3-opponent0-blend1": {
+        "n": 636,
+        "logLoss": 0.9384299527611647,
+        "brier": 0.5543589862806422
+      },
+      "prior3-opponent0.5-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9318607125503188,
+        "brier": 0.5493555741610512
+      },
+      "prior3-opponent0.5-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9320121869511074,
+        "brier": 0.5496332377310766
+      },
+      "prior3-opponent0.5-blend1": {
+        "n": 636,
+        "logLoss": 0.9376349443965848,
+        "brier": 0.5537640378527805
+      },
+      "prior3-opponent1-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9316400199838265,
+        "brier": 0.5491979710590551
+      },
+      "prior3-opponent1-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9315880003009278,
+        "brier": 0.5493257132705341
+      },
+      "prior3-opponent1-blend1": {
+        "n": 636,
+        "logLoss": 0.9368520644498667,
+        "brier": 0.5531735290999391
+      },
+      "prior5-opponent0-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9321913108214148,
+        "brier": 0.5495910547344852
+      },
+      "prior5-opponent0-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9332400949814276,
+        "brier": 0.5504728065397838
+      },
+      "prior5-opponent0-blend1": {
+        "n": 636,
+        "logLoss": 0.9421961573141199,
+        "brier": 0.5569607064272618
+      },
+      "prior5-opponent0.5-blend0.25": {
+        "n": 636,
+        "logLoss": 0.9320467793638986,
+        "brier": 0.5494882877305876
+      },
+      "prior5-opponent0.5-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9329437210217814,
+        "brier": 0.5502579444488975
+      },
+      "prior5-opponent0.5-blend1": {
+        "n": 636,
+        "logLoss": 0.9415717418189012,
+        "brier": 0.5564893055194663
+      },
+      "prior5-opponent1-blend0.25": {
+        "n": 636,
+        "logLoss": 0.931878369347226,
+        "brier": 0.5493676949279207
+      },
+      "prior5-opponent1-blend0.5": {
+        "n": 636,
+        "logLoss": 0.9326076117236334,
+        "brier": 0.5500135079134053
+      },
+      "prior5-opponent1-blend1": {
+        "n": 636,
+        "logLoss": 0.940898294935754,
+        "brier": 0.5559804903956356
+      }
+    },
+    "audit2025": {
+      "legacy": {
+        "n": 169,
+        "logLoss": 0.9613667293025617,
+        "brier": 0.5711938074097997
+      },
+      "prior1-opponent0-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9590259715928935,
+        "brier": 0.5696218613722954
+      },
+      "prior1-opponent0-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9572158309832044,
+        "brier": 0.5683908374713138
+      },
+      "prior1-opponent0-blend1": {
+        "n": 169,
+        "logLoss": 0.9549673970258323,
+        "brier": 0.566866912064885
+      },
+      "prior1-opponent0.5-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9582647571671906,
+        "brier": 0.5691432957748958
+      },
+      "prior1-opponent0.5-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9556980226403426,
+        "brier": 0.5674314357149269
+      },
+      "prior1-opponent0.5-blend1": {
+        "n": 169,
+        "logLoss": 0.9519442014521403,
+        "brier": 0.5649380657591655
+      },
+      "prior1-opponent1-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9575215142741672,
+        "brier": 0.5686767234504142
+      },
+      "prior1-opponent1-blend0.5": {
+        "n": 169,
+        "logLoss": 0.954259499406642,
+        "brier": 0.5665249647685218
+      },
+      "prior1-opponent1-blend1": {
+        "n": 169,
+        "logLoss": 0.9492509112549362,
+        "brier": 0.563230866149306
+      },
+      "prior3-opponent0-blend0.25": {
+        "n": 169,
+        "logLoss": 0.958011535808334,
+        "brier": 0.5689595890222666
+      },
+      "prior3-opponent0-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9558838464396565,
+        "brier": 0.5675036469395299
+      },
+      "prior3-opponent0-blend1": {
+        "n": 169,
+        "logLoss": 0.9548727812541097,
+        "brier": 0.5668245827441631
+      },
+      "prior3-opponent0.5-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9575274187345874,
+        "brier": 0.5686574523709399
+      },
+      "prior3-opponent0.5-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9549051994893599,
+        "brier": 0.5668881861267561
+      },
+      "prior3-opponent0.5-blend1": {
+        "n": 169,
+        "logLoss": 0.9528655040798925,
+        "brier": 0.5655451889862753
+      },
+      "prior3-opponent1-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9570484112366159,
+        "brier": 0.5683588159511781
+      },
+      "prior3-opponent1-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9539550153238154,
+        "brier": 0.5662919990673124
+      },
+      "prior3-opponent1-blend1": {
+        "n": 169,
+        "logLoss": 0.9509880210826588,
+        "brier": 0.5643540644501098
+      },
+      "prior5-opponent0-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9576628769115824,
+        "brier": 0.5687266555693378
+      },
+      "prior5-opponent0-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9555854567283791,
+        "brier": 0.5672933404106522
+      },
+      "prior5-opponent0-blend1": {
+        "n": 169,
+        "logLoss": 0.9557837034546763,
+        "brier": 0.5674422710507026
+      },
+      "prior5-opponent0.5-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9573060891547096,
+        "brier": 0.568504807340079
+      },
+      "prior5-opponent0.5-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9548592845064384,
+        "brier": 0.5668379894569455
+      },
+      "prior5-opponent0.5-blend1": {
+        "n": 169,
+        "logLoss": 0.9542718812663911,
+        "brier": 0.5664798079334362
+      },
+      "prior5-opponent1-blend0.25": {
+        "n": 169,
+        "logLoss": 0.9569508270995701,
+        "brier": 0.5682840826810623
+      },
+      "prior5-opponent1-blend0.5": {
+        "n": 169,
+        "logLoss": 0.9541457506362526,
+        "brier": 0.5663914032410601
+      },
+      "prior5-opponent1-blend1": {
+        "n": 169,
+        "logLoss": 0.9528232491020383,
+        "brier": 0.5655610697478811
+      }
+    },
+    "audit2026": {
+      "legacy": {
+        "n": 96,
+        "logLoss": 0.9559833353754321,
+        "brier": 0.5685617129512132
+      },
+      "prior1-opponent0-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9505922505103043,
+        "brier": 0.5649387861879499
+      },
+      "prior1-opponent0-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9462733064694505,
+        "brier": 0.5618594873503507
+      },
+      "prior1-opponent0-blend1": {
+        "n": 96,
+        "logLoss": 0.940339820685419,
+        "brier": 0.5573848552829924
+      },
+      "prior1-opponent0.5-blend0.25": {
+        "n": 96,
+        "logLoss": 0.949781614687526,
+        "brier": 0.564381094662748
+      },
+      "prior1-opponent0.5-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9446888479407134,
+        "brier": 0.5607685938309541
+      },
+      "prior1-opponent0.5-blend1": {
+        "n": 96,
+        "logLoss": 0.937317940668643,
+        "brier": 0.5553152698407476
+      },
+      "prior1-opponent1-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9489798060026243,
+        "brier": 0.5638356057095584
+      },
+      "prior1-opponent1-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9431663670739767,
+        "brier": 0.5597330766663838
+      },
+      "prior1-opponent1-blend1": {
+        "n": 96,
+        "logLoss": 0.934592399557585,
+        "brier": 0.5534802411172098
+      },
+      "prior3-opponent0-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9491432324987777,
+        "brier": 0.5639653415490226
+      },
+      "prior3-opponent0-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9442032861199734,
+        "brier": 0.5603722046719134
+      },
+      "prior3-opponent0-blend1": {
+        "n": 96,
+        "logLoss": 0.9392158443803016,
+        "brier": 0.5563948601101971
+      },
+      "prior3-opponent0.5-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9486241533807765,
+        "brier": 0.5636130949825457
+      },
+      "prior3-opponent0.5-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9431797190873338,
+        "brier": 0.5596791518583359
+      },
+      "prior3-opponent0.5-blend1": {
+        "n": 96,
+        "logLoss": 0.9372266370582264,
+        "brier": 0.5550590497081711
+      },
+      "prior3-opponent1-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9481081024752268,
+        "brier": 0.563267499668182
+      },
+      "prior3-opponent1-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9421813195536566,
+        "brier": 0.5590128866964894
+      },
+      "prior3-opponent1-blend1": {
+        "n": 96,
+        "logLoss": 0.935360328894506,
+        "brier": 0.5538294524859145
+      },
+      "prior5-opponent0-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9487188156080407,
+        "brier": 0.5636779442645637
+      },
+      "prior5-opponent0-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9437356313266415,
+        "brier": 0.5600155809042594
+      },
+      "prior5-opponent0-blend1": {
+        "n": 96,
+        "logLoss": 0.9397100819116763,
+        "brier": 0.5566330522232247
+      },
+      "prior5-opponent0.5-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9483304165065212,
+        "brier": 0.5634160206074111
+      },
+      "prior5-opponent0.5-blend0.5": {
+        "n": 96,
+        "logLoss": 0.942965444813773,
+        "brier": 0.5594980415213396
+      },
+      "prior5-opponent0.5-blend1": {
+        "n": 96,
+        "logLoss": 0.9381938483041776,
+        "brier": 0.5556234237063213
+      },
+      "prior5-opponent1-blend0.25": {
+        "n": 96,
+        "logLoss": 0.9479434474787723,
+        "brier": 0.5631586937767635
+      },
+      "prior5-opponent1-blend0.5": {
+        "n": 96,
+        "logLoss": 0.9422089476482566,
+        "brier": 0.5589973465254429
+      },
+      "prior5-opponent1-blend1": {
+        "n": 96,
+        "logLoss": 0.9367448188271821,
+        "brier": 0.5546764824854279
+      }
+    }
+  }
+}

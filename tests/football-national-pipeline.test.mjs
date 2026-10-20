@@ -18,7 +18,7 @@ test('source endpoint uses the opponent model and withdraws forecasts when curre
  };
  try{
   const source=readFileSync(process.env.FOOTBALL_SOURCE_PATH||'lib/football-source.ts','utf8').replace(/^import .*;\r?\n/gm,'');
-  const imports=[['lib/football.ts','analyzeFootball,footballDay,isFootballNationalCompetition,needsFootballRecentForm,parseFootballEvents,parseFootballTeamHistory,shiftFootballDay'],['lib/football-history.ts','reconcileFootballHistory'],['lib/football-national-model.ts','applyNationalFootballModel,NATIONAL_MODEL_VERSION'],['lib/football-national-source.ts','loadNationalFootballPool']].map(([path,names])=>`const {${names}}=await import(${JSON.stringify(moduleUrl(path))});`).join('\n');
+  const imports=[['lib/football-cup-xg-source.ts','attachCupXgEvidence'],['lib/football.ts','analyzeFootball,footballDay,isFootballNationalCompetition,needsFootballRecentForm,parseFootballEvents,parseFootballTeamHistory,shiftFootballDay'],['lib/football-history.ts','reconcileFootballHistory'],['lib/football-national-model.ts','applyNationalFootballModel,NATIONAL_MODEL_VERSION'],['lib/football-national-source.ts','loadNationalFootballPool']].map(([path,names])=>`const {${names}}=await import(${JSON.stringify(moduleUrl(path))});`).join('\n');
   const prefix=imports+'\nconst work={active:0,pending:new Map(),queue:[]};const sourceWork=()=>work;const sportsSourceFetch=(...args)=>fetch(...args);class SportsSourceDenied extends Error{};\n';
   const code=prefix+ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
   const {footballGameAnalysis}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
