@@ -103,6 +103,17 @@ test('expired and mismatched reports never display probabilities, while same-day
   assert.match(html,/三組比分(?:預測|情境)/);assert.equal((html.match(/class="football-score-label"/g)||[]).length,3);
   assert.ok(!html.includes('sport-market-details'));
 });
+test('live and final cards keep a visible analysis state while restoring or missing a snapshot',()=>{
+ for(const state of ['live','final']){
+  const props={game:{...game,state,homeScore:4,awayScore:2},now:Date.parse(game.start)+90*60000};
+  const loading=render({...props,activity:'loading'});
+  assert.match(loading,/正在讀取賽前分析/);assert.match(loading,/data-analysis-state="loading"/);
+  const missing=render({...props,report:{game:props.game,analysis:{status:'closed',reason:'本場未保存這組權重的賽前分析，無法還原原始數據。'}}});
+  assert.match(missing,/未保存這組權重/);assert.doesNotMatch(missing,/football-probabilities/);
+  const failure=render({...props,report:{game:props.game,error:'分析請求逾時，稍後會自動重試。'}});
+  assert.match(failure,/分析請求逾時/);
+ }
+});
 test('member connection failures expose the correct recovery action without hiding ready football analysis',()=>{
  for(const [oddsErrorCode,label] of [['not_connected','重新連接 SUPER'],['source_auth_expired','重新連接 SUPER'],['tz_auth_expired','重新登入並連接']]){
   const html=render({report:{game,analysis},oddsError:'具體授權問題',oddsErrorCode});

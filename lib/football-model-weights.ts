@@ -6,6 +6,11 @@ export const FOOTBALL_FACTOR_LABELS=['己方進球','對手失球','xG 進攻','
 export const defaultFootballSettings=():FootballModelSettings=>({model:'auto',weights:{}});
 export const footballSettingsKey=(league:string)=>`yj:football:model-weights:v1:${league}`;
 export const customFootballSettings=(settings?:FootballModelSettings)=>!!settings&&(settings.model!=='auto'||Object.keys(settings.weights).length>0);
+// Stable identity across JSON property order; never mix two members' different weights.
+export function footballForecastSettingsKey(settings?:FootballModelSettings){
+ if(!customFootballSettings(settings))return '';
+ return JSON.stringify([settings!.model,FOOTBALL_MODEL_FAMILIES.map(([id])=>[id,settings!.weights[id]??null])]);
+}
 export function footballPercentages(values:number[]){const sum=values.reduce((a,b)=>a+b,0);return values.map(v=>sum?v/sum*100:0);}
 export function rebalanceFootballWeight(values:number[],index:number,value:number,enabled:boolean[]){
  const next=[...values],rest=enabled.map((v,i)=>v&&i!==index?i:-1).filter(i=>i>=0),target=Math.max(0,Math.min(100,value));if(!enabled[index]||!rest.length)return next;

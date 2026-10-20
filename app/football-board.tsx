@@ -7,6 +7,7 @@ import FootballTeamIdentity from './football-team';
 import FootballRecommendationsPane,{FootballAnalysisNumbers} from './football-recommendations';
 import {footballAnalysisPresentation,footballReportNeedsRefresh,footballRequestError,type FootballAnalysisActivity} from './football-report-refresh';
 import {createFootballReportQueue} from './football-report-queue';
+import {cacheFootballReport,cachedFootballReport} from './football-report-cache';
 
 import {FOOTBALL_VIEWS,isFootballView,type FootballView} from '@/lib/football-live';
 import {defaultFootballSettings,footballSettingsKey,parseFootballSettings,customFootballSettings,type FootballModelSettings} from '@/lib/football-model-weights';
@@ -82,6 +83,7 @@ export default function FootballBoard(){
       onReport(game,report){
         // A late, invalid or closed result cannot replace a valid pregame snapshot.
         if(readyFootballAnalysis(game,report,Date.now())||!readyFootballAnalysis(game,known[game.id],Date.now()))known[game.id]=report;
+        try{cacheFootballReport(localStorage,game,known[game.id],settings);}catch{/* Browser storage may be disabled. */}
         setReports({...known});
       },
       onError(game,error){
@@ -98,6 +100,11 @@ export default function FootballBoard(){
         currentBoard=data;
         setBoard(data);setError('');setLoading(false);
         const clock=Date.now();
+        for(const game of data.games){
+          if(readyFootballAnalysis(game,known[game.id],clock))continue;
+          try{const cached=cachedFootballReport(localStorage,game,settings,clock);if(cached)known[game.id]=cached;}catch{/* Server restoration still runs. */}
+        }
+        setReports({...known});
         queue.enqueue(data.games.filter(g=>!queue.has(g)&&footballReportNeedsRefresh(g,known[g.id],clock,attempted[fixtureKey(g)!],data.analysisAvailable!==false)));
       }catch(e){if(!controller.signal.aborted)setError(footballRequestError(e,'schedule'));}
       finally{busy=false;if(!controller.signal.aborted){setLoading(false);timer=setTimeout(()=>void update(),viewRef.current==='live'?10000:30000);}}
@@ -144,7 +151,7 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
     {a?<>
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
-    </>:eligible?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
+    </>:(eligible||retainFootballForecast(game,now))?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
     {eligible&&<SportMarkets game={game} analysis={a} analysisState={presentation.state} analysisMessage={presentation.message} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} errorCode={oddsErrorCode} sport="FOOTBALL" now={now}/>}
   </article>;
 }

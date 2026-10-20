@@ -152,6 +152,18 @@ CREATE TABLE IF NOT EXISTS "football_forecasts" (
   "payload" text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS "football_forecast_game" ON "football_forecasts" ("league","game_id","start_time");
+-- Preserve custom-weight predictions without including them in public model results.
+CREATE TABLE IF NOT EXISTS "football_custom_forecasts" (
+  "id" text PRIMARY KEY NOT NULL,
+  "league" text NOT NULL,
+  "game_id" text NOT NULL,
+  "start_time" text NOT NULL,
+  "captured_at" text NOT NULL,
+  "version" text NOT NULL,
+  "settings_key" text NOT NULL,
+  "payload" text NOT NULL
+);
+CREATE INDEX IF NOT EXISTS "football_custom_forecast_game" ON "football_custom_forecasts" ("league","game_id","start_time","settings_key");
 CREATE TABLE IF NOT EXISTS "football_results" (
   "id" text PRIMARY KEY NOT NULL,
   "league" text NOT NULL,

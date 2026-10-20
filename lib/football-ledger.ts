@@ -2,6 +2,7 @@ import type {Database} from '../db';
 import type {FootballAnalysis,FootballGame} from './football';
 import {uncalibratedCupAnalysis} from './football';
 import {readyFootballAnalysis,retainFootballForecast,type FootballReport} from './football-recommendations';
+import {footballForecastSettingsKey,type FootballModelSettings} from './football-model-weights';
 
 export function validFootballForecast(game:FootballGame,analysis:FootballAnalysis,now=Date.now()){
   if(uncalibratedCupAnalysis(game,analysis))return false;
@@ -10,18 +11,27 @@ export function validFootballForecast(game:FootballGame,analysis:FootballAnalysi
     Number.isFinite(start)&&Number.isFinite(captured)&&captured<=now+5000&&now-captured<=120000&&now<start-60000&&captured<start-60000&&
     [p.home,p.draw,p.away,p.over25,p.under25,p.btts].every(n=>Number.isFinite(n)&&n>=0&&n<=1)&&Math.abs(p.home+p.draw+p.away-1)<1e-6&&Math.abs(p.over25+p.under25-1)<1e-6;
 }
-export async function saveFootballForecast(db:Database,game:FootballGame,analysis:FootballAnalysis,now=Date.now()){
+export async function saveFootballForecast(db:Database,game:FootballGame,analysis:FootballAnalysis,now=Date.now(),settings?:FootballModelSettings){
   if(!validFootballForecast(game,analysis,now))return false;
+  const settingsKey=footballForecastSettingsKey(settings);
   const id=[game.league,game.id,game.start,analysis.version].join('|');
   const payload=JSON.stringify({home:game.home,away:game.away,probabilities:analysis.probabilities,calibration:analysis.calibration?.status,historyMode:analysis.historyMode,homeForm:analysis.homeForm,awayForm:analysis.awayForm,quality:analysis.quality,external:analysis.external,game,analysis});
   // Each version keeps its most recent valid pregame observation. Capture and
   // kickoff checks are server-side; after kickoff there is no rewrite path.
-  await db.prepare(`INSERT INTO football_forecasts (id,league,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?,?) ON CONFLICT (id) DO UPDATE SET captured_at=excluded.captured_at,payload=excluded.payload WHERE football_forecasts.captured_at<excluded.captured_at`).bind(id,game.league,game.id,game.start,analysis.capturedAt,analysis.version,payload).run();
+  if(settingsKey){
+    // Custom forecasts are kept separately from the public model's accuracy ledger.
+    await db.prepare(`INSERT INTO football_custom_forecasts (id,league,game_id,start_time,captured_at,version,settings_key,payload) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT (id) DO UPDATE SET captured_at=excluded.captured_at,payload=excluded.payload WHERE football_custom_forecasts.captured_at<excluded.captured_at`).bind(id+'|'+settingsKey,game.league,game.id,game.start,analysis.capturedAt,analysis.version,settingsKey,payload).run();
+  }else{
+    await db.prepare(`INSERT INTO football_forecasts (id,league,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?,?) ON CONFLICT (id) DO UPDATE SET captured_at=excluded.captured_at,payload=excluded.payload WHERE football_forecasts.captured_at<excluded.captured_at`).bind(id,game.league,game.id,game.start,analysis.capturedAt,analysis.version,payload).run();
+  }
   return true;
 }
-export async function loadFootballForecast(db:Database,game:FootballGame,now=Date.now()):Promise<FootballReport|null>{
+export async function loadFootballForecast(db:Database,game:FootballGame,now=Date.now(),settings?:FootballModelSettings):Promise<FootballReport|null>{
   if(!retainFootballForecast(game,now))return null;
-  const {results}=await db.prepare(`SELECT start_time,captured_at,version,payload FROM football_forecasts WHERE league=? AND game_id=? AND start_time=? ORDER BY captured_at DESC LIMIT 20`).bind(game.league,game.id,game.start).all();
+  const settingsKey=footballForecastSettingsKey(settings);
+  const {results}=await (settingsKey
+    ?db.prepare(`SELECT start_time,captured_at,version,payload FROM football_custom_forecasts WHERE league=? AND game_id=? AND start_time=? AND settings_key=? ORDER BY captured_at DESC LIMIT 20`).bind(game.league,game.id,game.start,settingsKey)
+    :db.prepare(`SELECT start_time,captured_at,version,payload FROM football_forecasts WHERE league=? AND game_id=? AND start_time=? ORDER BY captured_at DESC LIMIT 20`).bind(game.league,game.id,game.start)).all();
   for(const row of results){
     try{
       const payload=JSON.parse(row.payload),captured=Date.parse(row.captured_at);
@@ -30,7 +40,7 @@ export async function loadFootballForecast(db:Database,game:FootballGame,now=Dat
       // predictions from results or today's model.
       const analysis:FootballAnalysis=payload.analysis??{status:'ready',reason:'',version:row.version,capturedAt:row.captured_at,probabilities:payload.probabilities,homeForm:payload.homeForm,awayForm:payload.awayForm,historyMode:payload.historyMode,quality:payload.quality,external:payload.external,notes:[]};
       if(analysis.capturedAt!==row.captured_at||analysis.version!==row.version)continue;
-      const report:FootballReport={game:payload.game??{...game,state:'scheduled',statusName:'STATUS_SCHEDULED',statusLabel:'未開賽',homeScore:null,awayScore:null},analysis,retained:true,snapshotSaved:true};
+      const report:FootballReport={game:payload.game??{...game,state:'scheduled',statusName:'STATUS_SCHEDULED',statusLabel:'未開賽',homeScore:null,awayScore:null},analysis,retained:true,snapshotSaved:true,...(settingsKey?{custom:true}:{})};
       if(readyFootballAnalysis(game,report,now))return report;
     }catch{/* Corrupt snapshots are never replaced by postgame calculations. */}
   }

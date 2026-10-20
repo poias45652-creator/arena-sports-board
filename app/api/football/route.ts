@@ -33,27 +33,27 @@ export async function GET(request:Request){
     if(kind==='analysis'){
       const id=game;if(!/^\d{1,12}$/.test(id))return Response.json({error:'無效賽事編號'},{status:400,headers});
       trace.stage('analysis');
-      const result=await footballGameAnalysis(league,day,id,settings||undefined);
+      let result=await footballGameAnalysis(league,day,id,settings||undefined);
       if(!result){trace.analysis(null);return Response.json({error:'本日找不到此賽事，請更新賽程'},{status:404,headers});}
-      if(customFootballSettings(settings||undefined)){
+      const custom=customFootballSettings(settings||undefined);
+      if(custom){
         const analysis={...result.analysis,version:result.analysis.version+'-custom-v1',calibration:result.analysis.calibration?{...result.analysis.calibration,status:'baseline' as const,label:'自訂比例・尚未校準'}:undefined};
-        trace.analysis(analysis);
-        return Response.json({...result,analysis,custom:true,snapshotSaved:false,dailySaved:false},{headers});
+        result={...result,analysis};
       }
       if(Date.parse(result.game.start)<=Date.now()){
         trace.stage('load_forecast');
-        const saved=await loadFootballForecast(getRawDb(),result.game);
+        const saved=await loadFootballForecast(getRawDb(),result.game,Date.now(),settings||undefined);
         trace.analysis((saved||result).analysis);
-        return Response.json(saved?{...saved,sourceFetchedAt:result.sourceFetchedAt}:result,{headers});
+        return Response.json(saved?{...saved,sourceFetchedAt:result.sourceFetchedAt,...(custom?{custom:true,dailySaved:false}:{})}:{...result,...(custom?{custom:true,dailySaved:false}:{}),snapshotSaved:false,analysis:{...result.analysis,reason:custom?'本場未保存這組權重的賽前分析，無法還原原始數據。':'本場未保存賽前分析，無法還原原始數據。'}},{headers});
       }
       let snapshotSaved=false,dailySaved=false;
       try{
         trace.stage('save_forecast');
-        const db=getRawDb();snapshotSaved=await saveFootballForecast(db,result.game,result.analysis);
-        if(result.analysis.probabilities){trace.stage('save_daily_forecast');dailySaved=await saveDailyForecast(db,'FOOTBALL',result.game,result.analysis.probabilities,result.analysis.capturedAt,result.analysis.version);}
+        const db=getRawDb();snapshotSaved=await saveFootballForecast(db,result.game,result.analysis,Date.now(),settings||undefined);
+        if(!custom&&result.analysis.probabilities){trace.stage('save_daily_forecast');dailySaved=await saveDailyForecast(db,'FOOTBALL',result.game,result.analysis.probabilities,result.analysis.capturedAt,result.analysis.version);}
       }catch(error){trace.failure(error);/* Analysis remains available, but snapshot failure is visible. */}
       trace.analysis(result.analysis);
-      return Response.json({...result,snapshotSaved,dailySaved},{headers});
+      return Response.json({...result,...(custom?{custom:true}:{}),snapshotSaved,dailySaved},{headers});
     }
     trace.stage('schedule');
     const {calendar,...data}=await footballSchedule(league,day),key=league+':'+day;

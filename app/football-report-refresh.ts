@@ -28,6 +28,12 @@ export function footballRequestError(error:unknown,kind:'schedule'|'analysis'|'n
 
 export function footballAnalysisPresentation(game:FootballGame,report:FootballReport|undefined,now:number,{unavailable=false,analysisAvailable=true,notice='',activity}:{unavailable?:boolean;analysisAvailable?:boolean;notice?:string;activity?:FootballAnalysisActivity}={}):{state:FootballAnalysisState;message:string}{
   if(readyFootballAnalysis(game,report,now,unavailable))return {state:'ready',message:''};
+  if(retainFootballForecast(game,now)){
+    if(activity)return {state:'loading',message:activity==='queued'?'等待讀取賽前分析…':'正在讀取賽前分析…'};
+    if(report?.error)return {state:'error',message:report.error};
+    if(report?.analysis?.status==='closed')return {state:'unavailable',message:report.analysis.reason||'本場未保存賽前分析，無法還原原始數據。'};
+    return {state:'unavailable',message:'尚未讀取本場賽前分析，稍後會自動重試。'};
+  }
   if(unavailable)return {state:'unavailable',message:'賽程資料暫時無法確認，恢復後會自動重試分析。'};
   if(!analysisAvailable)return {state:'unavailable',message:notice||'目前的賽程來源尚未提供分析資料。'};
   if(report?.game&&footballFixtureKey(report.game)!==footballFixtureKey(game))return {state:'stale',message:'賽程已變更，將重新取得本場分析。'};
