@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-20",
+  "progressTarget": "data/live-collector-progress.json",
+  "reason": "Full progress index update was blocked by tool safety checks; preserve a mergeable append-only delta until write succeeds.",
+  "observedAt": "2026-10-20T11:08:01.904Z",
+  "observationPath": "data/live/20261020T110801Z-attempt20-kbo-cpbl-live-verified.json",
+  "observationCommit": "e6f39c435b8e5a833bd97c474a43c8b20e625c81",
+  "run": {
+    "id": 39121599531,
+    "attempt": 20,
+    "jobId": 118593798956,
+    "conclusion": "success",
+    "headSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac"
+  },
+  "artifact": {
+    "id": 12259757282,
+    "createdAt": "2026-10-20T11:08:04Z",
+    "sha256": "b1160fa8fb758061ad4a44646fb3e8caaf5d95fa1e9c585fad554dc5e4c789ab",
+    "verified": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 0,
+      "offDayVerified": true
+    },
+    "KBO": {
+      "games": 1,
+      "state": "live",
+      "verified": true,
+      "intervalSeconds": 69.892,
+      "changes": {
+        "balls": [
+          1,
+          0
+        ],
+        "homePitchCount": [
+          2,
+          4
+        ]
+      }
+    },
+    "CPBL": {
+      "games": 1,
+      "state": "live",
+      "verified": true,
+      "intervalSeconds": 68.868,
+      "changes": {
+        "awayOutsRecorded": [
+          3,
+          4
+        ],
+        "homeOutsRecorded": [
+          3,
+          6
+        ]
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "lineupOfficiallyConfirmed": false
+    }
+  },
+  "database": {
+    "isolated": true,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "productionChanged": false
+}
