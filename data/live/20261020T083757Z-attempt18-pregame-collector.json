@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "capturedAt": "2026-10-20T08:37:57.897Z",
+  "runId": 39121599531,
+  "runAttempt": 18,
+  "jobId": 118534583207,
+  "runConclusion": "success",
+  "artifactId": 12250628396,
+  "artifactCreatedAt": "2026-10-20T08:38:00Z",
+  "artifactSha256": "7096695d588379e4e8e19ccb6b6f896c9bf8cf7c4c7eefd3cb0862f519b29ed4",
+  "artifactSha256IndependentlyVerified": true,
+  "verified": true,
+  "secondCapturePerformed": false,
+  "reasonNoSecondCapture": "No live first-team games in capture-1; both scheduled games are pregame.",
+  "states": {
+    "NPB": {
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "status": "ok",
+      "offDayVerified": true,
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-20",
+      "errors": []
+    },
+    "KBO": {
+      "games": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "status": "ok",
+      "errors": []
+    },
+    "CPBL": {
+      "games": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "status": "ok",
+      "errors": []
+    }
+  },
+  "games": [
+    {
+      "key": "KBO:33331020HTLG02026",
+      "league": "KBO",
+      "date": "2026-10-20",
+      "startTime": "2026-10-20T09:30:00.000Z",
+      "status": "pregame",
+      "rawStatus": "BEFORE",
+      "away": {
+        "id": "HT",
+        "name": "起亞虎",
+        "score": null
+      },
+      "home": {
+        "id": "LG",
+        "name": "LG雙子",
+        "score": null
+      },
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "currentPitcher": null,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "source": {
+        "provider": "naver",
+        "url": "https://api-gw.sports.naver.com/schedule/games/33331020HTLG02026/game-polling",
+        "fetchedAt": "2026-10-20T08:37:55.374Z",
+        "providerUpdatedAt": null
+      },
+      "warnings": [
+        "game_id_contains_original_schedule_date",
+        "provider_update_time_not_supplied"
+      ],
+      "liveChangesVerified": false
+    },
+    {
+      "key": "CPBL:261020003",
+      "league": "CPBL",
+      "date": "2026-10-20",
+      "startTime": "2026-10-20T10:35:00.000Z",
+      "status": "pregame",
+      "rawStatus": "PREGAME",
+      "away": {
+        "id": "cpbl.t.7",
+        "name": "味全龍",
+        "score": null
+      },
+      "home": {
+        "id": "cpbl.t.1",
+        "name": "中信兄弟",
+        "score": null
+      },
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "currentPitcher": null,
+      "lineupConfirmation": "not_verified",
+      "pitchCount": null,
+      "source": {
+        "provider": "yahoo-tw",
+        "url": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261020003/",
+        "fetchedAt": "2026-10-20T08:37:57.892Z",
+        "providerUpdatedAt": null
+      },
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "lineup_confirmation_not_verified",
+        "pitch_by_pitch_not_supplied"
+      ],
+      "liveChangesVerified": false
+    }
+  ],
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not production",
+    "checkedAt": "2026-10-20T08:37:58.935Z",
+    "productionWritten": false,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "unknownFieldPolicy": "Unverified fields remain null. Source-listed lineup is not official confirmation.",
+  "productionChanged": false
+}
