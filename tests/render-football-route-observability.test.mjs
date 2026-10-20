@@ -41,12 +41,23 @@ const waiting=()=>({status:'waiting',reason:'歷史不足：主隊3場、客隊4
 const ready=()=>({...waiting(),status:'ready',reason:'',probabilities:{home:.4,draw:.3,away:.3,over25:.5,under25:.5,btts:.5}});
 const report=(analysis=waiting(),started=false)=>({game:{id:'12345',league:'uefa.champions',start:new Date(Date.now()+(started?-1:1)*86400000).toISOString()},analysis,sourceFetchedAt:'2026-10-12T11:00:00Z'});
 
-test('custom model requests reach analysis but never read or write shared prediction ledgers',async()=>{
+test('custom model requests save and restore the matching weights without writing the daily accuracy ledger',async()=>{
  for(const started of [false,true]){
-  const mod=await loadRoute({report:report(ready(),started)}),settings={model:'auto',weights:{recent:[80,20,0,0,0]}};
+  const settings={model:'auto',weights:{recent:[80,20,0,0,0]}},saved={...report(ready()),custom:true,snapshotSaved:true,retained:true};
+  saved.analysis.version+='-custom-v1';
+  const mod=await loadRoute({report:report(started?{...ready(),status:'closed'}:ready(),started),savedReport:started?saved:null});
   const response=await mod.GET(request('kind=analysis&league=eng.1&date=2026-10-14&game=12345&settings='+encodeURIComponent(JSON.stringify(settings)))),data=await response.json();
-  assert.equal(response.status,200);assert.equal(data.custom,true);assert.equal(data.snapshotSaved,false);assert.equal(data.dailySaved,false);assert.deepEqual(stages(mod),['analysis']);assert.deepEqual(mod.calls[0].args[3],settings);assert.match(data.analysis.version,/-custom-v1$/);
+  assert.equal(response.status,200);assert.equal(data.custom,true);assert.equal(data.snapshotSaved,true);assert.equal(data.dailySaved,false);assert.deepEqual(stages(mod),['analysis','db',started?'load_forecast':'save_forecast']);assert.deepEqual(mod.calls[0].args[3],settings);assert.match(data.analysis.version,/-custom-v1$/);
+  assert.deepEqual(mod.calls[2].args[started?3:4],settings);
+  if(started){assert.deepEqual(data.analysis,saved.analysis);assert.equal(data.retained,true);}
  }
+});
+
+test('missing custom pregame snapshots are explicit and never reconstructed after kickoff',async()=>{
+ const mod=await loadRoute({report:report({...waiting(),status:'closed'},true)}),settings={model:'auto',weights:{recent:[80,20,0,0,0]}};
+ const response=await mod.GET(request('kind=analysis&league=eng.1&date=2026-10-14&game=12345&settings='+encodeURIComponent(JSON.stringify(settings)))),data=await response.json();
+ assert.equal(data.snapshotSaved,false);assert.equal(data.analysis.status,'closed');assert.match(data.analysis.reason,/未保存這組權重/);assert.equal(data.analysis.probabilities,undefined);
+ assert.deepEqual(stages(mod),['analysis','db','load_forecast']);
 });
 
 test('football source failures log bounded context and elapsed category, preserving the public error',async()=>{

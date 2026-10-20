@@ -1,6 +1,6 @@
 import {footballDay,uncalibratedCupAnalysis,type FootballAnalysis,type FootballGame,type FootballLeague} from './football';
 
-export type FootballReport={game?:FootballGame;analysis?:FootballAnalysis;error?:string;sourceFetchedAt?:string;archiveAsOf?:string;snapshotSaved?:boolean;retained?:boolean};
+export type FootballReport={game?:FootballGame;analysis?:FootballAnalysis;error?:string;sourceFetchedAt?:string;archiveAsOf?:string;snapshotSaved?:boolean;retained?:boolean;custom?:boolean};
 export type ReadyFootballAnalysis=FootballAnalysis&{probabilities:NonNullable<FootballAnalysis['probabilities']>};
 export type FootballDirection={label:string;probability:number};
 export type FootballRecommendation={game:FootballGame;analysis:ReadyFootballAnalysis;result:FootballDirection|null;total:FootballDirection|null;btts:FootballDirection|null};
