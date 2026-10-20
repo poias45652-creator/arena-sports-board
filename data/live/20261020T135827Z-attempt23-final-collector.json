@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "dateAsiaTaipei": "2026-10-20",
+  "capturedAt": "2026-10-20T13:58:27.061Z",
+  "runId": 39121599531,
+  "runAttempt": 23,
+  "jobId": 118669607864,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "workflow": "Current baseball collector",
+  "workflowHeadSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "artifactId": 12269423721,
+  "artifactCreatedAt": "2026-10-20T13:58:30Z",
+  "artifactSha256": "de5daa886c940e600fb7873d5a35bf46a055e4e31ca88c8a768134c8026930cf",
+  "sha256IndependentlyVerified": true,
+  "sourceArtifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/39121599531",
+  "verification": {
+    "sameDayFirstTeamGamesOnly": true,
+    "secondCapturePerformed": false,
+    "secondCaptureReason": "No LIVE games on fresh 2026-10-20 capture; KBO and CPBL both FINAL.",
+    "newWithinRunLiveChangeProof": false,
+    "retainedEarlierSameDayLiveProof": true,
+    "scoreTransitionProofType": "cross-run LIVE-to-FINAL, not LIVE-to-LIVE proof",
+    "unsupportedFieldsPreservedNull": true,
+    "sourceLineupOfficiallyConfirmed": false,
+    "productionChanged": false
+  },
+  "captureSummary": {
+    "NPB": {
+      "status": "no_games",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "sportsnavi",
+      "sourceUrl": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-20",
+      "offDayVerified": true,
+      "offDayMarker": "試合はありません",
+      "errors": []
+    },
+    "KBO": {
+      "status": "final",
+      "games": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "key": "KBO:33331020HTLG02026",
+      "away": {
+        "id": "HT",
+        "name": "起亞虎",
+        "score": 13
+      },
+      "home": {
+        "id": "LG",
+        "name": "LG雙子",
+        "score": 1
+      },
+      "source": "naver",
+      "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/33331020HTLG02026/game-polling",
+      "fetchedAt": "2026-10-20T13:58:24.497Z",
+      "lineupRows": 16,
+      "pitchingRows": 14,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupConfirmation": "not_verified",
+      "errors": []
+    },
+    "CPBL": {
+      "status": "final",
+      "games": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "key": "CPBL:261020003",
+      "away": {
+        "name": "味全龍",
+        "score": 6
+      },
+      "home": {
+        "name": "中信兄弟",
+        "score": 0
+      },
+      "source": "yahoo-tw",
+      "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261020003/",
+      "fetchedAt": "2026-10-20T13:58:27.050Z",
+      "lineupRows": 31,
+      "pitchingRows": 9,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "lineupConfirmation": "not_verified",
+      "errors": []
+    }
+  },
+  "crossRunStateChanges": {
+    "previousEvidence": "data/live/20261020T121659Z-attempt21-kbo-live-cpbl-crossrun-confirmed.json",
+    "previousRunAttempt": 21,
+    "previousCapturedAt": "2026-10-20T12:16:59.236Z",
+    "currentCapturedAt": "2026-10-20T13:58:27.061Z",
+    "KBO": {
+      "beforeStatus": "live",
+      "afterStatus": "final",
+      "beforeAwayScore": 10,
+      "afterAwayScore": 13,
+      "beforeHomeScore": 1,
+      "afterHomeScore": 1
+    },
+    "CPBL": {
+      "beforeStatus": "live",
+      "afterStatus": "final",
+      "beforeAwayScore": 0,
+      "afterAwayScore": 6,
+      "beforeHomeScore": 0,
+      "afterHomeScore": 0
+    },
+    "note": "These are valid latest final states and score changes versus previously retained same-day LIVE snapshots, not new LIVE-to-LIVE 65-second proof. Historical same-day LIVE-to-LIVE evidence remains in Attempt 20/21 files."
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "knownGaps": [
+    "Workflow artifact overwrite true still risks removing older downloadable artifacts; Git commits retain daily verification evidence.",
+    "The re-run uses historical workflow head SHA instead of latest isolation branch head.",
+    "CPBL inning/half/B/S/O/bases/pitchCount unavailable, remain null.",
+    "Provider publication timestamp is unavailable; fetchedAt and HTTP Date are not publication-time guarantees."
+  ]
+}
