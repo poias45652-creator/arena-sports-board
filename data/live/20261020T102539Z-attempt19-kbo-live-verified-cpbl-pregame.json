@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-20",
+  "capturedAt": "2026-10-20T10:25:39.864Z",
+  "runId": 39121599531,
+  "runAttempt": 19,
+  "jobId": 118577409367,
+  "runConclusion": "success",
+  "artifactId": 12257084326,
+  "artifactCreatedAt": "2026-10-20T10:25:42Z",
+  "artifactSha256": "06e97571e2861606761f0970f0fe8460e38da91340f13256ec1a050b63a20207",
+  "sha256Verified": true,
+  "NPB": {
+    "games": 0,
+    "offDayVerified": true
+  },
+  "KBO": {
+    "games": 1,
+    "status": "live",
+    "score": "7-0",
+    "inning": 3,
+    "homePitcherPitchCount": {
+      "before": 15,
+      "after": 17
+    },
+    "balls": {
+      "before": 0,
+      "after": 2
+    },
+    "liveVerified": true,
+    "intervalSeconds": 68.82
+  },
+  "CPBL": {
+    "games": 1,
+    "status": "pregame",
+    "pitchCount": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "lineupOfficiallyConfirmed": false
+  },
+  "database": {
+    "isolated": true,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "sourceArtifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/39121599531",
+  "productionChanged": false
+}
