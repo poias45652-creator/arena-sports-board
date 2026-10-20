@@ -12,5 +12,8 @@ body[data-theme=paper] :is(.growth-panel,.crisis-panel,.football-international>d
 body[data-theme=paper] :is(dialog,.season-mission,.season-tile,.choice,.outcome,.event,.growth-panel,.crisis-panel,.football-offer,.condition-status) :is(h2,h3,p,.tag){color:#e8e3d7}
 body[data-theme=paper] :is(.growth-panel,.crisis-panel,.condition-status,.choice) .football-note{color:#b9c8d6!important}
 
+body[data-theme=paper] .condition-status :is(p,small){color:#cbd6dd!important}
+body[data-theme=paper] .season-condition .condition-cost{color:#814e3a!important}
+body[data-theme=paper] :is(.pending-stories span,.pending-stories small,.grid>aside>label,.feed p){color:#4b554b}
 @media(max-width:800px){.grid>.play-column{grid-row:1}.grid>aside{grid-row:2}.grid>aside .football-abilities{grid-template-columns:repeat(4,minmax(0,1fr))}.story-marquee{flex-wrap:wrap;gap:7px;padding:12px}.story-marquee strong{flex-basis:75%}.story-marquee small{display:none}.season-map{grid-template-columns:repeat(2,minmax(0,1fr))}.memory-columns{grid-template-columns:1fr;gap:10px}.season-mission{padding:15px}.season-mission>.topline{flex-wrap:wrap}.journey-toolbar{gap:10px}.journey-tabs{flex:1;justify-content:center}.journey-tabs button{padding:10px;font-size:12px}.chapter-progress{padding:13px}.chapter-progress .tag{font-size:10px;letter-spacing:1px}.mission-options button{padding:10px}.mission-options b{font-size:13px}.mission-options span{font-size:19px}.grid>aside .vitals{display:grid;grid-template-columns:1fr;max-width:450px}.stage{scroll-margin-top:12px}}
 @media(prefers-reduced-motion:reduce){.stage{animation:none}*{scroll-behavior:auto!important}}
