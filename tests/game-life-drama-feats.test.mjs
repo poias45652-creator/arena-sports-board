@@ -28,8 +28,8 @@ test('partner betrayal and rebuilding trust affect mood without erasing the shar
  const sameYear=dating();drama(sameYear,'betrayed',0);assert.equal(R.pick(sameYear,{random:()=>0}),null);
  const t=dating();drama(t,'betrayed',2);t.age=20;t.mood=50;drama(t,'rebuild',0);assert.equal(t.romance.bond,'together');assert.equal(t.mood,64);t.age=21;assert.equal(L.next(t),'family-marry');
 });
-test('new relationship episodes use one existing slot; pending stories retain priority; old pending family events still resolve',()=>{
- const s=dating();s.phase='train';s.sessions=3;assert(E.advance(s).ok);assert(s.event.startsWith('romance-'));assert.equal(s.eventsLeft,1);assert(E.choose(s,0).ok);assert.equal(s.eventsLeft,0);
+test('new relationship episodes share two short slots; pending stories retain priority; old pending family events still resolve',()=>{
+ const s=dating();s.phase='train';s.sessions=3;assert(E.advance(s).ok);assert.equal(s.eventsLeft,2);if(!s.event.startsWith('romance-')){assert(E.choose(s,1).ok);assert(E.advance(s).ok)}assert(s.event.startsWith('romance-'));const left=s.eventsLeft;assert(E.choose(s,0).ok);assert.equal(s.eventsLeft,left-1);
  const old=dating();old.phase='event';old.event='family-distance';old.eventsLeft=1;const loaded=E.migrate(clone(old));same(loaded,old);assert(E.choose(loaded,2).ok);assert.equal(loaded.family.stage,'single');
  const queued=dating();queued.phase='train';queued.pending=[{id:'echo-home',due:19}];assert(E.advance(queued).ok);assert.equal(queued.event,'echo-home');
  const young=dating();young.age=18;assert.equal(R.pick(young,{random:()=>0}),null);
