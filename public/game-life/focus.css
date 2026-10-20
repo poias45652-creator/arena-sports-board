@@ -1,4 +1,4 @@
-/* 星準：沉浸式科技介面。操作留給當下，管理集中於球員中心。 */
+/* 星準：沉浸式科技介面。故事居中，數據在側，常用功能集中在上方。 */
 :root{--focus-bg:#060c17;--focus-panel:#101b2c;--focus-line:#2c4259;--focus-cyan:#79e9ee;--focus-text:#edf5ff;--focus-muted:#adbed2}
 body[data-theme=broadcast]{--lime:#79e9ee;--muted:#adbed2;--rule:#2c4259;--fx-gold:#79e9ee;color:var(--focus-text);background:var(--focus-bg)}
 body[data-theme=broadcast]::before{background:radial-gradient(ellipse at 15% 0,#14637422,transparent 50%),radial-gradient(ellipse at 90% 60%,#5245a522,transparent 48%),linear-gradient(#060c17,#0a1120);opacity:1}
