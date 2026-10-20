@@ -6,11 +6,12 @@ const hub=s=>s.sport===1?s.football:s.arena;
 // Presentation snapshots never add fields to a career or consume its seeded RNG.
 function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
  care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
- majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
+ careerEvents:s.careerEvents||0,majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
  nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,signatures:(typeof module!=='undefined'?require('./feats.js'):root.XZFeats).signatures(s).filter(t=>t.active).map(t=>t.id),feats:(s.feats?.titles||[]).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
+ if(s.outcome?.major&&now.careerEvents>before.careerEvents)add(s.outcome.success?'awakening':'injury',s.outcome.success?'跨過極限，熟悉的自己變了。':'這次賭注，留下沉重的代價。',s.outcome.detail);
  const newCare=now.care?.stage==='decision'&&(!before.care||before.care.kind!==now.care.kind);
  if(newCare){if(now.care.kind==='surgery')add('medical','醫療暫停，先守住未來。','健康進入危險範圍，醫療團隊已暫停訓練與競賽，接著選擇手術及復健安排。');else add('mental','這一次，不用獨自撐著。','球隊陪你接受專業心理評估，接著一起安排照護與休息。');}
  if(now.surgeries>before.surgeries)add('surgery','手術完成，回場從今天開始。','接下來按計畫復健；原本的賽季進度已保留。');

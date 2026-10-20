@@ -50,7 +50,7 @@ test('real UI presents three primary directions plus an optional challenge; menu
  vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('growth-intensities'));
  vm.runInContext("setPlayMode('simple');setJourneyView('story');setJourneyTheme('paper');setJourneyView('play');setPlayMode('invalid')",ctx);
  assert.equal(vm.runInContext('JSON.stringify(s)',ctx),before);assert.deepEqual(Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save')),slots);assert.equal(memory['xingzhun-play-mode-v1'],'simple');
- vm.runInContext("easyPlan('trust')",ctx);assert(nodes.game.innerHTML.includes('名單公布的前一天'));vm.runInContext('openHub()',ctx);assert(nodes['career-hub-content'].innerHTML.includes('本季目標'));assert.equal(vm.runInContext('s.phase',ctx),'event');assert.equal(vm.runInContext('s.sessions',ctx),3);
+ vm.runInContext("easyPlan('trust')",ctx);assert(nodes.game.innerHTML.includes(vm.runInContext('E.eventData(s).title',ctx)));vm.runInContext('openHub()',ctx);assert(nodes['career-hub-content'].innerHTML.includes('本季目標'));assert.equal(vm.runInContext('s.phase',ctx),'event');assert.equal(vm.runInContext('s.sessions',ctx),3);
 });
 test('one-click preparation keeps three sports within eight seasons with varied events and no added turns',t=>{
  for(const sport of [0,1,2]){

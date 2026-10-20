@@ -212,8 +212,10 @@ const storytelling=typeof module!=='undefined'?require('./storytelling.js'):root
 const family=typeof module!=='undefined'?require('./family.js'):root.XZFamily;EVENTS.push(...family.EVENTS.map(e=>({...e,options:e.options.map(c=>({...c,effect:{...c.effect}}))})));
 const romance=typeof module!=='undefined'?require('./romance.js'):root.XZRomance;EVENTS.push(...romance.EVENTS.map(e=>({...e,options:e.options.map(c=>({...c,effect:{...c.effect}}))})));
 const leagues=typeof module!=='undefined'?require('./leagues.js'):root.XZLeagues;EVENTS.push(...leagues.EVENTS);
+const crossroads=typeof module!=='undefined'?require('./crossroads.js'):root.XZCrossroads;
 // Balance negative condition costs once, alongside the actual displayed event data.
 for(const e of EVENTS)for(const c of e.options){for(const key of ['effect','good','bad'])if(c[key]){c[key]={...c[key]};if(c[key].health<0)c[key].health=-Math.ceil(-c[key].health*1.6);if(c[key].morale<0)c[key].morale=-Math.ceil(-c[key].morale*1.75)}c.hint=c.hint.replace(/(健康|士氣)(\s*[-−]\s*)(\d+)/g,(_,label,sep,n)=>label+sep+Math.ceil(+n*(label==='健康'?1.6:1.75)))}
+EVENTS.push(...crossroads.EVENTS);
 const COUNTS=Object.freeze({events:EVENTS.filter(e=>!e.chainOnly).length,sequels:EVENTS.filter(e=>e.chainOnly&&!e.id.startsWith('legacy-')).length,endings:ENDINGS.length});
 const data={EVENTS,ENDINGS,TRAITS,SPORTS,COUNTS,ROUTE_NAMES:expansion.routeNames,GROUPS:expansion.groups};if(typeof module!=='undefined')module.exports=data;else root.XZContent=data;
 })(typeof globalThis!=='undefined'?globalThis:this);

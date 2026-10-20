@@ -8,16 +8,16 @@ const E=ctx.XZEngine,B=ctx.XZStoryBalance,C=ctx.XZContent,UI=ctx.XZFocus,copy=x=
 const player=(sport,seed)=>E.create({sport,pos:['投手','前鋒','控球後衛'][sport],seed,pace:'quick',length:'short'});
 test('every sport has varied two-scene seasons, both orders, and reproducible reloads',()=>{
  for(const sport of [0,1,2]){
-  const scenes=new Set(),orders=new Set();
+  const scenes=new Set(),orders=new Set();let withFamily=0,withoutFamily=0;
   for(let i=0;i<40;i++){
    const s=player(sport,'variety-'+i);s.age=17;s.sessions=3;assert(E.advance(s).ok);assert.equal(s.eventsLeft,2);
    const loaded=E.migrate(copy(s));assert.deepEqual(copy(loaded),copy(s));
    const first=s.event;scenes.add(first);orders.add(first==='family-meet'?'core-first':'surprise-first');
    assert(E.choose(s,0).ok);assert(E.choose(loaded,0).ok);assert(E.advance(s).ok);assert(E.advance(loaded).ok);
    assert.deepEqual(copy(loaded),copy(s));scenes.add(s.event);
-   assert.equal([first,s.event].filter(id=>id==='family-meet').length,1);assert.equal(s.eventsLeft,1);E.validate(s);
+   const count=[first,s.event].filter(id=>id==='family-meet').length;assert(count<=1);if(count)withFamily++;else withoutFamily++;assert.equal(s.eventsLeft,1);E.validate(s);
   }
-  assert.equal(orders.size,2);assert(scenes.size>=25,`${sport}: ${scenes.size} scenes`);
+  assert.equal(orders.size,2);assert(withFamily>0&&withoutFamily>0);assert(scenes.size>=25,`${sport}: ${scenes.size} scenes`);
  }
 });
 test('all five vitals share gains and losses; aggressive results exceed safe rewards and collaboration losses',()=>{
