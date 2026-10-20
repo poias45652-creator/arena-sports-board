@@ -7,7 +7,7 @@ const hub=s=>s.sport===1?s.football:s.arena;
 function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
  care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
  majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
- nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,feats:(s.feats?.titles||[]).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
+ nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,signatures:(typeof module!=='undefined'?require('./feats.js'):root.XZFeats).signatures(s).filter(t=>t.active).map(t=>t.id),feats:(s.feats?.titles||[]).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
@@ -23,6 +23,7 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(now.nationalOffer&&now.nationalOffer!==before.nationalOffer)add('national','國家隊，叫到你的名字。',`${s.country}的${h.nationalOffer.competition}徵召已送達，是否出征由你決定。`);
  if(now.awakening&&now.awakening!==before.awakening)add('awakening','突然開竅，世界慢了一拍。','那些練過千百次的動作，忽然全部接上了。本場剩餘時間全專項 +25，最高 99；終場恢復原本能力。');
  const feats=typeof module!=='undefined'?require('./feats.js'):root.XZFeats;
+ const newSignatures=feats.signatures(s).filter(t=>t.active&&!(before.signatures||[]).includes(t.id));if(newSignatures.length)add('title','苦練，成了你的招牌。',newSignatures.map(t=>'「'+t.name+'」 '+t.effect).join('；')+'。對應專項關鍵動作另 +3 個百分點，能力低於 65 暫停。');
  const gained=now.feats.filter(id=>!before.feats.includes(id));if(gained.length)add('title','這一場，把名字打進紀錄。',gained.map(id=>'「'+feats.TITLES[id].name+'」 '+feats.description(s,id)).join('；')+'。本生涯持續生效，同名不重複疊加。');
  if(now.romanceCount>before.romanceCount){const r=s.romance.history.at(-1);add(r.mood<0?'heartbreak':'romance',s.outcome?.title||'愛情的另一頁',s.outcome?.narrative||'你們的故事，留下新的痕跡。');}
  if(now.familyStage!==before.familyStage){
