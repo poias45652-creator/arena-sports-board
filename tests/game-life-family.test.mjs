@@ -31,3 +31,35 @@ test('the browser application can open inheritance, start a child and return to 
  const base=new URL('../public/game-life/',import.meta.url);for(const [,url] of fs.readFileSync(new URL('index.html',base),'utf8').matchAll(/<script src="([^"]+)"/g)){const file=url.split('?')[0].split('/').pop();vm.runInContext(fs.readFileSync(new URL(file,base),'utf8'),ctx,{filename:file})}
  const parent=complete();E.closeChapter(parent);ctx.fixture=parent;vm.runInContext("s=fixture;activeSaveId=saveStore.create(s);momentsEnabled=false;render();openInheritance()",ctx);assert(nodes['family-dialog'].open);assert(nodes['family-dialog-content'].innerHTML.includes('家族傳承'));vm.runInContext("$('heir-name').value='星二代';startInheritance('mind')",ctx);assert(!nodes['family-dialog'].open);assert.equal(vm.runInContext('s.name',ctx),'星二代');assert(nodes.game.innerHTML.includes('第 2 代'));vm.runInContext('viewParent()',ctx);assert.equal(vm.runInContext('s.name',ctx),parent.name);assert(nodes.game.innerHTML.includes('繼續孩子的生涯'));vm.runInContext('openInheritance()',ctx);assert.equal(vm.runInContext('s.name',ctx),'星二代');assert.equal(vm.runInContext('saveStore.list().length',ctx),2);
 });
+test('partner and child names vary by career in every sport and never consume game RNG',()=>{
+ for(const sport of [0,1,2]){
+  const partners=new Set(),children=new Set();
+  for(let i=0;i<100;i++){
+   const s=E.create({sport,pos:['投手','前鋒','控球後衛'][sport],seed:'names-'+i,pace:'quick',length:'short'}),before=clone(s);
+   partners.add(L.partner(s));children.add(L.childName(s));
+   for(let n=0;n<3;n++){assert.equal(L.partner(s),L.partner(E.migrate(clone(s))));assert.equal(L.childName(s),L.childName(E.migrate(clone(s))));L.scene(s,L.EVENTS[0]);}
+   equal(s,before);
+  }
+  assert(partners.size>=25,`${sport}: ${partners.size} partner names`);assert(children.size>=25,`${sport}: ${children.size} child names`);
+ }
+});
+test('generated names stay consistent through scenes, birth animation, archives, farewell and inheritance',()=>{
+ for(const sport of [0,1,2]){
+  const s=player(sport),partner=L.partner(s),name=L.childName(s);
+  for(const age of [17,18,19,20,21,22]){
+   s.age=age;const id=L.next(s),scene=L.scene(s,E.byId[id]);
+   assert.equal(scene.scene.voice,partner);
+   const result=episode(s);assert.equal(s.family.partner,partner);
+   if(age===21){assert.equal(s.family.child.name,name);assert(s.outcome.narrative.includes(name));assert(result.events.some(e=>e.kind==='birth'&&e.title.includes(name)))}
+   equal(E.migrate(clone(s)),s);
+  }
+  assert(UI.archive(s).includes(name));assert(UI.farewell(s).detail.includes(name));assert(UI.inheritance(s).includes(`value="${name}"`));assert(runtime.XZFocus.memory(s).includes(name));
+  E.finish(s,'voluntary');const before=clone(s),heir=E.createHeir(s,{focus:'mind',parentId:'name-parent'});assert.equal(heir.name,name);equal(s,before);
+ }
+});
+test('legacy named families keep their original names and malformed names fail safely',()=>{
+ const s=player();for(const age of [17,18,19,20,21,22]){s.age=age;episode(s)}
+ s.family.partner='以晴';s.family.child.name='小星';const before=clone(s),loaded=E.migrate(clone(s));equal(loaded,before);
+ assert.equal(L.partner(loaded),'以晴');assert.equal(L.childName(loaded),'小星');assert(UI.archive(loaded).includes('小星'));assert(UI.farewell(loaded).detail.includes('以晴牽著小星'));
+ const bad=clone(s);bad.family.child.name='<script>';assert.throws(()=>E.migrate(bad));
+});
