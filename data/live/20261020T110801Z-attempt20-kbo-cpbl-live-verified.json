@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-20",
+  "dateAsiaTaipei": "2026-10-20",
+  "capturedAt": "2026-10-20T11:08:01.904Z",
+  "runId": 39121599531,
+  "runAttempt": 20,
+  "jobId": 118593798956,
+  "runStatus": "completed",
+  "runConclusion": "success",
+  "workflow": "Current baseball collector",
+  "workflowHeadSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "artifactId": 12259757282,
+  "artifactCreatedAt": "2026-10-20T11:08:04Z",
+  "artifactSha256": "b1160fa8fb758061ad4a44646fb3e8caaf5d95fa1e9c585fad554dc5e4c789ab",
+  "sha256Verified": true,
+  "sourceArtifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/39121599531",
+  "validation": {
+    "onlySameDayFirstTeamGames": true,
+    "pregameNotZeroed": true,
+    "secondCapturePerformed": true,
+    "productionChanged": false
+  },
+  "NPB": {
+    "games": 0,
+    "status": "no_games",
+    "offDayVerified": true,
+    "source": "sportsnavi",
+    "errors": []
+  },
+  "KBO": {
+    "games": 1,
+    "status": "live",
+    "gameId": "33331020HTLG02026",
+    "away": "起亞虎",
+    "home": "LG雙子",
+    "awayScore": 7,
+    "homeScore": 0,
+    "inning": 5,
+    "half": "top",
+    "balls": 0,
+    "strikes": 1,
+    "outs": 2,
+    "bases": [
+      true,
+      false,
+      true
+    ],
+    "source": "naver",
+    "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/33331020HTLG02026/game-polling",
+    "liveVerified": true,
+    "liveStateObserved": true,
+    "liveChangeProof": {
+      "beforeFetchedAt": "2026-10-20T11:06:49.511Z",
+      "afterFetchedAt": "2026-10-20T11:07:59.403Z",
+      "intervalSeconds": 69.892,
+      "beforeHash": "5208589296483d7597e46fcf28e1aca5091485da073adbdc744c58379da1a627",
+      "afterHash": "d7caa0b39d7fffb0c4f4d814d316b4a19a688dd4956f53797a8703baa97f1775",
+      "changes": {
+        "balls": {
+          "before": 1,
+          "after": 0
+        },
+        "homePitching": {
+          "51154:pitchCount": {
+            "before": 2,
+            "after": 4
+          }
+        }
+      }
+    },
+    "errors": []
+  },
+  "CPBL": {
+    "games": 1,
+    "status": "live",
+    "gameId": "261020003",
+    "away": "味全龍",
+    "home": "中信兄弟",
+    "awayScore": 0,
+    "homeScore": 0,
+    "inning": null,
+    "half": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null,
+    "source": "yahoo-tw",
+    "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261020003/",
+    "sourceLineupOfficiallyConfirmed": false,
+    "liveStateObserved": false,
+    "liveVerified": true,
+    "liveChangeProof": {
+      "beforeFetchedAt": "2026-10-20T11:06:53.030Z",
+      "afterFetchedAt": "2026-10-20T11:08:01.898Z",
+      "intervalSeconds": 68.868,
+      "beforeHash": "2ee832d3424e474cca1fb48c2ed7b718a95b44f502d6eada8fb80d6635c4958a",
+      "afterHash": "422ce8318a8034e2850cddd84d6e253465ec9dde50081dc9cf4b348dede1a2ad",
+      "changes": {
+        "awayPitching": {
+          "cpbl.p.3288:outsRecorded": {
+            "before": 3,
+            "after": 4
+          }
+        },
+        "homePitching": {
+          "cpbl.p.3436:outsRecorded": {
+            "before": 3,
+            "after": 6
+          }
+        }
+      }
+    },
+    "notes": [
+      "LIVE status from source; inning/half/current pitch-by-pitch state absent, so keep null",
+      "Pitcher outsRecorded derived from source INNINGS_PITCHED values 1->1.1 and 1->2; same game and same pitchers",
+      "pitchCount remains null; source lineup is not official confirmation"
+    ],
+    "errors": []
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  }
+}
