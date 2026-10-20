@@ -7,7 +7,7 @@ const hub=s=>s.sport===1?s.football:s.arena;
 function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
  care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
  majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
- nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null
+ nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,feats:(s.feats?.titles||[]).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
@@ -21,6 +21,10 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(now.cups>before.cups)add('champion','終場哨響，你們是冠軍。',`${h.season?.team||s.team}站上頂點，這一季值得被記住。`);
  if(now.transfers>before.transfers){const t=h.transfers[0];add('contract',t.kind==='loan'?'新的球衣，新的挑戰。':t.from===t.to?'故事，繼續留在這裡。':'落筆這一刻，下一站確定。',t.kind==='loan'?`租借加盟${t.to}，母隊合約與薪資保留。`:`${t.to} · ${t.years} 年合約 · 年薪 ${Number(t.salary).toLocaleString('zh-TW')} 萬`);}
  if(now.nationalOffer&&now.nationalOffer!==before.nationalOffer)add('national','國家隊，叫到你的名字。',`${s.country}的${h.nationalOffer.competition}徵召已送達，是否出征由你決定。`);
+ if(now.awakening&&now.awakening!==before.awakening)add('awakening','突然開竅，世界慢了一拍。','那些練過千百次的動作，忽然全部接上了。本場剩餘時間全專項 +25，最高 99；終場恢復原本能力。');
+ const feats=typeof module!=='undefined'?require('./feats.js'):root.XZFeats;
+ const gained=now.feats.filter(id=>!before.feats.includes(id));if(gained.length)add('title','這一場，把名字打進紀錄。',gained.map(id=>'「'+feats.TITLES[id].name+'」 '+feats.description(s,id)).join('；')+'。本生涯持續生效，同名不重複疊加。');
+ if(now.romanceCount>before.romanceCount){const r=s.romance.history.at(-1);add(r.mood<0?'heartbreak':'romance',s.outcome?.title||'愛情的另一頁',s.outcome?.narrative||'你們的故事，留下新的痕跡。');}
  if(now.familyStage!==before.familyStage){
   if(now.familyStage==='dating')add('romance','在球場以外，也有人選擇你。',`你和${s.family.partner}確認彼此的心意。從今天起，不只分享勝利，也一起走過普通的日子。`);
   if(now.familyStage==='married')add('wedding','往後的日子，我們是一隊。',`你和${s.family.partner}交換誓言。掌聲響起的時候，她握緊了你的手。`);
@@ -30,6 +34,9 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  return events;
 }
 const art={
+ heartbreak:'<path class="moment-heart-left" d="M171 184C70 124 110 52 153 76l22 28-19 26 22 23z"/><path class="moment-heart-right" d="M189 184c101-60 61-132 18-108l-22 28 19 26-22 23z"/><path class="moment-rays" d="M89 202l-12 12m194-12 12 12M180 38V18"/>',
+ awakening:'<circle class="moment-breath" cx="180" cy="125" r="80"/><circle class="moment-breath two" cx="180" cy="125" r="58"/><path class="moment-spark moment-filled" d="m192 35-57 102h41l-8 78 57-112h-43z"/><path class="moment-rays" d="m180 9 0 12m-98 33 16 13m164-13-16 13M60 125h21m198 0h21M82 205l16-13m164 13-16-13"/>',
+ title:'<circle class="moment-ring" cx="180" cy="122" r="62"/><path class="moment-star" d="m180 72 14 30 33 5-24 23 6 33-29-16-29 16 6-33-24-23 33-5z"/><path class="moment-filled" d="m143 173-17 59 34-15 20 21 20-21 34 15-17-59"/>',
  romance:'<path class="moment-family-heart" d="M180 184C70 124 110 52 153 76q18 7 27 26 9-19 27-26c43-24 83 48-27 108z"/><path class="moment-connect" d="M76 200q104 22 208 0"/>',
  wedding:'<circle class="moment-ring" cx="150" cy="144" r="47"/><circle class="moment-ring two" cx="210" cy="144" r="47"/><path class="moment-star" d="m180 37 10 22 24 4-17 17 4 24-21-12-21 12 4-24-17-17 24-4z"/><path class="moment-rays" d="m85 66 12 12m178-12-12 12M180 13v12"/>',
  birth:'<g class="moment-cradle"><path class="moment-filled" d="M99 137h162q-5 66-81 66t-81-66z"/><path d="M99 137V83q0-38 48-38v92M89 214q91 34 182 0M137 194l-12 27m98-27 12 27"/><circle cx="180" cy="124" r="22"/><path d="M169 127q11 12 22 0"/></g><path class="moment-star" d="m245 40 5 12 13 2-10 9 3 13-11-6-11 6 3-13-10-9 13-2z"/>',
