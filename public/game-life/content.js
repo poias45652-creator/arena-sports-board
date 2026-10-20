@@ -175,6 +175,39 @@ const SPORTS=[{name:'棒球',icon:'⚾',key:'baseball',pos:['投手','捕手','�
 const expansion=typeof module!=='undefined'?require('./expansion.js'):root.XZExpansion;
 EVENTS.push(...expansion.events);ENDINGS.push(...expansion.endings);
 const choiceExpansion=typeof module!=='undefined'?require('./choices.js'):root.XZChoices;choiceExpansion.enrich(EVENTS);
+// First-time goal stories replace a random seasonal story; they do not add a mandatory turn.
+EVENTS.push(
+event('chapter-growth','影片裡的那個破綻','分析師把同一段畫面倒回三次：你的習慣，已經被對手看穿。改動作可能突破，也可能失去原有節奏。',[
+ risk('拆掉重練','挑戰新動作；成功技術 +4，失敗士氣 -4。體力 -10。',.63,{a:[4,0,0,0],flags:{chapterCraft:1}},{morale:-4},{effect:{energy:-10},stat:0,chainSuccess:'chapter-return',delay:1}),
+ choice('只改一個細節','技術 +1、心理 +1，保留熟悉的節奏。',{a:[1,0,1,0],energy:-5}),
+ choice('邀請隊友一起研究','心理 +2、默契 +6，體力 -8。',{a:[0,0,2,0],chemistry:6,energy:-8}),
+ choice('先把狀態養回來','健康 +5、心情 +7，這次不改動作。',{health:5,mood:7})
+],{category:'突破專題',once:true,weight:2}),
+event('chapter-trust','名單公布的前一天','教練沒有承諾位置，只問你：如果下一場需要你做一件不顯眼的事，你願意嗎？',[
+ choice('接下最需要的角色','默契 +8、心理 +2，士氣 -2。',{chemistry:8,a:[0,0,2,0],morale:-2,flags:{teamFirst:1}}),
+ risk('用加練爭取機會','成功技術 +3、聲望 +8；失敗心情 -6。體力 -12。',.65,{a:[3,0,0,0],fame:8},{mood:-6},{effect:{energy:-12},stat:0}),
+ choice('請教練給明確回饋','心理 +2、心情 +3，開始建立長期溝通。',{a:[0,0,2,0],mood:3,flags:{leader:1}}),
+ choice('陪替補隊友一起準備','默契 +10、士氣 +3，體力 -6。',{chemistry:10,morale:3,energy:-6})
+],{category:'更衣室對話',once:true,weight:2}),
+event('chapter-contend','對手留下的一句話','上一輪的對手在訪問中說，你們只是運氣好。群組已經炸開，下一場之前，你要怎麼回應？',[
+ risk('把回應留在球場上','成功本季表現 +8、聲望 +10；失敗士氣 -5。體力 -8。',.6,{form:8,fame:10},{morale:-5},{effect:{energy:-8},stat:2}),
+ choice('帶大家研究對方弱點','心理 +2、默契 +5，體力 -8。',{a:[0,0,2,0],chemistry:5,energy:-8}),
+ choice('替隊友擋下媒體提問','默契 +8、聲望 +3，心情 -4。',{chemistry:8,fame:3,mood:-4,flags:{leader:1}}),
+ choice('關掉手機，照常休養','體力 +16、心情 +6，不參與口水戰。',{energy:16,mood:6})
+],{category:'宿敵戰帖',once:true,weight:2}),
+event('chapter-balance','難得沒有鬧鐘的早晨','今天沒有強制集合。你看著排滿行程的日曆，第一次認真想：下一個高峰，或許需要從休息開始。',[
+ choice('安排完整恢復日','健康 +8、體力 +18，沒有額外能力成長。',{health:8,energy:18}),
+ choice('和家人好好吃頓飯','心情 +12、士氣 +4，留下生活的空間。',{mood:12,morale:4,flags:{family:1}}),
+ choice('和隊友散步聊聊','心情 +7、默契 +6、體力 +8。',{mood:7,chemistry:6,energy:8}),
+ risk('用低強度練習找手感','成功心理 +3、心情 +8；失敗體力 -8。',.78,{a:[0,0,3,0],mood:8},{energy:-8},{stat:2})
+],{category:'生活片刻',once:true,weight:2}),
+event('chapter-return','改動作之後的第一封信','去年一起研究動作的分析師傳來訊息：改變開始有成果了。這份經驗，要留給自己，還是傳給下一個卡關的人？',[
+ choice('整理成球隊筆記','心理 +2、默契 +8，留下傳承。',{a:[0,0,2,0],chemistry:8,flags:{teaching:1}}),
+ risk('繼續挑戰更高難度','成功技術 +4、聲望 +12；失敗健康 -4。體力 -10。',.65,{a:[4,0,0,0],fame:12},{health:-4},{effect:{energy:-10},stat:0}),
+ choice('拍一支訓練紀錄','聲望 +10、心情 +5，讓努力被看見。',{fame:10,mood:5}),
+ choice('把時間留給恢復','健康 +6、體力 +16，下一次再挑戰。',{health:6,energy:16})
+],{category:'一年後的回聲',chainOnly:true,once:true})
+);
 // Balance negative condition costs once, alongside the actual displayed event data.
 for(const e of EVENTS)for(const c of e.options){for(const key of ['effect','good','bad'])if(c[key]){c[key]={...c[key]};if(c[key].health<0)c[key].health=-Math.ceil(-c[key].health*1.6);if(c[key].morale<0)c[key].morale=-Math.ceil(-c[key].morale*1.75)}c.hint=c.hint.replace(/(健康|士氣)(\s*[-−]\s*)(\d+)/g,(_,label,sep,n)=>label+sep+Math.ceil(+n*(label==='健康'?1.6:1.75)))}
 const COUNTS=Object.freeze({events:EVENTS.filter(e=>!e.chainOnly).length,sequels:EVENTS.filter(e=>e.chainOnly&&!e.id.startsWith('legacy-')).length,endings:ENDINGS.length});
