@@ -1,12 +1,13 @@
 (function(root){
 'use strict';
+const familyUI=typeof module!=='undefined'?require('./family-ui.js'):null;
 const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hub=s=>s.sport===1?s.football:s.arena;
 // Presentation snapshots never add fields to a career or consume its seeded RNG.
 function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
  care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
  majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
- nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired
+ nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
@@ -20,10 +21,20 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(now.cups>before.cups)add('champion','終場哨響，你們是冠軍。',`${h.season?.team||s.team}站上頂點，這一季值得被記住。`);
  if(now.transfers>before.transfers){const t=h.transfers[0];add('contract',t.kind==='loan'?'新的球衣，新的挑戰。':t.from===t.to?'故事，繼續留在這裡。':'落筆這一刻，下一站確定。',t.kind==='loan'?`租借加盟${t.to}，母隊合約與薪資保留。`:`${t.to} · ${t.years} 年合約 · 年薪 ${Number(t.salary).toLocaleString('zh-TW')} 萬`);}
  if(now.nationalOffer&&now.nationalOffer!==before.nationalOffer)add('national','國家隊，叫到你的名字。',`${s.country}的${h.nationalOffer.competition}徵召已送達，是否出征由你決定。`);
- if(!before.retired&&now.retired)add('ending',s.reason==='chapter'?'八季走過，這一篇屬於你。':'球員生涯落幕，故事留下。',s.reason==='chapter'?'查看這段旅程的結局，也能延續同一位球員繼續挑戰。':`${s.history.length} 季的努力與選擇，現在寫進你的生涯回顧。`);
+ if(now.familyStage!==before.familyStage){
+  if(now.familyStage==='dating')add('romance','在球場以外，也有人選擇你。',`你和${s.family.partner}確認彼此的心意。從今天起，不只分享勝利，也一起走過普通的日子。`);
+  if(now.familyStage==='married')add('wedding','往後的日子，我們是一隊。',`你和${s.family.partner}交換誓言。掌聲響起的時候，她握緊了你的手。`);
+  if(now.familyStage==='parent')add('birth','你好，小星。我是爸爸。','小小的手握住你的手指。從這一刻起，你想守護的夢，多了一個。');
+ }
+ if(now.retired&&(!before.retired||before.reason==='chapter'&&now.reason!=='chapter')){if(s.reason==='chapter')add('ending','八季走過，這一篇屬於你。','可以繼續球員生涯，或正式引退，讓下一段人生開始。');else events.push((familyUI||root.XZFamilyUI).farewell(s));}
  return events;
 }
 const art={
+ romance:'<path class="moment-family-heart" d="M180 184C70 124 110 52 153 76q18 7 27 26 9-19 27-26c43-24 83 48-27 108z"/><path class="moment-connect" d="M76 200q104 22 208 0"/>',
+ wedding:'<circle class="moment-ring" cx="150" cy="144" r="47"/><circle class="moment-ring two" cx="210" cy="144" r="47"/><path class="moment-star" d="m180 37 10 22 24 4-17 17 4 24-21-12-21 12 4-24-17-17 24-4z"/><path class="moment-rays" d="m85 66 12 12m178-12-12 12M180 13v12"/>',
+ birth:'<g class="moment-cradle"><path class="moment-filled" d="M99 137h162q-5 66-81 66t-81-66z"/><path d="M99 137V83q0-38 48-38v92M89 214q91 34 182 0M137 194l-12 27m98-27 12 27"/><circle cx="180" cy="124" r="22"/><path d="M169 127q11 12 22 0"/></g><path class="moment-star" d="m245 40 5 12 13 2-10 9 3 13-11-6-11 6 3-13-10-9 13-2z"/>',
+ retirement:'<path class="moment-beam" d="m125 0-90 228h290L235 0z"/><path class="moment-floor" d="M56 222h248"/><path class="moment-jersey moment-filled" d="m151 45-36 15-19 37 25 13 18-21v79h82V89l18 21 25-13-19-37-36-15q-29 23-58 0z"/><text class="moment-retire-number" x="180" y="132">{{number}}</text><g class="moment-farewell-player"><circle cx="180" cy="181" r="8"/><path d="M180 189v19m0-11-13 6m13-6 13 6m-13 5-8 16m8-16 8 16"/></g><path class="moment-rays" d="M67 79l19 5m207-5-19 5m-26-58-10 16M112 26l10 16"/>',
+ legacy:'<path class="moment-path" d="M95 224l55-87m115 87-55-87"/><g class="moment-return"><circle cx="149" cy="99" r="17"/><path d="M149 116v53m0-32-27 19m27-19 34 20m-34 12-16 48m16-48 16 48"/><circle cx="216" cy="132" r="12"/><path d="M216 144v38m0-28-33 3m33-3 18 15m-18 13-12 35m12-35 12 35"/></g><path class="moment-star" d="m180 23 6 15 16 2-12 11 3 16-13-8-13 8 3-16-12-11 16-2z"/>',
  medical:'<g class="moment-lamp"><path d="M180 20v28m-54 16 20-16h68l20 16z"/><path class="moment-beam" d="m128 67-58 120h220L232 67"/></g><rect x="83" y="111" width="194" height="95" rx="16"/><path class="moment-ecg" d="M96 161h40l10-23 16 46 19-64 18 41h65"/><path d="M100 208v12m160-12v12"/>',
  mental:'<circle class="moment-breath" cx="180" cy="121" r="75"/><circle class="moment-breath two" cx="180" cy="121" r="52"/><path class="moment-seat" d="M119 197v-47h44v47m-20-47v-25m54 72v-47h44v47m-22-47v-25"/><circle cx="143" cy="108" r="13"/><circle cx="219" cy="108" r="13"/><path class="moment-connect" d="M162 120q18-20 38 0M163 180h34"/>',
  champion:'<g class="moment-trophy"><path class="moment-filled" d="M136 62h88v49c0 38-20 54-44 54s-44-16-44-54z"/><path d="M136 74h-31v22q0 32 43 35m76-57h31v22q0 32-43 35m-32 34v30m-30 0h60l12 18h-84z"/><path class="moment-star" d="m180 83 5 12 13 1-10 9 3 13-11-7-11 7 3-13-10-9 13-1z"/></g><path class="moment-floor" d="M92 221h176"/>',
@@ -34,7 +45,7 @@ const art={
  ending:'<g class="moment-book"><path class="moment-filled" d="M180 74q-55-30-112-14v134q57-16 112 14 55-30 112-14V60q-57-16-112 14z"/><path d="M180 74v134M90 91q38-5 68 10M90 119q38-5 68 10M90 147q38-5 68 10m44-46q30-15 68-10m-68 38q30-15 68-10m-68 38q30-15 68-10"/></g><path class="moment-star" d="m180 17 5 13 14 1-11 9 3 14-11-8-11 8 3-14-11-9 14-1z"/>'
 };
 function markup(events,replay=false){const e=events[0],isPlay=e.kind==='play',scene=e.kind==='surgery'?'medical':e.kind==='support'?'mental':e.kind;
- return `<div class="moment-scene" data-kind="${esc(e.kind)}"><div class="moment-top"><span>星準 · ${isPlay?'球場瞬間':'重大時刻'}</span><button type="button" class="moment-skip">${replay?'關閉回顧':'跳過動畫'} <span aria-hidden="true">×</span></button></div>${isPlay?root.XZPlays.scene(e):`<div class="moment-visual" aria-hidden="true"><div class="moment-halo"></div>${e.kind==='champion'?Array.from({length:24},(_,i)=>`<i class="moment-confetti" style="--i:${i};--x:${3+(i*17)%94}%"></i>`).join(''):''}<svg viewBox="0 0 360 250" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${art[scene]||art.ending}</svg></div>`}<div class="moment-copy"><span class="moment-byline">${esc(e.player)} · ${esc(e.age)} 歲</span><h2 id="major-moment-title">${esc(e.title)}</h2><p id="major-moment-description">${esc(e.detail)}</p>${events.length>1?`<ul class="moment-also">${events.slice(1).map(x=>`<li>${esc(x.title)} <span>${esc(x.detail)}</span></li>`).join('')}</ul>`:''}</div><div class="moment-bottom"><span>${replay?'重播不影響遊戲進度':isPlay?'約 3 秒後回到遊戲 · 可隨時跳過':'約 3 秒後回到遊戲 · 可隨時跳過'}</span><button type="button" class="moment-continue">回到遊戲 →</button></div>${replay?'':'<div class="moment-timer" aria-hidden="true"></div>'}</div>`;
+ return `<div class="moment-scene" data-kind="${esc(e.kind)}"><div class="moment-top"><span>星準 · ${isPlay?'球場瞬間':'重大時刻'}</span><button type="button" class="moment-skip">${replay?'關閉回顧':'跳過動畫'} <span aria-hidden="true">×</span></button></div>${isPlay?root.XZPlays.scene(e):`<div class="moment-visual" aria-hidden="true"><div class="moment-halo"></div>${['champion','wedding','retirement','legacy'].includes(e.kind)?Array.from({length:24},(_,i)=>`<i class="moment-confetti" style="--i:${i};--x:${3+(i*17)%94}%"></i>`).join(''):''}<svg viewBox="0 0 360 250" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">${(art[scene]||art.ending).replace('{{number}}',esc(e.number||7))}</svg></div>`}<div class="moment-copy"><span class="moment-byline">${esc(e.player)} · ${esc(e.age)} 歲</span><h2 id="major-moment-title">${esc(e.title)}</h2><p id="major-moment-description">${esc(e.detail)}</p>${events.length>1?`<ul class="moment-also">${events.slice(1).map(x=>`<li>${esc(x.title)} <span>${esc(x.detail)}</span></li>`).join('')}</ul>`:''}</div><div class="moment-bottom"><span>${replay?'重播不影響遊戲進度':isPlay?'約 3 秒後回到遊戲 · 可隨時跳過':'約 3 秒後回到遊戲 · 可隨時跳過'}</span><button type="button" class="moment-continue">回到遊戲 →</button></div>${replay?'':'<div class="moment-timer" aria-hidden="true"></div>'}</div>`;
 }
 let dialog=null,timer=null,focusTarget=null,continuation=null;
 function close(){continuation=null;if(timer!==null)root.clearTimeout(timer);timer=null;if(!dialog?.open)return;dialog.close();const target=focusTarget?.isConnected?focusTarget:root.document.querySelector('.stage button:not([disabled])');target?.focus({preventScroll:true});}

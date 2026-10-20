@@ -27,8 +27,23 @@ function createStore(storage,idFactory,now=()=>Date.now()){
  function migrateAll(){for(let sport=0;sport<3;sport++)ensureLegacy(sport);return list()}
  function write(state,id){ensureLegacy(state.sport);const existing=list().find(e=>e.id===id);if(!validId(id)||!existing||existing.sport!==state.sport)id=freshId();return persist(JSON.stringify(state),state,id,state.sport,true)}
  function create(state){return write(state,null)}
+ function inherit(parent,parentId,child){
+  const entries=list(),original=raw(parentId),entry=entries.find(e=>e.id===parentId);
+  if(!original||!entry||entry.sport!==parent.sport||!parent.retired||parent.reason==='chapter'||!parent.family?.child||child.lineage?.parentId!==parentId||child.sport!==parent.sport)throw Error('Invalid family transition');
+  const stored=JSON.parse(original),existing=stored.family?.successorId||parent.family.successorId;
+  if(existing){if(!entries.some(e=>e.id===existing)||!raw(existing))throw Error('Missing successor save');return{id:existing,created:false}}
+  const id=freshId(),updated=JSON.parse(JSON.stringify(parent));updated.family.successorId=id;
+  const changes=new Map();if(backup(parentId)===null)changes.set('xingzhun-original-'+parentId,original);
+  changes.set(PREFIX+parentId,JSON.stringify(updated));changes.set(PREFIX+id,JSON.stringify(child));
+  changes.set(INDEX,JSON.stringify([metadata(child,id,child.sport),metadata(updated,parentId,parent.sport),...entries.filter(e=>e.id!==parentId)]));
+  changes.set(ACTIVE+child.sport,id);
+  const oldLegacy=storage.getItem('triple-'+child.sport),backupKey='xingzhun-backup-v1-'+child.sport;
+  if(oldLegacy!==null&&storage.getItem(backupKey)===null)changes.set(backupKey,oldLegacy);
+  changes.set('triple-'+child.sport,JSON.stringify(child));changes.set('triple-last',String(child.sport));
+  transaction(changes);return{id,created:true};
+ }
  // Cached callers also create independent careers.
- return{list,raw,backup,freshId,ensureLegacy,migrateAll,write,create,replaceSport:create};
+ return{list,raw,backup,freshId,ensureLegacy,migrateAll,write,create,inherit,replaceSport:create};
 }
 const api={createStore};if(typeof module!=='undefined')module.exports=api;else root.XZSaves=api;
 })(globalThis);
