@@ -29,7 +29,7 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(now.familyStage!==before.familyStage){
   if(now.familyStage==='dating')add('romance','在球場以外，也有人選擇你。',`你和${s.family.partner}確認彼此的心意。從今天起，不只分享勝利，也一起走過普通的日子。`);
   if(now.familyStage==='married')add('wedding','往後的日子，我們是一隊。',`你和${s.family.partner}交換誓言。掌聲響起的時候，她握緊了你的手。`);
-  if(now.familyStage==='parent')add('birth','你好，小星。我是爸爸。','小小的手握住你的手指。從這一刻起，你想守護的夢，多了一個。');
+  if(now.familyStage==='parent')add('birth',`你好，${s.family.child.name}。我是爸爸。`,'小小的手握住你的手指。從這一刻起，你想守護的夢，多了一個。');
  }
  if(now.retired&&(!before.retired||before.reason==='chapter'&&now.reason!=='chapter')){if(s.reason==='chapter')add('ending','八季走過，這一篇屬於你。','可以繼續球員生涯，或正式引退，讓下一段人生開始。');else events.push((familyUI||root.XZFamilyUI).farewell(s));}
  return events;

@@ -1,9 +1,13 @@
 /* Family stories occupy existing event slots. Reading old careers never creates relatives. */
 (function(root){
 'use strict';
-const PARTNERS=['以晴','若安','沐彤','予夏','語棠','映柔','子寧','心妍'];
-const partner=s=>s.family?.partner||PARTNERS[((s.lineage?.generation||1)-1)%PARTNERS.length];
-function scene(s,e){if(!e?.id.startsWith('family-'))return e;const separated=s.romance?.bond==='separated'&&e.id==='family-coach',name=separated?'場邊的教練':partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText)}))}}
+const PARTNERS=['以晴','若安','沐彤','予夏','語棠','映柔','子寧','心妍','芷晴','雨桐','宛庭','詩涵','佳穎','佩珊','思妤','品妍','若曦','可欣','庭萱','采潔','映彤','語芯','書妍','依晨','羽彤','芊羽','雅筑','予希','沐晴','婉寧','安琪','苡甄'];
+const CHILDREN=['宇恩','予安','星禾','子澄','沐恩','晨希','以樂','允禾','承熙','知夏','品澄','宥安','宇辰','樂晴','昀希','以辰','柏言','庭恩','予晨','可寧','書禾','允安','星澄','沐陽','品言','宥希','奕晨','禾安','知樂','語恩','子樂','晴川'];
+// Names use a separate stable seed: rendering/reloading never draws match RNG.
+function named(s,kind,pool){let h=2166136261;for(const c of `${s.seed}|${s.sport}|${s.lineage?.generation||1}|${kind}`)h=Math.imul(h^c.charCodeAt(0),16777619);h^=h>>>16;h=Math.imul(h,0x85ebca6b);h^=h>>>13;return pool[(h>>>0)%pool.length]}
+const partner=s=>s.family?.partner||named(s,'partner',PARTNERS);
+const childName=s=>s.family?.child?.name||named(s,'child',CHILDREN);
+function scene(s,e){if(!e?.id.startsWith('family-'))return e;const separated=s.romance?.bond==='separated'&&e.id==='family-coach',name=separated?'場邊的教練':partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name).replaceAll('小星',childName(s)):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText)}))}}
 const LABELS={meet:'第一次相遇',date:'成為戀人',distance:'感情的第一次考驗',marry:'結為夫妻',birth:'孩子出生',coach:'第一次陪孩子練球'};
 const FOCUS={technique:{name:'細膩技術',index:0},athletic:{name:'運動天賦',index:1},mind:{name:'大心臟',index:2}};
 const option=(label,hint,action,resultText,effect={mood:5})=>({label,hint,effect,familyAction:action,resultText});
@@ -62,7 +66,7 @@ function choose(s,event,choice){
  else if(action==='meet')f.stage='met';
  else if(action==='date')f.stage='dating';
  else if(action==='marry')f.stage='married';
- else if(action==='birth'){f.stage='parent';f.child={name:'小星',bornAt:s.age,focus:null}}
+ else if(action==='birth'){f.stage='parent';f.child={name:childName(s),bornAt:s.age,focus:null}}
  else if(FOCUS[action]&&f.child)f.child.focus=action;
 }
 function inherit(parent,params,create,ovr){
@@ -88,10 +92,10 @@ function validate(s){
   for(let i=0;i<f.milestones.length;i++){const m=f.milestones[i],def=EVENTS.find(e=>e.id==='family-'+m.id);if(!def||!def.options.some(c=>c.familyAction===m.action)||!Number.isInteger(m.age)||m.age<def.minAge||m.age>s.age||(i&&m.age<=f.milestones[i-1].age))fail();}
   for(const [id,prior] of [['date','meet'],['distance','date'],['marry','distance'],['birth','marry'],['coach','birth']])if(ids.includes(id)&&(!ids.includes(prior)||ids.indexOf(id)<ids.indexOf(prior)))fail();
   if((f.stage==='parent')!==!!f.child||['dating','married','parent'].includes(f.stage)&&!ids.includes('date')||['married','parent'].includes(f.stage)&&!ids.includes('marry'))fail();
-  if(f.child&&(!ids.includes('birth')||f.child.name!=='小星'||f.child.bornAt!==f.milestones.find(m=>m.id==='birth').age||!(f.child.focus===null||FOCUS[f.child.focus])||!!f.child.focus!==ids.includes('coach')))fail();
+  if(f.child&&(!ids.includes('birth')||!['小星',...CHILDREN].includes(f.child.name)||f.child.bornAt!==f.milestones.find(m=>m.id==='birth').age||!(f.child.focus===null||FOCUS[f.child.focus])||!!f.child.focus!==ids.includes('coach')))fail();
   if(f.successorId!==undefined&&(!f.child||!s.retired||s.reason==='chapter'||!/^[A-Za-z0-9-]{1,100}$/.test(f.successorId)))fail();
  }
  if(l!==undefined){if(!l||l.v!==1||!Number.isInteger(l.generation)||l.generation<2||l.generation>100||!/^[A-Za-z0-9-]{1,100}$/.test(l.parentId)||typeof l.parentName!=='string'||l.parentName.length>100||!FOCUS[l.focus])fail();for(const k of ['parentPotential','parentAge','parentSeasons','parentCups','elapsedYears'])if(!Number.isFinite(l[k])||l[k]<0)fail();if(l.parentPotential>99||l.parentAge>60||l.parentSeasons>100||l.elapsedYears>16)fail();}
 }
-const api={partner,scene,EVENTS,LABELS,FOCUS,next,choose,inherit,validate};if(typeof module!=='undefined')module.exports=api;else root.XZFamily=api;
+const api={partner,childName,scene,EVENTS,LABELS,FOCUS,next,choose,inherit,validate};if(typeof module!=='undefined')module.exports=api;else root.XZFamily=api;
 })(globalThis);
