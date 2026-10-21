@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-21",
+  "capturedAt": "2026-10-21T10:28:23.190Z",
+  "runId": 39121599531,
+  "runAttempt": 28,
+  "jobId": 119170881422,
+  "conclusion": "success",
+  "status": "completed",
+  "artifactId": 12338923028,
+  "artifactCreatedAt": "2026-10-21T10:28:26Z",
+  "artifactSha256": "1750fac6245eeb979f5e92a8d698de24c62e3ecdc36741b884627ae609688fe1",
+  "collectorStatus": "success",
+  "sourceDataOrigin": "new attempt 28 original artifact current.json/verification.json; hash of downloaded ZIP independently matched artifact digest",
+  "observedLeagueStates": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "offDayVerified": true,
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-21"
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok"
+    },
+    "CPBL": {
+      "games": 1,
+      "status": "pregame",
+      "gameId": "CPBL:261021004",
+      "away": "味全龍",
+      "home": "中信兄弟",
+      "startTime": "2026-10-21T10:35:00.000Z",
+      "awayScore": null,
+      "homeScore": null,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "officialLineupConfirmed": false,
+      "sourceFetchedAt": "2026-10-21T10:28:23.184Z"
+    }
+  },
+  "secondCapturePerformed": false,
+  "liveStateObserved": false,
+  "withinRunChangesVerified": false,
+  "isolatedDatabaseTest": {
+    "environment": "GitHub Actions isolated PostgreSQL 16",
+    "passed": true,
+    "productionWritten": false,
+    "written": 1,
+    "readBack": 1,
+    "duplicateWrites": 0,
+    "checkedAt": "2026-10-21T10:28:25.755Z"
+  },
+  "productionChanged": false,
+  "priorEvidenceRetained": true,
+  "notes": [
+    "Pregame only; the 2026-09-15 historical LIVE verification does not count as today.",
+    "No unsupported numeric fields defaulted to zero.",
+    "Workflow artifact overwrite=true remains a known issue."
+  ]
+}
