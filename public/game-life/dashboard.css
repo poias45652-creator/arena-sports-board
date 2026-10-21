@@ -144,10 +144,57 @@ body[data-theme=paper] .focus-rail .easy-fine{color:#557579}
  .focus-rail{display:flex;flex-direction:column;gap:14px}
  .focus-rail>.prep-custom{flex:1;display:flex;flex-direction:column}
  .focus-rail>.prep-custom .primary{margin-top:auto}
- .focus-rail:not(:has(>.prep-custom))>.focus-side[open]{flex:1}
+ .focus-rail>.focus-side{flex:0 0 auto}
  .focus-main{display:flex;flex-direction:column}
  .focus-main .focus-content{display:flex;flex-direction:column;flex:1;width:100%;margin:0}
  .focus-main .focus-stage{flex:1}
  .focus-side[open]{align-self:stretch}
  .focus-side:not([open]){align-self:start}
 }
+
+/* Every phase has useful lower-rail content; the profile never becomes an empty tall box. */
+.rail-context{min-width:0;padding:18px;border:1px solid #426a7c;border-radius:16px;background:radial-gradient(ellipse at top right,#24505c44,transparent 75%),#101e30;color:#bbd1de;box-shadow:inset 0 1px #c5efff14}
+.rail-heading,.rail-section-heading{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.rail-heading{padding-bottom:13px;margin-bottom:12px;border-bottom:1px solid #45647666;font-size:13px;color:#a3eee6;font-weight:700}
+.rail-heading small,.rail-section-heading>span{color:#8faebe;font-size:10px;font-weight:400}
+.rail-live-label{display:none}.rail-context:has(.football-scoreboard) .rail-live-label{display:inline}.rail-context:has(.football-scoreboard) .rail-context-label{display:none}
+.rail-score-slot:empty,.rail-title-slot:empty{display:none}
+.rail-context .football-scoreboard{gap:10px;padding:12px 8px;margin:0 0 14px;background:#0c1b2a;border:1px solid #345469;border-radius:11px}
+.rail-context .football-scoreboard>div{min-width:0}
+.rail-context .football-scoreboard strong{font-size:12px;overflow-wrap:anywhere}
+.rail-context .football-scoreboard small{font-size:10px;line-height:1.5}
+.rail-context .football-score b{font-size:28px;white-space:nowrap}
+.rail-context .football-crest{width:30px;height:34px;font-size:16px}
+.rail-context .match-chase{margin:0 0 16px;padding:12px;gap:8px;grid-template-columns:1fr auto}
+.rail-context .match-chase>span{grid-column:1/-1}
+.rail-context .match-chase>b{font-size:12px}.rail-context .match-chase>strong{font-size:15px}
+.rail-context .match-earned{margin:0 0 12px;padding:12px}
+.rail-section-heading{font-size:12px;margin-bottom:9px}
+.rail-standings{min-width:0;display:flex;flex-direction:column}
+.rail-standings table{width:100%;border-collapse:collapse;font-size:11px;font-variant-numeric:tabular-nums;table-layout:fixed}
+.rail-standings th,.rail-standings td{padding:9px 5px;border-bottom:1px solid #36536755;text-align:right}
+.rail-standings th:first-child,.rail-standings td:first-child{width:34px;text-align:center;color:#7dc9d5}
+.rail-standings th:nth-child(2){width:48%;text-align:left;overflow-wrap:anywhere;font-weight:500}
+.rail-standings thead th{font-size:10px;color:#87a7ba;font-weight:400}
+.rail-standings .your-club{background:#26534f55;color:#c2fff1}
+.rail-standings .your-club th{font-weight:700}
+.rail-standings th small{font-size:8px;display:inline-block;margin-left:5px;padding:1px 4px;border:1px solid #639b8b;border-radius:3px;white-space:nowrap}
+.rail-note{font-size:10px;line-height:1.8;color:#91afc2;margin:12px 0 0}
+.rail-career-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:14px 0}
+.rail-career-metrics b,.rail-career-metrics span{display:block}.rail-career-metrics b{font:600 26px ui-monospace,monospace;color:#c4edf1}.rail-career-metrics span{font-size:10px;color:#8eabbc;margin-top:7px}
+.rail-memories{list-style:none;margin:10px 0 0;padding:0}.rail-memories li{display:flex;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid #36536755;font-size:11px}.rail-memories li>span{flex:none;color:#85d4da}.rail-memories small{display:block;font-size:10px;margin-top:5px;color:#91afc2}
+.rail-personal{padding-top:15px;margin-top:16px;border-top:1px solid #45647666}
+.rail-personal p{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin:10px 0}.rail-personal p span{font-size:10px;color:#b9a4c3}
+.rail-personal blockquote{font-size:12px;line-height:1.9;margin:14px 0 0;padding:0 0 0 12px;border-left:2px solid #79c3cc;color:#a8c6d6}
+@media(min-width:1100px){
+ .focus-rail>.rail-context{flex:1;display:flex;flex-direction:column}
+ .rail-context>.rail-standings{flex:1}
+ .rail-standings table{flex:1}
+ .rail-context>.rail-personal{margin-top:auto;padding-top:16px}
+}
+@media(max-width:600px){.rail-context{padding:16px}.rail-standings th:nth-child(2){width:43%}.rail-standings th,.rail-standings td{padding:9px 3px}}
+body[data-theme=paper] .rail-context{background:#f6f1e6;border-color:#a5b8b6;color:#395b61;box-shadow:none}
+body[data-theme=paper] .rail-heading,body[data-theme=paper] .rail-career-metrics b{color:#25464c}
+body[data-theme=paper] .rail-context .football-scoreboard{background:#e6eee5;border-color:#a9bfb1}
+body[data-theme=paper] .rail-note,body[data-theme=paper] .rail-personal blockquote,body[data-theme=paper] .rail-heading small,body[data-theme=paper] .rail-section-heading>span,body[data-theme=paper] .rail-career-metrics span,body[data-theme=paper] .rail-memories small,body[data-theme=paper] .rail-standings thead th{color:#557579}
+body[data-theme=paper] .rail-standings .your-club{background:#d9e9db;color:#254e3f}
