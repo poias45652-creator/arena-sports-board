@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-21",
+  "capturedAt": "2026-10-21T11:11:36.377Z",
+  "runId": 39121599531,
+  "runAttempt": null,
+  "inferredAttempt": 29,
+  "jobId": 119188034460,
+  "artifactId": 12341220903,
+  "artifactCreatedAt": "2026-10-21T11:11:39Z",
+  "artifactSha256": "ac47aa451f82b6fa13074665b589962ef100c1b70f5af3ff327c2b8bf3b06fc6",
+  "NPB": {
+    "games": 0,
+    "offDayVerified": true
+  },
+  "KBO": {
+    "games": 0
+  },
+  "CPBL": {
+    "gameId": "CPBL:261021004",
+    "status": "live",
+    "away": "味全龍",
+    "home": "中信兄弟",
+    "awayScore": 0,
+    "homeScore": 0,
+    "pitcherOutsAway": 3,
+    "pitcherOutsHome": 6,
+    "pitchCount": null,
+    "inning": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "officialLineupConfirmed": false
+  },
+  "liveCapture1": "2026-10-21T11:10:27.955Z",
+  "liveCapture2": "2026-10-21T11:11:36.367Z",
+  "intervalSeconds": 68.412,
+  "liveNumericChangeVerified": false,
+  "isolatedDbPassed": true,
+  "productionModified": false
+}
