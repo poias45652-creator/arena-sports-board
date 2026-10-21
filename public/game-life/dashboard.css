@@ -69,3 +69,55 @@ body[data-theme=paper] .focus-game [data-vital=ability]{--vital-color:#916314}bo
 
 /* The player panel and expanded title details grow with the page. */
 .focus-side .feats-panel>details{max-height:none;overflow:visible}
+
+/* Use wide screens for parallel player cards instead of one tall rail. */
+.sidebar-overview,.sidebar-performance{min-width:0}
+.focus-stage .easy-contracts{grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr))}
+@media(min-width:1100px){
+ body[data-screen=game][data-play-mode=simple] main{max-width:1880px;padding:24px}
+ body[data-screen=game]>header{padding-left:max(24px,calc((100vw - 1832px)/2));padding-right:max(24px,calc((100vw - 1832px)/2))}
+ .game-toolbar-inner{max-width:1880px;padding-left:24px;padding-right:24px}
+ .focus-layout{grid-template-columns:minmax(0,1fr) clamp(440px,34vw,640px);gap:20px}
+ .focus-side>summary{padding:15px 16px}
+ .sidebar-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start;gap:14px;padding:14px}
+ .focus-side .career-player{padding:0}
+ .focus-side .player-meters{gap:7px}
+ .focus-side .player-abilities{margin-top:12px;padding-top:10px}
+ .focus-side .player-radar{height:158px;max-width:220px;margin:5px auto}
+ .focus-side .player-skills{gap:9px 12px}
+ .focus-side .player-skills i{margin-top:4px}
+ .focus-side .league-progress{padding:12px;margin:14px 0 10px}
+ .focus-side .league-progress p{font-size:11px;line-height:1.6;margin:8px 0}
+ .focus-side .league-route{margin-top:9px}
+ .focus-side .easy-goal{padding:11px 12px;margin:10px 0 0}
+ .focus-side .easy-goal span{margin-top:4px}
+ .focus-side .feats-panel{margin:0;padding:12px}
+ .focus-side .feats-panel>.topline{gap:6px;align-items:flex-start;flex-wrap:wrap}
+ .focus-side .feats-panel>.topline b{font-size:12px}
+ .focus-side .feats-panel>.topline>span{font-size:10px}
+ .focus-side .feats-panel .title-total{margin:8px 0;line-height:1.6}
+ .focus-side .feat-earned{padding-top:8px;padding-bottom:8px}
+ .focus-side .feat-earned b{font-size:12px}
+ .focus-side .feat-earned span,.focus-side .feat-earned small{margin-top:3px;font-size:10px;line-height:1.6}
+ .focus-side .feat-earned p{margin:6px 0 0;font-size:10px;line-height:1.6}
+ .focus-side .feats-panel>details{padding-top:8px;margin-top:8px;font-size:10px}
+ .focus-side .signature-summary{padding-top:9px;margin-top:9px;align-items:center;font-size:12px}
+ .focus-side .signature-summary span{font-size:10px}
+ .focus-side .dynamics-status{margin-top:14px}
+ .focus-side .condition-status{padding:12px;margin-bottom:12px}
+ .focus-side .condition-status p{font-size:11px;line-height:1.7;margin:8px 0}
+ .focus-side .condition-status small{line-height:1.6}
+ .focus-side .dynamics-status>details{margin-top:10px;padding-top:9px}
+ .focus-main .focus-hud{gap:16px;padding:18px}
+ .focus-main .focus-identity{flex:1;gap:10px}
+ .focus-main .focus-vitals{gap:13px;flex-basis:45%}
+ .focus-main .focus-identity h2{font-size:19px}
+ .focus-main .name-title{font-size:10px}
+ .focus-main .focus-stage{padding:28px}
+}
+@media(min-width:1100px) and (max-width:1399px){
+ .focus-main .focus-hud{flex-wrap:wrap}
+ .focus-main .focus-vitals{flex-basis:100%;gap:18px}
+ .focus-main .focus-choices{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+ .focus-stage .arena-choice-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+}
