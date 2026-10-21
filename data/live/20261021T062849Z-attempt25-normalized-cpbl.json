@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-21",
+  "capturedAt": "2026-10-21T06:28:49.993Z",
+  "league": "CPBL",
+  "games": [
+    {
+      "key": "CPBL:261021004",
+      "id": "261021004",
+      "date": "2026-10-21",
+      "startTime": "2026-10-21T10:35:00.000Z",
+      "status": "pregame",
+      "away": {
+        "id": "cpbl.t.7",
+        "name": "味全龍",
+        "score": null
+      },
+      "home": {
+        "id": "cpbl.t.1",
+        "name": "中信兄弟",
+        "score": null
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "currentPitcher": null,
+      "currentBatter": null,
+      "pitchCount": null,
+      "lineups": {
+        "away": [],
+        "home": []
+      },
+      "lineupConfirmation": "not_verified",
+      "source": {
+        "provider": "yahoo-tw",
+        "url": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261021004/",
+        "fetchedAt": "2026-10-21T06:28:49.986Z",
+        "providerUpdatedAt": null
+      }
+    }
+  ]
+}
