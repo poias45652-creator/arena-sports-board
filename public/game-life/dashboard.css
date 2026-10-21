@@ -121,3 +121,15 @@ body[data-theme=paper] .focus-game [data-vital=ability]{--vital-color:#916314}bo
  .focus-main .focus-choices{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
  .focus-stage .arena-choice-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
 }
+
+/* Keep both desktop columns on the same baseline without internal scrolling. */
+.club-strength{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px;font-size:11px}
+.club-strength b{color:#e9cf86}.club-strength span{color:#9fb8c9;font-size:10px}
+@media(min-width:1100px){
+ .focus-layout{align-items:stretch}
+ .focus-main{display:flex;flex-direction:column}
+ .focus-main .focus-content{display:flex;flex-direction:column;flex:1;width:100%;margin:0}
+ .focus-main .focus-stage{flex:1}
+ .focus-side[open]{align-self:stretch}
+ .focus-side:not([open]){align-self:start}
+}
