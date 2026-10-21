@@ -5,12 +5,13 @@ const esc=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const hub=s=>s.sport===1?s.football:s.arena;
 // Presentation snapshots never add fields to a career or consume its seeded RNG.
 function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
- care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
+ preparation:s.preparation?JSON.stringify(s.preparation):null,care:a?{kind:a.kind,stage:a.stage,left:a.left}:null,surgeries:s.care?.surgeries||0,counseling:s.care?.counseling||0,
  careerEvents:s.careerEvents||0,majorInjuries:s.majorInjuries||0,cups:s.cups||0,titles:h?.national?.titles||0,transfers:h?.transfers?.length||0,
- nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,signatures:(typeof module!=='undefined'?require('./feats.js'):root.XZFeats).signatures(s).filter(t=>t.active).map(t=>t.id),feats:(s.feats?.titles||[]).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
+ nationalOffer:h?.nationalOffer?JSON.stringify(h.nationalOffer):null,retired:!!s.retired,reason:s.reason,familyStage:s.family?.stage||null,romanceCount:s.romance?.history.length||0,signatures:(typeof module!=='undefined'?require('./feats.js'):root.XZFeats).signatures(s).filter(t=>t.active).map(t=>t.id),feats:(s.feats?.titles||[]).filter(t=>!t.clearedAge).map(t=>t.id),awakening:s.feats?.awakening?.active?s.feats.awakening.key:null
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
+ if(now.preparation&&now.preparation!==before.preparation&&s.preparation.age===s.age)add(s.preparation.success?'awakening':'setback',s.preparation.success?'那個不敢試的挑戰，你做到了。':'這次沒跨過去，代價也成了經驗。',s.preparation.detail);
  if(s.outcome?.familyWaiting&&now.careerEvents>before.careerEvents)add('heartbreak','答案還沒到，生活先往前。',s.outcome.narrative);
  if(s.outcome?.unchosen&&now.careerEvents>before.careerEvents)add('fate',s.outcome.title,s.outcome.detail);
  if(s.outcome?.major&&now.careerEvents>before.careerEvents)add(s.outcome.success?'awakening':'injury',s.outcome.success?'跨過極限，熟悉的自己變了。':'這次賭注，留下沉重的代價。',s.outcome.detail);
@@ -27,7 +28,11 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(now.awakening&&now.awakening!==before.awakening)add('awakening','突然開竅，世界慢了一拍。','那些練過千百次的動作，忽然全部接上了。本場剩餘時間全專項 +25，最高 99；終場恢復原本能力。');
  const feats=typeof module!=='undefined'?require('./feats.js'):root.XZFeats;
  const newSignatures=feats.signatures(s).filter(t=>t.active&&!(before.signatures||[]).includes(t.id));if(newSignatures.length)add('title','苦練，成了你的招牌。',newSignatures.map(t=>'「'+t.name+'」 '+t.effect).join('；')+'。對應專項關鍵動作另 +3 個百分點，能力低於 65 暫停。');
- const gained=now.feats.filter(id=>!before.feats.includes(id));if(gained.length)add('title','這一場，把名字打進紀錄。',gained.map(id=>'「'+feats.TITLES[id].name+'」 '+feats.description(s,id)).join('；')+'。本生涯持續生效，同名不重複疊加。');
+ const gained=now.feats.filter(id=>!before.feats.includes(id)),positive=gained.filter(id=>!feats.TITLES[id].negative),negative=gained.filter(id=>feats.TITLES[id].negative),cleared=before.feats.filter(id=>!now.feats.includes(id)&&feats.TITLES[id]?.negative);
+ const describe=ids=>ids.map(id=>'「'+feats.TITLES[id].name+'」 '+feats.description(s,id)).join('；');
+ if(positive.length)add('title','這一場，把名字打進紀錄。',describe(positive)+'。所有稱號同時生效，同名不重複疊加。');
+ if(negative.length)add('setback','低潮留下了名字，也能被改寫。',describe(negative)+'。能力減益已生效，達成兩場復甦條件即可擺脫。');
+ if(cleared.length)add('recovery','你把那個標籤，留在了身後。',cleared.map(id=>'「'+feats.TITLES[id].name+'」').join('、')+'的能力減益已解除。');
  if(now.romanceCount>before.romanceCount){const r=s.romance.history.at(-1);add(r.mood<0?'heartbreak':'romance',s.outcome?.title||'愛情的另一頁',s.outcome?.narrative||'你們的故事，留下新的痕跡。');}
  if(now.familyStage!==before.familyStage){
   if(now.familyStage==='dating')add('romance','在球場以外，也有人選擇你。',`你和${s.family.partner}確認彼此的心意。從今天起，不只分享勝利，也一起走過普通的日子。`);
@@ -38,6 +43,7 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  return events;
 }
 const art={
+ setback:'<circle class="moment-ring" cx="180" cy="125" r="78"/><path class="moment-spark" d="m150 60 42 50-26 20 44 60M120 204h120"/><path class="moment-rays" d="M65 125h20m190 0h20"/>',
  fate:'<g class="moment-fate-orbit"><circle cx="180" cy="125" r="88" stroke-dasharray="4 16"/><ellipse cx="180" cy="125" rx="104" ry="46" transform="rotate(-28 180 125)"/><circle class="moment-star" cx="274" cy="86" r="7"/></g><path class="moment-paper moment-filled" d="m180 52 52 73-52 73-52-73z"/><path class="moment-connect" d="M180 82v32m0 22v28m-28-39h14m28 0h14"/>',
  heartbreak:'<path class="moment-heart-left" d="M171 184C70 124 110 52 153 76l22 28-19 26 22 23z"/><path class="moment-heart-right" d="M189 184c101-60 61-132 18-108l-22 28 19 26-22 23z"/><path class="moment-rays" d="M89 202l-12 12m194-12 12 12M180 38V18"/>',
  awakening:'<circle class="moment-breath" cx="180" cy="125" r="80"/><circle class="moment-breath two" cx="180" cy="125" r="58"/><path class="moment-spark moment-filled" d="m192 35-57 102h41l-8 78 57-112h-43z"/><path class="moment-rays" d="m180 9 0 12m-98 33 16 13m164-13-16 13M60 125h21m198 0h21M82 205l16-13m164 13-16-13"/>',
