@@ -10,7 +10,7 @@ test('every sport has varied two-scene seasons, both orders, and reproducible re
  for(const sport of [0,1,2]){
   const scenes=new Set(),orders=new Set();let withFamily=0,withoutFamily=0;
   for(let i=0;i<40;i++){
-   const s=player(sport,'variety-'+i);s.age=17;s.sessions=3;assert(E.advance(s).ok);assert.equal(s.seasonEvents,2);
+   const s=player(sport,'variety-'+i);s.age=20;s.sessions=3;assert(E.advance(s).ok);assert.equal(s.seasonEvents,2);
    const loaded=E.migrate(copy(s));assert.deepEqual(copy(loaded),copy(s));
    const first=s.event||s.outcome.fateId;orders.add(first==='family-meet'?'core-first':'surprise-first');
    const ids=[];

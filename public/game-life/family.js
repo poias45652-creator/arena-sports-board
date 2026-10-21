@@ -7,7 +7,7 @@ const CHILDREN=['宇恩','予安','星禾','子澄','沐恩','晨希','以樂','
 function named(s,kind,pool){let h=2166136261;for(const c of `${s.seed}|${s.sport}|${s.lineage?.generation||1}|${kind}`)h=Math.imul(h^c.charCodeAt(0),16777619);h^=h>>>16;h=Math.imul(h,0x85ebca6b);h^=h>>>13;return pool[(h>>>0)%pool.length]}
 const partner=s=>s.family?.partner||named(s,'partner',PARTNERS);
 const childName=s=>s.family?.child?.name||named(s,'child',CHILDREN);
-function scene(s,e){if(!e?.id.startsWith('family-'))return e;const separated=s.romance?.bond==='separated'&&e.id==='family-coach',name=separated?'場邊的教練':partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name).replaceAll('小星',childName(s)):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText)}))}}
+function scene(s,e){if(!e?.id.startsWith('family-'))return e;const separated=s.romance?.bond==='separated'&&e.id==='family-coach',name=separated?'場邊的教練':partner(s),text=t=>typeof t==='string'?t.replaceAll('以晴',name).replaceAll('小星',childName(s)):t;return{...e,text:text(e.text),scene:{...e.scene,voice:name,line:text(e.scene.line)},options:e.options.map(c=>({...c,label:text(c.label),hint:text(c.hint),resultText:text(c.resultText),successText:text(c.successText),failureText:text(c.failureText)}))}}
 const LABELS={meet:'第一次相遇',date:'成為戀人',distance:'感情的第一次考驗',marry:'結為夫妻',birth:'孩子出生',coach:'第一次陪孩子練球'};
 const FOCUS={technique:{name:'細膩技術',index:0},athletic:{name:'運動天賦',index:1},mind:{name:'大心臟',index:2}};
 const option=(label,hint,action,resultText,effect={mood:5})=>({label,hint,effect,familyAction:action,resultText});
@@ -44,11 +44,18 @@ const EVENTS=[
   option('每次失手，都先給一個擁抱','培養大心臟；下一代心理起點 +6。','mind','球沒有接住，小星有點想哭。你蹲下來說：「沒關係，我們一起再試。」那句你年輕時最想聽見的話，終於由你說出口。')
  ])
 ];
+// A postponed answer gets a different chapter, never a replay of the original proposal.
+for(const [stage,title,line,text,yes,no]of [
+ ['date','隔了一段日子，她主動約了你','這次，我想把自己的答案說清楚。','上次以晴說還沒準備好，你沒有逼她回答。隔了一段時間，她約你出來，說自己終於想清楚了。你們願不願意讓這段友誼成為戀情？','彼此確認心意，正式交往','維持朋友，讓這段等待結束'],
+ ['marry','戒指還在，但答案已經不同','我想一起生活，但不要再只剩我一個人安排。','求婚沒有立刻得到答案。這段時間，你們談了工作、家務和彼此害怕的事。今天以晴願意重新談婚姻，你也有機會回答自己是否仍想一起承擔。','共同決定結婚，把承諾落實','繼續相愛，這段生涯先不結婚'],
+ ['birth','兩人把生活重新排了一次','這次，我們都有準備，也都願意。','上次談孩子時，你們發現準備還不夠。後來重新安排工作、照顧與家人支援，現在可以再決定一次。這段等待，沒有替任何人做出答案。','一起迎接孩子，成為父母','共同決定維持兩人的生活']
+]){const original=EVENTS.find(e=>e.id==='family-'+stage),accept=original.options[1],decline=original.options[2];EVENTS.push({...story(stage+'-later',title,'一段時間後 · 重新坐下來談',line,text,[{...accept,label:yes},{...decline,label:no}]),minAge:original.minAge,familyStage:stage})}
 function next(s){
  if(s.retired||s.age<17)return null;
  const f=s.family;if(!f)return 'family-meet';
  if(s.romance?.bond==='separated')return f.child&&!f.milestones.some(m=>m.id==='coach')?'family-coach':null;
  if(f.settled||f.stage==='single'||f.milestones.some(m=>m.age===s.age))return null;
+ if(f.pause)return s.age>=f.pause.due?f.pause.id:null;
  const has=id=>f.milestones.some(m=>m.id===id);
  if(f.stage==='met'&&s.age>=18)return 'family-date';
  if(f.stage==='dating'&&!has('distance'))return 'family-distance';
@@ -57,10 +64,12 @@ function next(s){
  if(f.stage==='parent'&&!has('coach'))return 'family-coach';
  return null;
 }
-function choose(s,event,choice){
+function choose(s,event,choice,success=true){
  const action=choice.familyAction;if(!action)return;
  const f=s.family||(s.family={v:1,partner:partner(s),stage:'met',settled:false,milestones:[],child:null});
- f.milestones.push({id:event.id.slice(7),age:s.age,action});
+ if(choice.familyCheck&&!success){let h=0;for(const c of s.seed+'|'+event.id)h=(Math.imul(h,31)+c.charCodeAt(0))>>>0;f.pause={id:event.id+'-later',due:Math.min(60,s.age+1+h%2)};return}
+ delete f.pause;
+ f.milestones.push({id:event.familyStage||event.id.slice(7),age:s.age,action});
  if(action==='single'){f.stage='single';f.settled=true}
  else if(action==='settled')f.settled=true;
  else if(action==='meet')f.stage='met';
@@ -94,6 +103,7 @@ function validate(s){
   for(const [id,prior] of [['date','meet'],['distance','date'],['marry','distance'],['birth','marry'],['coach','birth']])if(ids.includes(id)&&(!ids.includes(prior)||ids.indexOf(id)<ids.indexOf(prior)))fail();
   if((f.stage==='parent')!==!!f.child||['dating','married','parent'].includes(f.stage)&&!ids.includes('date')||['married','parent'].includes(f.stage)&&!ids.includes('marry'))fail();
   if(f.child&&(!ids.includes('birth')||!['小星',...CHILDREN].includes(f.child.name)||f.child.bornAt!==f.milestones.find(m=>m.id==='birth').age||!(f.child.focus===null||FOCUS[f.child.focus])||!!f.child.focus!==ids.includes('coach')))fail();
+  if(f.pause&&(!['family-date-later','family-marry-later','family-birth-later'].includes(f.pause.id)||!Number.isInteger(f.pause.due)||f.pause.due<18||f.pause.due>60||!({met:'family-date-later',dating:'family-marry-later',married:'family-birth-later'}[f.stage]===f.pause.id)))fail();
   if(f.successorId!==undefined&&(!f.child||!s.retired||s.reason==='chapter'||!/^[A-Za-z0-9-]{1,100}$/.test(f.successorId)))fail();
  }
  if(l!==undefined){if(!l||l.v!==1||!Number.isInteger(l.generation)||l.generation<2||l.generation>100||!/^[A-Za-z0-9-]{1,100}$/.test(l.parentId)||typeof l.parentName!=='string'||l.parentName.length>100||!FOCUS[l.focus])fail();for(const k of ['parentPotential','parentAge','parentSeasons','parentCups','elapsedYears'])if(!Number.isFinite(l[k])||l[k]<0)fail();if(l.parentPotential>99||l.parentAge>60||l.parentSeasons>100||l.elapsedYears>16)fail();}
