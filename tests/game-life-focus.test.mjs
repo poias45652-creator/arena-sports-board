@@ -29,11 +29,11 @@ test('focused scenes, outcomes and the player HUD preserve state, RNG and escape
  E.choose(s,0);const resolved=JSON.stringify(s);const outcome=F.outcome(s);assert(outcome.indexOf('scene-prose')<outcome.indexOf('這次改變了什麼'));assert(outcome.includes(s.outcome.narrative));assert.equal(JSON.stringify(s),resolved);
 });
 test('the screenshot legacy advanced preference now opens the integrated UI without altering old saves',()=>{
- const memory={'xingzhun-play-mode-v1':'advanced','xingzhun-theme-v1':'paper','triple-0':'previous-save-sentinel','xingzhun-save-preserved':'kept'};
+ const memory={'xingzhun-play-mode-v1':'advanced','xingzhun-focus-mode-v1':'advanced','xingzhun-theme-v1':'paper','triple-0':'previous-save-sentinel','xingzhun-save-preserved':'kept'};
  const {ctx,nodes}=runtime(true,memory);assert.equal(vm.runInContext('playMode',ctx),'simple');assert.equal(vm.runInContext('journeyTheme',ctx),'broadcast');assert.equal(memory['triple-0'],'previous-save-sentinel');assert.equal(memory['xingzhun-save-preserved'],'kept');
  vm.runInContext("$('name').value='整合測試';$('number').value=9;$('position').value='投手';$('seed-mode').value='fixed';$('seed').value='focus-ui';$('length').value='short';start()",ctx);
  assert(!nodes.game.innerHTML.includes('play-mode-switch'));assert(!nodes.game.innerHTML.includes('growth-intensities'));assert(!nodes.game.innerHTML.includes('onclick="openSaves()"'));
  const raw=vm.runInContext('JSON.stringify(s)',ctx),saves=Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save'));
  vm.runInContext('openHub();closeHub();openHub();toggleTouch();togglePlays();toggleMoments();closeHub()',ctx);assert.equal(vm.runInContext('JSON.stringify(s)',ctx),raw);assert.deepEqual(Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save')),saves);assert(nodes['career-hub-content'].innerHTML.includes('生涯回憶'));
- vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('growth-intensities'));assert.equal(memory['xingzhun-focus-mode-v1'],'advanced');
+ vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('prep-training'));assert(!nodes.game.innerHTML.includes('expert-notice'));assert.equal(vm.runInContext('playMode',ctx),'simple');vm.runInContext("openHub('settings')",ctx);assert(!nodes['career-hub-content'].innerHTML.includes('操作安排'));assert(!nodes['career-hub-content'].innerHTML.includes('setPlayMode'));
 });

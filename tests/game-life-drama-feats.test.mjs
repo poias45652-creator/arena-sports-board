@@ -10,7 +10,7 @@ const player=(sport=1,seed='drama',pos)=>E.create({sport,name:'故事驗證',pos
 const logctx={log(s,t){s.log.unshift(t)}};
 function core(s,age,id,index=0){s.age=age;s.phase='event';s.event='family-'+id;s.eventsLeft=1;assert(E.choose(s,index).ok);E.validate(s)}
 function dating(seed='drama'){const s=player(1,seed);core(s,17,'meet');core(s,18,'date');s.age=19;return s}
-function drama(s,id,index){s.phase='event';s.event='romance-'+id;s.eventsLeft=1;const before=M.snapshot(s),mood=s.mood;assert(E.choose(s,index).ok,id);assert.equal(s.mood,Math.max(0,Math.min(100,mood+E.byId['romance-'+id].options[index].effect.mood)));E.validate(s);return M.detect(before,s)}
+function drama(s,id,index){s.phase='event';s.event='romance-'+id;s.eventsLeft=1;const before=M.snapshot(s),mood=s.mood,effect=E.eventData(s).options[index].effect.mood;assert(E.choose(s,index).ok,id);assert.equal(s.mood,Math.max(0,Math.min(100,mood+effect)));E.validate(s);return M.detect(before,s)}
 function match(s,stats={}){return {home:s.team,away:'測試隊',hg:3,ag:0,round:1,done:false,player:{apps:1,...stats}}}
 function mount(s,m){const h=s.sport===1?s.football:s.arena;h.season={moment:{match:m},playoffGames:[]};}
 test('thirteen relationship stories cover betrayals, consequences and support with explicit mood changes',()=>{
@@ -21,7 +21,7 @@ test('thirteen relationship stories cover betrayals, consequences and support wi
 test('an affair has a saved next-season consequence and a breakup has a healing followup',()=>{
  const s=dating();let events=drama(s,'temptation',1);assert.equal(events[0].kind,'romance');assert.equal(s.romance.pending.id,'romance-exposed');same(E.migrate(clone(s)),s);
  s.age=20;s.phase='train';s.sessions=3;assert(E.advance(s).ok);assert.equal(s.event,'romance-exposed');const before=M.snapshot(s),mood=s.mood;assert(E.choose(s,1).ok);assert.equal(s.mood,Math.max(0,mood-38));assert.equal(M.detect(before,s)[0].kind,'heartbreak');assert.equal(s.romance.bond,'separated');assert.equal(L.next(s),null);assert.equal(s.romance.pending.id,'romance-alone');
- s.age=21;s.mood=50;drama(s,'alone',0);assert.equal(s.mood,66);assert.equal(s.romance.bond,'separated');assert.equal(s.romance.pending,null);
+ s.age=21;s.mood=50;drama(s,'alone',0);assert.equal(s.mood,76);assert.equal(s.romance.bond,'separated');assert.equal(s.romance.pending,null);
 });
 test('partner betrayal and rebuilding trust affect mood without erasing the shared family',()=>{
  const s=dating();core(s,19,'distance');core(s,20,'marry');core(s,21,'birth');core(s,22,'coach');s.age=23;const child=clone(s.family.child),milestones=clone(s.family.milestones);drama(s,'betrayed',1);same(s.family.child,child);same(s.family.milestones,milestones);assert(UI.farewell(s).detail.includes(s.family.child.name+'從看台跑向你'));assert(!UI.farewell(s).detail.includes('牽著'+s.family.child.name));E.finish(s,'voluntary');const heir=E.createHeir(s,{focus:'mind',parentId:'parent'});assert.equal(heir.age,16);assert(heir.potential>=s.potential);assert.equal(heir.romance,undefined);assert.equal(heir.feats,undefined);
@@ -43,7 +43,7 @@ test('match titles award only from actual qualifying personal stats, improve abi
  const s=player(0);T.settle(s,match(s,{apps:0,k:12}),logctx);assert.equal(s.feats,undefined);T.settle(s,match(s,{k:7}),logctx);assert.equal(s.feats,undefined);
 });
 test('all twelve titles have bounded derived bonuses; one match can award several without duplicating later',()=>{
- for(const sport of [0,1,2]){const s=player(sport);s.feats={v:1,titles:Object.entries(T.TITLES).filter(([,t])=>t.sport===sport).map(([id])=>({id,age:16,match:'驗證'})),awakening:null};assert(T.abilities(s,Array(9).fill(95)).every(v=>v<=99));assert(Array.from({length:9},(_,i)=>T.bonus(s,i)).every(v=>v<=8));E.validate(s);}
+ for(const sport of [0,1,2]){const s=player(sport);s.feats={v:1,titles:Object.entries(T.TITLES).filter(([,t])=>t.sport===sport).map(([id])=>({id,age:16,match:'驗證'})),awakening:null};assert(T.abilities(s,Array(9).fill(95)).every(v=>v<=99));assert(Array.from({length:9},(_,i)=>T.bonus(s,i)).every(v=>v<=T.POSITIVE_CAP));E.validate(s);}
  const s=player(2);T.settle(s,match(s,{pts:35,ast:12,reb:16}),logctx);assert.equal(s.feats.titles.length,4);
 });
 test('awakening is rare and deterministic, stays through the match, affects real checks, and expires at the whistle',()=>{

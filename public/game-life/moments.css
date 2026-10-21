@@ -7,3 +7,5 @@ dialog.major-moment::backdrop{background:#020811c9;backdrop-filter:blur(7px)}.mo
 @media(prefers-reduced-motion:reduce){.major-moment *,.major-moment *::before{animation:none!important;transition:none!important}.moment-ecg,.moment-connect,.moment-signature,.moment-rays,.moment-tunnel{stroke-dashoffset:0}.moment-confetti,.moment-timer{display:none}.moment-copy,.moment-return{opacity:1;transform:none}}
 
 .moment-scene[data-kind="fate"]{--moment-accent:#9ee3ec;--moment-wash:#668ad0}.moment-fate-orbit{transform-origin:180px 125px;animation:moment-fate-turn 3s ease-out both}@keyframes moment-fate-turn{from{opacity:0;transform:rotate(-65deg) scale(.75)}to{opacity:1;transform:rotate(0) scale(1)}}
+
+.moment-scene[data-kind="setback"]{--moment-accent:#ef8d9e;--moment-wash:#923f68}
