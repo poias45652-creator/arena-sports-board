@@ -10,6 +10,19 @@ function runtime(ui=false,memory={}){
  return {ctx,nodes,memory,E:ctx.XZEngine,F:ctx.XZFocus,C:ctx.XZContent};
 }
 const {ctx,E,F,C}=runtime();
+test('all three sports restore the next scene after a choice without a forced page-top scroll',()=>{
+ for(const sport of [0,1,2]){
+  const {ctx}=runtime(true),restored=[];let topScrolls=0;
+  ctx.window.scrollTo=()=>topScrolls++;
+  ctx.XZViewport.capture=()=>({top:700,action:null});
+  ctx.XZViewport.restore=(host,before,options)=>restored.push({before,options});
+  vm.runInContext(`s=E.create({sport:${sport},pos:C.SPORTS[${sport}].pos[0],seed:'scroll-${sport}',length:'short',pace:'quick'});render();act(()=>E.train(s,0))`,ctx);
+  assert.equal(topScrolls,0);assert.equal(restored.length,1);assert.equal(restored[0].before.top,700);
+  const state=vm.runInContext('JSON.stringify(s)',ctx);
+  vm.runInContext("act(()=>({ok:false,message:'尚未開放'}))",ctx);
+  assert.equal(restored.length,1);assert.equal(vm.runInContext('JSON.stringify(s)',ctx),state);
+ }
+});
 const player=()=>E.create({sport:0,pos:'投手',seed:'focus-stories',length:'short',pace:'quick'});
 function at(id,seed=0){const s=player();s.rng=seed;s.phase='event';s.event=id;s.eventsLeft=1;s.seasonEvents=1;s.visits[id]=1;return s}
 test('all added followups resolve and remain eligible only after the matching choice',()=>{
