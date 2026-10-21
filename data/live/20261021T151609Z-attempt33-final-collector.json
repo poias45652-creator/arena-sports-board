@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "recordType": "daily-first-team-collector-observation",
+  "dateAsiaTaipei": "2026-10-21",
+  "sourceBranch": "data/live-source-probe-20260915",
+  "run": {
+    "id": 39121599531,
+    "attempt": 33,
+    "jobId": 119304631319,
+    "conclusion": "success",
+    "status": "completed",
+    "artifactId": 12356675342,
+    "artifactCreatedAt": "2026-10-21T15:16:11Z",
+    "artifactDigestSha256": "e351bc33ead133d913aa8da60559defe556cebbcbe6dd4a52b8cb4a8d6e3a578",
+    "zipSha256IndependentlyMatched": true
+  },
+  "capturedAt": "2026-10-21T15:16:09.276Z",
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "games": [],
+      "gameCount": 0,
+      "offDayVerified": true,
+      "errors": []
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "gameCount": 0,
+      "errors": [],
+      "note": "provider returned zero; not independently proven official off-day"
+    },
+    "CPBL": {
+      "status": "ok",
+      "gameCount": 1,
+      "errors": [],
+      "games": [
+        {
+          "key": "CPBL:261021004",
+          "state": "final",
+          "away": "味全龍",
+          "home": "中信兄弟",
+          "awayScore": 4,
+          "homeScore": 5,
+          "awayHits": 10,
+          "homeHits": 8,
+          "awayErrors": 0,
+          "homeErrors": 0,
+          "startTime": "2026-10-21T10:35:00Z",
+          "source": {
+            "provider": "yahoo-tw",
+            "fetchedAt": "2026-10-21T15:16:09.265Z",
+            "httpDate": "Wed, 21 Oct 2026 15:16:09 GMT",
+            "providerUpdatedAt": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupOfficiallyConfirmed": false
+        }
+      ]
+    }
+  },
+  "withinRun": {
+    "secondCapturePerformed": false,
+    "reason": "no live games at 2026-10-21T15:16:09.276Z",
+    "numericChangesVerified": false
+  },
+  "sameDayEarlierLiveEvidence": {
+    "verified": true,
+    "proofType": "live-to-live score change across earlier captures >=65 seconds apart",
+    "priorRunId": 39121599531,
+    "priorAttempt": 31,
+    "priorCapturedAt": "2026-10-21T12:23:20.552Z",
+    "priorScores": {
+      "away": 4,
+      "home": 2
+    },
+    "laterRunId": 39121599531,
+    "laterAttempt": 32,
+    "laterCapturedAt": "2026-10-21T14:34:50.559Z",
+    "laterScores": {
+      "away": 4,
+      "home": 5
+    },
+    "elapsedSeconds": 7890.007,
+    "localEvidencePath": "/mnt/data/YJ-three-league-evidence/data/live/20261021T143450Z-attempt32-live-collector-LOCAL-ONLY.json",
+    "note": "Earlier Attempt 32 proof is retained locally; this record repeats its verified metadata, not a new live change in Attempt 33."
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-21T15:16:10.609Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "safety": {
+    "productionChanged": false,
+    "mainChanged": false,
+    "renderChanged": false,
+    "autoDeployed": false
+  },
+  "notes": [
+    "Today 1 verified CPBL first-team final game; zero NPB and KBO schedule entries.",
+    "2026-09-15 historic verification does not replace today's observation.",
+    "Unknown CPBL B/S/O, inning, bases and pitchCount remain null.",
+    "Source-listed lineup and pitching appearances are not official lineup confirmation.",
+    "Workflow artifact has overwrite=true and only 7-day retention; permanent evidence is the Git record."
+  ]
+}
