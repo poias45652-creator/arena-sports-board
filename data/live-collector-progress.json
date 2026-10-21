@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-21T06:28:49.993Z",
+  "observedAt": "2026-10-21T10:28:23.190Z",
   "dateAsiaTaipei": "2026-10-21",
   "currentGames": {
     "NPB": 0,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16",
     "productionWritten": false,
-    "checkedAt": "2026-10-21T06:28:49.993Z",
+    "checkedAt": "2026-10-21T10:28:25.755Z",
     "passed": true,
     "rowsWritten": 1,
     "rowsReadBack": 1,
@@ -52,9 +52,9 @@
     "CPBL": "2026-10-21T18:35:00+08:00"
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-20",
-    "KBO": "https://api-gw.sports.naver.com/schedule/games/33331020HTLG02026/game-polling",
-    "CPBL": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261020003/"
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-21",
+    "KBO": "https://api-gw.sports.naver.com",
+    "CPBL": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261021004/"
   },
   "liveChangeProof": {
     "NPB": {
@@ -1387,7 +1387,7 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-21",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261021T062849Z-attempt25-pregame-collector.json",
+    "latestObservationPath": "data/live/20261021T102823Z-attempt28-pregame-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -1417,18 +1417,18 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12324989298
+    "latestRunArtifactId": 12338923028
   },
-  "nextAction": "Run fresh collector on 2026-10-21 after CPBL G4 begins at 18:35 Asia/Taipei; verify LIVE changes with observations >=65s apart. Keep unsupported fields null.",
+  "nextAction": "After CPBL G4 starts at 18:35 Asia/Taipei on 2026-10-21, rerun the collector and verify LIVE-to-LIVE numerical changes from captures at least 65 seconds apart; preserve unknown fields as null.",
   "latestRun": {
     "runId": 39121599531,
-    "runAttempt": 25,
-    "jobId": 119074555916,
-    "artifactId": 12324989298,
-    "artifactCreatedAt": "2026-10-21T06:28:52Z",
-    "artifactSha256": "20480afca3ae0170871b4f7fe90ebadfa5b54ee0c170d9d3614cae13095eedc3",
-    "capturedAt": "2026-10-21T06:28:49.993Z",
-    "observationPath": "data/live/20261021T062849Z-attempt25-pregame-collector.json",
+    "runAttempt": 28,
+    "jobId": 119170881422,
+    "artifactId": 12338923028,
+    "artifactCreatedAt": "2026-10-21T10:28:26Z",
+    "artifactSha256": "1750fac6245eeb979f5e92a8d698de24c62e3ecdc36741b884627ae609688fe1",
+    "capturedAt": "2026-10-21T10:28:23.190Z",
+    "observationPath": "data/live/20261021T102823Z-attempt28-pregame-collector.json",
     "conclusion": "success",
     "status": "completed",
     "collectorConclusion": "success",
@@ -1448,7 +1448,7 @@
     "qualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_one_pregame_row"
   },
-  "latestObservationCommit": "ead64791e5d61dfc2bddd4b2d6c3aa154c8153a0",
+  "latestObservationCommit": "216be9c33fd920352b2ab81c671b7d0bf5326276",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
