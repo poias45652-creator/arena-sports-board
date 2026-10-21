@@ -125,8 +125,26 @@ body[data-theme=paper] .focus-game [data-vital=ability]{--vital-color:#916314}bo
 /* Keep both desktop columns on the same baseline without internal scrolling. */
 .club-strength{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px;font-size:11px}
 .club-strength b{color:#e9cf86}.club-strength span{color:#9fb8c9;font-size:10px}
+.focus-rail{display:contents;min-width:0}
+.focus-rail>.prep-custom{margin:0;padding:20px;border:1px solid #416b7d;border-radius:16px;background:radial-gradient(ellipse at top right,#24505c55,transparent 70%),#101e30;box-shadow:inset 0 1px #b7f4ee16}
+.focus-rail>.prep-custom .decision-caption{margin:0 0 16px;gap:8px;flex-wrap:wrap}
+.focus-rail>.prep-custom .decision-caption>span{color:#a4eee8}
+.focus-rail .prep-fields{gap:12px}
+.focus-rail .prep-fields label{display:grid;gap:6px;min-width:0;align-content:start}
+.focus-rail .prep-fields select{font-size:12px;text-overflow:ellipsis;padding:10px;min-height:42px;margin:0}
+.focus-rail #prep-preview{margin:14px 0 0}
+.focus-rail .easy-fine{font-size:10px;line-height:1.8;color:#9db9ca;margin:12px 0}
+.focus-rail>.prep-custom .primary{background:linear-gradient(110deg,#a1f1e9,#7ed6ed);border:1px solid #b1faff;color:#0a2735;border-radius:9px;font-weight:750;font-size:13px;padding:14px 12px;min-height:46px}
+.focus-rail>.prep-custom .primary:focus-visible,.focus-rail .prep-fields select:focus-visible{outline:2px solid #a0edf0;outline-offset:3px}
+body[data-theme=paper] .focus-rail>.prep-custom{background:#f6f1e6;border-color:#a5b8b6;box-shadow:none}
+body[data-theme=paper] .focus-rail>.prep-custom .decision-caption>span{color:#25464c}
+body[data-theme=paper] .focus-rail .easy-fine{color:#557579}
 @media(min-width:1100px){
  .focus-layout{align-items:stretch}
+ .focus-rail{display:flex;flex-direction:column;gap:14px}
+ .focus-rail>.prep-custom{flex:1;display:flex;flex-direction:column}
+ .focus-rail>.prep-custom .primary{margin-top:auto}
+ .focus-rail:not(:has(>.prep-custom))>.focus-side[open]{flex:1}
  .focus-main{display:flex;flex-direction:column}
  .focus-main .focus-content{display:flex;flex-direction:column;flex:1;width:100%;margin:0}
  .focus-main .focus-stage{flex:1}
