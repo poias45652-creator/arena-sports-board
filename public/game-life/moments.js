@@ -11,6 +11,7 @@ function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
+ if(s.outcome?.unchosen&&now.careerEvents>before.careerEvents)add('fate',s.outcome.title,s.outcome.detail);
  if(s.outcome?.major&&now.careerEvents>before.careerEvents)add(s.outcome.success?'awakening':'injury',s.outcome.success?'跨過極限，熟悉的自己變了。':'這次賭注，留下沉重的代價。',s.outcome.detail);
  const newCare=now.care?.stage==='decision'&&(!before.care||before.care.kind!==now.care.kind);
  if(newCare){if(now.care.kind==='surgery')add('medical','醫療暫停，先守住未來。','健康進入危險範圍，醫療團隊已暫停訓練與競賽，接著選擇手術及復健安排。');else add('mental','這一次，不用獨自撐著。','球隊陪你接受專業心理評估，接著一起安排照護與休息。');}
@@ -36,6 +37,7 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  return events;
 }
 const art={
+ fate:'<g class="moment-fate-orbit"><circle cx="180" cy="125" r="88" stroke-dasharray="4 16"/><ellipse cx="180" cy="125" rx="104" ry="46" transform="rotate(-28 180 125)"/><circle class="moment-star" cx="274" cy="86" r="7"/></g><path class="moment-paper moment-filled" d="m180 52 52 73-52 73-52-73z"/><path class="moment-connect" d="M180 82v32m0 22v28m-28-39h14m28 0h14"/>',
  heartbreak:'<path class="moment-heart-left" d="M171 184C70 124 110 52 153 76l22 28-19 26 22 23z"/><path class="moment-heart-right" d="M189 184c101-60 61-132 18-108l-22 28 19 26-22 23z"/><path class="moment-rays" d="M89 202l-12 12m194-12 12 12M180 38V18"/>',
  awakening:'<circle class="moment-breath" cx="180" cy="125" r="80"/><circle class="moment-breath two" cx="180" cy="125" r="58"/><path class="moment-spark moment-filled" d="m192 35-57 102h41l-8 78 57-112h-43z"/><path class="moment-rays" d="m180 9 0 12m-98 33 16 13m164-13-16 13M60 125h21m198 0h21M82 205l16-13m164 13-16-13"/>',
  title:'<circle class="moment-ring" cx="180" cy="122" r="62"/><path class="moment-star" d="m180 72 14 30 33 5-24 23 6 33-29-16-29 16 6-33-24-23 33-5z"/><path class="moment-filled" d="m143 173-17 59 34-15 20 21 20-21 34 15-17-59"/>',

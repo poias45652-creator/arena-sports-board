@@ -37,12 +37,12 @@ test('all four surgical plans differ; unaffordable options are atomic and a free
 });
 
 test('quick training stops at a critical injury, then resumes its remaining sessions after recovery',()=>{
- for(const sport of [0,1,2]){const s=make(sport,'batch-care');s.health=21;const id=E.trainingOptions(s)[0].id;assert(E.seasonTraining(s,id).ok);assert.equal(s.care.active.kind,'surgery');assert.equal(s.sessions,1);assert.equal(s.phase,'train');completeCare(s);assert(E.seasonTraining(s,id).ok);assert.equal(s.sessions,3);assert.equal(s.phase,'event');E.validate(s);}
+ for(const sport of [0,1,2]){const s=make(sport,'batch-care');s.health=21;const id=E.trainingOptions(s)[0].id;assert(E.seasonTraining(s,id).ok);assert.equal(s.care.active.kind,'surgery');assert.equal(s.sessions,1);assert.equal(s.phase,'train');completeCare(s);assert(E.seasonTraining(s,id).ok);assert.equal(s.sessions,3);assert(s.phase==='event'||s.phase==='outcome'&&s.outcome.unchosen);E.validate(s);}
 });
 
 test('persistent low mood leads to professional depression assessment and a saved counseling course',()=>{
  for(const sport of [0,1,2]){const s=make(sport,'low-mood');s.mood=24;E.trainingIntensity(s,'careful');const id=E.trainingOptions(s)[0].id;for(let i=0;i<2;i++){assert((sport===1?E.footballTrain(s,id):E.arenaTrain(s,id)).ok);assert.equal(s.care.active,null)}assert((sport===1?E.footballTrain(s,id):E.arenaTrain(s,id)).ok);assert.equal(s.care.active.kind,'mental');assert.equal(s.care.active.diagnosis,true);assert.equal(s.care.mentalStatus,'well');
- assert(E.careChoice(s,'team').ok);assert.equal(s.care.mentalStatus,'depression');assert(H.stageHTML(s).includes('憂鬱症'));assert(E.careRecover(s,'therapy').ok);const r=E.migrate(copy(s));assert.equal(JSON.stringify(r),JSON.stringify(s));completeCare(r);assert.equal(r.care.mentalStatus,'followup');assert(r.mood>=45);assert.equal(r.care.counseling,1);assert.equal(r.sessions,3);assert(E.advance(r).ok);assert.equal(r.phase,'event');E.validate(r);}
+ assert(E.careChoice(s,'team').ok);assert.equal(s.care.mentalStatus,'depression');assert(H.stageHTML(s).includes('憂鬱症'));assert(E.careRecover(s,'therapy').ok);const r=E.migrate(copy(s));assert.equal(JSON.stringify(r),JSON.stringify(s));completeCare(r);assert.equal(r.care.mentalStatus,'followup');assert(r.mood>=45);assert.equal(r.care.counseling,1);assert.equal(r.sessions,3);assert(E.advance(r).ok);assert(r.phase==='event'||r.phase==='outcome'&&r.outcome.unchosen);E.validate(r);}
 });
 
 test('an acute mood drop prompts evaluation but is not automatically diagnosed as depression',()=>{

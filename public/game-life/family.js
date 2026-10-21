@@ -75,7 +75,7 @@ function inherit(parent,params,create,ovr){
  const generation=(parent.lineage?.generation||1)+1;if(generation>100)throw Error('這個家族已完成一百代傳承。');
  // Same family and choices always produce the same child; no parent RNG is consumed.
  let h=2166136261;for(const c of parent.id+'|'+generation)h=Math.imul(h^c.charCodeAt(0),16777619);
- const child=create({sport:parent.sport,pos:parent.pos,country:parent.country,number:parent.number,name:params.name||parent.family.child.name,seed:'HEIR-'+(h>>>0).toString(36)+'-'+generation,pace:'quick',length:'short',talent:FOCUS[params.focus].index});
+ const child=create({heir:true,sport:parent.sport,pos:parent.pos,country:parent.country,number:parent.number,name:params.name||parent.family.child.name,seed:'HEIR-'+(h>>>0).toString(36)+'-'+generation,pace:'quick',length:'short',talent:FOCUS[params.focus].index});
  child.potential=Math.min(99,Math.max(88,parent.potential+6));
  child.caps=child.caps.map((cap,i)=>Math.min(99,Math.max(parent.caps[i],child.potential-3+(i===FOCUS[params.focus].index?6:0))));
  child.a=child.a.map((n,i)=>Math.min(child.caps[i],n+4+(parent.family.child.focus&&FOCUS[parent.family.child.focus].index===i?6:0)));
