@@ -73,5 +73,5 @@ test('different choices open different future stories, costs are real and no seq
 });
 test('season introductions and outcome narration vary without changing stats or RNG',()=>{
  const s=player(),titles=new Set();for(let i=1;i<=8;i++){s.age=16+i;s.history=Array.from({length:i},(_,j)=>({age:16+j,o:40,pay:10,team:s.team,stats:'完成賽季'}));s.energy=s.health=s.mood=80;const before=JSON.stringify(s),html=UI.trainingIntro(s);titles.add(html.match(/scene-title">([^<]+)/)[1]);assert.equal(JSON.stringify(s),before)}assert.equal(titles.size,8);
- const outcomes=new Set();for(const id of ['v5-training-5','v5-mind-6','v5-team-9']){const s=player();s.phase='event';s.event=id;s.eventsLeft=1;s.eventRules=3;assert(E.choose(s,1).ok);outcomes.add(s.outcome.narrative);assert(s.outcome.narrative.includes(E.byId[id].title));assert(UI.outcome(s).includes(s.outcome.resultTitle));}assert.equal(outcomes.size,3);
+ const outcomes=new Set();for(const id of ['v5-training-5','v5-mind-6','v5-team-9']){const s=player();s.phase='event';s.event=id;s.eventsLeft=1;s.eventRules=3;assert(E.choose(s,1).ok);outcomes.add(s.outcome.narrative);assert(UI.outcome(s).includes(E.byId[id].title));assert(s.outcome.narrative.length<150);assert(UI.outcome(s).includes(s.outcome.resultTitle));}assert.equal(outcomes.size,3);
 });

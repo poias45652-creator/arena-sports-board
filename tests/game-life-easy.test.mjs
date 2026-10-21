@@ -11,13 +11,12 @@ function runtime(ui=false){
  return{ctx,nodes,memory,E:ctx.XZEngine,Easy:ctx.XZEasy,J:ctx.XZJourney};
 }
 const {E,Easy,J,ctx:modules}=runtime();
-const ctxForPreparation=s=>modules.XZPreparation.offer(s).id;
 const player=(sport=0,length='short')=>E.create({sport,length,pace:'full',pos:['投手','前鋒','控球後衛'][sport],seed:'easy-'+sport});
 
 test('each direction produces exactly the same seeded state as the real individual engine actions',()=>{
  for(const sport of [0,1,2])for(const p of Easy.plans(player(sport),E)){
   const a=player(sport),b=copy(a);assert(Easy.run(a,p.id,E).ok);
-  E.setPace(b,'quick');E.seasonGoal(b,p.id);E.trainingIntensity(b,p.intensity);if(p.id==='contend')E.preparationChallenge(b,ctxForPreparation(b));E.seasonTraining(b,p.training.id);
+  E.setPace(b,'quick');E.seasonGoal(b,p.id);E.trainingIntensity(b,p.intensity);E.seasonTraining(b,p.training.id);
   assert.deepEqual(copy(a),copy(b));assert(a.phase==='event'||a.phase==='outcome'&&a.outcome.unchosen);assert.equal(a.sessions,3);E.validate(a);
  }
 });
@@ -43,10 +42,10 @@ test('simple presentation reads state without changing it and escapes actual con
  Easy.training(s,E);Easy.flow(s);Easy.status(s,E);Easy.goal(s,J,E);const html=Easy.contracts(s);
  assert.equal(JSON.stringify(s),before);assert(!html.includes('<img'));assert(!html.includes('<script>'));assert(html.includes('&lt;img'));assert(html.includes('10'));
 });
-test('real UI presents three primary directions plus an optional challenge; menu and preferences preserve saves',()=>{
+test('real UI presents three primary directions and open customization; menu and preferences preserve saves',()=>{
  const {ctx,nodes,memory}=runtime(true);
  vm.runInContext("$('name').value='輕鬆玩法測試';$('number').value=7;$('position').value='投手';$('seed-mode').value='fixed';$('seed').value='easy-ui';$('pace').value='full';$('length').value='short';start()",ctx);
- assert.equal((nodes.game.innerHTML.match(/class="easy-plan"/g)||[]).length,4);assert.equal((nodes.game.innerHTML.split('<details')[0].match(/class="easy-plan"/g)||[]).length,3);assert(!nodes.game.innerHTML.includes('growth-intensities'));
+ assert.equal((nodes.game.innerHTML.match(/class="easy-plan"/g)||[]).length,3);assert.equal((nodes.game.innerHTML.split('<details')[0].match(/class="easy-plan"/g)||[]).length,3);assert(!nodes.game.innerHTML.includes('growth-intensities'));
  const before=vm.runInContext('JSON.stringify(s)',ctx),slots=Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save'));
  vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('prep-training'));assert(!nodes.game.innerHTML.includes('expert-notice'));
  vm.runInContext("setPlayMode('simple');setJourneyView('story');setJourneyTheme('paper');setJourneyView('play');setPlayMode('invalid')",ctx);
