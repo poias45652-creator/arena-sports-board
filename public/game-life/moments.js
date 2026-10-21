@@ -11,6 +11,7 @@ function snapshot(s){if(!s)return null;const h=hub(s),a=s.care?.active;return{
 }}
 function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s),events=[];
  const add=(kind,title,detail)=>events.push({kind,title,detail,player:s.name,age:s.age});
+ if(s.outcome?.familyWaiting&&now.careerEvents>before.careerEvents)add('heartbreak','答案還沒到，生活先往前。',s.outcome.narrative);
  if(s.outcome?.unchosen&&now.careerEvents>before.careerEvents)add('fate',s.outcome.title,s.outcome.detail);
  if(s.outcome?.major&&now.careerEvents>before.careerEvents)add(s.outcome.success?'awakening':'injury',s.outcome.success?'跨過極限，熟悉的自己變了。':'這次賭注，留下沉重的代價。',s.outcome.detail);
  const newCare=now.care?.stage==='decision'&&(!before.care||before.care.kind!==now.care.kind);

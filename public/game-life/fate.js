@@ -1,6 +1,7 @@
 /* Original fictional life circumstances. Draw only during actions, never during rendering or loading. */
 (function(root){
 'use strict';
+const V=typeof module!=='undefined'?require('./variety.js'):root.XZVariety;
 const BACKGROUNDS=[
  {id:'night-shift',name:'夜班家庭的孩子',text:'家人下班時，你正要出門練球。冰箱上的便條，總比看台上的掌聲早一步陪著你。',effect:{a:[0,0,3,0],money:8,energy:-5,mood:6,morale:3}},
  {id:'community',name:'被整條街養大的球員',text:'球具來自鄰居，球場是大家一起整理的。你帶著許多人的期待出發，也習慣把好消息先說給他們聽。',effect:{a:[0,0,0,3],money:15,chemistry:9,mood:5,morale:4}},
@@ -60,10 +61,11 @@ function resolve(s,e,ctx,effectsText){
  if(!s.fate)s.fate={v:1,background:null,start:null,history:[]};
  const scale=ctx.int(s,8,14)/10,effect={...e.effect};for(const k of ['energy','health','morale','mood','chemistry','money','fame'])if(Number.isFinite(effect[k]))effect[k]=Math.round(effect[k]*scale);if(effect.a)effect.a=effect.a.map(n=>Math.round(n*scale));
  const applied=ctx.apply(s,effect),detail=effectsText(applied)||'生活改變了方向，你仍繼續往前。';
+ V.record(s,e);
  s.fate.history.push({id:e.id,age:s.age,detail});s.visits[e.id]=1;s.careerEvents++;s.eventsLeft=Math.max(0,s.eventsLeft-1);s.event=null;
  s.outcome={title:e.title,choice:'事情已經發生',success:e.tone>0,random:false,unchosen:true,fateId:e.id,tone:e.tone,grade:'命運遭遇',roll:null,detail,narrative:e.text,chain:'',age:s.age};s.phase='outcome';ctx.log(s,'命運遭遇｜'+e.title+'：'+detail);return true;
 }
-function encounter(s,ctx,effectsText){if(s.retired||s.eventsLeft<1)return false;if(s.fate?.history.some(h=>h.age===s.age)||ctx.random(s)>=.38)return false;const pool=EVENTS.filter(e=>eligible(s,e));if(!pool.length)return false;let n=ctx.random(s)*pool.reduce((v,e)=>v+e.weight,0);const selected=pool.find(e=>(n-=e.weight)<0)||pool.at(-1);return resolve(s,selected,ctx,effectsText)}
+function encounter(s,ctx,effectsText){if(s.retired||s.eventsLeft<1)return false;if(s.fate?.history.some(h=>h.age===s.age)||ctx.random(s)>=.38)return false;const pool=V.pool(s,EVENTS.filter(e=>eligible(s,e)),EVENTS);if(!pool.length)return false;let n=ctx.random(s)*pool.reduce((v,e)=>v+e.weight,0);const selected=pool.find(e=>(n-=e.weight)<0)||pool.at(-1);return resolve(s,selected,ctx,effectsText)}
 function validate(s){if(s.fate===undefined)return;const f=s.fate,fail=()=>{throw Error('命運紀錄格式不正確')};if(!f||f.v!==1||f.background!==null&&!BACKGROUNDS.some(b=>b.id===f.background)||!Array.isArray(f.history)||f.history.length>EVENTS.length)fail();if(f.background===null?f.start!==null:!f.start||!Array.isArray(f.start.a)||f.start.a.length!==4||!f.start.a.every(Number.isFinite))fail();if(f.start&&Object.entries(f.start).some(([k,v])=>!['a','flags'].includes(k)&&!Number.isFinite(v)))fail();const ids=new Set(),ages=new Set();for(const h of f.history){if(!h||!EVENTS.some(e=>e.id===h.id)||!Number.isInteger(h.age)||h.age<16||h.age>s.age||typeof h.detail!=='string'||h.detail.length>1000||ids.has(h.id)||ages.has(h.age))fail();ids.add(h.id);ages.add(h.age)}if(s.outcome?.unchosen&&(!f.history.some(h=>h.id===s.outcome.fateId&&h.age===s.outcome.age)||![-1,0,1].includes(s.outcome.tone)))fail()}
 const api={BACKGROUNDS,EVENTS,init,eligible,resolve,encounter,validate};if(typeof module!=='undefined')module.exports=api;else root.XZFate=api;
 })(globalThis);

@@ -39,7 +39,7 @@ test('random fate replaces a scene, never adds turns or removes every decision, 
    const s=player(sport,'year-'+i);s.sessions=3;E.advance(s);const reloaded=E.migrate(copy(s));let automatic=0,choices=0;
    for(let scene=0;scene<2;scene++){
     if(s.phase==='outcome'&&s.outcome.unchosen){automatic++;seen.add(s.outcome.fateId);scene===0?first++:second++}
-    else{assert.equal(s.phase,'event');choices++;assert(E.choose(s,1).ok);assert(E.choose(reloaded,1).ok)}
+    else{assert.equal(s.phase,'event');choices++;const options=E.eventData(s).options,index=options.findIndex(c=>!c.cost&&c.chance===undefined&&!c.defer);assert(E.choose(s,index<0?0:index).ok);assert(E.choose(reloaded,index<0?0:index).ok)}
     assert.deepEqual(copy(reloaded),copy(s));assert.equal(s.eventsLeft,1-scene);if(scene===0){E.advance(s);E.advance(reloaded)}
    }
    assert(automatic<=1);assert(choices>=1);if(automatic)seasons++;assert.equal(s.seasonEvents,2);E.validate(s);

@@ -42,8 +42,10 @@ function createStore(storage,idFactory,now=()=>Date.now()){
   changes.set('triple-'+child.sport,JSON.stringify(child));changes.set('triple-last',String(child.sport));
   transaction(changes);return{id,created:true};
  }
+ // Read-only history snapshot for a new random career; no existing bytes are changed.
+ function recentStories(){const ids=[];for(const entry of list().slice(0,6)){try{const state=JSON.parse(raw(entry.id));ids.push(...(state.storyMemory?.variants||[]),...(state.recent||[]).slice().reverse(),...(state.fate?.history||[]).slice().reverse().map(h=>h.id),...Object.keys(state.visits||{}))}catch{}}return [...new Set(ids)].filter(id=>typeof id==='string').slice(0,160)}
  // Cached callers also create independent careers.
- return{list,raw,backup,freshId,ensureLegacy,migrateAll,write,create,inherit,replaceSport:create};
+ return{recentStories,list,raw,backup,freshId,ensureLegacy,migrateAll,write,create,inherit,replaceSport:create};
 }
 const api={createStore};if(typeof module!=='undefined')module.exports=api;else root.XZSaves=api;
 })(globalThis);

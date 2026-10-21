@@ -40,8 +40,8 @@ test('the first scene is not a forced objective, and family meetings are neither
  for(const sport of [0,1,2]){
   const first=new Set(),familyCounts=[0,0];
   for(let i=0;i<60;i++){
-   const s=player(sport,'台灣','random-open-'+i);E.seasonGoal(s,'growth');E.seasonTraining(s,'rest');first.add(s.event);
-   const older=player(sport,'台灣','random-meet-'+i);older.age=17;E.advance(older);const ids=[older.event];E.choose(older,1);E.advance(older);ids.push(older.event);familyCounts[ids.includes('family-meet')?1:0]++;
+   const s=player(sport,'台灣','random-open-'+i);E.seasonGoal(s,'growth');E.seasonTraining(s,'rest');first.add(s.event||s.outcome?.fateId);
+   const older=player(sport,'台灣','random-meet-'+i);older.age=20;E.advance(older);const ids=[older.event];E.choose(older,1);E.advance(older);ids.push(older.event);familyCounts[ids.includes('family-meet')?1:0]++;
   }
   assert(first.size>=25);assert(familyCounts.every(n=>n>5));
  }
