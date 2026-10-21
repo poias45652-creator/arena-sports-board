@@ -10,12 +10,17 @@ test('every sport has varied two-scene seasons, both orders, and reproducible re
  for(const sport of [0,1,2]){
   const scenes=new Set(),orders=new Set();let withFamily=0,withoutFamily=0;
   for(let i=0;i<40;i++){
-   const s=player(sport,'variety-'+i);s.age=17;s.sessions=3;assert(E.advance(s).ok);assert.equal(s.eventsLeft,2);
+   const s=player(sport,'variety-'+i);s.age=17;s.sessions=3;assert(E.advance(s).ok);assert.equal(s.seasonEvents,2);
    const loaded=E.migrate(copy(s));assert.deepEqual(copy(loaded),copy(s));
-   const first=s.event;scenes.add(first);orders.add(first==='family-meet'?'core-first':'surprise-first');
-   assert(E.choose(s,0).ok);assert(E.choose(loaded,0).ok);assert(E.advance(s).ok);assert(E.advance(loaded).ok);
-   assert.deepEqual(copy(loaded),copy(s));scenes.add(s.event);
-   const count=[first,s.event].filter(id=>id==='family-meet').length;assert(count<=1);if(count)withFamily++;else withoutFamily++;assert.equal(s.eventsLeft,1);E.validate(s);
+   const first=s.event||s.outcome.fateId;orders.add(first==='family-meet'?'core-first':'surprise-first');
+   const ids=[];
+   for(let scene=0;scene<2;scene++){
+    ids.push(s.event||s.outcome.fateId);scenes.add(ids.at(-1));
+    if(s.phase==='event'){assert(E.choose(s,0).ok);assert(E.choose(loaded,0).ok)}else assert(s.outcome.unchosen);
+    assert.deepEqual(copy(loaded),copy(s));assert.equal(s.eventsLeft,1-scene);
+    if(scene===0){assert(E.advance(s).ok);assert(E.advance(loaded).ok)}
+   }
+   const count=ids.filter(id=>id==='family-meet').length;assert(count<=1);if(count)withFamily++;else withoutFamily++;E.validate(s);
   }
   assert.equal(orders.size,2);assert(withFamily>0&&withoutFamily>0);assert(scenes.size>=25,`${sport}: ${scenes.size} scenes`);
  }

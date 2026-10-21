@@ -60,6 +60,6 @@ test('foreign starts finish actual paid seasons, preserve reloads and can sign e
 test('switching sports keeps only supported domestic countries, including Korea',()=>{
  const elements=Object.fromEntries(['journey-panel','football-profile','country','position','football-archetype'].map(id=>[id,{innerHTML:'',value:id==='country'?'韓國':id==='position'?'前鋒':'',classList:{toggle(){}}}]));
  ctx.document={getElementById:id=>elements[id]};
- for(const sport of [0,1,2,0]){ctx.XZFootballUI.setup(sport);assert.deepEqual([...elements.country.innerHTML.matchAll(/<option>(.*?)<\/option>/g)].map(x=>x[1]),copy(O.COUNTRIES));assert.equal(elements.country.value,'韓國')}
+ for(const sport of [0,1,2,0]){ctx.XZFootballUI.setup(sport);assert.deepEqual([...elements.country.innerHTML.matchAll(/<option value="(.*?)">.*?<\/option>/g)].map(x=>x[1]),['random',...copy(O.COUNTRIES)]);assert.equal(elements.country.value,'韓國')}
  delete ctx.document;
 });

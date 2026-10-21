@@ -17,7 +17,7 @@ test('each direction produces exactly the same seeded state as the real individu
  for(const sport of [0,1,2])for(const p of Easy.plans(player(sport),E)){
   const a=player(sport),b=copy(a);assert(Easy.run(a,p.id,E).ok);
   E.setPace(b,'quick');E.seasonGoal(b,p.id);E.trainingIntensity(b,p.intensity);E.seasonTraining(b,p.training.id);
-  assert.deepEqual(copy(a),copy(b));assert.equal(a.phase,'event');assert.equal(a.sessions,3);E.validate(a);
+  assert.deepEqual(copy(a),copy(b));assert(a.phase==='event'||a.phase==='outcome'&&a.outcome.unchosen);assert.equal(a.sessions,3);E.validate(a);
  }
 });
 test('one-click preparation cannot repeat, reroll or alter an invalid phase',()=>{
