@@ -108,7 +108,7 @@
 
  /* Compact live profile: radar and attributes side by side, effects always shown. */
  .focus-rail{gap:8px}
- .focus-side{border-radius:11px}
+ .focus-side{border-radius:11px;font-size:11px;line-height:1.4}
  .focus-side>summary{padding:8px 12px;font-size:11px;gap:8px}
  .focus-side>summary small{display:none}
  .sidebar-toggle{font-size:15px}.focus-side[open] .sidebar-toggle::after{font-size:15px}
@@ -117,12 +117,12 @@
  .focus-side .player-meters span{font-size:9px;line-height:1.3}
  .focus-side .player-meters b{font-size:13px;margin-top:2px}
  .focus-side .player-meters i{height:3px;margin-top:4px}
- .focus-side .player-abilities[open]{display:grid;grid-template-columns:90px minmax(0,1fr);gap:5px;align-items:center;margin-top:8px;padding-top:7px}
- .focus-side .player-abilities>summary{grid-column:1/-1;font-size:10px}
+ .focus-side .player-abilities[open]{display:block;margin-top:8px;padding-top:7px}
+ .focus-side .player-abilities>summary{font-size:10px;margin-bottom:5px}
  .focus-side .player-abilities>summary>span{display:none}
- .focus-side .player-radar{height:95px;width:100%;margin:0}
+ .focus-side .player-radar{float:left;height:95px;width:46%;margin:0}
  .focus-side .player-radar text{font-size:10px}
- .focus-side .player-skills{grid-template-columns:1fr;gap:4px;padding:0}
+ .focus-side .player-skills{grid-template-columns:1fr;gap:4px;padding:0;margin-left:49%;min-height:95px}
  .focus-side .player-skills span{font-size:9px;line-height:1.2}
  .focus-side .player-skills i{height:2px;margin-top:2px}
  .focus-side .league-progress{padding:8px;margin:8px 0;border-radius:8px}
@@ -135,11 +135,11 @@
  .focus-side .easy-goal{padding:7px 9px;margin:8px 0 0;font-size:10px;line-height:1.5}
  .focus-side .easy-goal b,.focus-side .easy-goal span{font-size:10px}
  .focus-side .easy-goal span{margin-top:3px}
- .focus-side .feats-panel{padding:8px;border-radius:8px}
+ .focus-side .feats-panel{padding:8px;border-radius:8px;font-size:10px;line-height:1.4}
  .focus-side .feats-panel>.topline b{font-size:10px}
  .focus-side .feats-panel>.topline>span{font-size:9px}
  .focus-side .feats-panel .title-total{font-size:10px;line-height:1.5;margin:5px 0}
- .focus-side .feat-earned{padding:5px 0}
+ .focus-side .feat-earned{padding:5px 0;font-size:10px;line-height:1.4}
  .focus-side .feat-earned b{font-size:10px}
  .focus-side .feat-earned span{font-size:10px;line-height:1.4;margin-top:2px}
  .focus-side .feat-earned>small{display:none}
@@ -147,7 +147,7 @@
  .focus-side .signature-summary{padding-top:6px;margin-top:6px;font-size:10px}
  .focus-side .signature-summary span{font-size:9px}
  .focus-side .feats-panel>details,.focus-side .dynamics-status>details,.focus-side .league-progress>details{display:none}
- .focus-side .dynamics-status{margin-top:8px;font-size:10px}
+ .focus-side .dynamics-status{padding:7px 0 0;margin:8px 0 0;font-size:10px;line-height:1.4}
  .focus-side .condition-status{padding:8px;margin:0 0 6px;border-radius:8px}
  .focus-side .condition-status>b{font-size:11px}
  .focus-side .condition-status p{font-size:10px;line-height:1.5;margin:5px 0}
@@ -202,6 +202,14 @@
  body[data-theme=paper] .focus-stage .outcome p,body[data-theme=paper] .focus-stage .match-payoff p,body[data-theme=paper] .focus-stage .match-payoff h3{color:#254b45}
  body[data-theme=paper] .focus-stage .outcome small,body[data-theme=paper] .focus-stage .match-fact{color:#456660}
  body[data-theme=paper] .focus-stage .event p{color:#3d5f5a}
+ body[data-theme=paper] .focus-stage>.topline,body[data-theme=paper] .focus-stage .match-now{color:#356468}
+ body[data-theme=paper] .focus-stage .match-scene h2{color:#234b43}
+ body[data-theme=paper] .focus-stage .match-scene>p{color:#3d5f5a}
+ body[data-theme=paper] .focus-stage .match-scene .match-heart{color:#536d68}
+ body[data-theme=paper] .focus-side .condition-status{color:#365d50}
+ body[data-theme=paper] .focus-side .condition-status *{color:inherit}
+ body[data-theme=paper] .focus-side .feat-earned.is-negative p{color:#874c5b}
+ body[data-theme=paper] .focus-side .signature-summary span{color:#496566}
  body[data-theme=paper] .focus-side .condition-status p,body[data-theme=paper] .focus-side .condition-status small{color:#365d50}
  body[data-theme=paper] .rail-context .football-scoreboard strong,body[data-theme=paper] .rail-context .football-scoreboard small,body[data-theme=paper] .rail-context .football-score b{color:#284e45}
 }
