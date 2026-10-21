@@ -1,0 +1,41 @@
+{
+  "dateAsiaTaipei": "2026-10-21",
+  "observedAt": "2026-10-21T06:28:49.993Z",
+  "currentGames": {
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 1
+  },
+  "currentStates": {
+    "NPB": "official_offday_verified",
+    "KBO": "no_first_team_games_provider_zero",
+    "CPBL": "pregame"
+  },
+  "firstStartTaipei": {
+    "NPB": null,
+    "KBO": null,
+    "CPBL": "2026-10-21T18:35:00+08:00"
+  },
+  "latestRun": {
+    "runId": 39121599531,
+    "runAttempt": 25,
+    "jobId": 119074555916,
+    "artifactId": 12324989298,
+    "artifactCreatedAt": "2026-10-21T06:28:52Z",
+    "artifactSha256": "20480afca3ae0170871b4f7fe90ebadfa5b54ee0c170d9d3614cae13095eedc3",
+    "capturedAt": "2026-10-21T06:28:49.993Z",
+    "observationPath": "data/live/20261021T062849Z-attempt25-pregame-collector.json",
+    "conclusion": "success"
+  },
+  "databaseTest": {
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "nextAction": "Collect CPBL G4 after 18:35 Asia/Taipei and verify any LIVE values over at least 65 seconds.",
+  "mainModified": false,
+  "productionDeployed": false,
+  "progressIndexNotYetUpdated": true
+}
