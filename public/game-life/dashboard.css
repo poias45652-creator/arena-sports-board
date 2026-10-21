@@ -13,7 +13,7 @@ body[data-screen=game]>header{padding-left:max(24px,calc((100vw - 1440px)/2));pa
 body[data-screen=game][data-play-mode=simple] main{max-width:1500px;padding:26px 30px 35px}
 .focus-layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;align-items:start;gap:24px}
 .focus-main{min-width:0}
-.focus-side{position:sticky;top:24px;min-width:0;max-height:calc(100dvh - 48px);overflow-y:auto;border:1px solid #3a5c72;border-radius:16px;background:linear-gradient(145deg,#122638,#101b2e);box-shadow:inset 0 1px #c5efff14,0 16px 50px #0002;scrollbar-width:thin;scrollbar-color:#3b6478 transparent}
+.focus-side{position:static;min-width:0;max-height:none;overflow:visible;border:1px solid #3a5c72;border-radius:16px;background:linear-gradient(145deg,#122638,#101b2e);box-shadow:inset 0 1px #c5efff14,0 16px 50px #0002}
 .focus-side>summary{display:flex;align-items:center;gap:11px;list-style:none;padding:20px 18px;color:#daecf7;font-size:13px;font-weight:600;cursor:pointer;line-height:1.6}
 .focus-side>summary::-webkit-details-marker{display:none}
 .focus-side>summary small{display:block;color:#87a4ba;font-size:10px;font-weight:400;margin-top:4px}
@@ -66,3 +66,6 @@ body[data-theme=paper] .focus-game [data-vital=ability]{--vital-color:#916314}bo
 .league-progress{margin:14px 0;padding:14px;border:1px solid #3cbcdf44;border-radius:14px;background:linear-gradient(130deg,#102638,#101725)}.league-progress small{color:#6de0ff;letter-spacing:.06em}.league-progress p{font-size:12px;line-height:1.7;margin:10px 0}.league-route{display:flex;align-items:center;gap:5px;margin-top:12px}.league-route span{flex:1;font-size:10px;line-height:1.5;padding:7px 4px;border-radius:6px;background:#ffffff08;color:#8197ac;text-align:center}.league-route .active{color:#91f3ff;background:#147f9c33;box-shadow:inset 0 0 0 1px #6ceaff66}.league-route b{color:#476278}.league-progress summary{font-size:11px;color:#a9c6db;cursor:pointer}
 
 .signature-summary{display:flex;justify-content:space-between;gap:8px;padding-top:14px;margin-top:12px;border-top:1px solid #75ddff33;color:#7ae5f9}.signature-summary span{font-size:11px}.feats-panel>details{max-height:360px;overflow:auto}.feats-panel .feat-earned span{line-height:1.6}
+
+/* The player panel and expanded title details grow with the page. */
+.focus-side .feats-panel>details{max-height:none;overflow:visible}
