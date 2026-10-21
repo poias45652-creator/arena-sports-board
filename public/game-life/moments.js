@@ -22,7 +22,7 @@ function detect(before,s){if(!before||!s)return[];const now=snapshot(s),h=hub(s)
  if(before.care?.stage==='recovery'&&before.care.left===1&&(!now.care||now.care.kind!==before.care.kind))add('recovery',before.care.kind==='surgery'?'通過復健評估，準備回到球場。':'這一階段的照護，完成了。',before.care.kind==='surgery'?'接續原本生涯，本季仍依照保護性出場安排。':'狀態有所改善，持續追蹤，也把休息留在生活裡。');
  if(now.majorInjuries>before.majorInjuries&&!newCare&&now.surgeries===before.surgeries)add('injury','哨聲響起，這一刻先停下。','重大傷勢已影響本季安排。留意健康，讓復健成為下一步。');
  if(now.titles>before.titles)add('champion','把冠軍，帶回家。',`${s.country}贏得${h.nationalResult?.competition||h.nationalResult?.title||'國際賽冠軍'}，榮譽已寫入生涯。`);
- if(now.cups>before.cups)add('champion','終場哨響，你們是冠軍。',`${h.season?.team||s.team}站上頂點，這一季值得被記住。`);
+ if(now.cups>before.cups)add('champion','終場哨響，你們是冠軍。',`${root.XZClubWorld?.name(s.sport,h.season?.team||s.team)??(h.season?.team||s.team)}站上頂點，這一季值得被記住。`);
  if(now.transfers>before.transfers){const t=h.transfers[0];add('contract',t.kind==='loan'?'新的球衣，新的挑戰。':t.from===t.to?'故事，繼續留在這裡。':'落筆這一刻，下一站確定。',t.kind==='loan'?`租借加盟${t.to}，母隊合約與薪資保留。`:`${t.to} · ${t.years} 年合約 · 年薪 ${Number(t.salary).toLocaleString('zh-TW')} 萬`);}
  if(now.nationalOffer&&now.nationalOffer!==before.nationalOffer)add('national','國家隊，叫到你的名字。',`${s.country}的${h.nationalOffer.competition}徵召已送達，是否出征由你決定。`);
  if(now.awakening&&now.awakening!==before.awakening)add('awakening','突然開竅，世界慢了一拍。','那些練過千百次的動作，忽然全部接上了。本場剩餘時間全專項 +25，最高 99；終場恢復原本能力。');
