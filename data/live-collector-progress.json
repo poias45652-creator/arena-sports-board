@@ -8,25 +8,25 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-21T15:16:09.276Z",
-  "dateAsiaTaipei": "2026-10-21",
+  "observedAt": "2026-10-22T05:17:01.499Z",
+  "dateAsiaTaipei": "2026-10-22",
   "currentGames": {
     "NPB": 0,
     "KBO": 0,
-    "CPBL": 1
+    "CPBL": 0
   },
   "currentStates": {
     "NPB": "official_offday_verified",
     "KBO": "no_first_team_games_provider_zero",
-    "CPBL": "final"
+    "CPBL": "no_first_team_games_provider_zero"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-21T15:16:10.609Z",
+    "checkedAt": "2026-10-22T05:17:03.359Z",
     "passed": true,
-    "rowsWritten": 1,
-    "rowsReadBack": 1,
+    "rowsWritten": 0,
+    "rowsReadBack": 0,
     "duplicateWrites": 0,
     "details": [
       {
@@ -41,20 +41,20 @@
       },
       {
         "league": "CPBL",
-        "written": 1,
-        "readBack": 1
+        "written": 0,
+        "readBack": 0
       }
     ]
   },
   "firstStartTaipei": {
     "NPB": null,
     "KBO": null,
-    "CPBL": "2026-10-21T18:35:00+08:00"
+    "CPBL": null
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-21",
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-22",
     "KBO": "https://api-gw.sports.naver.com",
-    "CPBL": "https://tw.sports.yahoo.com/cpbl/%E5%91%B3%E5%85%A8-%E9%BE%8D-%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-261021004/"
+    "CPBL": null
   },
   "liveChangeProof": {
     "NPB": {
@@ -1286,6 +1286,56 @@
         "jobId": 119304631319,
         "observationPath": "data/live/20261021T151609Z-attempt33-final-collector.json"
       }
+    },
+    "2026-10-22": {
+      "NPB": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_official_marker_verified",
+        "games": 0,
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_collector_ok_offday_not_officially_verified",
+        "games": 0,
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "no_games_collector_ok_offday_not_officially_verified",
+        "games": 0,
+        "source": "yahoo-tw"
+      },
+      "allVerified": false,
+      "reason": "No live first-team games in this capture; all three collectors returned status ok with zero games. NPB date-specific explicit no-game marker verified; KBO/CPBL do not have independently confirmed official no-game markers. Same-day live numeric change not applicable.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-22T05:17:01.499Z",
+        "artifactId": 12403995555,
+        "artifactCreatedAt": "2026-10-22T05:17:04Z",
+        "artifactSha256": "3146031e97b5594107d675a0556835dac73d1102ca6248c7ca61d16bbf02c18f",
+        "runId": 39121599531,
+        "runAttempt": 34,
+        "jobId": 119653389271,
+        "observationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
+        "collectorConclusion": "success",
+        "liveGames": 0,
+        "pregameGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "finalGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "secondCapturePerformed": false,
+        "qualifiedNumericChanges": 0
+      }
     }
   },
   "parserFixes": [
@@ -1394,68 +1444,46 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-21",
+    "date": "2026-10-22",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261021T151609Z-attempt33-final-collector.json",
+    "latestObservationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
       "checkedToday": true,
-      "games": 0
+      "games": 0,
+      "offDayVerified": true
     },
     "KBO": {
       "verified": false,
       "notApplicableToday": true,
       "checkedToday": true,
-      "games": 0
+      "games": 0,
+      "officialOffDayVerified": false
     },
     "CPBL": {
-      "verified": true,
-      "notApplicableToday": false,
-      "state": "final",
-      "games": 1,
-      "sameDayLiveChangeVerified": true,
-      "verificationMethod": "earlier 2026-10-21 live-to-live score change across attempts 31 and 32 separated by 7890.007 seconds",
-      "previousLiveScores": {
-        "away": 4,
-        "home": 2
-      },
-      "laterLiveScores": {
-        "away": 4,
-        "home": 5
-      },
-      "finalScores": {
-        "away": 4,
-        "home": 5
-      },
-      "withinLatestRunChangesVerified": false,
-      "inning": null,
-      "half": null,
-      "balls": null,
-      "strikes": null,
-      "outs": null,
-      "bases": null,
-      "pitchCount": null,
-      "lineupOfficiallyConfirmed": false
+      "verified": false,
+      "notApplicableToday": true,
+      "checkedToday": true,
+      "games": 0,
+      "officialOffDayVerified": false
     },
-    "allScheduledLeaguesVerified": true,
+    "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12356675342
+    "latestRunArtifactId": 12403995555,
+    "reason": "Collectors returned zero first-team games and no LIVE states; NPB explicit off-day marker verified; KBO/CPBL zero results do not independently prove official off-day."
   },
-  "nextAction": "Continue daily, starting with the next local calendar date; re-verify schedule and source before each first-team start and collect >=65 second-spaced observations whenever a game is LIVE. Do not reuse today's artifact as tomorrow's proof.",
+  "nextAction": "Continue the next scheduled daily check; verify current-date first-team schedule and provider availability, and obtain two >=65-second spaced LIVE observations whenever active games appear. Preserve new evidence each day even on no-game days.",
   "latestRun": {
+    "capturedAt": "2026-10-22T05:17:01.499Z",
+    "artifactId": 12403995555,
+    "artifactCreatedAt": "2026-10-22T05:17:04Z",
+    "artifactSha256": "3146031e97b5594107d675a0556835dac73d1102ca6248c7ca61d16bbf02c18f",
     "runId": 39121599531,
-    "runAttempt": 33,
-    "jobId": 119304631319,
-    "artifactId": 12356675342,
-    "artifactCreatedAt": "2026-10-21T15:16:11Z",
-    "artifactSha256": "e351bc33ead133d913aa8da60559defe556cebbcbe6dd4a52b8cb4a8d6e3a578",
-    "capturedAt": "2026-10-21T15:16:09.276Z",
-    "observationPath": "data/live/20261021T151609Z-attempt33-final-collector.json",
-    "conclusion": "success",
-    "status": "completed",
+    "runAttempt": 34,
+    "jobId": 119653389271,
+    "observationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
     "collectorConclusion": "success",
-    "staleArtifactUsed": false,
     "liveGames": 0,
     "pregameGames": {
       "NPB": 0,
@@ -1465,13 +1493,16 @@
     "finalGames": {
       "NPB": 0,
       "KBO": 0,
-      "CPBL": 1
+      "CPBL": 0
     },
     "secondCapturePerformed": false,
     "qualifiedNumericChanges": 0,
-    "isolatedDatabaseTest": "passed_one_final_row"
+    "conclusion": "success",
+    "status": "completed",
+    "staleArtifactUsed": false,
+    "isolatedDatabaseTest": "passed_zero_rows"
   },
-  "latestObservationCommit": "8a1c932d5d5e3cbc9b83df205325d0e728e6a58f",
+  "latestObservationCommit": "7e126d9d8ea58b8a1ad8072cf9175a509f854afd",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
