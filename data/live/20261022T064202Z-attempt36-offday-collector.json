@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "recordType": "daily-first-team-collector-observation",
+  "dateAsiaTaipei": "2026-10-22",
+  "sourceBranch": "data/live-source-probe-20260915",
+  "run": {
+    "id": 39121599531,
+    "attempt": 36,
+    "jobId": 119680202053,
+    "status": "completed",
+    "conclusion": "success",
+    "artifactId": 12406644057,
+    "artifactCreatedAt": "2026-10-22T06:42:04Z",
+    "artifactDigestSha256": "6fdd385564b7fb7afb7b136a3599aea696df1c362ab3a54923f69e65e3aa4a20",
+    "zipSha256IndependentlyMatched": true
+  },
+  "capturedAt": "2026-10-22T06:42:02.148Z",
+  "leagues": {
+    "NPB": {
+      "status": "ok",
+      "gameCount": 0,
+      "games": [],
+      "errors": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-22",
+        "fetchedAt": "2026-10-22T06:41:59.574Z",
+        "marker": "試合はありません"
+      },
+      "collectedAt": "2026-10-22T06:41:59.576Z"
+    },
+    "KBO": {
+      "status": "ok",
+      "gameCount": 0,
+      "games": [],
+      "errors": [],
+      "officialOffDayVerified": false,
+      "note": "Collector returned zero first-team games; official no-game marker not independently confirmed",
+      "collectedAt": "2026-10-22T06:41:59.475Z"
+    },
+    "CPBL": {
+      "status": "ok",
+      "gameCount": 0,
+      "games": [],
+      "errors": [],
+      "officialOffDayVerified": false,
+      "note": "Collector returned zero first-team games; official no-game marker not independently confirmed",
+      "collectedAt": "2026-10-22T06:42:02.148Z"
+    }
+  },
+  "withinRun": {
+    "secondCapturePerformed": false,
+    "numericChangesVerified": false,
+    "reason": "No LIVE first-team games on 2026-10-22; >=65 second polling not applicable"
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-22T06:42:03.245Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "validation": {
+    "dateMatchesArtifact": true,
+    "artifactDigestComparedWithIndependentLocalZip": true,
+    "noOldArtifactReused": true,
+    "priorAttempt34EvidenceRetained": true,
+    "runAttemptVerifiedFromGithubApi": true
+  },
+  "safety": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "autoDeployed": false
+  },
+  "notes": [
+    "Historical LIVE proof is not a substitute for same-day checks.",
+    "No first-team games in this capture; this is not proof of live data latency.",
+    "Never synthesize unknown B/S/O, bases, or CPBL pitchCount.",
+    "New observed data kept only on isolated branch; source GitHub workflow retains overwrite:true artifact (7-day TTL)."
+  ]
+}
