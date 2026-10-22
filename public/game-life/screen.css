@@ -3,61 +3,61 @@
  body[data-screen=game]>header{min-height:42px;height:42px;padding:5px 16px}
  body[data-screen=game]>header .logo img{width:25px;height:25px}
  body[data-screen=game]>header .logo b{font-size:22px}
- body[data-screen=game]>header .brand-subtitle{font-size:9px}
+ body[data-screen=game]>header .brand-subtitle{font-size:12px}
  body[data-screen=game] .game-toolbar-inner{max-width:none;padding:3px 16px;gap:4px;overflow:visible}
- body[data-screen=game] .game-toolbar button,body[data-screen=game] .game-toolbar a{min-height:30px;padding:6px 10px;font-size:11px}
+ body[data-screen=game] .game-toolbar button,body[data-screen=game] .game-toolbar a{min-height:30px;padding:6px 10px;font-size:12px}
  body[data-screen=game][data-play-mode=simple] main{max-width:none;width:100%;margin:0;padding:10px 16px 8px}
- body[data-screen=game]>footer{padding:4px 16px;font-size:9px;line-height:1.4;margin:0}
+ body[data-screen=game]>footer{padding:4px 16px;font-size:12px;line-height:1.4;margin:0}
  .focus-layout{grid-template-columns:minmax(0,1fr) clamp(430px,34vw,640px);gap:12px}
  .focus-main .focus-hud{padding:10px 14px;gap:10px;flex-wrap:nowrap;border-radius:11px}
  .focus-main .focus-identity{gap:8px;flex:1;min-width:0}
  .focus-main .focus-number{width:34px;height:38px;font-size:19px}
  .focus-main .focus-identity h2{font-size:17px;margin:0 0 4px;gap:4px}
- .focus-main .name-title{font-size:9px;padding:2px 5px;line-height:1.4}
- .focus-main .focus-identity p{font-size:10px;line-height:1.4}
+ .focus-main .name-title{font-size:12px;padding:2px 5px;line-height:1.4}
+ .focus-main .focus-identity p{font-size:12px;line-height:1.4}
  .focus-main .focus-vitals{flex:0 0 42%;gap:10px}
- .focus-main .focus-vitals span{font-size:10px}
+ .focus-main .focus-vitals span{font-size:12px}
  .focus-main .focus-vitals b{font-size:22px;margin:3px 0 4px}
  .focus-main .focus-vitals i{height:3px}
- .focus-chapter{padding:8px 2px;gap:10px;font-size:10px}
- .focus-chapter>b{font-size:10px}
+ .focus-chapter{padding:8px 2px;gap:10px;font-size:12px}
+ .focus-chapter>b{font-size:12px}
  .focus-main .focus-stage{padding:16px 18px;border-radius:12px}
  .focus-stage::before{left:18px}.focus-stage::after{right:18px;font-size:20px}
- .focus-memory{margin:6px 0 0;font-size:10px;line-height:1.4}
- .focus-game .action-feedback{padding:5px 10px;margin:0 0 7px;gap:10px;font-size:11px;line-height:1.5}
- .focus-game .action-feedback b{font-size:10px}
+ .focus-memory{margin:6px 0 0;font-size:12px;line-height:1.4}
+ .focus-game .action-feedback{padding:5px 10px;margin:0 0 7px;gap:10px;font-size:12px;line-height:1.5}
+ .focus-game .action-feedback b{font-size:12px}
  .focus-game .awakening-banner{padding:8px 12px;margin-bottom:7px}
  .focus-game .awakening-banner strong{font-size:13px}
- .focus-game .awakening-banner span{font-size:10px;margin-top:3px}
- .focus-stage .scene-location{font-size:10px;margin-bottom:8px;line-height:1.5}
+ .focus-game .awakening-banner span{font-size:12px;margin-top:3px}
+ .focus-stage .scene-location{font-size:12px;margin-bottom:8px;line-height:1.5}
  .focus-stage .scene-title,.focus-stage>h2{font-size:25px;line-height:1.35;margin:0 0 10px;max-width:100%}
- .focus-stage .scene-prose p,.focus-stage>p{font-size:14px;line-height:1.7;margin:7px 0}
+ .focus-stage .scene-prose p,.focus-stage>p{font-size:16px;line-height:1.7;margin:7px 0}
  .focus-stage .scene-dialogue{padding:10px 12px;margin:12px 0;gap:10px}
  .focus-stage .scene-dialogue p{font-size:13px;line-height:1.6;margin:4px 0 0}
- .focus-stage .scene-dialogue cite{font-size:10px}
- .focus-stage .scene-avatar{width:28px;flex-basis:28px;height:28px;font-size:11px}
+ .focus-stage .scene-dialogue cite{font-size:12px}
+ .focus-stage .scene-avatar{width:28px;flex-basis:28px;height:28px;font-size:12px}
  .focus-stage .decision-caption{padding-top:10px;margin:12px 0 10px}
  .focus-stage .decision-caption>span{font-size:12px}
- .focus-stage .decision-caption small{font-size:10px}
+ .focus-stage .decision-caption small{font-size:12px}
  .focus-main .focus-choices{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
  .focus-stage .choice{padding:12px;min-height:0}
- .focus-stage .choice strong{font-size:13px;line-height:1.5}
- .focus-stage .choice p{font-size:11px;line-height:1.6;margin:7px 0}
- .focus-stage .choice small,.focus-stage .condition-cost{font-size:10px!important;line-height:1.6}
+ .focus-stage .choice strong{font-size:16px;line-height:1.5}
+ .focus-stage .choice p{font-size:14px;line-height:1.6;margin:7px 0}
+ .focus-stage .choice small,.focus-stage .condition-cost{font-size:12px!important;line-height:1.6}
  .focus-stage .easy-plan{min-height:0;padding:12px}
  .focus-stage .easy-plan-icon{font-size:22px;margin-bottom:5px}
  .focus-stage .easy-plan-title{font-size:16px}
  .focus-stage .easy-plan p{font-size:12px;line-height:1.6;margin:8px 0}
- .focus-stage .easy-plan-meta{font-size:10px;line-height:1.5}
+ .focus-stage .easy-plan-meta{font-size:12px;line-height:1.5}
  .focus-stage .easy-plan-arrow{font-size:17px;right:10px;bottom:10px}
- .focus-stage .easy-fine{margin:8px 0;font-size:10px}
+ .focus-stage .easy-fine{margin:8px 0;font-size:12px}
  .focus-stage .fate-origin{padding:10px 12px;margin:10px 0}
  .focus-stage .fate-origin p{font-size:12px;line-height:1.6;margin:6px 0}
  .focus-stage .fate-origin strong{font-size:14px}
- .focus-stage .fate-origin small{font-size:10px}
+ .focus-stage .fate-origin small{font-size:12px}
  .focus-stage .chosen-memory{padding:9px 12px;margin:12px 0;font-size:12px}
  .focus-stage .scene-next,.focus-stage>.primary,.focus-stage .actions>.primary{min-height:42px;padding:10px 16px;font-size:13px;margin-top:8px}
- .focus-stage .focus-more{margin:10px 0 0;padding-top:8px;font-size:11px}
+ .focus-stage .focus-more{margin:10px 0 0;padding-top:8px;font-size:12px}
  .focus-stage .focus-more>p{font-size:12px;line-height:1.6;margin:8px 0}
  .focus-stage .scene-echo,.focus-stage .fate-note{font-size:12px;line-height:1.6;margin:10px 0}
  .focus-stage .fate-orbit{width:44px;height:44px;margin:6px 0}
@@ -71,27 +71,27 @@
  .focus-layout[data-phase$="-moment"] .tactical-arena{grid-column:1;grid-row:2;margin:0;align-self:stretch}
  .focus-layout[data-phase$="-moment"] .match-scene{grid-column:2;grid-row:2;margin:0}
  .focus-layout[data-phase$="-moment"] .decision-caption,.focus-layout[data-phase$="-moment"] .arena-choice-grid,.focus-layout[data-phase$="-moment"] .match-skip{grid-column:1/-1}
- .focus-stage .tactical-hud{padding:6px 8px;font-size:9px}
+ .focus-stage .tactical-hud{padding:6px 8px;font-size:12px}
  .focus-stage .tactical-field{height:115px;max-height:115px;width:100%}
- .focus-stage .tactical-legend{padding:5px 7px;gap:5px;font-size:8px;flex-wrap:wrap}
- .focus-stage .tactical-legend b{font-size:8px}
- .focus-stage .match-now{font-size:10px;margin:0 0 5px}
+ .focus-stage .tactical-legend{padding:5px 7px;gap:5px;font-size:12px;flex-wrap:wrap}
+ .focus-stage .tactical-legend b{font-size:12px}
+ .focus-stage .match-now{font-size:12px;margin:0 0 5px}
  .focus-stage .match-scene h2{font-size:21px;margin:0 0 6px;line-height:1.4}
- .focus-stage .match-scene>p{font-size:13px;line-height:1.6;margin:5px 0}
- .focus-stage .match-scene .match-heart{font-size:11px}
- .focus-stage .match-read{padding:7px 9px;margin-top:8px;gap:8px;font-size:11px;line-height:1.5}
+ .focus-stage .match-scene>p{font-size:16px;line-height:1.6;margin:5px 0}
+ .focus-stage .match-scene .match-heart{font-size:12px}
+ .focus-stage .match-read{padding:7px 9px;margin-top:8px;gap:8px;font-size:12px;line-height:1.5}
  .focus-stage .arena-choice-grid{gap:9px;margin:0}
  .focus-stage .match-choice{padding:12px;min-height:0}
- .focus-stage .match-choice strong{font-size:14px;line-height:1.4}
+ .focus-stage .match-choice strong{font-size:17px;line-height:1.4}
  .focus-stage .match-chance{font-size:22px;min-width:40px}
- .focus-stage .match-chance small{font-size:9px!important;margin-top:3px}
+ .focus-stage .match-chance small{font-size:12px!important;margin-top:3px}
  .focus-stage .match-branches{margin:7px 0}
- .focus-stage .match-branches p{margin:5px 0;font-size:12px;line-height:1.4;gap:6px}
- .focus-stage .match-branches b{font-size:9px;padding:2px 4px}
- .focus-stage .match-cost{padding-top:6px;font-size:11px;line-height:1.5}
- .focus-stage .match-cost small{font-size:10px!important;line-height:1.4;margin-top:4px}
- .focus-stage .match-signal{margin-top:5px;font-size:10px}
- .focus-stage .match-skip{margin:0;min-height:30px;padding:6px 10px;font-size:11px;justify-self:start}
+ .focus-stage .match-branches p{margin:5px 0;font-size:15px;line-height:1.4;gap:6px}
+ .focus-stage .match-branches b{font-size:12px;padding:2px 4px}
+ .focus-stage .match-cost{padding-top:6px;font-size:14px;line-height:1.5}
+ .focus-stage .match-cost small{font-size:12px!important;line-height:1.4;margin-top:4px}
+ .focus-stage .match-signal{margin-top:5px;font-size:12px}
+ .focus-stage .match-skip{margin:0;min-height:30px;padding:6px 10px;font-size:12px;justify-self:start}
  .focus-stage .outcome{padding:14px;margin:12px 0}
  .focus-stage .outcome p{font-size:13px;line-height:1.7;margin:8px 0}
  .focus-stage .match-payoff h3{font-size:24px;line-height:1.4;margin:8px 0}
@@ -108,93 +108,93 @@
 
  /* Compact live profile: radar and attributes side by side, effects always shown. */
  .focus-rail{gap:8px}
- .focus-side{border-radius:11px;font-size:11px;line-height:1.4}
- .focus-side>summary{padding:8px 12px;font-size:11px;gap:8px}
+ .focus-side{border-radius:11px;font-size:12px;line-height:1.4}
+ .focus-side>summary{padding:8px 12px;font-size:12px;gap:8px}
  .focus-side>summary small{display:none}
  .sidebar-toggle{font-size:15px}.focus-side[open] .sidebar-toggle::after{font-size:15px}
  .sidebar-content{padding:10px;gap:10px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
  .focus-side .player-meters{gap:7px}
- .focus-side .player-meters span{font-size:9px;line-height:1.3}
+ .focus-side .player-meters span{font-size:12px;line-height:1.3}
  .focus-side .player-meters b{font-size:13px;margin-top:2px}
  .focus-side .player-meters i{height:3px;margin-top:4px}
  .focus-side .player-abilities[open]{display:block;margin-top:8px;padding-top:7px}
- .focus-side .player-abilities>summary{font-size:10px;margin-bottom:5px}
+ .focus-side .player-abilities>summary{font-size:12px;margin-bottom:5px}
  .focus-side .player-abilities>summary>span{display:none}
  .focus-side .player-radar{float:left;height:95px;width:46%;margin:0}
- .focus-side .player-radar text{font-size:10px}
+ .focus-side .player-radar text{font-size:12px}
  .focus-side .player-skills{grid-template-columns:1fr;gap:4px;padding:0;margin-left:49%;min-height:95px}
- .focus-side .player-skills span{font-size:9px;line-height:1.2}
+ .focus-side .player-skills span{font-size:12px;line-height:1.2}
  .focus-side .player-skills i{height:2px;margin-top:2px}
  .focus-side .league-progress{padding:8px;margin:8px 0;border-radius:8px}
- .focus-side .league-progress>small{font-size:10px;letter-spacing:0}
- .focus-side .club-strength{margin-top:5px;font-size:10px}
- .focus-side .club-strength span{font-size:9px}
+ .focus-side .league-progress>small{font-size:12px;letter-spacing:0}
+ .focus-side .club-strength{margin-top:5px;font-size:12px}
+ .focus-side .club-strength span{font-size:12px}
  .focus-side .league-route{margin-top:6px;gap:3px}
- .focus-side .league-route span{font-size:9px;padding:4px 2px}
- .focus-side .league-progress p{font-size:10px;line-height:1.5;margin:6px 0 0}
- .focus-side .easy-goal{padding:7px 9px;margin:8px 0 0;font-size:10px;line-height:1.5}
- .focus-side .easy-goal b,.focus-side .easy-goal span{font-size:10px}
+ .focus-side .league-route span{font-size:12px;padding:4px 2px}
+ .focus-side .league-progress p{font-size:12px;line-height:1.5;margin:6px 0 0}
+ .focus-side .easy-goal{padding:7px 9px;margin:8px 0 0;font-size:12px;line-height:1.5}
+ .focus-side .easy-goal b,.focus-side .easy-goal span{font-size:12px}
  .focus-side .easy-goal span{margin-top:3px}
- .focus-side .feats-panel{padding:8px;border-radius:8px;font-size:10px;line-height:1.4}
- .focus-side .feats-panel>.topline b{font-size:10px}
- .focus-side .feats-panel>.topline>span{font-size:9px}
- .focus-side .feats-panel .title-total{font-size:10px;line-height:1.5;margin:5px 0}
- .focus-side .feat-earned{padding:5px 0;font-size:10px;line-height:1.4}
- .focus-side .feat-earned b{font-size:10px}
- .focus-side .feat-earned span{font-size:10px;line-height:1.4;margin-top:2px}
+ .focus-side .feats-panel{padding:8px;border-radius:8px;font-size:12px;line-height:1.4}
+ .focus-side .feats-panel>.topline b{font-size:12px}
+ .focus-side .feats-panel>.topline>span{font-size:12px}
+ .focus-side .feats-panel .title-total{font-size:12px;line-height:1.5;margin:5px 0}
+ .focus-side .feat-earned{padding:5px 0;font-size:12px;line-height:1.4}
+ .focus-side .feat-earned b{font-size:12px}
+ .focus-side .feat-earned span{font-size:12px;line-height:1.4;margin-top:2px}
  .focus-side .feat-earned>small{display:none}
- .focus-side .feat-earned p{font-size:9px;line-height:1.4;margin-top:4px}
- .focus-side .signature-summary{padding-top:6px;margin-top:6px;font-size:10px}
- .focus-side .signature-summary span{font-size:9px}
+ .focus-side .feat-earned p{font-size:12px;line-height:1.4;margin-top:4px}
+ .focus-side .signature-summary{padding-top:6px;margin-top:6px;font-size:12px}
+ .focus-side .signature-summary span{font-size:12px}
  .focus-side .feats-panel>details,.focus-side .dynamics-status>details,.focus-side .league-progress>details{display:none}
- .focus-side .dynamics-status{padding:7px 0 0;margin:8px 0 0;font-size:10px;line-height:1.4}
+ .focus-side .dynamics-status{padding:7px 0 0;margin:8px 0 0;font-size:12px;line-height:1.4}
  .focus-side .condition-status{padding:8px;margin:0 0 6px;border-radius:8px}
- .focus-side .condition-status>b{font-size:11px}
- .focus-side .condition-status p{font-size:10px;line-height:1.5;margin:5px 0}
- .focus-side .condition-status small{font-size:9px;line-height:1.4}
- .focus-side .dynamics-status>.topline{font-size:10px}
+ .focus-side .condition-status>b{font-size:12px}
+ .focus-side .condition-status p{font-size:12px;line-height:1.5;margin:5px 0}
+ .focus-side .condition-status small{font-size:12px;line-height:1.4}
+ .focus-side .dynamics-status>.topline{font-size:12px}
  .focus-side .dynamics-status>.bar{height:3px;margin:4px 0}
- .focus-side .dynamics-status>small{font-size:9px;line-height:1.4}
- .focus-side .dynamics-status>p{display:inline-block;font-size:9px;margin:5px 6px 0 0}
+ .focus-side .dynamics-status>small{font-size:12px;line-height:1.4}
+ .focus-side .dynamics-status>p{display:inline-block;font-size:12px;margin:5px 6px 0 0}
 
  .rail-context{padding:10px 12px;border-radius:11px}
- .rail-heading{padding-bottom:7px;margin-bottom:7px;font-size:11px}
- .rail-heading small,.rail-section-heading>span{font-size:9px}
+ .rail-heading{padding-bottom:7px;margin-bottom:7px;font-size:12px}
+ .rail-heading small,.rail-section-heading>span{font-size:12px}
  .rail-context .football-scoreboard{padding:7px 5px;margin:0 0 7px;gap:7px}
- .rail-context .football-scoreboard strong{font-size:11px}
- .rail-context .football-scoreboard small{font-size:9px}
+ .rail-context .football-scoreboard strong{font-size:12px}
+ .rail-context .football-scoreboard small{font-size:12px}
  .rail-context .football-score b{font-size:24px}
  .rail-context .football-crest{width:23px;height:25px;font-size:12px;margin-bottom:3px}
  .rail-context .match-chase{padding:8px;margin:0 0 8px;gap:4px 7px;grid-template-columns:auto 1fr auto}
- .rail-context .match-chase>span{grid-column:auto;font-size:9px}
- .rail-context .match-chase>b{font-size:11px}
+ .rail-context .match-chase>span{grid-column:auto;font-size:12px}
+ .rail-context .match-chase>b{font-size:12px}
  .rail-context .match-chase>strong{font-size:13px}
- .rail-context .match-chase small{font-size:9px;line-height:1.4}
+ .rail-context .match-chase small{font-size:12px;line-height:1.4}
  .rail-context .chase-track{height:3px}
- .rail-section-heading{font-size:11px;margin-bottom:5px}
- .rail-standings table{font-size:10px}
+ .rail-section-heading{font-size:12px;margin-bottom:5px}
+ .rail-standings table{font-size:12px}
  .rail-standings th,.rail-standings td{padding:4px 4px;line-height:1.4}
- .rail-standings thead th{font-size:9px}
- .rail-note{font-size:9px;line-height:1.5;margin:7px 0 0}
+ .rail-standings thead th{font-size:12px}
+ .rail-note{font-size:12px;line-height:1.5;margin:7px 0 0}
  .rail-context .match-earned{padding:7px 9px;margin:0 0 8px}
- .rail-context .match-earned b{font-size:11px}
- .rail-context .match-earned span{font-size:10px}
+ .rail-context .match-earned b{font-size:12px}
+ .rail-context .match-earned span{font-size:12px}
  .rail-career-metrics{padding:10px 0;gap:8px}
- .rail-career-metrics b{font-size:24px}.rail-career-metrics span{font-size:10px;margin-top:4px}
- .rail-memories{margin-top:5px}.rail-memories li{padding:6px 0;font-size:11px}
- .rail-memories small{font-size:10px;margin-top:3px}
+ .rail-career-metrics b{font-size:24px}.rail-career-metrics span{font-size:12px;margin-top:4px}
+ .rail-memories{margin-top:5px}.rail-memories li{padding:6px 0;font-size:12px}
+ .rail-memories small{font-size:12px;margin-top:3px}
  .rail-context>.rail-personal{padding-top:9px}
- .rail-personal p{font-size:11px;margin:5px 0}
- .rail-personal blockquote{font-size:11px;line-height:1.6;margin:8px 0 0}
+ .rail-personal p{font-size:12px;margin:5px 0}
+ .rail-personal blockquote{font-size:12px;line-height:1.6;margin:8px 0 0}
  .focus-rail>.prep-custom{padding:12px;border-radius:11px}
  .focus-rail>.prep-custom .decision-caption{margin:0 0 10px;padding:0}
  .focus-rail>.prep-custom .decision-caption>span{font-size:12px}
- .focus-rail>.prep-custom .decision-caption small{font-size:10px}
+ .focus-rail>.prep-custom .decision-caption small{font-size:12px}
  .focus-rail .prep-fields{gap:8px 10px}
- .focus-rail .prep-fields label{font-size:10px;gap:4px}
- .focus-rail .prep-fields select{font-size:11px;padding:7px;min-height:32px}
- .focus-rail #prep-preview{font-size:10px;line-height:1.5;padding:8px;margin-top:8px}
- .focus-rail .easy-fine{font-size:9px;line-height:1.5;margin:8px 0}
+ .focus-rail .prep-fields label{font-size:12px;gap:4px}
+ .focus-rail .prep-fields select{font-size:12px;padding:7px;min-height:32px}
+ .focus-rail #prep-preview{font-size:12px;line-height:1.5;padding:8px;margin-top:8px}
+ .focus-rail .easy-fine{font-size:12px;line-height:1.5;margin:8px 0}
  .focus-rail>.prep-custom .primary{font-size:12px;min-height:36px;padding:9px 12px}
 
  /* Keep paper mode readable in the same condensed layout. */
@@ -212,4 +212,138 @@
  body[data-theme=paper] .focus-side .signature-summary span{color:#496566}
  body[data-theme=paper] .focus-side .condition-status p,body[data-theme=paper] .focus-side .condition-status small{color:#365d50}
  body[data-theme=paper] .rail-context .football-scoreboard strong,body[data-theme=paper] .rail-context .football-scoreboard small,body[data-theme=paper] .rail-context .football-score b{color:#284e45}
+}
+
+
+/* Keep gameplay at readable native size regardless of the number of career titles. */
+@media(min-width:1100px){
+ .focus-layout{grid-template-columns:minmax(0,1fr) clamp(340px,30vw,520px);align-items:stretch}
+ .focus-main,.focus-content,.focus-rail{min-height:0;min-width:0}
+ .focus-main .focus-stage{overflow:auto;scrollbar-width:thin;min-height:0}
+ .focus-rail{overflow:auto;scrollbar-width:thin}
+ .focus-stage .focus-choices,.focus-stage .arena-choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .focus-stage .focus-choices:has(>:nth-child(5)){grid-template-columns:repeat(3,minmax(0,1fr))}
+ .focus-side .player-skills span,.focus-side .player-meters span,.focus-side .dynamics-status>p{font-size:13px}
+ .focus-side .player-radar{height:105px}
+ .focus-side .player-skills{gap:5px;min-height:105px}
+ .focus-side .feats-panel .feat-earned{display:inline-flex;vertical-align:top;padding:4px 6px;margin:2px;border:1px solid #60798c55;border-radius:5px;max-width:100%}
+ .focus-side .feat-earned b{font-size:12px;line-height:1.4}
+ .focus-side .feat-earned span,.focus-side .feat-earned p{display:none}
+ .focus-stage .story-scene .scene-prose{max-width:none}
+ .focus-stage .scene-dialogue{margin:8px 0;padding:8px 10px}
+ .focus-stage .scene-dialogue p{font-size:14px}
+ .focus-stage .story-choice{padding:10px}
+ .focus-stage .story-choice .choice-echo{margin-top:4px}
+ .focus-stage .match-cost small{display:flex;flex-wrap:wrap;gap:4px 12px}
+ .focus-stage .match-cost small br{display:none}
+ .focus-stage .decision-caption{margin:4px 0;padding-top:6px}
+ .focus-stage .match-choice{padding:12px}
+}
+@media(min-width:1100px) and (max-height:780px){
+ .focus-main .focus-stage{padding:10px 12px}
+ .focus-layout[data-phase$="-moment"] .focus-stage{gap:7px 10px}
+ .focus-stage .tactical-field{height:90px;max-height:90px}
+ .focus-stage .match-scene h2{font-size:20px}
+ .focus-stage .match-scene>p{font-size:14px;line-height:1.45}
+ .focus-stage .match-choice{padding:9px 10px}
+ .focus-stage .match-branches{margin:5px 0}
+ .focus-stage .match-choice strong{font-size:16px}
+ .focus-stage .match-cost{font-size:13px}
+ .focus-stage .scene-title,.focus-stage>h2{font-size:22px}
+}
+
+@media(min-width:1100px){
+ .focus-main .focus-identity h2{display:block;line-height:1.35;margin-bottom:3px}
+ .focus-main .focus-identity .name-title{font-size:10px;padding:2px 4px;margin:1px;line-height:1.2}
+ .focus-main .focus-hud{padding:7px 12px}
+ .focus-stage .match-choice{display:grid;grid-template-rows:auto auto 1fr auto;align-content:start;gap:0}
+ .focus-stage .match-choice>.topline{min-height:38px}
+ .focus-stage .match-branches{margin:4px 0}
+ .focus-stage .match-branches p{margin:3px 0;line-height:1.35}
+ .focus-stage .match-cost{line-height:1.35;padding-top:5px}
+ .focus-stage .match-cost small{margin-top:3px;line-height:1.25;display:block}
+ .focus-stage .match-cost small br{display:inline}
+ .focus-stage .match-signal{margin-top:3px}
+ .focus-stage .match-read{padding:5px 8px;margin-top:5px}
+ .focus-stage .match-now{margin-bottom:3px}
+ .focus-stage .match-scene h2{margin-bottom:4px}
+ .focus-stage .match-scene>p{margin:4px 0;line-height:1.45}
+ .focus-stage .tactical-field{height:100px;max-height:100px}
+ .focus-layout[data-phase$="-moment"] .focus-stage{gap:7px 12px}
+ .focus-side .sidebar-overview,.focus-side .sidebar-performance{display:contents}
+ .focus-side .career-player{grid-column:1;grid-row:1}
+ .focus-side .league-progress{grid-column:2;grid-row:1;margin:0;align-self:start}
+ .focus-side .easy-goal{grid-column:2;grid-row:1;align-self:end;margin-top:0}
+ .focus-side .feats-panel{grid-column:1/-1;margin:0;padding:7px}
+ .focus-side .title-total{font-size:12px;line-height:1.3}
+ .focus-side .feats-panel .feat-earned{padding:2px 5px;margin:1px}
+ .focus-side .dynamics-status{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;margin:0;padding:0;align-items:start}
+ .focus-side .condition-status{grid-row:span 5;margin:0;padding:6px}
+ .focus-side .condition-status p{margin:3px 0;line-height:1.35}
+ .focus-side .condition-status small{line-height:1.35}
+ .focus-side .dynamics-status>p{margin:0;line-height:1.3;font-size:12px}
+ .focus-side .dynamics-status>.topline{line-height:1.3}
+ .focus-side .dynamics-status>.bar{margin:0}
+ .focus-side .dynamics-status>small{line-height:1.3}
+ .focus-side .signature-summary{margin-top:3px;padding-top:3px}
+ .focus-side .player-meters{gap:5px}
+ .focus-side .player-abilities[open]{margin-top:5px;padding-top:4px}
+ .focus-side .player-skills{gap:3px;min-height:95px}
+ .focus-side .league-route span{font-size:11px}
+ .focus-side .league-progress p{font-size:12px;line-height:1.35}
+ .rail-context{padding:8px 10px}
+ .rail-standings th,.rail-standings td{padding:3px 4px;line-height:1.3}
+ .rail-context .football-scoreboard{margin-bottom:5px;padding:5px}
+ .rail-heading{padding-bottom:4px;margin-bottom:4px}
+ .rail-context .rail-note{line-height:1.3;margin:5px 0 0}
+}
+@media(min-width:1100px){
+ .focus-stage .match-chance{display:flex;align-items:baseline;gap:3px;white-space:nowrap;line-height:1.2}
+ .focus-stage .match-chance small{display:inline;font-size:10px!important;margin:0}
+ .focus-stage .match-choice>.topline{min-height:28px}
+ .focus-stage .match-branches{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+ .focus-stage .match-cost small br{display:none}
+ .focus-stage .match-cost small{line-height:1.4;letter-spacing:0}
+ .focus-stage .match-cost small br::after{content:'　'}
+ .focus-side .player-radar{display:none}
+ .focus-side .player-skills{margin:0;grid-template-columns:1fr 1fr;min-height:0;gap:6px 8px}
+ .focus-side .player-skills span{font-size:13px}
+ .focus-side .easy-goal{grid-column:1/-1;grid-row:auto}
+ .focus-side .dynamics-status{display:block}
+ .focus-side .condition-status{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
+ .focus-side .condition-status>b{grid-column:1/-1}
+ .focus-side .condition-status small{grid-column:1/-1}
+ .focus-side .dynamics-status>.topline{margin-top:4px}
+ .focus-side .dynamics-status>.bar{margin:3px 0}
+ .focus-side .dynamics-status>p{display:inline-block;margin-right:8px}
+}
+
+.condition-metrics>span,.condition-advice{display:block}
+@media(min-width:1100px){
+ .focus-side .condition-status{display:block}
+ .focus-side .condition-metrics{display:flex;flex-wrap:wrap;gap:3px 10px}
+ .focus-side .condition-advice,.focus-side .dynamics-status>small{display:none}
+ .focus-side .condition-status small{display:block}
+ .focus-side .condition-status small br{display:none}
+ .focus-stage .match-cost small>span{display:inline-block;margin-left:10px}
+}
+
+/* Short desktop windows keep every match action in a single readable row. */
+@media(min-width:1100px) and (max-height:780px){
+ .focus-main .focus-identity .name-title{display:none}
+ .focus-layout[data-phase$="-moment"] .focus-stage .arena-choice-grid:has(>.match-choice:nth-child(4)){grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+ .focus-layout[data-phase$="-moment"] .decision-caption,.focus-stage .match-scene .match-heart{display:none}
+ .focus-stage .tactical-field{height:80px;max-height:80px}
+ .focus-stage .tactical-hud,.focus-stage .tactical-legend{padding:3px 6px}
+ .focus-stage .match-choice{padding:8px}
+ .focus-stage .match-choice>.topline{align-items:flex-start;gap:4px}
+ .focus-stage .match-choice strong{font-size:16px;line-height:1.35}
+ .focus-stage .match-chance{font-size:18px;min-width:0}
+ .focus-stage .match-choice .match-chance small{display:none}
+ .focus-stage .match-branches{grid-template-columns:1fr;gap:0}
+ .focus-stage .match-branches p{font-size:14px;margin:2px 0}
+ .focus-stage .match-cost{font-size:12px}
+ .focus-stage .match-cost small>span{display:block;margin-left:0}
+ .focus-stage .match-signal{display:none}
+ .focus-stage .match-skip{min-height:26px;padding:4px 8px}
 }

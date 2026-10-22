@@ -7,24 +7,17 @@ const visible=node=>node?.getClientRects?.().length>0;
 function fit(host){
  const w=win(),doc=root.document,layout=host?.querySelector?.('.focus-layout');
  if(!host?.style||!layout?.style||!w.getComputedStyle)return;
- host.style.zoom='';layout.style.minHeight='';
+ host.style.zoom='';layout.style.minHeight='';layout.style.height='';
  delete doc.body.dataset.screenFit;
  if(doc.body.dataset.screen!=='game'||!w.matchMedia('(min-width: 1100px)').matches)return;
  const main=host.closest('main'),footer=doc.querySelector('body > footer');
  const mainStyle=w.getComputedStyle(main);
  const top=host.getBoundingClientRect().top+(w.scrollY||0);
  const room=Math.max(1,w.innerHeight-top-(parseFloat(mainStyle.paddingBottom)||0)-(footer?.getBoundingClientRect().height||0)-3);
- // The compact CSS supplies the readable layout. Only unusually short windows
- // or longer scenes need further fitting; measure again after text reflows.
- let scale=1;
- for(let i=0;i<4;i++){
-  const height=host.getBoundingClientRect().height;
-  if(height<=room+.5)break;
-  scale*=room/height;
-  host.style.zoom=String(scale);
- }
- const extra=(host.getBoundingClientRect().height-layout.getBoundingClientRect().height)/scale;
- layout.style.minHeight=Math.max(0,room/scale-extra)+'px';
+ // Keep native text size. Long sidebars must never shrink the play area.
+ const extra=host.getBoundingClientRect().height-layout.getBoundingClientRect().height;
+ layout.style.minHeight='0px';
+ layout.style.height=Math.max(0,room-extra)+'px';
  doc.body.dataset.screenFit='desktop';
  w.scrollTo({top:0,behavior:'instant'});
 }
@@ -82,3 +75,4 @@ function restore(host,before,{sameScene=false}={}){
 const api={capture,position,restore,fit};
 if(typeof module!=='undefined')module.exports=api;else root.XZViewport=api;
 })(globalThis);
+

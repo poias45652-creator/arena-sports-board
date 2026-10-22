@@ -12,7 +12,7 @@ const match=(s,stats,ag=0)=>({home:s.team,away:'驗證對手',hg:3,ag,round:1,pl
 
 test('all choices retain legacy rules, amplify five vitals only on new scenes, and show actual effects',()=>{
  let count=0;const plus=new Set(),minus=new Set();
- for(const event of C.EVENTS){const s=player(event.sport??0);s.phase='event';s.event=event.id;s.eventRules=3;
+ for(const event of C.EVENTS){const s=player(event.sport??0);s.phase='event';s.event=event.id;s.eventRules=3;if(['p-national','national-final'].includes(event.id)){s.age=24;s.a=[99,99,99,99];s.caps=[99,99,99,99]}
   const old=copy(E.eventData(s)),source=JSON.stringify(s);same(E.eventData(E.migrate(copy(s))),old);assert.equal(JSON.stringify(s),source);
   s.eventRules=4;const fresh=E.eventData(s);same(E.eventData(E.migrate(copy(s))),fresh);
   if(event.major)continue;
@@ -73,3 +73,4 @@ test('amplified collaboration costs are gated before mutation and ability deltas
  const s=player();s.event='v5-training-1';s.eventRules=4;s.phase='event';s.eventsLeft=1;s.energy=8;const option=E.eventData(s).options[2];assert(option.effect.energy<=-12);const before=JSON.stringify(s);assert(!E.choose(s,2).ok);assert.equal(JSON.stringify(s),before);assert(UI.event(s,E,D).includes('需要體力 12'));
  const old={ability:E.ovr(s),health:s.health,mood:s.mood,morale:s.morale,energy:s.energy,fame:s.fame};s.a=s.a.map(v=>v+4);assert(ctx.XZJourneyUI.feedback(old,s).includes('能力 +4'));
 });
+

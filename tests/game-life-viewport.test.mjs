@@ -6,7 +6,7 @@ const source=fs.readFileSync(new URL('../public/game-life/viewport.js',import.me
 const ctx=vm.createContext({});vm.runInContext(source,ctx);
 const {position}=ctx.XZViewport;
 
-test('desktop fitting budgets the header and footer, refits on taller windows and resets on mobile',()=>{
+test('desktop fitting keeps native text size even with a tall sidebar and resets on mobile',()=>{
  const scrolls=[],body={dataset:{screen:'game'}};
  const window={innerHeight:768,scrollY:250,innerWidth:1366,
   matchMedia:()=>({matches:window.innerWidth>=1100}),getComputedStyle:()=>({paddingBottom:'8px'}),
@@ -16,9 +16,9 @@ test('desktop fitting budgets the header and footer, refits on taller windows an
  const runtime=vm.createContext({window,document:{body,querySelector:()=>({getBoundingClientRect:()=>({height:20})})}});
  vm.runInContext(source,runtime);runtime.XZViewport.fit(host);
  assert.equal(body.dataset.screenFit,'desktop');assert.equal(scrolls.at(-1).top,0);
- assert(host.getBoundingClientRect().height<=648.5);
+ assert.equal(host.style.zoom,'');assert.equal(layout.style.height,'628px');
  window.innerHeight=1200;runtime.XZViewport.fit(host);
- assert.equal(host.style.zoom,'');assert.equal(host.getBoundingClientRect().height,1080);
+ assert.equal(host.style.zoom,'');assert.equal(layout.style.height,'1060px');
  window.innerWidth=800;runtime.XZViewport.fit(host);
  assert.equal(host.style.zoom,'');assert.equal(layout.style.minHeight,'');assert.equal(body.dataset.screenFit,undefined);
 });
@@ -60,3 +60,4 @@ test('same-scene setting changes preserve the clicked control and its keyboard t
  vm.runInContext(source,runtime);const before=runtime.XZViewport.capture(host);runtime.XZViewport.restore(host,before,{sameScene:true});
  assert.equal(scrolls.at(-1).top,600);assert(focused);assert.equal(attrs.length,0);
 });
+

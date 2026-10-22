@@ -38,7 +38,7 @@ test('all added followups resolve and remain eligible only after the matching ch
 test('focused scenes, outcomes and the player HUD preserve state, RNG and escaped user text',()=>{
  const s=at('chapter-trust');s.name='<img src=x onerror=alert(1)>';s.team='<script>球隊</script>';const raw=JSON.stringify(s);
  const html=F.hud(s,E)+F.trainingIntro(s)+F.event(s,E,ctx.XZDynamics)+F.memory(s);assert.equal(JSON.stringify(s),raw);assert(!html.includes('<img'));assert(!html.includes('<script>'));assert(html.includes('&lt;img'));assert(html.includes('教練'));
- const primary=F.event(s,E,ctx.XZDynamics).split('<details')[0];assert.equal((primary.match(/onclick="eventChoice/g)||[]).length,3);assert(F.event(s,E,ctx.XZDynamics).includes('eventChoice(3)'));
+ const primary=F.event(s,E,ctx.XZDynamics).split('<details')[0];assert.equal((primary.match(/onclick="eventChoice/g)||[]).length,E.eventData(s).options.length);assert(F.event(s,E,ctx.XZDynamics).includes('eventChoice(3)'));
  E.choose(s,0);const resolved=JSON.stringify(s);const outcome=F.outcome(s);assert(outcome.indexOf('scene-prose')<outcome.indexOf('這次改變了什麼'));assert(outcome.includes(s.outcome.narrative));assert.equal(JSON.stringify(s),resolved);
 });
 test('the screenshot legacy advanced preference now opens the integrated UI without altering old saves',()=>{
@@ -50,3 +50,4 @@ test('the screenshot legacy advanced preference now opens the integrated UI with
  vm.runInContext('openHub();closeHub();openHub();toggleTouch();togglePlays();toggleMoments();closeHub()',ctx);assert.equal(vm.runInContext('JSON.stringify(s)',ctx),raw);assert.deepEqual(Object.entries(memory).filter(([k])=>k.startsWith('xingzhun-save')),saves);assert(nodes['career-hub-content'].innerHTML.includes('生涯回憶'));
  vm.runInContext("setPlayMode('advanced')",ctx);assert(nodes.game.innerHTML.includes('prep-training'));assert(!nodes.game.innerHTML.includes('expert-notice'));assert.equal(vm.runInContext('playMode',ctx),'simple');vm.runInContext("openHub('settings')",ctx);assert(!nodes['career-hub-content'].innerHTML.includes('操作安排'));assert(!nodes['career-hub-content'].innerHTML.includes('setPlayMode'));
 });
+

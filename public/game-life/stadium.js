@@ -30,7 +30,8 @@ function baseballAction(p){
  if(p.outcome==='walk'||p.outcome==='k')pts=[[320,243],[318,277],[311,321],[311,342]];
  if(['out','ground','sac','force'].includes(p.outcome))pts=[[320,243],[309,321],[358,246],[425,217]];
  if(p.mode==='field')pts=p.success?[[320,321],[231,214],[277,208],[432,217]]:[[320,321],[231,214],[172,155],[108,112]];
- const players=token(298,328,you,bat?'is-you batter':'opponent batter',bat&&hit?42:-3,bat&&hit?-35:0)+token(320,242,pitch?you:1,pitch?'is-you pitcher':'opponent pitcher',0,9)+token(430,210,3,'opponent',-8,7)+token(227,205,p.mode==='field'?you:6,p.mode==='field'?'is-you':'opponent',-9,7)+token(365,173,4,'opponent',-12,8)+token(198,107,7,'opponent',-12,-4)+token(320,70,8,'opponent',23,-8)+token(467,108,9,'opponent',15,-12)+(p.bases||[]).map((v,i)=>v?token(...[[448,228],[320,119],[191,228]][i],'跑','teammate',hit?-12:0,hit?-12:0):'').join('');
+ const defence=bat?'opponent':'teammate',offence=bat?'teammate':'opponent';
+ const players=token(298,328,bat?you:9,bat?'is-you batter':offence+' batter',bat&&hit?42:-3,bat&&hit?-35:0)+token(320,242,pitch?you:1,pitch?'is-you pitcher':defence+' pitcher',0,9)+token(320,356,2,defence+' catcher')+token(430,210,3,defence,-8,7)+token(227,205,p.mode==='field'?you:6,p.mode==='field'?'is-you':defence,-9,7)+token(365,173,4,defence,-12,8)+token(198,107,7,defence,-12,-4)+token(320,70,8,defence,23,-8)+token(467,108,9,defence,15,-12)+(p.bases||[]).map((v,i)=>v?token(...[[448,228],[320,119],[191,228]][i],'跑',offence+' runner',hit?-12:0,hit?-12:0):'').join('');
  return{players,pts,verb:bat?(p.move==='walk'?'選球 · 上壘':'投球 · 揮棒 · 球路'):pitch?'投球 · 控制好球帶':'守備 · 接傳球',scored:p.gain>0||p.lost>0};
 }
 function basketballAction(p){
@@ -59,3 +60,4 @@ function profile(s,E){const football=s.sport===1,hub=football?s.football:s.arena
 function milestones(s){const hub=s.sport===1?s.football:s.arena,items=(hub?.milestones||[]).slice(0,5);return `<aside class="career-side"><div class="side-title"><span>生涯記事</span><b>${(hub?.milestones||[]).length}</b></div><div class="side-season"><small>你的賽場</small><strong>${esc(clubName(s.sport,s.team))}</strong><p>${s.reason==='chapter'?'八季篇章完成':s.retired?'生涯回顧':s.age<19?'從校園開始，走向職業舞台。':'每一場比賽，都是新的機會。'}</p></div><h3>重要里程碑</h3>${items.length?`<ol class="side-timeline">${items.map(m=>`<li><small>${m.age} 歲</small><p>${esc(root.XZClubWorld?.text(s.sport,m.text)??m.text)}</p></li>`).join('')}</ol>`:'<p class="side-empty">第一份合約、首次徵召、冠軍與復出。<br>你的故事，會一段段留在這裡。</p>'}<button class="ghost" onclick="setJourneyView('story')">展開生涯地圖 ↗</button>${s.pending.length?`<div class="side-pending"><b>${s.pending.length}</b><span>段故事等待後續</span></div>`:''}<small class="side-note">${s.journey?.limit?'八季短篇 · 想繼續也能接著玩':'完整生涯 · 隨時存檔休息'}</small></aside>`}
 const api={field,frame,play,preview,demo,profile,milestones,resultWord};if(typeof module!=='undefined')module.exports=api;else root.XZStadium=api;
 })(globalThis);
+
