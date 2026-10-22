@@ -1,0 +1,31 @@
+{
+  "dateAsiaTaipei": "2026-10-22",
+  "capturedAt": "2026-10-22T09:43:33.333Z",
+  "runId": 39121599531,
+  "runAttempt": 39,
+  "runAttemptConfirmedByApi": false,
+  "jobId": 119753368005,
+  "artifactId": 12416521508,
+  "artifactCreatedAt": "2026-10-22T09:43:37Z",
+  "sha256": "3507c8cbd659457135c3a81d5e74515d39f95d354935452b9bd60d2388042419",
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": 0,
+      "offDayVerified": true
+    },
+    "KBO": {
+      "status": "ok",
+      "games": 0,
+      "officialOffDayVerified": false
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "officialOffDayVerified": false
+    }
+  },
+  "liveGames": 0,
+  "secondCapturePerformed": false,
+  "databaseTest": "passed; 0 rows"
+}
