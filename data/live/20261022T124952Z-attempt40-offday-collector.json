@@ -1,0 +1,104 @@
+{
+  "dateAsiaTaipei": "2026-10-22",
+  "capturedAt": "2026-10-22T12:49:52.781Z",
+  "runId": 39121599531,
+  "runAttempt": 40,
+  "runAttemptConfirmedByApi": true,
+  "jobId": 119833755472,
+  "artifactId": 12426048712,
+  "artifactCreatedAt": "2026-10-22T12:49:56Z",
+  "artifactSha256": "dd1098669fe1b9dc6083df455d6e8c64515b10607088eb014419eaad3d2a408e",
+  "artifactDigestMatchesDownloadedZip": true,
+  "workflowConclusion": "success",
+  "sourceBranch": "data/live-source-probe-20260915",
+  "workflowHeadSha": "b6acca0ed0346617db2e437d9ee6a6f3ce0242ac",
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [],
+      "errors": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-22",
+        "fetchedAt": "2026-10-22T12:49:50.142Z",
+        "marker": "試合はありません"
+      },
+      "collectedAt": "2026-10-22T12:49:50.145Z"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "errors": [],
+      "officialOffDayVerified": false,
+      "collectedAt": "2026-10-22T12:49:50.287Z"
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": [],
+      "errors": [],
+      "officialOffDayVerified": false,
+      "collectedAt": "2026-10-22T12:49:52.781Z"
+    }
+  },
+  "pregameGames": {
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0
+  },
+  "liveGames": {
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0
+  },
+  "finalGames": {
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0
+  },
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "liveProofNotApplicableToday": true,
+  "isolatedDatabaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-22T12:49:54.130Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      }
+    ]
+  },
+  "integrity": {
+    "artifactSha256VerifiedAgainstGitHubDigest": true,
+    "artifactDateVerified": true,
+    "capturedAtDateVerified": true,
+    "runAttemptVerifiedByApi": true,
+    "usedPriorArtifact": false
+  },
+  "caveats": [
+    "KBO/CPBL sources returned zero games; independent official off-day proof not obtained.",
+    "Rerun workflow checked out historical workflow head SHA rather than latest isolation-branch commit.",
+    "Workflow artifact overwrite:true and retention-days:7 remain unchanged."
+  ],
+  "mainModified": false,
+  "productionModified": false,
+  "deployed": false
+}
