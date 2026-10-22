@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-22T05:17:01.499Z",
+  "observedAt": "2026-10-22T09:31:06.592Z",
   "dateAsiaTaipei": "2026-10-22",
   "currentGames": {
     "NPB": 0,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-22T05:17:03.359Z",
+    "checkedAt": "2026-10-22T09:31:09.186Z",
     "passed": true,
     "rowsWritten": 0,
     "rowsReadBack": 0,
@@ -1310,17 +1310,17 @@
         "source": "yahoo-tw"
       },
       "allVerified": false,
-      "reason": "No live first-team games in this capture; all three collectors returned status ok with zero games. NPB date-specific explicit no-game marker verified; KBO/CPBL do not have independently confirmed official no-game markers. Same-day live numeric change not applicable.",
+      "reason": "No LIVE first-team games today; all sources status ok, NPB explicit off-day marker verified; KBO/CPBL did not prove official off-day.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-10-22T05:17:01.499Z",
-        "artifactId": 12403995555,
-        "artifactCreatedAt": "2026-10-22T05:17:04Z",
-        "artifactSha256": "3146031e97b5594107d675a0556835dac73d1102ca6248c7ca61d16bbf02c18f",
+        "capturedAt": "2026-10-22T09:31:06.592Z",
+        "artifactId": 12416116832,
+        "artifactCreatedAt": "2026-10-22T09:31:10Z",
+        "artifactSha256": "04d818a18c43a84fee62b97b70c926d64e02af991691d27a426d3566850d48cb",
         "runId": 39121599531,
-        "runAttempt": 34,
-        "jobId": 119653389271,
-        "observationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
+        "runAttempt": 38,
+        "jobId": 119747929903,
+        "observationPath": "data/live/20261022T093106Z-attempt38-offday-collector.json",
         "collectorConclusion": "success",
         "liveGames": 0,
         "pregameGames": {
@@ -1446,7 +1446,7 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-22",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
+    "latestObservationPath": "data/live/20261022T093106Z-attempt38-offday-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -1470,19 +1470,19 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12403995555,
-    "reason": "Collectors returned zero first-team games and no LIVE states; NPB explicit off-day marker verified; KBO/CPBL zero results do not independently prove official off-day."
+    "latestRunArtifactId": 12416116832,
+    "reason": "All three collectors returned status ok with zero first-team games; NPB date-specific official no-game marker present; KBO/CPBL official off-day unverified; zero games means same-day live change verification is not applicable."
   },
-  "nextAction": "Continue the next scheduled daily check; verify current-date first-team schedule and provider availability, and obtain two >=65-second spaced LIVE observations whenever active games appear. Preserve new evidence each day even on no-game days.",
+  "nextAction": "Continue the daily checks; verify first-team schedule and provider availability, and get two >=65-second spaced LIVE observations when active games are present. Preserve separate current-day evidence each day.",
   "latestRun": {
-    "capturedAt": "2026-10-22T05:17:01.499Z",
-    "artifactId": 12403995555,
-    "artifactCreatedAt": "2026-10-22T05:17:04Z",
-    "artifactSha256": "3146031e97b5594107d675a0556835dac73d1102ca6248c7ca61d16bbf02c18f",
+    "capturedAt": "2026-10-22T09:31:06.592Z",
+    "artifactId": 12416116832,
+    "artifactCreatedAt": "2026-10-22T09:31:10Z",
+    "artifactSha256": "04d818a18c43a84fee62b97b70c926d64e02af991691d27a426d3566850d48cb",
     "runId": 39121599531,
-    "runAttempt": 34,
-    "jobId": 119653389271,
-    "observationPath": "data/live/20261022T051701Z-attempt34-offday-collector.json",
+    "runAttempt": 38,
+    "jobId": 119747929903,
+    "observationPath": "data/live/20261022T093106Z-attempt38-offday-collector.json",
     "collectorConclusion": "success",
     "liveGames": 0,
     "pregameGames": {
@@ -1502,7 +1502,7 @@
     "staleArtifactUsed": false,
     "isolatedDatabaseTest": "passed_zero_rows"
   },
-  "latestObservationCommit": "7e126d9d8ea58b8a1ad8072cf9175a509f854afd",
+  "latestObservationCommit": "8f7a128cfcac52f4654c46a1cfbbb41c1d10db2d",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
