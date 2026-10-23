@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-23",
+  "capturedAt": "2026-10-23T09:07:22.369Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowRunId": 39924795302,
+    "runAttempt": 2,
+    "runAttemptConfirmedByGitHubApi": true,
+    "jobId": 120333957222,
+    "headSha": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "conclusion": "success",
+    "artifactId": 12490593400,
+    "artifactCreatedAt": "2026-10-23T09:07:24Z",
+    "artifactDigestSha256": "71af43c37b58b90a3e3a41793ed5c7eb0267ebc51ebf412f5032114bb1018baa",
+    "downloadedZipSha256": "71af43c37b58b90a3e3a41793ed5c7eb0267ebc51ebf412f5032114bb1018baa",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [],
+      "offDayVerified": true,
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-23"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "independentOfficialOffDayVerified": false,
+      "source": "https://api-gw.sports.naver.com"
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": [
+        {
+          "key": "CPBL:261023005",
+          "id": "261023005",
+          "date": "2026-10-23",
+          "status": "postponed",
+          "rawStatus": "POSTPONED",
+          "startTimeOriginal": "2026-10-23T10:35:00.000Z",
+          "away": {
+            "id": "cpbl.t.1",
+            "name": "中信兄弟",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.7",
+            "name": "味全龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "pitchCount": null,
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+            "fetchedAt": "2026-10-23T09:07:21.967Z",
+            "httpDate": "Fri, 23 Oct 2026 09:07:21 GMT",
+            "detailUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261023005/",
+            "detailFetchedAt": "2026-10-23T09:07:22.364Z",
+            "detailFullBoxscoreAvailable": false,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied",
+            "postponed_or_cancelled_schedule_status_no_boxscore"
+          ]
+        }
+      ]
+    }
+  },
+  "states": {
+    "pregame": 0,
+    "live": 0,
+    "final": 0,
+    "postponed": 1
+  },
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "liveChangeNotApplicable": true,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "checkedAt": "2026-10-23T09:07:23.446Z",
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0
+  },
+  "deltaVersusPriorObservation": {
+    "priorCapturedAt": "2026-10-23T08:28:09.459Z",
+    "newValidLiveData": false,
+    "majorFieldRecovery": false,
+    "newParserFailure": false,
+    "sourceStatusChange": false,
+    "gameStatusChange": false
+  },
+  "rescheduleContext": {
+    "reportedNewTime": "2026-10-24T17:05:00+08:00",
+    "note": "Independently reported reschedule time, NOT in normalized collector artifact. The original 2026-10-23 startTime stays as historical scheduled date."
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "deployed": false,
+    "unknownFieldsStayNull": true
+  }
+}
