@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-23",
+  "capturedAt": "2026-10-23T08:28:09.459Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowRunId": 39924795302,
+    "runAttempt": 1,
+    "runAttemptConfirmedByGitHubApi": true,
+    "jobId": 120318426539,
+    "headSha": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "conclusion": "success",
+    "artifactId": 12488927167,
+    "artifactCreatedAt": "2026-10-23T08:28:12Z",
+    "artifactDigestSha256": "777b68724daae93ba9f5ef518d319ccf67ef4342eca6b5daae5e923a191418a5",
+    "downloadedZipSha256": "777b68724daae93ba9f5ef518d319ccf67ef4342eca6b5daae5e923a191418a5",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [],
+      "offDayVerified": true,
+      "source": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-23"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "independentOfficialOffDayVerified": false,
+      "source": "https://api-gw.sports.naver.com"
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": [
+        {
+          "key": "CPBL:261023005",
+          "date": "2026-10-23",
+          "seasonPhase": "POSTSEASON",
+          "status": "postponed",
+          "rawStatus": "POSTPONED",
+          "startTimeOriginal": "2026-10-23T10:35:00.000Z",
+          "away": {
+            "id": "cpbl.t.1",
+            "name": "中信兄弟",
+            "score": null
+          },
+          "home": {
+            "id": "cpbl.t.7",
+            "name": "味全龍",
+            "score": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "lineupConfirmation": "not_verified",
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+            "fetchedAt": "2026-10-23T08:28:09.075Z",
+            "detailUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261023005/",
+            "detailFullBoxscoreAvailable": false
+          },
+          "warnings": [
+            "postponed_or_cancelled_schedule_status_no_boxscore",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied"
+          ]
+        }
+      ]
+    }
+  },
+  "states": {
+    "pregame": 0,
+    "live": 0,
+    "final": 0,
+    "postponed": 1
+  },
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "liveChangeNotApplicable": true,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0
+  },
+  "parserRepair": {
+    "file": "server/baseball-live-providers.mjs",
+    "repairCommit": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "reason": "source schedule status POSTPONED without detail playerStats; no false pregame fallback",
+    "realSourceRetestPassed": true
+  },
+  "independentNewsOnly": {
+    "postponedConfirmed": true,
+    "newTime": "2026-10-24T17:05:00+08:00",
+    "sourceURLs": [
+      "https://www.knews.com.tw/news/1C1E51596863EAD306860C962C5EFC49",
+      "https://news.ttv.com.tw/news/11510220004300W"
+    ],
+    "important": "New kickoff time confirmed by independent public reporting, not a normalized field of this collector artifact."
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "deployed": false,
+    "unknownFieldsStayNull": true
+  }
+}
