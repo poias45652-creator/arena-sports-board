@@ -10,6 +10,7 @@ function pulse(button,event){if(!enabled||!button||button.disabled||button.getAt
  try{root.navigator?.vibrate?.(8)}catch{}
 }
 function mount(){if(mounted||!root.document?.addEventListener)return;mounted=true;try{enabled=root.localStorage.getItem('xingzhun-touch-v1')!=='off'}catch{}
+ if(root.XZButtonFeedback)return;
  root.document.addEventListener('pointerdown',e=>{if(e.button!==0||e.isPrimary===false)return;const button=e.target.closest?.('button,summary');if(!button)return;lastPointer=Date.now();pulse(button,{clientX:e.clientX,clientY:e.clientY,detail:1})},true);
  root.document.addEventListener('click',e=>{if(e.detail===0&&Date.now()-lastPointer>200)pulse(e.target.closest?.('button,summary'),e)},true);
 }
