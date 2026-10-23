@@ -2,6 +2,7 @@ import {readFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import ts from 'typescript';
+import {moduleUrl} from './profile-loader.mjs';
 const code=f=>ts.transpileModule(readFileSync(new URL('../lib/'+f,import.meta.url),'utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
 const url=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
 const settlementURL=url(code('settlement.ts'));
@@ -52,7 +53,7 @@ test('saved Super007 outcomes use original price and fraction; exclude legacy an
  report.baseline.markets[0].quoteFetchedAt='2026-09-10T17:00:00Z';assert.deepEqual(gradeSavedMarkets(report,5,4),[]);
 });
 
-const {parseHrGameDetail}=await import(url(code('hr9988.ts')));
+const {parseHrGameDetail}=await import(moduleUrl('lib/hr9988.ts'));
 const hrFixture=()=>JSON.parse(readFileSync(new URL('./fixtures/hr9988-game-detail.json',import.meta.url),'utf8'));
 test('MLB display keeps full-game and first-half quotes distinct without changing model input',()=>{
  const raw=parseHrGameDetail(hrFixture(),'2026-09-10T19:58:00Z'),g=raw.games[0];

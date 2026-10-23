@@ -11,7 +11,7 @@ type Message={role:'user'|'assistant';text:string;suggestion?:AiSuggestion;at?:s
 const stamp=(s:string)=>new Date(s).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
 const ACTION_DETAILS={
  analysis:{title:'看懂分析',description:'了解星準的判斷依據與本場重點。',Icon:ChartNoAxesCombined},
- risk:{title:'掌握不利因素',description:'查看數據中值得留意的球隊劣勢。',Icon:TriangleAlert},
+ risk:{title:'掌握不利因素',description:'比較雙方數據，查看各隊的具體劣勢。',Icon:TriangleAlert},
  weights:{title:'比較兩隊權重',description:'依各隊表現，查看各自的建議配置。',Icon:SlidersHorizontal},
 } as const;
 function currentSettings(match:AiMatch){

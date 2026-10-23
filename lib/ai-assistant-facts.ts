@@ -27,14 +27,15 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
  if(!validProbabilities(p)||!Number.isFinite(Date.parse(analysis.capturedAt)))return null;
  const facts:AiEvidence[]=[];
  const add=(id:string,topic:AiEvidence['topic'],text:string)=>facts.push({id,topic,text});
+ const addRisk=(id:string,side:Side,text:string)=>facts.push({id,topic:'risk',text,side,riskKind:'adverse'});
  const choices=[{name:match.home,p:p.home},{name:match.away,p:p.away},...(p.draw===undefined?[]:[{name:'和局',p:p.draw}])].sort((a,b)=>b.p-a.p);
  const favored:'home'|'away'|null=Math.abs(choices[0].p-choices[1].p)<.00001?null:choices[0].name===match.home?'home':choices[0].name===match.away?'away':null;
  const focus=favored||'home',checked=new Set<string>();
  const risks=(id:string,home:unknown,away:unknown,metric:Metric)=>{
-  for(const side of favored?[favored]:['home','away'] as const){
+  for(const side of ['home','away'] as const){
    const point=comparison(match,side,home,away,metric);if(!point)continue;
    checked.add(metric.label);
-   if(point.adverse)add(id+(favored?'':'-'+side),'risk',point.text);
+   if(point.adverse)addRisk(id+'-'+side,side,point.text);
   }
  };
  add('result','analysis',`${match.away} 對 ${match.home}：${Math.abs(choices[0].p-choices[1].p)<.00001?'目前沒有單一明確傾向':`模型較偏向${choices[0].name}`}。\n主隊 ${match.home} ${pct(p.home)}／客隊 ${match.away} ${pct(p.away)}${p.draw===undefined?'':`／和局 ${pct(p.draw)}`}。`);
@@ -79,18 +80,20 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
    const c=analysis.playerContext;
    if(c?.status==='applied'){
     const labels=['主場項','預估輪替球員強度','球隊淨效率','對手強度','休息時間'];
-    if(Array.isArray(c.features)&&Array.isArray(c.coefficients))c.features.slice(0,5).forEach((x:number,i:number)=>{if(!finite(x)||!finite(c.coefficients[i]))return;const contribution=x*c.coefficients[i];add('player-factor-'+i,'analysis',`${labels[i]}在本場球員模型中，對主隊預期分差的貢獻為 ${contribution>=0?'+':''}${num(contribution)} 分。`);if(favored&&((favored==='home'&&contribution<0)||(favored==='away'&&contribution>0)))add('player-risk-'+i,'risk',`${labels[i]}對模型較看好的${match[favored]}不利，使該隊的預期分差減少 ${num(Math.abs(contribution))} 分。`);});
+    if(Array.isArray(c.features)&&Array.isArray(c.coefficients))c.features.slice(0,5).forEach((x:number,i:number)=>{if(!finite(x)||!finite(c.coefficients[i]))return;const contribution=x*c.coefficients[i];add('player-factor-'+i,'analysis',`${labels[i]}在本場球員模型中，對主隊預期分差的貢獻為 ${contribution>=0?'+':''}${num(contribution)} 分。`);if(num(Math.abs(contribution))!=='0'){const side=contribution<0?'home':'away';addRisk('player-risk-'+i+'-'+side,side,`${labels[i]}對${match[side]}不利，使該隊的預期分差減少 ${num(Math.abs(contribution))} 分。`);}});
     const statuses:Record<string,string>={out:'缺陣',doubtful:'出賽機率偏低',questionable:'出賽存疑',probable:'可能出賽',expected:'預期出賽'};
     for(const side of ['home','away'] as const)for(const player of (c[side]||[]).slice(0,20)){
      if(!statuses[player.status]||!Number.isFinite(Date.parse(player.publishedAt)))continue;
      const text=`${match[side]} ${player.name}：來源標示${statuses[player.status]}（${new Date(player.publishedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}）。`;
      add(`player-${side}-${player.id}`,'analysis',text);
-     if((!favored||side===favored)&&['out','doubtful','questionable'].includes(player.status))add(`player-status-risk-${side}-${player.id}`,'risk',text);
+     if(['out','doubtful','questionable'].includes(player.status))addRisk(`player-status-risk-${side}-${player.id}`,side,text);
     }
    }
   }
  }
- if(checked.size&&!facts.some(f=>f.topic==='risk'))add('risk-reviewed','risk',`就本場已納入的${[...checked].join('、')}比較，${favored?`目前未看到模型較看好的${match[favored]}有明確數據劣勢`:'雙方目前沒有明顯數據差距'}。此結論僅限上述已核對項目，不表示沒有其他風險。`);
+ // Keep a scoped answer available for a question about one team, but do not
+ // let it hide the other team's concrete disadvantages in the match overview.
+ if(checked.size)for(const side of ['home','away'] as const)if(!facts.some(f=>f.topic==='risk'&&f.side===side))facts.push({id:'risk-reviewed-'+side,topic:'risk',side,riskKind:'reviewed',text:`${match[side]}：已核對的${[...checked].join('、')}未見明顯數據劣勢。`});
  if(suggestion?.teams?.length){
   for(const [i,team] of suggestion.teams.entries())add('weights-team-'+i,'weights',`${team.teamName}建議權重：\n${team.weights.map(w=>`${w.name} ${num(w.value)}%`).join('、')}。\n${team.reason}`);
   add('weights-reason','weights','兩隊分別保存設定；對戰時取雙方權重的平均值運算。這是依各隊表現與可用數據調整的試算配置，尚未經各隊獨立回測。');

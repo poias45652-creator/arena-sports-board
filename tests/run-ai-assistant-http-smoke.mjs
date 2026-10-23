@@ -24,7 +24,7 @@ try{
  await request('/api/ai-assistant',403,{...ask({action:'analysis'}),headers:{...headers,origin:'https://wrong.test'}});
  const answer=await (await request('/api/ai-assistant',200,ask({action:'analysis'}))).json();assert.match(answer.answer,/紐約洋基/);assert.match(answer.answer,/先發本季 ERA/);
  const weight=await (await request('/api/ai-assistant',200,ask({action:'weights'}))).json();assert.equal(weight.suggestion.storageKey,'xingzhun:team-weights:v1:MLB');assert.equal(weight.suggestion.teams.length,2);assert.notDeepEqual(weight.suggestion.teams[0].weights,weight.suggestion.teams[1].weights);for(const team of weight.suggestion.teams)assert.ok(Math.abs(team.weights.reduce((n,w)=>n+w.value,0)-100)<1e-8);
- const risk=await (await request('/api/ai-assistant',200,ask({action:'risk'}))).json();assert.match(risk.answer,/未看到.*明確數據劣勢/);
+ const risk=await (await request('/api/ai-assistant',200,ask({action:'risk'}))).json();assert.match(risk.answer,/紐約大都會的先發本季 ERA較不利：4，紐約洋基為 2/);assert.doesNotMatch(risk.answer,/未見|未看到|不表示沒有其他風險/);
  const innings=defaultBaseballSettings();innings.moneyline=innings.fullGamePk='innings';
  const inningAnswer=await (await request('/api/ai-assistant',200,ask({action:'analysis',settings:innings}))).json();assert.match(inningAnswer.answer,/得分能力（修正值）/);assert.match(inningAnswer.answer,/模型預期/);
  const inningWeights=await (await request('/api/ai-assistant',200,ask({action:'weights',settings:innings}))).json();assert.equal(inningWeights.suggestion.teams[0].value.moneyline,'innings');assert.equal(inningWeights.suggestion.teams[0].weights.length,4);

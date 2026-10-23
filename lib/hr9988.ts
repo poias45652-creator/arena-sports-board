@@ -106,7 +106,7 @@ export function hrFootballSourceCoverage(categories:any[]){
  return {leagueCount:rows.size,truncated:rows.size>80,leagues:[...rows.values()].sort((a,b)=>priority(a)-priority(b)).slice(0,80)};
 }
 
-let lastBasketballShapeLoggedAt=0,lastSportPairingLoggedAt=0;
+let lastBasketballShapeLoggedAt=0,lastSportPairingLoggedAt=0,lastBaseballShapeLoggedAt=0;
 /** Parse the observed GameDetail shape, without inventing a fetch timestamp. */
 export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnapshot {
  const response=value as any;
@@ -167,6 +167,11 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
  if(new Set(sportGames.map(g=>g.league+':'+g.id)).size!==sportGames.length)throw new Error('SUPER 回傳重複運動賽事');
  // Rate-limited, allowlisted public fixture metadata only. Never log the
  // original response, authorization headers, member IDs or session URLs.
+ const baseball=response.data.filter((c:any)=>c.CatID===101).flatMap((c:any)=>c.Items.List);
+ if(baseball.length&&Date.now()-lastBaseballShapeLoggedAt>=60000){
+  lastBaseballShapeLoggedAt=Date.now();
+  console.info('super-baseball-shape',JSON.stringify({fetchedAt,parsedMlbGames:games.length,leagues:baseball.slice(0,20).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,100),games:Array.isArray(l.Team)?l.Team.length:0})),examples:baseball.filter((l:any)=>/MLB|美國職|美職/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(Array.isArray(l.Team)?l.Team:[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,100),id:t.EvtID,home:String(t.HomeTeamStr||'').slice(0,80),away:String(t.AwayTeamStr||'').slice(0,80),start:String(t.ScheduleTimeStr||'').slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(Array.isArray(t.Wager)?t.Wager:[]).slice(0,14).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,24)}));
+ }
  const basketball=response.data.filter((c:any)=>c.CatID===102).flatMap((c:any)=>c.Items.List);
  if(basketball.length&&Date.now()-lastBasketballShapeLoggedAt>=60000){
   lastBasketballShapeLoggedAt=Date.now();

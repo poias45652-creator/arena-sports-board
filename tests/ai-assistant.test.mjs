@@ -47,7 +47,7 @@ test('reported risk question never substitutes the 50.7% other-outcome statement
  assert.match(result,/1.2，客隊為 1.6/);
  assert.match(result,/2\. 札格瑞布迪納摩的場均失球較不利/);
  assert.doesNotMatch(result,/50.7%|以外的結果|確定賽果|傷停/);
- const selected=resolveAiSelection(supported,{scope:'match',intent:'risk',factIds:['result','football-attack-risk','method']}).answer;
+ const selected=resolveAiSelection(supported,{scope:'match',intent:'risk',factIds:['result','football-attack-risk-home','method']}).answer;
  assert.match(selected,/場均進球較不利/);assert.doesNotMatch(selected,/49.3%|正規 90/);
  const away=buildAiFacts(footballMatch,{...source,probabilities:{home:.267,away:.493,draw:.24},homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:10,scored:1.2,conceded:1.7}},suggestion,'football');
  assert.match(quickAiAnswer(away,'risk').answer,/客隊的場均進球較不利/);
@@ -55,17 +55,18 @@ test('reported risk question never substitutes the 50.7% other-outcome statement
  assert.equal(quickAiAnswer(buildAiFacts(footballMatch,{...source,...emptyForm},suggestion,'football'),'risk').answer,AI_INSUFFICIENT);
  const better={homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:8,scored:1.2,conceded:1.7}};
  const reviewed=quickAiAnswer(buildAiFacts(footballMatch,{...source,...better},suggestion,'football'),'risk').answer;
- assert.match(reviewed,/就本場已納入的場均進球、場均失球比較.*未看到.*札格瑞布迪納摩.*明確數據劣勢/);
- assert.doesNotMatch(reviewed,/無風險|保證|50.7%/);
+ assert.match(reviewed,/客隊的場均進球較不利：1.2，札格瑞布迪納摩為 1.6/);
+ assert.match(reviewed,/客隊的場均失球較不利：1.7，札格瑞布迪納摩為 1.1/);
+ assert.doesNotMatch(reviewed,/未見|未看到|無風險|保證|50.7%/);
  const draw=quickAiAnswer(buildAiFacts(footballMatch,{...source,...better,probabilities:{home:.3,away:.3,draw:.4}},suggestion,'football'),'risk').answer;
  assert.match(draw,/客隊的場均進球較不利/);assert.doesNotMatch(draw,/札格瑞布迪納摩的場均進球較不利/);
 });
-test('basketball risks name the disadvantaged team and exclude opponent absences and normal availability',()=>{
+test('basketball risks attribute each team’s absences to that team and exclude normal availability',()=>{
  const nba={...analysis,factors:undefined,inputs:{home:{ortg:108,drtg:116,threePct:.32,ftRate:.2,pace:94},away:{ortg:114,drtg:110,threePct:.37,ftRate:.25,pace:100}},playerContext:{status:'applied',home:[{id:'h',name:'本隊傷員',status:'out',publishedAt:analysis.capturedAt},{id:'r',name:'正常球員',status:'expected',publishedAt:analysis.capturedAt}],away:[{id:'a',name:'對手傷員',status:'out',publishedAt:analysis.capturedAt}]}};
  const s=buildAiFacts({...match,league:'NBA'},nba,suggestion,'basketball'),answer=quickAiAnswer(s,'risk').answer;
  assert.match(answer,/主隊的進攻效率較不利：108，客隊為 114/);
  assert.match(answer,/主隊的防守效率較不利：116，客隊為 110/);
- assert.match(answer,/本隊傷員/);assert.doesNotMatch(answer,/對手傷員|正常球員|節奏/);
+ assert.match(answer,/主隊 本隊傷員/);assert.match(answer,/客隊 對手傷員/);assert.doesNotMatch(answer,/主隊 對手傷員|客隊 本隊傷員|正常球員|節奏/);
  assert.ok(s.evidence.some(f=>f.topic==='analysis'&&f.text.includes('對手傷員')));
 });
 test('the supplied WNBA example and every sport use team, comparison and plain meaning',()=>{
@@ -79,8 +80,26 @@ test('rounding ties and invalid values cannot create disadvantages',()=>{
  for(const [h,a] of [[NaN,90],[null,90],[-1,90]]){
   const s=buildAiFacts(match,{...analysis,inputs:{home:{drtg:h},away:{drtg:a}}},null,'basketball');assert.equal(quickAiAnswer(s,'risk').answer,AI_INSUFFICIENT);
  }
- const s=buildAiFacts(match,{...analysis,factors:[{name:'先發本季 ERA',home:3.101,away:3.102,weight:30,score:-.00025,contribution:-.00375}]},null,'baseball');assert.match(quickAiAnswer(s,'risk').answer,/未看到.*明確數據劣勢/);assert.doesNotMatch(quickAiAnswer(s,'risk').answer,/較不利/);
- const tied=buildAiFacts(match,{...analysis,inputs:{home:{drtg:94.601},away:{drtg:94.602}}},null,'basketball');assert.match(quickAiAnswer(tied,'risk').answer,/未看到.*明確數據劣勢/);
+ const s=buildAiFacts(match,{...analysis,factors:[{name:'先發本季 ERA',home:3.101,away:3.102,weight:30,score:-.00025,contribution:-.00375}]},null,'baseball');assert.match(quickAiAnswer(s,'risk').answer,/未見明顯數據劣勢/);assert.doesNotMatch(quickAiAnswer(s,'risk').answer,/較不利/);
+ const tied=buildAiFacts(match,{...analysis,inputs:{home:{drtg:94.601},away:{drtg:94.602}}},null,'basketball');assert.match(quickAiAnswer(tied,'risk').answer,/未見明顯數據劣勢/);
+});
+test('a favorite leading every measured factor still exposes the other team’s concrete risks',()=>{
+ const g={...match,home:'密爾瓦基釀酒人',away:'坦帕灣光芒'};
+ const s=buildAiFacts(g,{...analysis,factors:[{name:'先發本季 ERA',home:1.8,away:3.1,weight:30,score:.3,contribution:4.5},{name:'先發本季 WHIP',home:.8,away:1.09,weight:15,score:.2,contribution:1.5}]},null,'baseball');
+ const answer=quickAiAnswer(s,'risk').answer;
+ assert.match(answer,/坦帕灣光芒的先發本季 ERA較不利：3.1，密爾瓦基釀酒人為 1.8。.*責失分較多/);
+ assert.match(answer,/坦帕灣光芒的先發本季 WHIP較不利：1.09，密爾瓦基釀酒人為 0.8。.*上壘的情況較多/);
+ assert.doesNotMatch(answer,/未見|未看到|不表示沒有其他風險|釀酒人的.*較不利/);
+ assert.equal(resolveAiSelection(s,{scope:'match',intent:'risk',factIds:['risk-reviewed-home']}).answer,'密爾瓦基釀酒人：已核對的先發本季 ERA、先發本季 WHIP未見明顯數據劣勢。');
+ const flipped=buildAiFacts(g,{...analysis,probabilities:{home:.35,away:.65},factors:[{name:'先發本季 ERA',home:1.8,away:3.1,weight:30,score:.3,contribution:4.5}]},null,'baseball');
+ assert.equal(quickAiAnswer(flipped,'risk').answer,s.evidence.find(f=>f.id==='against-0-away').text);
+});
+test('the eight-item risk overview reserves room for both sides and ignores zero-rounded contributions',()=>{
+ const c={status:'applied',features:[0.001,-1,1,0,0],coefficients:[1,2,3,1,1],home:Array.from({length:12},(_,i)=>({id:'h'+i,name:'主隊傷員'+i,status:'out',publishedAt:analysis.capturedAt})),away:[{id:'a',name:'客隊傷員',status:'questionable',publishedAt:analysis.capturedAt}]};
+ const s=buildAiFacts({...match,league:'WNBA'},{...analysis,playerContext:c},null,'basketball');
+ const answer=quickAiAnswer(s,'risk').answer;
+ assert.match(answer,/預估輪替球員強度對主隊不利/);assert.match(answer,/球隊淨效率對客隊不利/);assert.match(answer,/客隊 客隊傷員/);
+ assert.doesNotMatch(answer,/減少 0 分|主場項對/);assert.equal(answer.split('\n\n').length,8);
 });
 test('provider receives only fixed schema and match evidence and must complete its response',async()=>{
  const fake=async(url,options)=>{
