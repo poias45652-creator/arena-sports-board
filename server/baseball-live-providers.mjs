@@ -124,17 +124,18 @@ export async function collectLeague(league,{date=dayInTaipei(),fetcher=fetch}={}
     if(full.length)return parseCpbl(full.at(-1),detail);
     // A partial LIVE/FINAL detail must never be replaced by a stale PREGAME team card.
     assert(!details.length||matching.length===details.length,'CPBL detail/schedule team mismatch');
-    assert(!details.length||matching.every(x=>x.status==='PREGAME'),'CPBL full game payload missing; non-pregame status');
-    const metadata=matching.find(x=>x.status==='PREGAME'&&['REGULAR_SEASON','POSTSEASON'].includes(x.seasonPhase))||candidate.preview;
-    assert(metadata?.gameId===id&&metadata.status==='PREGAME'&&
+    assert(!details.length||matching.every(x=>['PREGAME','POSTPONED','CANCELLED'].includes(x.status)),'CPBL full game payload missing; unsupported live/final detail');
+    const metadata=['POSTPONED','CANCELLED'].includes(candidate.preview.status)?candidate.preview:
+     (matching.find(x=>x.status==='PREGAME'&&['REGULAR_SEASON','POSTSEASON'].includes(x.seasonPhase))||candidate.preview);
+    assert(metadata?.gameId===id&&['PREGAME','POSTPONED','CANCELLED'].includes(metadata.status)&&
      ['REGULAR_SEASON','POSTSEASON'].includes(metadata.seasonPhase)&&
      metadata.homeTeamId===candidate.preview.homeTeamId&&metadata.awayTeamId===candidate.preview.awayTeamId&&
      metadata.startTime&&dayInTaipei(new Date(metadata.startTime))===date,
-     'CPBL full game payload missing; unverified pregame metadata: '+JSON.stringify({previewStatus:candidate.preview.status,previewPhase:candidate.preview.seasonPhase,detailStatus:details.map(x=>x.status),detailPhase:details.map(x=>x.seasonPhase),previewFields:Object.keys(candidate.preview).filter(x=>/status|phase|game|start|time|team/i.test(x)).slice(0,35)}));
+     'CPBL full game payload missing; unverified schedule metadata');
     // After listed first pitch, do not treat potentially stale pregame cards as current.
-    assert(Date.parse(detail.fetchedAt)<Date.parse(metadata.startTime),'CPBL full game payload missing after scheduled start');
+    if(metadata.status==='PREGAME')assert(Date.parse(detail.fetchedAt)<Date.parse(metadata.startTime),'CPBL full game payload missing after scheduled start');
     const result=parseCpbl(metadata,metadata===candidate.preview?candidate.schedulePage:detail);
-    result.warnings.push('pregame_metadata_only_game_detail_has_no_full_boxscore');
+    result.warnings.push(metadata.status==='PREGAME'?'pregame_metadata_only_game_detail_has_no_full_boxscore':'postponed_or_cancelled_schedule_status_no_boxscore');
     result.source.supportingSources=[{url:detail.url,fetchedAt:detail.fetchedAt,availableFullBoxScore:false}];
     return result;
    });
