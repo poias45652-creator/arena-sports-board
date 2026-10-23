@@ -1,4 +1,6 @@
 export const AI_INSUFFICIENT = '因分析資料不足無法分析';
+export const AI_PAST_DAYS = 14;
+export const AI_FUTURE_DAYS = 60;
 export const AI_SCOPE = '僅能詢問所選星準場次的分析原因與建議權重。';
 export const AI_ACTIONS = {analysis:'為什麼這樣分析',risk:'這場有哪些不利因素',weights:'建議權重'} as const;
 export type AiAction = keyof typeof AI_ACTIONS;
@@ -10,7 +12,9 @@ export type AiSnapshot = {match:AiMatch;capturedAt:string;model:string;evidence:
 export const AI_MODEL = 'gpt-4.1-mini';
 export const aiDay = (date:number|string=Date.now())=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(date));
 export function validAiDay(day:unknown,now=Date.now()):day is string {
- return typeof day==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(day)&&Number.isFinite(Date.parse(day))&&new Date(day).toISOString().slice(0,10)===day&&Math.abs(Date.parse(day)-Date.parse(aiDay(now)))<=14*86400000;
+ if(typeof day!=='string'||!/^\d{4}-\d{2}-\d{2}$/.test(day)||!Number.isFinite(Date.parse(day))||new Date(day).toISOString().slice(0,10)!==day)return false;
+ const offset=(Date.parse(day)-Date.parse(aiDay(now)))/86400000;
+ return offset>=-AI_PAST_DAYS&&offset<=AI_FUTURE_DAYS;
 }
 export function validProbabilities(p:any){
  const values=[p?.home,p?.away,...(p?.draw===undefined?[]:[p.draw])];

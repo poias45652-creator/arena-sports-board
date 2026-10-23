@@ -4,6 +4,7 @@ import {requestOrigin} from '@/lib/request-origin';
 import {AI_ACTIONS,AI_INSUFFICIENT,quickAiAnswer,readAiBody,resolveAiSelection,selectAiEvidence,validAiDay,type AiAction} from '@/lib/ai-assistant';
 import {consumeAiQuota,readAiSettings} from '@/lib/ai-assistant-settings';
 import {AI_LEAGUES,listAiMatches,loadAiSnapshot,validAiLeague} from '@/server/ai-assistant-data';
+import {nextAiMatches} from '@/server/ai-assistant-next';
 export const dynamic='force-dynamic';
 export const runtime='nodejs';
 const reply=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store',...(status===429?{'Retry-After':'60'}:{})}});
@@ -22,6 +23,7 @@ export async function GET(request:Request){
   if(p.get('kind')==='status'){const settings=await readAiSettings(getRawDb());return reply({aiEnabled:settings.enabled&&!!settings.key,leagues:AI_LEAGUES});}
   const league=p.get('league'),day=p.get('date');if(!validAiLeague(league)||!validAiDay(day))return reply({error:'請選擇星準聯賽與近期日期'},400);
   if(!await quota(member.memberId,'list'))return reply({error:'查詢較頻繁，請稍後再試'},429);
+  if(p.get('kind')==='next')return reply(await nextAiMatches(league,day,AbortSignal.any([request.signal,AbortSignal.timeout(55000)])));
   return reply({matches:await listAiMatches(league,day)});
  }catch{return reply({error:AI_INSUFFICIENT},503);}
 }

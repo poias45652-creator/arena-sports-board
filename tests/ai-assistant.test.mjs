@@ -113,6 +113,7 @@ test('actual route enforces membership, origin, scope, missing-data response and
  const module=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
  let code=ts.transpileModule(readFileSync('app/api/ai-assistant/route.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
  const mappings={
+  '@/server/ai-assistant-next':module('export const nextAiMatches=async()=>({day:null,matches:[]});'),
   '@/db':module('export const getRawDb=()=>({prepare:()=>({bind:()=>({run:async()=>({})})})});'),
   '@/lib/arena-session':module("export const readSession=async(db,cookie)=>cookie==='authorized'?{memberId:'member'}:null;"),
   '@/lib/request-origin':module("export const requestOrigin=()=> 'https://site.test';"),
@@ -121,7 +122,11 @@ test('actual route enforces membership, origin, scope, missing-data response and
   '@/server/ai-assistant-data':module(`export const AI_LEAGUES=[{code:'MLB'}];export const validAiLeague=v=>v==='MLB';export const listAiMatches=async()=>[];export const loadAiSnapshot=async(l,d,id)=>id==='missing'?null:${JSON.stringify(snapshot)};`)
  };
  for(const [name,url] of Object.entries(mappings))code=code.replaceAll(`'${name}'`,JSON.stringify(url));
- const {POST}=await import(module(code));
+ const {POST,GET}=await import(module(code));
+ const nextUrl=`https://site.test/api/ai-assistant?kind=next&league=MLB&date=${core.aiDay()}`;
+ assert.equal((await GET(new Request(nextUrl))).status,401);
+ assert.deepEqual(await (await GET(new Request(nextUrl,{headers:{cookie:"authorized"}}))).json(),{day:null,matches:[]});
+ assert.equal((await GET(new Request(nextUrl.replace("league=MLB","league=OTHER"),{headers:{cookie:"authorized"}}))).status,400);
  const request=(body,headers={})=>new Request('https://site.test/api/ai-assistant',{method:'POST',headers:{cookie:'authorized',origin:'https://site.test','Content-Type':'application/json',...headers},body:JSON.stringify({league:'MLB',day:core.aiDay(),gameId:'1',action:'analysis',...body})});
  assert.equal((await POST(request({},{cookie:'forged'}))).status,401);
  assert.equal((await POST(request({},{origin:'https://attacker.test'}))).status,403);

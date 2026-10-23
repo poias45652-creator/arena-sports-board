@@ -13,6 +13,11 @@ try{
  const status=await (await request('/api/ai-assistant?kind=status',200,{headers:{cookie}})).json();assert.equal(status.aiEnabled,false);
  const day=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(Date.now()+3600000));
  const matches=await (await request('/api/ai-assistant?league=MLB&date='+day,200,{headers:{cookie}})).json();assert.equal(matches.matches[0].id,'999001');
+ const previousDay=new Date(Date.parse(day)-86400000).toISOString().slice(0,10);
+ await request('/api/ai-assistant?kind=next&league=MLB&date='+previousDay,401);
+ const next=await (await request('/api/ai-assistant?kind=next&league=MLB&date='+previousDay,200,{headers:{cookie}})).json();assert.equal(next.day,day);assert.deepEqual(next.matches,matches.matches);
+ const none=await (await request('/api/ai-assistant?kind=next&league=MLB&date='+day,200,{headers:{cookie}})).json();assert.deepEqual(none,{day:null,matches:[]});
+ await request('/api/ai-assistant?kind=next&league=OTHER&date='+day,400,{headers:{cookie}});
  const headers={cookie,origin,'Content-Type':'application/json'},ask=(body)=>({method:'POST',headers,body:JSON.stringify({league:'MLB',day,gameId:'999001',...body})});
  await request('/api/ai-assistant',403,{...ask({action:'analysis'}),headers:{...headers,origin:'https://wrong.test'}});
  const answer=await (await request('/api/ai-assistant',200,ask({action:'analysis'}))).json();assert.match(answer.answer,/紐約洋基/);assert.match(answer.answer,/先發本季 ERA/);

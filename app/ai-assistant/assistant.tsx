@@ -1,8 +1,8 @@
 'use client';
 import {useEffect,useRef,useState} from 'react';
-import {ArrowLeft,ArrowUp,Bot,Check,LoaderCircle,RefreshCw,SlidersHorizontal,Sparkles} from 'lucide-react';
+import {ArrowLeft,ArrowRight,ArrowUp,Bot,CalendarDays,Check,LoaderCircle,RefreshCw,SlidersHorizontal,Sparkles} from 'lucide-react';
 import SessionAccount from '../session-account';
-import {AI_ACTIONS,AI_INSUFFICIENT,aiDay,type AiMatch,type AiSuggestion,type AiAction} from '@/lib/ai-assistant';
+import {AI_ACTIONS,AI_INSUFFICIENT,AI_PAST_DAYS,AI_FUTURE_DAYS,aiDay,validAiDay,type AiMatch,type AiSuggestion,type AiAction} from '@/lib/ai-assistant';
 import {baseballSettingsKey,defaultBaseballSettings,parseBaseballSettings,baseballSettingsForGame} from '@/lib/baseball-model-settings';
 import {basketballWeightStorageKey,readNbaWeights} from '@/lib/nba-model-weights';
 import {defaultFootballSettings,footballSettingsKey,parseFootballSettings} from '@/lib/football-model-weights';
@@ -22,24 +22,43 @@ export default function AiAssistant(){
  const [league,setLeague]=useState('MLB'),[day,setDay]=useState(aiDay),[leagues,setLeagues]=useState<{code:string;name:string}[]>([]);
  const [initialized,setInitialized]=useState(false),[aiEnabled,setAiEnabled]=useState(false),[matches,setMatches]=useState<AiMatch[]>([]),[gameId,setGameId]=useState('');
  const [loading,setLoading]=useState(false),[busy,setBusy]=useState(false),[notice,setNotice]=useState(''),[question,setQuestion]=useState(''),[revision,setRevision]=useState(0),[messages,setMessages]=useState<Message[]>([]);
+ const [nextBusy,setNextBusy]=useState(false),[nextNotice,setNextNotice]=useState('');
+ const nextPending=useRef<AbortController|null>(null),found=useRef<{league:string;day:string;matches:AiMatch[]}|null>(null);
  const pending=useRef<AbortController|null>(null),log=useRef<HTMLDivElement>(null),locked=useRef(false);
  const selected=matches.find(g=>g.id===gameId);
  useEffect(()=>{
   const p=new URLSearchParams(location.search);setLeague(p.get('competition')||(p.get('league')==='FOOTBALL'?'eng.1':p.get('league'))||'MLB');
-  if(/^\d{4}-\d{2}-\d{2}$/.test(p.get('date')||''))setDay(p.get('date')!);
+  if(validAiDay(p.get('date')))setDay(p.get('date')!);
   const controller=new AbortController();
   fetch('/api/ai-assistant?kind=status',{cache:'no-store',signal:controller.signal}).then(async r=>{if(r.status===401){location.assign('/login');return;}const data=await r.json();if(!r.ok)throw Error(data.error);setLeagues(data.leagues);setAiEnabled(data.aiEnabled);setLeague(old=>data.leagues.some((l:any)=>l.code===old)?old:'MLB');setInitialized(true);}).catch(e=>{if(!controller.signal.aborted)setNotice(e.message||'助手暫時無法連線');});
-  return()=>{controller.abort();pending.current?.abort();};
+  return()=>{controller.abort();pending.current?.abort();nextPending.current?.abort();};
  },[]);
  useEffect(()=>{
   if(!initialized)return;
-  pending.current?.abort();locked.current=false;setBusy(false);setMessages([]);setMatches([]);setGameId('');setNotice('');setLoading(true);
+  cancelNext();pending.current?.abort();locked.current=false;setBusy(false);setMessages([]);setQuestion('');setMatches([]);setGameId('');setNotice('');setLoading(true);
+  const cached=found.current;found.current=null;
+  if(cached?.league===league&&cached.day===day){setMatches(cached.matches);setGameId(cached.matches[0]?.id||'');setLoading(false);return;}
   const controller=new AbortController();
   fetch(`/api/ai-assistant?league=${encodeURIComponent(league)}&date=${day}`,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(60000)])}).then(async r=>{if(r.status===401){location.assign('/login');return;}const data=await r.json();if(!r.ok)throw Error(data.error);if(!controller.signal.aborted){setMatches(data.matches);setGameId(data.matches[0]?.id||'');}}).catch(e=>{if(!controller.signal.aborted)setNotice(e.name==='TimeoutError'?AI_INSUFFICIENT:e.message||AI_INSUFFICIENT);}).finally(()=>{if(!controller.signal.aborted)setLoading(false);});
   return()=>controller.abort();
  },[league,day,initialized,revision]);
  useEffect(()=>{if(log.current)log.current.scrollTop=log.current.scrollHeight;},[messages,busy]);
- function selectGame(id:string){pending.current?.abort();locked.current=false;setBusy(false);setGameId(id);setMessages([]);setNotice('');setQuestion('');}
+ function cancelNext(){nextPending.current?.abort();nextPending.current=null;setNextBusy(false);setNextNotice('');}
+ async function nextMatch(){
+  if(!initialized||loading||nextPending.current)return;
+  const controller=new AbortController();nextPending.current=controller;setNextBusy(true);setNextNotice('');
+  try{
+   const response=await fetch(`/api/ai-assistant?kind=next&league=${encodeURIComponent(league)}&date=${day}`,{cache:'no-store',signal:AbortSignal.any([controller.signal,AbortSignal.timeout(60000)])});
+   if(response.status===401){location.assign('/login');return;}
+   const data=await response.json();if(!response.ok)throw Error(data.error);
+   if(controller.signal.aborted)return;
+   if(data.day===null){setNextNotice('來源尚未提供近期的下一個比賽日，可自行選擇日期。');return;}
+   if(!validAiDay(data.day)||data.day<=day||!Array.isArray(data.matches)||!data.matches.length||data.matches.some((g:AiMatch)=>g.league!==league||g.day!==data.day))throw Error('Invalid fixtures');
+   found.current={league,day:data.day,matches:data.matches};setDay(data.day);
+  }catch(e){if(!controller.signal.aborted)setNextNotice('下一個比賽日暫時無法取得，請稍後再試。');}
+  finally{if(nextPending.current===controller){nextPending.current=null;setNextBusy(false);}}
+ }
+ function selectGame(id:string){cancelNext();pending.current?.abort();locked.current=false;setBusy(false);setGameId(id);setMessages([]);setNotice('');setQuestion('');}
  async function ask(action?:AiAction){
   if(locked.current||!selected||(!action&&!question.trim()))return;
   const text=action?AI_ACTIONS[action]:question.trim(),controller=new AbortController();pending.current=controller;locked.current=true;setBusy(true);setNotice('');setQuestion('');
@@ -61,10 +80,11 @@ export default function AiAssistant(){
   <div className="xz-assistant-heading"><div><p>會員專屬 · 賽事解讀</p><h1><Sparkles aria-hidden="true"/>AI星準助手</h1></div><span><i/>依星準分析回答</span></div>
   <div className="xz-assistant-workspace">
    <aside className="xz-assistant-selector"><h2>選擇要詢問的場次</h2><p>先選比賽，再問分析與權重。</p>
-    <label>聯賽<select value={league} onChange={e=>setLeague(e.target.value)} disabled={!initialized}>{leagues.length?leagues.map(l=><option key={l.code} value={l.code}>{l.name}</option>):<option value="MLB">讀取中…</option>}</select></label>
-    <label>比賽日期（台灣）<input type="date" value={day} min={aiDay(Date.now()-14*86400000)} max={aiDay(Date.now()+14*86400000)} onChange={e=>{if(e.target.value)setDay(e.target.value);}}/></label>
-    <div className="xz-assistant-list-title"><b>星準場次</b><button type="button" aria-label="重新讀取場次" disabled={loading} onClick={()=>setRevision(v=>v+1)}><RefreshCw size={16} className={loading?'animate-spin':''}/></button></div>
-    <div className="xz-assistant-matches" aria-busy={loading}>{loading?<p>正在取得場次…</p>:matches.length?matches.map(g=><button type="button" key={g.id} aria-pressed={g.id===gameId} onClick={()=>selectGame(g.id)}><small>{stamp(g.start)}</small><span>{g.away}</span><span>對 {g.home}</span>{g.id===gameId&&<Check size={16}/>}</button>):<p>{notice||'此日期沒有星準場次，可切換日期查詢。'}</p>}</div>
+    <label>聯賽<select value={league} onChange={e=>{cancelNext();setLeague(e.target.value);}} disabled={!initialized}>{leagues.length?leagues.map(l=><option key={l.code} value={l.code}>{l.name}</option>):<option value="MLB">讀取中…</option>}</select></label>
+    <label>比賽日期（台灣）<input type="date" value={day} min={aiDay(Date.now()-AI_PAST_DAYS*86400000)} max={aiDay(Date.now()+AI_FUTURE_DAYS*86400000)} onChange={e=>{if(e.target.value){cancelNext();setDay(e.target.value);}}}/></label>
+    <div className="xz-assistant-list-title"><b>星準場次</b><button type="button" aria-label="重新讀取場次" disabled={loading} onClick={()=>{cancelNext();setRevision(v=>v+1);}}><RefreshCw size={16} className={loading?'animate-spin':''}/></button></div>
+    <div className={`xz-assistant-matches${!loading&&!matches.length?' is-empty':''}`} aria-busy={loading}>{loading?<p>正在取得場次…</p>:matches.length?matches.map(g=><button type="button" key={g.id} aria-pressed={g.id===gameId} onClick={()=>selectGame(g.id)}><small>{stamp(g.start)}</small><span>{g.away}</span><span>對 {g.home}</span>{g.id===gameId&&<Check size={16}/>}</button>):<div className="xz-assistant-empty"><CalendarDays size={26}/><p>{notice||`${day} 沒有${leagues.find(l=>l.code===league)?.name||league}場次`}</p>{!notice&&<small>可查看下一個比賽日，或自行選擇日期。</small>}</div>}</div>
+    <div className="xz-assistant-next"><button type="button" disabled={!initialized||loading||nextBusy} onClick={()=>void nextMatch()}>{nextBusy?<><LoaderCircle size={16} className="animate-spin"/>正在查詢…</>:<>下一個比賽日<ArrowRight size={16}/></>}</button>{nextNotice&&<p role="status">{nextNotice}</p>}</div>
    </aside>
    <section className="xz-assistant-chat" aria-label="星準助手問答">
     <header><div className="xz-assistant-avatar"><Bot size={25}/></div><div><h2>{selected?`${selected.away} 對 ${selected.home}`:'AI星準助手'}</h2><p>{selected?`${stamp(selected.start)} · 台灣時間`:'請先從左側選擇場次'}</p></div></header>
