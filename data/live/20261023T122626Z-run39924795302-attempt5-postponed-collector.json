@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-23",
+  "capturedAt": "2026-10-23T12:26:26.007Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 39924795302,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120412656955,
+    "jobStatus": "completed",
+    "conclusion": "success",
+    "headSha": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "artifactId": 12501267193,
+    "artifactCreatedAt": "2026-10-23T12:26:29Z",
+    "artifactDigestSha256": "be9176f0c5676575b219ff55af373dd44d22e15cc11d5c3e6bb98bf4f304fcda",
+    "downloadedZipSha256": "be9176f0c5676575b219ff55af373dd44d22e15cc11d5c3e6bb98bf4f304fcda",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "date": "2026-10-23",
+      "games": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-23",
+        "marker": "試合はありません",
+        "fetchedAt": "2026-10-23T12:26:22.113Z"
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "date": "2026-10-23",
+      "games": [],
+      "independentOfficialOffDayVerified": false,
+      "source": "https://api-gw.sports.naver.com",
+      "fetchedAt": "2026-10-23T12:26:21.853Z"
+    },
+    "CPBL": {
+      "status": "ok",
+      "date": "2026-10-23",
+      "games": [
+        {
+          "key": "CPBL:261023005",
+          "id": "261023005",
+          "date": "2026-10-23",
+          "status": "postponed",
+          "rawStatus": "POSTPONED",
+          "startTimeOriginal": "2026-10-23T10:35:00.000Z",
+          "away": {
+            "id": "cpbl.t.1",
+            "name": "中信兄弟",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.7",
+            "name": "味全龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "starters": {
+            "away": null,
+            "home": null
+          },
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "batting": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "innings": {
+            "away": [],
+            "home": []
+          },
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+            "fetchedAt": "2026-10-23T12:26:25.497Z",
+            "httpDate": "Fri, 23 Oct 2026 12:26:25 GMT",
+            "cacheAgeSeconds": null,
+            "providerUpdatedAt": null,
+            "supportingSources": [
+              {
+                "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261023005/",
+                "fetchedAt": "2026-10-23T12:26:26.002Z",
+                "availableFullBoxScore": false
+              }
+            ]
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied",
+            "postponed_or_cancelled_schedule_status_no_boxscore"
+          ],
+          "liveStateObserved": false,
+          "liveChangesVerified": false
+        }
+      ]
+    }
+  },
+  "verification": {
+    "checkedAt": "2026-10-23T12:26:26.007Z",
+    "states": {
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "postponed": 1
+    },
+    "secondCapturePerformed": false,
+    "qualifiedNumericChanges": 0,
+    "firstTeamOnly": true,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0
+      },
+      {
+        "league": "KBO",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0
+      },
+      {
+        "league": "CPBL",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "postponed": 1
+      }
+    ]
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-23T12:26:27.298Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "deltaVersusPrevious": {
+    "priorCapturedAt": "2026-10-23T11:12:52.113Z",
+    "newValidLiveData": false,
+    "importantFieldRecovered": false,
+    "sourceFailure": false,
+    "parserFix": false,
+    "dataQualityChange": false,
+    "gameStatusChanged": false
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "deployed": false,
+    "unknownFieldsStayNull": true
+  }
+}
