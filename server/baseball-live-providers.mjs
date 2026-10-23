@@ -102,8 +102,44 @@ export async function collectLeague(league,{date=dayInTaipei(),fetcher=fetch}={}
   const root='https://api-gw.sports.naver.com',page=await get(root+'/schedule/games?'+new URLSearchParams({upperCategoryId:'kbaseball',fromDate:date,toDate:date,page:'1',pageSize:'100'}));const j=JSON.parse(page.text);assert(j.success===true&&Array.isArray(j.result?.games),'KBO schedule malformed');const found=j.result.games.filter(x=>x.categoryId==='kbo'&&KBO[x.homeTeamCode]&&KBO[x.awayTeamCode]);
   for(const row of found){const g=await attempt(errors,async()=>{assert(/^[A-Za-z0-9]+$/.test(row.gameId),'Invalid KBO ID');const p=await get(root+'/schedule/games/'+row.gameId+'/game-polling');const r=JSON.parse(p.text);assert(r.success===true&&r.result?.game?.gameId===row.gameId&&row.gameDate===date&&r.result.game.gameDate===date&&r.result.game.homeTeamCode===row.homeTeamCode&&r.result.game.awayTeamCode===row.awayTeamCode,'KBO detail identity/date/team conflict');return parseKbo(r.result.game,p,r.result.textRelayData);});if(g)games.push(g);}
  }else if(league==='CPBL'){
-  const candidates=new Map();for(const name of ['富邦','統一','台鋼','中信','樂天','味全']){await attempt(errors,async()=>{const p=await get('https://tw.sports.yahoo.com/cpbl/teams/'+encodeURIComponent(name)+'/');for(const x of yahooObjects(p.text)){if(/^cpbl\.g\.\d{9}$/.test(x.gameId)&&x.startTime&&CPBL[x.homeTeamId]&&CPBL[x.awayTeamId]&&dayInTaipei(new Date(x.startTime))===date){const url=x.alias?.url;if(typeof url==='string'&&/^https:\/\/tw\.sports\.yahoo\.com\/cpbl\/[^/]+-\d{9}\/$/.test(url))candidates.set(x.gameId,url);}}});}
-  assert(candidates.size||errors.length===0,'CPBL schedule unavailable');for(const [id,url] of candidates){const g=await attempt(errors,async()=>{const p=await get(url);const choices=yahooObjects(p.text).filter(x=>x.gameId===id&&x.playerStats&&CPBL[x.homeTeamId]&&CPBL[x.awayTeamId]);assert(choices.length,'CPBL full game payload missing');return parseCpbl(choices.at(-1),p);});if(g)games.push(g);}
+  // Accept strictly validated PREGAME team cards when Yahoo detail omits playerStats.
+  const candidates=new Map();
+  for(const name of ['富邦','統一','台鋼','中信','樂天','味全']){
+   await attempt(errors,async()=>{
+    const schedule=await get('https://tw.sports.yahoo.com/cpbl/teams/'+encodeURIComponent(name)+'/');
+    for(const x of yahooObjects(schedule.text)){
+     if(!/^cpbl\.g\.\d{9}$/.test(x.gameId)||!x.startTime||!CPBL[x.homeTeamId]||!CPBL[x.awayTeamId]||dayInTaipei(new Date(x.startTime))!==date)continue;
+     const url=x.alias?.url;
+     if(typeof url==='string'&&/^https:\/\/tw\.sports\.yahoo\.com\/cpbl\/[^/]+-\d{9}\/$/.test(url))candidates.set(x.gameId,{url,preview:x,schedulePage:schedule});
+    }
+   });
+  }
+  assert(candidates.size||errors.length===0,'CPBL schedule unavailable');
+  for(const [id,candidate] of candidates){
+   const g=await attempt(errors,async()=>{
+    const detail=await get(candidate.url);
+    const details=yahooObjects(detail.text).filter(x=>x.gameId===id&&CPBL[x.homeTeamId]&&CPBL[x.awayTeamId]);
+    const matching=details.filter(x=>x.homeTeamId===candidate.preview.homeTeamId&&x.awayTeamId===candidate.preview.awayTeamId);
+    const full=matching.filter(x=>x.playerStats);
+    if(full.length)return parseCpbl(full.at(-1),detail);
+    // A partial LIVE/FINAL detail must never be replaced by a stale PREGAME team card.
+    assert(!details.length||matching.length===details.length,'CPBL detail/schedule team mismatch');
+    assert(!details.length||matching.every(x=>x.status==='PREGAME'),'CPBL full game payload missing; non-pregame status');
+    const metadata=matching.find(x=>x.status==='PREGAME'&&['REGULAR_SEASON','POSTSEASON'].includes(x.seasonPhase))||candidate.preview;
+    assert(metadata?.gameId===id&&metadata.status==='PREGAME'&&
+     ['REGULAR_SEASON','POSTSEASON'].includes(metadata.seasonPhase)&&
+     metadata.homeTeamId===candidate.preview.homeTeamId&&metadata.awayTeamId===candidate.preview.awayTeamId&&
+     metadata.startTime&&dayInTaipei(new Date(metadata.startTime))===date,
+     'CPBL full game payload missing; unverified pregame metadata');
+    // After listed first pitch, do not treat potentially stale pregame cards as current.
+    assert(Date.parse(detail.fetchedAt)<Date.parse(metadata.startTime),'CPBL full game payload missing after scheduled start');
+    const result=parseCpbl(metadata,metadata===candidate.preview?candidate.schedulePage:detail);
+    result.warnings.push('pregame_metadata_only_game_detail_has_no_full_boxscore');
+    result.source.supportingSources=[{url:detail.url,fetchedAt:detail.fetchedAt,availableFullBoxScore:false}];
+    return result;
+   });
+   if(g)games.push(g);
+  }
  }else{
   const page=await get('https://baseball.yahoo.co.jp/npb/schedule/?date='+date),ids=npbScheduleIds(page.text);assert(ids.length,'NPB no recognizable first-team fixtures; not proof of an off day');
   for(const id of ids){const g=await attempt(errors,async()=>{const root='https://baseball.yahoo.co.jp/npb/game/'+id,p=await get(root+'/score');let stats=null;try{stats=await get(root+'/stats');}catch(e){errors.push(`${id}:stats ${e.message}`);}return parseNpb(p.text,stats?.text||'',id,p);});if(g&&g.date===date)games.push(g);else if(g)errors.push(`${id}:date_conflict:${g.date}`);}
