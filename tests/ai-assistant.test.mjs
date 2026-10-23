@@ -35,14 +35,47 @@ test('basketball and football retain their own fields and draw probabilities',()
  assert.match(quickAiAnswer(football,'analysis').answer,/和局 25.0%/);
  assert.match(quickAiAnswer(football,'analysis').answer,/正規 90 分鐘/);
 });
+test('reported risk question never substitutes the 50.7% other-outcome statement for a reason',()=>{
+ const footballMatch={...match,league:'uefa.europa',home:'札格瑞布迪納摩'};
+ const source={capturedAt:analysis.capturedAt,probabilities:{home:.493,away:.267,draw:.24}};
+ const missing=buildAiFacts(footballMatch,source,suggestion,'football');
+ assert.equal(quickAiAnswer(missing,'risk').answer,AI_INSUFFICIENT);
+ assert.equal(resolveAiSelection(missing,{scope:'match',intent:'risk',factIds:['result','method']}).answer,AI_INSUFFICIENT);
+ const supported=buildAiFacts(footballMatch,{...source,homeForm:{games:8,scored:1.2,conceded:1.7},awayForm:{games:10,scored:1.6,conceded:1.1}},suggestion,'football');
+ const result=quickAiAnswer(supported,'risk').answer;
+ assert.match(result,/1\. 札格瑞布迪納摩的進攻數據較弱/);
+ assert.match(result,/1.2，低於客隊的 1.6/);
+ assert.match(result,/2\. 札格瑞布迪納摩的失球數據較不利/);
+ assert.doesNotMatch(result,/50.7%|以外的結果|確定賽果|傷停/);
+ const selected=resolveAiSelection(supported,{scope:'match',intent:'risk',factIds:['result','football-attack-risk','method']}).answer;
+ assert.match(selected,/進攻數據較弱/);assert.doesNotMatch(selected,/49.3%|正規 90/);
+ const away=buildAiFacts(footballMatch,{...source,probabilities:{home:.267,away:.493,draw:.24},homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:10,scored:1.2,conceded:1.7}},suggestion,'football');
+ assert.match(quickAiAnswer(away,'risk').answer,/客隊的進攻數據較弱/);
+ for(const extra of [
+  {homeForm:{games:0,scored:0,conceded:5},awayForm:{games:8,scored:1.6,conceded:1.1}},
+  {homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:8,scored:1.2,conceded:1.7}},
+  {probabilities:{home:.3,away:.3,draw:.4},homeForm:{games:8,scored:1.2,conceded:1.7},awayForm:{games:8,scored:1.6,conceded:1.1}}
+ ])assert.equal(quickAiAnswer(buildAiFacts(footballMatch,{...source,...extra},suggestion,'football'),'risk').answer,AI_INSUFFICIENT);
+});
+test('basketball risks name the disadvantaged team and exclude opponent absences and normal availability',()=>{
+ const nba={...analysis,factors:undefined,inputs:{home:{ortg:108,drtg:116,threePct:.32,ftRate:.2,pace:94},away:{ortg:114,drtg:110,threePct:.37,ftRate:.25,pace:100}},playerContext:{status:'applied',home:[{id:'h',name:'本隊傷員',status:'out',publishedAt:analysis.capturedAt},{id:'r',name:'正常球員',status:'expected',publishedAt:analysis.capturedAt}],away:[{id:'a',name:'對手傷員',status:'out',publishedAt:analysis.capturedAt}]}};
+ const s=buildAiFacts({...match,league:'NBA'},nba,suggestion,'basketball'),answer=quickAiAnswer(s,'risk').answer;
+ assert.match(answer,/主隊的進攻效率較不利：108，客隊為 114/);
+ assert.match(answer,/主隊的防守效率較不利：116，客隊為 110/);
+ assert.match(answer,/本隊傷員/);assert.doesNotMatch(answer,/對手傷員|正常球員|節奏/);
+ assert.ok(s.evidence.some(f=>f.topic==='analysis'&&f.text.includes('對手傷員')));
+});
 test('provider receives only fixed schema and match evidence and must complete its response',async()=>{
  const fake=async(url,options)=>{
   assert.equal(url,'https://api.openai.com/v1/responses');const body=JSON.parse(options.body);
   assert.equal(body.store,false);assert.equal(body.tools,undefined);assert.equal(body.text.format.strict,true);
   assert.deepEqual(body.text.format.schema.properties.factIds.items.enum,snapshot.evidence.map(f=>f.id));
-  return Response.json({status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({scope:'match',factIds:['result']})}]}]});
+  assert.ok(body.text.format.schema.required.includes('intent'));
+  return Response.json({status:'completed',output:[{type:'message',content:[{type:'output_text',text:JSON.stringify({scope:'match',intent:'data',factIds:['result']})}]}]});
  };
- assert.deepEqual(await selectAiEvidence(snapshot,'為什麼看好主隊？',[],'test-key',fake),{scope:'match',factIds:['result']});
+ assert.deepEqual(await selectAiEvidence(snapshot,'主隊勝率多少？',[],'test-key',fake),{scope:'match',intent:'data',factIds:['result']});
+ const mismatch=await selectAiEvidence(snapshot,'這場有哪些不利因素？',[],'test-key',fake);
+ assert.equal(mismatch.intent,'risk');assert.equal(resolveAiSelection(snapshot,mismatch).answer,AI_INSUFFICIENT);
  await assert.rejects(selectAiEvidence(snapshot,'問題',[],'test-key',async()=>Response.json({status:'incomplete',output:[]})));
  await assert.rejects(selectAiEvidence(snapshot,'問題',[],'test-key',async()=>new Response('private error',{status:401})),/unavailable/);
 });

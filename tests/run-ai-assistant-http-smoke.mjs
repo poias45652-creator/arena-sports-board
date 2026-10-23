@@ -17,11 +17,13 @@ try{
  await request('/api/ai-assistant',403,{...ask({action:'analysis'}),headers:{...headers,origin:'https://wrong.test'}});
  const answer=await (await request('/api/ai-assistant',200,ask({action:'analysis'}))).json();assert.match(answer.answer,/紐約洋基/);assert.match(answer.answer,/先發本季 ERA/);
  const weight=await (await request('/api/ai-assistant',200,ask({action:'weights'}))).json();assert.equal(weight.suggestion.storageKey,'yj:baseball:model-weights:v1:MLB');
+ const risk=await (await request('/api/ai-assistant',200,ask({action:'risk'}))).json();assert.equal(risk.answer,'因分析資料不足無法分析');
  const missing=await (await request('/api/ai-assistant',200,ask({gameId:'unlisted',action:'analysis'}))).json();assert.deepEqual(missing,{answer:'因分析資料不足無法分析'});
  await request('/api/ai-assistant',503,ask({question:'為什麼看好主隊？'}));
  await request('/api/admin/ai-assistant',200,{method:'POST',headers,body:JSON.stringify({key:'sk-isolated-test-'+ 'a'.repeat(30)})});
  const config=await (await request('/api/admin/ai-assistant',200,{headers:{cookie}})).json();assert.equal(config.enabled,true);assert.doesNotMatch(JSON.stringify(config),/sk-isolated/);
  const ai=await (await request('/api/ai-assistant',200,ask({question:'為什麼看好主隊？'}))).json();assert.equal(ai.mode,'ai');assert.match(ai.answer,/紐約洋基/);
+ const aiRisk=await (await request('/api/ai-assistant',200,ask({question:'這場有哪些不利因素？'}))).json();assert.equal(aiRisk.answer,'因分析資料不足無法分析');
  const off=await (await request('/api/ai-assistant',200,ask({question:'推薦股票'}))).json();assert.equal(off.answer,'僅能詢問所選星準場次的分析原因與建議權重。');
  console.log(`${checks} compiled HTTP checks passed with isolated database and synthetic sports/provider fixtures.`);
 }catch(e){console.error(output);throw e;}finally{server.kill('SIGTERM');}
