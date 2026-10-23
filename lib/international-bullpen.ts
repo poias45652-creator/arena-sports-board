@@ -14,8 +14,9 @@ export function supplementBullpens(data:PregameData,result:any,now=Date.now()):P
    if(records.every(r=>r.length===1)){
     const rows=records.map(r=>r[0]);const at=rows.map(r=>r.source.observedAt).sort()[0];
     if(!g.comparisonSource||Date.parse(g.comparisonSource.observedAt)<=Date.parse(at)){
-     out.comparison={title:'NPB 官方本季團隊得失分',headers:['球隊','類別','勝敗','得/失分'],rows:rows.map(r=>[r.team,'本季',`${r.wins}-${r.losses}-${r.games-r.wins-r.losses}`,`${(r.scored/r.games).toFixed(6)} / ${(r.allowed/r.games).toFixed(6)}`])};
-     out.comparisonSource={name:'NPB 官方團隊攻守成績',url:rows[0].source.url,observedAt:at,throughDate:rows.map(r=>r.throughDate).sort()[0],seasonComplete:rows.every(r=>r.seasonComplete===true),seasonYear:Number(g.date.slice(0,4)),games:Math.min(...rows.map(r=>r.games))};
+     const official=rows.every(r=>r.source.name==='NPB 官方團隊攻守成績');
+     out.comparison={title:official?'NPB 官方本季團隊得失分':'NPB 已核對本季團隊得失分',headers:['球隊','類別','勝敗','得/失分'],rows:rows.map(r=>[r.team,'本季',`${r.wins}-${r.losses}-${r.games-r.wins-r.losses}`,`${(r.scored/r.games).toFixed(6)} / ${(r.allowed/r.games).toFixed(6)}`])};
+     out.comparisonSource={name:official?'NPB 官方團隊攻守成績':'NF3 團隊攻守（官方季末投手合計核對）',url:rows[0].source.url,observedAt:at,throughDate:rows.map(r=>r.throughDate).sort()[0],seasonComplete:rows.every(r=>r.seasonComplete===true),seasonYear:Number(g.date.slice(0,4)),games:Math.min(...rows.map(r=>r.games))};
     }
    }
   }return out;
