@@ -5,7 +5,8 @@ export const MULTIFACTOR_DEFAULTS={season:40/3,starterEra:30,starterWhip:15,star
 export const INNINGS_DEFAULTS={starter:60,offense:20,defense:10,bullpen:10};
 export type MultiWeights=typeof MULTIFACTOR_DEFAULTS;
 export type InningWeights=typeof INNINGS_DEFAULTS;
-export type BaseballModelSettings={version:1;moneyline:BaseballModelFamily;fullGamePk:BaseballModelFamily;weights:{multifactor:MultiWeights;innings:InningWeights}};
+export type BaseballBaseSettings={version:1;moneyline:BaseballModelFamily;fullGamePk:BaseballModelFamily;weights:{multifactor:MultiWeights;innings:InningWeights}};
+export type BaseballModelSettings=BaseballBaseSettings&{teams?:Record<string,BaseballBaseSettings>};
 export const BASEBALL_FACTOR_LABELS={season:'本季戰績',starterEra:'先發投手本季防禦率 ERA',starterWhip:'先發投手本季每局被上壘率 WHIP',starterRecentEra:'先發投手近期防禦率 ERA',lineup:'九棒對左右投打擊能力',bullpenPitches:'牛棚近三日用球數',bullpenBackToBack:'牛棚連日登板人數',injuries:'傷兵影響',weatherPark:'天氣與球場',homeAdvantage:'主場優勢',starter:'先發投手防禦率',offense:'己方得分能力',defense:'對手失分能力',bullpen:'對手牛棚防禦率'} as const;
 export const defaultBaseballSettings=():BaseballModelSettings=>({version:1,moneyline:'multifactor',fullGamePk:'multifactor',weights:{multifactor:{...MULTIFACTOR_DEFAULTS},innings:{...INNINGS_DEFAULTS}}});
 export const baseballSettingsKey=(league:BaseballModelLeague)=>`yj:baseball:model-weights:v1:${league}`;
@@ -21,8 +22,25 @@ export function normalizeBaseballWeights<T extends Record<string,number>>(raw:un
 export function parseBaseballSettings(raw:unknown):BaseballModelSettings|null{
  try{const d=typeof raw==='string'?JSON.parse(raw):raw;if(!d||d.version!==1||!['multifactor','innings'].includes(d.moneyline)||!['multifactor','innings'].includes(d.fullGamePk))return null;
  const multifactor=normalizeBaseballWeights(d.weights?.multifactor,MULTIFACTOR_DEFAULTS),innings=normalizeBaseballWeights(d.weights?.innings,INNINGS_DEFAULTS);
- return multifactor&&innings?{version:1,moneyline:d.moneyline,fullGamePk:d.fullGamePk,weights:{multifactor,innings}}:null;
+ if(!multifactor||!innings)return null;
+ const result:BaseballModelSettings={version:1,moneyline:d.moneyline,fullGamePk:d.fullGamePk,weights:{multifactor,innings}};
+ if(d.teams!==undefined){
+  if(!d.teams||typeof d.teams!=='object'||Array.isArray(d.teams)||Object.keys(d.teams).length>100)return null;
+  const teams:Record<string,BaseballBaseSettings>={};
+  for(const [id,value] of Object.entries(d.teams)){
+   if(!/^[A-Za-z0-9._:-]{1,80}$/.test(id)||['__proto__','constructor','prototype'].includes(id)||!value||typeof value!=='object'||'teams' in value)return null;
+   const parsed=parseBaseballSettings(value);if(!parsed)return null;teams[id]=parsed;
+  }
+  if(Object.keys(teams).length)result.teams=teams;
+ }
+ return result;
  }catch{return null;}
+}
+export function baseballSettingsForGame(settings:BaseballModelSettings,home:string|number,away:string|number):BaseballBaseSettings{
+ const values=[home,away].flatMap(id=>settings.teams&&Object.hasOwn(settings.teams,String(id))?[settings.teams[String(id)]]:[]);
+ const {teams:_,...base}=settings;if(!values.length)return base;
+ const average=<T extends Record<string,number>>(family:'multifactor'|'innings',template:T)=>Object.fromEntries(Object.keys(template).map(key=>[key,values.reduce((sum,v)=>sum+(v.weights[family] as Record<string,number>)[key],0)/values.length])) as T;
+ return {...base,moneyline:values.every(v=>v.moneyline===values[0].moneyline)?values[0].moneyline:base.moneyline,fullGamePk:values.every(v=>v.fullGamePk===values[0].fullGamePk)?values[0].fullGamePk:base.fullGamePk,weights:{multifactor:average('multifactor',base.weights.multifactor),innings:average('innings',base.weights.innings)}};
 }
 /** Explicitly chosen weights total 100%; absent observations keep their assigned neutral share. */
 export function rebalanceBaseballWeight<T extends Record<string,number>>(weights:T,key:keyof T,value:number):T{

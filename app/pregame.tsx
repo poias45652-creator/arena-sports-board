@@ -62,7 +62,7 @@ export default function Pregame({settings}:{settings:BaseballModelSettings}){
   const sources=[{title:'個別投手',kind:'pitcher' as Kind,...pitchers},{title:'團隊打擊',kind:'batter-team' as Kind,...batting},{title:'團隊投球',kind:'pitcher-team' as Kind,...pitching}];
   const moneyline=(g:Match)=>boardQuote(matchOdds(g,odds.data),'moneyline');
   const moneylineOK=!odds.error&&fresh(odds.data?.fetchedAt,now,150000);
-  const projections=useMemo(()=>new Map((schedule.data?.games||[]).map(g=>[g.id,mlbInningProjection(g,runs.data,settings.weights.innings)])),[schedule.data,runs.data,modelSignature]);
+  const projections=useMemo(()=>new Map((schedule.data?.games||[]).map(g=>[g.id,mlbInningProjection(g,runs.data,settings)])),[schedule.data,runs.data,modelSignature]);
   const model=(g:Match,market:'moneyline'|'fullGamePk'='moneyline')=>mlbSelectedWinner(g,analysis[g.id]?.report,now,scheduleOK,settings,market,projections.get(g.id)||null,mlbRunsFresh(runs.data,runs.error,now));
   useEffect(()=>{setLegs([]);setNotice('');},[modelSignature]);
   const probability=(g:Match)=>model(g).homeWin;

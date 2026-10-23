@@ -1,11 +1,12 @@
 import {getRawDb} from '@/db';
-import {aiDay,type AiMatch,type AiSnapshot,type AiSuggestion} from '@/lib/ai-assistant';
+import {aiDay,type AiMatch,type AiSnapshot} from '@/lib/ai-assistant';
 import {buildAiFacts} from '@/lib/ai-assistant-facts';
+import {aiTeamSuggestion} from './ai-team-suggestions';
+import {inningsOuts} from '@/lib/pregame-analysis';
 import {FOOTBALL_LEAGUES,isFootballLeague} from '@/lib/football';
 import {footballModelCatalog} from '@/lib/football-model-catalog';
-import {defaultFootballSettings,footballSettingsKey,parseFootballSettings,validateFootballSettings,FOOTBALL_FACTOR_LABELS} from '@/lib/football-model-weights';
-import {defaultBaseballSettings,parseBaseballSettings,baseballSettingsKey,BASEBALL_FACTOR_LABELS} from '@/lib/baseball-model-settings';
-import {defaultNbaWeights,basketballWeightStorageKey,NBA_WEIGHT_LABELS,writeNbaWeights} from '@/lib/nba-model-weights';
+import {defaultFootballSettings,parseFootballSettings,validateFootballSettings} from '@/lib/football-model-weights';
+import {defaultBaseballSettings,parseBaseballSettings} from '@/lib/baseball-model-settings';
 import {parseWeights} from '@/lib/basketball-efficiency';
 import {readyNbaAnalysis} from '@/lib/nba-analysis';
 import {readyFootballAnalysis} from '@/lib/football-recommendations';
@@ -21,18 +22,12 @@ async function sportRequest(league:string,day:string,kind:string,id?:string,sett
  return json(await GET(new Request('https://arena.internal/api/basketball?'+p)));
 }
 function matchOf(g:any,league:string,day:string):AiMatch{
- if(league==='MLB')return {id:String(g.id),league,day,home:teamZh(g.home),away:teamZh(g.away),start:g.date};
- if(league==='NPB')return {id:String(g.id),league,day,home:g.home.team,away:g.away.team,start:g.start.replace(' ','T')+'+08:00'};
- return {id:String(g.id),league,day,home:g.home.name,away:g.away.name,start:g.start};
+ if(league==='MLB')return {id:String(g.id),league,day,home:teamZh(g.home),away:teamZh(g.away),homeId:String(g.home.id),awayId:String(g.away.id),start:g.date};
+ if(league==='NPB')return {id:String(g.id),league,day,home:g.home.team,away:g.away.team,homeId:g.home.teamCode,awayId:g.away.teamCode,start:g.start.replace(' ','T')+'+08:00'};
+ return {id:String(g.id),league,day,home:g.home.name,away:g.away.name,homeId:String(g.home.id),awayId:String(g.away.id),start:g.start};
 }
-export function aiSuggestion(league:string,day:string):AiSuggestion{
- const href=`/?league=${isFootballLeague(league)?'FOOTBALL':league}&view=analysis&date=${day}${isFootballLeague(league)?'&competition='+league:''}`;
- if(league==='MLB'||league==='NPB'){
-  const value=defaultBaseballSettings();return {label:'棒球多因子基準配置',storageKey:baseballSettingsKey(league),value,href,weights:Object.entries(value.weights.multifactor).map(([k,v])=>({name:BASEBALL_FACTOR_LABELS[k as keyof typeof BASEBALL_FACTOR_LABELS],value:v}))};
- }
- if(league==='NBA'||league==='WNBA')return {label:'籃球效率基準配置',storageKey:basketballWeightStorageKey(league),value:JSON.parse(writeNbaWeights(defaultNbaWeights())),href,weights:NBA_WEIGHT_LABELS.map(name=>({name,value:20}))};
- const catalog=footballModelCatalog(league as any),active=catalog.models.find(m=>m.id===catalog.active)!;
- return {label:active.name+'基準配置',storageKey:footballSettingsKey(league),value:defaultFootballSettings(),href,weights:active.defaults.map((value,i)=>({name:FOOTBALL_FACTOR_LABELS[i],value})).filter(w=>w.value>0)};
+function buildSnapshot(match:AiMatch,analysis:any,kind:'baseball'|'basketball'|'football'){
+ return buildAiFacts(match,analysis,aiTeamSuggestion(match,analysis,kind),kind);
 }
 // Only existing website providers are reachable. Never accept client facts or URLs.
 export async function listAiMatches(league:string,day:string):Promise<AiMatch[]>{
@@ -43,7 +38,7 @@ export async function listAiMatches(league:string,day:string):Promise<AiMatch[]>
  return games.map(g=>matchOf(g,league,day)).filter(g=>aiDay(g.start)===day).slice(0,40);
 }
 export async function loadAiSnapshot(league:string,day:string,id:string,rawSettings:unknown):Promise<AiSnapshot|null>{
- const now=Date.now(),suggestion=aiSuggestion(league,day);
+ const now=Date.now();
  if(league==='MLB'){
   const settings=rawSettings===undefined?defaultBaseballSettings():parseBaseballSettings(rawSettings);if(!settings)return null;
   const {loadSource}=await import('@/app/api/analysis/source');
@@ -60,10 +55,13 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   }
   const {mlbInningProjection,mlbSelectedWinner,mlbRunsFresh}=await import('@/lib/mlb-model-analysis');
   const runs=settings.moneyline==='innings'?await loadSource('runs'):null;
-  const model=mlbSelectedWinner(retained?report.game:g,report,retained?Date.parse(report.capturedAt):Date.now(),retained||Date.now()-Date.parse(schedule.fetchedAt)<120000,settings,'moneyline',mlbInningProjection(g,runs,settings.weights.innings),mlbRunsFresh(runs,'',Date.now()));
+  const model=mlbSelectedWinner(retained?report.game:g,report,retained?Date.parse(report.capturedAt):Date.now(),retained||Date.now()-Date.parse(schedule.fetchedAt)<120000,settings,'moneyline',mlbInningProjection(g,runs,settings),mlbRunsFresh(runs,'',Date.now()));
   if(!model.canEstimate||model.homeWin===null)return null;
   // An innings estimate has no per-factor contributions; explain only its measured projection.
-  return buildAiFacts(matchOf(g,league,day),{...model,probabilities:{home:model.homeWin,away:1-model.homeWin},capturedAt:report?.capturedAt||schedule.fetchedAt,retained},suggestion,'baseball');
+  return buildSnapshot(matchOf(g,league,day),{...model,probabilities:{home:model.homeWin,away:1-model.homeWin},capturedAt:report?.capturedAt||schedule.fetchedAt,retained,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>{
+   const source=(retained?report.game:g)[side],context=report?.context?.sides?.[side],rows=context?.recentGames||[],outs=rows.map((r:any)=>inningsOuts(r.innings));
+   return [side,{games:typeof source.wins==='number'&&typeof source.losses==='number'?source.wins+source.losses:null,recentStarts:rows.length,starterOuts:outs.length&&outs.every((n:any)=>n!==null)?outs.reduce((a:number,b:number)=>a+b,0):null,lineupPA:context?.lineupStatus==='confirmed'&&context.lineup?.length===9&&context.lineup.every((p:any)=>typeof p.pa==='number')?context.lineup.reduce((n:number,p:any)=>n+p.pa,0):null,bullpenCount:context?.bullpen?.length||null}];
+  }))},'baseball');
  }
  if(league==='NPB'){
   const settings=rawSettings===undefined?defaultBaseballSettings():parseBaseballSettings(rawSettings);if(!settings)return null;
@@ -73,20 +71,20 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   const analysis=buildRunAnalysis(g,Date.now(),'NPB',true,settings);
   // The board may expose a simulation; the assistant must not treat assumed data as evidence.
   if(analysis.status!=='ready'||analysis.mode==='simulation'||!analysis.win)return null;
-  return buildAiFacts(matchOf(g,league,day),{...analysis,probabilities:analysis.win,factors:settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]},suggestion,'baseball');
+  return buildSnapshot(matchOf(g,league,day),{...analysis,probabilities:analysis.win,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>[side,{starterOuts:inningsOuts(g[side].starter.season.innings)}])),factors:settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]},'baseball');
  }
  if(isFootballLeague(league)){
   const settings=rawSettings===undefined?defaultFootballSettings():parseFootballSettings(rawSettings);if(!settings||!validateFootballSettings(settings,footballModelCatalog(league)))return null;
   const result=await sportRequest(league,day,'analysis',id,settings),g=result.game;if(!g||aiDay(g.start)!==day)return null;
   const analysis=readyFootballAnalysis(g,result,Date.now());if(!analysis)return null;
-  return buildAiFacts(matchOf(g,league,day),{...analysis,retained:!!result.retained},suggestion,'football');
+  return buildSnapshot(matchOf(g,league,day),{...analysis,retained:!!result.retained},'football');
  }
  if(league==='NBA'||league==='WNBA'){
   if(rawSettings!==undefined&&(!Array.isArray(rawSettings)||rawSettings.some(v=>typeof v!=='number')))return null;
   const weights=parseWeights(rawSettings===undefined?null:(rawSettings as number[]).join(','));
   const result=await sportRequest(league,day,'analysis',id,weights),g=result.game;if(!g||aiDay(g.start)!==day)return null;
   const analysis=readyNbaAnalysis(g,result,Date.now());if(!analysis)return null;
-  return buildAiFacts(matchOf(g,league,day),analysis,suggestion,'basketball');
+  return buildSnapshot(matchOf(g,league,day),analysis,'basketball');
  }
  return null;
 }

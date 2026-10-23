@@ -32,6 +32,17 @@ test('MLB custom weights change the calculated winner; unavailable factors retai
  const s=defaultBaseballSettings(),base=selected(s);s.weights.multifactor=all(s.weights.multifactor,'starterEra');close(selected(s).homeWin,.125);assert.notEqual(base.homeWin,selected(s).homeWin);
  s.weights.multifactor=all(s.weights.multifactor,'weatherPark');close(selected(s).homeWin,.5);close(selected(s).coverage,0);assert.equal(selected(s).canRecommend,false);
 });
+test('saved team profiles change MLB winner and innings calculations only for matching team IDs',()=>{
+ const base=defaultBaseballSettings(),profile=defaultBaseballSettings();profile.weights.multifactor=all(profile.weights.multifactor,'starterEra');profile.weights.innings=all(profile.weights.innings,'offense');
+ const matched={...base,teams:{[game.home.id]:profile}},unrelated={...base,teams:{999999:profile}};
+ assert.notEqual(selected(matched).homeWin,selected(base).homeWin);assert.equal(selected(unrelated).homeWin,selected(base).homeWin);
+ assert.notDeepEqual(mlbInningProjection(game,runs,matched).runs,mlbInningProjection(game,runs,base).runs);assert.deepEqual(mlbInningProjection(game,runs,unrelated),mlbInningProjection(game,runs,base));
+});
+test('saved NPB team profiles reach source-backed calculations without changing unrelated fixtures',()=>{
+ const base=defaultBaseballSettings(),profile=defaultBaseballSettings();profile.weights.multifactor=all(profile.weights.multifactor,'starterEra');
+ const original=buildRunAnalysis(npb,now,'NPB',false,base),matched=buildRunAnalysis(npb,now,'NPB',false,{...base,teams:{[npb.home.teamCode]:profile}}),unrelated=buildRunAnalysis(npb,now,'NPB',false,{...base,teams:{unrelated:profile}});
+ assert.equal(matched.status,'ready');assert.notEqual(matched.win.home,original.win.home);close(matched.win.home+matched.win.away+matched.win.draw,1);assert.deepEqual(unrelated.win,original.win);
+});
 test('MLB inning weights change score distributions, moneyline and separate zero-handicap selection',()=>{
  const s=defaultBaseballSettings();s.moneyline='innings';const p=mlbInningProjection(game,runs,s.weights.innings),i=selected(s),pk=selected(s,'fullGamePk');assert.notEqual(i.homeWin,pk.homeWin);close(i.homeWin,p.homeWin);
  s.weights.innings=all(s.weights.innings,'offense');const offense=mlbInningProjection(game,runs,s.weights.innings);assert.notEqual(p.runs.home,offense.runs.home);assert.notEqual(i.homeWin,selected(s).homeWin);

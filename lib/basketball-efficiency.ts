@@ -28,13 +28,13 @@ export function parseEfficiencyBox(raw:any,game:NbaGame,league:BasketballLeague)
  if(!Number.isFinite(possessions)||possessions<=0)throw Error('回合數不完整');
  return {key:nbaFixtureKey(game),league,id:game.id,start:game.start,minutes,possessions,home,away};
 }
-export type EfficiencyMetrics={games:number;ortg:number;drtg:number;pace:number;threePct:number;threeRate:number;ftRate:number;observations:{offense:number;defense:number;three:number|null;freeThrows:number;margin:number}[]};
+export type EfficiencyMetrics={samples?:{possessions:number;threeAttempts:number;fieldGoalAttempts:number;minutes:number};games:number;ortg:number;drtg:number;pace:number;threePct:number;threeRate:number;ftRate:number;observations:{offense:number;defense:number;three:number|null;freeThrows:number;margin:number}[]};
 export function efficiencyMetrics(boxes:EfficiencyBox[],teamId:string,league:BasketballLeague):EfficiencyMetrics{
  if(boxes.length<8||boxes.some(b=>b.league!==league||b.home.id!==teamId&&b.away.id!==teamId)||new Set(boxes.map(b=>b.id)).size!==boxes.length)throw Error('效率樣本不足或不符');
  let points=0,against=0,possessions=0,minutes=0,threes=0,threeAttempts=0,fta=0,fga=0;
  const observations=boxes.map(b=>{const t=b.home.id===teamId?b.home:b.away,o=b.home.id===teamId?b.away:b.home;points+=t.points;against+=o.points;possessions+=b.possessions;minutes+=b.minutes;threes+=t.threeMade;threeAttempts+=t.threeAttempted;fta+=t.fta;fga+=t.fga;return {offense:t.points/b.possessions*100,defense:o.points/b.possessions*100,three:t.threeAttempted?t.threeMade/t.threeAttempted:null,freeThrows:t.fta/t.fga,margin:t.points-o.points};});
  if(!threeAttempts||!fga||!possessions||!minutes)throw Error('效率指標不足');
- return {games:boxes.length,ortg:points/possessions*100,drtg:against/possessions*100,pace:possessions/minutes*(league==='NBA'?48:40),threePct:threes/threeAttempts,threeRate:threeAttempts/fga,ftRate:fta/fga,observations};
+ return {samples:{possessions,threeAttempts,fieldGoalAttempts:fga,minutes},games:boxes.length,ortg:points/possessions*100,drtg:against/possessions*100,pace:possessions/minutes*(league==='NBA'?48:40),threePct:threes/threeAttempts,threeRate:threeAttempts/fga,ftRate:fta/fga,observations};
 }
 const variance=(values:number[])=>{const mean=values.reduce((a,b)=>a+b,0)/values.length;return values.reduce((a,v)=>a+(v-mean)**2,0)/values.length;};
 const standardized=(delta:number,values:number[])=>{const sd=Math.sqrt(variance(values));return sd>1e-9?delta/sd:0;};

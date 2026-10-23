@@ -15,6 +15,8 @@ import FootballLiveCenter,{FootballGameStrip} from './football-live-center';
 import FootballStandings from './football-standings';
 import FootballModelWeights from './football-model-weights';
 import SportMarkets from './sport-markets';
+import {footballFixtureSettings} from '@/lib/team-model-settings';
+import {useTeamWeightBook,TeamWeightNotice} from './team-weight-book';
 import {useSource} from './use-source';
 import './sport-markets.css';
 import './football-live.css';
@@ -34,6 +36,8 @@ export default function FootballBoard(){
   const [view,setView]=useState<FootballView>('analysis'),[initialized,setInitialized]=useState(false),[settings,setSettings]=useState<FootballModelSettings>(defaultFootballSettings),[settingsLeague,setSettingsLeague]=useState('');
   const viewRef=useRef(view);viewRef.current=view;
   const settingsSignature=customFootballSettings(settings)?JSON.stringify(settings):'';
+  const teamBook=useTeamWeightBook(league);
+  const gameSettings=(game:FootballGame)=>{try{return footballFixtureSettings(localStorage,league,{id:game.id,start:game.start,homeId:game.home.id,awayId:game.away.id},settings,teamBook.book);}catch{return settings;}};
   const [board,setBoard]=useState<Board|null>(null),[reports,setReports]=useState<Record<string,Report>>({});
   const [analysisActivity,setAnalysisActivity]=useState<Record<string,FootballAnalysisActivity>>({});
   const [error,setError]=useState(''),[loading,setLoading]=useState(true),[nextBusy,setNextBusy]=useState(false),[notice,setNotice]=useState('');
@@ -67,7 +71,7 @@ export default function FootballBoard(){
     return()=>nextController.current?.abort();
   },[league,day]);
   useEffect(()=>{
-    if(!initialized||settingsLeague!==league)return;
+    if(!initialized||settingsLeague!==league||!teamBook.ready)return;
     const controller=new AbortController();let busy=false,timer:ReturnType<typeof setTimeout>;
     const known:Record<string,Report>={},attempted:Record<string,number>={};
     let currentBoard:Board|null=null;
@@ -75,7 +79,7 @@ export default function FootballBoard(){
     const base=`/api/football?league=${encodeURIComponent(league)}&date=${day}`;
     const queue=createFootballReportQueue({
       signal:controller.signal,
-      request:(game,signal)=>request(base+'&kind=analysis&game='+game.id+(settingsSignature?'&settings='+encodeURIComponent(settingsSignature):''),signal),
+      request:(game,signal)=>{const selected=gameSettings(game);return request(base+'&kind=analysis&game='+game.id+(customFootballSettings(selected)?'&settings='+encodeURIComponent(JSON.stringify(selected)):''),signal);},
       current:game=>{
         const current=currentBoard?.games.find(g=>fixtureKey(g)===fixtureKey(game)),clock=Date.now();
         return !!current&&(retainFootballForecast(current,clock)||(currentBoard?.analysisAvailable!==false&&current.state==='scheduled'&&current.timeConfirmed&&Date.parse(current.start)>clock));
@@ -83,7 +87,7 @@ export default function FootballBoard(){
       onReport(game,report){
         // A late, invalid or closed result cannot replace a valid pregame snapshot.
         if(readyFootballAnalysis(game,report,Date.now())||!readyFootballAnalysis(game,known[game.id],Date.now()))known[game.id]=report;
-        try{cacheFootballReport(localStorage,game,known[game.id],settings);}catch{/* Browser storage may be disabled. */}
+        try{cacheFootballReport(localStorage,game,known[game.id],gameSettings(game));}catch{/* Browser storage may be disabled. */}
         setReports({...known});
       },
       onError(game,error){
@@ -102,7 +106,7 @@ export default function FootballBoard(){
         const clock=Date.now();
         for(const game of data.games){
           if(readyFootballAnalysis(game,known[game.id],clock))continue;
-          try{const cached=cachedFootballReport(localStorage,game,settings,clock);if(cached)known[game.id]=cached;}catch{/* Server restoration still runs. */}
+          try{const cached=cachedFootballReport(localStorage,game,gameSettings(game),clock);if(cached)known[game.id]=cached;}catch{/* Server restoration still runs. */}
         }
         setReports({...known});
         queue.enqueue(data.games.filter(g=>!queue.has(g)&&footballReportNeedsRefresh(g,known[g.id],clock,attempted[fixtureKey(g)!],data.analysisAvailable!==false)));
@@ -111,7 +115,7 @@ export default function FootballBoard(){
     }
     void update();const resume=()=>{if(document.visibilityState==='visible')void update();};document.addEventListener('visibilitychange',resume);window.addEventListener('online',resume);
     return()=>{controller.abort();clearTimeout(timer);document.removeEventListener('visibilitychange',resume);window.removeEventListener('online',resume);};
-  },[league,day,reload,initialized,settingsLeague,settingsSignature]);
+  },[league,day,reload,initialized,settingsLeague,settingsSignature,teamBook.ready,teamBook.signature]);
   async function nextMatch(){
     nextController.current?.abort();const controller=new AbortController();nextController.current=controller;setNextBusy(true);setNotice('');
     try{const d=await request(`/api/football?league=${league}&date=${day}&kind=next`,controller.signal);if(!controller.signal.aborted){if(d.day)setDay(d.day);else setNotice('來源尚未提供近期的下一個比賽日，可使用日期選擇器查詢。');}}
@@ -128,6 +132,7 @@ export default function FootballBoard(){
     <nav className="football-leagues" aria-label="足球聯賽">{FOOTBALL_LEAGUES.map(l=><button type="button" key={l.code} onClick={()=>setLeague(l.code)} aria-pressed={l.code===league}>{l.name}</button>)}</nav>
     <nav className="football-page-tabs" aria-label="足球頁面">{FOOTBALL_VIEWS.map(([id,label])=><button type="button" key={id} aria-pressed={view===id} onClick={()=>setView(id)}>{label}</button>)}</nav>
     {view!=='standings'&&<div className="football-content-panel"><div className="football-toolbar"><div><h2>{FOOTBALL_VIEWS.find(([id])=>id===view)?.[1]}</h2><p>{selected.fullName}・台灣時間</p></div><div className="football-date"><button type="button" aria-label="前一天" onClick={()=>setDay(shiftFootballDay(day,-1))}><ArrowLeft size={17}/></button><label><CalendarDays size={17}/><span className="sr-only">比賽日期（台灣時間）</span><input type="date" value={day} min={shiftFootballDay(footballDay(),-365)} max={shiftFootballDay(footballDay(),365)} onChange={e=>{if(e.target.value)setDay(e.target.value);}}/></label><button type="button" aria-label="後一天" onClick={()=>setDay(shiftFootballDay(day,1))}><ArrowRight size={17}/></button><button type="button" onClick={()=>setDay(footballDay())}>今天</button><button type="button" aria-label="更新足球資料" disabled={loading} onClick={()=>setReload(n=>n+1)}><RefreshCw size={17} className={loading?'animate-spin':''}/></button></div><FootballModelWeights key={league} league={league} settings={settings} onApply={applySettings}/></div>
+    <TeamWeightNotice count={teamBook.count} onClear={teamBook.clear}/>
     <div className="football-status"><span>{board?`${board.games.length} 場賽事・${board.games.filter(g=>g.state==='live').length} 場進行中`:'正在取得賽程'}</span><span>{board?`抓取 ${time(board.fetchedAt)}`:'等待同步'}{stale?'・資料已過期':''}</span></div>
     <div className="football-filters" role="group" aria-label="足球賽事狀態">{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完場']].map(([value,label])=><button type="button" key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div>
     {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；當日已開賽的賽前預測仍保留。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}

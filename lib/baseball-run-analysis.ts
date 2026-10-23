@@ -1,4 +1,4 @@
-import {BASEBALL_MODEL_NAMES,BASEBALL_FACTOR_LABELS,INNINGS_DEFAULTS,normalizeBaseballWeights,parseBaseballSettings,type BaseballModelSettings,type InningWeights,type MultiWeights} from './baseball-model-settings';
+import {BASEBALL_MODEL_NAMES,BASEBALL_FACTOR_LABELS,INNINGS_DEFAULTS,normalizeBaseballWeights,parseBaseballSettings,baseballSettingsForGame,type BaseballModelSettings,type InningWeights,type MultiWeights} from './baseball-model-settings';
 import {pitcherIdentity} from './international-pitcher-identity';
 import {scoreGrid,settle,type Outcome,type Settlement} from './markets';
 import {internationalTeam} from './international-teams';
@@ -163,7 +163,7 @@ export function scoreDistribution(away:number[],home:number[],automaticRunnerSco
 }
 
 export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague='NPB',allowSimulation=false,settings?:BaseballModelSettings):RunAnalysis{
- const personal=settings?parseBaseballSettings(settings):null;
+ const parsed=settings?parseBaseballSettings(settings):null,personal=parsed?baseballSettingsForGame(parsed,g.home.teamCode,g.away.teamCode):null;
  const fixture={start:g.start,away:g.away.team,home:g.home.team,starters:{away:g.away.starter.name,home:g.home.starter.name}};
  const report:RunAnalysis={version:MODEL_VERSION[league],status:'waiting_data',reason:'',fixture,capturedAt:new Date(now).toISOString(),inputs:{},notes:[MODEL_NOTE,...(league==='CPBL'?['10 局起突破僵局的二壘跑者，額外得分機率暫設 60%；為未校準假設，非來源統計。']:[])],expected:null,win:null,grids:null};
  const stop=(reason:string,status:RunAnalysis['status']='waiting_data')=>({...report,status,reason});

@@ -2,7 +2,7 @@ import {validProbabilities,type AiMatch,type AiSnapshot,type AiSuggestion,type A
 const pct=(n:number)=>(100*n).toFixed(1)+'%';
 const num=(n:number)=>Number(n.toFixed(2)).toString();
 const finite=(v:unknown):v is number=>typeof v==='number'&&Number.isFinite(v);
-export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion,kind:'baseball'|'basketball'|'football'):AiSnapshot|null {
+export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|null,kind:'baseball'|'basketball'|'football'):AiSnapshot|null {
  const p=analysis.probabilities;
  if(!validProbabilities(p)||!Number.isFinite(Date.parse(analysis.capturedAt)))return null;
  const facts:AiEvidence[]=[];
@@ -67,7 +67,12 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion,
    }
   }
  }
- add('weights','weights',`目前建議使用「${suggestion.label}」。\n${suggestion.weights.map(w=>`${w.name} ${num(w.value)}%`).join('、')}。\n這是星準現行基準配置，並非宣稱所有場次的最佳比例。`);
- add('weights-reason','weights','建議先沿用基準配置，讓同聯賽的分析保持一致；修改權重會改變模型估值，不能只為了把某隊勝率調高而認定更準。');
+ if(suggestion?.teams?.length){
+  for(const [i,team] of suggestion.teams.entries())add('weights-team-'+i,'weights',`${team.teamName}建議權重：\n${team.weights.map(w=>`${w.name} ${num(w.value)}%`).join('、')}。\n${team.reason}`);
+  add('weights-reason','weights','兩隊分別保存設定；對戰時取雙方權重的平均值運算。這是依樣本量調整的試算配置，尚未經各隊獨立回測。');
+ }else if(suggestion){
+  add('weights','weights',`目前建議使用「${suggestion.label}」。\n${suggestion.weights.map(w=>`${w.name} ${num(w.value)}%`).join('、')}。`);
+ }
+
  return {match,capturedAt:analysis.capturedAt,model:analysis.model||analysis.version||'',evidence:facts,suggestion};
 }

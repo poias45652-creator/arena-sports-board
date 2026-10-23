@@ -6,6 +6,7 @@ import React from 'react';
 import {moduleUrl} from './profile-loader.mjs';
 const weightSettings=await import(moduleUrl('lib/nba-model-weights.ts'));
 const efficiency=await import(moduleUrl('lib/basketball-efficiency.ts'));
+const teamSettings=await import(moduleUrl('lib/team-model-settings.ts'));
 const refreshPolicy=await import(moduleUrl('app/basketball-report-refresh.ts'));
 const deferred=()=>{let resolve,reject;const promise=new Promise((yes,no)=>{resolve=yes;reject=no;});return {promise,resolve,reject};};
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
@@ -48,7 +49,7 @@ function mountBoard(request,eligible=false){
   useEffect(run,deps){const i=cursor++,old=slots[i];if(!old||deps.some((v,j)=>v!==old.deps[j])){slots[i]={deps,cleanup:old?.cleanup};effects.push(()=>{slots[i].cleanup?.();slots[i].cleanup=run();});}}
  };
  const nba={nbaDay:()=> '2026-10-05',validNbaDay:()=>true,shiftNbaDay:day=>day,NBA_TEAMS:[],nbaFixtureKey:g=>g.id};
- const dependencies={'./basketball-live-center':{default:function BasketballLiveCenter(){}},'./basketball-standings':{default:function BasketballStandings(){}},react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':weightSettings,'./nba-model-weights':{default:function NbaModelWeights(){}},'@/lib/nba-analysis':{nbaEligible:()=>eligible,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
+ const dependencies={'@/lib/team-model-settings':teamSettings,'./team-weight-book':{useTeamWeightBook:()=>({book:{},ready:true,signature:'{}',count:0,clear(){}}),TeamWeightNotice:()=>null},'./basketball-live-center':{default:function BasketballLiveCenter(){}},'./basketball-standings':{default:function BasketballStandings(){}},react:hooks,'lucide-react':{},'@/lib/nba':nba,'@/lib/wnba':{WNBA_TEAMS:[]},'@/lib/basketball-efficiency':efficiency,'@/lib/nba-model-weights':weightSettings,'./nba-model-weights':{default:function NbaModelWeights(){}},'@/lib/nba-analysis':{nbaEligible:()=>eligible,nbaSourceStale:()=>false},'./nba-match':{nbaTime:v=>v},'./nba-recommendations':{},'./nba-request':{nbaRequest:request},'./basketball-report-refresh':refreshPolicy,'./sport-markets':{},'./use-source':{useSource:()=>({data:null,error:''})}};
  const code=ts.transpileModule(readFileSync('app/nba-board.tsx','utf8'),{fileName:'board.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
  const exports={};new Function('require','exports','React',code)(key=>{if(key.endsWith('.css'))return {};assert.ok(key in dependencies,key);return dependencies[key];},exports,React);
  return {render(props={}){cursor=0;const tree=exports.default({view:eligible?'analysis':'live',onViewChange(){},...props});effects.splice(0).forEach(run=>run());return tree;},dispose(){for(const slot of slots)slot?.cleanup?.();}};
@@ -64,7 +65,7 @@ test('refresh retains cards, failures retain last success, hidden polls pause an
  t.mock.method(globalThis,'clearTimeout',id=>timers.delete(id));
  t.mock.method(globalThis,'setInterval',()=>0);t.mock.method(globalThis,'clearInterval',()=>{});
  const calls=[],board=mountBoard((url,signal)=>{const task=deferred();calls.push({...task,url,signal});return task.promise;});
- const snapshot=(day,id)=>({day,games:[{id,state:'scheduled'}],fetchedAt:new Date().toISOString()});
+ const snapshot=(day,id)=>({day,games:[{id,state:'scheduled',home:{id:'10'},away:{id:'20'}}],fetchedAt:new Date().toISOString()});
  const cards=tree=>elements(tree,e=>e.type?.name==='BasketballLiveCenter').flatMap(e=>e.props.games.map(g=>g.id));
  try{
   board.render();board.render();assert.equal(calls.length,1);calls[0].resolve(snapshot('2026-10-05','first'));await flush();assert.deepEqual(cards(board.render()),['first']);
@@ -99,7 +100,7 @@ test('NBA applied weights reload from storage, abort old reports and never leak 
  t.mock.method(globalThis,'setTimeout',()=>0);t.mock.method(globalThis,'clearTimeout',()=>{});
  t.mock.method(globalThis,'setInterval',()=>0);t.mock.method(globalThis,'clearInterval',()=>{});
  const calls=[],request=(url,signal)=>{const task=deferred();calls.push({...task,url,signal});return task.promise;};
- const snapshot={day:'2026-10-05',games:[{id:'123',state:'scheduled'}],fetchedAt:new Date().toISOString()};
+ const snapshot={day:'2026-10-05',games:[{id:'123',state:'scheduled',home:{id:'10'},away:{id:'20'}}],fetchedAt:new Date().toISOString()};
  const modal=tree=>elements(tree,e=>e.type?.name==='NbaModelWeights')[0];
  const reports=tree=>elements(tree,e=>e.type?.name==='NbaCard').map(e=>e.props.report);
  let board=mountBoard(request,true);

@@ -3,12 +3,13 @@ import {scoreGrid,type RunSnapshot} from './markets';
 import {scoreDistribution} from './baseball-run-analysis';
 import {winnerAnalysis,type WinnerAnalysis} from './winner-analysis';
 import type {AnalysisReport} from './pregame-analysis';
-import {INNINGS_DEFAULTS,normalizeBaseballWeights,type BaseballModelSettings,type InningWeights} from './baseball-model-settings';
+import {INNINGS_DEFAULTS,normalizeBaseballWeights,baseballSettingsForGame,type BaseballModelSettings,type InningWeights} from './baseball-model-settings';
 
 /** Weighted run rates are engineering estimates, not fitted win probabilities.
  * Missing bullpen measurements retain a neutral league-average share. */
-export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:InningWeights){
+export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:InningWeights|BaseballModelSettings){
  if(!data||data.year!==game.season||!Number.isFinite(data.league)||data.league<=0)return null;
+ if('version' in weights)weights=baseballSettingsForGame(weights,game.home.id,game.away.id).weights.innings;
  const w=normalizeBaseballWeights(weights,INNINGS_DEFAULTS);if(!w)return null;
  const rate=(side:'home'|'away')=>{
   const other=side==='home'?'away':'home',bat=data.rows.find(r=>r.id===game[side].id),pit=data.rows.find(r=>r.id===game[other].id);
@@ -32,6 +33,7 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
  return {runs:{away:a.full,home:h.full},full,half,homeWin,notes:['逐局得分採獨立卜瓦松分布；九局下領先免打、再見比分以超前一分近似。','延長賽採下一個分出勝負的局數近似，未納入突破僵局跑者與中途平手局的累積得分。','牛棚缺少獨立實測 ERA，以本季聯盟得分均值維持中性權重。']};
 }
 export function mlbSelectedWinner(game:Match,report:AnalysisReport|undefined,now:number,scheduleOK:boolean,settings:BaseballModelSettings,market:'moneyline'|'fullGamePk',projection:ReturnType<typeof mlbInningProjection>,runsFresh:boolean):WinnerAnalysis{
+ settings=baseballSettingsForGame(settings,game.home.id,game.away.id);
  const base=winnerAnalysis(game,report,now,scheduleOK,settings.weights.multifactor);
  if(settings[market]==='multifactor'||!base.canEstimate)return base;
  if(!projection||!runsFresh)return {...base,homeWin:null,canEstimate:false,canRecommend:false,ready:false,status:'blocked',favoredSide:null,reason:'逐局得分所需的本季得失分資料不足或已過期'};
