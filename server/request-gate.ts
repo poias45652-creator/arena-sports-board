@@ -3,7 +3,7 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   const path = new URL(request.url).pathname;
   if (path === '/api/health' || path === '/api/session' || path === '/api/free-trial' || (path === '/api/daily-win-rate' && request.method === 'GET') ||
       (path === '/api/international-sync' && request.method === 'POST')) return null;
-  const protectedPage = path === '/' || path === '/admin' || path.startsWith('/admin/') ||
+  const protectedPage = path === '/' || path === '/ai-assistant' || path === '/admin' || path.startsWith('/admin/') ||
     path === '/teams' || path.startsWith('/teams/') || path.startsWith('/players/');
   if (!protectedPage && !path.startsWith('/api/')) return null;
   try {

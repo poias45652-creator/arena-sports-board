@@ -8,4 +8,4 @@ export async function proxy(request: NextRequest) {
   for (const name of [...safeHeaders.keys()]) if (name.toLowerCase().startsWith('oai-authenticated-')) safeHeaders.delete(name);
   return NextResponse.next({request:{headers:safeHeaders}});
 }
-export const config = {matcher:['/','/admin/:path*','/teams/:path*','/players/:path*','/api/:path*']};
+export const config = {matcher:['/','/ai-assistant','/admin/:path*','/teams/:path*','/players/:path*','/api/:path*']};

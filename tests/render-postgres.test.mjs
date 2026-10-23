@@ -66,7 +66,7 @@ test('Render PostgreSQL migration, sessions, authorization, rollback and analyti
     assert.equal((await db.prepare('SELECT enabled FROM account_access WHERE member_id=?').bind('tz:321').first()).enabled,1);
   });
   await t.test('no forged identity headers or legacy cookies bypass page/API gates',async()=>{
-    for(const path of ['/','/admin','/teams/npb/a','/players/1','/api/baseball','/api/admin/accounts']){
+    for(const path of ['/','/ai-assistant','/admin','/teams/npb/a','/players/1','/api/baseball','/api/ai-assistant','/api/admin/ai-assistant','/api/admin/accounts']){
       const r=await gateRequest(new Request('https://site.test'+path,{headers:{'oai-authenticated-user-email':'owner@example.invalid','oai-authenticated-user-id':'tz:999',cookie:'arena_session=old-cookie'}}),db);
       assert.equal(r.status,path.startsWith('/api/')?401:307);
     }

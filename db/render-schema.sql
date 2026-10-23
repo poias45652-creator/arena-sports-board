@@ -210,3 +210,13 @@ CREATE TABLE IF NOT EXISTS "daily_results" (
   "fetched_at" text NOT NULL
 );
 CREATE INDEX IF NOT EXISTS "daily_results_day_sport" ON "daily_results" ("day","sport");
+
+-- Assistant secrets are encrypted with TZ_BINDING_KEY; never returned to clients.
+CREATE TABLE IF NOT EXISTS ai_assistant_settings (
+ id text PRIMARY KEY NOT NULL, encrypted_key text NOT NULL,
+ enabled integer NOT NULL DEFAULT 0, updated_at bigint NOT NULL
+);
+CREATE TABLE IF NOT EXISTS ai_assistant_usage (
+ id text PRIMARY KEY NOT NULL, count integer NOT NULL, updated_at bigint NOT NULL
+);
+CREATE INDEX IF NOT EXISTS ai_assistant_usage_updated ON ai_assistant_usage(updated_at);
