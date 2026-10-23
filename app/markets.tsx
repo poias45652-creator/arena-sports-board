@@ -103,7 +103,7 @@ export default function Markets({settings,projections,winnerModel,analysis,games
      </span><span className="mt-3 block text-sm">{r?<MarketOutcomes outcome={r}/>:q?'尚無估算':oddsError?'來源讀取失敗':!matchOdds(g,odds)?'來源場次尚未配對':sourceIssue||'尚未開盤'}</span>
     </span></Button>;
    })}</div>
-   {!q&&<p className="text-sm text-amber-200">{automatic?(oddsError||(!matchOdds(g,odds)?'尚未配對到本場來源資料，請更新或核對 G1／G2。':sourceIssue||'尚未開盤')):'請輸入有效的自訂數值。'}</p>}
+   {!q&&<p className="text-sm text-amber-200">{automatic?(oddsError||(!matchOdds(g,odds)?(g.doubleHeader==='Y'||g.doubleHeader==='S'?'尚未配對到本場來源資料，請更新或核對 G1／G2。':'尚未配對到本場來源資料，請更新或核對球隊與開賽時間。'):sourceIssue||'尚未開盤')):'請輸入有效的自訂數值。'}</p>}
    {blocked&&q&&<p className="text-sm text-amber-200">{blocked}</p>}
   </section>;
  }

@@ -1,0 +1,64 @@
+{
+  "capturedAt": "2026-10-23T13:47:49.267Z",
+  "provenance": "正式站 super-baseball-shape 公開欄位；僅保留聯賽、球隊、開賽時間與玩法代碼，未保留會員或報價資料。",
+  "source": {
+    "league": "MLB 美國職棒-世界大賽",
+    "id": 25118511,
+    "home": "密爾瓦基釀酒人(主)",
+    "away": "坦帕灣光芒",
+    "start": "2026/10/24 08:00:00",
+    "liveType": "boolean",
+    "live": false,
+    "status": 1,
+    "markets": [
+      {
+        "group": 10,
+        "type": 103
+      },
+      {
+        "group": 10,
+        "type": 104
+      },
+      {
+        "group": 10,
+        "type": 106
+      },
+      {
+        "group": 10,
+        "type": 111
+      },
+      {
+        "group": 11,
+        "type": 103
+      },
+      {
+        "group": 11,
+        "type": 104
+      },
+      {
+        "group": 11,
+        "type": 105
+      }
+    ]
+  },
+  "official": {
+    "id": 849805,
+    "date": "2026-10-24T00:00:00Z",
+    "season": 2026,
+    "gameType": "W",
+    "state": "Preview",
+    "status": "Scheduled",
+    "startTimeTBD": false,
+    "doubleHeader": "N",
+    "gameNumber": 1,
+    "home": {
+      "id": 158,
+      "name": "Milwaukee Brewers"
+    },
+    "away": {
+      "id": 139,
+      "name": "Tampa Bay Rays"
+    }
+  },
+  "officialSource": "https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=2026-10-23&endDate=2026-10-24&hydrate=team,probablePitcher"
+}

@@ -16,6 +16,13 @@ export function hrWagerPeriod(group:unknown):HrDisplayMarket['period']|null {
  return group===0||group===10?'full':group===1||group===11?'firstHalf':null;
 }
 
+// SUPER's 2026-10-23 capture labels the same MLB fixture and seven markets as
+// 「MLB 美國職棒-世界大賽」. Recognize senior postseason stages explicitly;
+// never accept a substring that could include simulated or special markets.
+export function hrMlbCompetition(name:string):boolean {
+ return /^MLB美國職棒(?:[-－](?:世界大賽|季後賽|外卡賽|外卡系列賽|分區系列賽|聯盟冠軍賽))?$/i.test(name.normalize('NFKC').replace(/\s/g,''));
+}
+
 /** Use SUPER's current baseball menu, rather than its incomplete hot-events category.
  * Public frontend app.fc4fbe31.js defines 3 = not playing, 101 = baseball,
  * 888888 = hot; getCatMenuKeys chooses the category's first WagerTypeKey.
@@ -118,7 +125,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
   for(const league of category.Items.List){
    // Keep baseball and other sports in separate snapshots and matching contracts.
    const name=String(league?.LeagueNameStr||'').trim();
-   const code=name==='MLB 美國職棒'?'MLB':/^(CPBL\b|中華職棒|中華職業棒球)/i.test(name)?'CPBL':/^(NPB\b|日本職棒)/i.test(name)?'NPB':/^(KBO\b|韓國職棒)/i.test(name)?'KBO':null;
+   const code=hrMlbCompetition(name)?'MLB':/^(CPBL\b|中華職棒|中華職業棒球)/i.test(name)?'CPBL':/^(NPB\b|日本職棒)/i.test(name)?'NPB':/^(KBO\b|韓國職棒)/i.test(name)?'KBO':null;
    if(code||/棒球|baseball/i.test(String(category.CatName||'')))sourceLeagues.push({name:name.slice(0,100),league:code,games:Array.isArray(league.Team)?league.Team.length:0});
    const europaCategory=Number.isSafeInteger(category.CatID)&&category.CatID>0&&![101,102,888888].includes(category.CatID)&&hrFootballCompetition(String(category.CatName||''))==='uefa.europa';
    const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1||category.CatID===31||europaCategory?'FOOTBALL':null;
@@ -170,7 +177,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
  const baseball=response.data.filter((c:any)=>c.CatID===101).flatMap((c:any)=>c.Items.List);
  if(baseball.length&&Date.now()-lastBaseballShapeLoggedAt>=60000){
   lastBaseballShapeLoggedAt=Date.now();
-  console.info('super-baseball-shape',JSON.stringify({fetchedAt,parsedMlbGames:games.length,leagues:baseball.slice(0,20).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,100),games:Array.isArray(l.Team)?l.Team.length:0})),examples:baseball.filter((l:any)=>/MLB|美國職|美職/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(Array.isArray(l.Team)?l.Team:[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,100),id:t.EvtID,home:String(t.HomeTeamStr||'').slice(0,80),away:String(t.AwayTeamStr||'').slice(0,80),start:String(t.ScheduleTimeStr||'').slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(Array.isArray(t.Wager)?t.Wager:[]).slice(0,14).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,24)}));
+  console.info('super-baseball-shape',JSON.stringify({fetchedAt,parsedMlbGames:games.length,parsedMarkets:games.slice(0,24).map(g=>({id:g.id,markets:g.displayMarkets.map((m:HrDisplayMarket)=>({period:m.period,type:m.type,primaryOpen:m.quotes[0]?.open===true}))})),leagues:baseball.slice(0,20).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,100),games:Array.isArray(l.Team)?l.Team.length:0})),examples:baseball.filter((l:any)=>/MLB|美國職|美職/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(Array.isArray(l.Team)?l.Team:[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,100),id:t.EvtID,home:String(t.HomeTeamStr||'').slice(0,80),away:String(t.AwayTeamStr||'').slice(0,80),start:String(t.ScheduleTimeStr||'').slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(Array.isArray(t.Wager)?t.Wager:[]).slice(0,14).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,24)}));
  }
  const basketball=response.data.filter((c:any)=>c.CatID===102).flatMap((c:any)=>c.Items.List);
  if(basketball.length&&Date.now()-lastBasketballShapeLoggedAt>=60000){
