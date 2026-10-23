@@ -1606,7 +1606,7 @@
     "staleArtifactUsed": false,
     "isolatedDatabaseTest": "passed_one_postponed_row"
   },
-  "latestObservationCommit": null,
+  "latestObservationCommit": "7930792bd42ccef97f9309943cc21ef4c96e143d",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
