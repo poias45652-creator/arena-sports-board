@@ -26,7 +26,7 @@ test('newer matching ERA does not suppress missing WHIP or innings; conflicts st
  const now=Date.parse('2026-09-23T05:00:00Z'),oldTime='2026-09-23T04:40:00Z',freshTime='2026-09-23T04:55:00Z';
  const side={team:'千葉羅德海洋',starter:{name:'J・ルケーシー',season:{era:'4.20',whip:'',innings:'',wins:'1'},quality:'unavailable',warnings:[],statSources:{era:{observedAt:freshTime}}},bullpen:null};
  const data={league:'NPB',date:'2026-09-23',games:[{league:'NPB',date:'2026-09-23',start:'2026-09-23 16:00:00',away:side,home:{...side,starter:{...side.starter,name:'another'}}}]};
- const row={team:side.team,name:'ルケーシー',stats:{era:'4.20',whip:'1.27',innings:'15',wins:''},source:{name:'NPB',url:'https://npb.jp/',observedAt:oldTime}};
+ const row={team:side.team,name:'ルケーシー',stats:{era:'4.20',whip:'1.27',innings:'15',wins:''},source:{name:'NPB',url:'https://npb.jp/',observedAt:oldTime,throughDate:'2026-09-22'}};
  const out=supplementSeasonPitching(data,{rows:[row]},now).games[0];assert.equal(out.away.starter.season.whip,'1.27');assert.equal(out.away.starter.season.innings,'15');assert.equal(out.away.starter.season.wins,'1');assert.equal(out.away.starter.statSources.era.observedAt,freshTime);assert.equal(out.away.starter.statSources.innings.observedAt,oldTime);assert.equal(out.home.starter.season.whip,'');assert.equal(out.away.bullpen,null);
  const bad=structuredClone(data);bad.games[0].away.starter.season.era='9.00';assert.equal(supplementSeasonPitching(bad,{rows:[row]},now).games[0].away.starter.season.whip,'');
 });

@@ -36,3 +36,9 @@ test('WHIP preserves zero, rejects missing values and respects season identity',
   for(const whip of [null,undefined,'','-.--',Infinity,'-1.00'])assert.equal(parsePitcherRates(data([row('3.41',{stat:{era:'3.41',whip}})]),2026)[123].whip,null);
   assert.deepEqual(parsePitcherRates(data([row('3.41',{season:'2025',stat:{era:'3.41',whip:'1.09'}})]),2026)[123],{era:null,whip:null});
 });
+test('pitching sample outs come from the same verified season row and preserve thirds',()=>{
+ const stats={era:'3.41',whip:'1.09',inningsPitched:'123.2'};
+ assert.equal(parsePitcherRates(data([row(null,{stat:stats})]),2026)[123].outs,371);
+ for(const ip of ['',null,'123.3','NaN'])assert.equal(parsePitcherRates(data([row(null,{stat:{...stats,inningsPitched:ip}})]),2026)[123].outs,undefined);
+ assert.equal(parsePitcherRates(data([row(null,{stat:stats,season:'2025'})]),2026)[123].outs,undefined);
+});

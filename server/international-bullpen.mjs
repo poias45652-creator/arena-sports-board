@@ -1,5 +1,6 @@
 import {plain,tableData,dayInTaipei,fetchPublic,parseKbo} from './baseball-live-providers.mjs';
 import {pitchingOuts,npbStatsPeriod} from './baseball-season-pitching.mjs';
+import {npbUpcomingDate} from '../lib/npb-stats-date.mjs';
 const NPB={巨人:['讀賣巨人','Central/G'],阪神:['阪神虎','Central/T'],DeNA:['橫濱 DeNA 海灣之星','Central/DB'],中日:['中日龍','Central/D'],広島:['廣島東洋鯉魚','Central/C'],ヤクルト:['東京養樂多燕子','Central/S'],ソフトバンク:['福岡軟銀鷹','Pacific/H'],日本ハム:['北海道日本火腿鬥士','Pacific/F'],オリックス:['歐力士猛牛','Pacific/B'],楽天:['東北樂天金鷲','Pacific/E'],西武:['埼玉西武獅','Pacific/L'],ロッテ:['千葉羅德海洋','Pacific/M']};
 const KBO={HT:'起亞虎',OB:'斗山熊',HH:'韓華鷹',LT:'樂天巨人',NC:'NC 恐龍',KT:'KT 巫師',LG:'LG 雙子',SS:'三星獅',SK:'SSG 登陸者',WO:'培證英雄'};
 const n=s=>/^\d+$/.test(String(s??''))?Number(s):null;
@@ -48,7 +49,7 @@ export function kboReliefGame(raw,relay,page,date){
 export function createBullpenCollector({fetcher=fetch,now=Date.now}={}){
  const cache=new Map(),pending=new Map(),gameCache=new Map();
  return async function collect(league,date,teams=[]){
-  const empty={rows:[],teamRuns:[],sources:[],errors:[]};if(!['NPB','KBO'].includes(league)||date!==dayInTaipei(new Date(now()))||!teams.length)return empty;
+  const empty={rows:[],teamRuns:[],sources:[],errors:[]};if(!['NPB','KBO'].includes(league)||(league==='NPB'?!npbUpcomingDate(date,new Date(now()).toISOString()):date!==dayInTaipei(new Date(now())))||!teams.length)return empty;
   const key=league+date+[...new Set(teams)].sort().join('|'),old=cache.get(key);if(old?.until>now())return old.value;if(pending.has(key))return pending.get(key);
   const task=(async()=>{const result={...empty,rows:[],teamRuns:[],sources:[],errors:[]},deadline=AbortSignal.timeout(35000);
    const get=async url=>{

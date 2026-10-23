@@ -1,5 +1,6 @@
 import {plain,tableData,dayInTaipei} from './baseball-live-providers.mjs';
 import {createKboSeasonPages} from './kbo-season-pages.mjs';
+import {npbUpcomingDate,validNpbStatsPeriod} from '../lib/npb-stats-date.mjs';
 const NPB={g:['讀賣巨人','読売ジャイアンツ'],t:['阪神虎','阪神タイガース'],db:['橫濱 DeNA 海灣之星','横浜DeNAベイスターズ'],d:['中日龍','中日ドラゴンズ'],c:['廣島東洋鯉魚','広島東洋カープ'],s:['東京養樂多燕子','東京ヤクルトスワローズ'],h:['福岡軟銀鷹','福岡ソフトバンクホークス'],f:['北海道日本火腿鬥士','北海道日本ハムファイターズ'],b:['歐力士猛牛','オリックス・バファローズ'],e:['東北樂天金鷲','東北楽天ゴールデンイーグルス'],l:['埼玉西武獅','埼玉西武ライオンズ'],m:['千葉羅德海洋','千葉ロッテマリーンズ']};
 const KBO={'두산':'斗山熊','한화':'韓華鷹','삼성':'三星獅','롯데':'樂天巨人','키움':'培證英雄',KT:'KT 巫師',SSG:'SSG 登陸者',KIA:'起亞虎',NC:'NC 恐龍',LG:'LG 雙子'};
 const integer=v=>/^\d+$/.test(String(v??''))?Number(v):null;
@@ -24,14 +25,13 @@ function pageSource(name,url,observedAt,throughDate=null){return {name,url,obser
 // NPB replaces its daily cutoff with an explicit completion marker at season end.
 // Keep that provenance instead of inventing a cutoff date or rejecting final totals.
 export function npbStatsPeriod(html,date,observedAt){
+ if(!npbUpcomingDate(date,observedAt))throw Error('日職成績僅供當日取得後七日內的賽前分析');
  const text=plain(html),stamp=text.match(/(\d{4})年(\d{1,2})月(\d{1,2})日\s*現在/);
  const throughDate=stamp?`${stamp[1]}-${stamp[2].padStart(2,'0')}-${stamp[3].padStart(2,'0')}`:null;
  if(!stamp&&/<p\b[^>]*>\s*全日程終了\s*<\/p>/i.test(html)){
-  const at=Date.parse(observedAt);
-  if(!Number.isFinite(at)||dayInTaipei(new Date(at))!==date)throw Error('日職季末成績僅供當日取得後的賽前分析');
   return {throughDate:null,seasonComplete:true,seasonYear:Number(date.slice(0,4))};
  }
- if(!throughDate||!Number.isFinite(Date.parse(throughDate))||throughDate>=date||throughDate.slice(0,4)!==date.slice(0,4)||Date.parse(date)-Date.parse(throughDate)>4*86400000)throw Error('日職統計截止日未核對、已過期或含當日紀錄');
+ if(!validNpbStatsPeriod({throughDate,observedAt},date))throw Error('日職統計截止日未核對、已過期或含當日紀錄');
  return {throughDate,seasonComplete:false,seasonYear:Number(date.slice(0,4))};
 }
 export function parseNpbSeasonPitching(html,code,date,observedAt,url){
@@ -75,7 +75,7 @@ export function createSeasonPitchingCollector({fetcher=fetch,now=Date.now}={}){
   pending.set(url,task);return task;
  }
  return async function collect(league,date,teams=[]){
-  if(!['NPB','KBO'].includes(league)||date!==dayInTaipei(new Date(now())))return {rows:[],sources:[],errors:[],scope:'僅補入當日賽前成績，不回填歷史預測'};
+  if(!['NPB','KBO'].includes(league)||(league==='NPB'?!npbUpcomingDate(date,new Date(now()).toISOString()):date!==dayInTaipei(new Date(now()))))return {rows:[],sources:[],errors:[],scope:'僅補入近期賽前成績，不回填歷史預測'};
   if(league==='KBO')return kboPages(date,teams);
   const deadline=AbortSignal.timeout(9000);
   const jobs=league==='NPB'?Object.entries(NPB).filter(([,v])=>teams.includes(v[0])).map(([code])=>{const url=`https://npb.jp/bis/${date.slice(0,4)}/stats/idp1_${code}.html`;return ()=>read(url,(html,at)=>parseNpbSeasonPitching(html,code,date,at,url),deadline);}):[()=>{const url='https://www.koreabaseball.com/Record/Player/PitcherBasic/Basic1.aspx';return read(url,(html,at)=>parseKboSeasonPitching(html,date,at,url),deadline);}];

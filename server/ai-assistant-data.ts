@@ -55,12 +55,13 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   }
   const {mlbInningProjection,mlbSelectedWinner,mlbRunsFresh}=await import('@/lib/mlb-model-analysis');
   const runs=settings.moneyline==='innings'?await loadSource('runs'):null;
-  const model=mlbSelectedWinner(retained?report.game:g,report,retained?Date.parse(report.capturedAt):Date.now(),retained||Date.now()-Date.parse(schedule.fetchedAt)<120000,settings,'moneyline',mlbInningProjection(g,runs,settings),mlbRunsFresh(runs,'',Date.now()));
+  const projection=mlbInningProjection(g,runs,settings);
+  const model=mlbSelectedWinner(retained?report.game:g,report,retained?Date.parse(report.capturedAt):Date.now(),retained||Date.now()-Date.parse(schedule.fetchedAt)<120000,settings,'moneyline',projection,mlbRunsFresh(runs,'',Date.now()));
   if(!model.canEstimate||model.homeWin===null)return null;
   // An innings estimate has no per-factor contributions; explain only its measured projection.
-  return buildSnapshot(matchOf(g,league,day),{...model,probabilities:{home:model.homeWin,away:1-model.homeWin},capturedAt:report?.capturedAt||schedule.fetchedAt,retained,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>{
+  return buildSnapshot(matchOf(g,league,day),{...model,...(model.version==='mlb-personal-innings-v1'&&projection?{modelFamily:'innings',inputs:projection.inputs,expected:projection.runs}:{}),probabilities:{home:model.homeWin,away:1-model.homeWin},capturedAt:report?.capturedAt||schedule.fetchedAt,retained,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>{
    const source=(retained?report.game:g)[side],context=report?.context?.sides?.[side],rows=context?.recentGames||[],outs=rows.map((r:any)=>inningsOuts(r.innings));
-   return [side,{games:typeof source.wins==='number'&&typeof source.losses==='number'?source.wins+source.losses:null,recentStarts:rows.length,starterOuts:outs.length&&outs.every((n:any)=>n!==null)?outs.reduce((a:number,b:number)=>a+b,0):null,lineupPA:context?.lineupStatus==='confirmed'&&context.lineup?.length===9&&context.lineup.every((p:any)=>typeof p.pa==='number')?context.lineup.reduce((n:number,p:any)=>n+p.pa,0):null,bullpenCount:context?.bullpen?.length||null}];
+   return [side,{games:typeof source.wins==='number'&&typeof source.losses==='number'?source.wins+source.losses:null,recentStarts:rows.length,starterOuts:source.pitcherOuts??(outs.length&&outs.every((n:any)=>n!==null)?outs.reduce((a:number,b:number)=>a+b,0):null),lineupPA:context?.lineupStatus==='confirmed'&&context.lineup?.length===9&&context.lineup.every((p:any)=>typeof p.pa==='number')?context.lineup.reduce((n:number,p:any)=>n+p.pa,0):null,bullpenCount:context?.bullpen?.length||null}];
   }))},'baseball');
  }
  if(league==='NPB'){
@@ -71,7 +72,7 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   const analysis=buildRunAnalysis(g,Date.now(),'NPB',true,settings);
   // The board may expose a simulation; the assistant must not treat assumed data as evidence.
   if(analysis.status!=='ready'||analysis.mode==='simulation'||!analysis.win)return null;
-  return buildSnapshot(matchOf(g,league,day),{...analysis,probabilities:analysis.win,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>[side,{starterOuts:inningsOuts(g[side].starter.season.innings)}])),factors:settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]},'baseball');
+  return buildSnapshot(matchOf(g,league,day),{...analysis,probabilities:analysis.win,weightEvidence:Object.fromEntries((['home','away'] as const).map(side=>[side,{starterOuts:inningsOuts(g[side].starter.season.innings),bullpenOuts:inningsOuts(g[side].bullpen?.innings)}])),factors:settings.moneyline==='multifactor'?analysis.personalModel?.multifactor.factors:[]},'baseball');
  }
  if(isFootballLeague(league)){
   const settings=rawSettings===undefined?defaultFootballSettings():parseFootballSettings(rawSettings);if(!settings||!validateFootballSettings(settings,footballModelCatalog(league)))return null;

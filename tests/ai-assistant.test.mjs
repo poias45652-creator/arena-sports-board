@@ -51,11 +51,14 @@ test('reported risk question never substitutes the 50.7% other-outcome statement
  assert.match(selected,/場均進球較不利/);assert.doesNotMatch(selected,/49.3%|正規 90/);
  const away=buildAiFacts(footballMatch,{...source,probabilities:{home:.267,away:.493,draw:.24},homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:10,scored:1.2,conceded:1.7}},suggestion,'football');
  assert.match(quickAiAnswer(away,'risk').answer,/客隊的場均進球較不利/);
- for(const extra of [
-  {homeForm:{games:0,scored:0,conceded:5},awayForm:{games:8,scored:1.6,conceded:1.1}},
-  {homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:8,scored:1.2,conceded:1.7}},
-  {probabilities:{home:.3,away:.3,draw:.4},homeForm:{games:8,scored:1.2,conceded:1.7},awayForm:{games:8,scored:1.6,conceded:1.1}}
- ])assert.equal(quickAiAnswer(buildAiFacts(footballMatch,{...source,...extra},suggestion,'football'),'risk').answer,AI_INSUFFICIENT);
+ const emptyForm={homeForm:{games:0,scored:0,conceded:5},awayForm:{games:8,scored:1.6,conceded:1.1}};
+ assert.equal(quickAiAnswer(buildAiFacts(footballMatch,{...source,...emptyForm},suggestion,'football'),'risk').answer,AI_INSUFFICIENT);
+ const better={homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:8,scored:1.2,conceded:1.7}};
+ const reviewed=quickAiAnswer(buildAiFacts(footballMatch,{...source,...better},suggestion,'football'),'risk').answer;
+ assert.match(reviewed,/就本場已納入的場均進球、場均失球比較.*未看到.*札格瑞布迪納摩.*明確數據劣勢/);
+ assert.doesNotMatch(reviewed,/無風險|保證|50.7%/);
+ const draw=quickAiAnswer(buildAiFacts(footballMatch,{...source,...better,probabilities:{home:.3,away:.3,draw:.4}},suggestion,'football'),'risk').answer;
+ assert.match(draw,/客隊的場均進球較不利/);assert.doesNotMatch(draw,/札格瑞布迪納摩的場均進球較不利/);
 });
 test('basketball risks name the disadvantaged team and exclude opponent absences and normal availability',()=>{
  const nba={...analysis,factors:undefined,inputs:{home:{ortg:108,drtg:116,threePct:.32,ftRate:.2,pace:94},away:{ortg:114,drtg:110,threePct:.37,ftRate:.25,pace:100}},playerContext:{status:'applied',home:[{id:'h',name:'本隊傷員',status:'out',publishedAt:analysis.capturedAt},{id:'r',name:'正常球員',status:'expected',publishedAt:analysis.capturedAt}],away:[{id:'a',name:'對手傷員',status:'out',publishedAt:analysis.capturedAt}]}};
@@ -73,10 +76,11 @@ test('the supplied WNBA example and every sport use team, comparison and plain m
  const risk=quickAiAnswer(baseball,'risk').answer;assert.match(risk,/1\. 洋基的先發本季 ERA較不利：4.8，大都會為 3.1。.*每九局.*責失分較多/);assert.match(risk,/2\. 洋基的先發本季 WHIP較不利：1.5，大都會為 1.1。.*每局.*保送/);assert.doesNotMatch(risk,/主隊|客隊|估值|權重|百分點/);
 });
 test('rounding ties and invalid values cannot create disadvantages',()=>{
- for(const [h,a] of [[94.601,94.602],[NaN,90],[null,90],[-1,90]]){
+ for(const [h,a] of [[NaN,90],[null,90],[-1,90]]){
   const s=buildAiFacts(match,{...analysis,inputs:{home:{drtg:h},away:{drtg:a}}},null,'basketball');assert.equal(quickAiAnswer(s,'risk').answer,AI_INSUFFICIENT);
  }
- const s=buildAiFacts(match,{...analysis,factors:[{name:'先發本季 ERA',home:3.101,away:3.102,weight:30,score:-.00025,contribution:-.00375}]},null,'baseball');assert.equal(quickAiAnswer(s,'risk').answer,AI_INSUFFICIENT);
+ const s=buildAiFacts(match,{...analysis,factors:[{name:'先發本季 ERA',home:3.101,away:3.102,weight:30,score:-.00025,contribution:-.00375}]},null,'baseball');assert.match(quickAiAnswer(s,'risk').answer,/未看到.*明確數據劣勢/);assert.doesNotMatch(quickAiAnswer(s,'risk').answer,/較不利/);
+ const tied=buildAiFacts(match,{...analysis,inputs:{home:{drtg:94.601},away:{drtg:94.602}}},null,'basketball');assert.match(quickAiAnswer(tied,'risk').answer,/未看到.*明確數據劣勢/);
 });
 test('provider receives only fixed schema and match evidence and must complete its response',async()=>{
  const fake=async(url,options)=>{

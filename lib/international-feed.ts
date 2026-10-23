@@ -90,7 +90,7 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
    coverage,analysisCoverage,live:{games:feed.games.length,status:feed.status,starters:feed.games.reduce((n:number,g:any)=>n+Number(!!g.starters?.away?.name)+Number(!!g.starters?.home?.name),0),lineups:feed.games.reduce((n:number,g:any)=>n+Number(g.lineups?.away?.length===9)+Number(g.lineups?.home?.length===9),0),pollAfterMs:feed.pollAfterMs},
    ...(cpblLogs?{gameLogs:{...cpblLogCoverage(cpblLogs.snapshot,date),error:cpblLogs.error}}:{}),
    missing:['完整傷停與臨時更換先發通知',...(league==='CPBL'?['中職已用非官網逐場日誌重算團隊與可核對投手成績；仍缺完整投球數、未取得先發及未通過核對的逐場明細']:['牛棚最近數日用量']),'團隊基準已完成首輪回測與校準研究；完整先發／牛棚模型尚未通過驗證，已接入真實賽前留存',...(league==='KBO'?['双重賽與季後賽規則尚未接入，暫停這些場次的估算']:[])]};
-  console.info('international-pregame-summary',JSON.stringify({league,date,status:data.status,coverage,analysisCoverage,fallbackRows:publicPitching.rows.length,sourceErrors:[...playsport.errors,...publicPitching.errors],missingStart:feed.games.filter((g:any)=>!g.startTime).length,unknownStatus:feed.games.filter((g:any)=>g.status==='unknown').length}));
+  console.info('international-pregame-summary',JSON.stringify({league,date,status:data.status,coverage,analysisCoverage,fallbackRows:publicPitching.rows.length,sourceErrors:[...playsport.errors,...publicPitching.errors,...publicBullpen.errors],missingStart:feed.games.filter((g:any)=>!g.startTime).length,unknownStatus:feed.games.filter((g:any)=>g.status==='unknown').length}));
   if(cache.size>12)cache.clear();cache.set(key,{until:Date.now()+(data.status==='ready'?300000:30000),data});return data;
  })().finally(()=>pending.delete(key));pending.set(key,task);return task;
 }

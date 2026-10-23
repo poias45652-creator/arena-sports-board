@@ -2,6 +2,7 @@ import {internationalTeam} from './international-teams';
 import {pitcherIdentity} from './international-pitcher-identity';
 import type {PregameData} from './international-pregame';
 import {internationalFixtureTime} from './international-fixture-time';
+import {validNpbStatsPeriod} from './npb-stats-date.mjs';
 /** Replace only a named pitcher's verified season row. Never borrow another pitcher or bullpen. */
 export function supplementSeasonPitching(data:PregameData,result:any,now=Date.now()):PregameData{
  if(!['NPB','KBO'].includes(data.league))return data;
@@ -13,6 +14,7 @@ export function supplementSeasonPitching(data:PregameData,result:any,now=Date.no
    const matches=(result?.rows||[]).filter((r:any)=>internationalTeam(r.team,data.league)===internationalTeam(old.team,data.league)&&pitcherIdentity(r.name,data.league,r.team)===pitcherIdentity(name,data.league,old.team));
    if(matches.length!==1)continue;const row=matches[0],observed=Date.parse(row.source?.observedAt);
    if(!Number.isFinite(observed)||observed>now||observed>=start||now-observed>36*3600000)continue;
+   if(data.league==='NPB'&&!validNpbStatsPeriod(row.source,g.date))continue;
    // A newer probable-starter ERA must not block missing WHIP/IP from the
    // same verified pitcher. Reject conflicting newer figures as a whole.
    const newer=(field:string)=>Date.parse((old.starter.statSources as any)?.[field]?.observedAt||'')>observed;

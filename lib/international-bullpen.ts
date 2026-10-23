@@ -1,10 +1,11 @@
 import {internationalTeam} from './international-teams';
 import type {PregameData,PregameSide} from './international-pregame';
+import {validNpbStatsPeriod} from './npb-stats-date.mjs';
 export function supplementBullpens(data:PregameData,result:any,now=Date.now()):PregameData{
  if(!['NPB','KBO'].includes(data.league))return data;
  return {...data,games:data.games.map(g=>{
   const start=Date.parse(g.start.replace(' ','T')+'+08:00');if(g.date!==data.date||!Number.isFinite(start)||start<=now)return g;
-  const valid=(r:any)=>{const at=Date.parse(r?.source?.observedAt);return r&&Number.isFinite(at)&&at<=now&&at<start&&now-at<=36*3600000&&(typeof r.source.throughDate==='string'&&r.source.throughDate<g.date&&r.source.throughDate.slice(0,4)===g.date.slice(0,4)||data.league==='NPB'&&r.source.seasonComplete===true&&r.source.seasonYear===Number(g.date.slice(0,4))&&new Date(at+8*3600000).toISOString().slice(0,10)===g.date);};
+  const valid=(r:any)=>{const at=Date.parse(r?.source?.observedAt);return r&&Number.isFinite(at)&&at<=now&&at<start&&now-at<=36*3600000&&(data.league==='NPB'?validNpbStatsPeriod(r.source,g.date):typeof r.source.throughDate==='string'&&r.source.throughDate<g.date&&r.source.throughDate.slice(0,4)===g.date.slice(0,4));};
   const enrich=(side:PregameSide):PregameSide=>{const rows=(result.rows||[]).filter((r:any)=>internationalTeam(r.team,data.league)===side.team&&valid(r));if(rows.length!==1)return side;const row=rows[0];if(side.bullpenSource&&Date.parse(side.bullpenSource.observedAt)>Date.parse(row.source.observedAt))return side;
    if(!/^\d+(\.\d+)?$/.test(row.stats?.era)||!/^\d+(\.[012])?$/.test(row.stats?.innings)||Number(row.stats.innings)<=0)return side;return {...side,bullpen:row.stats,bullpenSource:row.source};};
   const out={...g,away:enrich(g.away),home:enrich(g.home)};

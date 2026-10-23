@@ -1,5 +1,5 @@
 // MLB regular-season pitching rates, keyed by the exact probable-pitcher ID.
-export type PitcherRates={era:number|null;whip:number|null};
+export type PitcherRates={era:number|null;whip:number|null;outs?:number};
 function rate(value:unknown):number|null{
   if(typeof value!=='number'&&(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value.trim())))return null;
   const parsed=Number(value);
@@ -16,7 +16,8 @@ export function parsePitcherRates(data:any,season:number):Record<number,PitcherR
     const totals=rows.filter((r:any)=>!r.team?.id);
     // Prefer the all-team total for a traded player; never average team ERAs.
     const row=totals.length===1?totals[0]:rows.length===1?rows[0]:null;
-    result[person.id]={era:rate(row?.stat?.era),whip:rate(row?.stat?.whip)};
+    const ip=String(row?.stat?.inningsPitched??'').match(/^(\d+)(?:\.([012]))?$/);
+    result[person.id]={era:rate(row?.stat?.era),whip:rate(row?.stat?.whip),...(ip?{outs:Number(ip[1])*3+Number(ip[2]||0)}:{})};
   }
   return result;
 }

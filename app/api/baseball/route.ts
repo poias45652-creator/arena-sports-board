@@ -177,7 +177,7 @@ export async function GET(request:Request){
             }) as Record<number,PitcherRates>;
             for(const game of seasonGames)for(const side of [game.away,game.home]){
               const stats=side.pitcherId?rates[side.pitcherId]:undefined;
-              side.pitcherEra=stats?.era??null;side.pitcherWhip=stats?.whip??null;
+              side.pitcherEra=stats?.era??null;side.pitcherWhip=stats?.whip??null;side.pitcherOuts=stats?.outs??null;
             }
           }catch{
             // Missing pitching rates must not suppress the schedule or substitute another pitcher.

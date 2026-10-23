@@ -71,3 +71,16 @@ test('equal game counts still produce meaningful profiles from each team perform
  const swapped=aiTeamSuggestion({...g,homeId:g.awayId,awayId:g.homeId,home:g.away,away:g.home},{inputs:{home:n,away:m}},'basketball');assert.deepEqual(swapped.teams[1].value.weights,home);
  const identical=aiTeamSuggestion(g,{inputs:{home:m,away:m}},'basketball');assert.deepEqual(identical.teams[0].value,identical.teams[1].value);
 });
+test('baseball uses named measured season factors when recent starts are unavailable',()=>{
+ const g={...match,league:'NPB'},a={weightEvidence:{home:{games:143,starterOuts:450,recentStarts:0},away:{games:143,starterOuts:330,recentStarts:0}},factors:[{name:'本季戰績',home:.6,away:.5},{name:'先發投手本季防禦率 ERA',home:2,away:4},{name:'先發投手本季每局被上壘率 WHIP',home:1,away:1.4}]};
+ const s=aiTeamSuggestion(g,a,'baseball');assert.ok(s);assert.notDeepEqual(s.teams[0].weights,s.teams[1].weights);
+ for(const t of s.teams){close(t.weights.reduce((n,w)=>n+w.value,0),100);assert.equal(t.value.weights.multifactor.starterRecentEra,15);assert.doesNotMatch(t.reason,/先發 0 場|近期投球/);}
+ assert.deepEqual(aiTeamSuggestion(g,{...a,factors:[...a.factors].reverse()},'baseball'),s);
+ assert.equal(aiTeamSuggestion(g,{...a,factors:[a.factors[0]]},'baseball'),null);
+ assert.equal(aiTeamSuggestion(g,{...a,weightEvidence:{home:{games:143,starterOuts:null},away:{games:143,starterOuts:null}}},'baseball'),null);
+});
+test('innings weight recommendations stay in the selected family and leave unknown bullpen neutral',()=>{
+ const g={...match,league:'MLB'},a={modelFamily:'innings',weightEvidence:{home:{games:160,starterOuts:450},away:{games:160,starterOuts:330}},inputs:{home:{offense:5,defense:3,starterEra:2},away:{offense:3,defense:5,starterEra:5}}};
+ const s=aiTeamSuggestion(g,a,'baseball');assert.ok(s);assert.notDeepEqual(s.teams[0].weights,s.teams[1].weights);
+ for(const t of s.teams){assert.equal(t.value.moneyline,'innings');assert.equal(t.value.weights.innings.bullpen,10);close(t.weights.reduce((n,w)=>n+w.value,0),100);assert.equal(t.weights.length,4);}
+});

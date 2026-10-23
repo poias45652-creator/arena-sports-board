@@ -1,6 +1,8 @@
 import {spawn} from 'node:child_process';
 import {setTimeout as delay} from 'node:timers/promises';
 import assert from 'node:assert/strict';
+import {moduleUrl} from './profile-loader.mjs';
+const {defaultBaseballSettings}=await import(moduleUrl('lib/baseball-model-settings.ts'));
 const origin='http://127.0.0.1:3036',cookie='__Host-arena_tz='+'f'.repeat(64);
 const server=spawn(process.execPath,['scripts/render-start.mjs'],{env:{...process.env,YJ_AI_ASSISTANT_SMOKE:'1',YJ_RENDER_HTTP_TEST:'1',YJ_FOOTBALL_ADMIN_SMOKE:'1',YJ_BACKGROUND_REFRESH:'0',DATABASE_URL:'postgresql://local-test/fixture',TZ_BINDING_KEY:Buffer.alloc(32).toString('base64'),PLATFORM_ADMIN_USERNAME:'render-test-admin',APP_ORIGIN:origin,PORT:'3036',NODE_OPTIONS:'--import ./tests/ai-assistant-http-preload.mjs'},stdio:['ignore','pipe','pipe']});
 let output='',checks=0;server.stdout.on('data',b=>output+=b);server.stderr.on('data',b=>output+=b);
@@ -22,7 +24,10 @@ try{
  await request('/api/ai-assistant',403,{...ask({action:'analysis'}),headers:{...headers,origin:'https://wrong.test'}});
  const answer=await (await request('/api/ai-assistant',200,ask({action:'analysis'}))).json();assert.match(answer.answer,/紐約洋基/);assert.match(answer.answer,/先發本季 ERA/);
  const weight=await (await request('/api/ai-assistant',200,ask({action:'weights'}))).json();assert.equal(weight.suggestion.storageKey,'xingzhun:team-weights:v1:MLB');assert.equal(weight.suggestion.teams.length,2);assert.notDeepEqual(weight.suggestion.teams[0].weights,weight.suggestion.teams[1].weights);for(const team of weight.suggestion.teams)assert.ok(Math.abs(team.weights.reduce((n,w)=>n+w.value,0)-100)<1e-8);
- const risk=await (await request('/api/ai-assistant',200,ask({action:'risk'}))).json();assert.equal(risk.answer,'因分析資料不足無法分析');
+ const risk=await (await request('/api/ai-assistant',200,ask({action:'risk'}))).json();assert.match(risk.answer,/未看到.*明確數據劣勢/);
+ const innings=defaultBaseballSettings();innings.moneyline=innings.fullGamePk='innings';
+ const inningAnswer=await (await request('/api/ai-assistant',200,ask({action:'analysis',settings:innings}))).json();assert.match(inningAnswer.answer,/得分能力（修正值）/);assert.match(inningAnswer.answer,/模型預期/);
+ const inningWeights=await (await request('/api/ai-assistant',200,ask({action:'weights',settings:innings}))).json();assert.equal(inningWeights.suggestion.teams[0].value.moneyline,'innings');assert.equal(inningWeights.suggestion.teams[0].weights.length,4);
  const missing=await (await request('/api/ai-assistant',200,ask({gameId:'unlisted',action:'analysis'}))).json();assert.deepEqual(missing,{answer:'因分析資料不足無法分析'});
  await request('/api/ai-assistant',503,ask({question:'為什麼看好主隊？'}));
  await request('/api/admin/ai-assistant',200,{method:'POST',headers,body:JSON.stringify({key:'sk-isolated-test-'+ 'a'.repeat(30)})});

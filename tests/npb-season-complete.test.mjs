@@ -19,17 +19,17 @@ test('official completed season pages retain completion provenance without fabri
 });
 test('missing, future, stale and historical observations remain rejected',()=>{
  for(const html of ['', '<p>更新中</p>','<p>2026年10月12日 現在</p>','<p>2026年10月1日 現在</p>'])assert.throws(()=>npbStatsPeriod(html,date,at));
- for(const observed of ['', '2026-10-13T03:00:00Z','2026-10-11T03:00:00Z'])assert.throws(()=>npbStatsPeriod(marker,date,observed));
+ for(const observed of ['', '2026-10-13T03:00:00Z','2026-10-01T03:00:00Z'])assert.throws(()=>npbStatsPeriod(marker,date,observed));
  assert.throws(()=>npbStatsPeriod(marker,'2026-10-01',at));
 });
-test('completed season bullpen and team totals feed only a matching same-day pregame fixture',()=>{
+test('completed season bullpen and team totals feed only a matching pregame fixture within the upcoming window',()=>{
  const source={name:'NPB official',url:'https://npb.jp/',observedAt:at,throughDate:null,seasonComplete:true,seasonYear:2026};
  const teams=['埼玉西武獅','北海道日本火腿鬥士'];
  const data={league:'NPB',date,games:[{league:'NPB',date,start:'2026-10-12 13:00:00',home:{team:teams[0]},away:{team:teams[1]}}]};
  const result={rows:teams.map(team=>({team,stats:{era:'3.00',innings:'400'},source})),teamRuns:teams.map(team=>({team,games:143,wins:70,losses:70,scored:500,allowed:490,throughDate:null,seasonComplete:true,source}))};
  const updated=supplementBullpens(data,result,now).games[0];
  assert.equal(updated.home.bullpen.era,'3.00');assert.equal(updated.comparison.rows.length,2);assert.equal(updated.comparisonSource.seasonComplete,true);
- for(const patch of [{seasonYear:2025},{seasonComplete:false},{observedAt:'2026-10-11T03:00:00Z'},{observedAt:'2026-10-12T06:00:00Z'}]){
+ for(const patch of [{seasonYear:2025},{seasonComplete:false},{observedAt:'2026-10-01T03:00:00Z'},{observedAt:'2026-10-12T06:00:00Z'}]){
   const bad={...result,rows:result.rows.map(r=>({...r,source:{...source,...patch}})),teamRuns:result.teamRuns.map(r=>({...r,source:{...source,...patch}}))};
   assert.equal(supplementBullpens(data,bad,now).games[0].home.bullpen,undefined);
  }

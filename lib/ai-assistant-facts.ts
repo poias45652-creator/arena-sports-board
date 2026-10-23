@@ -17,7 +17,7 @@ function baseballMetric(name:string):Metric|null{
  if(['先發 ERA','先發本季 ERA','先發投手本季防禦率 ERA'].includes(name))return {label:'先發本季 ERA',lower:true,good:'這組本季紀錄中，先發投手平均每九局的責失分較少。',bad:'這組本季紀錄中，先發投手平均每九局的責失分較多。'};
  if(['先發本季 WHIP','先發投手本季每局被上壘率 WHIP'].includes(name))return {label:'先發本季 WHIP',lower:true,good:'先發投手平均每局被安打與保送的合計較少，控制上壘較有利。',bad:'先發投手平均每局被安打與保送的合計較多，讓對手上壘的情況較多。'};
  if(['先發近期 ERA','先發投手近期防禦率 ERA'].includes(name))return {label:'先發近期 ERA',lower:true,good:'近期登板紀錄中，先發投手平均每九局的責失分較少。',bad:'近期登板紀錄中，先發投手平均每九局的責失分較多。'};
- if(name==='九棒對左右投 wRC+')return {label:'九棒對左右投打擊指數 wRC+',lower:false,good:'已確認九棒對這類投手的打擊指數較高，這項打線比較較有利。',bad:'已確認九棒對這類投手的打擊指數較低，這項打線比較較弱。'};
+ if(['九棒對左右投 wRC+','九棒對左右投打擊能力'].includes(name))return {label:'九棒對左右投打擊指數 wRC+',lower:false,good:'已確認九棒對這類投手的打擊指數較高，這項打線比較較有利。',bad:'已確認九棒對這類投手的打擊指數較低，這項打線比較較弱。'};
  if(name==='牛棚近三日用球數')return {label:name,lower:true,good:'牛棚近三日的用球量較少，模型在使用負荷這一項給較高評價。',bad:'牛棚近三日的用球量較多，模型在使用負荷這一項給較低評價；這不是實際疲勞程度的量測。'};
  if(name==='牛棚連日登板人數')return {label:name,lower:true,good:'連續兩天登板的投手較少，這項牛棚使用負荷較低。',bad:'連續兩天登板的投手較多，這項牛棚使用負荷較高。'};
  return null;
@@ -29,10 +29,17 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
  const add=(id:string,topic:AiEvidence['topic'],text:string)=>facts.push({id,topic,text});
  const choices=[{name:match.home,p:p.home},{name:match.away,p:p.away},...(p.draw===undefined?[]:[{name:'和局',p:p.draw}])].sort((a,b)=>b.p-a.p);
  const favored:'home'|'away'|null=Math.abs(choices[0].p-choices[1].p)<.00001?null:choices[0].name===match.home?'home':choices[0].name===match.away?'away':null;
- const opponent=favored==='home'?'away':'home',focus=favored||'home';
+ const focus=favored||'home',checked=new Set<string>();
+ const risks=(id:string,home:unknown,away:unknown,metric:Metric)=>{
+  for(const side of favored?[favored]:['home','away'] as const){
+   const point=comparison(match,side,home,away,metric);if(!point)continue;
+   checked.add(metric.label);
+   if(point.adverse)add(id+(favored?'':'-'+side),'risk',point.text);
+  }
+ };
  add('result','analysis',`${match.away} 對 ${match.home}：${Math.abs(choices[0].p-choices[1].p)<.00001?'目前沒有單一明確傾向':`模型較偏向${choices[0].name}`}。\n主隊 ${match.home} ${pct(p.home)}／客隊 ${match.away} ${pct(p.away)}${p.draw===undefined?'':`／和局 ${pct(p.draw)}`}。`);
- // Outcome probabilities are not adverse factors. Without a concrete disadvantage,
- // the risk answer must use the user's exact insufficient-data response.
+ // Outcome probabilities are not adverse factors. Distinguish a measured lack
+ // of disadvantages from having no comparable observations at all.
  if(analysis.retained)add('retained','analysis','以上解釋使用本場保存的賽前分析，沒有用開賽後的比分回填預測。');
  if(finite(analysis.expected?.home)&&finite(analysis.expected?.away))add('expected','analysis',`模型預期${match.home} ${num(analysis.expected.home)}、${match.away} ${num(analysis.expected.away)}${kind==='football'?'球':'分'}。這是計算期望值。`);
  if(kind==='baseball'){
@@ -41,11 +48,11 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
    const metric=baseballMetric(f.name),plain=metric?comparison(match,focus,f.home,f.away,metric):null;
    add('factor-'+i,'analysis',plain?.text||`${f.name}：${match.home} ${num(f.home)}，${match.away} ${num(f.away)}。`);
    add('factor-detail-'+i,'data',`${f.name}的設定權重為 ${num(f.weight)}%。${f.contribution===0?'此項沒有改變雙方估值的差距。':`此項使${match.home}的多因子估值${f.contribution>0?'增加':'減少'} ${num(Math.abs(f.contribution))} 個百分點。`}`);
-   if(favored&&plain?.adverse&&((favored==='home'&&f.contribution<0)||(favored==='away'&&f.contribution>0)))add('against-'+i,'risk',plain.text);
+   if(metric)risks('against-'+i,f.home,f.away,metric);
   });
   if(!factors.length&&analysis.inputs?.home&&analysis.inputs?.away){
    const metrics:Record<string,Metric>={offense:{label:'得分能力（修正值）',lower:false,good:'本場採用的得分能力較高，進攻這一項較有利。',bad:'本場採用的得分能力較低，進攻這一項較弱。'},defense:{label:'失分能力（修正值）',lower:true,good:'本場採用的失分數值較低，防守這一項較有利。',bad:'本場採用的失分數值較高，防守這一項較弱。'},starterEra:{label:'先發 ERA（修正值）',lower:true,good:'經樣本修正後，先發投手每九局責失分的計算值較低。',bad:'經樣本修正後，先發投手每九局責失分的計算值較高。'}};
-   for(const [key,metric] of Object.entries(metrics)){const plain=comparison(match,focus,analysis.inputs.home[key],analysis.inputs.away[key],metric);if(!plain)continue;add('runs-'+key,'analysis',plain.text);if(favored&&plain.adverse)add('runs-risk-'+key,'risk',plain.text);}
+   for(const [key,metric] of Object.entries(metrics)){const plain=comparison(match,focus,analysis.inputs.home[key],analysis.inputs.away[key],metric);if(!plain)continue;add('runs-'+key,'analysis',plain.text);risks('runs-risk-'+key,analysis.inputs.home[key],analysis.inputs.away[key],metric);}
   }
  } else {
   for(const side of ['home','away'] as const){
@@ -56,7 +63,7 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
    add('method','analysis','星準依本場啟用的攻防模型計算雙方預期進球，再換算主勝、和局與客勝機率；範圍為正規 90 分鐘含補時。');
    if(analysis.homeForm?.games>0&&analysis.awayForm?.games>0){
     const metrics:[string,string,Metric][]=[['scored','attack',{label:'場均進球',lower:false,good:'這組分析採用的進球數據較高，進攻表現較有利。',bad:'這組分析採用的進球數據較低，進攻表現較弱。'}],['conceded','defense',{label:'場均失球',lower:true,good:'這組分析採用的失球數據較低，防守表現較有利。',bad:'這組分析採用的失球數據較高，防守表現較弱。'}]];
-    for(const [key,id,metric] of metrics){const plain=comparison(match,focus,analysis.homeForm[key],analysis.awayForm[key],metric);if(!plain)continue;add('football-'+id,'analysis',plain.text);if(favored&&plain.adverse)add('football-'+id+'-risk','risk',plain.text);}
+    for(const [key,id,metric] of metrics){const plain=comparison(match,focus,analysis.homeForm[key],analysis.awayForm[key],metric);if(!plain)continue;add('football-'+id,'analysis',plain.text);risks('football-'+id+'-risk',analysis.homeForm[key],analysis.awayForm[key],metric);}
    }
   }
   if(kind==='basketball'){
@@ -65,7 +72,7 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
     const h=analysis.inputs?.home?.[key],a=analysis.inputs?.away?.[key];
     const plain=comparison(match,focus,h,a,metric);if(!plain)continue;
     add('efficiency-'+key,'analysis',plain.text);
-    if(favored&&plain.adverse)add('efficiency-risk-'+key,'risk',plain.text);
+    risks('efficiency-risk-'+key,h,a,metric);
    }
    const hp=analysis.inputs?.home?.pace,ap=analysis.inputs?.away?.pace;
    if(finite(hp)&&finite(ap))add('efficiency-pace','analysis',`比賽節奏：${match.home} ${num(hp)}，${match.away} ${num(ap)}。這項用來估計比賽回合數，節奏快慢本身不代表哪一隊較強。`);
@@ -78,11 +85,12 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
      if(!statuses[player.status]||!Number.isFinite(Date.parse(player.publishedAt)))continue;
      const text=`${match[side]} ${player.name}：來源標示${statuses[player.status]}（${new Date(player.publishedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}）。`;
      add(`player-${side}-${player.id}`,'analysis',text);
-     if(side===favored&&['out','doubtful','questionable'].includes(player.status))add(`player-status-risk-${side}-${player.id}`,'risk',text);
+     if((!favored||side===favored)&&['out','doubtful','questionable'].includes(player.status))add(`player-status-risk-${side}-${player.id}`,'risk',text);
     }
    }
   }
  }
+ if(checked.size&&!facts.some(f=>f.topic==='risk'))add('risk-reviewed','risk',`就本場已納入的${[...checked].join('、')}比較，${favored?`目前未看到模型較看好的${match[favored]}有明確數據劣勢`:'雙方目前沒有明顯數據差距'}。此結論僅限上述已核對項目，不表示沒有其他風險。`);
  if(suggestion?.teams?.length){
   for(const [i,team] of suggestion.teams.entries())add('weights-team-'+i,'weights',`${team.teamName}建議權重：\n${team.weights.map(w=>`${w.name} ${num(w.value)}%`).join('、')}。\n${team.reason}`);
   add('weights-reason','weights','兩隊分別保存設定；對戰時取雙方權重的平均值運算。這是依各隊表現與可用數據調整的試算配置，尚未經各隊獨立回測。');

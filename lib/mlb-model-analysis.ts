@@ -23,6 +23,10 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
   return {full,extra};
  };
  const a=rate('away'),h=rate('home');if(!a||!h||[a.full,h.full,a.extra,h.extra].some(n=>!Number.isFinite(n)||n<=0||n>15))return null;
+ const inputs=Object.fromEntries((['home','away'] as const).map(side=>{
+  const row=data.rows.find(r=>r.id===game[side].id)!;
+  return [side,{games:Math.min(row.batGames,row.pitchGames),offense:(row.scored+20*data.league)/(row.batGames+20),defense:(row.allowed+20*data.league)/(row.pitchGames+20),starterEra:game[side].pitcherEra}];
+ }));
  const regulation=scoreDistribution(Array(9).fill(a.full/9),Array(9).fill(h.full/9));
  // Resolve regulation ties with the conditional next decisive Poisson frame.
  // This approximates extra innings; automatic runners and intervening tied runs are not modeled.
@@ -30,7 +34,7 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
  if(!regulation.length||!mass)return null;
  const full=regulation.flatMap(o=>o.away===o.home?extra.map(e=>({away:o.away+e.away,home:o.home+Math.min(e.home,e.away+1),p:o.p*e.p/mass})):[o]);
  const half=scoreGrid(a.full*5/9,h.full*5/9,false),homeWin=full.reduce((s,o)=>s+(o.home>o.away?o.p:0),0);
- return {runs:{away:a.full,home:h.full},full,half,homeWin,notes:['逐局得分採獨立卜瓦松分布；九局下領先免打、再見比分以超前一分近似。','延長賽採下一個分出勝負的局數近似，未納入突破僵局跑者與中途平手局的累積得分。','牛棚缺少獨立實測 ERA，以本季聯盟得分均值維持中性權重。']};
+  return {runs:{away:a.full,home:h.full},inputs,full,half,homeWin,notes:['逐局得分採獨立卜瓦松分布；九局下領先免打、再見比分以超前一分近似。','延長賽採下一個分出勝負的局數近似，未納入突破僵局跑者與中途平手局的累積得分。','牛棚缺少獨立實測 ERA，以本季聯盟得分均值維持中性權重。']};
 }
 export function mlbSelectedWinner(game:Match,report:AnalysisReport|undefined,now:number,scheduleOK:boolean,settings:BaseballModelSettings,market:'moneyline'|'fullGamePk',projection:ReturnType<typeof mlbInningProjection>,runsFresh:boolean):WinnerAnalysis{
  settings=baseballSettingsForGame(settings,game.home.id,game.away.id);

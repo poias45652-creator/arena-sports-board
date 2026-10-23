@@ -35,19 +35,35 @@ export function aiTeamSuggestion(match:AiMatch,analysis:any,kind:'baseball'|'bas
   }else{
    const evidence=analysis.weightEvidence?.[side],input=analysis.inputs?.[side];
    const games=evidence?.games??input?.games,recent=evidence?.recentStarts??input?.recentStarts,outs=evidence?.starterOuts;
-   if(!valid(games)||games<20||!valid(recent)||recent<3||!valid(outs)||outs<=0)return null;
-   const settings=defaultBaseballSettings(),keys=Object.keys(settings.weights.multifactor);
-   const quality:Record<string,number|null>={season:confidence(games,30),starterEra:confidence(outs,180),starterWhip:confidence(outs,180),starterRecentEra:confidence(recent,5),lineup:confidence(evidence?.lineupPA,270),bullpenPitches:confidence(evidence?.bullpenCount,8),bullpenBackToBack:confidence(evidence?.bullpenCount,8)};
-   const factors=analysis.factors||[];
-   const measured=keys.map((_,i)=>valid(factors[i]?.[side]));
-   const observed=(key:string)=>factors[keys.indexOf(key)]?.[side];
-   const lower=(key:string,scale:number)=>valid(observed(key))?scale/(scale+observed(key)):null;
-   const signals:Record<string,number|null>={season:valid(observed('season'))?observed('season'):null,starterEra:lower('starterEra',4),starterWhip:lower('starterWhip',.8),starterRecentEra:lower('starterRecentEra',4),lineup:confidence(observed('lineup'),100),bullpenPitches:confidence(observed('bullpenPitches'),180),bullpenBackToBack:confidence(observed('bullpenBackToBack'),5)};
-   values=adaptiveTeamWeights(Object.values(settings.weights.multifactor),keys.map((k,i)=>measured[i]?quality[k]??null:null),keys.map((k,i)=>measured[i]?signals[k]??null:null));
-   if(!values)return null;
-   keys.forEach((k,i)=>(settings.weights.multifactor as Record<string,number>)[k]=values![i]);
-   value=settings;labels=keys.map(k=>BASEBALL_FACTOR_LABELS[k as keyof typeof BASEBALL_FACTOR_LABELS]);
-   reason=`依${name}的實際戰績、先發 ERA／WHIP、近期投球與可用打線、牛棚數值分配比例，再用 ${games} 場球隊樣本及先發 ${recent} 場近期紀錄調整可信度。未實測項目維持中性。`;
+   const settings=defaultBaseballSettings(),family=analysis.modelFamily||analysis.personalModel?.settings?.moneyline||'multifactor';
+   if(!valid(games)||games<20)return null;
+   if(family==='innings'){
+    const keys=Object.keys(settings.weights.innings);
+    const quality=[valid(outs)&&outs>0?confidence(outs,180):null,confidence(games,30),confidence(games,30),input?.bullpenMode!=='team_defense'&&valid(evidence?.bullpenOuts)&&evidence.bullpenOuts>0?confidence(evidence.bullpenOuts,180):null];
+    const lower=(n:unknown)=>valid(n)?4/(4+n):null;
+    const signals=[lower(input?.starterEra),confidence(input?.offense,4),lower(input?.defense),lower(input?.bullpenEra)];
+    values=adaptiveTeamWeights(Object.values(settings.weights.innings),quality,signals);if(!values)return null;
+    keys.forEach((k,i)=>(settings.weights.innings as Record<string,number>)[k]=values![i]);
+    settings.moneyline='innings';settings.fullGamePk='innings';
+    value=settings;labels=keys.map(k=>BASEBALL_FACTOR_LABELS[k as keyof typeof BASEBALL_FACTOR_LABELS]);
+    reason=`依${name}本場逐局模型採用的本季攻防與投手數據調整，球隊樣本 ${games} 場。沒有獨立實測數據的項目維持中性比例。`;
+   }else{
+    const keys=Object.keys(settings.weights.multifactor);
+    const quality:Record<string,number|null>={season:confidence(games,30),starterEra:valid(outs)&&outs>0?confidence(outs,180):null,starterWhip:valid(outs)&&outs>0?confidence(outs,180):null,starterRecentEra:valid(recent)&&recent>=3?confidence(recent,5):null,lineup:confidence(evidence?.lineupPA,270),bullpenPitches:confidence(evidence?.bullpenCount,8),bullpenBackToBack:confidence(evidence?.bullpenCount,8)};
+    const aliases:Record<string,string[]>={starterEra:['先發本季 ERA','先發 ERA'],starterWhip:['先發本季 WHIP'],starterRecentEra:['先發近期 ERA'],lineup:['九棒對左右投 wRC+']};
+    // Match factor identities, never array positions (reports may sort by contribution).
+    const factors=keys.map(key=>(analysis.factors||[]).filter((f:any)=>[BASEBALL_FACTOR_LABELS[key as keyof typeof BASEBALL_FACTOR_LABELS],...(aliases[key]||[])].includes(f.name)));
+    const measured=keys.map((_,i)=>factors[i].length===1&&valid(factors[i][0][side]));
+    const observed=(key:string)=>factors[keys.indexOf(key)][0]?.[side];
+    const lower=(key:string,scale:number)=>valid(observed(key))?scale/(scale+observed(key)):null;
+    const signals:Record<string,number|null>={season:valid(observed('season'))?observed('season'):null,starterEra:lower('starterEra',4),starterWhip:lower('starterWhip',.8),starterRecentEra:lower('starterRecentEra',4),lineup:confidence(observed('lineup'),100),bullpenPitches:confidence(observed('bullpenPitches'),180),bullpenBackToBack:confidence(observed('bullpenBackToBack'),5)};
+    values=adaptiveTeamWeights(Object.values(settings.weights.multifactor),keys.map((k,i)=>measured[i]?quality[k]??null:null),keys.map((k,i)=>measured[i]?signals[k]??null:null));
+    if(!values)return null;
+    keys.forEach((k,i)=>(settings.weights.multifactor as Record<string,number>)[k]=values![i]);
+    value=settings;labels=keys.map(k=>BASEBALL_FACTOR_LABELS[k as keyof typeof BASEBALL_FACTOR_LABELS]);
+    const used=keys.filter((k,i)=>measured[i]&&quality[k]!==null&&quality[k]!==undefined&&signals[k]!==null&&signals[k]!==undefined).map(k=>BASEBALL_FACTOR_LABELS[k as keyof typeof BASEBALL_FACTOR_LABELS]);
+    reason=`依${name}已核對的${used.join('、')}及各項樣本量分配比例，球隊樣本 ${games} 場。未實測項目維持中性，不把本季數據當成近期表現。`;
+   }
   }
   teams.push({teamId:id,teamName:name,value,weights:labels.map((name,i)=>({name,value:values![i]})).filter(w=>w.value>0),reason});
  }
