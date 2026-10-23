@@ -1,3 +1,4 @@
+import {teamFactorSignal} from './team-weight-signal';
 import {footballWeightedParameters,type FootballModelSettings} from './football-model-weights';
 import {selectFootballCalibration,calibratedFootballGoals,type FootballCalibrationStatus} from './football-calibration';
 export const FOOTBALL_LEAGUES = [
@@ -18,7 +19,7 @@ export type FootballGame<L extends string=FootballLeague> = {
   state:'scheduled'|'live'|'final'|'other';statusName:string;statusLabel:string;
   neutral:boolean;venue:string;sourceUrl:string;
 };
-export type FootballForm = {games:number;venueGames:number;scored:number;conceded:number;recent:string[];latest:string|null;supplementGames:number;friendlyGames?:number};
+export type FootballForm = {weightSignals?:(number|null)[];games:number;venueGames:number;scored:number;conceded:number;recent:string[];latest:string|null;supplementGames:number;friendlyGames?:number};
 export type FootballFormOptions = {decayDays:number;venueWeight:number;competition?:string;otherCompetitionWeight?:number;friendlyWeight?:number};
 export const CUP_STRENGTH_REASON='跨聯賽對手強度尚未校正，暫不提供模型勝率與比分。';
 export const isFootballClubCup=(league:string)=>league==='uefa.champions'||league==='uefa.europa';
@@ -110,7 +111,9 @@ export function footballForm(teamId:string,venue:'home'|'away',history:FootballG
     let sum=0,weights=0;for(const g of list){const home=g.home.id===teamId,w=Math.exp(-(before-Date.parse(g.start))/(options.decayDays*86400000))*(g.league==='fifa.friendly'&&options.friendlyWeight!==undefined?options.friendlyWeight:options.competition&&g.league!==options.competition?(options.otherCompetitionWeight??.35):1);sum+=(kind==='scored'?(home?g.homeScore!:g.awayScore!):(home?g.awayScore!:g.homeScore!))*w;weights+=w;}return weights?sum/weights:0;
   }
   const rate=(kind:'scored'|'conceded')=>!neutral&&split.length>=3?options.venueWeight*mean(split,kind)+(1-options.venueWeight)*mean(rows,kind):mean(rows,kind);
-  return {games:rows.length,venueGames:split.length,supplementGames:options.competition?rows.filter(g=>g.league!==options.competition).length:0,...(options.friendlyWeight!==undefined?{friendlyGames:rows.filter(g=>g.league==='fifa.friendly').length}:{}),scored:rate('scored'),conceded:rate('conceded'),latest:rows[0]?.start||null,recent:rows.slice(0,5).map(g=>{const delta=g.home.id===teamId?g.homeScore!-g.awayScore!:g.awayScore!-g.homeScore!;return delta>0?'勝':delta<0?'負':'和';})};
+  const scored=rows.map(g=>g.home.id===teamId?g.homeScore!:g.awayScore!),conceded=rows.map(g=>g.home.id===teamId?g.awayScore!:g.homeScore!),signal=(values:number[],direction:1|-1)=>teamFactorSignal(values.map((value,i)=>({value,result:scored[i]-conceded[i]})),direction,5);
+  const weightSignals=[signal(scored,1),signal(conceded,-1),null,null,null];
+  return {weightSignals,games:rows.length,venueGames:split.length,supplementGames:options.competition?rows.filter(g=>g.league!==options.competition).length:0,...(options.friendlyWeight!==undefined?{friendlyGames:rows.filter(g=>g.league==='fifa.friendly').length}:{}),scored:rate('scored'),conceded:rate('conceded'),latest:rows[0]?.start||null,recent:rows.slice(0,5).map(g=>{const delta=g.home.id===teamId?g.homeScore!-g.awayScore!:g.awayScore!-g.homeScore!;return delta>0?'勝':delta<0?'負':'和';})};
 }
 export const needsFootballRecentForm=(form:FootballForm|undefined,before:number)=>!form||form.games<10||!form.latest||before-Date.parse(form.latest)>120*86400000;
 // Only identified senior competitions in the same club/national family may supplement history.

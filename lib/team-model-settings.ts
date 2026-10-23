@@ -63,11 +63,15 @@ export function baseballTeamSettings(base:BaseballModelSettings,book:TeamWeightB
 }
 /** Bounded sample-quality adjustment, not fitted or advertised as optimal.
  * Unmeasured factors retain their neutral budget; only measured shares are rebalanced. */
-export function adaptiveTeamWeights(base:number[],reliability:(number|null)[]):number[]|null{
- if(base.length!==reliability.length||base.some(n=>!Number.isFinite(n)||n<0)||Math.abs(base.reduce((a,b)=>a+b,0)-100)>.01)return null;
- const active=base.map((n,i)=>n>0&&typeof reliability[i]==='number'&&Number.isFinite(reliability[i])&&reliability[i]!>=0&&reliability[i]!<=1);
+export function adaptiveTeamWeights(base:number[],reliability:(number|null)[],signals?:(number|null)[]):number[]|null{
+ if(base.length!==reliability.length||signals&&signals.length!==base.length||base.some(n=>!Number.isFinite(n)||n<0)||Math.abs(base.reduce((a,b)=>a+b,0)-100)>.01)return null;
+ const valid=(n:unknown):n is number=>typeof n==='number'&&Number.isFinite(n)&&n>=0&&n<=1;
+ const active=base.map((n,i)=>n>0&&valid(reliability[i])&&(!signals||valid(signals[i])));
  if(active.filter(Boolean).length<2)return null;
- const budget=base.reduce((sum,n,i)=>sum+(active[i]?n:0),0),scaled=base.map((n,i)=>active[i]?n*(.85+.3*reliability[i]!):0),total=scaled.reduce((a,b)=>a+b,0);
+ // A nonzero prior keeps noisy short histories from eliminating a factor.
+ // Signal-driven profiles reflect performance patterns instead of sample-count
+ // differences of just 0.1%. Unknown factors retain their neutral budget.
+ const budget=base.reduce((sum,n,i)=>sum+(active[i]?n:0),0),scaled=base.map((n,i)=>active[i]?n*(signals ? .35+2.65*reliability[i]!*signals[i]! : .85+.3*reliability[i]!):0),total=scaled.reduce((a,b)=>a+b,0);
  if(!total)return null;
  // Largest-remainder rounding gives exactly 100.0% on both cards and calculation inputs.
  const raw=base.map((n,i)=>active[i]?budget*scaled[i]/total:n),units=raw.map(n=>Math.floor(n*10)),remaining=1000-units.reduce((a,b)=>a+b,0);

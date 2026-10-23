@@ -6,6 +6,16 @@ const m=await import(moduleUrl('lib/basketball-efficiency.ts')),n=await import(m
 const now=Date.parse('2026-09-29T16:00:00Z'),read=p=>JSON.parse(readFileSync(p,'utf8'));
 function fixture(league){const lower=league.toLowerCase(),parse=league==='NBA'?n.parseNbaEvents:w.parseWnbaEvents,ids=league==='NBA'?['2','5']:['16','20'],game=parse(read(`tests/fixtures/${lower}/${league==='NBA'?'future':'day-20260930'}.json`)).find(g=>g.id===(league==='NBA'?'401898392':'401918019')),history=ids.flatMap(id=>[2,3].flatMap(p=>parse(read(`tests/fixtures/${lower}/team-${id}-2026-${p}.json`),id))),raw=read(`tests/fixtures/basketball-efficiency/${lower}-boxes.json`),games=[...new Map(ids.flatMap(id=>m.efficiencyHistory(game,history,id,league,now)).map(g=>[g.id,g])).values()],boxes=games.map(g=>m.parseEfficiencyBox(raw[g.id],g,league));return {game,history,boxes,raw,games};}
 const nba=fixture('NBA'),wnba=fixture('WNBA');
+const {aiTeamSuggestion}=await import(moduleUrl('server/ai-team-suggestions.ts'));
+test('captured NBA and WNBA box scores yield different team profiles beyond tiny sample-count changes',()=>{
+ for(const [league,f] of [['NBA',nba],['WNBA',wnba]]){
+  const a=m.analyzeEfficiency(f.game,f.history,f.boxes,league,undefined,now),g={id:f.game.id,league,day:'2026-09-30',start:f.game.start,homeId:f.game.home.id,awayId:f.game.away.id,home:f.game.home.name,away:f.game.away.name};
+  const s=aiTeamSuggestion(g,a,'basketball');assert.ok(s);
+  const [h,v]=s.teams.map(t=>t.value.weights);assert.ok(Math.max(...h.map((n,i)=>Math.abs(n-v[i])))>2,`${league}: ${h} vs ${v}`);
+  for(const values of [h,v])assert.ok(Math.abs(values.reduce((a,b)=>a+b)-100)<1e-8);
+  assert.equal(a.inputs.home.games,a.inputs.away.games);assert.notDeepEqual(a.inputs.home.weightSignals,a.inputs.away.weightSignals);
+ }
+});
 const {fetchEfficiencyBox}=await import(moduleUrl('lib/basketball-box-source.ts'));
 // ESPN public Core capture, 2026-10-13: this summary returns 404, but the
 // complete original game still exists in the competition/statistics records.

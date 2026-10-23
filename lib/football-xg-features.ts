@@ -1,3 +1,4 @@
+import {teamFactorSignal} from './team-weight-signal';
 import {footballForm,type FootballGame,type FootballLeague} from './football';
 export type ExternalFootballGame={id:string;league:FootballLeague;start:string;homeId:string;awayId:string;homeGoals:number;awayGoals:number;homeXg:number|null;awayXg:number|null;neutral:boolean};
 export type ExternalFeatureOptions={decayDays:number;venueWeight:number};
@@ -16,7 +17,8 @@ export function externalFootballForm(teamId:string,venue:'home'|'away',rows:Exte
   return weight?sum/weight:0;
  };
  const rate=(against:boolean)=>!neutral&&split.length>=3?options.venueWeight*mean(split,against)+(1-options.venueWeight)*mean(xgRows,against):mean(xgRows,against);
- return {...goals,xgGames:xgRows.length,xgFor:rate(false),xgAgainst:rate(true)};
+ const signal=(against:boolean)=>teamFactorSignal(xgRows.map(g=>{const home=g.homeId===teamId;return {value:against?(home?g.awayXg:g.homeXg):(home?g.homeXg:g.awayXg),result:home?g.homeGoals-g.awayGoals:g.awayGoals-g.homeGoals};}),against?-1:1,5);
+ return {...goals,weightSignals:[...(goals.weightSignals||[null,null]).slice(0,2),signal(false),signal(true),null],xgGames:xgRows.length,xgFor:rate(false),xgAgainst:rate(true)};
 }
 export function externalFootballFeatures(game:Pick<ExternalFootballGame,'homeId'|'awayId'|'start'|'neutral'|'league'>,history:ExternalFootballGame[],eloDifference:number,options:ExternalFeatureOptions,before=externalDayCutoff(game.start)){
  const rows=history.filter(g=>g.league===game.league),home=externalFootballForm(game.homeId,'home',rows,before,game.neutral,options),away=externalFootballForm(game.awayId,'away',rows,before,game.neutral,options);

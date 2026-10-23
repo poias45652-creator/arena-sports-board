@@ -55,10 +55,19 @@ test('baseball profiles survive parsing, isolate IDs, combine ratios, and invali
  assert.equal(parseBaseballSettings({...b,teams:{10:{...home,teams:{}}}}),null);
 });
 test('basketball suggestions use measured sample counts and applied weights change projection',()=>{
- const metrics={games:20,ortg:112,drtg:109,pace:100,threePct:.35,threeRate:.4,ftRate:.25,observations:[],samples:{possessions:2000,threeAttempts:650,fieldGoalAttempts:1700,minutes:960}};
- const other={...metrics,ortg:108,drtg:113,samples:{possessions:850,threeAttempts:170,fieldGoalAttempts:650,minutes:400}};
+ const metrics={weightSignals:[.8,.2,.5,.1,.4],games:20,ortg:112,drtg:109,pace:100,threePct:.35,threeRate:.4,ftRate:.25,observations:[],samples:{possessions:2000,threeAttempts:650,fieldGoalAttempts:1700,minutes:960}};
+ const other={...metrics,weightSignals:[.25,.85,.1,.55,.3],ortg:108,drtg:113,samples:{possessions:850,threeAttempts:170,fieldGoalAttempts:650,minutes:400}};
  const s=aiTeamSuggestion({...match,league:'NBA'},{inputs:{home:metrics,away:other}},'basketball');assert.ok(s);assert.notDeepEqual(s.teams[0].weights,s.teams[1].weights);
  const book=Object.fromEntries(s.teams.map(t=>[t.teamId,profile(t.teamId,t.value,'NBA')])),weights=team.basketballTeamWeights([20,20,20,20,20],book,'10','20');close(weights.reduce((a,b)=>a+b),100);
  assert.notEqual(projectEfficiency(metrics,other,'NBA',false,weights).home,projectEfficiency(metrics,other,'NBA',false).home);
  assert.equal(aiTeamSuggestion({...match,league:'NBA'},{inputs:{home:{...metrics,samples:undefined},away:other}},'basketball'),null);
+});
+test('equal game counts still produce meaningful profiles from each team performance pattern',()=>{
+ const m={games:20,samples:{possessions:2000,threeAttempts:850,fieldGoalAttempts:1800,minutes:960},weightSignals:[.9,.12,.65,.08,.2]};
+ const n={...m,weightSignals:[.15,.85,.05,.7,.4]},g={...match,league:'NBA'};
+ const suggestion=aiTeamSuggestion(g,{inputs:{home:m,away:n}},'basketball');
+ const [home,away]=suggestion.teams.map(t=>t.value.weights);assert.ok(Math.max(...home.map((v,i)=>Math.abs(v-away[i])))>5);close(home.reduce((a,b)=>a+b),100);close(away.reduce((a,b)=>a+b),100);
+ assert.notEqual(home.indexOf(Math.max(...home)),away.indexOf(Math.max(...away)));
+ const swapped=aiTeamSuggestion({...g,homeId:g.awayId,awayId:g.homeId,home:g.away,away:g.home},{inputs:{home:n,away:m}},'basketball');assert.deepEqual(swapped.teams[1].value.weights,home);
+ const identical=aiTeamSuggestion(g,{inputs:{home:m,away:m}},'basketball');assert.deepEqual(identical.teams[0].value,identical.teams[1].value);
 });

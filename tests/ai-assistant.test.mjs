@@ -15,8 +15,8 @@ const analysis={capturedAt:'2026-10-23T01:00:00Z',probabilities:{home:.65,away:.
 const snapshot=buildAiFacts(match,analysis,suggestion,'baseball');
 test('only measured factors explain the selected match',()=>{
  const answer=quickAiAnswer(snapshot,'analysis').answer;
- assert.match(answer,/65.0%/);assert.match(answer,/增加 7.5 個百分點/);assert.doesNotMatch(answer,/傷停/);
- assert.match(quickAiAnswer(snapshot,'risk').answer,/減少 2 個百分點/);
+ assert.match(answer,/65.0%/);assert.match(answer,/主隊的先發本季 ERA較有利：2，客隊為 4/);assert.match(snapshot.evidence.find(f=>f.id==='factor-detail-0').text,/增加 7.5 個百分點/);assert.doesNotMatch(answer,/傷停/);
+ assert.match(quickAiAnswer(snapshot,'risk').answer,/主隊的本季戰績（修正勝率）較不利：40.0%，客隊為 60.0%/);assert.doesNotMatch(quickAiAnswer(snapshot,'risk').answer,/權重|個百分點/);
  assert.deepEqual(quickAiAnswer(snapshot,'weights').suggestion,suggestion);
  assert.equal(buildAiFacts(match,{...analysis,probabilities:{home:NaN,away:.5}},suggestion,'baseball'),null);
 });
@@ -29,7 +29,7 @@ test('model cannot invent answers or weights; missing data uses exact user copy'
 });
 test('basketball and football retain their own fields and draw probabilities',()=>{
  const basketball=buildAiFacts({...match,league:'NBA'},{...analysis,homeForm:{games:10,pointsFor:112,pointsAgainst:106},inputs:{home:{ortg:115,drtg:108,threePct:.37,ftRate:.25,pace:99},away:{ortg:109,drtg:114,threePct:.32,ftRate:.20,pace:98}}},suggestion,'basketball');
- assert.match(quickAiAnswer(basketball,'analysis').answer,/場均得分 112/);
+ assert.match(basketball.evidence.find(f=>f.id==='form-home').text,/場均得分 112/);assert.match(quickAiAnswer(basketball,'analysis').answer,/主隊的進攻效率較有利：115，客隊為 109/);
  assert.match(basketball.evidence.find(f=>f.id==='efficiency-threePct').text,/37.0%/);
  const football=buildAiFacts({...match,league:'eng.1'},{...analysis,probabilities:{home:.4,away:.35,draw:.25},homeForm:{games:12,scored:1.8,conceded:1.2}},suggestion,'football');
  assert.match(quickAiAnswer(football,'analysis').answer,/和局 25.0%/);
@@ -43,14 +43,14 @@ test('reported risk question never substitutes the 50.7% other-outcome statement
  assert.equal(resolveAiSelection(missing,{scope:'match',intent:'risk',factIds:['result','method']}).answer,AI_INSUFFICIENT);
  const supported=buildAiFacts(footballMatch,{...source,homeForm:{games:8,scored:1.2,conceded:1.7},awayForm:{games:10,scored:1.6,conceded:1.1}},suggestion,'football');
  const result=quickAiAnswer(supported,'risk').answer;
- assert.match(result,/1\. 札格瑞布迪納摩的進攻數據較弱/);
- assert.match(result,/1.2，低於客隊的 1.6/);
- assert.match(result,/2\. 札格瑞布迪納摩的失球數據較不利/);
+ assert.match(result,/1\. 札格瑞布迪納摩的場均進球較不利/);
+ assert.match(result,/1.2，客隊為 1.6/);
+ assert.match(result,/2\. 札格瑞布迪納摩的場均失球較不利/);
  assert.doesNotMatch(result,/50.7%|以外的結果|確定賽果|傷停/);
  const selected=resolveAiSelection(supported,{scope:'match',intent:'risk',factIds:['result','football-attack-risk','method']}).answer;
- assert.match(selected,/進攻數據較弱/);assert.doesNotMatch(selected,/49.3%|正規 90/);
+ assert.match(selected,/場均進球較不利/);assert.doesNotMatch(selected,/49.3%|正規 90/);
  const away=buildAiFacts(footballMatch,{...source,probabilities:{home:.267,away:.493,draw:.24},homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:10,scored:1.2,conceded:1.7}},suggestion,'football');
- assert.match(quickAiAnswer(away,'risk').answer,/客隊的進攻數據較弱/);
+ assert.match(quickAiAnswer(away,'risk').answer,/客隊的場均進球較不利/);
  for(const extra of [
   {homeForm:{games:0,scored:0,conceded:5},awayForm:{games:8,scored:1.6,conceded:1.1}},
   {homeForm:{games:8,scored:1.6,conceded:1.1},awayForm:{games:8,scored:1.2,conceded:1.7}},
@@ -64,6 +64,19 @@ test('basketball risks name the disadvantaged team and exclude opponent absences
  assert.match(answer,/主隊的防守效率較不利：116，客隊為 110/);
  assert.match(answer,/本隊傷員/);assert.doesNotMatch(answer,/對手傷員|正常球員|節奏/);
  assert.ok(s.evidence.some(f=>f.topic==='analysis'&&f.text.includes('對手傷員')));
+});
+test('the supplied WNBA example and every sport use team, comparison and plain meaning',()=>{
+ const g={...match,league:'WNBA',home:'亞特蘭大夢想',away:'金州女武神'};
+ const basketball=buildAiFacts(g,{...analysis,inputs:{home:{drtg:94.6},away:{drtg:93.76}}},null,'basketball');
+ assert.equal(quickAiAnswer(basketball,'risk').answer,'亞特蘭大夢想的防守效率較不利：94.6，金州女武神為 93.76。每百回合失分較多，防守表現較弱。');
+ const baseball=buildAiFacts({...match,home:'洋基',away:'大都會'},{...analysis,factors:[{name:'先發本季 ERA',home:4.8,away:3.1,weight:30,score:-.425,contribution:-6.375},{name:'先發本季 WHIP',home:1.5,away:1.1,weight:15,score:-.5,contribution:-3.75}]},null,'baseball');
+ const risk=quickAiAnswer(baseball,'risk').answer;assert.match(risk,/1\. 洋基的先發本季 ERA較不利：4.8，大都會為 3.1。.*每九局.*責失分較多/);assert.match(risk,/2\. 洋基的先發本季 WHIP較不利：1.5，大都會為 1.1。.*每局.*保送/);assert.doesNotMatch(risk,/主隊|客隊|估值|權重|百分點/);
+});
+test('rounding ties and invalid values cannot create disadvantages',()=>{
+ for(const [h,a] of [[94.601,94.602],[NaN,90],[null,90],[-1,90]]){
+  const s=buildAiFacts(match,{...analysis,inputs:{home:{drtg:h},away:{drtg:a}}},null,'basketball');assert.equal(quickAiAnswer(s,'risk').answer,AI_INSUFFICIENT);
+ }
+ const s=buildAiFacts(match,{...analysis,factors:[{name:'先發本季 ERA',home:3.101,away:3.102,weight:30,score:-.00025,contribution:-.00375}]},null,'baseball');assert.equal(quickAiAnswer(s,'risk').answer,AI_INSUFFICIENT);
 });
 test('provider receives only fixed schema and match evidence and must complete its response',async()=>{
  const fake=async(url,options)=>{
