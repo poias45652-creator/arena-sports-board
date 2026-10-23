@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-23T10:20:22.517Z",
+  "observedAt": "2026-10-23T11:12:52.113Z",
   "dateAsiaTaipei": "2026-10-23",
   "currentGames": {
     "NPB": 0,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-23T10:20:25.349Z",
+    "checkedAt": "2026-10-23T11:12:53.167Z",
     "passed": true,
     "rowsWritten": 1,
     "rowsReadBack": 1,
@@ -1369,18 +1369,19 @@
         "noFullBoxscoreExpected": true
       },
       "allVerified": false,
-      "reason": "Current collector attempt 3 (2026-10-23 18:20 Taipei) remains NPB confirmed offday, KBO provider zero, CPBL postponed. No live games.",
+      "reason": "Latest collector at 2026-10-23 19:12 Taipei: NPB verified no games; KBO provider returned zero without independent official offday proof; CPBL G5 POSTPONED. No live games; rerun passed parser and isolated database. Attempt 4 is inferred, not confirmed via connector.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-10-23T10:20:22.517Z",
-        "artifactId": 12493888910,
-        "artifactCreatedAt": "2026-10-23T10:20:27Z",
-        "artifactSha256": "f9650c4cd2b43bec53903772f486aa90bc2fec97cad54ba0cdfec5725e892463",
+        "capturedAt": "2026-10-23T11:12:52.113Z",
+        "artifactId": 12496893300,
+        "artifactCreatedAt": "2026-10-23T11:12:54Z",
+        "artifactSha256": "ff083175e3ff41c6c82d915c543e439ab24eebbb88e4e6867751a82410c5b1c0",
         "runId": 39924795302,
-        "runAttempt": 3,
-        "runAttemptConfirmedByApi": true,
-        "jobId": 120363246597,
-        "observationPath": "data/live/20261023T102022Z-run39924795302-attempt3-postponed-collector.json",
+        "runAttempt": 4,
+        "runAttemptConfirmedByApi": false,
+        "runAttemptVerification": "inferred from previous confirmed attempt 3 followed by successful rerun; current attempt number not independently exposed by GitHub connector",
+        "jobId": 120383526755,
+        "observationPath": "data/live/20261023T111252Z-run39924795302-job120383526755-postponed-collector.json",
         "collectorConclusion": "success",
         "liveGames": 0,
         "pregameGames": {
@@ -1541,7 +1542,7 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-23",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261023T102022Z-run39924795302-attempt3-postponed-collector.json",
+    "latestObservationPath": "data/live/20261023T111252Z-run39924795302-job120383526755-postponed-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -1566,20 +1567,21 @@
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12493888910,
-    "reason": "2026-10-23 attempt 3: fresh sources show NPB verified no-game day, KBO provider returns no games without independent offday confirmation, and CPBL G5 remains POSTPONED; no live games or numeric change proof applicable."
+    "latestRunArtifactId": 12496893300,
+    "reason": "Latest collector at 2026-10-23 19:12 Taipei: NPB verified no games; KBO provider returned zero without independent official offday proof; CPBL G5 POSTPONED. No live games; rerun passed parser and isolated database. Attempt 4 is inferred, not confirmed via connector."
   },
-  "nextAction": "Continue daily first-team verification. CPBL G5 reported rescheduled 2026-10-24 17:05 Taipei: confirm game key/date and collect >=65s apart if LIVE; never fill missing data with zero. Do not touch main or production.",
+  "nextAction": "Continue daily first-team verification; CPBL G5 rescheduled for 2026-10-24 17:05 Taipei per reports. Verify next-day provider identity/date and if LIVE capture >=65-second-separated states. Never fill unsupported values with zero. Do not modify main or production.",
   "latestRun": {
-    "capturedAt": "2026-10-23T10:20:22.517Z",
-    "artifactId": 12493888910,
-    "artifactCreatedAt": "2026-10-23T10:20:27Z",
-    "artifactSha256": "f9650c4cd2b43bec53903772f486aa90bc2fec97cad54ba0cdfec5725e892463",
+    "capturedAt": "2026-10-23T11:12:52.113Z",
+    "artifactId": 12496893300,
+    "artifactCreatedAt": "2026-10-23T11:12:54Z",
+    "artifactSha256": "ff083175e3ff41c6c82d915c543e439ab24eebbb88e4e6867751a82410c5b1c0",
     "runId": 39924795302,
-    "runAttempt": 3,
-    "runAttemptConfirmedByApi": true,
-    "jobId": 120363246597,
-    "observationPath": "data/live/20261023T102022Z-run39924795302-attempt3-postponed-collector.json",
+    "runAttempt": 4,
+    "runAttemptConfirmedByApi": false,
+    "runAttemptVerification": "inferred from previous confirmed attempt 3 followed by successful rerun; current attempt number not independently exposed by GitHub connector",
+    "jobId": 120383526755,
+    "observationPath": "data/live/20261023T111252Z-run39924795302-job120383526755-postponed-collector.json",
     "collectorConclusion": "success",
     "liveGames": 0,
     "pregameGames": {
@@ -1604,7 +1606,7 @@
     "staleArtifactUsed": false,
     "isolatedDatabaseTest": "passed_one_postponed_row"
   },
-  "latestObservationCommit": "38492be6b255f828dadb230b7a65d106610a101a",
+  "latestObservationCommit": "6c3f5b9d01158675b6f6a49d60dae1eaac723e13",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
