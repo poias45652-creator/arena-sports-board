@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-23",
+  "capturedAt": "2026-10-23T10:20:22.517Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowRunId": 39924795302,
+    "runAttempt": 3,
+    "runAttemptConfirmedByGitHubApi": true,
+    "jobId": 120363246597,
+    "headSha": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "conclusion": "success",
+    "artifactId": 12493888910,
+    "artifactCreatedAt": "2026-10-23T10:20:27Z",
+    "artifactDigestSha256": "f9650c4cd2b43bec53903772f486aa90bc2fec97cad54ba0cdfec5725e892463",
+    "downloadedZipSha256": "f9650c4cd2b43bec53903772f486aa90bc2fec97cad54ba0cdfec5725e892463",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-23",
+        "fetchedAt": "2026-10-23T10:20:19.693Z",
+        "marker": "試合はありません"
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "independentOfficialOffDayVerified": false,
+      "source": "https://api-gw.sports.naver.com"
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": [
+        {
+          "key": "CPBL:261023005",
+          "id": "261023005",
+          "date": "2026-10-23",
+          "status": "postponed",
+          "rawStatus": "POSTPONED",
+          "startTimeOriginal": "2026-10-23T10:35:00.000Z",
+          "away": {
+            "id": "cpbl.t.1",
+            "name": "中信兄弟",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "home": {
+            "id": "cpbl.t.7",
+            "name": "味全龍",
+            "score": null,
+            "hits": null,
+            "errors": null
+          },
+          "inning": null,
+          "half": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "currentPitcher": null,
+          "currentBatter": null,
+          "pitchCount": null,
+          "lineups": {
+            "away": [],
+            "home": []
+          },
+          "pitching": {
+            "away": [],
+            "home": []
+          },
+          "lineupConfirmation": "not_verified",
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+            "fetchedAt": "2026-10-23T10:20:22.223Z",
+            "httpDate": "Fri, 23 Oct 2026 10:20:21 GMT",
+            "detailUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261023005/",
+            "detailFetchedAt": "2026-10-23T10:20:22.511Z",
+            "detailFullBoxscoreAvailable": false,
+            "providerUpdatedAt": null
+          },
+          "warnings": [
+            "provider_update_time_not_supplied",
+            "lineup_confirmation_not_verified",
+            "pitch_by_pitch_not_supplied",
+            "postponed_or_cancelled_schedule_status_no_boxscore"
+          ]
+        }
+      ]
+    }
+  },
+  "states": {
+    "pregame": 0,
+    "live": 0,
+    "final": 0,
+    "postponed": 1
+  },
+  "secondCapturePerformed": false,
+  "qualifiedNumericChanges": 0,
+  "liveChangeNotApplicable": true,
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "checkedAt": "2026-10-23T10:20:25.349Z",
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0
+  },
+  "deltaVersusPriorObservation": {
+    "priorCapturedAt": "2026-10-23T09:07:22.369Z",
+    "newValidLiveData": false,
+    "majorFieldRecovery": false,
+    "newParserFailure": false,
+    "sourceStatusChange": false,
+    "gameStatusChange": false
+  },
+  "rescheduleContext": {
+    "reportedNewTime": "2026-10-24T17:05:00+08:00",
+    "note": "Reschedule from published report retained for context, not represented in the normalized collector artifact. Today's record remains POSTPONED."
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "deployed": false,
+    "unknownFieldsStayNull": true
+  }
+}
