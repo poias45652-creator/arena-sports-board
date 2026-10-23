@@ -21,6 +21,49 @@ const monzaSnapshot=()=>({source:'test-only',fetchedAt:monzaCapture.capturedAt,s
   {type:110,period:'full',quotes:[{primary:true,open:true,homePrice:2.8,awayPrice:1.2,drawPrice:2.5}]},
  ]
 }]});
+const forestCapture=JSON.parse(fs.readFileSync('tests/fixtures/football-forest-source-20261023.json'));
+const forestNow=Date.parse(forestCapture.capturedAt);
+const forestGame=()=>parseFootballEvents(forestCapture.schedule,'eng.1')[0];
+// Reuse explicitly synthetic quotes; the production capture contains no prices.
+const forestSnapshot=()=>({source:'test-only',fetchedAt:forestCapture.capturedAt,sportGames:[{
+ ...forestCapture.fixture,league:'FOOTBALL',displayMarkets:monzaSnapshot().sportGames[0].displayMarkets,
+}]});
+
+test('October 23 Ipswich–Forest source pairs with the independently retrieved schedule',()=>{
+ const game=forestGame(),snapshot=forestSnapshot();
+ assert.equal(game.id,'401879253');assert.equal(game.home.id,'373');assert.equal(game.away.id,'393');
+ assert.equal(game.start,'2026-10-23T19:00:00.000Z');
+ assert.equal(game.home.name,'伊普斯維奇');assert.equal(game.away.name,'諾丁漢森林');
+ for(const awayName of ['諾丁漢森林','Nottingham Forest']){
+  const status=sportMarketStatus(snapshot,{...game,away:{...game.away,name:awayName}},'FOOTBALL',forestNow);
+  assert.equal(status.code,'matched');assert.equal(status.event.id,25125177);assert.equal(status.availableCount,3);
+ }
+ assert.deepEqual(sportSourceAudit(snapshot,forestNow).unrecognizedTeamNames,[]);
+ for(const name of ['諾定咸森林',' 諾定咸森林（主） ','Nottingham Forest','諾丁漢森林'])assert.equal(sportTeamKey(name,'FOOTBALL'),'諾丁漢森林');
+});
+
+test('Forest alias preserves squad, sport, opponent, orientation, time and source guards',()=>{
+ const game=forestGame();
+ for(const sport of ['NBA','WNBA'])assert.equal(sportTeamKey('諾定咸森林',sport),'諾定咸森林');
+ for(const suffix of ['U21','(女)','預備隊','二隊']){
+  const snapshot=forestSnapshot();snapshot.sportGames[0].away+=suffix;
+  assert.notEqual(sportTeamKey(snapshot.sportGames[0].away,'FOOTBALL'),'諾丁漢森林');
+  assert.equal(matchSportEvent(snapshot,game,'FOOTBALL',forestNow),null);
+ }
+ for(const patch of [{home:game.away,away:game.home},{away:{name:'曼城'}},{league:'uefa.champions'},{start:'2026-10-23T20:00:00Z'}]){
+  assert.equal(matchSportEvent(forestSnapshot(),{...game,...patch},'FOOTBALL',forestNow),null);
+ }
+ for(const sourcePatch of [{live:true},{live:null},{start:'2026/10/24 04:00:00'}]){
+  const snapshot=forestSnapshot();Object.assign(snapshot.sportGames[0],sourcePatch);
+  assert.equal(matchSportEvent(snapshot,game,'FOOTBALL',forestNow),null);
+ }
+ assert.equal(matchSportEvent(forestSnapshot(),game,'FOOTBALL',forestNow+150000),null);
+ const duplicate=forestSnapshot();duplicate.sportGames.push({...duplicate.sportGames[0],id:999});
+ assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',forestNow).code,'fixture_ambiguous');
+ const closed=forestSnapshot();closed.sportGames[0].displayMarkets[0].quotes[0].open=false;
+ const status=sportMarketStatus(closed,game,'FOOTBALL',forestNow);
+ assert.equal(status.availableCount,2);assert.equal(status.markets.spread.code,'closed');
+});
 
 test('October 19 Monza source name joins the official fixture and cached English cards',()=>{
  const game=monzaGame(),snapshot=monzaSnapshot();
@@ -51,7 +94,7 @@ test('Monza localization preserves team, squad, league, time and unique-source g
  assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',monzaNow).code,'fixture_ambiguous');
 });
 
-test('real Monza market component renders recommendations after pairing, and suppresses unavailable inputs',async()=>{
+test('real market component renders Monza and reported Ipswich–Forest cards after pairing, and suppresses unavailable inputs',async()=>{
  const markets=await import(moduleUrl('lib/sport-super-markets.ts'));
  const oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
  const code=ts.transpileModule(fs.readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
@@ -59,15 +102,17 @@ test('real Monza market component renders recommendations after pairing, and sup
   if(key==='@/lib/member-odds-client')return oddsClient;
   assert.equal(key,'@/lib/sport-super-markets');return markets;
  },{},React);
- const analysis={status:'ready',capturedAt:monzaCapture.capturedAt,expected:{home:1,away:1.5},...footballDistribution(1,1.5)};
- const render=(snapshot,model=analysis)=>renderToStaticMarkup(React.createElement(Component,{game:monzaGame(),snapshot,analysis:model,sport:'FOOTBALL',now:monzaNow}));
- const html=render(monzaSnapshot());
+ for(const [game,source,now] of [[monzaGame(),monzaSnapshot,monzaNow],[forestGame(),forestSnapshot,forestNow]]){
+ const analysis={status:'ready',capturedAt:source().fetchedAt,expected:{home:1,away:1.5},...footballDistribution(1,1.5)};
+ const render=(snapshot,model=analysis)=>renderToStaticMarkup(React.createElement(Component,{game,snapshot,analysis:model,sport:'FOOTBALL',now}));
+ const html=render(source());
  assert.match(html,/data-market-status="matched"/);assert.ok(html.includes('2 種玩法'));
  assert.equal((html.match(/>推薦<\/em>/g)||[]).length,2);
  assert.ok(!html.includes('玩法配對待確認'));
- const closed=monzaSnapshot();for(const market of closed.sportGames[0].displayMarkets)market.quotes[0].open=false;
- const stale={...analysis,capturedAt:new Date(monzaNow-15*60000).toISOString()};
- for(const output of [render(null),render(closed),render(monzaSnapshot(),stale),render(monzaSnapshot(),{...analysis,scoreDistribution:undefined})])assert.ok(!output.includes('>推薦</em>'));
+ const closed=source();for(const market of closed.sportGames[0].displayMarkets)market.quotes[0].open=false;
+ const stale={...analysis,capturedAt:new Date(now-15*60000).toISOString()};
+ for(const output of [render(null),render(closed),render(source(),stale),render(source(),{...analysis,scoreDistribution:undefined})])assert.ok(!output.includes('>推薦</em>'));
+ }
 });
 const audit=JSON.parse(fs.readFileSync('tests/fixtures/football-source-names-20261009.json'));
 const {games}=JSON.parse(fs.readFileSync('tests/fixtures/football-official-fixtures-20261009.json'));

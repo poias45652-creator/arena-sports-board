@@ -1,0 +1,77 @@
+{
+  "capturedAt": "2026-10-23T13:58:54.073Z",
+  "source": "Render super-sport-pairing-audit; fixture identity and availability only; no prices captured.",
+  "fixture": {
+    "id": 25125177,
+    "sport": "FOOTBALL",
+    "competition": "eng.1",
+    "leagueName": "英格蘭超級聯賽",
+    "home": "伊普斯維奇(主)",
+    "away": "諾定咸森林",
+    "start": "2026/10/24 03:00:00",
+    "live": false,
+    "availableMarkets": 3,
+    "marketStates": {
+      "spread": "ready",
+      "total": "ready",
+      "moneyline": "ready"
+    }
+  },
+  "scheduleSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard?dates=20261023&limit=100",
+  "schedule": {
+    "events": [
+      {
+        "id": "401879253",
+        "date": "2026-10-23T19:00Z",
+        "season": {
+          "year": 2026,
+          "type": 14308,
+          "slug": "2026-27-english-premier-league"
+        },
+        "competitions": [
+          {
+            "date": "2026-10-23T19:00Z",
+            "timeValid": true,
+            "status": {
+              "clock": 0.0,
+              "displayClock": "0'",
+              "type": {
+                "id": "1",
+                "name": "STATUS_SCHEDULED",
+                "state": "pre",
+                "completed": false,
+                "description": "Scheduled",
+                "detail": "Fri, October 23rd at 3:00 PM EDT",
+                "shortDetail": "Scheduled"
+              }
+            },
+            "venue": {
+              "id": "257",
+              "fullName": "Portman Road",
+              "address": {
+                "city": "Ipswich",
+                "country": "England"
+              }
+            },
+            "competitors": [
+              {
+                "homeAway": "home",
+                "team": {
+                  "id": "373",
+                  "displayName": "Ipswich Town"
+                }
+              },
+              {
+                "homeAway": "away",
+                "team": {
+                  "id": "393",
+                  "displayName": "Nottingham Forest"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
