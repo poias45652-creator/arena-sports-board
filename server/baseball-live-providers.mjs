@@ -130,7 +130,7 @@ export async function collectLeague(league,{date=dayInTaipei(),fetcher=fetch}={}
      ['REGULAR_SEASON','POSTSEASON'].includes(metadata.seasonPhase)&&
      metadata.homeTeamId===candidate.preview.homeTeamId&&metadata.awayTeamId===candidate.preview.awayTeamId&&
      metadata.startTime&&dayInTaipei(new Date(metadata.startTime))===date,
-     'CPBL full game payload missing; unverified pregame metadata');
+     'CPBL full game payload missing; unverified pregame metadata: '+JSON.stringify({previewStatus:candidate.preview.status,previewPhase:candidate.preview.seasonPhase,detailStatus:details.map(x=>x.status),detailPhase:details.map(x=>x.seasonPhase),previewFields:Object.keys(candidate.preview).filter(x=>/status|phase|game|start|time|team/i.test(x)).slice(0,35)}));
     // After listed first pitch, do not treat potentially stale pregame cards as current.
     assert(Date.parse(detail.fetchedAt)<Date.parse(metadata.startTime),'CPBL full game payload missing after scheduled start');
     const result=parseCpbl(metadata,metadata===candidate.preview?candidate.schedulePage:detail);
