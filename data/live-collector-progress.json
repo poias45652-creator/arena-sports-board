@@ -8,25 +8,25 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-22T12:49:52.781Z",
-  "dateAsiaTaipei": "2026-10-22",
+  "observedAt": "2026-10-23T08:28:09.459Z",
+  "dateAsiaTaipei": "2026-10-23",
   "currentGames": {
     "NPB": 0,
     "KBO": 0,
-    "CPBL": 0
+    "CPBL": 1
   },
   "currentStates": {
     "NPB": "official_offday_verified",
     "KBO": "no_first_team_games_provider_zero",
-    "CPBL": "no_first_team_games_provider_zero"
+    "CPBL": "postponed_schedule_verified"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-22T12:49:54.130Z",
+    "checkedAt": "2026-10-23T08:28:10.718Z",
     "passed": true,
-    "rowsWritten": 0,
-    "rowsReadBack": 0,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
     "duplicateWrites": 0,
     "details": [
       {
@@ -41,8 +41,8 @@
       },
       {
         "league": "CPBL",
-        "written": 0,
-        "readBack": 0
+        "written": 1,
+        "readBack": 1
       }
     ]
   },
@@ -52,9 +52,9 @@
     "CPBL": null
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-22",
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-23",
     "KBO": "https://api-gw.sports.naver.com",
-    "CPBL": null
+    "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/"
   },
   "liveChangeProof": {
     "NPB": {
@@ -1341,6 +1341,70 @@
         "staleArtifactUsed": false,
         "isolatedDatabaseTest": "passed_zero_rows"
       }
+    },
+    "2026-10-23": {
+      "NPB": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "official_offday_verified",
+        "games": 0,
+        "source": "sportsnavi"
+      },
+      "KBO": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "provider_zero_independent_offday_unverified",
+        "games": 0,
+        "source": "naver"
+      },
+      "CPBL": {
+        "verified": false,
+        "notApplicableToday": true,
+        "state": "postponed",
+        "games": 1,
+        "source": "yahoo-tw",
+        "gameKey": "CPBL:261023005",
+        "originallyScheduled": "2026-10-23T18:35:00+08:00",
+        "confirmedPublicReportsRescheduled": "2026-10-24T17:05:00+08:00",
+        "noFullBoxscoreExpected": true
+      },
+      "allVerified": false,
+      "reason": "CPBL G5 was postponed; fresh collector parsed postponed from Yahoo team schedule. No LIVE first-team games, so LIVE-to-LIVE check not applicable. No authoritative KBO off-day confirmation.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "capturedAt": "2026-10-23T08:28:09.459Z",
+        "artifactId": 12488927167,
+        "artifactCreatedAt": "2026-10-23T08:28:12Z",
+        "artifactSha256": "777b68724daae93ba9f5ef518d319ccf67ef4342eca6b5daae5e923a191418a5",
+        "runId": 39924795302,
+        "runAttempt": 1,
+        "runAttemptConfirmedByApi": true,
+        "jobId": 120318426539,
+        "observationPath": "data/live/20261023T082809Z-run39924795302-postponed-collector.json",
+        "collectorConclusion": "success",
+        "liveGames": 0,
+        "pregameGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "finalGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "postponedGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 1
+        },
+        "secondCapturePerformed": false,
+        "qualifiedNumericChanges": 0,
+        "status": "completed",
+        "conclusion": "success",
+        "staleArtifactUsed": false,
+        "isolatedDatabaseTest": "passed_one_postponed_row"
+      }
     }
   },
   "parserFixes": [
@@ -1376,6 +1440,21 @@
         "liveStatsVerifiedByArtifact": 10811795301,
         "liveStatsVerifiedAt": "2026-09-24T13:45:11.669Z"
       }
+    },
+    {
+      "at": "2026-10-23T08:28:09.459Z",
+      "commit": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+      "file": "server/baseball-live-providers.mjs",
+      "change": "Allow source-verified CPBL POSTPONED/CANCELLED schedule identity without playerStats while refusing to fabricate pregame/live/final data.",
+      "verifiedByRun": 39924795302,
+      "verifiedByArtifact": 12488927167,
+      "validation": {
+        "syntaxCheck": true,
+        "realSourceRetestPassed": true,
+        "isolatedDatabasePassed": true,
+        "postponedRows": 1,
+        "missingScoreStayedNull": true
+      }
     }
   ],
   "parserRepairIncidents": [
@@ -1389,6 +1468,17 @@
       "productionWritten": false,
       "rollbackCommit": "f12e947a5e8ad30967ef03e5cde4e05e291b4e03",
       "resolution": "Restored validated parser; corrected implementation later validated in commit 57f2c4959eaa49a28ea773e5485b07c29c2d9232."
+    },
+    {
+      "at": "2026-10-23T08:28:09.459Z",
+      "file": "server/baseball-live-providers.mjs",
+      "priorFailedAttempt": 44,
+      "priorRunId": 39121599531,
+      "rootCause": "Yahoo reports CPBL G5 POSTPONED and omits full playerStats; original parser rejected it as missing game payload.",
+      "resolvedByCommit": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+      "verifiedByRun": 39924795302,
+      "verifiedByArtifact": 12488927167,
+      "productionWritten": false
     }
   ],
   "productionChanged": false,
@@ -1449,9 +1539,9 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-22",
+    "date": "2026-10-23",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261022T124952Z-attempt40-offday-collector.json",
+    "latestObservationPath": "data/live/20261023T082809Z-run39924795302-postponed-collector.json",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -1470,25 +1560,26 @@
       "verified": false,
       "notApplicableToday": true,
       "checkedToday": true,
-      "games": 0,
-      "officialOffDayVerified": false
+      "games": 1,
+      "postponed": true,
+      "liveGames": 0
     },
     "allScheduledLeaguesVerified": false,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12426048712,
-    "reason": "No LIVE first-team games in attempt 40; all collectors status ok, NPB dated no-game marker confirmed; KBO/CPBL independent official off-day proof not confirmed."
+    "latestRunArtifactId": 12488927167,
+    "reason": "Today's CPBL G5 is POSTPONED, not pregame or source failure. NPB official no-games marker; KBO provider zero. No live observations needed."
   },
-  "nextAction": "Continue the daily checks; verify first-team schedule and provider availability, and get two >=65-second spaced LIVE observations when active games are present. Preserve separate current-day evidence each day.",
+  "nextAction": "Continue daily NPB/KBO/CPBL checks. For rescheduled CPBL G5 on 2026-10-24 at 17:05 Asia/Taipei, first verify exact game identity/date/status; if LIVE, take two >=65 s observations. Never treat source-postponed as pregame or a source failure. Do not touch main or production.",
   "latestRun": {
-    "capturedAt": "2026-10-22T12:49:52.781Z",
-    "artifactId": 12426048712,
-    "artifactCreatedAt": "2026-10-22T12:49:56Z",
-    "artifactSha256": "dd1098669fe1b9dc6083df455d6e8c64515b10607088eb014419eaad3d2a408e",
-    "runId": 39121599531,
-    "runAttempt": 40,
+    "capturedAt": "2026-10-23T08:28:09.459Z",
+    "artifactId": 12488927167,
+    "artifactCreatedAt": "2026-10-23T08:28:12Z",
+    "artifactSha256": "777b68724daae93ba9f5ef518d319ccf67ef4342eca6b5daae5e923a191418a5",
+    "runId": 39924795302,
+    "runAttempt": 1,
     "runAttemptConfirmedByApi": true,
-    "jobId": 119833755472,
-    "observationPath": "data/live/20261022T124952Z-attempt40-offday-collector.json",
+    "jobId": 120318426539,
+    "observationPath": "data/live/20261023T082809Z-run39924795302-postponed-collector.json",
     "collectorConclusion": "success",
     "liveGames": 0,
     "pregameGames": {
@@ -1501,14 +1592,19 @@
       "KBO": 0,
       "CPBL": 0
     },
+    "postponedGames": {
+      "NPB": 0,
+      "KBO": 0,
+      "CPBL": 1
+    },
     "secondCapturePerformed": false,
     "qualifiedNumericChanges": 0,
     "status": "completed",
     "conclusion": "success",
     "staleArtifactUsed": false,
-    "isolatedDatabaseTest": "passed_zero_rows"
+    "isolatedDatabaseTest": "passed_one_postponed_row"
   },
-  "latestObservationCommit": "31fd242847bcfec729becc273c9e9488121a5b11",
+  "latestObservationCommit": "c0c90e1b1d16fb1ed4edb1529c86c48743bf9dbe",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
