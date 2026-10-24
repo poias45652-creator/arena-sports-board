@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T05:32:57.984Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 39924795302,
+    "runAttempt": 9,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120791232699,
+    "artifactId": 12549059846,
+    "artifactCreatedAt": "2026-10-24T05:33:01Z",
+    "artifactSha256": "35560e460f91193270dd542965dc3fba31bf044a57af4546571d2bc6570a8f98",
+    "downloadedZipSha256": "35560e460f91193270dd542965dc3fba31bf044a57af4546571d2bc6570a8f98",
+    "artifactDigestVerified": true,
+    "headSha": "319dff9b06e92deb31822ea66accb77b9ab02da1",
+    "collectorConclusion": "success",
+    "capturedAt": "2026-10-24T05:32:57.984Z"
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "gameKey": "NPB:2021039492",
+      "away": "福岡軟銀鷹",
+      "home": "橫濱DeNA海灣之星",
+      "startTime": "2026-10-24T09:30:00.000Z",
+      "score": null,
+      "source": "https://baseball.yahoo.co.jp/npb/game/2021039492/score"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": 0,
+      "independentOfficialOffDayVerified": false,
+      "source": "https://api-gw.sports.naver.com"
+    },
+    "CPBL": {
+      "providerStatus": "ok",
+      "rawGames": 2,
+      "rawEntries": [
+        {
+          "key": "CPBL:261024005",
+          "status": "postponed",
+          "startTime": "2026-10-24T09:05:00.000Z",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "score": null
+        },
+        {
+          "key": "CPBL:261024006",
+          "status": "pregame",
+          "startTime": "2026-10-24T09:05:00.000Z",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "score": null
+        }
+      ],
+      "scheduleCollision": true,
+      "websiteEligiblePregameNotVerified": true,
+      "verifiedPlayableGamesToday": 0,
+      "warning": "Postponed and pregame entries with same teams/date/start; unverified pregame may represent outdated G6 schedule."
+    }
+  },
+  "independentRescheduleCrossCheck": {
+    "discoveredAt": "2026-10-24",
+    "g5": {
+      "date": "2026-10-25",
+      "localTime": "17:05"
+    },
+    "g6": {
+      "date": "2026-10-26",
+      "localTime": "15:05"
+    },
+    "g7": {
+      "date": "2026-10-27",
+      "localTime": "18:35"
+    },
+    "sourceURLs": [
+      "https://tsna.com/article/204709",
+      "https://sports.ltn.com.tw/news/breakingnews/5616784",
+      "https://tw.sports.yahoo.com/news/%E5%8F%B0%E7%81%A3%E5%A4%A7%E8%B3%BD-g5%E7%A2%BA%E5%AE%9A%E5%BB%B6%E8%87%B3%E9%80%B1%E6%97%A5%E5%A4%A7%E5%B7%A8%E8%9B%8B%E5%86%8D%E6%88%B0-%E8%8B%A5%E6%89%93%E5%88%B0g7%E9%A0%88%E6%8F%9B%E5%A0%B4%E5%9C%B0-122059609.html"
+    ],
+    "note": "Latest Oct 23 second postponement supersedes Oct 22 reports stating G5 Oct 24."
+  },
+  "verification": {
+    "secondCapturePerformed": false,
+    "reason": "No live state in this capture",
+    "qualifiedNumericChanges": 0,
+    "newValidLiveData": false,
+    "importantFieldRecovered": false,
+    "sourceFailure": false,
+    "dataQualityChange": true,
+    "parserFixStatus": "local functional tests passed; isolated branch code commit fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1, real-source rerun pending",
+    "unknownFieldsRetainedNull": true,
+    "firstTeamOnly": true
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 3,
+    "rowsReadBack": 3,
+    "duplicateWrites": 0
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "deployed": false
+  }
+}
