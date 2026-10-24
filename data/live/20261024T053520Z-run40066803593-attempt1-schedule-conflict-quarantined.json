@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T05:35:20.036Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40066803593,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120791672002,
+    "artifactId": 12549467099,
+    "artifactCreatedAt": "2026-10-24T05:35:23Z",
+    "artifactSha256": "3bb10e4e143d3b1aaa2aff5b8fdb93e1c87ba56ddbde95cc3a3e08782d7afe3c",
+    "downloadedZipSha256": "3bb10e4e143d3b1aaa2aff5b8fdb93e1c87ba56ddbde95cc3a3e08782d7afe3c",
+    "artifactDigestVerified": true,
+    "headSha": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
+    "status": "completed",
+    "conclusion": "success",
+    "capturedAt": "2026-10-24T05:35:20.036Z",
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261024T053520Z-run40066803593-attempt1-schedule-conflict-quarantined.json",
+    "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [
+        {
+          "key": "NPB:2021039492",
+          "status": "pregame",
+          "away": "福岡軟銀鷹",
+          "home": "橫濱DeNA海灣之星",
+          "startTime": "2026-10-24T09:30:00.000Z",
+          "score": null
+        }
+      ],
+      "fetchedAt": "2026-10-24T05:35:17Z",
+      "provider": "sportsnavi"
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "independentOfficialOffDayVerified": false,
+      "provider": "naver"
+    },
+    "CPBL": {
+      "status": "partial",
+      "games": [
+        {
+          "key": "CPBL:261024005",
+          "status": "postponed",
+          "rawStatus": "POSTPONED",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "startTime": "2026-10-24T09:05:00.000Z",
+          "score": null,
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "pitchCount": null
+        }
+      ],
+      "quarantinedScheduleEntries": [
+        {
+          "key": "CPBL:261024006",
+          "rawStatus": "PREGAME",
+          "sameStartTime": "2026-10-24T09:05:00.000Z",
+          "sameTeamsAs": "CPBL:261024005",
+          "reason": "Yahoo returned postponed G5 and unverified pregame G6 at identical date/start; G6 quarantined from website feed"
+        }
+      ],
+      "errors": [
+        "CPBL schedule collision: quarantined 1 unverified pregame entry/entries (postponed same teams/time)"
+      ],
+      "provider": "yahoo-tw"
+    }
+  },
+  "officialScheduleCrossCheck": {
+    "dateChecked": "2026-10-24",
+    "g5": "2026-10-25 17:05 +08:00",
+    "g6": "2026-10-26 15:05 +08:00",
+    "g7": "2026-10-27 18:35 +08:00",
+    "sources": [
+      "https://tsna.com/article/204709",
+      "https://sports.ltn.com.tw/news/breakingnews/5616784"
+    ],
+    "warning": "2026-10-23 second postponement supersedes initial 2026-10-24 plan. Source dates for all remaining games require updating."
+  },
+  "verification": {
+    "noCurrentLiveState": true,
+    "secondCapturePerformed": false,
+    "qualifiedNumericChanges": 0,
+    "parserFixConfirmedInRealSource": true,
+    "collisionBefore": 1,
+    "collisionAfter": 0,
+    "newValidLiveData": false,
+    "importantFieldRecovered": false,
+    "sourceFailure": false,
+    "dataQualityChange": true,
+    "unknownFieldsRetainedNull": true,
+    "firstTeamOnly": true
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-24T05:35:22.573Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "readBack": 1,
+        "duplicateWrites": 0
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "readBack": 1,
+        "duplicateWrites": 0
+      }
+    ]
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "productionDatabaseWritten": false,
+    "deployed": false
+  },
+  "note": "Raw full captures, parser and DB results are preserved in newly verified GitHub Actions artifact; this JSON is an append-only indexed audit summary."
+}
