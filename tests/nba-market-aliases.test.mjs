@@ -1,6 +1,9 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import ts from 'typescript';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
 import {moduleUrl} from './profile-loader.mjs';
 const {matchSportEvent,sportTeamKey,sportMarketStatus}=await import(moduleUrl('lib/sport-super-markets.ts'));
 const {NBA_TEAMS}=await import(moduleUrl('lib/nba.ts'));
@@ -83,4 +86,57 @@ test('Celtics alias retains time, opponent, orientation, freshness and uniquenes
  assert.equal(matchSportEvent(observed,game,'NBA',observedNow+150000),null);
  const row=observed.sportGames.find(g=>g.id===25084156);
  assert.equal(matchSportEvent({...observed,sportGames:[...observed.sportGames,{...row,id:25084199}]},game,'NBA',observedNow),null);
+});
+
+// October 19 user screenshot: DET +1 @0.950 and total 222.5 @0.940.
+// The model below was independently re-fetched at 10:31Z using this commit's
+// NBA/ESPN sources. Quote timestamps are advanced only for deterministic replay;
+// these are historical test observations, not a live source snapshot.
+const scenarioAt='2026-10-19T10:31:18.961Z',scenarioNow=Date.parse(scenarioAt);
+const scenarioGame={id:'401909088',start:'2026-10-20T19:00Z',season:2027,phase:2,state:'scheduled',timeConfirmed:true,home:{id:'8',name:'底特律活塞'},away:{id:'2',name:'波士頓塞爾提克'}};
+const scenarioAnalysis={status:'ready',model:'nba-player-opponent-v3',capturedAt:scenarioAt,expected:{home:110.2,away:109.2,total:219.4,margin:1},probabilities:{home:0.5262124878524289,away:0.4737875121475711},totalSigma:19.41384815022514,playerContext:{status:'applied',marginSigma:14.285652442442888,recommendationEligible:false,preseason:false}};
+const scenarioSource=()=>({source:'screenshot-replay',fetchedAt:scenarioAt,sportGames:[{id:25109334,league:'NBA',home:'底特律活塞(主)',away:'波士頓塞爾蒂克',start:'2026/10/21 03:00:00',live:false,displayMarkets:[
+ {period:'full',type:103,quotes:[{primary:true,open:true,homeLine:'',awayLine:'1',homePrice:.95,awayPrice:.95}]},
+ {period:'full',type:104,quotes:[{primary:true,open:true,total:'222.5',over:.94,under:.94}]}
+]}]});
+const marketModule=await import(moduleUrl('lib/sport-super-markets.ts')),oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
+const panelCode=ts.transpileModule(readFileSync('app/sport-markets.tsx','utf8'),{fileName:'sport-markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
+const Panel=new Function('require','exports','React',panelCode+';return exports.default;')(key=>{if(key==='@/lib/member-odds-client')return oddsClient;assert.equal(key,'@/lib/sport-super-markets');return marketModule;},{},React);
+const renderScenario=(props={})=>renderToStaticMarkup(React.createElement(Panel,{game:scenarioGame,analysis:scenarioAnalysis,snapshot:scenarioSource(),sport:'NBA',now:scenarioNow,...props}));
+const recommendationCount=html=>(html.match(/>推薦<\/em>/g)||[]).length;
+test('reported NBA regular-season card shows both scenario recommendations with the unchanged screenshot probabilities',()=>{
+ const before=JSON.stringify(scenarioAnalysis),html=renderScenario();
+ assert.equal(recommendationCount(html),2);
+ assert.match(html,/底特律活塞<\/span><em[^>]*>推薦<\/em>/);
+ assert.match(html,/<span>小<\/span><em[^>]*>推薦<\/em>/);
+ for(const text of ['2 種玩法','52.6%','44.5%','2.9%','56.3%','43.7%','推薦依目前球員情境推估；出賽狀態待確認。'])assert.ok(html.includes(text),text);
+ assert.ok(html.includes('來源尚未提供此全場玩法'));
+ assert.equal(JSON.stringify(scenarioAnalysis),before,'presentation must not claim player availability is confirmed');
+});
+test('NBA and WNBA apply the same pending-availability market presentation',()=>{
+ for(const sport of ['NBA','WNBA']){
+  const s=scenarioSource();s.sportGames[0].league=sport;s.sportGames[0].away=scenarioGame.away.name;
+  const html=renderScenario({sport,snapshot:s});
+  assert.equal(recommendationCount(html),2,sport);
+  assert.ok(html.includes('出賽狀態待確認'),sport);
+ }
+ const confirmed=renderScenario({analysis:{...scenarioAnalysis,playerContext:{...scenarioAnalysis.playerContext,recommendationEligible:true}}});
+ assert.equal(recommendationCount(confirmed),2);assert.ok(!confirmed.includes('出賽狀態待確認'));
+});
+test('unavailable, waiting, stale, future or missing NBA models cannot gain a recommendation from the scenario path',()=>{
+ const unavailable=renderScenario({analysis:{...scenarioAnalysis,playerContext:{...scenarioAnalysis.playerContext,status:'unavailable'}}});
+ assert.equal(recommendationCount(unavailable),0);assert.ok(unavailable.includes('球員資料尚未完整，暫停推薦'));
+ for(const analysis of [null,{...scenarioAnalysis,status:'waiting'},...[-900000,60001].map(delta=>({...scenarioAnalysis,capturedAt:new Date(scenarioNow+delta).toISOString()}))]){
+  const html=renderScenario({analysis,analysisState:'ready'});
+  assert.equal(recommendationCount(html),0);assert.ok(!html.includes('推薦依目前球員情境推估'));
+ }
+});
+test('NBA scenario picks still require a fresh unique fixture and open primary quotes for each market',()=>{
+ const closed=scenarioSource();closed.sportGames[0].displayMarkets[0].quotes[0].open=false;
+ const partial=renderScenario({snapshot:closed});assert.equal(recommendationCount(partial),1);assert.ok(partial.includes('來源已暫停此全場玩法'));assert.match(partial,/<span>小<\/span><em[^>]*>推薦<\/em>/);
+ for(const mutate of [s=>s.fetchedAt=new Date(scenarioNow-150000).toISOString(),s=>s.sportGames.push(structuredClone(s.sportGames[0])),s=>s.sportGames[0].away='紐約尼克',s=>s.sportGames[0].start='2026/10/22 03:00:00',s=>s.sportGames[0].displayMarkets.forEach(m=>m.quotes[0].open=false)]){
+  const s=scenarioSource();mutate(s);assert.equal(recommendationCount(renderScenario({snapshot:s})),0);
+ }
+ assert.equal(recommendationCount(renderScenario({error:'來源連線失效'})),0);
+ for(const patch of [{state:'live'},{timeConfirmed:false},{start:new Date(scenarioNow).toISOString()}])assert.equal(renderScenario({game:{...scenarioGame,...patch}}),'');
 });
