@@ -57,6 +57,9 @@ const footballAliases:Record<string,string>={
  '拉素':'拉齊奧','拉齐奥':'拉齊奧',
  // October 23 source event 25125177 matches ESPN fixture 401879253.
  '諾定咸森林':'諾丁漢森林',
+ // October 24 production source audit, verified against ESPN fixtures
+ // 401882827 (Valencia–Villarreal) and 401884759 (Freiburg–Bayern).
+ '華倫西亞':'瓦倫西亞','費雷堡':'弗萊堡',
 };
 // Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
 const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};

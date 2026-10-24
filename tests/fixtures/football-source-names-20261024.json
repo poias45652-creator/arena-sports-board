@@ -1,0 +1,231 @@
+{
+  "capturedAt": "2026-10-24T15:14:41.958Z",
+  "source": "Render super-sport-pairing-audit; fixture identity and availability only; no prices captured. Independently retrieved ESPN schedules.",
+  "cases": [
+    {
+      "fixture": {
+        "id": 25128426,
+        "sport": "FOOTBALL",
+        "competition": "esp.1",
+        "leagueName": "西班牙甲級聯賽",
+        "home": "馬德里體育會(主)",
+        "away": "拉科魯尼亞",
+        "start": "2026/10/25 03:00:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "scheduleSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20261024&limit=100",
+      "schedule": {
+        "events": [
+          {
+            "id": "401882834",
+            "date": "2026-10-24T19:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14357,
+              "slug": "2026-27-laliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T19:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0.0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Sat, October 24th at 3:00 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "id": "10633",
+                  "fullName": "Riyadh Air Metropolitano",
+                  "address": {
+                    "city": "Madrid",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "1068",
+                      "displayName": "Atlético Madrid"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "90",
+                      "displayName": "Deportivo"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 25128415,
+        "sport": "FOOTBALL",
+        "competition": "esp.1",
+        "leagueName": "西班牙甲級聯賽",
+        "home": "華倫西亞(主)",
+        "away": "維拉利爾",
+        "start": "2026/10/25 00:30:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "scheduleSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20261024&limit=100",
+      "schedule": {
+        "events": [
+          {
+            "id": "401882827",
+            "date": "2026-10-24T16:30Z",
+            "season": {
+              "year": 2026,
+              "type": 14357,
+              "slug": "2026-27-laliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T16:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0.0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Sat, October 24th at 12:30 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "id": "9659",
+                  "fullName": "Mestalla Stadium",
+                  "address": {
+                    "city": "Manises",
+                    "country": "Spain"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "94",
+                      "displayName": "Valencia"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "102",
+                      "displayName": "Villarreal"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fixture": {
+        "id": 25131963,
+        "sport": "FOOTBALL",
+        "competition": "ger.1",
+        "leagueName": "德國甲級聯賽",
+        "home": "費雷堡(主)",
+        "away": "拜仁慕尼黑",
+        "start": "2026/10/26 00:30:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "scheduleSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/ger.1/scoreboard?dates=20261025&limit=100",
+      "schedule": {
+        "events": [
+          {
+            "id": "401884759",
+            "date": "2026-10-25T16:30Z",
+            "season": {
+              "year": 2026,
+              "type": 14358,
+              "slug": "2026-27-german-bundesliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-25T16:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0.0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Sun, October 25th at 12:30 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "venue": {
+                  "id": "8842",
+                  "fullName": "Europa-Park Stadion",
+                  "address": {
+                    "city": "Freiburg im Breisgau",
+                    "country": "Germany"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "126",
+                      "displayName": "SC Freiburg"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "132",
+                      "displayName": "Bayern Munich"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
