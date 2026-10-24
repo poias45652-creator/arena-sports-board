@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-24T10:20:12.976Z",
+  "observedAt": "2026-10-24T11:07:59.065Z",
   "dateAsiaTaipei": "2026-10-24",
   "currentGames": {
     "NPB": 1,
@@ -23,7 +23,7 @@
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "productionWritten": false,
-    "checkedAt": "2026-10-24T10:20:14.238Z",
+    "checkedAt": "2026-10-24T11:08:01.810Z",
     "passed": true,
     "rowsWritten": 2,
     "rowsReadBack": 2,
@@ -1418,28 +1418,60 @@
     "2026-10-24": {
       "NPB": {
         "verified": true,
-        "verifiedAt": "2026-10-24T10:20:12.976Z",
+        "verifiedAt": "2026-10-24T11:07:59.065Z",
         "notApplicableToday": false,
         "state": "live",
         "games": 1,
         "source": "sportsnavi",
         "firstStartTaipei": "17:30",
-        "verificationMethod": "within-run LIVE-to-LIVE pitching pitchCount and outsRecorded changes after 71.99 seconds",
+        "verificationMethod": "Latest same-run LIVE pitching pitchCount 61->63 and outsRecorded 13->14, fetched 69.302 seconds apart; earlier 71.99-second proof retained",
         "numericChangeProof": {
           "gameKey": "NPB:2021039492",
           "pitcher": "上沢 直之",
           "pitchCount": {
-            "before": 27,
-            "after": 30
+            "before": 61,
+            "after": 63
           },
           "outsRecorded": {
-            "before": 5,
-            "after": 6
+            "before": 13,
+            "after": 14
           },
-          "beforeFetchedAt": "2026-10-24T10:18:56.515Z",
-          "afterFetchedAt": "2026-10-24T10:20:08.505Z",
-          "intervalSeconds": 71.99
-        }
+          "beforeFetchedAt": "2026-10-24T11:06:47.043Z",
+          "afterFetchedAt": "2026-10-24T11:07:56.345Z",
+          "intervalSeconds": 69.302
+        },
+        "sameDayVerifiedWindows": [
+          {
+            "gameKey": "NPB:2021039492",
+            "pitcher": "上沢 直之",
+            "pitchCount": {
+              "before": 27,
+              "after": 30
+            },
+            "outsRecorded": {
+              "before": 5,
+              "after": 6
+            },
+            "beforeFetchedAt": "2026-10-24T10:18:56.515Z",
+            "afterFetchedAt": "2026-10-24T10:20:08.505Z",
+            "intervalSeconds": 71.99
+          },
+          {
+            "gameKey": "NPB:2021039492",
+            "pitcher": "上沢 直之",
+            "pitchCount": {
+              "before": 61,
+              "after": 63
+            },
+            "outsRecorded": {
+              "before": 13,
+              "after": 14
+            },
+            "beforeFetchedAt": "2026-10-24T11:06:47.043Z",
+            "afterFetchedAt": "2026-10-24T11:07:56.345Z",
+            "intervalSeconds": 69.302
+          }
+        ]
       },
       "KBO": {
         "verified": false,
@@ -1464,7 +1496,7 @@
         "nonfatalSourceIssue": "CPBL full game payload missing after scheduled start for postponed game; cannot infer live/lineups from it"
       },
       "allVerified": false,
-      "reason": "Fresh Oct 24 collector attempt 6: NPB in-game pitcher pitch count 27->30 and outs recorded 5->6, separated 71.99s. KBO zero games (official offday not independently confirmed); CPBL postponed with nonfatal full-game payload gap. Only NPB has qualifying LIVE proof.",
+      "reason": "New Oct 24 attempt 7: NPB in-game pitcher pitches 61->63 and outs 13->14 over 69.302 seconds; previous same-day NPB proof retained. KBO still provider zero (official off-day unverified); CPBL postponed with pre-existing nonfatal source warning.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -1472,21 +1504,21 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 40066803593,
-        "runAttempt": 6,
+        "runAttempt": 7,
         "runAttemptInferred": null,
         "runAttemptConfirmedByApi": true,
-        "jobId": 120847165455,
-        "artifactId": 12556976351,
-        "artifactCreatedAt": "2026-10-24T10:20:15Z",
-        "artifactSha256": "25b5ab9d7896eafca923776c35dc9c9f3a8506778975adcb262275508d1c8088",
-        "downloadedZipSha256": "25b5ab9d7896eafca923776c35dc9c9f3a8506778975adcb262275508d1c8088",
+        "jobId": 120856312395,
+        "artifactId": 12557788783,
+        "artifactCreatedAt": "2026-10-24T11:08:03Z",
+        "artifactSha256": "4f7a267f4f8c698459b1d25775292b95c48bdb28f4c9571663998e587526ae7b",
+        "downloadedZipSha256": "4f7a267f4f8c698459b1d25775292b95c48bdb28f4c9571663998e587526ae7b",
         "artifactDigestVerified": true,
         "headSha": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
         "status": "completed",
         "conclusion": "success",
         "collectorConclusion": "success",
-        "capturedAt": "2026-10-24T10:20:12.976Z",
-        "observationPath": "data/live/20261024T102012Z-run40066803593-attempt6-npb-live-collector.json",
+        "capturedAt": "2026-10-24T11:07:59.065Z",
+        "observationPath": "data/live/20261024T110759Z-run40066803593-attempt7-npb-live-collector.json",
         "staleArtifactUsed": false,
         "liveGames": 1,
         "pregameGames": {
@@ -1506,7 +1538,7 @@
         },
         "quarantinedScheduleEntries": 0,
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 71.99,
+        "captureIntervalSeconds": 69.302,
         "qualifiedNumericChanges": 1,
         "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
         "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
@@ -1666,7 +1698,7 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-24",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261024T102012Z-run40066803593-attempt6-npb-live-collector.json",
+    "latestObservationPath": "data/live/20261024T110759Z-run40066803593-attempt7-npb-live-collector.json",
     "NPB": {
       "verified": true,
       "notApplicableToday": false,
@@ -1676,15 +1708,48 @@
       "liveGameKey": "NPB:2021039492",
       "numericChanges": {
         "pitchCount": {
-          "before": 27,
-          "after": 30
+          "before": 61,
+          "after": 63
         },
         "outsRecorded": {
-          "before": 5,
-          "after": 6
+          "before": 13,
+          "after": 14
         }
       },
-      "intervalSeconds": 71.99
+      "intervalSeconds": 69.302,
+      "verifiedAt": "2026-10-24T11:07:59.065Z",
+      "sameDayVerifiedWindows": [
+        {
+          "gameKey": "NPB:2021039492",
+          "pitcher": "上沢 直之",
+          "pitchCount": {
+            "before": 27,
+            "after": 30
+          },
+          "outsRecorded": {
+            "before": 5,
+            "after": 6
+          },
+          "beforeFetchedAt": "2026-10-24T10:18:56.515Z",
+          "afterFetchedAt": "2026-10-24T10:20:08.505Z",
+          "intervalSeconds": 71.99
+        },
+        {
+          "gameKey": "NPB:2021039492",
+          "pitcher": "上沢 直之",
+          "pitchCount": {
+            "before": 61,
+            "after": 63
+          },
+          "outsRecorded": {
+            "before": 13,
+            "after": 14
+          },
+          "beforeFetchedAt": "2026-10-24T11:06:47.043Z",
+          "afterFetchedAt": "2026-10-24T11:07:56.345Z",
+          "intervalSeconds": 69.302
+        }
+      ]
     },
     "KBO": {
       "verified": false,
@@ -1705,31 +1770,31 @@
     },
     "allScheduledLeaguesVerified": true,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12556976351,
+    "latestRunArtifactId": 12557788783,
     "reason": "NPB LIVE same-run pitcher-stat change verified; KBO zero from provider; CPBL G5 postponed; unsupported data remain null."
   },
-  "nextAction": "Continue rechecking NPB LIVE and final transition with fresh captures. Check postponed CPBL G5 schedule reconciles to Oct 25 17:05; KBO provider has zero games, official off-day unverified. Preserve unknowns as null and keep Git-only isolation.",
+  "nextAction": "Recheck NPB LIVE and final transition. CPBL G5 postponed, verify Oct 25 rescheduled game and prior missing detail payload. KBO provider zero does not prove official rest day. Preserve all unsupported fields as null; do not change production.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40066803593,
-    "runAttempt": 6,
+    "runAttempt": 7,
     "runAttemptInferred": null,
     "runAttemptConfirmedByApi": true,
-    "jobId": 120847165455,
-    "artifactId": 12556976351,
-    "artifactCreatedAt": "2026-10-24T10:20:15Z",
-    "artifactSha256": "25b5ab9d7896eafca923776c35dc9c9f3a8506778975adcb262275508d1c8088",
-    "downloadedZipSha256": "25b5ab9d7896eafca923776c35dc9c9f3a8506778975adcb262275508d1c8088",
+    "jobId": 120856312395,
+    "artifactId": 12557788783,
+    "artifactCreatedAt": "2026-10-24T11:08:03Z",
+    "artifactSha256": "4f7a267f4f8c698459b1d25775292b95c48bdb28f4c9571663998e587526ae7b",
+    "downloadedZipSha256": "4f7a267f4f8c698459b1d25775292b95c48bdb28f4c9571663998e587526ae7b",
     "artifactDigestVerified": true,
     "headSha": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
     "status": "completed",
     "conclusion": "success",
     "collectorConclusion": "success",
-    "capturedAt": "2026-10-24T10:20:12.976Z",
-    "observationPath": "data/live/20261024T102012Z-run40066803593-attempt6-npb-live-collector.json",
+    "capturedAt": "2026-10-24T11:07:59.065Z",
+    "observationPath": "data/live/20261024T110759Z-run40066803593-attempt7-npb-live-collector.json",
     "staleArtifactUsed": false,
     "liveGames": 1,
     "pregameGames": {
@@ -1749,12 +1814,12 @@
     },
     "quarantinedScheduleEntries": 0,
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 71.99,
+    "captureIntervalSeconds": 69.302,
     "qualifiedNumericChanges": 1,
     "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
     "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
   },
-  "latestObservationCommit": "faea8b8dd658fa42d136e1f31f10d49114ee9ebe",
+  "latestObservationCommit": "275fe00b61f37b2764f287565c6df177b725391d",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
