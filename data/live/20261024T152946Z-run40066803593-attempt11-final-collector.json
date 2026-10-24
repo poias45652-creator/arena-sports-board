@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T15:29:46.958Z",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40066803593,
+    "runAttempt": 11,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120911231021,
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "artifactId": 12565286690,
+    "artifactCreatedAt": "2026-10-24T15:29:49Z",
+    "artifactSha256": "653f494ef52b43ed4077b0bd64fb468b381179870b4f351439b39e3456d49a38",
+    "downloadedZipSha256": "653f494ef52b43ed4077b0bd64fb468b381179870b4f351439b39e3456d49a38",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261024T152946Z-run40066803593-attempt11-final-collector.json"
+  },
+  "verification": {
+    "NPB": {
+      "source": "sportsnavi",
+      "status": "ok",
+      "games": 1,
+      "live": 0,
+      "pregame": 0,
+      "final": 1,
+      "gameKey": "NPB:2021039492",
+      "away": "福岡軟銀鷹",
+      "awayScore": 3,
+      "home": "橫濱DeNA海灣之星",
+      "homeScore": 1,
+      "sourceFetchedAt": "2026-10-24T15:29:44.053Z",
+      "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021039492/score",
+      "note": "Final score equals prior LIVE 3:1; this snapshot does not independently establish a new LIVE numeric change."
+    },
+    "KBO": {
+      "source": "naver",
+      "status": "ok",
+      "games": 0,
+      "officialOffdayVerified": false
+    },
+    "CPBL": {
+      "source": "yahoo-tw",
+      "status": "partial",
+      "games": 1,
+      "postponed": 1,
+      "gameKey": "CPBL:261024005",
+      "away": "中信兄弟",
+      "home": "味全龍",
+      "score": null,
+      "pitchCount": null,
+      "error": "CPBL full game payload missing after scheduled start",
+      "sourceFetchedAt": "2026-10-24T15:29:46.328Z"
+    }
+  },
+  "polling": {
+    "secondCapturePerformed": false,
+    "reason": "No live games on first capture",
+    "newLiveNumericChangeVerified": false,
+    "priorSameDayLiveProofRetained": true,
+    "priorObservationPath": "data/live/20261024T133652Z-run40066803593-attempt10-npb-score-collector.json"
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-24T15:29:47.937Z",
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "quality": {
+    "NPB_BSO_and_bases": null,
+    "CPBL_pitchCount": null,
+    "sourceLineupIsNotOfficialConfirmation": true,
+    "KBOProviderZeroNotOfficialOffday": true,
+    "providerUpdatedAt": null,
+    "cpblPostponedBoxscoreMissing": true
+  },
+  "restrictions": {
+    "mainModified": false,
+    "renderModified": false,
+    "productionDatabaseWritten": false,
+    "accountsModified": false,
+    "environmentVariablesModified": false,
+    "deployed": false
+  }
+}
