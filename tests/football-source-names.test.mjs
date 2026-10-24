@@ -28,6 +28,53 @@ const forestGame=()=>parseFootballEvents(forestCapture.schedule,'eng.1')[0];
 const forestSnapshot=()=>({source:'test-only',fetchedAt:forestCapture.capturedAt,sportGames:[{
  ...forestCapture.fixture,league:'FOOTBALL',displayMarkets:monzaSnapshot().sportGames[0].displayMarkets,
 }]});
+const october24Capture=JSON.parse(fs.readFileSync('tests/fixtures/football-source-names-20261024.json'));
+const october24Now=Date.parse(october24Capture.capturedAt);
+const october24Cases=october24Capture.cases.map(row=>({
+ game:()=>parseFootballEvents(row.schedule,row.fixture.competition)[0],
+ // Actual source identities with synthetic quotes, never production prices.
+ snapshot:()=>({source:'test-only',fetchedAt:october24Capture.capturedAt,sportGames:[{
+  ...row.fixture,league:'FOOTBALL',displayMarkets:monzaSnapshot().sportGames[0].displayMarkets,
+ }]}),
+}));
+
+test('October 24 Deportivo, Valencia and Freiburg sources pair with independently retrieved schedules',()=>{
+ const expected=[
+  ['401882834','1068','90','馬德里競技','拉科魯尼亞',25128426],
+  ['401882827','94','102','瓦倫西亞','比利亞雷亞爾',25128415],
+  ['401884759','126','132','弗萊堡','拜仁慕尼黑',25131963],
+ ];
+ october24Cases.forEach(({game:readGame,snapshot},index)=>{
+  const game=readGame();
+  assert.deepEqual([game.id,game.home.id,game.away.id,game.home.name,game.away.name],expected[index].slice(0,5));
+  for(const names of [[game.home.name,game.away.name],[game.home.englishName,game.away.englishName]]){
+   const status=sportMarketStatus(snapshot(),{...game,home:{...game.home,name:names[0]},away:{...game.away,name:names[1]}},'FOOTBALL',october24Now);
+   assert.equal(status.code,'matched');assert.equal(status.event.id,expected[index][5]);assert.equal(status.availableCount,3);
+  }
+  assert.deepEqual(sportSourceAudit(snapshot(),october24Now).unrecognizedTeamNames,[]);
+ });
+});
+
+test('October 24 aliases preserve full identities and all fixture safety guards',()=>{
+ for(const name of ['Deportivo','華倫西亞','費雷堡'])for(const sport of ['NBA','WNBA'])assert.equal(sportTeamKey(name,sport),name);
+ for(const {game:readGame,snapshot} of october24Cases){
+  const game=readGame();
+  for(const side of ['home','away'])for(const suffix of [' U21',' Women','(女)','預備隊','二隊']){
+   const source=snapshot();source.sportGames[0][side]+=suffix;
+   assert.equal(matchSportEvent(source,game,'FOOTBALL',october24Now),null);
+  }
+  for(const patch of [{home:game.away,away:game.home},{away:{name:'Deportivo Alavés'}},{away:{name:'Deportivo Cali'}},{league:'uefa.champions'},{start:new Date(Date.parse(game.start)+86400000).toISOString()}]){
+   assert.equal(matchSportEvent(snapshot(),{...game,...patch},'FOOTBALL',october24Now),null);
+  }
+  for(const sourcePatch of [{live:true},{live:null},{start:'2026/10/26 06:00:00'}]){
+   const source=snapshot();Object.assign(source.sportGames[0],sourcePatch);
+   assert.equal(matchSportEvent(source,game,'FOOTBALL',october24Now),null);
+  }
+  assert.equal(matchSportEvent(snapshot(),game,'FOOTBALL',october24Now+150000),null);
+  const duplicate=snapshot();duplicate.sportGames.push({...duplicate.sportGames[0],id:999});
+  assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',october24Now).code,'fixture_ambiguous');
+ }
+});
 
 test('October 23 Ipswich–Forest source pairs with the independently retrieved schedule',()=>{
  const game=forestGame(),snapshot=forestSnapshot();
@@ -94,7 +141,7 @@ test('Monza localization preserves team, squad, league, time and unique-source g
  assert.equal(sportMarketStatus(duplicate,game,'FOOTBALL',monzaNow).code,'fixture_ambiguous');
 });
 
-test('real market component renders Monza and reported Ipswich–Forest cards after pairing, and suppresses unavailable inputs',async()=>{
+test('real market component renders reported club cards after pairing, and suppresses unavailable inputs',async()=>{
  const markets=await import(moduleUrl('lib/sport-super-markets.ts'));
  const oddsClient=await import(moduleUrl('lib/member-odds-client.ts'));
  const code=ts.transpileModule(fs.readFileSync('app/sport-markets.tsx','utf8'),{fileName:'markets.tsx',compilerOptions:{jsx:ts.JsxEmit.React,module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2022}}).outputText;
@@ -102,7 +149,7 @@ test('real market component renders Monza and reported Ipswich–Forest cards af
   if(key==='@/lib/member-odds-client')return oddsClient;
   assert.equal(key,'@/lib/sport-super-markets');return markets;
  },{},React);
- for(const [game,source,now] of [[monzaGame(),monzaSnapshot,monzaNow],[forestGame(),forestSnapshot,forestNow]]){
+ for(const [game,source,now] of [[monzaGame(),monzaSnapshot,monzaNow],[forestGame(),forestSnapshot,forestNow],...october24Cases.map(row=>[row.game(),row.snapshot,october24Now])]){
  const analysis={status:'ready',capturedAt:source().fetchedAt,expected:{home:1,away:1.5},...footballDistribution(1,1.5)};
  const render=(snapshot,model=analysis)=>renderToStaticMarkup(React.createElement(Component,{game,snapshot,analysis:model,sport:'FOOTBALL',now}));
  const html=render(source());
