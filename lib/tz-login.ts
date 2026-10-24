@@ -42,7 +42,19 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  // Preserve the existing primary administrator, using only the verified identity.
  // Never overwrite an explicit grant, restriction or expiry.
  if((source==='tz'&&[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(binding.username.toLowerCase()))||(source==='ofa'&&['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(binding.username.toLowerCase())))await db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) VALUES (?,1,NULL,?) ON CONFLICT(member_id) DO NOTHING').bind(member,Date.now()).run();
- const access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
+ let access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
+ if(!access&&source==='tz'){
+  // Consume an administrator's username grant only after upstream verification.
+  // Claim and grant are atomic; a claimed name cannot authorize a different ID,
+  // and an existing restriction is never replaced by a preapproval.
+  const claimedAt=Date.now(),claimToken=crypto.randomUUID(),usernameKey=binding.username.trim().toLowerCase();
+  await db.batch([
+   db.prepare('UPDATE account_preapprovals SET claimed_member_id=?,updated_at=?,claim_token=? WHERE username_key=? AND claimed_member_id IS NULL AND NOT EXISTS (SELECT 1 FROM account_access WHERE member_id=?)').bind(member,claimedAt,claimToken,usernameKey,member),
+   db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) SELECT claimed_member_id,enabled,expires_at,updated_at FROM account_preapprovals WHERE username_key=? AND claimed_member_id=? AND claim_token=? ON CONFLICT(member_id) DO NOTHING').bind(usernameKey,member,claimToken),
+   db.prepare('INSERT INTO account_notes (member_id,note,updated_at) SELECT claimed_member_id,note,updated_at FROM account_preapprovals WHERE username_key=? AND claimed_member_id=? AND claim_token=? ON CONFLICT(member_id) DO NOTHING').bind(usernameKey,member,claimToken)
+  ]);
+  access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
+ }
  if(!access)return response({code:'approval_required',error:'帳號驗證成功，尚未取得網站授權。請聯繫作者，由管理員開通後再登入。'},403,sessionCookie('',0));
  if(access.enabled!==1)return response({code:'access_disabled',error:'網站授權已停用，請聯繫作者。'},403,sessionCookie('',0));
  if(access.expires_at!==null&&access.expires_at<=Date.now())return response({code:'access_expired',error:'網站授權已到期，請聯繫作者續期。'},403,sessionCookie('',0));

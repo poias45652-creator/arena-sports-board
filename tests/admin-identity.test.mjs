@@ -140,9 +140,10 @@ function grantDb(access=null){
    if(sql==='SELECT enabled,expires_at FROM account_access WHERE member_id=?')return db.access;
    throw new Error('Unexpected authorization query: '+sql);
   },async run(){
+   if(sql.startsWith('INSERT INTO account_access')&&sql.includes('FROM account_preapprovals'))return;
    if(sql.startsWith('INSERT INTO account_access')){assert.match(sql,/ON CONFLICT\(member_id\) DO NOTHING$/);db.access??={enabled:1,expires_at:null};}
    else if(sql.startsWith('INSERT INTO arena_sessions'))db.sessionIssued=db.access?.enabled===1&&(db.access.expires_at===null||db.access.expires_at>Date.now());
-   else assert.match(sql,/^(INSERT INTO (tz_bindings|account_login_activity)|DELETE FROM (tz_bindings|tz_binding_attempts|arena_sessions))/);
+   else assert.match(sql,/^(UPDATE account_preapprovals|INSERT INTO (account_notes|tz_bindings|account_login_activity)|DELETE FROM (tz_bindings|tz_binding_attempts|arena_sessions))/);
   }};
  },async batch(statements){for(const statement of statements)await statement.run();}};
  return db;
@@ -181,6 +182,7 @@ const accounts=await import(url(accountSource));
 function accountDb(){
  const sql=new DatabaseSync(':memory:');
  sql.exec('CREATE TABLE tz_bindings(member_id TEXT PRIMARY KEY,username TEXT,verified_at INTEGER,expires_at INTEGER);CREATE TABLE account_login_activity(member_id TEXT PRIMARY KEY,last_login_at INTEGER);CREATE TABLE account_access(member_id TEXT PRIMARY KEY,enabled INTEGER,expires_at INTEGER,updated_at INTEGER);CREATE TABLE arena_sessions(member_id TEXT,expires_at INTEGER);CREATE TABLE hr_connections(member_id TEXT);CREATE TABLE tz_binding_attempts(member_id TEXT);');
+ sql.exec(readFileSync('drizzle/0014_account_notes_preapprovals.sql','utf8'));
  for(const [id,username] of [['tz:primary','render-test-admin'],['tz:new','VRVTEST01'],['tz:member','ordinary-member'],['ofa:other','vrvtest01']]){
   sql.prepare('INSERT INTO tz_bindings VALUES (?,?,?,?)').run(id,username,Date.now(),Date.now()+3600000);sql.prepare('INSERT INTO account_access VALUES (?,1,NULL,?)').run(id,Date.now());
  }

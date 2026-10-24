@@ -80,6 +80,21 @@ CREATE TABLE IF NOT EXISTS "turnstile_settings" (
 	"enabled" bigint DEFAULT 0 NOT NULL,
 	"updated_at" bigint NOT NULL
 );
+CREATE TABLE IF NOT EXISTS "account_notes" (
+ "member_id" text PRIMARY KEY NOT NULL,
+ "note" text DEFAULT '' NOT NULL,
+ "updated_at" bigint NOT NULL
+);
+CREATE TABLE IF NOT EXISTS "account_preapprovals" (
+ "username_key" text PRIMARY KEY NOT NULL,
+ "username" text NOT NULL,
+ "enabled" bigint DEFAULT 1 NOT NULL,
+ "expires_at" bigint,
+ "note" text DEFAULT '' NOT NULL,
+ "claimed_member_id" text,
+ "claim_token" text,
+ "updated_at" bigint NOT NULL
+);
 ALTER TABLE "turnstile_settings" ADD COLUMN IF NOT EXISTS "site_key" text;
 CREATE TABLE IF NOT EXISTS "baseball_current" (
 	"key" text PRIMARY KEY NOT NULL,

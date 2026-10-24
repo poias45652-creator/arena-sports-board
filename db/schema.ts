@@ -26,6 +26,12 @@ export const accountLoginActivity=sqliteTable('account_login_activity',{
 export const accountAccess=sqliteTable('account_access',{
  memberId:text('member_id').primaryKey(),enabled:integer('enabled').notNull().default(1),expiresAt:integer('expires_at'),updatedAt:integer('updated_at').notNull(),
 });
+export const accountNotes=sqliteTable('account_notes',{
+ memberId:text('member_id').primaryKey(),note:text('note').notNull().default(''),updatedAt:integer('updated_at').notNull(),
+});
+export const accountPreapprovals=sqliteTable('account_preapprovals',{
+ usernameKey:text('username_key').primaryKey(),username:text('username').notNull(),enabled:integer('enabled').notNull().default(1),expiresAt:integer('expires_at'),note:text('note').notNull().default(''),claimedMemberId:text('claimed_member_id'),claimToken:text('claim_token'),updatedAt:integer('updated_at').notNull(),
+});
 
 export const turnstileSettings=sqliteTable('turnstile_settings',{id:text('id').primaryKey(),encryptedSecret:text('encrypted_secret').notNull(),enabled:integer('enabled').notNull().default(0),updatedAt:integer('updated_at').notNull()});
 

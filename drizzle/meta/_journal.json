@@ -99,6 +99,13 @@
       "when": 1792144583394,
       "tag": "0013_account_login_activity",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1792800000000,
+      "tag": "0014_account_notes_preapprovals",
+      "breakpoints": true
     }
   ]
 }
