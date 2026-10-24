@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-24T13:16:30.653Z",
+  "observedAt": "2026-10-24T13:36:52.651Z",
   "dateAsiaTaipei": "2026-10-24",
   "currentGames": {
     "NPB": 1,
@@ -16,13 +16,13 @@
     "CPBL": 1
   },
   "currentStates": {
-    "NPB": "live_numeric_inning_changed_within_run",
+    "NPB": "live_score_changed_cross_run_1_to_3",
     "KBO": "no_games_from_provider_official_offday_unverified",
     "CPBL": "postponed_missing_full_payload_warning"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "checkedAt": "2026-10-24T13:16:31.887Z",
+    "checkedAt": "2026-10-24T13:36:53.963Z",
     "passed": true,
     "rowsWritten": 2,
     "rowsReadBack": 2,
@@ -1423,13 +1423,13 @@
     "2026-10-24": {
       "NPB": {
         "verified": true,
-        "verifiedAt": "2026-10-24T13:16:30.653Z",
+        "verifiedAt": "2026-10-24T13:36:52.651Z",
         "notApplicableToday": false,
         "state": "live",
         "games": 1,
         "source": "sportsnavi",
         "firstStartTaipei": "17:30",
-        "verificationMethod": "New current-job same-run NPB LIVE inning 10 bottom -> 11 top after 69.35 seconds; retains earlier same-day proofs",
+        "verificationMethod": "Same-day LIVE-to-LIVE cross-run score change (away 1->3) over 1152.789 seconds; current run's two 69.215-second LIVE captures showed unchanged 3:1",
         "numericChangeProof": {
           "beforeHash": "d1e07e0221d8d71dbab6e71714320af7fd522d7154ba379f689f3a3f2d3b7d79",
           "afterHash": "0f620500a4157ed52a3878fc689f81d28f3f0a6f319e4e9c4410eebec4d6cfbf",
@@ -1517,8 +1517,48 @@
             "artifactId": 12560713714,
             "jobId": 120882164423,
             "runAttemptInferred": true
+          },
+          {
+            "gameKey": "NPB:2021039492",
+            "method": "same-day persisted LIVE-to-LIVE score change",
+            "awayScore": {
+              "before": 1,
+              "after": 3
+            },
+            "beforeScore": "1:1",
+            "afterScore": "3:1",
+            "beforeFetchedAt": "2026-10-24T13:16:27.648Z",
+            "afterFetchedAt": "2026-10-24T13:35:40.437Z",
+            "intervalSeconds": 1152.789,
+            "artifactId": 12562220752,
+            "jobId": 120886465144,
+            "runAttempt": 10,
+            "runAttemptConfirmedByApi": true
           }
-        ]
+        ],
+        "latestCrossRunNumericChange": {
+          "gameKey": "NPB:2021039492",
+          "method": "same-day persisted LIVE-to-LIVE score change",
+          "priorObservationPath": "data/live/20261024T131630Z-run40066803593-attempt9-npb-live-collector.json",
+          "beforeFetchedAt": "2026-10-24T13:16:27.648Z",
+          "afterFetchedAt": "2026-10-24T13:35:40.437Z",
+          "intervalSeconds": 1152.789,
+          "gameDate": "2026-10-24",
+          "sameTeams": true,
+          "beforeStatus": "live",
+          "afterStatus": "live",
+          "changes": {
+            "awayScore": {
+              "before": 1,
+              "after": 3
+            }
+          },
+          "beforeScore": "1:1",
+          "afterScore": "3:1",
+          "beforeHash": "0f620500a4157ed52a3878fc689f81d28f3f0a6f319e4e9c4410eebec4d6cfbf",
+          "afterHash": "25eee74dd0ce1184eca494371b9bd022f7256ef9f20d41bf4520d54fd7fa74dc"
+        },
+        "latestRunWithinRunChange": false
       },
       "KBO": {
         "verified": false,
@@ -1543,7 +1583,7 @@
         "nonfatalSourceIssue": "CPBL full game payload missing after scheduled start for postponed game; cannot infer live/lineups from it"
       },
       "allVerified": false,
-      "reason": "NPB fresh LIVE-to-LIVE same-run inning 10 bottom -> 11 top with score 1:1 unchanged across 69.35s; KBO zero from provider, CPBL postponed with partial boxscore warning.",
+      "reason": "NPB same-day cross-run LIVE score improved from 1:1 to 3:1; source timestamps differ by 1152.789 seconds. Current job ran two LIVE captures 69.215 seconds apart, no within-run scalar change. KBO zero provider games; CPBL postponed.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -1551,21 +1591,20 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 40066803593,
-        "runAttempt": 9,
-        "runAttemptInferred": true,
-        "runAttemptConfirmedByApi": false,
-        "runAttemptBasis": "Prior GitHub-confirmed attempt 8; re-ran completed job 120863545519; fresh job 120882164423 on same run. Connector does not expose run_attempt in jobs endpoint.",
-        "jobId": 120882164423,
-        "artifactId": 12560713714,
-        "artifactCreatedAt": "2026-10-24T13:16:33Z",
-        "artifactSha256": "864aa73901943d1160ddd6d1ea5a858d95e06ff464f85843bfb3ce78c235d5c0",
-        "downloadedZipSha256": "864aa73901943d1160ddd6d1ea5a858d95e06ff464f85843bfb3ce78c235d5c0",
+        "runAttempt": 10,
+        "runAttemptInferred": false,
+        "runAttemptConfirmedByApi": true,
+        "jobId": 120886465144,
+        "artifactId": 12562220752,
+        "artifactCreatedAt": "2026-10-24T13:36:55Z",
+        "artifactSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
+        "downloadedZipSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
         "artifactDigestVerified": true,
         "status": "completed",
         "conclusion": "success",
         "collectorConclusion": "success",
-        "capturedAt": "2026-10-24T13:16:30.653Z",
-        "observationPath": "data/live/20261024T131630Z-run40066803593-attempt9-npb-live-collector.json",
+        "capturedAt": "2026-10-24T13:36:52.651Z",
+        "observationPath": "data/live/20261024T133652Z-run40066803593-attempt10-npb-score-collector.json",
         "staleArtifactUsed": false,
         "liveGames": 1,
         "pregameGames": {
@@ -1584,11 +1623,12 @@
           "CPBL": 1
         },
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 69.35,
-        "withinRunQualifiedNumericChanges": 1,
-        "crossRunQualifiedNumericChanges": 0,
+        "captureIntervalSeconds": 69.215,
+        "withinRunQualifiedNumericChanges": 0,
+        "crossRunQualifiedNumericChanges": 1,
         "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
-        "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
+        "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
+        "digestVerified": true
       },
       "allScheduledLeaguesVerified": true
     }
@@ -1745,7 +1785,7 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-24",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261024T131630Z-run40066803593-attempt9-npb-live-collector.json",
+    "latestObservationPath": "data/live/20261024T133652Z-run40066803593-attempt10-npb-score-collector.json",
     "NPB": {
       "verified": true,
       "notApplicableToday": false,
@@ -1772,7 +1812,7 @@
         }
       },
       "intervalSeconds": 2213.504,
-      "verifiedAt": "2026-10-24T13:16:30.653Z",
+      "verifiedAt": "2026-10-24T13:36:52.651Z",
       "sameDayVerifiedWindows": [
         {
           "gameKey": "NPB:2021039492",
@@ -1847,15 +1887,33 @@
           "artifactId": 12560713714,
           "jobId": 120882164423,
           "runAttemptInferred": true
+        },
+        {
+          "gameKey": "NPB:2021039492",
+          "method": "same-day persisted LIVE-to-LIVE score change",
+          "awayScore": {
+            "before": 1,
+            "after": 3
+          },
+          "beforeScore": "1:1",
+          "afterScore": "3:1",
+          "beforeFetchedAt": "2026-10-24T13:16:27.648Z",
+          "afterFetchedAt": "2026-10-24T13:35:40.437Z",
+          "intervalSeconds": 1152.789,
+          "artifactId": 12562220752,
+          "jobId": 120886465144,
+          "runAttempt": 10,
+          "runAttemptConfirmedByApi": true
         }
       ],
       "latestNumericChanges": {
-        "inning": {
-          "before": 10,
-          "after": 11
+        "awayScore": {
+          "before": 1,
+          "after": 3
         }
       },
-      "latestIntervalSeconds": 69.35
+      "latestIntervalSeconds": 1152.789,
+      "latestVerificationMethod": "same-day cross-run LIVE-to-LIVE"
     },
     "KBO": {
       "verified": false,
@@ -1876,31 +1934,30 @@
     },
     "allScheduledLeaguesVerified": true,
     "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12560713714,
-    "reason": "NPB fresh LIVE-to-LIVE same-run inning 10 bottom -> 11 top with score 1:1 unchanged across 69.35s; KBO zero from provider, CPBL postponed with partial boxscore warning."
+    "latestRunArtifactId": 12562220752,
+    "reason": "NPB same-day cross-run LIVE score improved from 1:1 to 3:1; source timestamps differ by 1152.789 seconds. Current job ran two LIVE captures 69.215 seconds apart, no within-run scalar change. KBO zero provider games; CPBL postponed."
   },
-  "nextAction": "Keep rechecking NPB final transition and same-day changes; Oct24 latest within-run inning 10 bottom -> 11 top over 69.35s. CPBL verify Oct25 G5 and resolve Yahoo postponed detailed payload warning; KBO 0 games provider status not independent official offday. Never modify production.",
+  "nextAction": "Recheck NPB game NPB:2021039492 for final transition and new LIVE changes. Preserve fresh run-attempt/capturedAt/digest checks. On Oct 25 reconcile CPBL G5 postposed schedule/boxscore with verified official first-team games; KBO zero from provider is not independent official off-day verification. No production writes.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40066803593,
-    "runAttempt": 9,
-    "runAttemptInferred": true,
-    "runAttemptConfirmedByApi": false,
-    "runAttemptBasis": "Prior GitHub-confirmed attempt 8; re-ran completed job 120863545519; fresh job 120882164423 on same run. Connector does not expose run_attempt in jobs endpoint.",
-    "jobId": 120882164423,
-    "artifactId": 12560713714,
-    "artifactCreatedAt": "2026-10-24T13:16:33Z",
-    "artifactSha256": "864aa73901943d1160ddd6d1ea5a858d95e06ff464f85843bfb3ce78c235d5c0",
-    "downloadedZipSha256": "864aa73901943d1160ddd6d1ea5a858d95e06ff464f85843bfb3ce78c235d5c0",
+    "runAttempt": 10,
+    "runAttemptInferred": false,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120886465144,
+    "artifactId": 12562220752,
+    "artifactCreatedAt": "2026-10-24T13:36:55Z",
+    "artifactSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
+    "downloadedZipSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
     "artifactDigestVerified": true,
     "status": "completed",
     "conclusion": "success",
     "collectorConclusion": "success",
-    "capturedAt": "2026-10-24T13:16:30.653Z",
-    "observationPath": "data/live/20261024T131630Z-run40066803593-attempt9-npb-live-collector.json",
+    "capturedAt": "2026-10-24T13:36:52.651Z",
+    "observationPath": "data/live/20261024T133652Z-run40066803593-attempt10-npb-score-collector.json",
     "staleArtifactUsed": false,
     "liveGames": 1,
     "pregameGames": {
@@ -1919,13 +1976,14 @@
       "CPBL": 1
     },
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 69.35,
-    "withinRunQualifiedNumericChanges": 1,
-    "crossRunQualifiedNumericChanges": 0,
+    "captureIntervalSeconds": 69.215,
+    "withinRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 1,
     "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
-    "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
+    "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
+    "digestVerified": true
   },
-  "latestObservationCommit": "1b6d10c80ba99c06ea19492cd3a6cc03dec03876",
+  "latestObservationCommit": "a96b660f44b1289f5882bd1ae9097f37c4744210",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
