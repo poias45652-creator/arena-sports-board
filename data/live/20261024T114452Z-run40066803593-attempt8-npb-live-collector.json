@@ -1,0 +1,304 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T11:44:52.826Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40066803593,
+    "runAttempt": 8,
+    "runAttemptInferred": null,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120863545519,
+    "artifactId": 12558634087,
+    "artifactCreatedAt": "2026-10-24T11:44:57Z",
+    "artifactSha256": "b776905d99cdce0817fc34c91df4c44f0de95d38fce3727ad7dd85a829c0b926",
+    "downloadedZipSha256": "b776905d99cdce0817fc34c91df4c44f0de95d38fce3727ad7dd85a829c0b926",
+    "artifactDigestVerified": true,
+    "headSha": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
+    "status": "completed",
+    "conclusion": "success",
+    "collectorConclusion": "success",
+    "capturedAt": "2026-10-24T11:44:52.826Z",
+    "observationPath": "data/live/20261024T114452Z-run40066803593-attempt8-npb-live-collector.json",
+    "staleArtifactUsed": false,
+    "liveGames": 1,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": 0,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": 0,
+      "CPBL": 0
+    },
+    "postponedGames": {
+      "NPB": 0,
+      "KBO": 0,
+      "CPBL": 1
+    },
+    "secondCapturePerformed": true,
+    "captureIntervalSeconds": 68.883,
+    "withinRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 1,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
+    "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1"
+  },
+  "captures": [
+    {
+      "capturedAt": "2026-10-24T11:43:44.001Z",
+      "npb": {
+        "key": "NPB:2021039492",
+        "status": "live",
+        "away": "福岡軟銀鷹",
+        "home": "橫濱DeNA海灣之星",
+        "awayScore": 1,
+        "homeScore": 0,
+        "inning": 7,
+        "half": "top",
+        "sourceFetchedAt": "2026-10-24T11:43:40.966Z",
+        "awayPitcher": "上沢 直之",
+        "awayPitchCount": 77,
+        "awayPitcherOutsRecorded": 18,
+        "homePitcher": "石田 裕太郎",
+        "homePitchCount": 102,
+        "homePitcherOutsRecorded": 20
+      },
+      "kbo": {
+        "games": 0,
+        "status": "ok",
+        "officialOffDayVerified": false
+      },
+      "cpbl": {
+        "key": "CPBL:261024005",
+        "status": "postponed",
+        "awayScore": null,
+        "homeScore": null,
+        "inning": null,
+        "sourceFetchedAt": "2026-10-24T11:43:43.419Z",
+        "fullBoxScoreAvailable": false
+      }
+    },
+    {
+      "capturedAt": "2026-10-24T11:44:52.826Z",
+      "npb": {
+        "key": "NPB:2021039492",
+        "status": "live",
+        "away": "福岡軟銀鷹",
+        "home": "橫濱DeNA海灣之星",
+        "awayScore": 1,
+        "homeScore": 0,
+        "inning": 7,
+        "half": "top",
+        "sourceFetchedAt": "2026-10-24T11:44:49.849Z",
+        "awayPitcher": "上沢 直之",
+        "awayPitchCount": 77,
+        "awayPitcherOutsRecorded": 18,
+        "homePitcher": "石田 裕太郎",
+        "homePitchCount": 102,
+        "homePitcherOutsRecorded": 20,
+        "newRelieverListedWithUnverifiedZeroStats": "伊勢 大夢"
+      },
+      "kbo": {
+        "games": 0,
+        "status": "ok",
+        "officialOffDayVerified": false
+      },
+      "cpbl": {
+        "key": "CPBL:261024005",
+        "status": "postponed",
+        "awayScore": null,
+        "homeScore": null,
+        "inning": null,
+        "sourceFetchedAt": "2026-10-24T11:44:52.051Z",
+        "fullBoxScoreAvailable": false
+      }
+    }
+  ],
+  "verification": {
+    "date": "2026-10-24",
+    "checkedAt": "2026-10-24T11:44:52.826Z",
+    "secondCapturePerformed": true,
+    "productionDeployed": false,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 1,
+        "final": 0,
+        "liveStateObserved": true,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 3,
+        "gamesSummary": [
+          {
+            "key": "NPB:2021039492",
+            "away": "福岡軟銀鷹",
+            "home": "橫濱DeNA海灣之星",
+            "startTime": "2026-10-24T09:30:00.000Z",
+            "status": "live",
+            "awayScore": 1,
+            "homeScore": 0,
+            "inning": 7,
+            "source": {
+              "provider": "sportsnavi",
+              "url": "https://baseball.yahoo.co.jp/npb/game/2021039492/score",
+              "fetchedAt": "2026-10-24T11:44:49.849Z",
+              "httpDate": "Sat, 24 Oct 2026 11:44:40 GMT",
+              "cacheAgeSeconds": 9,
+              "providerUpdatedAt": null,
+              "supportingSources": [
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-24",
+                  "fetchedAt": "2026-10-24T11:44:49.725Z"
+                },
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/game/2021039492/stats",
+                  "fetchedAt": "2026-10-24T11:44:49.970Z"
+                }
+              ]
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "KBO",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": []
+      },
+      {
+        "league": "CPBL",
+        "games": 1,
+        "status": "partial",
+        "errors": [
+          "CPBL full game payload missing after scheduled start"
+        ],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "CPBL:261024005",
+            "away": "中信兄弟",
+            "home": "味全龍",
+            "startTime": "2026-10-24T09:05:00.000Z",
+            "status": "postponed",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "yahoo-tw",
+              "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+              "fetchedAt": "2026-10-24T11:44:52.051Z",
+              "httpDate": "Sat, 24 Oct 2026 11:44:51 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null,
+              "supportingSources": [
+                {
+                  "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261024005/",
+                  "fetchedAt": "2026-10-24T11:44:52.459Z",
+                  "availableFullBoxScore": false
+                }
+              ]
+            },
+            "liveChangeProof": null
+          }
+        ]
+      }
+    ]
+  },
+  "withinRunNumericChangeVerified": false,
+  "crossRunLiveChangeProof": {
+    "gameKey": "NPB:2021039492",
+    "league": "NPB",
+    "method": "cross-run same-day LIVE-to-LIVE numeric comparison; current attempt8 within-run 68.883s capture showed no material numeric change",
+    "previousRunAttempt": 7,
+    "currentRunAttempt": 8,
+    "beforeFetchedAt": "2026-10-24T11:07:56.345Z",
+    "afterFetchedAt": "2026-10-24T11:44:49.849Z",
+    "intervalSeconds": 2213.504,
+    "changes": {
+      "awayScore": {
+        "before": 0,
+        "after": 1
+      },
+      "awayPitcherPitchCount": {
+        "pitcher": "上沢 直之",
+        "before": 63,
+        "after": 77
+      },
+      "awayPitcherOutsRecorded": {
+        "pitcher": "上沢 直之",
+        "before": 14,
+        "after": 18
+      },
+      "inning": {
+        "before": 5,
+        "after": 7
+      }
+    },
+    "verified": true
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-24T11:44:55.640Z",
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0,
+    "details": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "constraints": {
+    "mainModified": false,
+    "renderModified": false,
+    "productionDatabaseWritten": false,
+    "accountModified": false,
+    "environmentVariablesModified": false,
+    "deployed": false,
+    "unknownValuesRemainNull": true,
+    "lineupConfirmation": "not_verified"
+  },
+  "note": "Attempt8 same-run two observations are 68.883 seconds apart but have no qualifying numeric change. Valid new NPB LIVE numeric change is cross-run compared with retained attempt7 LIVE observation 2213.504 seconds earlier. New reliever source listing with zero stats not interpreted as confirmed zero pitches. KBO independent off-day not confirmed. CPBL postponed full boxscore missing warning persists. Raw snapshots preserved in attempt8 artifact ZIP."
+}
