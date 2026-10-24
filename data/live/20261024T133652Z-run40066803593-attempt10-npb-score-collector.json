@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T13:36:52.651Z",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 40066803593,
+    "runAttempt": 10,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120886465144,
+    "artifactId": 12562220752,
+    "artifactCreatedAt": "2026-10-24T13:36:55Z",
+    "artifactSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
+    "downloadedZipSha256": "5e28bfa797943fcc84eaf0a865f0427bac4cde583e893dc643c39d2621ca491c",
+    "digestVerified": true,
+    "status": "completed",
+    "conclusion": "success",
+    "observationPath": "data/live/20261024T133652Z-run40066803593-attempt10-npb-score-collector.json"
+  },
+  "artifactContents": [
+    "capture-1.json",
+    "capture-2.json",
+    "current.json",
+    "verification.json",
+    "database-test.json",
+    "npb.json",
+    "kbo.json",
+    "cpbl.json",
+    "collector sources"
+  ],
+  "verification": {
+    "NPB": {
+      "status": "ok",
+      "games": 1,
+      "live": 1,
+      "score": "福岡軟銀鷹 3:1 橫濱DeNA海灣之星",
+      "gameKey": "NPB:2021039492",
+      "inning": 11,
+      "half": "top",
+      "scoreByInningSupportsAwayRuns": 3,
+      "scoreByInningSupportsHomeRuns": 1
+    },
+    "KBO": {
+      "status": "ok",
+      "games": 0,
+      "officialOffdayVerified": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "games": 1,
+      "postponed": 1,
+      "key": "CPBL:261024005",
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "scores": null,
+      "pitchCount": null
+    }
+  },
+  "polling": {
+    "firstCapturedAt": "2026-10-24T13:35:43.884Z",
+    "secondCapturedAt": "2026-10-24T13:36:52.651Z",
+    "firstNpbFetchedAt": "2026-10-24T13:35:40.437Z",
+    "secondNpbFetchedAt": "2026-10-24T13:36:49.652Z",
+    "sourceIntervalSeconds": 69.215,
+    "firstScore": "3:1",
+    "secondScore": "3:1",
+    "firstStatus": "live",
+    "secondStatus": "live",
+    "withinRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 1
+  },
+  "crossRunProof": {
+    "gameKey": "NPB:2021039492",
+    "method": "same-day persisted LIVE-to-LIVE score change",
+    "priorObservationPath": "data/live/20261024T131630Z-run40066803593-attempt9-npb-live-collector.json",
+    "beforeFetchedAt": "2026-10-24T13:16:27.648Z",
+    "afterFetchedAt": "2026-10-24T13:35:40.437Z",
+    "intervalSeconds": 1152.789,
+    "gameDate": "2026-10-24",
+    "sameTeams": true,
+    "beforeStatus": "live",
+    "afterStatus": "live",
+    "changes": {
+      "awayScore": {
+        "before": 1,
+        "after": 3
+      }
+    },
+    "beforeScore": "1:1",
+    "afterScore": "3:1",
+    "beforeHash": "0f620500a4157ed52a3878fc689f81d28f3f0a6f319e4e9c4410eebec4d6cfbf",
+    "afterHash": "25eee74dd0ce1184eca494371b9bd022f7256ef9f20d41bf4520d54fd7fa74dc"
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-24T13:36:53.963Z",
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "quality": {
+    "NPB_BSO_and_bases": null,
+    "CPBL_pitchCount": null,
+    "KBO_provider_zero_official_offday_unverified": true,
+    "CPBL_postponed_boxscore_missing": true,
+    "sourceLineupIsNotOfficialConfirmation": true,
+    "providerUpdatedAt": null,
+    "sourceFragmentNote": "NPB first capture rawStatus text appeared to lag by one run, but normalized innings sum and second capture support 3:1."
+  },
+  "restrictions": {
+    "mainModified": false,
+    "renderModified": false,
+    "productionDatabaseWritten": false,
+    "accountsModified": false,
+    "environmentVariablesModified": false,
+    "deployed": false
+  }
+}
