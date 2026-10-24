@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-24",
+  "capturedAt": "2026-10-24T08:41:07.554Z",
+  "provenance": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 40066803593,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 120828342565,
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "headSha": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
+    "artifactId": 12553937950,
+    "artifactCreatedAt": "2026-10-24T08:41:12Z",
+    "artifactSha256": "0cfd4236b9c9c6379995a33c167c1729c8797b3a8e72a56898404adbc6e76c5d",
+    "downloadedZipSha256": "0cfd4236b9c9c6379995a33c167c1729c8797b3a8e72a56898404adbc6e76c5d",
+    "artifactDigestVerified": true,
+    "staleArtifactUsed": false
+  },
+  "results": {
+    "NPB": {
+      "status": "ok",
+      "games": [
+        {
+          "key": "NPB:2021039492",
+          "away": "福岡軟銀鷹",
+          "home": "橫濱DeNA海灣之星",
+          "date": "2026-10-24",
+          "startTime": "2026-10-24T09:30:00.000Z",
+          "status": "pregame",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "source": {
+            "provider": "sportsnavi",
+            "url": "https://baseball.yahoo.co.jp/npb/game/2021039492/score",
+            "fetchedAt": "2026-10-24T08:41:04.554Z"
+          }
+        }
+      ],
+      "errors": [],
+      "liveChangeVerified": false
+    },
+    "KBO": {
+      "status": "ok",
+      "games": [],
+      "errors": [],
+      "officialOffDayVerified": false,
+      "liveChangeVerified": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "games": [
+        {
+          "key": "CPBL:261024005",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "date": "2026-10-24",
+          "startTime": "2026-10-24T09:05:00.000Z",
+          "status": "postponed",
+          "awayScore": null,
+          "homeScore": null,
+          "inning": null,
+          "balls": null,
+          "strikes": null,
+          "outs": null,
+          "bases": null,
+          "source": {
+            "provider": "yahoo-tw",
+            "url": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+            "fetchedAt": "2026-10-24T08:41:06.872Z"
+          }
+        }
+      ],
+      "errors": [
+        "CPBL schedule collision: quarantined 1 unverified pregame entry/entries (postponed same teams/time)"
+      ],
+      "quarantinedScheduleEntries": [
+        {
+          "key": "CPBL:261024006",
+          "status": "pregame",
+          "date": "2026-10-24",
+          "startTime": "2026-10-24T09:05:00.000Z",
+          "awayId": "cpbl.t.1",
+          "homeId": "cpbl.t.7",
+          "reason": "same teams/start as a postponed game; authoritative schedule reconciliation required"
+        }
+      ],
+      "liveChangeVerified": false
+    }
+  },
+  "verification": {
+    "secondCapturePerformed": false,
+    "qualifiedLiveChanges": 0,
+    "noLiveState": true,
+    "newEffectiveLiveData": false,
+    "importantFieldRecovered": false,
+    "newSourceFailure": false,
+    "newParserFix": false,
+    "dataQualityChangeSincePrevious": false
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-24T08:41:10.569Z",
+    "productionWritten": false,
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "constraints": {
+    "mainModified": false,
+    "productionModified": false,
+    "productionDatabaseWritten": false,
+    "deployed": false
+  },
+  "note": "Fresh 2026-10-24 16:41 Taipei collector run attempt 5, API-verified. NPB remains pregame (17:30 Taipei); KBO provider returned zero without independent official offday confirmation; CPBL 10/24 G5 postponed and one ambiguous false G6 pregame entry quarantined. No live state and no new meaningful field or quality change. Raw ZIP digest independently verified; normalized summary preserves unknown fields as null."
+}
