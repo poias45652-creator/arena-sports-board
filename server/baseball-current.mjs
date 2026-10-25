@@ -1,24 +1,48 @@
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb,plain} from './baseball-live-providers.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
 /**
- * When a postponed CPBL game and a different scheduled game have identical
- * teams and start timestamps, the latter is ambiguous, not an independently
- * verified first-team match. Quarantine it until the upstream calendar settles.
- * Keep the raw collision in audit evidence instead of fabricating a new date.
+ * Yahoo can put G5/G6/G7 in the same CPBL date/time slot after postponements.
+ * Keep independently detailed games; quarantine unverified schedule-only entries.
+ * If two games claim the slot without a unique detailed game, keep neither.
+ * Never infer an additional game from duplicate pregame team cards.
  */
 export function quarantineCpblScheduleCollisions(result){
  if(result?.league!=='CPBL'||!Array.isArray(result.games))return result;
- const postponed=result.games.filter(g=>g.status==='postponed');
- const conflicted=result.games.filter(g=>g.status==='pregame'&&postponed.some(p=>
-  p.key!==g.key&&p.date===g.date&&p.startTime===g.startTime&&
-  p.away?.id===g.away?.id&&p.home?.id===g.home?.id));
- if(!conflicted.length)return result;
- const keys=new Set(conflicted.map(g=>g.key));
+ const slots=new Map();
+ for(const g of result.games){
+  const slot=[g.date,g.startTime,g.away?.id,g.home?.id].join('|');
+  if(!slots.has(slot))slots.set(slot,[]);
+  slots.get(slot).push(g);
+ }
+ const rejected=new Map();
+ for(const group of slots.values()){
+  if(group.length<2)continue;
+  const pregame=group.filter(g=>g.status==='pregame');
+  const conflictingStatus=group.some(g=>['postponed','live','final','suspended','cancelled'].includes(g.status));
+  if(conflictingStatus){
+   for(const g of pregame)rejected.set(g.key,'same-slot game already has a postponed, live, final, suspended or cancelled record');
+   continue;
+  }
+  if(pregame.length<2)continue;
+  // A full game detail payload supplies stronger provenance than a team-card
+  // preview. This identifies the current G5 without pretending G6/G7 are today.
+  const full=pregame.filter(g=>
+   !g.warnings?.includes('pregame_metadata_only_game_detail_has_no_full_boxscore')&&
+   /^https:\/\/tw\.sports\.yahoo\.com\/cpbl\/[^/]+-\d{9}\/$/.test(g.source?.url||''));
+  const keep=full.length===1?full[0]:null;
+  for(const g of pregame)if(g!==keep)rejected.set(g.key,
+   keep?'same teams/start as uniquely detailed CPBL game '+keep.key:
+   'multiple pregame entries share the same teams/start; no unique detailed game');
+ }
+ if(!rejected.size)return result;
  return {...result,
-  games:result.games.filter(g=>!keys.has(g.key)),
+  games:result.games.filter(g=>!rejected.has(g.key)),
   status:'partial',
-  errors:[...(result.errors||[]),`CPBL schedule collision: quarantined ${conflicted.length} unverified pregame entry/entries (postponed same teams/time)`],
-  quarantinedScheduleEntries:conflicted.map(g=>({key:g.key,rawStatus:g.rawStatus,status:g.status,date:g.date,startTime:g.startTime,awayId:g.away?.id,homeId:g.home?.id,reason:'same teams/start as a postponed game; authoritative schedule reconciliation required'}))
+  errors:[...(result.errors||[]),'CPBL schedule collision: quarantined '+rejected.size+' unverified same-slot entry/entries'],
+  quarantinedScheduleEntries:result.games.filter(g=>rejected.has(g.key)).map(g=>({
+   key:g.key,rawStatus:g.rawStatus,status:g.status,date:g.date,startTime:g.startTime,
+   awayId:g.away?.id,homeId:g.home?.id,sourceUrl:g.source?.url||null,reason:rejected.get(g.key)
+  }))
  };
 }
 /** NPB's selected-game detail page omits that game's sidebar identity card.
