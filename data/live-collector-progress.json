@@ -8,58 +8,55 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-24T15:29:46.958Z",
-  "dateAsiaTaipei": "2026-10-24",
+  "observedAt": "2026-10-25T05:35:09.239Z",
+  "dateAsiaTaipei": "2026-10-25",
   "currentGames": {
     "NPB": 1,
-    "KBO": 0,
+    "KBO": 1,
     "CPBL": 1
   },
   "currentStates": {
-    "NPB": "final_3_to_1_with_prior_verified_live_changes_retained",
-    "KBO": "no_games_from_provider_official_offday_unverified",
-    "CPBL": "postponed_missing_full_payload_warning"
+    "NPB": "pregame_first_team_17_00",
+    "KBO": "cancelled_first_team_game_not_provider_zero",
+    "CPBL": "pregame_G5_17_05_with_2_same_slot_G6_G7_cards_quarantined"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "checkedAt": "2026-10-24T15:29:47.937Z",
+    "checkedAt": "2026-10-25T05:35:10.470Z",
     "passed": true,
-    "rowsWritten": 2,
-    "rowsReadBack": 2,
+    "rowsWritten": 3,
+    "rowsReadBack": 3,
     "duplicateWrites": 0,
     "details": [
       {
         "league": "NPB",
         "written": 1,
-        "duplicateWrites": 0,
         "readBack": 1,
         "passed": true
       },
       {
         "league": "KBO",
-        "written": 0,
-        "duplicateWrites": 0,
-        "readBack": 0,
+        "written": 1,
+        "readBack": 1,
         "passed": true
       },
       {
         "league": "CPBL",
         "written": 1,
-        "duplicateWrites": 0,
         "readBack": 1,
         "passed": true
       }
     ]
   },
   "firstStartTaipei": {
-    "NPB": "2026-10-24T17:30:00+08:00",
-    "KBO": null,
-    "CPBL": null
+    "NPB": "2026-10-25T17:00:00+08:00",
+    "KBO": "2026-10-25T13:00:00+08:00 (cancelled)",
+    "CPBL": "2026-10-25T17:05:00+08:00"
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-24",
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-25",
     "KBO": "https://api-gw.sports.naver.com",
-    "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/"
+    "CPBL": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261025005/"
   },
   "liveChangeProof": {
     "NPB": {
@@ -1640,6 +1637,93 @@
         "digestVerified": true
       },
       "allScheduledLeaguesVerified": true
+    },
+    "2026-10-25": {
+      "NPB": {
+        "verified": false,
+        "checkedToday": true,
+        "notApplicableToday": false,
+        "state": "pregame",
+        "games": 1,
+        "source": "sportsnavi",
+        "gameKey": "NPB:2021039493",
+        "firstStartTaipei": "17:00",
+        "score": null,
+        "liveChangeVerified": false
+      },
+      "KBO": {
+        "verified": false,
+        "checkedToday": true,
+        "notApplicableToday": true,
+        "state": "cancelled",
+        "games": 1,
+        "source": "naver",
+        "gameKey": "KBO:55551025HTSS02026",
+        "note": "Provider reports cancelled, not zero games."
+      },
+      "CPBL": {
+        "verified": false,
+        "checkedToday": true,
+        "notApplicableToday": false,
+        "state": "pregame",
+        "games": 1,
+        "source": "yahoo-tw",
+        "gameKey": "CPBL:261025005",
+        "firstStartTaipei": "17:05",
+        "quarantinedUnverifiedSameSlotEntries": [
+          "CPBL:261025006",
+          "CPBL:261025007"
+        ],
+        "parserFixVerified": true
+      },
+      "allVerified": false,
+      "reason": "At 2026-10-25 13:35 Taiwan time, NPB and CPBL are pregame and KBO one game is cancelled. No live games; 65-second second capture not applicable. CPBL G6/G7 same-slot metadata-only entries quarantined after isolated parser fix, real-source rerun and database round-trip.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "repository": "poias45652-creator/arena-sports-board",
+        "branch": "data/live-source-probe-20260915",
+        "workflow": "Current baseball collector",
+        "workflowPath": ".github/workflows/baseball-current-collector.yml",
+        "runId": 40166038103,
+        "runAttempt": 1,
+        "runAttemptConfirmedByApi": true,
+        "jobId": 121087171968,
+        "artifactId": 12588232368,
+        "artifactCreatedAt": "2026-10-25T05:35:11Z",
+        "artifactSha256": "711e0935f88b7f307e13c058dfd3d2bfe5d732a3fdd5337512a2ec6806aeb71c",
+        "downloadedZipSha256": "711e0935f88b7f307e13c058dfd3d2bfe5d732a3fdd5337512a2ec6806aeb71c",
+        "artifactDigestVerified": true,
+        "status": "completed",
+        "conclusion": "success",
+        "collectorConclusion": "success",
+        "capturedAt": "2026-10-25T05:35:09.239Z",
+        "observationPath": "data/live/20261025T053509Z-run40166038103-attempt1-cpbl-slot-fix-collector.json",
+        "staleArtifactUsed": false,
+        "liveGames": 0,
+        "pregameGames": {
+          "NPB": 1,
+          "KBO": 0,
+          "CPBL": 1
+        },
+        "cancelledGames": {
+          "NPB": 0,
+          "KBO": 1,
+          "CPBL": 0
+        },
+        "finalGames": {
+          "NPB": 0,
+          "KBO": 0,
+          "CPBL": 0
+        },
+        "secondCapturePerformed": false,
+        "captureIntervalSeconds": null,
+        "withinRunQualifiedNumericChanges": 0,
+        "crossRunQualifiedNumericChanges": 0,
+        "isolatedDatabaseTest": "passed_npb_1_kbo_1_cancelled_cpbl_1",
+        "parserFixCommit": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+        "qualityCollisionQuarantined": 2,
+        "artifactDigestVerifiedIndependently": true
+      }
     }
   },
   "parserFixes": [
@@ -1690,6 +1774,22 @@
         "postponedRows": 1,
         "missingScoreStayedNull": true
       }
+    },
+    {
+      "at": "2026-10-25T05:34:39Z",
+      "commit": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+      "file": "server/baseball-current.mjs",
+      "change": "Quarantine CPBL G6/G7 metadata-only pregame entries sharing G5 exact teams/start time; also quarantine stale pregame with live/final/postponed/cancelled/suspended same-slot record.",
+      "verifiedByRun": 40166038103,
+      "verifiedByArtifact": 12588232368,
+      "verification": {
+        "parserSyntaxCheck": true,
+        "localRegressionCasesPassed": 8,
+        "realSourceRerunPassed": true,
+        "isolatedPostgres16Passed": true,
+        "originalCpblGames": 3,
+        "validatedCpblGames": 1
+      }
     }
   ],
   "parserRepairIncidents": [
@@ -1714,6 +1814,18 @@
       "verifiedByRun": 39924795302,
       "verifiedByArtifact": 12488927167,
       "productionWritten": false
+    },
+    {
+      "at": "2026-10-25T05:35:09.239Z",
+      "file": "server/baseball-current.mjs",
+      "rootCause": "Yahoo CPBL 2026-10-25 same-slot duplicate PREGAME G5/G6/G7 team cards; existing quarantine required a POSTPONED sibling so ignored duplicates.",
+      "originalRunId": 40066803593,
+      "originalAttempt": 12,
+      "originalArtifact": 12588017566,
+      "resolvedByCommit": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+      "verifiedByRun": 40166038103,
+      "verifiedByArtifact": 12588232368,
+      "productionWritten": false
     }
   ],
   "productionChanged": false,
@@ -1727,7 +1839,8 @@
     "Provider publication timestamps remain unavailable; fetchedAt/httpDate are recorded separately.",
     "CPBL:260920343 final score is 1-2 while parsed inning run sums are 1-1; home inning-by-inning scoring is not authoritative until source/parser mismatch is resolved.",
     "GitHub Actions re-run still checks out historical SHA f12e947a5e8ad30967ef03e5cde4e05e291b4e03 rather than the current isolation-branch head; fresh artifacts contain current-date data but execute the older validated collector snapshot.",
-    "2026-10-24 CPBL Yahoo schedule lagged the Oct 23 second postponement: duplicate 17:05 team matchup, one postponed G5 and one false pregame G6. The isolated collector quarantines ambiguous G6; official source reconciliation remains pending."
+    "2026-10-24 CPBL Yahoo schedule lagged the Oct 23 second postponement: duplicate 17:05 team matchup, one postponed G5 and one false pregame G6. The isolated collector quarantines ambiguous G6; official source reconciliation remains pending.",
+    "CPBL 2026-10-25 upstream Yahoo schedule still contains G6/G7 PREGAME metadata for the same G5 17:05 slot; quarantine prevents website use, but upstream schedule dates require reconciliation on future polls."
   ],
   "dataQualityIssues": [
     {
@@ -1777,6 +1890,20 @@
         "https://sports.ltn.com.tw/news/breakingnews/5616784"
       ],
       "action": "Do not treat G6 2026-10-24 PREGAME as a playable game; verify official G5 Oct 25 when upstream source refreshes. No main or production change."
+    },
+    {
+      "firstObservedAt": "2026-10-25T05:31:57.476Z",
+      "resolvedAt": "2026-10-25T05:35:09.239Z",
+      "league": "CPBL",
+      "warning": "multiple_unverified_pregame_same_slot",
+      "gameKeys": [
+        "CPBL:261025005",
+        "CPBL:261025006",
+        "CPBL:261025007"
+      ],
+      "resolution": "Unique detailed G5 retained; metadata-only G6/G7 duplicate same-team/time entries quarantined; future source updates must re-verify daily.",
+      "resolvedByCommit": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+      "sourceStillInconsistent": true
     }
   ],
   "transientSourceIncidents": [
@@ -1792,212 +1919,80 @@
     }
   ],
   "currentDayLiveChangeProof": {
-    "date": "2026-10-24",
+    "date": "2026-10-25",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261024T152946Z-run40066803593-attempt11-final-collector.json",
+    "latestObservationPath": "data/live/20261025T053509Z-run40166038103-attempt1-cpbl-slot-fix-collector.json",
+    "checkedAt": "2026-10-25T05:35:09.239Z",
     "NPB": {
-      "verified": true,
-      "notApplicableToday": false,
-      "checkedToday": true,
+      "verified": false,
+      "state": "pregame",
       "games": 1,
-      "state": "final",
-      "liveGameKey": "NPB:2021039492",
-      "numericChanges": {
-        "awayScore": {
-          "before": 0,
-          "after": 1
-        },
-        "pitchCount": {
-          "before": 63,
-          "after": 77
-        },
-        "outsRecorded": {
-          "before": 14,
-          "after": 18
-        },
-        "inning": {
-          "before": 5,
-          "after": 7
-        }
-      },
-      "intervalSeconds": 2213.504,
-      "verifiedAt": "2026-10-24T13:36:52.651Z",
-      "sameDayVerifiedWindows": [
-        {
-          "gameKey": "NPB:2021039492",
-          "pitcher": "上沢 直之",
-          "pitchCount": {
-            "before": 27,
-            "after": 30
-          },
-          "outsRecorded": {
-            "before": 5,
-            "after": 6
-          },
-          "beforeFetchedAt": "2026-10-24T10:18:56.515Z",
-          "afterFetchedAt": "2026-10-24T10:20:08.505Z",
-          "intervalSeconds": 71.99
-        },
-        {
-          "gameKey": "NPB:2021039492",
-          "pitcher": "上沢 直之",
-          "pitchCount": {
-            "before": 61,
-            "after": 63
-          },
-          "outsRecorded": {
-            "before": 13,
-            "after": 14
-          },
-          "beforeFetchedAt": "2026-10-24T11:06:47.043Z",
-          "afterFetchedAt": "2026-10-24T11:07:56.345Z",
-          "intervalSeconds": 69.302
-        },
-        {
-          "gameKey": "NPB:2021039492",
-          "method": "cross_run_live_numeric_change",
-          "awayScore": {
-            "before": 0,
-            "after": 1
-          },
-          "pitcher": "上沢 直之",
-          "pitchCount": {
-            "before": 63,
-            "after": 77
-          },
-          "outsRecorded": {
-            "before": 14,
-            "after": 18
-          },
-          "beforeFetchedAt": "2026-10-24T11:07:56.345Z",
-          "afterFetchedAt": "2026-10-24T11:44:49.849Z",
-          "intervalSeconds": 2213.504
-        },
-        {
-          "gameKey": "NPB:2021039492",
-          "method": "same_run_live_inning_change",
-          "beforeStatus": "live",
-          "afterStatus": "live",
-          "beforeInning": 10,
-          "afterInning": 11,
-          "beforeHalf": "bottom",
-          "afterHalf": "top",
-          "beforeScore": "1:1",
-          "afterScore": "1:1",
-          "beforeFetchedAt": "2026-10-24T13:15:18.298Z",
-          "afterFetchedAt": "2026-10-24T13:16:27.648Z",
-          "intervalSeconds": 69.35,
-          "changes": {
-            "inning": {
-              "before": 10,
-              "after": 11
-            }
-          },
-          "artifactId": 12560713714,
-          "jobId": 120882164423,
-          "runAttemptInferred": true
-        },
-        {
-          "gameKey": "NPB:2021039492",
-          "method": "same-day persisted LIVE-to-LIVE score change",
-          "awayScore": {
-            "before": 1,
-            "after": 3
-          },
-          "beforeScore": "1:1",
-          "afterScore": "3:1",
-          "beforeFetchedAt": "2026-10-24T13:16:27.648Z",
-          "afterFetchedAt": "2026-10-24T13:35:40.437Z",
-          "intervalSeconds": 1152.789,
-          "artifactId": 12562220752,
-          "jobId": 120886465144,
-          "runAttempt": 10,
-          "runAttemptConfirmedByApi": true
-        }
-      ],
-      "latestNumericChanges": {
-        "awayScore": {
-          "before": 1,
-          "after": 3
-        }
-      },
-      "latestIntervalSeconds": 1152.789,
-      "latestVerificationMethod": "same-day cross-run LIVE-to-LIVE",
-      "finalScore": {
-        "away": 3,
-        "home": 1
-      },
-      "lastCheckedAt": "2026-10-24T15:29:46.958Z"
+      "liveGames": 0
     },
     "KBO": {
       "verified": false,
       "notApplicableToday": true,
-      "checkedToday": true,
-      "games": 0,
-      "officialOffDayVerified": false
+      "state": "cancelled",
+      "games": 1,
+      "liveGames": 0
     },
     "CPBL": {
       "verified": false,
-      "notApplicableToday": true,
-      "checkedToday": true,
+      "state": "pregame",
       "games": 1,
-      "postponed": true,
-      "liveGames": 0,
-      "secondPostponementVerifiedViaPublicReports": true,
-      "nonfatalSourceIssue": "full game payload missing for postponed game"
+      "quarantinedSameSlot": 2,
+      "liveGames": 0
     },
-    "allScheduledLeaguesVerified": true,
-    "allThreeLeaguesLiveVerified": false,
-    "latestRunArtifactId": 12565286690,
-    "reason": "NPB first-team game finished 3:1 in newly captured attempt 11, preserving qualifying earlier 2026-10-24 LIVE-to-LIVE proof. No LIVE games during current capture and no second poll; KBO returned zero games; CPBL retains postponed with missing boxscore."
+    "secondCapturePerformed": false,
+    "qualifiedNumericChanges": 0
   },
-  "nextAction": "On 2026-10-25 verify CPBL rescheduled G5 against authoritative schedule; if LIVE obtain two >=65 second captures and validate real numeric changes. Check KBO and NPB official first-team schedules daily. Do not alter production or fabricate unknown fields.",
+  "nextAction": "After 2026-10-25 17:00 Asia/Taipei verify NPB World Series game live; after 17:05 re-verify CPBL G5 and recheck quarantined G6/G7 same-slot entries. If LIVE, capture twice at least 65 seconds apart, test real numeric change and preserve evidence. Recheck KBO cancelled status. Never fabricate unknown values or alter production.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
-    "runId": 40066803593,
-    "runAttempt": 11,
+    "runId": 40166038103,
+    "runAttempt": 1,
     "runAttemptConfirmedByApi": true,
-    "jobId": 120911231021,
-    "artifactId": 12565286690,
-    "artifactCreatedAt": "2026-10-24T15:29:49Z",
-    "artifactSha256": "653f494ef52b43ed4077b0bd64fb468b381179870b4f351439b39e3456d49a38",
-    "downloadedZipSha256": "653f494ef52b43ed4077b0bd64fb468b381179870b4f351439b39e3456d49a38",
+    "jobId": 121087171968,
+    "artifactId": 12588232368,
+    "artifactCreatedAt": "2026-10-25T05:35:11Z",
+    "artifactSha256": "711e0935f88b7f307e13c058dfd3d2bfe5d732a3fdd5337512a2ec6806aeb71c",
+    "downloadedZipSha256": "711e0935f88b7f307e13c058dfd3d2bfe5d732a3fdd5337512a2ec6806aeb71c",
     "artifactDigestVerified": true,
     "status": "completed",
     "conclusion": "success",
     "collectorConclusion": "success",
-    "capturedAt": "2026-10-24T15:29:46.958Z",
-    "observationPath": "data/live/20261024T152946Z-run40066803593-attempt11-final-collector.json",
+    "capturedAt": "2026-10-25T05:35:09.239Z",
+    "observationPath": "data/live/20261025T053509Z-run40166038103-attempt1-cpbl-slot-fix-collector.json",
     "staleArtifactUsed": false,
     "liveGames": 0,
     "pregameGames": {
-      "NPB": 0,
+      "NPB": 1,
       "KBO": 0,
+      "CPBL": 1
+    },
+    "cancelledGames": {
+      "NPB": 0,
+      "KBO": 1,
       "CPBL": 0
     },
     "finalGames": {
-      "NPB": 1,
-      "KBO": 0,
-      "CPBL": 0
-    },
-    "postponedGames": {
       "NPB": 0,
       "KBO": 0,
-      "CPBL": 1
+      "CPBL": 0
     },
     "secondCapturePerformed": false,
     "captureIntervalSeconds": null,
     "withinRunQualifiedNumericChanges": 0,
     "crossRunQualifiedNumericChanges": 0,
-    "priorSameDayLiveProofRetained": true,
-    "isolatedDatabaseTest": "passed_npb_1_kbo_0_cpbl_1",
-    "parserFixCommit": "fcb02d6ac10ee3b2ac1ba6d90053578ff33d98b1",
-    "digestVerified": true
+    "isolatedDatabaseTest": "passed_npb_1_kbo_1_cancelled_cpbl_1",
+    "parserFixCommit": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "qualityCollisionQuarantined": 2,
+    "artifactDigestVerifiedIndependently": true
   },
-  "latestObservationCommit": "887b665f0604231229e0c1fda2df7f7f21853a26",
+  "latestObservationCommit": "a1dda48fc419c231182b64690d74678324cdbcfa",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
