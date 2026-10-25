@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import ViewOnlyBoundary from "./view-only-boundary";
 import "./globals.css";
 import "./xingzhun-theme.css";
 import "../public/ui/button-feedback.css";
@@ -37,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-Hant">
-      <body className="antialiased">{children}<Script src="/ui/button-feedback.js?v=20261023-1" strategy="afterInteractive"/></body>
+      <body className="antialiased"><ViewOnlyBoundary>{children}</ViewOnlyBoundary><Script src="/ui/button-feedback.js?v=20261023-1" strategy="afterInteractive"/></body>
     </html>
   );
 }

@@ -1,16 +1,18 @@
 'use client';
+import {useViewOnly} from './view-only-boundary';
 import {useEffect,useId,useRef,useState} from 'react';
 import {SlidersHorizontal,X} from 'lucide-react';
 import {baseballTeamSettings} from '@/lib/team-model-settings';
 import {useTeamWeightBook,TeamWeightNotice} from './team-weight-book';
 import {BASEBALL_FACTOR_LABELS,BASEBALL_MODEL_NAMES,baseballSettingsKey,customBaseballSettings,defaultBaseballSettings,parseBaseballSettings,rebalanceBaseballWeight,type BaseballModelSettings,type BaseballModelFamily,type BaseballModelLeague} from '@/lib/baseball-model-settings';
 export function useBaseballModelSettings(league:BaseballModelLeague){
+ const viewOnly=useViewOnly();
  const teamBook=useTeamWeightBook(league);
  const [saved,setSaved]=useState<{league:BaseballModelLeague;settings:BaseballModelSettings}>({league,settings:defaultBaseballSettings()}),[notice,setNotice]=useState('');
  useEffect(()=>{try{setSaved({league,settings:parseBaseballSettings(localStorage.getItem(baseballSettingsKey(league)))||defaultBaseballSettings()});}catch{setSaved({league,settings:defaultBaseballSettings()});}setNotice('');},[league]);
- const settings=baseballTeamSettings(saved.league===league?saved.settings:defaultBaseballSettings(),teamBook.book);
+ const settings=viewOnly?defaultBaseballSettings():baseballTeamSettings(saved.league===league?saved.settings:defaultBaseballSettings(),teamBook.book);
  function apply(value:BaseballModelSettings){const {teams:_,...base}=value;const next=parseBaseballSettings(base);if(!next)return;setSaved({league,settings:next});try{localStorage.setItem(baseballSettingsKey(league),JSON.stringify(next));setNotice('模型比例已套用，未開賽的分析已重新計算。');}catch{setNotice('模型比例已套用；瀏覽器無法儲存，重新整理後會回到預設。');}}
- return {settings,apply,notice,teamNotice:<TeamWeightNotice count={teamBook.count} onClear={teamBook.clear}/>};
+ return {settings,apply,notice,teamNotice:viewOnly?null:<TeamWeightNotice count={teamBook.count} onClear={teamBook.clear}/>};
 }
 export default function BaseballModelWeights({league,settings,onApply}:{league:BaseballModelLeague;settings:BaseballModelSettings;onApply:(s:BaseballModelSettings)=>void}){
  const dialog=useRef<HTMLDialogElement>(null),trigger=useRef<HTMLButtonElement>(null),id=useId();

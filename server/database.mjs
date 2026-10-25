@@ -70,6 +70,15 @@ export async function migrate(pool = getPool()) {
     await client.query('BEGIN');
     await client.query('SELECT pg_advisory_xact_lock($1::int,$2::int)', [1095910734, 172]);
     await client.query(schema);
+    // Initialize once from private service configuration, never from source code.
+    // Password rotation and disabling remain authoritative across redeployments.
+    const viewerHash=process.env.YJ_VIEWER_BOOTSTRAP_HASH;
+    const yj=process.env.RENDER_SERVICE_ID
+      ? process.env.RENDER_SERVICE_ID==='srv-dahruorm8hqs73d57edg'
+      : (process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL)==='https://arena-sports-board.onrender.com';
+    if(yj&&viewerHash&&/^scrypt:[a-f0-9]{32}:[a-f0-9]{128}$/.test(viewerHash)){
+      await client.query("UPDATE yj_viewer_accounts SET password_hash=$1 WHERE member_id='yj-viewer:aa3344' AND password_hash='' AND updated_at=0",[viewerHash]);
+    }
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }
   finally { client.release(); }

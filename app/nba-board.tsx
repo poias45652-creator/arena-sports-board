@@ -1,4 +1,5 @@
 'use client';
+import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
 import {NBA_TEAMS,nbaDay,nbaPhase,shiftNbaDay,validNbaDay,type NbaBoard as Board,type NbaGame} from '@/lib/nba';
@@ -20,13 +21,14 @@ import './sport-markets.css';
 import SportMarkets from './sport-markets';
 import {useSource} from './use-source';
 export default function NbaBoard({view,onViewChange,league='NBA'}:{league?:'NBA'|'WNBA';view:string;onViewChange:(view:string)=>void}){
+ const viewOnly=useViewOnly();
  const odds=useSource<any>('member-odds',60000);
  const teams=league==='WNBA'?WNBA_TEAMS:NBA_TEAMS,api=`/api/${league.toLowerCase()}`;
  const [settings,setSettings]=useState<{league:string;weights:Weights}|null>(null),[weightsNotice,setWeightsNotice]=useState('');
  const weights=settings?.league===league?settings.weights:DEFAULT_WEIGHTS,weightsReady=settings?.league===league;
  const teamBook=useTeamWeightBook(league);
- const weightsQuery=weights.join(','),gameWeights=(game:NbaGame)=>basketballTeamWeights(weights,teamBook.book,game.home.id,game.away.id),expectedWeights=(game:NbaGame)=>weightKey(gameWeights(game));
- useEffect(()=>{let saved:Weights=[...DEFAULT_WEIGHTS];try{saved=readNbaWeights(window.localStorage.getItem(basketballWeightStorageKey(league)));}catch{/* Storage may be unavailable; defaults still work. */}setSettings({league,weights:saved});setWeightsNotice('');},[league]);
+ const weightsQuery=weights.join(','),gameWeights=(game:NbaGame)=>viewOnly?DEFAULT_WEIGHTS:basketballTeamWeights(weights,teamBook.book,game.home.id,game.away.id),expectedWeights=(game:NbaGame)=>weightKey(gameWeights(game));
+ useEffect(()=>{let saved:Weights=[...DEFAULT_WEIGHTS];try{if(!viewOnly)saved=readNbaWeights(window.localStorage.getItem(basketballWeightStorageKey(league)));}catch{/* Storage may be unavailable; defaults still work. */}setSettings({league,weights:saved});setWeightsNotice('');},[league,viewOnly]);
  function applyWeights(next:Weights){if(weightKey(next)!==weightKey(weights))setReports({});setSettings({league,weights:next});try{window.localStorage.setItem(basketballWeightStorageKey(league),writeNbaWeights(next));setWeightsNotice('比例已套用，賽前分析依新比例更新。');}catch{setWeightsNotice('比例已套用；此瀏覽器無法儲存，重新整理後會恢復預設。');}}
  const tab=['overview','analysis','teams','live','standings'].includes(view)?view:'analysis';
  const [day,setDay]=useState(nbaDay),[board,setBoard]=useState<Board|null>(null),[reports,setReports]=useState<Record<string,NbaReport>>({});

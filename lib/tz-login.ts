@@ -6,7 +6,7 @@ import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 const response=(d:any,status=200,cookie?:string)=>Response.json(d,{status,headers:{'Cache-Control':'private, no-store','Vary':'Cookie',...(cookie?{'Set-Cookie':cookie}:{})}});
 export async function tzLogin(request:Request,db:any,secret:string|undefined,fetcher:typeof fetch=fetch,turnstileSecret?:string,requireTurnstile=false){
  try{
- if(request.method==='GET'){const s=await readSession(db,request.headers.get('cookie'));return response(s?{signedIn:true,username:s.username,expiresAt:s.expiresAt}:{signedIn:false});}
+ if(request.method==='GET'){const s=await readSession(db,request.headers.get('cookie'));return response(s?{signedIn:true,username:s.username,expiresAt:s.expiresAt,...(s.accessMode?{accessMode:s.accessMode}:{} )}:{signedIn:false});}
  if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return response({error:'請從網站登入頁操作'},403);
  if(request.method==='DELETE'){const token=sessionToken(request.headers.get('cookie'));if(token)await db.prepare('DELETE FROM arena_sessions WHERE token_hash=?').bind(await hash(token)).run();return response({signedIn:false},200,sessionCookie('',0));}
  if(request.method!=='POST')return response({error:'不支援此操作'},405);
@@ -32,6 +32,8 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  const verified=await handleTzBinding(new Request(request.url,{method:'POST',headers:{'Origin':requestOrigin(request),'Content-Type':'application/json'},body}),candidate,()=>db,secret,fetcher);
  if(!verified.ok){const d=await verified.json();return response({error:d.message||'登入失敗'},verified.status);}
  const binding=await db.prepare('SELECT * FROM tz_bindings WHERE member_id=?').bind(candidate).first();if(!binding)throw new Error();
+ // The local viewing account must never inherit an upstream membership.
+ if(binding.username.trim().toLowerCase()==='aa3344')return response({error:'請使用 YJ 測試帳號密碼登入'},403);
  // Identity comes only from tz's authenticated server response, never submitted username.
  if(source==='ofa'&&!['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(binding.username.toLowerCase()))return response({error:'此帳號未開放 OFA 管理員登入'},403);
  const member=source+':'+String(binding.source_user_id),key=await credentialKey(secret);
