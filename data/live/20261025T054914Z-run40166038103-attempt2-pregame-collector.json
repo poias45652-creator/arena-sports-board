@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-25",
+  "capturedAt": "2026-10-25T05:49:14.192Z",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 2,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121089643306,
+    "runStatus": "completed",
+    "runConclusion": "success",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12588253886,
+    "artifactCreatedAt": "2026-10-25T05:49:16Z",
+    "artifactSha256": "31a7ef63768ca15646bacf6f8efde4dbfc801b596b48b859f5bd885bbbb442b1",
+    "downloadedZipSha256": "31a7ef63768ca15646bacf6f8efde4dbfc801b596b48b859f5bd885bbbb442b1",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "verifiedCapture": {
+    "date": "2026-10-25",
+    "checkedAt": "2026-10-25T05:49:14.192Z",
+    "secondCapturePerformed": false,
+    "productionDeployed": false,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 1,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "NPB:2021039493",
+            "away": "福岡軟銀鷹",
+            "home": "橫濱DeNA海灣之星",
+            "startTime": "2026-10-25T09:00:00.000Z",
+            "status": "pregame",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "sportsnavi",
+              "url": "https://baseball.yahoo.co.jp/npb/game/2021039493/score",
+              "fetchedAt": "2026-10-25T05:49:11.379Z",
+              "httpDate": "Sun, 25 Oct 2026 05:49:11 GMT",
+              "cacheAgeSeconds": 0,
+              "providerUpdatedAt": null,
+              "supportingSources": [
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-25",
+                  "fetchedAt": "2026-10-25T05:49:11.178Z"
+                },
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/game/2021039493/stats",
+                  "fetchedAt": "2026-10-25T05:49:11.554Z"
+                }
+              ]
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "KBO",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "KBO:55551025HTSS02026",
+            "away": "起亞虎",
+            "home": "三星獅",
+            "startTime": "2026-10-25T05:00:00.000Z",
+            "status": "cancelled",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "naver",
+              "url": "https://api-gw.sports.naver.com/schedule/games/55551025HTSS02026/game-polling",
+              "fetchedAt": "2026-10-25T05:49:11.326Z",
+              "httpDate": "Sun, 25 Oct 2026 05:49:11 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "CPBL",
+        "games": 1,
+        "status": "partial",
+        "errors": [
+          "CPBL schedule collision: quarantined 2 unverified same-slot entry/entries"
+        ],
+        "pregame": 1,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "CPBL:261025005",
+            "away": "中信兄弟",
+            "home": "味全龍",
+            "startTime": "2026-10-25T09:05:00.000Z",
+            "status": "pregame",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "yahoo-tw",
+              "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261025005/",
+              "fetchedAt": "2026-10-25T05:49:13.587Z",
+              "httpDate": "Sun, 25 Oct 2026 05:49:13 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null
+            },
+            "liveChangeProof": null
+          }
+        ]
+      }
+    ]
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-25T05:49:15.185Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "polling": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "captureIntervalSeconds": null,
+    "qualifiedNumericChanges": 0,
+    "reason": "NPB and CPBL pregame; KBO cancelled. No LIVE at capture."
+  },
+  "cpblQuarantine": {
+    "retainedGameKey": "CPBL:261025005",
+    "quarantinedKeys": [
+      "CPBL:261025006",
+      "CPBL:261025007"
+    ],
+    "sourceStatus": "partial",
+    "previouslyVerifiedParserFix": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "noNewParserChange": true
+  },
+  "restrictions": {
+    "productionChanged": false,
+    "productionDatabaseWritten": false,
+    "mainChanged": false,
+    "renderChanged": false,
+    "deployed": false,
+    "unknownFieldsKeptNull": true
+  }
+}
