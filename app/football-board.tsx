@@ -1,4 +1,5 @@
 'use client';
+import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
 import {FOOTBALL_LEAGUES,footballDay,shiftFootballDay,isFootballLeague,validFootballDay,type FootballGame,type FootballLeague} from '@/lib/football';
@@ -31,13 +32,14 @@ async function request(url:string,signal:AbortSignal){
   const d=await r.json();if(!r.ok)throw Error(d.error||'資料更新失敗');return d;
 }
 export default function FootballBoard(){
+  const viewOnly=useViewOnly();
   const odds=useSource<any>('member-odds',60000);
   const [league,setLeague]=useState<FootballLeague>('eng.1'),[day,setDay]=useState(footballDay);
   const [view,setView]=useState<FootballView>('analysis'),[initialized,setInitialized]=useState(false),[settings,setSettings]=useState<FootballModelSettings>(defaultFootballSettings),[settingsLeague,setSettingsLeague]=useState('');
   const viewRef=useRef(view);viewRef.current=view;
   const settingsSignature=customFootballSettings(settings)?JSON.stringify(settings):'';
   const teamBook=useTeamWeightBook(league);
-  const gameSettings=(game:FootballGame)=>{try{return footballFixtureSettings(localStorage,league,{id:game.id,start:game.start,homeId:game.home.id,awayId:game.away.id},settings,teamBook.book);}catch{return settings;}};
+  const gameSettings=(game:FootballGame)=>{if(viewOnly)return defaultFootballSettings();try{return footballFixtureSettings(localStorage,league,{id:game.id,start:game.start,homeId:game.home.id,awayId:game.away.id},settings,teamBook.book);}catch{return settings;}};
   const [board,setBoard]=useState<Board|null>(null),[reports,setReports]=useState<Record<string,Report>>({});
   const [analysisActivity,setAnalysisActivity]=useState<Record<string,FootballAnalysisActivity>>({});
   const [error,setError]=useState(''),[loading,setLoading]=useState(true),[nextBusy,setNextBusy]=useState(false),[notice,setNotice]=useState('');
@@ -47,7 +49,7 @@ export default function FootballBoard(){
   const today=useRef(footballDay());
   const selected=FOOTBALL_LEAGUES.find(l=>l.code===league)!;
   useEffect(()=>{const p=new URLSearchParams(window.location.search),competition=p.get('competition'),date=p.get('date'),page=p.get('view');if(competition&&isFootballLeague(competition))setLeague(competition);if(date&&validFootballDay(date)&&Math.abs(Date.parse(date)-Date.parse(footballDay()))<=365*86400000)setDay(date);if(isFootballView(page))setView(page);setInitialized(true);},[]);
-  useEffect(()=>{try{setSettings(parseFootballSettings(localStorage.getItem(footballSettingsKey(league)))||defaultFootballSettings());}catch{setSettings(defaultFootballSettings());}setSettingsLeague(league);},[league]);
+  useEffect(()=>{try{setSettings(viewOnly?defaultFootballSettings():parseFootballSettings(localStorage.getItem(footballSettingsKey(league)))||defaultFootballSettings());}catch{setSettings(defaultFootballSettings());}setSettingsLeague(league);},[league,viewOnly]);
   useEffect(()=>{if(!initialized)return;const p=new URLSearchParams(window.location.search);p.set('league','FOOTBALL');p.set('competition',league);p.set('date',day);p.set('view',view);window.history.replaceState(null,'','/?'+p);},[league,day,view,initialized]);
   function applySettings(next:FootballModelSettings){setSettings(next);try{localStorage.setItem(footballSettingsKey(league),JSON.stringify(next));}catch{/* Session settings still apply if browser storage is unavailable. */}}
 

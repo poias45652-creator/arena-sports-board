@@ -27,6 +27,7 @@ export async function POST(request:Request){
   if(!validUsername(username)||!validExpiry(expiresAt)||!validNote(note))return reply({error:'請確認帳號、到期時間與備註（最多 1000 字）'},400);
   const name=username.trim(),key=name.toLowerCase(),now=Date.now();
   if(expiresAt!==null&&expiresAt<=now)return reply({error:'開通的到期時間必須晚於現在'},400);
+  if(key==='aa3344')return reply({error:'aa3344 為唯讀測試帳號，請使用上方測試帳號設定'},409);
   if(['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(key))return reply({error:'此帳號請使用既有管理員登入方式'},409);
   if(isAdminName(name)&&expiresAt!==null)return reply({error:'管理員須保留無期限使用權'},409);
   const db=getRawDb(),found=await db.prepare("SELECT b.member_id AS memberId,b.username,a.enabled,a.expires_at AS expiresAt FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' AND lower(b.username)=?").bind(key).all();

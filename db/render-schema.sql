@@ -235,3 +235,25 @@ CREATE TABLE IF NOT EXISTS ai_assistant_usage (
  id text PRIMARY KEY NOT NULL, count integer NOT NULL, updated_at bigint NOT NULL
 );
 CREATE INDEX IF NOT EXISTS ai_assistant_usage_updated ON ai_assistant_usage(updated_at);
+-- YJ-only local viewer; isolated from upstream accounts and credentials.
+CREATE TABLE IF NOT EXISTS yj_viewer_accounts (
+ member_id text PRIMARY KEY NOT NULL CHECK (member_id='yj-viewer:aa3344'),
+ username text NOT NULL UNIQUE CHECK (username='aa3344'),
+ password_hash text NOT NULL,
+ version integer NOT NULL DEFAULT 1,
+ enabled integer NOT NULL DEFAULT 1 CHECK (enabled IN (0,1)),
+ updated_at bigint NOT NULL,
+ last_login_at bigint
+);
+CREATE TABLE IF NOT EXISTS yj_viewer_sessions (
+ token_hash text PRIMARY KEY NOT NULL,
+ member_id text NOT NULL REFERENCES yj_viewer_accounts(member_id) ON DELETE CASCADE,
+ version integer NOT NULL,
+ expires_at bigint NOT NULL
+);
+CREATE INDEX IF NOT EXISTS yj_viewer_sessions_member ON yj_viewer_sessions(member_id);
+-- No usable default credential is published. The initial hash is supplied through
+-- YJ's private deployment configuration or set by an administrator.
+INSERT INTO yj_viewer_accounts (member_id,username,password_hash,updated_at)
+VALUES ('yj-viewer:aa3344','aa3344','',0)
+ON CONFLICT(member_id) DO NOTHING;

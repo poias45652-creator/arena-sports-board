@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import ts from 'typescript';
 import {readFileSync} from 'node:fs';
+import {moduleUrl} from './profile-loader.mjs';
 import {DatabaseSync} from 'node:sqlite';
 process.env.APP_ORIGIN='https://render.test';
 delete process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
@@ -20,6 +21,8 @@ const db={prepare(q){const s=sql.prepare(q);let a=[];return {bind(...v){a=v;retu
 globalThis.renderTurnstileDb=db;
 globalThis.renderTurnstileAdmin=false;
 const imports={
+ "'@/lib/arena-session'":moduleUrl('lib/arena-session.ts'),
+ "'@/lib/yj-viewer-account'":moduleUrl('lib/yj-viewer-account.ts'),
  "'@/lib/request-origin'":url(code('lib/request-origin.ts')),
  "'@/server/runtime'":url(`export const env={TZ_BINDING_KEY:${JSON.stringify(key)}}`),
  "'@/db'":url('export const getRawDb=()=>globalThis.renderTurnstileDb'),
