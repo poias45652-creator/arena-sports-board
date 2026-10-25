@@ -12,7 +12,7 @@ function allowed(element:Element){
 }
 export default function ViewOnlyBoundary({children}:{children:ReactNode}){
  const path=usePathname();
- const protectedPage=path==='/'||path.startsWith('/admin')||path.startsWith('/teams')||path.startsWith('/players')||path==='/ai-assistant';
+ const protectedPage=path==='/'||path.startsWith('/teams')||path.startsWith('/players')||path==='/ai-assistant';
  const [session,setSession]=useState<{path:string;viewer:boolean}|null>(null),[error,setError]=useState('');
  const ready=!protectedPage||session?.path===path,viewer=protectedPage&&session?.path===path&&session.viewer;
  useEffect(()=>{
