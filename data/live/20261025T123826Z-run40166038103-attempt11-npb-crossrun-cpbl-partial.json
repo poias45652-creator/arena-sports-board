@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-25",
+  "capturedAt": "2026-10-25T12:38:26.799Z",
+  "purpose": "Same-day fresh independent source verification; non-production evidence",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 11,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121170474418,
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "status": "completed",
+    "conclusion": "success",
+    "artifactId": 12598519011,
+    "artifactCreatedAt": "2026-10-25T12:38:29Z",
+    "artifactSha256": "2783c2df94d399c59d424874827c38e11dde53b557a102f8518b2a0cc940142b",
+    "downloadedZipSha256": "2783c2df94d399c59d424874827c38e11dde53b557a102f8518b2a0cc940142b",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "sourceCaptures": [
+    {
+      "capturedAt": "2026-10-25T12:37:17.826Z"
+    },
+    {
+      "capturedAt": "2026-10-25T12:38:26.799Z"
+    }
+  ],
+  "secondCapturePerformed": true,
+  "npb": {
+    "key": "NPB:2021039493",
+    "status": "live",
+    "source": "sportsnavi",
+    "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021039493/score",
+    "away": "福岡軟銀鷹",
+    "home": "橫濱DeNA海灣之星",
+    "awayScore": 4,
+    "homeScore": 3,
+    "inning": 10,
+    "half": "bottom",
+    "sourceFetchedAt1": "2026-10-25T12:37:13.900Z",
+    "sourceFetchedAt2": "2026-10-25T12:38:23.853Z",
+    "withinRunIntervalSeconds": 69.953,
+    "withinRunNumericChangesVerified": false,
+    "withinRunNumericChanges": {},
+    "sameDayCrossRunNumericChangesVerified": true,
+    "crossRunProof": {
+      "previousObservation": "data/live/20261025T115254Z-run40166038103-attempt10-npb-score-cpbl-partial.json",
+      "previousSourceFetchedAt": "2026-10-25T11:52:51.535Z",
+      "currentSourceFetchedAt": "2026-10-25T12:38:23.853Z",
+      "intervalSeconds": 2732.318,
+      "sourceIdentityUnchanged": true,
+      "statusOld": "live",
+      "statusNew": "live",
+      "changes": {
+        "awayScore": {
+          "before": 2,
+          "after": 4
+        },
+        "inning": {
+          "before": 8,
+          "after": 10
+        }
+      }
+    },
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "note": "Same-run snapshots unchanged. Cross-run same-day LIVE score/inning change independently established against previously retained 10th-attempt evidence; no unsupported zero backfill."
+  },
+  "kbo": {
+    "key": "KBO:55551025HTSS02026",
+    "status": "cancelled",
+    "source": "naver",
+    "away": "起亞虎",
+    "home": "三星獅",
+    "awayScore": null,
+    "homeScore": null,
+    "sourceFetchedAt1": "2026-10-25T12:37:13.774Z",
+    "sourceFetchedAt2": "2026-10-25T12:38:24.028Z",
+    "liveChangesVerified": false
+  },
+  "cpbl": {
+    "key": "CPBL:261025005",
+    "status": "live",
+    "source": "yahoo-tw",
+    "providerStatus": "partial",
+    "sourceRawStatus": "IN_PROGRESS",
+    "away": "中信兄弟",
+    "home": "味全龍",
+    "awayScore": 3,
+    "homeScore": 2,
+    "inning": null,
+    "half": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null,
+    "sourceListedLineupRows": 24,
+    "officialLineupConfirmed": false,
+    "sourceError": "CPBL full game payload missing after scheduled start",
+    "sourceFetchedAt1": "2026-10-25T12:37:17.236Z",
+    "sourceFetchedAt2": "2026-10-25T12:38:26.287Z",
+    "withinRunIntervalSeconds": 69.051,
+    "withinRunNumericChangesVerified": false,
+    "lastPreviousObservation": "data/live/20261025T115254Z-run40166038103-attempt10-npb-score-cpbl-partial.json",
+    "scoreUnchangedSincePreviousObservation": true,
+    "note": "Two fresh, distinct 69.051-second LIVE polls and prior 19:52 Taiwan observation all show 3:2. Yahoo full-game body unavailable; cannot confirm inning, pitch count, B/S/O, bases or actual final/live game progress. Do not treat source-listed lineup as official."
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "passed": true,
+    "rowsWritten": 3,
+    "rowsReadBack": 3,
+    "duplicateWrites": 0,
+    "checkedAt": "2026-10-25T12:38:27.899Z"
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "credentialsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownFieldBackfill": false
+  }
+}
