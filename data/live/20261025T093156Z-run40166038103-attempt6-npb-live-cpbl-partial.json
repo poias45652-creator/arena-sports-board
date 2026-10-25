@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-25",
+  "capturedAt": "2026-10-25T09:31:56.863Z",
+  "purpose": "current feed validation evidence; not production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 40166038103,
+    "runAttempt": 6,
+    "runAttemptConfirmedByApi": false,
+    "runAttemptNote": "inferred from sequential rerun of attempt 5; connector's job response does not expose run_attempt",
+    "jobId": 121131583166,
+    "artifactId": 12594037409,
+    "artifactCreatedAt": "2026-10-25T09:32:02Z",
+    "artifactSha256": "6717720f35f90010235af1fce3edeb1c836cfd6b6dd9e97807c59d7dbb078ec7",
+    "downloadedZipSha256": "6717720f35f90010235af1fce3edeb1c836cfd6b6dd9e97807c59d7dbb078ec7",
+    "artifactDigestVerifiedIndependently": true,
+    "status": "completed",
+    "conclusion": "success",
+    "capturedAt": "2026-10-25T09:31:56.863Z",
+    "observationPath": "data/live/20261025T093156Z-run40166038103-attempt6-npb-live-cpbl-partial.json",
+    "staleArtifactUsed": false
+  },
+  "verifiedCapture": {
+    "date": "2026-10-25",
+    "checkedAt": "2026-10-25T09:31:56.863Z",
+    "secondCapturePerformed": true,
+    "productionDeployed": false,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 1,
+        "final": 0,
+        "liveStateObserved": true,
+        "liveChangesVerified": true,
+        "lineupRows": 0,
+        "pitchingRows": 2,
+        "gamesSummary": [
+          {
+            "key": "NPB:2021039493",
+            "away": "福岡軟銀鷹",
+            "home": "橫濱DeNA海灣之星",
+            "startTime": "2026-10-25T09:00:00.000Z",
+            "status": "live",
+            "awayScore": 0,
+            "homeScore": 0,
+            "inning": 2,
+            "source": {
+              "provider": "sportsnavi",
+              "url": "https://baseball.yahoo.co.jp/npb/game/2021039493/score",
+              "fetchedAt": "2026-10-25T09:31:52.472Z",
+              "httpDate": "Sun, 25 Oct 2026 09:31:44 GMT",
+              "cacheAgeSeconds": 8,
+              "providerUpdatedAt": null,
+              "supportingSources": [
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-25",
+                  "fetchedAt": "2026-10-25T09:31:52.320Z"
+                },
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/game/2021039493/stats",
+                  "fetchedAt": "2026-10-25T09:31:52.623Z"
+                }
+              ]
+            },
+            "liveChangeProof": {
+              "beforeHash": "e38e8f43ca117002e8f518cf7c096f75f5f26a36d0fdb28937891dd50e871ef4",
+              "afterHash": "18944d29fd4e0081429f8c2d91711807792d93ea7ddebfaede1c0d3d4c09a356",
+              "beforeFetchedAt": "2026-10-25T09:30:42.336Z",
+              "afterFetchedAt": "2026-10-25T09:31:52.472Z",
+              "intervalSeconds": 70.136,
+              "changes": {
+                "awayPitching": {
+                  "モイネロ:pitchCount": {
+                    "before": 11,
+                    "after": 16
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      {
+        "league": "KBO",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "KBO:55551025HTSS02026",
+            "away": "起亞虎",
+            "home": "三星獅",
+            "startTime": "2026-10-25T05:00:00.000Z",
+            "status": "cancelled",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "naver",
+              "url": "https://api-gw.sports.naver.com/schedule/games/55551025HTSS02026/game-polling",
+              "fetchedAt": "2026-10-25T09:31:52.297Z",
+              "httpDate": "Sun, 25 Oct 2026 09:31:52 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "CPBL",
+        "games": 1,
+        "status": "partial",
+        "errors": [
+          "CPBL full game payload missing after scheduled start",
+          "CPBL full game payload missing after scheduled start"
+        ],
+        "pregame": 1,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 20,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "CPBL:261025005",
+            "away": "中信兄弟",
+            "home": "味全龍",
+            "startTime": "2026-10-25T09:05:00.000Z",
+            "status": "pregame",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "yahoo-tw",
+              "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261025005/",
+              "fetchedAt": "2026-10-25T09:31:55.343Z",
+              "httpDate": "Sun, 25 Oct 2026 09:31:55 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null
+            },
+            "liveChangeProof": null
+          }
+        ]
+      }
+    ]
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-25T09:32:00.683Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "polling": {
+    "liveGames": 1,
+    "secondCapturePerformed": true,
+    "intervalSeconds": 70.136,
+    "qualifiedNumericChanges": 1,
+    "NPB": {
+      "key": "NPB:2021039493",
+      "status": "live",
+      "inning": 2,
+      "half": "bottom",
+      "scoreAway": 0,
+      "scoreHome": 0,
+      "fromCaptureAt": "2026-10-25T09:30:45.860Z",
+      "toCaptureAt": "2026-10-25T09:31:56.863Z",
+      "changes": {
+        "awayPitching": {
+          "モイネロ:pitchCount": {
+            "before": 11,
+            "after": 16
+          }
+        }
+      },
+      "liveChangeProof": {
+        "beforeHash": "e38e8f43ca117002e8f518cf7c096f75f5f26a36d0fdb28937891dd50e871ef4",
+        "afterHash": "18944d29fd4e0081429f8c2d91711807792d93ea7ddebfaede1c0d3d4c09a356",
+        "beforeFetchedAt": "2026-10-25T09:30:42.336Z",
+        "afterFetchedAt": "2026-10-25T09:31:52.472Z",
+        "intervalSeconds": 70.136,
+        "changes": {
+          "awayPitching": {
+            "モイネロ:pitchCount": {
+              "before": 11,
+              "after": 16
+            }
+          }
+        }
+      },
+      "sourceSnapshots": [
+        {
+          "fetchedAt": "2026-10-25T09:30:42.336Z",
+          "scoreAway": 0,
+          "scoreHome": 0,
+          "inning": 2,
+          "half": "bottom",
+          "pitchers": [
+            {
+              "name": "モイネロ",
+              "pitchCount": 11,
+              "outsRecorded": 4
+            },
+            {
+              "name": "尾形 崇斗",
+              "pitchCount": 33,
+              "outsRecorded": 6
+            }
+          ]
+        },
+        {
+          "fetchedAt": "2026-10-25T09:31:52.472Z",
+          "scoreAway": 0,
+          "scoreHome": 0,
+          "inning": 2,
+          "half": "bottom",
+          "pitchers": [
+            {
+              "name": "モイネロ",
+              "pitchCount": 16,
+              "outsRecorded": 4
+            },
+            {
+              "name": "尾形 崇斗",
+              "pitchCount": 33,
+              "outsRecorded": 6
+            }
+          ]
+        }
+      ],
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "cpblWarning": {
+    "gameKey": "CPBL:261025005",
+    "status": "pregame",
+    "sourceStatus": "partial",
+    "errors": [
+      "CPBL full game payload missing after scheduled start",
+      "CPBL full game payload missing after scheduled start"
+    ],
+    "lineupRowsSourceListed": 20,
+    "officialLineupConfirmed": false,
+    "score": null,
+    "inning": null,
+    "pitchCount": null,
+    "bases": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "warning": "Yahoo full game payload missing after scheduled 17:05 start; source still PREGAME 17:31 Taipei, actual on-field state not independently asserted.",
+    "action": "Do not infer LIVE or overwrite null with zero; find free authorized official live source/repair parser in isolated branch only when independently verified."
+  },
+  "previousSameDayObservation": {
+    "path": "data/live/20261025T092851Z-run40166038103-attempt5-live-partial.json",
+    "artifactId": 12593637255,
+    "runAttempt": 5
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "credentialsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownFieldBackfill": false
+  }
+}
