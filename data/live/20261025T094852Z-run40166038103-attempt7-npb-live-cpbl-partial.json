@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-25",
+  "capturedAt": "2026-10-25T09:48:52.588Z",
+  "purpose": "Current baseball collector same-day live validation; isolation branch only; not production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 7,
+    "runAttemptConfirmedByApi": true,
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "jobId": 121135075363,
+    "artifactId": 12594771000,
+    "artifactCreatedAt": "2026-10-25T09:48:55Z",
+    "artifactSha256": "584aff21929b79c0cc83b5a5b8e04f54bfa09f25633acbcd6328458cc0de2e6d",
+    "downloadedZipSha256": "584aff21929b79c0cc83b5a5b8e04f54bfa09f25633acbcd6328458cc0de2e6d",
+    "artifactDigestVerifiedIndependently": true,
+    "status": "completed",
+    "conclusion": "success",
+    "artifactCaptureDateVerified": true,
+    "observationPath": "data/live/20261025T094852Z-run40166038103-attempt7-npb-live-cpbl-partial.json",
+    "staleArtifactUsed": false
+  },
+  "capture1At": "2026-10-25T09:47:43.562Z",
+  "capture2At": "2026-10-25T09:48:52.588Z",
+  "secondCapturePerformed": true,
+  "npb": {
+    "gameKey": "NPB:2021039493",
+    "status": "live",
+    "source": "sportsnavi",
+    "away": "福岡軟銀鷹",
+    "home": "橫濱DeNA海灣之星",
+    "sourceUrl": "https://baseball.yahoo.co.jp/npb/game/2021039493/score",
+    "awayScore": 1,
+    "homeScore": 0,
+    "inning": 3,
+    "half": "top",
+    "liveChangesVerified": true,
+    "sourceCapture1": "2026-10-25T09:47:38.951Z",
+    "sourceCapture2": "2026-10-25T09:48:49.233Z",
+    "intervalSeconds": 70.282,
+    "withinRunChanges": {
+      "homePitching.尾形 崇斗.pitchCount": {
+        "before": 46,
+        "after": 49
+      },
+      "homePitching.尾形 崇斗.outsRecorded": {
+        "before": 7,
+        "after": 8
+      }
+    },
+    "crossRunReference": "data/live/20261025T093156Z-run40166038103-attempt6-npb-live-cpbl-partial.json",
+    "crossRunScoreChange": {
+      "away": {
+        "before": 0,
+        "after": 1
+      },
+      "home": {
+        "before": 0,
+        "after": 0
+      }
+    },
+    "pitcherAway": {
+      "name": "モイネロ",
+      "pitchCount": 30,
+      "outsRecorded": 6
+    },
+    "pitcherHome": {
+      "name": "尾形 崇斗",
+      "pitchCount": 49,
+      "outsRecorded": 8
+    },
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null
+  },
+  "kbo": {
+    "gameKey": "KBO:55551025HTSS02026",
+    "source": "naver",
+    "status": "cancelled",
+    "away": "起亞虎",
+    "home": "三星獅",
+    "games": 1,
+    "liveGames": 0,
+    "score": null
+  },
+  "cpbl": {
+    "gameKey": "CPBL:261025005",
+    "source": "yahoo-tw",
+    "status": "pregame",
+    "sourceStatus": "partial",
+    "away": "中信兄弟",
+    "home": "味全龍",
+    "scheduledStartTaipei": "2026-10-25T17:05:00+08:00",
+    "sourceFetchedAt": "2026-10-25T09:48:51.776Z",
+    "error": "CPBL full game payload missing after scheduled start",
+    "liveStateVerified": false,
+    "sourceListedLineupRows": 20,
+    "officialLineupConfirmed": false,
+    "score": null,
+    "inning": null,
+    "balls": null,
+    "strikes": null,
+    "outs": null,
+    "bases": null,
+    "pitchCount": null,
+    "action": "Do not mark LIVE; do not manufacture null fields; retry public authorized CPBL detailed sources and retain evidence."
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16",
+    "checkedAt": "2026-10-25T09:48:53.657Z",
+    "productionWritten": false,
+    "written": 3,
+    "readBack": 3,
+    "duplicateWrites": 0,
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "readBack": 1
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "readBack": 1
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "readBack": 1
+      }
+    ]
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "credentialsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownFieldBackfill": false
+  }
+}
