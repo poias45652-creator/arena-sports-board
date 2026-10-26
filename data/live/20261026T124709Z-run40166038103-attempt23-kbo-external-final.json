@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T12:47:09.671Z",
+  "externalReadRecordedAt": "2026-10-26T12:51:53.696Z",
+  "purpose": "2026-10-26 collector attempt 23: preserve its fresh artifact and identify valid KBO final on public Naver JSON using a separate read-only fetch context despite GitHub Actions source timeout. External result not misrepresented as a collector success.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 23,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121579661484,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12650363326,
+    "artifactCreatedAt": "2026-10-26T12:47:14Z",
+    "artifactDigest": "sha256:e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
+    "downloadedZipSha256": "e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
+    "artifactDigestVerifiedIndependently": true,
+    "capturedAt": "2026-10-26T12:47:09.671Z",
+    "observedAt": "2026-10-26T12:51:53.696Z",
+    "observationPath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json",
+    "secondCapturePerformed": false,
+    "liveGames": 0,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 1
+    },
+    "externalKboFinalFound": true,
+    "externalKboResultNotYetCollectorValidated": true,
+    "isolatedDatabaseTest": "passed_npb_0_kbo_unavailable_cpbl_1"
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "offDayVerified": true,
+      "firstTeamGames": 0,
+      "source": "sportsnavi",
+      "sourceFetchedAt": "2026-10-26T12:46:50.473Z"
+    },
+    "KBO": {
+      "status": "collector_unavailable_external_public_json_valid",
+      "collectorStatus": "unavailable",
+      "collectorError": "The operation was aborted due to timeout",
+      "externalReadMethod": "TinyFish fetch_content, public GET via alternate network (not GitHub Actions runner)",
+      "externallyVerifiedAt": "2026-10-26T12:51:53.696Z",
+      "gameKey": "KBO:55551026HTSS02026",
+      "gameId": "55551026HTSS02026",
+      "gameDate": "2026-10-26",
+      "categoryId": "kbo",
+      "roundCode": "kbo_ps_po",
+      "awayTeamCode": "HT",
+      "awayTeamName": "KIA",
+      "awayScore": 5,
+      "homeTeamCode": "SS",
+      "homeTeamName": "삼성",
+      "homeScore": 1,
+      "gameStatus": "final",
+      "rawStatusCode": "RESULT",
+      "statusInfo": "9회말",
+      "inningLabel": "9회말",
+      "innings": {
+        "away": [
+          2,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "home": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "inningRunsSumMatchesScore": true,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false,
+      "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/55551026HTSS02026/game-polling",
+      "sourceProvider": "naver",
+      "providerUpdatedAt": null,
+      "checks": {
+        "apiSuccess": true,
+        "gameId": true,
+        "firstTeam": true,
+        "sameDay": true,
+        "teams": true,
+        "final": true,
+        "scoreMatchesInnings": true,
+        "liveRelayPresent": true
+      },
+      "isThisRunGitHubCollectorResult": false,
+      "siteCollectorUsable": false,
+      "note": "Public source currently responds outside GitHub Actions; GH runner still times out, so not yet continuously ingestible into website. No verified LIVE-to-LIVE delta on this observation."
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 1,
+      "gameKey": "CPBL:261026006",
+      "gameStatus": "final",
+      "away": "中信兄弟",
+      "awayScore": 0,
+      "home": "味全龍",
+      "homeScore": 6,
+      "sourceFetchedAt": "2026-10-26T12:46:53.728Z",
+      "sourceProvider": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false,
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "earlierSameDayLiveProofRetained": true
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T12:47:12.393Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
