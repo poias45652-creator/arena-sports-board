@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T10:39:31.974Z",
+  "purpose": "Fresh 2026-10-26 current-baseball collector run, CPBL G6 final and continuing KBO timeout; evidence only, no production changes.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "jobId": 121525244225,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "runAttempt": null,
+    "runAttemptEstimated": 22,
+    "runAttemptConfirmedByApi": false,
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12643647960,
+    "artifactCreatedAt": "2026-10-26T10:39:34Z",
+    "artifactDigest": "sha256:38295f9b4eed85af86d3f3e2301806150184d1207a2aaa04f10be5593a983705",
+    "downloadedZipSha256": "38295f9b4eed85af86d3f3e2301806150184d1207a2aaa04f10be5593a983705",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-26T10:39:31.974Z",
+    "observationPath": "data/live/20261026T103931Z-run40166038103-job121525244225-cpbl-final-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "liveGames": 0,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 1
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_0_kbo_unavailable_cpbl_1"
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "offDayVerified": true,
+      "offDayMarker": "試合はありません",
+      "sourceFetchedAt": "2026-10-26T10:39:13.193Z",
+      "sourceUrl": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-26"
+    },
+    "KBO": {
+      "status": "unavailable",
+      "reportedFirstTeamGames": null,
+      "gameStatus": null,
+      "lastConfirmedGameKey": "KBO:55551026HTSS02026",
+      "lastConfirmedStatus": "pregame",
+      "lastConfirmedStartTaipei": "2026-10-26T18:30:00+08:00",
+      "errors": [
+        "The operation was aborted due to timeout"
+      ],
+      "source": "naver",
+      "doNotInterpretAsOffDay": true
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 1,
+      "gameKey": "CPBL:261026006",
+      "away": "中信兄弟",
+      "home": "味全龍",
+      "gameDate": "2026-10-26",
+      "gameStatus": "final",
+      "priorGameStatus": "live",
+      "awayScore": 0,
+      "homeScore": 6,
+      "awayHits": 2,
+      "homeHits": 12,
+      "sourceFetchedAt": "2026-10-26T10:39:16.983Z",
+      "sourceProvider": "yahoo-tw",
+      "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261026006/",
+      "innings": {
+        "away": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "home": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0
+        ]
+      },
+      "inningRunsSumMatchesScore": true,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "pitchingRows": 7,
+      "pitchingOuts": [
+        {
+          "name": "勝騎士",
+          "outsRecorded": 15,
+          "pitchCount": null
+        },
+        {
+          "name": "鄭浩均",
+          "outsRecorded": 6,
+          "pitchCount": null
+        },
+        {
+          "name": "蔡齊哲",
+          "outsRecorded": 0,
+          "pitchCount": null
+        },
+        {
+          "name": "江忠城",
+          "outsRecorded": 3,
+          "pitchCount": null
+        },
+        {
+          "name": "梅賽鍶",
+          "outsRecorded": 24,
+          "pitchCount": null
+        },
+        {
+          "name": "林子昱",
+          "outsRecorded": 2,
+          "pitchCount": null
+        },
+        {
+          "name": "林凱威",
+          "outsRecorded": 1,
+          "pitchCount": null
+        }
+      ],
+      "sourceListedLineupRows": 26,
+      "officialLineupConfirmed": false,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "lineup_confirmation_not_verified",
+        "pitch_count_not_supplied",
+        "pitch_by_pitch_not_supplied"
+      ],
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ]
+    }
+  },
+  "evidenceComparison": {
+    "previousObservationPath": "data/live/20261026T094648Z-run40166038103-attempt21-cpbl-score6-kbo-timeout.json",
+    "previousCapturedAt": "2026-10-26T09:46:48.114Z",
+    "previousCpblState": "live",
+    "currentCpblState": "final",
+    "previousScore": {
+      "away": 0,
+      "home": 6
+    },
+    "currentScore": {
+      "away": 0,
+      "home": 6
+    },
+    "statusTransitionVerified": true,
+    "withinRunLiveToLiveNumericChangeVerified": false,
+    "earlierSameDayCpblLiveToLiveNumericChangeProofRetained": true
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T10:39:33.373Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
