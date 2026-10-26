@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T05:17:33.664Z",
+  "purpose": "Fresh 2026-10-26 first-team baseball verification: NPB off day; KBO and CPBL pregame. Not a LIVE numeric change.",
+  "collectionKind": "github-actions-artifact-fresh",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 14,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121410884260,
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "status": "completed",
+    "conclusion": "success",
+    "artifactId": 12629261525,
+    "artifactCreatedAt": "2026-10-26T05:17:36Z",
+    "artifactSha256": "2bbb21eef494534cb79693c071221d5ad393281267552d8efb843aa1ad42fac4",
+    "downloadedZipSha256": "2bbb21eef494534cb79693c071221d5ad393281267552d8efb843aa1ad42fac4",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-26T05:17:33.664Z",
+    "observationPath": "data/live/20261026T051733Z-run40166038103-attempt14-pregame-offday.json",
+    "liveGames": 0,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": 1,
+      "CPBL": 1
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": 0,
+      "CPBL": 0
+    },
+    "secondCapturePerformed": false,
+    "withinRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_0_kbo_1_cpbl_1",
+    "cpblQuarantinedMetadataKey": "CPBL:261026007"
+  },
+  "sourceCaptures": [
+    {
+      "capturedAt": "2026-10-26T05:17:33.664Z"
+    }
+  ],
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No LIVE games in the fresh first capture. Do not fabricate 65-second dual capture or score changes.",
+  "leagues": [
+    {
+      "league": "NPB",
+      "status": "ok",
+      "games": 0,
+      "live": 0,
+      "pregame": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-26",
+        "fetchedAt": "2026-10-26T05:17:30.421Z",
+        "marker": "試合はありません"
+      }
+    },
+    {
+      "league": "KBO",
+      "status": "ok",
+      "games": 1,
+      "live": 0,
+      "pregame": 1,
+      "final": 0,
+      "errors": [],
+      "game": {
+        "key": "KBO:55551026HTSS02026",
+        "date": "2026-10-26",
+        "status": "pregame",
+        "rawStatus": "BEFORE",
+        "away": "起亞虎",
+        "home": "三星獅",
+        "awayScore": null,
+        "homeScore": null,
+        "startTime": "2026-10-26T09:30:00.000Z",
+        "source": {
+          "provider": "naver",
+          "url": "https://api-gw.sports.naver.com/schedule/games/55551026HTSS02026/game-polling",
+          "fetchedAt": "2026-10-26T05:17:30.559Z",
+          "httpDate": "Mon, 26 Oct 2026 05:17:30 GMT",
+          "providerUpdatedAt": null
+        },
+        "lineupOfficiallyConfirmed": false,
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "liveChangesVerified": false,
+        "warnings": [
+          "game_id_contains_original_schedule_date",
+          "provider_update_time_not_supplied"
+        ]
+      },
+      "independentOfficialSchedule": "https://www.koreabaseball.com/schedule/scoreboard.aspx"
+    },
+    {
+      "league": "CPBL",
+      "status": "partial",
+      "games": 1,
+      "live": 0,
+      "pregame": 1,
+      "final": 0,
+      "errors": [
+        "CPBL schedule collision: quarantined 1 unverified same-slot entry/entries"
+      ],
+      "game": {
+        "key": "CPBL:261026006",
+        "date": "2026-10-26",
+        "status": "pregame",
+        "rawStatus": "PREGAME",
+        "away": "中信兄弟",
+        "home": "味全龍",
+        "awayScore": null,
+        "homeScore": null,
+        "startTime": "2026-10-26T07:05:00.000Z",
+        "source": {
+          "provider": "yahoo-tw",
+          "url": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261026006/",
+          "fetchedAt": "2026-10-26T05:17:33.277Z",
+          "httpDate": "Mon, 26 Oct 2026 05:17:33 GMT",
+          "providerUpdatedAt": null
+        },
+        "lineupOfficiallyConfirmed": false,
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null,
+        "liveChangesVerified": false,
+        "warnings": [
+          "provider_update_time_not_supplied",
+          "lineup_confirmation_not_verified",
+          "pitch_by_pitch_not_supplied"
+        ]
+      },
+      "quarantinedScheduleEntries": [
+        {
+          "key": "CPBL:261026007",
+          "status": "pregame",
+          "date": "2026-10-26",
+          "startTime": "2026-10-26T07:05:00.000Z",
+          "awayId": "cpbl.t.1",
+          "homeId": "cpbl.t.7",
+          "reason": "same teams/start as uniquely detailed CPBL game CPBL:261026006"
+        }
+      ],
+      "independentGameSchedule": "https://www.nownews.com/news/6886562"
+    }
+  ],
+  "comparisonWithPreviousSameDayObservation": {
+    "priorObservation": null,
+    "reason": "First collector observation for Taiwan date 2026-10-26",
+    "newVerifiedNumericLiveChanges": 0,
+    "newlyVerifiedFields": [],
+    "newSourceFailures": [],
+    "sourceQualityIssue": "CPBL schedule contains duplicated metadata-only same-slot G7; collector quarantines it; G6 retained."
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-10-26T05:17:35.255Z",
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0,
+    "details": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ]
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "credentialsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownFieldBackfill": false
+  }
+}
