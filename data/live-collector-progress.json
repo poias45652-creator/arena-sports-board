@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-26T12:47:09.671Z",
+  "observedAt": "2026-10-26T13:00:05.949Z",
   "dateAsiaTaipei": "2026-10-26",
   "currentGames": {
     "NPB": 0,
@@ -22,7 +22,7 @@
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "checkedAt": "2026-10-26T12:47:12.393Z",
+    "checkedAt": "2026-10-26T13:00:07.846Z",
     "passed": true,
     "rowsWritten": 1,
     "rowsReadBack": 1,
@@ -41,7 +41,7 @@
         "readBack": 0,
         "duplicateWrites": 0,
         "passed": true,
-        "note": "collector timed out; external read separate"
+        "note": "collector timed out; external prior final proof retained"
       },
       {
         "league": "CPBL",
@@ -1934,10 +1934,11 @@
           20,
           21,
           22,
-          23
+          23,
+          24
         ],
         "firstFailedAt": "2026-10-26T09:31:04.923Z",
-        "lastFailedAt": "2026-10-26T12:47:09.671Z",
+        "lastFailedAt": "2026-10-26T13:00:05.949Z",
         "error": "The operation was aborted due to timeout",
         "notOffDay": true,
         "runAttempt22EstimatedNotApiConfirmed": true,
@@ -2035,11 +2036,12 @@
         "homeHits": 12,
         "pitchingRows": 7,
         "sourceListedLineupRows": 26,
-        "latestSourceFetchedAt": "2026-10-26T12:46:53.728Z",
+        "latestSourceFetchedAt": "2026-10-26T12:59:51.050Z",
         "finalInningsSumVerified": true,
         "finalObservedAt": "2026-10-26T10:39:31.974Z",
         "finalObservationPath": "data/live/20261026T103931Z-run40166038103-job121525244225-cpbl-final-kbo-timeout.json",
-        "previousDailyLiveNumericChangeVerified": true
+        "previousDailyLiveNumericChangeVerified": true,
+        "latestObservationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json"
       },
       "allVerified": false,
       "reason": "2026-10-26 attempt 23 collector passed isolated DB but KBO Naver timed out from GitHub runner. An independent public Naver JSON read confirmed KIA 5:1 Samsung FINAL; same-run collector delivery remains unavailable, so currentGames.KBO stays null. NPB off day, CPBL 0:6 FINAL with prior LIVE proof retained.",
@@ -2050,20 +2052,20 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 40166038103,
-        "runAttempt": 23,
+        "runAttempt": 24,
         "runAttemptConfirmedByApi": true,
-        "jobId": 121579661484,
+        "jobId": 121585499867,
         "jobStatus": "completed",
         "jobConclusion": "success",
         "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
-        "artifactId": 12650363326,
-        "artifactCreatedAt": "2026-10-26T12:47:14Z",
-        "artifactDigest": "sha256:e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
-        "downloadedZipSha256": "e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
+        "artifactId": 12650494784,
+        "artifactCreatedAt": "2026-10-26T13:00:09Z",
+        "artifactDigest": "sha256:9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
+        "downloadedZipSha256": "9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
         "artifactDigestVerifiedIndependently": true,
-        "capturedAt": "2026-10-26T12:47:09.671Z",
-        "observedAt": "2026-10-26T12:51:53.696Z",
-        "observationPath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json",
+        "staleArtifactUsed": false,
+        "capturedAt": "2026-10-26T13:00:05.949Z",
+        "observationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json",
         "secondCapturePerformed": false,
         "liveGames": 0,
         "pregameGames": {
@@ -2076,8 +2078,7 @@
           "KBO": null,
           "CPBL": 1
         },
-        "externalKboFinalFound": true,
-        "externalKboResultNotYetCollectorValidated": true,
+        "currentRunQualifiedNumericChanges": 0,
         "isolatedDatabaseTest": "passed_npb_0_kbo_unavailable_cpbl_1"
       }
     }
@@ -2379,8 +2380,8 @@
   "currentDayLiveChangeProof": {
     "date": "2026-10-26",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261026T103931Z-run40166038103-job121525244225-cpbl-final-kbo-timeout.json",
-    "checkedAt": "2026-10-26T10:39:31.974Z",
+    "latestObservationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json",
+    "checkedAt": "2026-10-26T13:00:05.949Z",
     "NPB": {
       "verified": false,
       "notApplicableToday": true,
@@ -2393,7 +2394,7 @@
       "notApplicableToday": false,
       "state": "unavailable_timeout",
       "games": null,
-      "lastKnownState": "pregame",
+      "lastKnownState": "final_external_not_in_collector",
       "lastKnownGames": 1,
       "liveGames": null,
       "awayScore": null,
@@ -2410,9 +2411,12 @@
         19,
         20,
         21,
-        22
+        22,
+        23,
+        24
       ],
-      "runAttempt22EstimatedNotApiConfirmed": true
+      "runAttempt22EstimatedNotApiConfirmed": true,
+      "externalResultEvidencePath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json"
     },
     "CPBL": {
       "verified": true,
@@ -2448,8 +2452,8 @@
       "finalInningsSumVerified": true,
       "pitchingRows": 7,
       "sourceListedLineupRows": 26,
-      "latestObservationPath": "data/live/20261026T103931Z-run40166038103-job121525244225-cpbl-final-kbo-timeout.json",
-      "sourceFetchedAt": "2026-10-26T10:39:16.983Z",
+      "latestObservationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json",
+      "sourceFetchedAt": "2026-10-26T12:59:51.050Z",
       "withinRunNumericChangeVerified": false,
       "priorSameDayLiveNumericChangeVerified": true
     },
@@ -2464,28 +2468,27 @@
     "withinRunNumericChangeVerified": false,
     "crossRunNumericChangeVerified": true
   },
-  "nextAction": "Continue daily same-day checks. NPB no games confirmed today. KBO Naver repeatedly timed out even after scheduled 18:30 start; test a legal free public alternative without bypassing challenges or asserting zero games. CPBL G6 FINAL 0:6 verified with 9-inning sum and pitcher outs but missing inning/B/S/O/bases/pitchCount remain null. Do not modify production.",
+  "nextAction": "Continue daily fresh validation. NPB has no first-team games Oct26; KBO public Naver JSON final 5:1 works in separate network context but GitHub runner timed out again at attempt 24, so investigate lawful network/path alternatives and do not call KBO collector usable. CPBL G6 final 0:6 with verified innings and pitcher outs, but inning/B/S/O/bases/pitchCount remain null. Do not modify production.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40166038103,
-    "jobId": 121525244225,
+    "runAttempt": 24,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121585499867,
     "jobStatus": "completed",
     "jobConclusion": "success",
-    "runAttempt": null,
-    "runAttemptEstimated": 22,
-    "runAttemptConfirmedByApi": false,
     "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
-    "artifactId": 12643647960,
-    "artifactCreatedAt": "2026-10-26T10:39:34Z",
-    "artifactDigest": "sha256:38295f9b4eed85af86d3f3e2301806150184d1207a2aaa04f10be5593a983705",
-    "downloadedZipSha256": "38295f9b4eed85af86d3f3e2301806150184d1207a2aaa04f10be5593a983705",
+    "artifactId": 12650494784,
+    "artifactCreatedAt": "2026-10-26T13:00:09Z",
+    "artifactDigest": "sha256:9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
+    "downloadedZipSha256": "9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-26T10:39:31.974Z",
-    "observationPath": "data/live/20261026T103931Z-run40166038103-job121525244225-cpbl-final-kbo-timeout.json",
+    "capturedAt": "2026-10-26T13:00:05.949Z",
+    "observationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json",
     "secondCapturePerformed": false,
     "liveGames": 0,
     "pregameGames": {
@@ -2540,20 +2543,20 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40166038103,
-    "runAttempt": 23,
+    "runAttempt": 24,
     "runAttemptConfirmedByApi": true,
-    "jobId": 121579661484,
+    "jobId": 121585499867,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
-    "artifactId": 12650363326,
-    "artifactCreatedAt": "2026-10-26T12:47:14Z",
-    "artifactDigest": "sha256:e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
-    "downloadedZipSha256": "e8930c6d9e69f63256cdf408dbedb7995a0a03707d0411fef630bddf31c7dc53",
+    "artifactId": 12650494784,
+    "artifactCreatedAt": "2026-10-26T13:00:09Z",
+    "artifactDigest": "sha256:9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
+    "downloadedZipSha256": "9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
     "artifactDigestVerifiedIndependently": true,
-    "capturedAt": "2026-10-26T12:47:09.671Z",
-    "observedAt": "2026-10-26T12:51:53.696Z",
-    "observationPath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json",
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-26T13:00:05.949Z",
+    "observationPath": "data/live/20261026T130005Z-run40166038103-attempt24-kbo-timeout-cpbl-final.json",
     "secondCapturePerformed": false,
     "liveGames": 0,
     "pregameGames": {
@@ -2566,8 +2569,7 @@
       "KBO": null,
       "CPBL": 1
     },
-    "externalKboFinalFound": true,
-    "externalKboResultNotYetCollectorValidated": true,
+    "currentRunQualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_npb_0_kbo_unavailable_cpbl_1"
   }
 }
