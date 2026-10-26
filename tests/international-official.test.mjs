@@ -1,10 +1,8 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import test from 'node:test';
-import ts from 'typescript';
-const moduleUrl=code=>'data:text/javascript;base64,'+Buffer.from(ts.transpileModule(code,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64');
-const aliases=moduleUrl(readFileSync('lib/international-teams.ts','utf8'));
-const {parseInternational,yahooObjects}=await import(moduleUrl(readFileSync('lib/international.ts','utf8').replace("'./international-teams'",JSON.stringify(aliases))));
+import {moduleUrl} from './profile-loader.mjs';
+const {parseInternational,yahooObjects}=await import(moduleUrl('lib/international.ts'));
 const row=(date,score,note='-')=>`<tr>${date?`<td title="DATE" rowspan="2">${date}</td><td title="TYPE">REGULAR</td>`:''}<td class="TIME">18:30</td><td title="GAME">LG</td><td title="GAME">${score}</td><td title="GAME">DOOSAN</td><td class="LOCATION">JAMSIL</td><td class="ETC">${note}</td></tr>`;
 const month='<span id="lblGameMonth">2026.09</span>';
 test('KBO inherited rowspan dates and time zone stay paired with each game',()=>{

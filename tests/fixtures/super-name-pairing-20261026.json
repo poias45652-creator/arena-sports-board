@@ -1,0 +1,420 @@
+{
+  "observedAt": "2026-10-26T12:19:52.120792+00:00",
+  "method": "Original SUPER pregame identities from production logs, compared with ESPN schedules retrieved on October 26. Historical tests replay pregame state explicitly; no odds or prices captured.",
+  "canonicalLabelSource": "https://schalke04.de/inside-en/neujahrsgruesse-schalke-ueberrascht-fans-in-china/",
+  "cases": [
+    {
+      "capturedAt": "2026-10-23T15:39:29.631Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/fra.1/scoreboard?dates=20261023&limit=100",
+      "fixture": {
+        "id": 25125169,
+        "sport": "FOOTBALL",
+        "competition": "fra.1",
+        "leagueName": "法國甲級聯賽",
+        "home": "布雷斯特(主)",
+        "away": "奈斯",
+        "start": "2026/10/24 02:45:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401876428",
+            "date": "2026-10-23T18:45Z",
+            "season": {
+              "year": 2026,
+              "type": 14252,
+              "slug": "2026-27-ligue-1"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-23T18:45Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "displayClock": "90'+11'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "6997",
+                      "displayName": "Brest"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "2502",
+                      "displayName": "Nice"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capturedAt": "2026-10-23T15:39:29.631Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20261024&limit=100",
+      "fixture": {
+        "id": 25128377,
+        "sport": "FOOTBALL",
+        "competition": "esp.1",
+        "leagueName": "西班牙甲級聯賽",
+        "home": "巴列卡諾(主)",
+        "away": "艾爾切",
+        "start": "2026/10/24 20:00:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401882830",
+            "date": "2026-10-24T12:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14357,
+              "slug": "2026-27-laliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T12:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "displayClock": "90'+5'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "101",
+                      "displayName": "Rayo Vallecano"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "3751",
+                      "displayName": "Elche"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capturedAt": "2026-10-23T15:39:29.631Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/ita.1/scoreboard?dates=20261024&limit=100",
+      "fixture": {
+        "id": 25128386,
+        "sport": "FOOTBALL",
+        "competition": "ita.1",
+        "leagueName": "意大利甲級聯賽",
+        "home": "科木(主)",
+        "away": "薩斯索羅",
+        "start": "2026/10/24 21:00:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401874961",
+            "date": "2026-10-24T13:00Z",
+            "season": {
+              "year": 2026,
+              "type": 14240,
+              "slug": "2026-27-italian-serie-a"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T13:00Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "displayClock": "90'+4'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "2572",
+                      "displayName": "Como"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "3997",
+                      "displayName": "Sassuolo"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capturedAt": "2026-10-23T15:39:29.631Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/ger.1/scoreboard?dates=20261024&limit=100",
+      "fixture": {
+        "id": 25128392,
+        "sport": "FOOTBALL",
+        "competition": "ger.1",
+        "leagueName": "德國甲級聯賽",
+        "home": "科隆(主)",
+        "away": "史浩克04",
+        "start": "2026/10/24 21:30:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401884756",
+            "date": "2026-10-24T13:30Z",
+            "season": {
+              "year": 2026,
+              "type": 14358,
+              "slug": "2026-27-german-bundesliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T13:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "displayClock": "90'+2'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "122",
+                      "displayName": "FC Cologne"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "133",
+                      "displayName": "Schalke 04"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capturedAt": "2026-10-23T15:39:29.631Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/scoreboard?dates=20261024&limit=100",
+      "fixture": {
+        "id": 25128406,
+        "sport": "FOOTBALL",
+        "competition": "esp.1",
+        "leagueName": "西班牙甲級聯賽",
+        "home": "桑坦德(主)",
+        "away": "愛斯賓奴",
+        "start": "2026/10/24 22:15:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401882831",
+            "date": "2026-10-24T14:15Z",
+            "season": {
+              "year": 2026,
+              "type": 14357,
+              "slug": "2026-27-laliga"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-24T14:15Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 5400.0,
+                  "displayClock": "90'+7'",
+                  "period": 2,
+                  "type": {
+                    "id": "28",
+                    "name": "STATUS_FULL_TIME",
+                    "state": "post",
+                    "completed": true,
+                    "description": "Full Time",
+                    "detail": "FT",
+                    "shortDetail": "FT"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "87",
+                      "displayName": "Racing Santander"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "88",
+                      "displayName": "Espanyol"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "capturedAt": "2026-10-26T11:38:26.509Z",
+      "sourceUrl": "https://site.api.espn.com/apis/site/v2/sports/soccer/ita.1/scoreboard?dates=20261027&limit=100",
+      "fixture": {
+        "id": 25138344,
+        "sport": "FOOTBALL",
+        "competition": "ita.1",
+        "leagueName": "意大利甲級聯賽",
+        "home": "薩斯索羅(主)",
+        "away": "拉素",
+        "start": "2026/10/28 01:30:00",
+        "live": false,
+        "availableMarkets": 3,
+        "marketStates": {
+          "spread": "ready",
+          "total": "ready",
+          "moneyline": "ready"
+        }
+      },
+      "schedule": {
+        "events": [
+          {
+            "id": "401874980",
+            "date": "2026-10-27T17:30Z",
+            "season": {
+              "year": 2026,
+              "type": 14240,
+              "slug": "2026-27-italian-serie-a"
+            },
+            "competitions": [
+              {
+                "date": "2026-10-27T17:30Z",
+                "timeValid": true,
+                "status": {
+                  "clock": 0.0,
+                  "displayClock": "0'",
+                  "type": {
+                    "id": "1",
+                    "name": "STATUS_SCHEDULED",
+                    "state": "pre",
+                    "completed": false,
+                    "description": "Scheduled",
+                    "detail": "Tue, October 27th at 1:30 PM EDT",
+                    "shortDetail": "Scheduled"
+                  }
+                },
+                "competitors": [
+                  {
+                    "homeAway": "home",
+                    "team": {
+                      "id": "3997",
+                      "displayName": "Sassuolo"
+                    }
+                  },
+                  {
+                    "homeAway": "away",
+                    "team": {
+                      "id": "112",
+                      "displayName": "Lazio"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

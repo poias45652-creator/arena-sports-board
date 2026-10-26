@@ -1,13 +1,12 @@
 import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
-import {WNBA_TEAMS} from './wnba';
-import {NBA_TEAMS} from './nba';
-import {FOOTBALL_LEAGUES,FOOTBALL_TEAM_NAMES,footballTeamName} from './football';
+import {FOOTBALL_LEAGUES} from './football';
+import {sportTeamKey,registeredNames,type MarketSport} from './sport-team-names';
+export {sportTeamKey} from './sport-team-names';
 export type SportFixture={id:string;league?:string;start:string;timeConfirmed:boolean;state:string;home:{id?:string;name:string;logo?:string};away:{id?:string;name:string;logo?:string}};
 export type SportQuote={kind:'spread'|'total'|'moneyline';line:number;boundary:number;parts?:number[];display:string;home:number;away:number;draw?:number;signature:string};
 export type SportEvent={id:number;home:string;away:string;spread:SportQuote|null;total:SportQuote|null;moneyline:SportQuote|null};
 export type SportOutcomes={win:number;partialWin:number;push:number;partialLoss:number;loss:number;ev:number};
 export type SportGrid={value:number;p:number}[];
-type MarketSport='NBA'|'WNBA'|'FOOTBALL';
 // Match MLB's preferred direction: probability of any profit, including a partial win.
 // Odds still determine settlement/EV, but do not hide the model's favored direction.
 export function preferredSportOutcome(rows:(SportOutcomes|null)[]):number|null{
@@ -26,48 +25,6 @@ export function sportQuoteLabel(quote:SportQuote,side:'home'|'away'|'over'|'unde
  if(quote.line===0&&quote.boundary===0)return venue+'平手 0';
  return `${venue}${giving?'讓':'受讓'} ${giving?'-':'+'}${line}`;
 }
-const aliases:Record<string,string>={'聖馬力諾':'聖馬利諾','意大利':'義大利','格魯吉亞':'喬治亞','克羅地亞':'克羅埃西亞','斯洛文尼亞':'斯洛維尼亞','北馬其頓共和國':'北馬其頓','波黑':'波士尼亞與赫塞哥維納','黑山':'蒙特內哥羅','塞浦路斯':'賽普勒斯','法羅群島':'法羅群島','多蒙特':'多特蒙德','利華古遜':'勒沃庫森','阿仙奴':'阿森納','車路士':'切爾西','愛華頓':'艾佛頓','紐卡素':'紐卡索聯','阿士東維拉':'阿斯頓維拉','白禮頓':'布萊頓','富咸':'富勒姆','賓福特':'布倫特福德','韋斯咸':'西漢姆聯','列斯聯':'里茲聯','般尼':'伯恩利','新特蘭':'桑德蘭','巴塞羅那':'巴塞隆納','皇家貝蒂斯':'皇家貝提斯','維拉利爾':'比利亞雷亞爾','切爾達':'塞爾塔','祖雲達斯':'尤文圖斯','拿玻里':'拿坡里','費倫天拿':'佛羅倫斯','博洛尼亞':'波隆那','烏甸尼斯':'烏迪內斯','萊比錫':'RB萊比錫','慕遜加柏':'門興','弗賴堡':'弗萊堡','巴黎聖日門':'巴黎聖日耳曼'};
-// Whole-name identities observed in the supplied October 2/3 SUPER responses.
-// These additions apply only to football, never youth/women suffixes or basketball.
-const footballAliases:Record<string,string>={
- '阿美尼亞':'亞美尼亞','波斯尼亞和黑塞哥維那':'波士尼亞與赫塞哥維納','哈薩克斯坦':'哈薩克',
- // Exact senior-club names captured in the 2026-10-09 SUPER audit and
- // checked against ESPN fixtures. Never strip women, reserves or U21 suffixes.
- '般尼茅夫':'伯恩茅斯','托特納姆熱刺':'熱刺','雲達不萊梅':'不來梅',
- '奧斯堡':'奧格斯堡','美因茨05':'美因茨','愛斯賓奴':'西班牙人',
- '畢爾巴鄂競技':'畢爾包','艾拉維斯':'阿拉維斯','馬德里體育會':'馬德里競技',
- '巴塞隆拿':'巴塞隆納','基達菲':'赫塔費','利爾':'里爾','圖魯茲':'圖盧茲',
- '巴黎':'巴黎FC','利文斯':'勒芒',
- // Exact spellings in the October 12 source audit, verified against official fixtures.
- '利雲特':'萊萬特','紐卡素聯':'紐卡索聯','拖連奴':'都靈',
- // October 13 production source spellings, checked against both full fixtures.
- 'PSV埃因霍溫':'PSV恩荷芬','科木':'科莫','AS羅馬':'羅馬',
- '皇家貝迪斯':'皇家貝提斯','波杜基林特':'博多格林特',
- // October 15 authenticated Europa coverage, verified against ESPN fixtures.
- '採列':'采列','薩爾茨堡紅牛':'薩爾斯堡紅牛',
- // Remaining identities in the full 18-fixture capture at 12:33:44Z.
- '聖吉羅斯':'聖吉羅斯聯','皇家蘇斯達':'皇家社會','圖倫斯':'托倫斯',
- '波茲南萊希':'波茲南萊克','凱爾特人':'塞爾提克','薩格勒布戴拿模':'札格瑞布迪納摩',
- 'OFI克雷迪':'OFI克里特','皮爾森':'比爾森勝利','索菲亞利夫斯基':'索菲亞列夫斯基',
- '喬治羅尼亞':'雅蓋隆尼亞','阿拉特阿美尼亞':'阿拉拉特亞美尼亞',
- // October 16 screenshots: Fulham versus Hull City, October 17 at 22:00 Taipei.
- '侯城':'赫爾城',
- // Lazio's full-name regional spellings: HKJC uses 拉素, the club's Chinese
- // site uses 拉齐奥. Keep exact senior-team aliases; never strip squad suffixes.
- '拉素':'拉齊奧','拉齐奥':'拉齊奧',
- // October 23 source event 25125177 matches ESPN fixture 401879253.
- '諾定咸森林':'諾丁漢森林',
- // October 24 production source audit, verified against ESPN fixtures
- // 401882827 (Valencia–Villarreal) and 401884759 (Freiburg–Bayern).
- '華倫西亞':'瓦倫西亞','費雷堡':'弗萊堡',
-};
-// Exact full-team spelling observed in SUPER; keep aliases scoped to NBA.
-const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐斯灰熊':'曼菲斯灰熊','波士頓塞爾蒂克':'波士頓塞爾提克'};
-// SUPER appends (女) to WNBA names. Map only registered full team names in
-// this league; never strip women/youth qualifiers from other competitions.
-const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));
-const registeredNames:Record<MarketSport,ReadonlySet<string>>={NBA:new Set(NBA_TEAMS.map(t=>t.name)),WNBA:new Set(WNBA_TEAMS.map(t=>t.name)),FOOTBALL:new Set(FOOTBALL_TEAM_NAMES)};
-export function sportTeamKey(name:string,sport?:MarketSport){const clean=name.normalize('NFKC').replace(/\(主\)|（主）/g,'').trim(),key=(sport==='FOOTBALL'?footballTeamName(clean):clean).replace(/\s/g,'');return sport==='NBA'?(nbaAliases[key]??key):sport==='WNBA'?(wnbaAliases.get(key)??aliases[key]??key):sport==='FOOTBALL'?(footballAliases[key]??aliases[key]??key):(aliases[key]??key);}
 const marketTypes=(sport:MarketSport)=>sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
 function sourceTime(value:unknown){
  if(typeof value!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(value))return NaN;
@@ -159,8 +116,8 @@ export function sportSourceAudit(snapshot:any,now=Date.now()){
  const supported=new Set<string>(FOOTBALL_LEAGUES.map(l=>l.code));
  const rows=(Array.isArray(snapshot?.sportGames)?snapshot.sportGames:[]).filter((r:any)=>r&&(['NBA','WNBA'].includes(r.league)||r.league==='FOOTBALL'&&supported.has(r.competition)));
  const safe=(v:unknown,n=100)=>typeof v==='string'?v.slice(0,n):'';
- const unrecognizedTeamNames=[...new Map(rows.slice(0,120).flatMap((r:any)=>[r.home,r.away].filter(name=>!registeredNames[r.league as MarketSport].has(sportTeamKey(safe(name),r.league))).map(name=>[`${r.league}:${safe(name)}`,{sport:r.league,name:safe(name)}] as const))).values()];
- return {schema:1,revision:'sport-pairing-v3',fetchedAt:safe(snapshot?.fetchedAt,40),fixtureCount:rows.length,truncated:rows.length>120,unrecognizedTeamNames,fixtures:rows.slice(0,120).map((r:any)=>{
+ const unrecognizedTeamNames=[...new Map(rows.flatMap((r:any)=>[r.home,r.away].filter(name=>!registeredNames[r.league as MarketSport].has(sportTeamKey(safe(name),r.league))).map(name=>[`${r.league}:${safe(name)}`,{sport:r.league,name:safe(name)}] as const))).values()];
+ return {schema:1,revision:'sport-pairing-v4',fetchedAt:safe(snapshot?.fetchedAt,40),fixtureCount:rows.length,truncated:rows.length>120,unrecognizedTeamNameCount:unrecognizedTeamNames.length,unrecognizedTeamNamesTruncated:unrecognizedTeamNames.length>120,unrecognizedTeamNames:unrecognizedTeamNames.slice(0,120),fixtures:rows.slice(0,120).map((r:any)=>{
   const start=sourceTime(r.start),game:SportFixture={id:String(r.id),league:r.competition,start:Number.isFinite(start)?new Date(start).toISOString():'',state:'scheduled',timeConfirmed:true,home:{name:safe(r.home)},away:{name:safe(r.away)}};
   const result=sportMarketStatus(snapshot,game,r.league,now);
   return {id:Number.isSafeInteger(r.id)?r.id:null,sport:r.league,competition:safe(r.competition),leagueName:safe(r.leagueName),home:safe(r.home),away:safe(r.away),start:safe(r.start,40),live:typeof r.live==='boolean'?r.live:null,availableMarkets:result.availableCount,marketStates:Object.fromEntries(Object.entries(result.markets).map(([k,v])=>[k,v.code]))};

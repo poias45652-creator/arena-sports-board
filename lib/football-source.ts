@@ -9,8 +9,10 @@ import {applyExternalFootballAnalysis,loadExternalFootballContext} from './footb
 import {loadFootballMarketContext,applyFootballMarketAnalysis} from './football-market-source';
 import {selectFootballMarketModel} from './football-market-model';
 import {footballProfileTeam,footballProfileResults,footballProfileUpcoming,type FootballTeamProfileData} from './football-team-profile';
+import {footballTeamNameAudit} from './football-team-name-audit';
 const ROOT='https://site.api.espn.com/apis/site/v2/sports/soccer';
 const cache=new Map<string,{expires:number;value:any;fetchedAt:string}>(),pending=new Map<string,Promise<any>>();
+const lastNameAudit=new Map<string,number>();
 // Share bounded source work across members; only public football data is cached.
 let active=0;const queue:(()=>void)[]=[];
 async function source(path:string,ttl:number,timeout=12000):Promise<{value:any;fetchedAt:string}>{
@@ -34,6 +36,11 @@ export async function footballSchedule(league:FootballLeague,day:string){
   // overlapping the Taiwan date, then filter by the actual kickoff timestamp.
   const results=await Promise.all([scoreboard(league,shiftFootballDay(day,-1)),scoreboard(league,day)]);
   const games=[...new Map(results.flatMap(r=>parseFootballEvents(r.value,league)).filter(g=>footballDay(g.start)===day).map(g=>[g.id,g])).values()];
+  if(Date.now()-(lastNameAudit.get(league)??0)>=300000){
+   lastNameAudit.set(league,Date.now());
+   const audit=footballTeamNameAudit(games);
+   if(audit.teams.length)console.warn('football-schedule-team-names-unmapped',JSON.stringify({league,day,...audit}));
+  }
   const rank=(g:FootballGame)=>g.state==='live'?0:g.state==='scheduled'?1:g.state==='final'?2:3;
   games.sort((a,b)=>rank(a)-rank(b)||Date.parse(a.start)-Date.parse(b.start));
   return {league,day,games,fetchedAt:results.map(r=>r.fetchedAt).sort()[0],source:'ESPN',calendar:results[1].value.leagues?.[0]?.calendar||[]};

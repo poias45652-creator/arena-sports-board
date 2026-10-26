@@ -8,7 +8,7 @@ const url=s=>'data:text/javascript;base64,'+Buffer.from(s).toString('base64');
 const settlementURL=url(code('settlement.ts'));
 const {parseSourceLine,netProfit,parlayReturn}=await import(settlementURL);
 const {scoreFraction,settle}=await import(url(code('markets.ts')));
-const {superOdds}=await import(url(code('super007.ts').replace("'./settlement'",JSON.stringify(settlementURL))));
+const {superOdds}=await import(moduleUrl('lib/super007.ts'));
 const {gradeSavedMarkets}=await import(url(code('recommendation-ledger.ts').replace("'./settlement'",JSON.stringify(settlementURL)).replace("'./markets'",JSON.stringify(url(code('markets.ts'))))));
 const pick=(line,boundary,side='home',market='spread')=>({gameId:1,market,side,line,boundary});
 test('official examples: 2-50 home loss, 8+50 over win, away 1+50',()=>{

@@ -1,5 +1,6 @@
 import type {SuperSnapshot} from './super007';
 import {sportSourceAudit} from './sport-super-markets';
+import {baseballSourceAudit} from './baseball-source-audit';
 
 export type HrDisplayQuote = {
  id: number; primary: boolean; open: boolean;
@@ -185,12 +186,15 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
   console.info('super-basketball-shape',JSON.stringify({fetchedAt,parsedGames:sportGames.filter(g=>g.league==='NBA'||g.league==='WNBA').length,leagues:basketball.slice(0,8).map((l:any)=>({name:String(l.LeagueNameStr||'').slice(0,80),games:Array.isArray(l.Team)?l.Team.length:0})),examples:basketball.filter((l:any)=>/^W?NBA\b/i.test(String(l.LeagueNameStr||''))).flatMap((l:any)=>(l.Team||[]).map((t:any)=>({league:String(l.LeagueNameStr).slice(0,80),id:t.EvtID,home:String(t.HomeTeamStr).slice(0,80),away:String(t.AwayTeamStr).slice(0,80),start:String(t.ScheduleTimeStr).slice(0,40),liveType:typeof t.Live,live:typeof t.Live==='boolean'?t.Live:String(t.Live).slice(0,12),status:t.EvtStatus,markets:(t.Wager||[]).slice(0,8).map((w:any)=>({group:w.WagerGrpID,type:w.WagerTypeID}))}))).slice(0,8)}));
  }
  const snapshot={source:'hr9988',games,internationalGames,sportGames,sourceLeagues,fetchedAt} as SuperSnapshot;
- if(sportGames.length&&Date.now()-lastSportPairingLoggedAt>=300000){
+ if((sportGames.length||games.length||internationalGames.length)&&Date.now()-lastSportPairingLoggedAt>=300000){
   lastSportPairingLoggedAt=Date.now();
   try{
    const audit=sportSourceAudit(snapshot);
    console.info('super-sport-pairing-audit',JSON.stringify(audit));
-   if(audit.unrecognizedTeamNames.length)console.warn('super-sport-team-names-unmapped',JSON.stringify({revision:audit.revision,fetchedAt:audit.fetchedAt,teams:audit.unrecognizedTeamNames}));
+   if(audit.unrecognizedTeamNames.length)console.warn('super-sport-team-names-unmapped',JSON.stringify({revision:audit.revision,fetchedAt:audit.fetchedAt,count:audit.unrecognizedTeamNameCount,truncated:audit.unrecognizedTeamNamesTruncated,teams:audit.unrecognizedTeamNames}));
+   const baseballAudit=baseballSourceAudit(snapshot);
+   console.info('super-baseball-team-audit',JSON.stringify(baseballAudit));
+   if(baseballAudit.unrecognizedTeamNames.length)console.warn('super-baseball-team-names-unmapped',JSON.stringify(baseballAudit));
   }catch{console.warn('super-sport-pairing-audit-unavailable');}
  }
  return snapshot;

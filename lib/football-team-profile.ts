@@ -8,7 +8,7 @@ export const footballBoardHref=(league:FootballLeague,day?:string)=>'/?'+new URL
 export function footballCompetitionName(code:string){return FOOTBALL_LEAGUES.find(l=>l.code===code)?.name||({'fifa.friendly':'國際友誼賽','fifa.world':'世界盃','fifa.worldq.uefa':'世界盃歐洲區資格賽','uefa.euro':'歐洲國家盃','uefa.euroq':'歐洲國家盃資格賽','uefa.europa':'歐霸','uefa.europa.conf':'歐協聯','eng.fa':'英格蘭足總盃','eng.league_cup':'英格蘭聯賽盃','esp.copa_del_rey':'西班牙國王盃','ger.dfb_pokal':'德國盃','ita.coppa_italia':'義大利盃','fra.coupe_de_france':'法國盃'} as Record<string,string>)[code]||'其他正式賽事';}
 export function footballProfileTeam(raw:any,id:string):FootballTeam{
  if(String(raw?.id)!==id||typeof raw?.displayName!=='string'||!raw.displayName.trim())throw Error('球隊資料身分不符');
- return {id,name:footballTeamName(raw.displayName),englishName:raw.displayName};
+ return {id,name:footballTeamName(raw.displayName,id),englishName:raw.displayName};
 }
 const involves=(game:FootballGame<string>,id:string)=>game.home.id===id||game.away.id===id;
 export const footballVenue=(game:FootballGame<string>,id:string):Exclude<FootballVenue,'all'>=>game.neutral?'neutral':game.home.id===id?'home':'away';

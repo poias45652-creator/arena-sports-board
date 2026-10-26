@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import test from 'node:test';
-import ts from 'typescript';
-const code=ts.transpileModule(readFileSync('lib/hr9988.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText;
-const {parseHrGameDetail,hrBaseballRequest}=await import('data:text/javascript;base64,'+Buffer.from(code).toString('base64'));
+import {moduleUrl} from './profile-loader.mjs';
+const {parseHrGameDetail,hrBaseballRequest}=await import(moduleUrl('lib/hr9988.ts'));
 
 // Synthetic menu entries test routing; they are not captured CPBL quotes.
 test('baseball route uses the supplied pregame menu key, never hot or in-play categories',()=>{
