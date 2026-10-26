@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T15:13:11.240Z",
+  "purpose": "Fresh attempt 26 observation. Preserve prior KBO external final and earlier same-day CPBL LIVE-to-LIVE proof as separate evidence, not this collector result.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 26,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121656592899,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12662256048,
+    "artifactCreatedAt": "2026-10-26T15:13:16Z",
+    "artifactDigest": "sha256:cee6e50c070435cce5e83cb731742b49113deb5216718b74494ee4c21a22114f",
+    "downloadedZipSha256": "cee6e50c070435cce5e83cb731742b49113deb5216718b74494ee4c21a22114f",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-26T15:13:11.240Z",
+    "observationPath": "data/live/20261026T151311Z-run40166038103-attempt26-final-recheck.json",
+    "secondCapturePerformed": false,
+    "liveGames": 0,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 1
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_0_kbo_unavailable_cpbl_1"
+  },
+  "capture": {
+    "date": "2026-10-26",
+    "checkedAt": "2026-10-26T15:13:11.240Z",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmed": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "No confirmed LIVE games in the fresh collector output. KBO unavailable, so cannot infer zero live games there."
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "offDayVerified": true,
+      "source": "sportsnavi",
+      "date": "2026-10-26",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-26",
+      "sourceFetchedAt": "2026-10-26T15:12:52.787Z",
+      "offDayMarker": "試合はありません"
+    },
+    "KBO": {
+      "status": "unavailable",
+      "games": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "gameKey": "KBO:55551026HTSS02026",
+      "notOffDay": true,
+      "siteCollectorUsable": false,
+      "externalFinalPreviouslyVerified": {
+        "away": "起亞虎",
+        "awayScore": 5,
+        "home": "三星獅",
+        "homeScore": 1,
+        "status": "final",
+        "evidencePath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json",
+        "notValidatedByThisCollector": true
+      }
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 1,
+      "gameKey": "CPBL:261026006",
+      "gameDate": "2026-10-26",
+      "gameStatus": "final",
+      "away": "中信兄弟",
+      "awayScore": 0,
+      "home": "味全龍",
+      "homeScore": 6,
+      "awayHits": 2,
+      "homeHits": 12,
+      "innings": {
+        "away": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "home": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0
+        ]
+      },
+      "inningRunsSumMatchesScore": true,
+      "pitchingRows": 7,
+      "sourceListedLineupRows": 26,
+      "sourceFetchedAt": "2026-10-26T15:12:55.483Z",
+      "pitchCount": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false,
+      "sourcePartial": true,
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "earlierSameDayLiveProofRetained": true
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T15:13:14.825Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
