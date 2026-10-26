@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T08:21:05.138Z",
+  "purpose": "Reverified current first-team games using latest GitHub Actions attempt 18; compare 2 source reads >=65 seconds plus retained prior same-day LIVE state; no production writes",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 18,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121467274838,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12636487720,
+    "artifactCreatedAt": "2026-10-26T08:21:07Z",
+    "artifactDigest": "sha256:82f635b6d3bc8df84534e5a6eb88afe5f7739c2b381e08c2187c2fa305406508",
+    "downloadedZipSha256": "82f635b6d3bc8df84534e5a6eb88afe5f7739c2b381e08c2187c2fa305406508",
+    "independentlyVerifiedDigest": true,
+    "artifactFreshForDate": true
+  },
+  "captureIntervals": {
+    "capture1At": "2026-10-26T08:19:54.973Z",
+    "capture2At": "2026-10-26T08:21:05.138Z",
+    "captureIntervalSeconds": 70.165,
+    "cpblSourceIntervalSeconds": 69.871,
+    "secondCapturePerformed": true,
+    "withinRunNumericChangeVerified": false,
+    "crossRunSourceIntervalSeconds": 1864.087
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "offDayVerified": true,
+      "officialFirstTeamGames": 0,
+      "live": 0,
+      "pregame": 0,
+      "final": 0
+    },
+    "KBO": {
+      "status": "ok",
+      "officialFirstTeamGames": 1,
+      "live": 0,
+      "pregame": 1,
+      "final": 0,
+      "gameKey": "KBO:55551026HTSS02026",
+      "away": "起亞虎",
+      "home": "三星獅",
+      "scheduledAt": "2026-10-26T09:30:00.000Z",
+      "awayScore": null,
+      "homeScore": null,
+      "sourceProvider": "naver",
+      "sourceUrl": "https://api-gw.sports.naver.com/schedule/games/55551026HTSS02026/game-polling",
+      "sourceFetchedAt": "2026-10-26T08:21:01.459Z"
+    },
+    "CPBL": {
+      "status": "partial",
+      "officialFirstTeamGames": 1,
+      "live": 1,
+      "pregame": 0,
+      "final": 0,
+      "gameKey": "CPBL:261026006",
+      "away": "中信兄弟",
+      "home": "味全龍",
+      "scheduledAt": "2026-10-26T07:05:00.000Z",
+      "sourceProvider": "yahoo-tw",
+      "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261026006/",
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "lineupRowsSourceListed": 20,
+      "lineupOfficiallyConfirmed": false,
+      "excludedUnverifiedMetadataGameKey": "CPBL:261026007",
+      "unsupported": {
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null
+      }
+    }
+  },
+  "observedCaptures": [
+    {
+      "kind": "current_attempt_capture1",
+      "capturedAt": "2026-10-26T08:19:54.973Z",
+      "sourceFetchedAt": "2026-10-26T08:19:54.377Z",
+      "cpbl": {
+        "gameKey": "CPBL:261026006",
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 1,
+        "pitchers": {
+          "勝騎士": {
+            "outsRecorded": 9,
+            "pitchCount": null
+          },
+          "梅賽鍶": {
+            "outsRecorded": 12,
+            "pitchCount": null
+          }
+        }
+      },
+      "kboStatus": "pregame",
+      "npbNoGameVerified": true
+    },
+    {
+      "kind": "current_attempt_capture2",
+      "capturedAt": "2026-10-26T08:21:05.138Z",
+      "sourceFetchedAt": "2026-10-26T08:21:04.248Z",
+      "cpbl": {
+        "gameKey": "CPBL:261026006",
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 1,
+        "pitchers": {
+          "勝騎士": {
+            "outsRecorded": 9,
+            "pitchCount": null
+          },
+          "梅賽鍶": {
+            "outsRecorded": 12,
+            "pitchCount": null
+          }
+        }
+      },
+      "kboStatus": "pregame",
+      "npbNoGameVerified": true
+    }
+  ],
+  "crossRunNumericLiveChangeProof": {
+    "verified": true,
+    "bothLive": true,
+    "sameGameAndTeams": true,
+    "league": "CPBL",
+    "gameKey": "CPBL:261026006",
+    "before": {
+      "evidencePath": "data/live/20261026T074850Z-run40166038103-job121455906373-cpbl-live-crossrun.json",
+      "sourceFetchedAt": "2026-10-26T07:48:50.290Z",
+      "status": "live",
+      "awayScore": 0,
+      "homeScore": 0,
+      "pitchers": {
+        "勝騎士": {
+          "outsRecorded": 6
+        },
+        "梅賽鍶": {
+          "outsRecorded": 7
+        }
+      }
+    },
+    "after": {
+      "sourceFetchedAt": "2026-10-26T08:19:54.377Z",
+      "status": "live",
+      "awayScore": 0,
+      "homeScore": 1,
+      "pitchers": {
+        "勝騎士": {
+          "outsRecorded": 9
+        },
+        "梅賽鍶": {
+          "outsRecorded": 12
+        }
+      }
+    },
+    "intervalSeconds": 1864.087,
+    "changes": {
+      "homeScore": {
+        "before": 0,
+        "after": 1
+      },
+      "awayPitcherOutsRecorded": {
+        "pitcher": "勝騎士",
+        "before": 6,
+        "after": 9
+      },
+      "homePitcherOutsRecorded": {
+        "pitcher": "梅賽鍶",
+        "before": 7,
+        "after": 12
+      }
+    },
+    "method": "same-day cross-run LIVE-to-LIVE score and pitcher outs changes, >65 seconds; neither within-run source pair changed numerically"
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T08:21:06.477Z",
+    "passed": true,
+    "rowsWritten": 2,
+    "rowsReadBack": 2,
+    "duplicateWrites": 0
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
