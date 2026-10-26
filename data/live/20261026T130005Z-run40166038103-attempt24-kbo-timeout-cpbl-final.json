@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T13:00:05.949Z",
+  "purpose": "Fresh collector attempt 24. Validate today's NPB/KBO/CPBL official first-team games; retain separate external KBO final proof without claiming GitHub runner fetched it.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 24,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121585499867,
+    "jobConclusion": "success",
+    "jobStatus": "completed",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12650494784,
+    "artifactCreatedAt": "2026-10-26T13:00:09Z",
+    "artifactDigest": "sha256:9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
+    "downloadedZipSha256": "9662c03970d35838a36a0a4dd3b8e8c671c331fa5ba35e629d8ffe4eb854589e",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactFileName": "yj-baseball-20261026-attempt24.zip",
+    "staleArtifactUsed": false
+  },
+  "capture": {
+    "date": "2026-10-26",
+    "checkedAt": "2026-10-26T13:00:05.949Z",
+    "secondCapturePerformed": false,
+    "reason": "Collector's first capture reported no LIVE games; KBO source unavailable. A missing KBO feed does not establish a LIVE state or a no-games state.",
+    "liveGamesConfirmed": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "offDayVerified": true,
+      "source": "sportsnavi",
+      "date": "2026-10-26",
+      "note": "No first-team games in current source schedule."
+    },
+    "KBO": {
+      "status": "unavailable",
+      "games": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "originalScheduledGame": "KBO:55551026HTSS02026",
+      "notOffDay": true,
+      "externalFinalPreviouslyVerified": {
+        "gameKey": "KBO:55551026HTSS02026",
+        "away": "起亞虎",
+        "awayScore": 5,
+        "home": "三星獅",
+        "homeScore": 1,
+        "status": "final",
+        "evidencePath": "data/live/20261026T124709Z-run40166038103-attempt23-kbo-external-final.json",
+        "notValidatedByThisCollector": true
+      },
+      "siteCollectorUsable": false
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 1,
+      "gameKey": "CPBL:261026006",
+      "gameDate": "2026-10-26",
+      "gameStatus": "final",
+      "away": "中信兄弟",
+      "awayScore": 0,
+      "home": "味全龍",
+      "homeScore": 6,
+      "innings": {
+        "away": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "home": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          5,
+          0
+        ]
+      },
+      "inningRunsSumMatchesScore": true,
+      "pitchingRows": 7,
+      "sourceListedLineupRows": 26,
+      "sourceFetchedAt": "2026-10-26T12:59:51.050Z",
+      "pitchCount": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false,
+      "sourcePartial": true,
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "earlierSameDayLiveProofRetained": true
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T13:00:07.846Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
