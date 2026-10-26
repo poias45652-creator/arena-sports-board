@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-26",
+  "capturedAt": "2026-10-26T09:36:07.901Z",
+  "purpose": "Fresh same-day collector attempt20; KBO retry and CPBL live source recheck; not production deployment.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40166038103,
+    "runAttempt": 20,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 121497024141,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "10ff226af8b851fd4b872bf5e10239d5a7a1c48d",
+    "artifactId": 12640242708,
+    "artifactCreatedAt": "2026-10-26T09:36:11Z",
+    "artifactDigest": "sha256:0971f6cf450b0dee9bcbcadf1c6dc9a14c2d58adbdbb7ff963f32f8c2102f452",
+    "downloadedZipSha256": "0971f6cf450b0dee9bcbcadf1c6dc9a14c2d58adbdbb7ff963f32f8c2102f452",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "captureIntervals": {
+    "capture1At": "2026-10-26T09:34:42.886Z",
+    "capture2At": "2026-10-26T09:36:07.901Z",
+    "captureIntervalSeconds": 85.015,
+    "cpblSourceIntervalSeconds": 82.739,
+    "secondCapturePerformed": true,
+    "withinRunNumericChangeVerified": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "live": 0,
+      "pregame": 0,
+      "final": 0
+    },
+    "KBO": {
+      "status": "unavailable",
+      "reportedFirstTeamGames": null,
+      "errors": [
+        "The operation was aborted due to timeout"
+      ],
+      "repeatedInAttempt19": true,
+      "repeatedWithinAttempt20": true,
+      "lastReliableStateFromAttempt18": "pregame KIA at Samsung 18:30 Taipei",
+      "doNotInterpretAsOffDay": true
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 1,
+      "gameKey": "CPBL:261026006",
+      "away": "中信兄弟",
+      "home": "味全龍",
+      "gameDate": "2026-10-26",
+      "gameStatus": "live",
+      "awayScore": 0,
+      "homeScore": 3,
+      "awayHits": 2,
+      "homeHits": 11,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "sourceProvider": "yahoo-tw",
+      "sourceUrl": "https://tw.sports.yahoo.com/cpbl/%E4%B8%AD%E4%BF%A1-%E5%85%84%E5%BC%9F-%E5%91%B3%E5%85%A8-%E9%BE%8D-261026006/",
+      "errors": [
+        "CPBL full game payload missing after scheduled start"
+      ],
+      "sourceListedLineupOfficiallyConfirmed": false
+    }
+  },
+  "observedCaptures": [
+    {
+      "capturedAt": "2026-10-26T09:34:42.886Z",
+      "sourceFetchedAt": "2026-10-26T09:34:28.322Z",
+      "cpbl": {
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 3,
+        "pitchers": {
+          "勝騎士": {
+            "outsRecorded": 15,
+            "pitchCount": null
+          },
+          "梅賽鍶": {
+            "outsRecorded": 24,
+            "pitchCount": null
+          }
+        }
+      },
+      "kboStatus": "unavailable_timeout"
+    },
+    {
+      "capturedAt": "2026-10-26T09:36:07.901Z",
+      "sourceFetchedAt": "2026-10-26T09:35:51.061Z",
+      "cpbl": {
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 3,
+        "pitchers": {
+          "勝騎士": {
+            "outsRecorded": 15,
+            "pitchCount": null
+          },
+          "梅賽鍶": {
+            "outsRecorded": 24,
+            "pitchCount": null
+          }
+        }
+      },
+      "kboStatus": "unavailable_timeout"
+    }
+  ],
+  "sameDayLiveNumericChangeProof": {
+    "verifiedEarlierToday": true,
+    "latestQualifiedEvidencePath": "data/live/20261026T093229Z-run40166038103-attempt19-cpbl-score-kbo-timeout.json",
+    "liveGameKey": "CPBL:261026006",
+    "changesPreviouslyVerified": {
+      "homeScore": {
+        "before": 1,
+        "after": 3
+      },
+      "awayPitcherOutsRecorded": {
+        "pitcher": "勝騎士",
+        "before": 9,
+        "after": 15
+      },
+      "homePitcherOutsRecorded": {
+        "pitcher": "梅賽鍶",
+        "before": 12,
+        "after": 24
+      }
+    },
+    "intervalSeconds": 4184.826,
+    "withinAttempt20NumericChangeVerified": false
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-26T09:36:09.415Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
