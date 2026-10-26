@@ -60,7 +60,8 @@ export async function nbaGameAnalysis(day:string,id:string,weights:Weights=DEFAU
  const data=await history([game.home.id,game.away.id],nbaSeason(nbaDay()));
  const analysis=await enrichNbaPlayerStrength(game,await efficiencyGameAnalysis(game,data.games,'NBA',weights));
  // Public fixture metadata only; no member identity, credentials or source session.
- console.info('nba-analysis-result',JSON.stringify({day,id,status:analysis.status,reason:analysis.playerContext?.reason??null,playerContext:analysis.playerContext?.status??null,statsCapturedAt:analysis.playerContext?.statsCapturedAt??null,sourceFetchedAt:data.fetchedAt,capturedAt:analysis.capturedAt}));
+ const context=analysis.playerContext;
+ console.info('nba-analysis-result',JSON.stringify({day,id,status:analysis.status,reason:context?.reason??null,playerContext:context?.status??null,recommendationEligible:context?.recommendationEligible??null,preseason:context?.preseason??null,unconfirmedRotationCount:context?[...context.home,...context.away].filter(p=>['unknown','questionable','doubtful'].includes(p.status)&&p.minutesHigh>12).length:null,statsCapturedAt:context?.statsCapturedAt??null,sourceFetchedAt:data.fetchedAt,capturedAt:analysis.capturedAt}));
  return {game,analysis,sourceFetchedAt:data.fetchedAt};
 }
 export async function nbaTeamProfile(teamId:string){
