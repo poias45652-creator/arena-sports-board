@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import ts from 'typescript';
 import {PGlite} from '@electric-sql/pglite';
+import {moduleUrl} from './profile-loader.mjs';
 
 const day='2026-10-05';
 const game={key:'NPB:seibu-lotte',id:'seibu-lotte',sport:'baseball',league:'NPB',leagueName:'NPB 日本職棒',start:'2026-10-05T09:00:00Z',home:'千葉羅德海洋',away:'西武獅'};
@@ -10,7 +11,7 @@ const candidate={...game,raw:{},eligible:true,progress:{state:'scheduled',home:n
 const pregame={league:'NPB',date:day,games:[{league:'NPB',date:day,start:'2026-10-05 17:00:00',home:{team:'千葉羅德海洋',starter:{name:'主隊投手'}},away:{team:'埼玉西武獅',starter:{name:'客隊投手'}}}]};
 const ready={status:'ready',win:{home:.55,away:.4,draw:.05},expected:{home:4.2,away:3.1}};
 const helpers=fs.readFileSync('lib/free-trial.ts','utf8');
-const aliases=fs.readFileSync('lib/international-teams.ts','utf8');
+const aliases=`import {internationalTeam} from ${JSON.stringify(moduleUrl('lib/international-teams.ts'))};`;
 const startParser=fs.readFileSync('lib/baseball-run-analysis.ts','utf8').match(/^export const analysisStartTime=.*;$/m)?.[0];
 assert.ok(startParser,'Load the actual unchanged start-time parser');
 const route=fs.readFileSync('app/api/free-trial/route.ts','utf8').replace(/^import .*;\n/gm,'');

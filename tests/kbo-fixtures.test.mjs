@@ -1,12 +1,9 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import test from 'node:test';
-import ts from 'typescript';
-const moduleUrl=code=>'data:text/javascript;base64,'+Buffer.from(ts.transpileModule(code,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText).toString('base64');
-const aliases=moduleUrl(readFileSync('lib/international-teams.ts','utf8'));
-const kboTeams=moduleUrl(readFileSync('lib/kbo-teams.ts','utf8'));
-const {internationalTeam}=await import(aliases);
-const {scheduledKboGames,upcomingKboGames}=await import(moduleUrl(readFileSync('lib/international-fixtures.ts','utf8').replace("'./international-teams'",JSON.stringify(aliases)).replace("'./kbo-teams'",JSON.stringify(kboTeams))));
+import {moduleUrl} from './profile-loader.mjs';
+const {internationalTeam}=await import(moduleUrl('lib/international-teams.ts'));
+const {scheduledKboGames,upcomingKboGames}=await import(moduleUrl('lib/international-fixtures.ts'));
 const headers=['台灣時間','賽別','客隊','比分','主隊','球場','備註'];
 const table=rows=>[{title:'KBO 本月賽程與比分',headers,rows}];
 const fixture=(time,away='HANWHA',home='LG雙子',score='—',note='')=>[time,'例行賽',away,score,home,'JAMSIL',note];

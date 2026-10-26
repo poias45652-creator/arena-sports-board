@@ -6,9 +6,25 @@ on:
     branches: [main]
     paths:
       - 'lib/sport-super-markets.ts'
+      - 'lib/sport-team-names.ts'
+      - 'lib/team-name-identity.ts'
+      - 'lib/football.ts'
+      - 'lib/football-source.ts'
+      - 'lib/football-team-profile.ts'
+      - 'lib/football-team-name-audit.ts'
+      - 'lib/mlb-team-names.ts'
+      - 'lib/super007.ts'
+      - 'lib/international-teams.ts'
+      - 'lib/international-profile.ts'
+      - 'lib/baseball-source-audit.ts'
+      - 'data/football/external-team-map.json'
       - 'lib/hr9988.ts'
+      - 'app/zh.ts'
       - 'app/sport-markets.tsx'
       - 'tests/sport-market-audit.test.mjs'
+      - 'tests/team-name-identity.test.mjs'
+      - 'tests/fixtures/super-name-*.json'
+      - '.github/workflows/sport-market-pairing-audit.yml'
 permissions:
   contents: read
 concurrency:
@@ -29,7 +45,7 @@ jobs:
           cache: npm
       - run: npm ci --ignore-scripts
       - name: Verify exact aliases, complete competition labels, all rejection classes and the real UI
-        run: node --test tests/sport-market-audit.test.mjs tests/sport-super-markets.test.mjs tests/nba-market-aliases.test.mjs tests/nba-ui.test.mjs tests/wnba-ui.test.mjs
+        run: node --test tests/team-name-identity.test.mjs tests/super007-settlement.test.mjs tests/kbo-fixtures.test.mjs tests/international-odds.test.mjs tests/international-official.test.mjs tests/sport-market-audit.test.mjs tests/sport-super-markets.test.mjs tests/nba-market-aliases.test.mjs tests/nba-ui.test.mjs tests/wnba-ui.test.mjs
       - name: Full application regression suite
         run: npm test
       - name: Production build

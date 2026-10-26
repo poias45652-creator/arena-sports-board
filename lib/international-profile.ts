@@ -1,11 +1,8 @@
 import {plain,tables,yahooObjects,parseInternational,type SourceTable} from './international';
 import type {TeamGame} from './team-profile';
 export type ProfileLeague='CPBL'|'NPB'|'KBO';
-export const profileTeams:Record<ProfileLeague,Record<string,string>>={
- CPBL:{ACN:'中信兄弟',ADD:'統一獅',AEO:'富邦悍將',AJL:'樂天桃猿',AAA:'味全龍',AKP:'台鋼雄鷹'},
- NPB:{g:'讀賣巨人',t:'阪神虎',db:'橫濱 DeNA 海灣之星',d:'中日龍',c:'廣島東洋鯉魚',s:'東京養樂多燕子',h:'福岡軟銀鷹',f:'北海道日本火腿鬥士',b:'歐力士猛牛',e:'東北樂天金鷲',l:'埼玉西武獅',m:'千葉羅德海洋'},
- KBO:{KT:'KT 巫師',LG:'LG 雙子',NC:'NC 恐龍',SK:'SSG 登陸者',SS:'三星獅',HT:'起亞虎',OB:'斗山熊',HH:'韓華鷹',LT:'樂天巨人',WO:'培證英雄'},
-};
+import {internationalTeams} from './international-teams';
+export const profileTeams=internationalTeams;
 export function profileTeamId(league:ProfileLeague,code:string){return Object.keys(profileTeams[league]).indexOf(code)+1;}
 export function profileCode(league:ProfileLeague,name:string){const clean=(s:string)=>s.replace(/\s|7-ELEVEn/g,'');return Object.keys(profileTeams[league]).find(c=>clean(profileTeams[league][c])===clean(name));}
 export function profileHref(league:ProfileLeague,code:string){return `/teams/international/${league.toLowerCase()}/${code}`;}

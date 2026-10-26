@@ -38,7 +38,7 @@ test('new aliases preserve exact senior identities, source freshness, competitio
 test('source audit detects a newly introduced unknown spelling even when the source has open markets',()=>{
  const s=snapshot(),r=s.sportGames.find(r=>r.id===25089269);r.home='尚未登錄的隊名(主)';
  const result=sportSourceAudit(s,now);
- assert.equal(result.revision,'sport-pairing-v3');
+ assert.equal(result.revision,'sport-pairing-v4');
  assert.deepEqual(result.unrecognizedTeamNames,[{sport:'FOOTBALL',name:'尚未登錄的隊名(主)'}]);
  assert.equal(result.fixtures.find(r=>r.id===25089269).availableMarkets,3);
  assert.equal(sportMarketStatus(s,games.find(g=>g.home.englishName==='Levante'),'FOOTBALL',now).code,'team_name_mismatch');

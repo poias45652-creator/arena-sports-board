@@ -1,3 +1,4 @@
+import {mlbTeamName} from './mlb-team-names';
 import type {Match} from './baseball';
 import type {OddsSnapshot,Quote,MarketKey} from './pinnacle';
 import {parseSourceLine} from './settlement';
@@ -5,15 +6,8 @@ export type SuperSnapshot={games:any[];sportGames?:any[];internationalGames?:any
 // Exact SUPER aliases observed in the 2026-09-12 source display.
 // Retain team orientation and uniqueness. Explicit doubleheader labels permit
 // changed start times on the same Taipei date, never an unlabelled guess.
-const teamAliases=new Map<string,string>([
- ['聖路易斯紅雀','聖路易紅雀'],
- ['奧克蘭運動家','運動家'],
-]);
-const clean=(s:string)=>{
- const name=s.replace(/\(主\)|（主）/g,'').replace(/落磯山|洛磯山/g,'洛磯').replace(/\s/g,'');
- return teamAliases.get(name)??name;
-};
-function sourceTeam(value:string){
+const clean=mlbTeamName;
+export function mlbSourceTeam(value:string){
  const name=clean(value);
  const suffix=/(?:[-－・]?\s*(?:[（(\[]\s*)?(?:G(?:AME)?\s*([12])|第([一二12])場|([12]))\s*[）)\]]?)$/i;
  const hit=name.match(suffix);
@@ -26,7 +20,7 @@ function sourceMatch(r:any,games:Match[],label:(t:Match['home'])=>string){
  if(r.live||typeof r.home!=='string'||typeof r.away!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(r.start))return null;
  const start=r.start.replaceAll('/','-').replace(' ','T')+'+08:00';
  if(!Number.isFinite(Date.parse(start)))return null;
- const home=sourceTeam(r.home),away=sourceTeam(r.away);
+ const home=mlbSourceTeam(r.home),away=mlbSourceTeam(r.away);
  if(home.number&&away.number&&home.number!==away.number)return null;
  const number=home.number??away.number;
  const candidates=games.filter(g=>{

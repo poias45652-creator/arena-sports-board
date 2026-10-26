@@ -1,3 +1,9 @@
+import {cleanTeamName,teamNameResolver} from './team-name-identity';
+export const internationalTeams:Record<'CPBL'|'NPB'|'KBO',Record<string,string>>={
+ CPBL:{ACN:'中信兄弟',ADD:'統一獅',AEO:'富邦悍將',AJL:'樂天桃猿',AAA:'味全龍',AKP:'台鋼雄鷹'},
+ NPB:{g:'讀賣巨人',t:'阪神虎',db:'橫濱 DeNA 海灣之星',d:'中日龍',c:'廣島東洋鯉魚',s:'東京養樂多燕子',h:'福岡軟銀鷹',f:'北海道日本火腿鬥士',b:'歐力士猛牛',e:'東北樂天金鷲',l:'埼玉西武獅',m:'千葉羅德海洋'},
+ KBO:{KT:'KT 巫師',LG:'LG 雙子',NC:'NC 恐龍',SK:'SSG 登陸者',SS:'三星獅',HT:'起亞虎',OB:'斗山熊',HH:'韓華鷹',LT:'樂天巨人',WO:'培證英雄'},
+};
 const npbAliases:Record<string,string>={'日本火腿':'北海道日本火腿鬥士','火腿':'北海道日本火腿鬥士','養樂多':'東京養樂多燕子','廣島':'廣島東洋鯉魚','橫濱':'橫濱 DeNA 海灣之星','歐力士':'歐力士猛牛','Orix':'歐力士猛牛','軟銀':'福岡軟銀鷹','羅德':'千葉羅德海洋','Rakuten':'東北樂天金鷲'};
 const leagueAliases:Record<string,Record<string,string>>={
  CPBL:{'統一7-ELEVEn獅':'統一獅','統一7-ELEVEN獅':'統一獅','統一':'統一獅','臺鋼雄鷹':'台鋼雄鷹'},
@@ -10,13 +16,13 @@ const aliases:Record<string,string>={
 '養樂多燕子':'東京養樂多燕子','橫濱DeNA海灣之星':'橫濱 DeNA 海灣之星','西武獅':'埼玉西武獅','日本火腿鬥士':'北海道日本火腿鬥士',
 'Tigers':'阪神虎','阪神':'阪神虎','Giants':'讀賣巨人','巨人':'讀賣巨人','BayStars':'橫濱 DeNA 海灣之星','DeNA':'橫濱 DeNA 海灣之星','Carp':'廣島東洋鯉魚','広島':'廣島東洋鯉魚','Swallows':'東京養樂多燕子','ヤクルト':'東京養樂多燕子','Dragons':'中日龍','中日':'中日龍','Hawks':'福岡軟銀鷹','ソフトバンク':'福岡軟銀鷹','Fighters':'北海道日本火腿鬥士','日本ハム':'北海道日本火腿鬥士','Marines':'千葉羅德海洋','ロッテ':'千葉羅德海洋','Buffaloes':'歐力士猛牛','オリックス':'歐力士猛牛','Golden Eagles':'東北樂天金鷲','楽天':'東北樂天金鷲','Lions':'埼玉西武獅','西武':'埼玉西武獅',
 'KT':'KT 巫師','Wiz':'KT 巫師','LG':'LG 雙子','Twins':'LG 雙子','삼성':'三星獅','Samsung':'三星獅','KIA':'起亞虎','두산':'斗山熊','Bears':'斗山熊','NC':'NC 恐龍','Dinos':'NC 恐龍','한화':'韓華鷹','Eagles':'韓華鷹','SSG':'SSG 登陸者','Landers':'SSG 登陸者','롯데':'樂天巨人','키움':'培證英雄','Heroes':'培證英雄'};
+const resolvers=new Map(Object.entries(internationalTeams).map(([league,teams])=>{
+ const names=new Set(Object.values(teams));
+ const scoped={...aliases,...(league==='NPB'?npbAliases:{}),...(leagueAliases[league]??{}),...(league==='KBO'?{Giants:'樂天巨人',Lions:'三星獅',Tigers:'起亞虎'}:{})};
+ return [league,teamNameResolver([...Object.values(teams).map(name=>[name,name] as const),...Object.entries(scoped).filter(([,name])=>names.has(name))])] as const;
+}));
 export function internationalTeam(name:string,league:string){
- const n=String(name??'').normalize('NFKC').replace(/\s*\((?:主|客|NPB|KBO|CPBL)\)\s*/gi,' ').replace(/\s+/g,' ').trim();
+ const n=cleanTeamName(String(name??'')).replace(new RegExp('\\s*\\('+(['CPBL','NPB','KBO'].includes(league)?league:'(?!)')+'\\)\\s*','gi'),' ').replace(/\s+/g,' ').trim();
  if(!n||/^[-—–\s]+$/.test(n)||/^(?:TOT|Total|2 Teams|3 Teams)$/i.test(n))return '';
- const scoped=leagueAliases[league]?.[n];if(scoped)return scoped;
- if(league==='NPB'&&npbAliases[n])return npbAliases[n];
- if(league==='KBO'&&n==='Giants')return '樂天巨人';
- if(league==='KBO'&&n==='Lions')return '三星獅';
- if(league==='KBO'&&n==='Tigers')return '起亞虎';
- return aliases[n]||n;
+ return resolvers.get(league)?.(n)??n;
 }
