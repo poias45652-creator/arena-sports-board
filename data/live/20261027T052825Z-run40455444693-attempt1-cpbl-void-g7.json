@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-27",
+  "capturedAt": "2026-10-27T05:28:25.604Z",
+  "purpose": "Fresh 2026-10-27 collector retest after isolated CPBL conditional-game quarantine; do not mistake metadata-only G7 pregame for a real match.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "preFix": {
+      "runId": 40166038103,
+      "runAttempt": 27,
+      "runAttemptConfirmedByApi": true,
+      "jobId": 122026462233,
+      "artifactId": 12712197627,
+      "artifactCreatedAt": "2026-10-27T05:24:44Z",
+      "artifactDigest": "sha256:f4a8f6fc0b655c17d463660be3e6937c0246d73cec01ac9d860ecc486114cb3f",
+      "capturedAt": "2026-10-27T05:24:40.927Z",
+      "collectorCpblPregameCards": 1
+    },
+    "fixCommit": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "runId": 40455444693,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122027593215,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12712336221,
+    "artifactCreatedAt": "2026-10-27T05:28:28Z",
+    "artifactDigest": "sha256:2988aee4521d19eefba3a4d6160d548b8dfe4f97f11aade53a20ce2d777a9282",
+    "downloadedZipSha256": "2988aee4521d19eefba3a4d6160d548b8dfe4f97f11aade53a20ce2d777a9282",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "capture": {
+    "date": "2026-10-27",
+    "checkedAt": "2026-10-27T05:28:25.604Z",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "kboLiveGames": null,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "NPB is pregame and CPBL no real game remains after series clinch; KBO collector unavailable. Do not infer no KBO game from timeout."
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "key": "NPB:2021039494",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-27T09:00:00.000Z",
+      "awayScore": null,
+      "homeScore": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039494/score",
+      "sourceFetchedAt": "2026-10-27T05:28:06.610Z"
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "sourceScheduleURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-27&toDate=2026-10-27&page=1&pageSize=100",
+      "error": "The operation was aborted due to timeout",
+      "notAnOffDayProof": true,
+      "externalScheduleCorroboration": "https://www.jeonmae.co.kr/news/articleView.html?idxno=1305388",
+      "externalScheduleGame": "KIA at Samsung, 18:30 Korea / 17:30 Taipei; independent public schedule only, not collector-usable"
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "upstreamStaleMetadataCount": 1,
+      "quarantined": [
+        {
+          "key": "CPBL:261027007",
+          "rawStatus": "PREGAME",
+          "startTime": "2026-10-27T10:35:00.000Z",
+          "away": "中信兄弟",
+          "home": "味全龍",
+          "reason": "Conditional G7 does not occur: Wei Chuan won G6 6-0 on 2026-10-26 and the best-of-seven 4-2.",
+          "evidenceURL": "https://sports.ltn.com.tw/news/breakingnews/5619302",
+          "sourceURL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
+          "detailsFullBoxScoreAvailable": false
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "siteEligibleGames": 0,
+      "fixTestedInIsolatedBranch": true
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-27T05:28:27.255Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "byLeague": {
+      "NPB": {
+        "written": 1,
+        "readBack": 1
+      },
+      "KBO": {
+        "written": 0,
+        "readBack": 0,
+        "sourceUnavailable": true
+      },
+      "CPBL": {
+        "written": 0,
+        "readBack": 0,
+        "voidConditionalGameExcluded": true
+      }
+    },
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
