@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-27",
+  "capturedAt": "2026-10-27T06:46:58.004Z",
+  "purpose": "New same-day Github Actions Current baseball collector archive reviewed directly; do not confuse KBO timeout with off-day or CPBL conditional G7 with a real game.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40455444693,
+    "runAttempt": 3,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122051993083,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12714604242,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-27T06:47:01Z",
+    "artifactDigest": "sha256:d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
+    "downloadedZipSha256": "d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "capture": {
+    "date": "2026-10-27",
+    "checkedAt": "2026-10-27T06:46:58.004Z",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "kboLiveGames": null,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "NPB pregame 17:00 Taiwan; KBO Naver timeout; CPBL G7 metadata was quarantined and no actual first-team match remains."
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "key": "NPB:2021039494",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-27T09:00:00.000Z",
+      "awayScore": null,
+      "homeScore": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "probableStarters": {
+        "away": "東",
+        "home": "松本晴",
+        "confirmation": "probable"
+      },
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039494/score",
+      "sourceFetchedAt": "2026-10-27T06:46:38.852Z",
+      "httpDate": "Tue, 27 Oct 2026 06:46:38 GMT",
+      "cacheAgeSeconds": 0,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "siteCollectorUsable": false,
+      "notAnOffDayProof": true,
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-27&toDate=2026-10-27&page=1&pageSize=100"
+    },
+    "CPBL": {
+      "status": "partial",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "siteEligibleGames": 0,
+      "upstreamStaleMetadataCount": 1,
+      "quarantined": [
+        {
+          "key": "CPBL:261027007",
+          "rawStatus": "PREGAME",
+          "date": "2026-10-27",
+          "reason": "Conditional G7 does not take place after series clinched on 2026-10-26; metadata-only entry",
+          "evidenceURL": "https://sports.ltn.com.tw/news/breakingnews/5619302"
+        }
+      ],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "parserFixInIsolatedBranch": "49913abe66ed7b3d8955a0b3c66d38b42842e288"
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-27T06:46:59.937Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "byLeague": {
+      "NPB": {
+        "written": 1,
+        "readBack": 1
+      },
+      "KBO": {
+        "written": 0,
+        "readBack": 0,
+        "sourceUnavailable": true
+      },
+      "CPBL": {
+        "written": 0,
+        "readBack": 0,
+        "voidConditionalGameExcluded": true
+      }
+    },
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
