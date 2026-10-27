@@ -4,27 +4,45 @@ import {readMemberOdds,scopeMemberOdds,memberOddsRequestError} from '@/lib/membe
 export function useSource<T>(kind:string,interval:number){
  const [data,setData]=useState<T|null>(null),[error,setError]=useState(''),[errorCode,setErrorCode]=useState(''),[loading,setLoading]=useState(true);
  const busy=useRef(false),controller=useRef<AbortController|null>(null),generation=useRef(0);
+ const startedAt=useRef(0),queued=useRef(false);
  const retryTimer=useRef<ReturnType<typeof setTimeout>|undefined>(undefined),failures=useRef(0);
  const refresh=useCallback(async(force=false)=>{
-  if(busy.current&&!force)return;
+  const memberOdds=kind.startsWith('member-odds'),timeout=memberOdds?75000:35000;
+  if(busy.current&&Date.now()-startedAt.current>=0&&Date.now()-startedAt.current<timeout){
+   if(force)queued.current=true;
+   return;
+  }
   clearTimeout(retryTimer.current);
-  if(force)controller.current?.abort();
+  controller.current?.abort();queued.current=false;startedAt.current=Date.now();
   const version=++generation.current;busy.current=true;setLoading(true);setError('');setErrorCode('');const c=new AbortController();controller.current=c;
-  const timer=setTimeout(()=>c.abort(),kind.startsWith('member-odds')?75000:35000);
+  const timer=setTimeout(()=>c.abort(),timeout);
+  let stopWaiting:(()=>void)|undefined;
   try{
    let j;
-   if(kind.startsWith('member-odds'))j=scopeMemberOdds(await readMemberOdds(),new URLSearchParams(kind.split('&').slice(1).join('&')).get('league'));
+   if(memberOdds){
+    const aborted=new Promise<never>((_,reject)=>{const abort=()=>reject(new DOMException('Aborted','AbortError'));c.signal.addEventListener('abort',abort,{once:true});stopWaiting=()=>c.signal.removeEventListener('abort',abort);});
+    j=scopeMemberOdds(await Promise.race([readMemberOdds(),aborted]),new URLSearchParams(kind.split('&').slice(1).join('&')).get('league'));
+   }
    else{const r=await fetch(`/api/baseball?kind=${kind}`,{signal:c.signal,cache:'no-store'});j=await r.json();if(!r.ok)throw new Error(j.error||'來源暫時無法連線');}
    if(c.signal.aborted)throw new DOMException('Aborted','AbortError');
-   if(version===generation.current){setData(j);setError('');failures.current=0;}
-  }catch(e){if(version===generation.current){
+   if(version===generation.current&&!queued.current){
+    setData(j);setError('');failures.current=0;
+    if(memberOdds){
+     // A cached snapshot can already be nearly a minute old when received.
+     // Leave a minute for the next read before the unchanged 150-second limit.
+     const age=Date.now()-Date.parse(j?.fetchedAt||'');
+     const delay=Number.isFinite(age)&&age>=-60000?Math.max(15000,90000-age):15000;
+     if(delay<interval)retryTimer.current=setTimeout(()=>{if(document.visibilityState!=='hidden')void refresh();},delay);
+    }
+   }
+  }catch(e){if(version===generation.current&&!queued.current){
    if(kind.startsWith('member-odds')){
     const failure=memberOddsRequestError(e);setData(null);setError(failure.message);setErrorCode(failure.code);
     if(failure.retryable)retryTimer.current=setTimeout(()=>{if(document.visibilityState!=='hidden')void refresh();},Math.min(60000,15000*2**Math.min(failures.current++,2)));
    }else setError(e instanceof Error&&e.name!=='AbortError'?e.message:'更新逾時，稍後自動重試。');
   }}
-  finally{clearTimeout(timer);if(version===generation.current){busy.current=false;setLoading(false);}}
- },[kind]);
+  finally{clearTimeout(timer);stopWaiting?.();if(version===generation.current){busy.current=false;if(queued.current)void refresh();else setLoading(false);}}
+ },[kind,interval]);
  useEffect(()=>{
   void refresh();const timer=setInterval(()=>{if(document.visibilityState!=='hidden')void refresh();},interval);
   const changed=()=>{if(kind.startsWith('member-odds'))setData(null);setError('');void refresh(true);};

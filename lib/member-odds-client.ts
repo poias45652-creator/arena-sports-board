@@ -30,10 +30,14 @@ export function memberOddsRequestError(error:unknown):MemberOddsError{
 }
 export function createMemberOddsReader(fetcher:typeof fetch=(...args)=>fetch(...args),wait=(ms:number)=>new Promise<void>(resolve=>setTimeout(resolve,ms))){
  let pending:Promise<any>|null=null;
+ let startedAt=0,controller:AbortController|null=null;
  return function read(){
-  if(pending)return pending;
+  // Mobile browsers pause active-time timeouts in the back/forward cache.
+  // On resume, use elapsed wall time before sharing an unfinished request.
+  if(pending&&Date.now()-startedAt>=0&&Date.now()-startedAt<70000)return pending;
+  controller?.abort();controller=new AbortController();startedAt=Date.now();
+  const signal=AbortSignal.any([controller.signal,AbortSignal.timeout(70000)]);
   const task=(async()=>{
-   const signal=AbortSignal.timeout(70000);
    let busyRetries=0,transportRetries=0;
    for(;;){
     try{

@@ -144,3 +144,9 @@ test('source errors, stale data and paused markets stay distinct even without an
  s.fetchedAt=new Date(now).toISOString();for(const market of s.sportGames[0].displayMarkets)for(const q of market.quotes)q.open=false;
  const closed=render(s);assert.ok(closed.includes('玩法已暫停'));assert.ok(closed.includes('來源已暫停此全場玩法'));assert.ok(!closed.includes('全場獨贏'));
 });
+test('expired markets provide read-only recovery and keep quotes blocked during refresh',()=>{
+ const s=source();s.fetchedAt=new Date(now-150000).toISOString();
+ assert.match(render(s),/重新取得玩法/);
+ const html=render(s,{sourceLoading:true});assert.match(html,/更新中/);assert.match(html,/<button[^>]*disabled/);
+ assert.ok(!html.includes('sport-market-quote'));assert.ok(!html.includes('2 種玩法'));
+});

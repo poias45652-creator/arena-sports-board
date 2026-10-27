@@ -35,7 +35,7 @@ test('failed market reads retry promptly, recover data, and refresh on visibilit
  assert.match(hook.render().error,/玩法資料傳輸中斷/);assert.equal(hook.render().data,null);
  env.run(15000);assert.equal(calls.length,2);assert.equal(hook.render().error,'');assert.equal(hook.render().loading,true);
  calls[1].reject(new TypeError('Load failed'));await flush();env.run(30000);assert.equal(calls.length,3);
- const snapshot={fetchedAt:'2026-10-13T17:26:00Z',sportGames:[{id:25092679}]};calls[2].resolve(snapshot);await flush();
+ const snapshot={fetchedAt:new Date().toISOString(),sportGames:[{id:25092679}]};calls[2].resolve(snapshot);await flush();
  assert.equal(hook.render().data,snapshot);assert.equal(hook.render().error,'');assert.equal(hook.render().loading,false);assert.equal(env.timers.size,0);
  env.document.visibilityState='hidden';env.document.dispatchEvent(new Event('visibilitychange'));for(const timer of env.intervals.values())timer.fn();assert.equal(calls.length,3);
  env.document.visibilityState='visible';env.document.dispatchEvent(new Event('visibilitychange'));assert.equal(calls.length,4);
@@ -47,10 +47,33 @@ test('failed market reads retry promptly, recover data, and refresh on visibilit
 });
 test('authorization errors clear quotes without a fast retry; manual recovery clears the error and unmount ignores late results',async t=>{
  const env=environment(t),calls=[];const hook=mount(()=>{const task=deferred();calls.push(task);return task.promise;});env.cleanups.push(()=>hook.dispose());
- hook.render();calls[0].resolve({fetchedAt:'old',sportGames:[]});await flush();
+ hook.render();calls[0].resolve({fetchedAt:new Date().toISOString(),sportGames:[]});await flush();
  env.window.dispatchEvent(new Event('online'));calls[1].reject(new client.MemberOddsError('授權已失效，請重新驗證帳號。'));await flush();
  assert.equal(hook.render().data,null);assert.match(hook.render().error,/授權已失效/);assert.equal(env.timers.size,0);
  env.window.dispatchEvent(new Event('arena-odds-change'));assert.equal(calls.length,3);assert.equal(hook.render().error,'');
  const before=hook.render();hook.dispose();calls[2].resolve({fetchedAt:'late',sportGames:[]});await flush();assert.deepEqual(hook.render(),before);
  assert.equal(env.timers.size,0);assert.equal(env.intervals.size,0);
+});
+test('manual update during a read queues one fresh read and cannot publish the earlier snapshot',async t=>{
+ const env=environment(t),calls=[];const hook=mount(()=>{const task=deferred();calls.push(task);return task.promise;});env.cleanups.push(()=>hook.dispose());
+ hook.render();env.window.dispatchEvent(new Event('arena-odds-change'));env.window.dispatchEvent(new Event('arena-odds-change'));
+ assert.equal(calls.length,1,'do not overlap source reads');
+ calls[0].resolve({fetchedAt:'before-manual-update',sportGames:[]});await flush();
+ assert.equal(calls.length,2);assert.equal(hook.render().data,null);assert.equal(hook.render().loading,true);
+ const snapshot={fetchedAt:new Date().toISOString(),sportGames:[]};calls[1].resolve(snapshot);await flush();
+ assert.equal(hook.render().data,snapshot);assert.equal(hook.render().loading,false);
+});
+test('a cached 80-second-old snapshot refreshes before the 150-second expiry',async t=>{
+ const env=environment(t),calls=[];const hook=mount(()=>{const task=deferred();calls.push(task);return task.promise;});env.cleanups.push(()=>hook.dispose());
+ hook.render();const fetchedAt=new Date(Date.now()-80000).toISOString();calls[0].resolve({fetchedAt,sportGames:[]});await flush();
+ env.run(15000);assert.equal(calls.length,2);assert.equal(hook.render().data.fetchedAt,fetchedAt,'never retimestamp old data');
+ calls[1].resolve({fetchedAt:new Date().toISOString(),sportGames:[]});await flush();assert.equal(env.timers.size,0);
+});
+test('mobile resume supersedes a hung read after its wall-clock deadline',async t=>{
+ const env=environment(t),calls=[];let clock=Date.now();t.mock.method(Date,'now',()=>clock);
+ const hook=mount(()=>{const task=deferred();calls.push(task);return task.promise;});env.cleanups.push(()=>hook.dispose());
+ hook.render();clock+=76000;env.window.dispatchEvent(new Event('pageshow'));await flush();
+ assert.equal(calls.length,2);
+ const fresh={fetchedAt:new Date(clock).toISOString(),sportGames:[]};calls[1].resolve(fresh);await flush();
+ calls[0].resolve({fetchedAt:new Date().toISOString(),sportGames:[]});await flush();assert.equal(hook.render().data,fresh);
 });
