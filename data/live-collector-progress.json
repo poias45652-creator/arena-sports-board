@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-27T06:49:47.548Z",
+  "observedAt": "2026-10-27T08:09:19.711Z",
   "dateAsiaTaipei": "2026-10-27",
   "currentGames": {
     "NPB": 1,
@@ -22,7 +22,7 @@
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "checkedAt": "2026-10-27T06:46:59.937Z",
+    "checkedAt": "2026-10-27T08:06:46.143Z",
     "passed": true,
     "rowsWritten": 1,
     "rowsReadBack": 1,
@@ -41,7 +41,7 @@
         "duplicateWrites": 0,
         "readBack": 0,
         "passed": true,
-        "note": "source timed out; do not infer an off-day"
+        "note": "source timed out; status unknown, not an off-day"
       },
       {
         "league": "CPBL",
@@ -49,7 +49,7 @@
         "duplicateWrites": 0,
         "readBack": 0,
         "passed": true,
-        "note": "conditional G7 metadata quarantined"
+        "note": "conditional G7 schedule entry quarantined"
       }
     ]
   },
@@ -2094,7 +2094,7 @@
         "games": 1,
         "startTaipei": "17:00",
         "source": "sportsnavi",
-        "sourceFetchedAt": "2026-10-27T06:46:38.852Z"
+        "sourceFetchedAt": "2026-10-27T08:06:24.662Z"
       },
       "KBO": {
         "verified": false,
@@ -2122,27 +2122,27 @@
       },
       "allVerified": false,
       "allScheduledLeaguesVerified": false,
-      "reason": "Repeat collector attempt 3 at 14:46 Taipei: NPB pregame, KBO Naver timeout, CPBL G7 quarantine effective. New artifact's integrity and timestamp validated; no qualifying live data.",
+      "reason": "At 16:06 Taipei fresh attempt 4: NPB pregame, KBO Naver timeout, conditional CPBL G7 quarantined. Artifact SHA-256 and API run attempt confirmed; no LIVE data.",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
         "branch": "data/live-source-probe-20260915",
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 40455444693,
-        "runAttempt": 3,
+        "runAttempt": 4,
         "runAttemptConfirmedByApi": true,
-        "jobId": 122051993083,
+        "jobId": 122078488518,
         "jobStatus": "completed",
         "jobConclusion": "success",
         "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-        "artifactId": 12714604242,
-        "artifactCreatedAt": "2026-10-27T06:47:01Z",
-        "artifactDigest": "sha256:d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
-        "downloadedZipSha256": "d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
+        "artifactId": 12718249113,
+        "artifactCreatedAt": "2026-10-27T08:06:47Z",
+        "artifactDigest": "sha256:2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
+        "downloadedZipSha256": "2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
         "artifactDigestVerifiedIndependently": true,
         "staleArtifactUsed": false,
-        "capturedAt": "2026-10-27T06:46:58.004Z",
-        "observationPath": "data/live/20261027T064658Z-run40455444693-attempt3-pregame-kbo-timeout.json",
+        "capturedAt": "2026-10-27T08:06:43.128Z",
+        "observationPath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
         "secondCapturePerformed": false,
         "liveGamesConfirmedInAvailableSources": 0,
         "kboLiveGames": null,
@@ -2495,9 +2495,9 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-10-27",
-    "checkedAt": "2026-10-27T06:46:58.004Z",
+    "checkedAt": "2026-10-27T08:06:43.128Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261027T064658Z-run40455444693-attempt3-pregame-kbo-timeout.json",
+    "latestObservationPath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
     "secondCapturePerformed": false,
     "qualifiedNumericChanges": 0,
     "NPB": {
@@ -2519,7 +2519,7 @@
       "games": null,
       "liveGames": null,
       "error": "The operation was aborted due to timeout",
-      "knownExternalScheduledGame": "KIA at Samsung 17:30 Taiwan (prior external schedule, not current collector data)",
+      "knownExternalScheduledGame": "KIA at Samsung 17:30 Taiwan; external schedule not collector data",
       "collectorUsable": false
     },
     "CPBL": {
@@ -2540,9 +2540,9 @@
       "officialLineupConfirmed": false
     },
     "allVerified": false,
-    "reason": "Fresh 14:46 Taipei collector attempt 3: NPB remains pregame; KBO times out; conditional CPBL G7 quarantined. No live match confirmed."
+    "reason": "Fresh 16:06 Taipei attempt 4: NPB pregame; KBO Naver timeout; CPBL conditional G7 quarantined. No confirmed LIVE games; no second capture warranted."
   },
-  "nextAction": "Continue scheduled daily checks. After 17:00 Taiwan NPB and 17:30 Taiwan externally scheduled KBO, check game statuses afresh. When a source confirms LIVE, compare >=65 second observations and numeric state changes. KBO GitHub-runner Naver timeouts continue; investigate lawful public alternatives. Keep CPBL void conditional G7 quarantined. Do not modify main, Render, production database or deploy.",
+  "nextAction": "Continue subsequent scheduled checks; at 17:00 NPB first pitch and 17:30 externally scheduled KBO game check live statuses. On true LIVE capture >=65 second observations and compare material score/inning/B/S/O/base/pitching changes. Investigate KBO GitHub runner Naver timeouts using authorized public data; keep G7 quarantined. Do not change main, Render, production DB or deploy.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
@@ -2582,14 +2582,14 @@
     "currentRunQualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
   },
-  "latestObservationCommit": "8d7091122030c11d503e4d8e4c59eafe2a9183fb",
+  "latestObservationCommit": "245d729d4526304d9e23d677ae7cb66d4e14d2ef",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261027T064658Z-run40455444693-attempt3-pregame-kbo-timeout.json",
-    "lastEvidenceContains": "2026-10-27 14:46 Taipei: fresh attempt 3 job 122051993083 NPB pregame, KBO timeout, CPBL conditional G7 quarantined. Artifact 12714604242 independently SHA-256 verified; isolated PostgreSQL 16 passed. Run attempt 3 confirmed by GitHub REST API."
+    "lastEvidencePath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
+    "lastEvidenceContains": "2026-10-27 16:06 Taipei attempt 4: new collector, NPB pregame, KBO Naver timeout, voided CPBL G7 quarantined, artifact SHA-256 matched, API confirmed run attempt, isolated PostgreSQL test passed."
   },
   "currentDayFinalObservation": null,
   "latestObservation": {
@@ -2598,20 +2598,59 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40455444693,
-    "runAttempt": 3,
+    "runAttempt": 4,
     "runAttemptConfirmedByApi": true,
-    "jobId": 122051993083,
+    "jobId": 122078488518,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-    "artifactId": 12714604242,
-    "artifactCreatedAt": "2026-10-27T06:47:01Z",
-    "artifactDigest": "sha256:d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
-    "downloadedZipSha256": "d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
+    "artifactId": 12718249113,
+    "artifactCreatedAt": "2026-10-27T08:06:47Z",
+    "artifactDigest": "sha256:2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
+    "downloadedZipSha256": "2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-27T06:46:58.004Z",
-    "observationPath": "data/live/20261027T064658Z-run40455444693-attempt3-pregame-kbo-timeout.json",
+    "capturedAt": "2026-10-27T08:06:43.128Z",
+    "observationPath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 1,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "quarantinedCpblScheduleEntries": [
+      "CPBL:261027007"
+    ],
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "lastRun": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40455444693,
+    "runAttempt": 4,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122078488518,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12718249113,
+    "artifactCreatedAt": "2026-10-27T08:06:47Z",
+    "artifactDigest": "sha256:2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
+    "downloadedZipSha256": "2902ffa1db047c22f0ed7675432100cf44b3556d346cef6adbea670ce2f1a947",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-27T08:06:43.128Z",
+    "observationPath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
     "secondCapturePerformed": false,
     "liveGamesConfirmedInAvailableSources": 0,
     "kboLiveGames": null,
