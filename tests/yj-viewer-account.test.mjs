@@ -52,7 +52,8 @@ test('YJ viewer account with real PostgreSQL migrations, login, authorization an
    assert.equal((await db.prepare('SELECT COUNT(*) AS n FROM arena_sessions').first()).n,0);
   });
   await t.test('only viewing and navigation are allowed, including direct API and game URLs',async()=>{
-   for(const path of ['/', '/?league=NBA','/teams','/players/nba/1','/api/baseball?kind=scores','/api/football?kind=analysis','/api/nba?weights=20,20,20,20,20','/api/viewer-analysis?gameId=1'])assert.equal(await gateRequest(request(path,'GET',undefined,cookie),db),null,path);
+   const homepage=await gateRequest(request('/','GET',undefined,cookie),db);assert.equal(homepage.status,307);assert.match(homepage.headers.get('location'),/\/welcome$/);
+   for(const path of ['/?league=MLB&view=analysis', '/?league=NBA','/teams','/players/nba/1','/api/baseball?kind=scores','/api/football?kind=analysis','/api/nba?weights=20,20,20,20,20','/api/viewer-analysis?gameId=1'])assert.equal(await gateRequest(request(path,'GET',undefined,cookie),db),null,path);
    for(const path of ['/admin','/admin/accounts','/api/admin/accounts','/api/admin/viewer-account','/ai-assistant','/api/ai-assistant','/api/hr9988','/api/tz-binding','/api/super-entry','/api/super007','/api/operations','/game-life','/game-life/index.html','/api/baseball?kind=super007','/api/nba?weights=80,5,5,5,5','/api/football?settings={}','/api/international?mode=refresh','/api/new-feature'])await expect(await gateRequest(request(path,'GET',undefined,cookie),db),403);
    for(const method of ['POST','PATCH','PUT','DELETE'])for(const path of ['/','/api/health','/api/free-trial','/api/analysis','/api/analysis/results','/api/international-sync','/api/baseball','/api/admin/viewer-account'])await expect(await gateRequest(request(path,method,{},cookie),db),403);
    const odds=await expect(await gateRequest(request('/api/member-odds','GET',undefined,cookie),db),200);assert.equal((await odds.json()).readOnly,true);

@@ -1,6 +1,11 @@
 import {readSession,VIEWER_COOKIE} from '../lib/arena-session';
 export async function gateRequest(request: Request, db: any): Promise<Response | null> {
   const url=new URL(request.url),path=url.pathname;
+  // Opening the site always starts on the brand homepage, regardless of session.
+  // Explicit league/view links continue to use the authenticated match workspace.
+  if ((request.method==='GET'||request.method==='HEAD')&&path==='/'&&!url.searchParams.has('league')&&!url.searchParams.has('view')) {
+    return new Response(null,{status:307,headers:{Location:new URL('/welcome',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
+  }
   // Evaluate viewer restrictions before all public/machine-route exceptions.
   // Unknown routes and every mutation are denied by default.
   if((request.headers.get('cookie')||'').split(';').some(s=>s.trim().startsWith(VIEWER_COOKIE+'='))&&path!=='/api/session'&&path!=='/login'){
@@ -27,7 +32,7 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
     if (await readSession(db, request.headers.get('cookie'))) return null;
     return path.startsWith('/api/')
       ? Response.json({error:'請重新登入；帳號可能尚未授權、已停用或到期'}, {status:401,headers:{'Cache-Control':'private, no-store'}})
-      : new Response(null, {status:307,headers:{Location:new URL(path==='/'&&!url.searchParams.has('league')&&!url.searchParams.has('view')?'/welcome':'/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
+      : new Response(null, {status:307,headers:{Location:new URL('/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
   } catch {
     return Response.json({error:'登入服務暫時無法使用，請稍後重試'}, {status:503,headers:{'Cache-Control':'no-store'}});
   }

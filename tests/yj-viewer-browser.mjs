@@ -25,7 +25,7 @@ const origin='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 try{
  const page=await browser.newPage({viewport:{width:1440,height:950}}),errors=[];page.on('pageerror',e=>{errors.push(e.message);console.error('Browser fixture:',e.message);});
- await page.goto(origin+'/login');await page.getByLabel('帳號',{exact:true}).fill('aa3344');await page.getByLabel('密碼',{exact:true}).fill('browser-local-login');await page.getByRole('button',{name:'登入',exact:true}).click();await page.waitForURL(origin+'/');assert.equal(upstreamConnections,0,'viewer login never requests an upstream connection');
+ await page.goto(origin+'/login');await page.getByLabel('帳號',{exact:true}).fill('aa3344');await page.getByLabel('密碼',{exact:true}).fill('browser-local-login');await page.getByRole('button',{name:'登入',exact:true}).click();await page.waitForURL(origin+'/?league=MLB&view=analysis');assert.equal(upstreamConnections,0,'viewer login never requests an upstream connection');
  await page.goto(origin);await page.getByText('aa3344 · 唯讀測試模式').waitFor();
  const blocked=page.getByRole('button',{name:'調整權重'});await blocked.waitFor();assert.equal(await blocked.getAttribute('aria-disabled'),'true');
  await blocked.click({force:true});assert.equal(await page.locator('#clicks').textContent(),'0');

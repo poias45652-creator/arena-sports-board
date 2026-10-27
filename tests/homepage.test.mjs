@@ -33,11 +33,17 @@ test('real probabilities round correctly; missing or malformed model output rema
 let gateSource=ts.transpileModule(readFileSync('server/request-gate.ts','utf8'),{compilerOptions:{module:99,target:9}}).outputText;
 gateSource=gateSource.replace(/import.*?from ['"]\.\.\/lib\/arena-session['"];?/s,"const VIEWER_COOKIE='__Host-yj_viewer';const readSession=async db=>db.session;");
 const {gateRequest}=await import('data:text/javascript;base64,'+Buffer.from(gateSource).toString('base64'));
-test('anonymous root opens homepage, direct analysis stays gated, existing sessions retain the board',async()=>{
+test('root always opens homepage; explicit analysis remains authenticated',async()=>{
  const req=p=>new Request('https://arena-sports-board.onrender.com'+p);
  let r=await gateRequest(req('/'),{session:null});assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/welcome$/);
  r=await gateRequest(req('/?league=NBA'),{session:null});assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/login$/);
  assert.equal((await gateRequest(req('/api/nba'),{session:null})).status,401);
- assert.equal(await gateRequest(req('/'),{session:{memberId:'existing'}}),null);
+ assert.match((await gateRequest(req('/'),{session:{memberId:'existing'}})).headers.get('location'),/\/welcome$/);
+ assert.equal(await gateRequest(req('/?league=MLB&view=analysis'),{session:{memberId:'existing'}}),null);
+ for(const session of [null,{memberId:'viewer'}]){
+  const r=await gateRequest(new Request('https://arena-sports-board.onrender.com/',{headers:{cookie:'__Host-yj_viewer=test'}}),{session});
+  assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/welcome$/);
+ }
+ assert.match((await gateRequest(new Request('https://arena-sports-board.onrender.com/',{method:'HEAD'}),{})).headers.get('location'),/\/welcome$/);
  assert.equal(await gateRequest(req('/welcome'),{session:null}),null);
 });

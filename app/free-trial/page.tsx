@@ -6,7 +6,7 @@ export const metadata = {title: '免費推薦｜星準'};
 export default function FreeTrial() {
   return <div className="trial-page">
     <header className="trial-header">
-      <a className="trial-brand" href="/login" aria-label="星準登入頁">
+      <a className="trial-brand" href="/welcome" aria-label="星準首頁">
         <img src="/brand/xingzhun-icon-192-v1.png" alt="" width={40} height={40}/>
         <span>星準</span>
       </a>
