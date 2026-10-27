@@ -2549,55 +2549,6 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40455444693,
-    "runAttempt": 3,
-    "runAttemptConfirmedByApi": true,
-    "jobId": 122051993083,
-    "jobStatus": "completed",
-    "jobConclusion": "success",
-    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-    "artifactId": 12714604242,
-    "artifactCreatedAt": "2026-10-27T06:47:01Z",
-    "artifactDigest": "sha256:d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
-    "downloadedZipSha256": "d854b2e2f7f4a0d2518313903c98a094e03a754484df971d37a059a4eadf8dca",
-    "artifactDigestVerifiedIndependently": true,
-    "staleArtifactUsed": false,
-    "capturedAt": "2026-10-27T06:46:58.004Z",
-    "observationPath": "data/live/20261027T064658Z-run40455444693-attempt3-pregame-kbo-timeout.json",
-    "secondCapturePerformed": false,
-    "liveGamesConfirmedInAvailableSources": 0,
-    "kboLiveGames": null,
-    "pregameGames": {
-      "NPB": 1,
-      "KBO": null,
-      "CPBL": 0
-    },
-    "finalGames": {
-      "NPB": 0,
-      "KBO": null,
-      "CPBL": 0
-    },
-    "quarantinedCpblScheduleEntries": [
-      "CPBL:261027007"
-    ],
-    "currentRunQualifiedNumericChanges": 0,
-    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
-  },
-  "latestObservationCommit": "245d729d4526304d9e23d677ae7cb66d4e14d2ef",
-  "historyRetention": {
-    "evidenceFiles": "data/live/",
-    "gitHistoryPreservesPriorProgressVersions": true,
-    "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
-    "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
-    "lastEvidenceContains": "2026-10-27 16:06 Taipei attempt 4: new collector, NPB pregame, KBO Naver timeout, voided CPBL G7 quarantined, artifact SHA-256 matched, API confirmed run attempt, isolated PostgreSQL test passed."
-  },
-  "currentDayFinalObservation": null,
-  "latestObservation": {
-    "repository": "poias45652-creator/arena-sports-board",
-    "branch": "data/live-source-probe-20260915",
-    "workflow": "Current baseball collector",
-    "workflowPath": ".github/workflows/baseball-current-collector.yml",
-    "runId": 40455444693,
     "runAttempt": 4,
     "runAttemptConfirmedByApi": true,
     "jobId": 122078488518,
@@ -2631,7 +2582,17 @@
     "currentRunQualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
   },
-  "lastRun": {
+  "latestObservationCommit": "245d729d4526304d9e23d677ae7cb66d4e14d2ef",
+  "historyRetention": {
+    "evidenceFiles": "data/live/",
+    "gitHistoryPreservesPriorProgressVersions": true,
+    "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
+    "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
+    "lastEvidencePath": "data/live/20261027T080643Z-run40455444693-attempt4-pregame-kbo-timeout.json",
+    "lastEvidenceContains": "2026-10-27 16:06 Taipei attempt 4: new collector, NPB pregame, KBO Naver timeout, voided CPBL G7 quarantined, artifact SHA-256 matched, API confirmed run attempt, isolated PostgreSQL test passed."
+  },
+  "currentDayFinalObservation": null,
+  "latestObservation": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
