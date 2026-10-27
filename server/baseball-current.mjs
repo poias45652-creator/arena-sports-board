@@ -1,5 +1,17 @@
 import {collectLeague as collectBase,fetchPublic,dayInTaipei,npbScheduleIds,parseNpb,plain} from './baseball-live-providers.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
+// Conditional postseason fixtures can remain on Yahoo's team-card schedule even
+// when the series has already ended. Suppress only a *metadata-only pregame* card
+// whose non-occurrence has separately been verified; never suppress a real
+// LIVE/FINAL record or infer cancellation from a missing box score alone.
+const VOIDED_CPBL_CONDITIONAL_FIXTURES = new Map([
+ ['CPBL:261027007', {
+  date:'2026-10-27',startTime:'2026-10-27T10:35:00.000Z',
+  awayId:'cpbl.t.1',homeId:'cpbl.t.7',
+  evidenceUrl:'https://sports.ltn.com.tw/news/breakingnews/5619302',
+  reason:'Taiwan Series ended 2026-10-26: Wei Chuan won G6 6-0 and the series 4-2; conditional G7 does not take place'
+ }]
+]);
 /**
  * Yahoo can put G5/G6/G7 in the same CPBL date/time slot after postponements.
  * Keep independently detailed games; quarantine unverified schedule-only entries.
@@ -15,6 +27,13 @@ export function quarantineCpblScheduleCollisions(result){
   slots.get(slot).push(g);
  }
  const rejected=new Map();
+ for(const g of result.games){
+  const voided=VOIDED_CPBL_CONDITIONAL_FIXTURES.get(g.key);
+  if(voided&&g.status==='pregame'&&g.date===voided.date&&g.startTime===voided.startTime&&
+   g.away?.id===voided.awayId&&g.home?.id===voided.homeId&&
+   g.warnings?.includes('pregame_metadata_only_game_detail_has_no_full_boxscore'))
+   rejected.set(g.key,voided.reason);
+ }
  for(const group of slots.values()){
   if(group.length<2)continue;
   const pregame=group.filter(g=>g.status==='pregame');
@@ -41,7 +60,8 @@ export function quarantineCpblScheduleCollisions(result){
   errors:[...(result.errors||[]),'CPBL schedule collision: quarantined '+rejected.size+' unverified same-slot entry/entries'],
   quarantinedScheduleEntries:result.games.filter(g=>rejected.has(g.key)).map(g=>({
    key:g.key,rawStatus:g.rawStatus,status:g.status,date:g.date,startTime:g.startTime,
-   awayId:g.away?.id,homeId:g.home?.id,sourceUrl:g.source?.url||null,reason:rejected.get(g.key)
+   awayId:g.away?.id,homeId:g.home?.id,sourceUrl:g.source?.url||null,reason:rejected.get(g.key),
+   evidenceUrl:VOIDED_CPBL_CONDITIONAL_FIXTURES.get(g.key)?.evidenceUrl||null
   }))
  };
 }
