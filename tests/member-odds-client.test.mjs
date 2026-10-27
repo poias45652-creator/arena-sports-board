@@ -73,3 +73,12 @@ test('409 recovery preserves the source code and requires a user action to conne
  recoverMemberOdds('super_in_use');assert.equal(events.at(-1),'arena-odds-change');
  assert.equal(memberOddsRecovery('not_connected').summary,'玩法需要重新連接');
 });
+test('resuming after a suspended request replaces it without reusing its late response',async t=>{
+ let clock=Date.now();t.mock.method(Date,'now',()=>clock);
+ const calls=[];const read=createMemberOddsReader((path,options)=>new Promise(resolve=>calls.push({resolve,signal:options.signal})));
+ const first=read();clock+=71000;const resumed=read();
+ assert.equal(calls.length,2);assert.equal(calls[0].signal.aborted,true);
+ calls[0].resolve(Response.json({fetchedAt:'old'}));await first;
+ assert.equal(read(),resumed,'a late old result cannot clear the current shared request');
+ calls[1].resolve(Response.json({fetchedAt:'new'}));assert.equal((await resumed).fetchedAt,'new');
+});
