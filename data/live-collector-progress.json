@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-27T11:47:01.205Z",
+  "observedAt": "2026-10-27T12:55:19.508Z",
   "dateAsiaTaipei": "2026-10-27",
   "currentGames": {
     "NPB": 1,
@@ -16,13 +16,13 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "live_japan_series_g3_8th_bottom_denA_1_softbank_0_pitcher_pitch_and_out_change_verified_85s",
+    "NPB": "final_japan_series_g3_denA_1_softbank_2_final_score_verified",
     "KBO": "unavailable_naver_timeout_not_offday",
     "CPBL": "zero_real_games_known_voided_conditional_g7_current_detail_missing"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "checkedAt": "2026-10-27T11:47:02.885Z",
+    "checkedAt": "2026-10-27T12:55:22.302Z",
     "passed": true,
     "rowsWritten": 1,
     "rowsReadBack": 1,
@@ -51,7 +51,8 @@
         "passed": true,
         "note": "No eligible game; upstream conditional G7 full detail missing; no new quarantine entry"
       }
-    ]
+    ],
+    "productionWritten": false
   },
   "firstStartTaipei": {
     "NPB": "2026-10-27T17:00:00+08:00",
@@ -2091,18 +2092,18 @@
         "verifiedAt": "2026-10-27T09:39:12.939Z",
         "checkedToday": true,
         "notApplicableToday": false,
-        "state": "live",
+        "state": "final",
         "games": 1,
         "startTaipei": "17:00",
         "source": "sportsnavi",
-        "sourceFetchedAt": "2026-10-27T11:46:42.089Z",
+        "sourceFetchedAt": "2026-10-27T12:55:00.621Z",
         "gameKey": "NPB:2021039494",
         "score": {
           "away": 1,
-          "home": 0
+          "home": 2
         },
-        "inning": 8,
-        "half": "bottom",
+        "inning": null,
+        "half": null,
         "twoLiveCaptures": true,
         "captureIntervalSeconds": 85.039,
         "liveChangeProof": {
@@ -2180,7 +2181,31 @@
           "qualifiesAsWithinAttempt65sProof": false,
           "currentWithinAttemptProofVerified": true
         },
-        "lastVerifiedAt": "2026-10-27T11:47:01.205Z"
+        "lastVerifiedAt": "2026-10-27T11:47:01.205Z",
+        "latestCheckedAt": "2026-10-27T12:55:19.508Z",
+        "latestAttemptSecondCapturePerformed": false,
+        "latestAttemptWithinRunLiveNumericChanges": 0,
+        "latestFinalObservationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+        "latestFinalSource": "sportsnavi",
+        "latestFinalPitchingRows": 10,
+        "latestFinalStateConfirmed": true,
+        "liveProofFromPriorAttemptsRetained": true,
+        "liveToFinalComparison": {
+          "previousObservationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
+          "previousStatus": "live",
+          "currentStatus": "final",
+          "previousScore": {
+            "away": 1,
+            "home": 0
+          },
+          "currentScore": {
+            "away": 1,
+            "home": 2
+          },
+          "sameDay": true,
+          "sameMatch": true,
+          "qualifiesAsTwoLiveObservations": false
+        }
       },
       "KBO": {
         "verified": false,
@@ -2192,7 +2217,7 @@
         "source": "naver",
         "error": "The operation was aborted due to timeout",
         "siteCollectorUsable": false,
-        "checkedAt": "2026-10-27T11:47:01.205Z"
+        "checkedAt": "2026-10-27T12:55:19.508Z"
       },
       "CPBL": {
         "verified": false,
@@ -2208,35 +2233,36 @@
         "parserFixCommit": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
         "currentAttemptError": "CPBL full game payload missing after scheduled start",
         "currentAttemptReportedQuarantine": false,
-        "gameCount": 0
+        "gameCount": 0,
+        "checkedAt": "2026-10-27T12:55:19.508Z"
       },
       "allVerified": false,
       "allScheduledLeaguesVerified": false,
-      "reason": "19:47 Taipei attempt 8: NPB LIVE 1:0 bottom 8th; two source polls separated 85.039s show Iwata pitch count 4→7 and pitcher outs 0→1. KBO unavailable from timeout; CPBL G7 is void and detailed payload absent.",
+      "reason": "20:55 Taipei attempt 9: NPB FINAL DeNA 1:2 SoftBank; verified today via fresh source and independently checked artifact, LIVE→FINAL numeric change from 19:47 score 1:0; earlier 85.039s LIVE→LIVE pitcher proof retained. KBO Naver still times out; CPBL no real G7 and detail missing.",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
         "branch": "data/live-source-probe-20260915",
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 40455444693,
-        "runAttempt": 8,
+        "runAttempt": 9,
         "runAttemptConfirmedByApi": true,
-        "jobId": 122169795400,
+        "jobId": 122200524684,
         "jobStatus": "completed",
         "jobConclusion": "success",
         "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-        "artifactId": 12731208351,
+        "artifactId": 12734909266,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-10-27T11:47:04Z",
-        "artifactDigest": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
-        "downloadedZipSha256": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
+        "artifactCreatedAt": "2026-10-27T12:55:23Z",
+        "artifactDigest": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
+        "downloadedZipSha256": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
         "artifactDigestVerifiedIndependently": true,
         "staleArtifactUsed": false,
-        "capturedAt": "2026-10-27T11:47:01.205Z",
-        "observationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
-        "secondCapturePerformed": true,
-        "captureIntervalSeconds": 85.039,
-        "liveGamesConfirmedInAvailableSources": 1,
+        "capturedAt": "2026-10-27T12:55:19.508Z",
+        "observationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+        "secondCapturePerformed": false,
+        "reasonNoSecondCapture": "No LIVE state in first capture; NPB already FINAL, KBO unavailable, CPBL no eligible games",
+        "liveGamesConfirmedInAvailableSources": 0,
         "kboLiveGames": null,
         "pregameGames": {
           "NPB": 0,
@@ -2244,13 +2270,11 @@
           "CPBL": 0
         },
         "finalGames": {
-          "NPB": 0,
+          "NPB": 1,
           "KBO": null,
           "CPBL": 0
         },
-        "quarantinedCpblScheduleEntriesThisAttempt": [],
-        "knownVoidedCpblScheduleEntry": "CPBL:261027007",
-        "currentRunQualifiedNumericChanges": 1,
+        "currentRunQualifiedNumericChanges": 0,
         "crossRunNumericChangesObserved": true,
         "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
       },
@@ -2587,27 +2611,27 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-10-27",
-    "checkedAt": "2026-10-27T11:47:01.205Z",
+    "checkedAt": "2026-10-27T12:55:19.508Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
-    "secondCapturePerformed": true,
-    "qualifiedNumericChanges": 1,
+    "latestObservationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "qualifiedNumericChanges": 0,
     "NPB": {
       "verified": true,
       "notApplicableToday": false,
-      "state": "live",
+      "state": "final",
       "games": 1,
-      "liveGames": 1,
+      "liveGames": 0,
       "awayScore": 1,
-      "homeScore": 0,
+      "homeScore": 2,
       "gameKey": "NPB:2021039494",
-      "inning": 8,
-      "half": "bottom",
+      "inning": null,
+      "half": null,
       "balls": null,
       "strikes": null,
       "outs": null,
       "bases": null,
-      "sourceFetchedAt": "2026-10-27T11:46:42.089Z",
+      "sourceFetchedAt": "2026-10-27T12:55:00.621Z",
       "pitchCountAndOutsChangeVerified": true,
       "captureIntervalSeconds": 85.039,
       "liveChangeProof": {
@@ -2629,8 +2653,8 @@
           }
         }
       },
-      "latestAttemptWithinRunCaptureIntervalSeconds": 85.039,
-      "latestAttemptLiveNumericChanges": 1,
+      "latestAttemptWithinRunCaptureIntervalSeconds": null,
+      "latestAttemptLiveNumericChanges": 0,
       "crossRunNumericChangesObserved": true,
       "crossRunComparison": {
         "previousObservationPath": "data/live/20261027T104628Z-run40455444693-attempt7-npb-live-score1-kbo-timeout.json",
@@ -2684,6 +2708,25 @@
         "numericallyChangedAcrossRuns": true,
         "qualifiesAsWithinAttempt65sProof": false,
         "currentWithinAttemptProofVerified": true
+      },
+      "latestAttemptSecondCapturePerformed": false,
+      "earlierTodayLiveProofPreserved": true,
+      "finalObservationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+      "liveToFinalComparison": {
+        "previousObservationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
+        "previousStatus": "live",
+        "currentStatus": "final",
+        "previousScore": {
+          "away": 1,
+          "home": 0
+        },
+        "currentScore": {
+          "away": 1,
+          "home": 2
+        },
+        "sameDay": true,
+        "sameMatch": true,
+        "qualifiesAsTwoLiveObservations": false
       }
     },
     "KBO": {
@@ -2716,33 +2759,35 @@
       "latestAttemptReportedQuarantine": false
     },
     "allVerified": false,
-    "reason": "2026-10-27 19:47 Taipei attempt 8: NPB LIVE DeNA 1:0 SoftBank bottom 8th, two source captures 85.039s apart with Iwata pitchCount 4→7 and outsRecorded 0→1, qualifying fresh live numeric proof. KBO timed out; CPBL no real G7, upstream detail missing. Unknown fields null."
+    "reason": "20:55 Taipei attempt 9: NPB FINAL DeNA 1:2 SoftBank; verified today via fresh source and independently checked artifact, LIVE→FINAL numeric change from 19:47 score 1:0; earlier 85.039s LIVE→LIVE pitcher proof retained. KBO Naver still times out; CPBL no real G7 and detail missing.",
+    "latestAttemptSecondCapturePerformed": false,
+    "previousVerifiedWithinAttemptLiveProofRetained": true
   },
-  "nextAction": "Continue daily checks without disabling task. Verify NPB final as it becomes available while retaining fresh 85.039-second LIVE numeric proof. KBO Naver remains unavailable and is not offday evidence; test only permitted public alternatives from GitHub runner. CPBL conditional G7 is void; site-eligible games 0; missing payload is not a valid live feed. Keep unknown fields null. Do not modify main, Render, production or deploy.",
+  "nextAction": "Continue checks daily; retain today's verified NPB 85.039-second LIVE pitcher proof and new FINAL DeNA 1:2 SoftBank, without treating LIVE→FINAL as a new two-LIVE proof. KBO Naver remains timed out and status unknown; validate authorized public alternatives from GitHub environment. CPBL G7 void, 0 website-eligible games and upstream full detail missing. Unknown fields stay null. No main/Render/production changes or deploy.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40455444693,
-    "runAttempt": 8,
+    "runAttempt": 9,
     "runAttemptConfirmedByApi": true,
-    "jobId": 122169795400,
+    "jobId": 122200524684,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-    "artifactId": 12731208351,
+    "artifactId": 12734909266,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-27T11:47:04Z",
-    "artifactDigest": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
-    "downloadedZipSha256": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
+    "artifactCreatedAt": "2026-10-27T12:55:23Z",
+    "artifactDigest": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
+    "downloadedZipSha256": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-27T11:47:01.205Z",
-    "observationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
-    "secondCapturePerformed": true,
-    "captureIntervalSeconds": 85.039,
-    "liveGamesConfirmedInAvailableSources": 1,
+    "capturedAt": "2026-10-27T12:55:19.508Z",
+    "observationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "reasonNoSecondCapture": "No LIVE state in first capture; NPB already FINAL, KBO unavailable, CPBL no eligible games",
+    "liveGamesConfirmedInAvailableSources": 0,
     "kboLiveGames": null,
     "pregameGames": {
       "NPB": 0,
@@ -2750,50 +2795,81 @@
       "CPBL": 0
     },
     "finalGames": {
-      "NPB": 0,
+      "NPB": 1,
       "KBO": null,
       "CPBL": 0
     },
-    "quarantinedCpblScheduleEntriesThisAttempt": [],
-    "knownVoidedCpblScheduleEntry": "CPBL:261027007",
-    "currentRunQualifiedNumericChanges": 1,
+    "currentRunQualifiedNumericChanges": 0,
     "crossRunNumericChangesObserved": true,
     "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
   },
-  "latestObservationCommit": "01db9ee79c28c5277c12bc903d2618f12176ec36",
+  "latestObservationCommit": "dfb4be8eb58ee0b828f4dbfa3cd06a375244c078",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
-    "lastEvidenceContains": "2026-10-27 19:47 Taipei attempt 8: NPB DeNA 1:0 SoftBank bottom 8th, fresh 85.039s LIVE pitch/out numeric change; KBO timeout, CPBL zero valid games with stale void G7 detail missing. Artifact SHA256 independently matched; isolated PG16 passed."
+    "lastEvidencePath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+    "lastEvidenceContains": "2026-10-27 20:55 Taipei attempt 9: NPB FINAL DeNA 1:2 SoftBank (new cross-run score/status transition); KBO Naver timeout; CPBL zero actual games/void G7, detailed feed missing. ZIP SHA256 matched, isolated PG16 1/1, earlier 85.039s same-day LIVE proof retained."
   },
-  "currentDayFinalObservation": null,
+  "currentDayFinalObservation": {
+    "date": "2026-10-27",
+    "capturedAt": "2026-10-27T12:55:19.508Z",
+    "observationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+    "NPB": {
+      "gameKey": "NPB:2021039494",
+      "status": "final",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "score": {
+        "away": 1,
+        "home": 2
+      },
+      "source": "sportsnavi",
+      "sourceFetchedAt": "2026-10-27T12:55:00.621Z",
+      "pitchingRows": 10,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "status": "unavailable",
+      "error": "The operation was aborted due to timeout",
+      "games": null
+    },
+    "CPBL": {
+      "validGames": 0,
+      "detailMissing": true,
+      "voidConditionalG7": "CPBL:261027007"
+    },
+    "previousSameDayNPBLiveProofPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
+    "secondCapturePerformed": false
+  },
   "latestObservation": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40455444693,
-    "runAttempt": 8,
+    "runAttempt": 9,
     "runAttemptConfirmedByApi": true,
-    "jobId": 122169795400,
+    "jobId": 122200524684,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
-    "artifactId": 12731208351,
+    "artifactId": 12734909266,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-27T11:47:04Z",
-    "artifactDigest": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
-    "downloadedZipSha256": "sha256:78212f627e16ddcb8a134d9a842d757fe869524984ad0229de73633ce4081dc9",
+    "artifactCreatedAt": "2026-10-27T12:55:23Z",
+    "artifactDigest": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
+    "downloadedZipSha256": "sha256:bb7f2ff5ad6e05e0e08d30d2ed35c697216c3124ff1c9c34ddae645465e31ab4",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-27T11:47:01.205Z",
-    "observationPath": "data/live/20261027T114701Z-run40455444693-attempt8-npb-live-verified.json",
-    "secondCapturePerformed": true,
-    "captureIntervalSeconds": 85.039,
-    "liveGamesConfirmedInAvailableSources": 1,
+    "capturedAt": "2026-10-27T12:55:19.508Z",
+    "observationPath": "data/live/20261027T125519Z-run40455444693-attempt9-npb-final-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "reasonNoSecondCapture": "No LIVE state in first capture; NPB already FINAL, KBO unavailable, CPBL no eligible games",
+    "liveGamesConfirmedInAvailableSources": 0,
     "kboLiveGames": null,
     "pregameGames": {
       "NPB": 0,
@@ -2801,13 +2877,11 @@
       "CPBL": 0
     },
     "finalGames": {
-      "NPB": 0,
+      "NPB": 1,
       "KBO": null,
       "CPBL": 0
     },
-    "quarantinedCpblScheduleEntriesThisAttempt": [],
-    "knownVoidedCpblScheduleEntry": "CPBL:261027007",
-    "currentRunQualifiedNumericChanges": 1,
+    "currentRunQualifiedNumericChanges": 0,
     "crossRunNumericChangesObserved": true,
     "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
   }
