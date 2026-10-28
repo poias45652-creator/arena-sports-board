@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T09:10:44.842Z",
+  "purpose": "Same-day current first-team collection; numeric live-change test; no production changes",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40455444693,
+    "runAttempt": 16,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122726874575,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12804915781,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T09:10:48Z",
+    "artifactDigest": "sha256:c91cba1bb9a80d8e7b90e3f724a172141c5b5777cecf6816913ed6609b2156fd",
+    "downloadedZipSha256": "sha256:c91cba1bb9a80d8e7b90e3f724a172141c5b5777cecf6816913ed6609b2156fd",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-28T09:10:44.842Z",
+    "observationPath": "data/live/20261028T091044Z-run40455444693-attempt16-npb-live-no-numeric-change.json",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T09:09:19.804Z",
+    "capture2CapturedAt": "2026-10-28T09:10:44.842Z",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableFeeds": 1,
+    "qualifiedLiveNumericChangesThisAttempt": 0
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "live",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T09:10:26.303Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 09:10:18 GMT",
+      "sourceCacheAgeSeconds": 8,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "inning": 1,
+      "half": "top",
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "pitchingRows": 2,
+      "liveStateObservedInThisAttempt": true,
+      "liveChangesVerifiedWithinAttempt": false,
+      "liveObservations": [
+        {
+          "capturedAt": "2026-10-28T09:09:19.804Z",
+          "sourceFetchedAt": "2026-10-28T09:09:01.172Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 1,
+          "half": "top",
+          "currentPitcher": "前田 悠伍",
+          "currentPitcherStatsTablePitchCount": 21,
+          "currentPitcherOutsRecorded": 2
+        },
+        {
+          "capturedAt": "2026-10-28T09:10:44.842Z",
+          "sourceFetchedAt": "2026-10-28T09:10:26.303Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 1,
+          "half": "top",
+          "currentPitcher": "前田 悠伍",
+          "currentPitcherStatsTablePitchCount": 21,
+          "currentPitcherOutsRecorded": 2
+        }
+      ],
+      "sourceObservationIntervalSeconds": 85.131,
+      "qualifiedNumericChanges": 0,
+      "sourceLivePanelPitchCountCandidate": 25,
+      "sourcePitchCountMismatchWithStatsTable": true,
+      "warnings": [
+        "source_live_panel_shows_pitch_count_25_but_stats_table_still_shows_21_at_second_capture",
+        "source_live_panel_count_is_not_promoted_to_normalized_feed_until_parser_verified",
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T09:10:46.650Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "crossRunComparison": {
+    "previousObservationPath": "data/live/20261028T074912Z-run40455444693-attempt15-pregame-kbo-timeout.json",
+    "sameDay": true,
+    "NPB": "pregame to live; new current-score 2-0 and inning 1 top; two same-run LIVE observations separated by 85.131 seconds without parsed numeric change; no verified numeric change yet",
+    "KBO": "Naver timed out again; game status unknown",
+    "CPBL": "Zero eligible first-team games; source ok",
+    "qualifyingSameDayLiveComparison": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
