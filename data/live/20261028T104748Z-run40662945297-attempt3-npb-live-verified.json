@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T10:47:48.851Z",
+  "purpose": "Fresh within-run two-capture live verification from isolated collector; not production data deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40662945297,
+    "runAttempt": 3,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122769884514,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "598574b15a96e4fc613795eaa08a5fde3ca57065",
+    "artifactId": 12810365407,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T10:47:52Z",
+    "artifactDigest": "sha256:3229125f31f55791ccf9d42eaa70f2da438994e8237f655ba62bf733106891ab",
+    "downloadedZipSha256": "sha256:3229125f31f55791ccf9d42eaa70f2da438994e8237f655ba62bf733106891ab",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-28T10:47:48.851Z",
+    "observationPath": "data/live/20261028T104748Z-run40662945297-attempt3-npb-live-verified.json",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 2,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T10:46:23.802Z",
+    "capture2CapturedAt": "2026-10-28T10:47:48.851Z",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableFeeds": 1,
+    "qualifiedLiveNumericChangesThisAttempt": 2,
+    "verifiedWithinAttempt": true
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "live",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T10:47:29.777Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 10:47:22 GMT",
+      "sourceCacheAgeSeconds": 7,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 3
+      },
+      "inning": 6,
+      "half": "bottom",
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchingRows": 5,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "liveStateObservedInThisAttempt": true,
+      "liveChangesVerifiedWithinAttempt": true,
+      "liveChangeProof": {
+        "beforeHash": "8905f1b17770e49f9e816026ac0b4c5fd0f22129942cca306d643d7598aaed68",
+        "afterHash": "74b689956cc15706ed8d955a9cede38a686f06e027da8cf9ebc918e25538617b",
+        "beforeFetchedAt": "2026-10-28T10:46:05.029Z",
+        "afterFetchedAt": "2026-10-28T10:47:29.777Z",
+        "intervalSeconds": 84.748,
+        "changes": {
+          "awayPitching": {
+            "片山 皓心:pitchCount": {
+              "before": 11,
+              "after": 16
+            },
+            "片山 皓心:outsRecorded": {
+              "before": 3,
+              "after": 4
+            }
+          }
+        }
+      },
+      "liveObservations": [
+        {
+          "capturedAt": "2026-10-28T10:46:23.802Z",
+          "sourceFetchedAt": "2026-10-28T10:46:05.029Z",
+          "awayScore": 2,
+          "homeScore": 3,
+          "inning": 6,
+          "half": "bottom",
+          "awayPitchers": [
+            {
+              "name": "平良 拳太郎",
+              "pitchCount": 59,
+              "outsRecorded": 12
+            },
+            {
+              "name": "片山 皓心",
+              "pitchCount": 11,
+              "outsRecorded": 3
+            }
+          ],
+          "homePitchers": [
+            {
+              "name": "前田 悠伍",
+              "pitchCount": 75,
+              "outsRecorded": 14
+            },
+            {
+              "name": "鈴木 豪太",
+              "pitchCount": 4,
+              "outsRecorded": 1
+            },
+            {
+              "name": "ヘルナンデス",
+              "pitchCount": 12,
+              "outsRecorded": 3
+            }
+          ]
+        },
+        {
+          "capturedAt": "2026-10-28T10:47:48.851Z",
+          "sourceFetchedAt": "2026-10-28T10:47:29.777Z",
+          "awayScore": 2,
+          "homeScore": 3,
+          "inning": 6,
+          "half": "bottom",
+          "awayPitchers": [
+            {
+              "name": "平良 拳太郎",
+              "pitchCount": 59,
+              "outsRecorded": 12
+            },
+            {
+              "name": "片山 皓心",
+              "pitchCount": 16,
+              "outsRecorded": 4
+            }
+          ],
+          "homePitchers": [
+            {
+              "name": "前田 悠伍",
+              "pitchCount": 75,
+              "outsRecorded": 14
+            },
+            {
+              "name": "鈴木 豪太",
+              "pitchCount": 4,
+              "outsRecorded": 1
+            },
+            {
+              "name": "ヘルナンデス",
+              "pitchCount": 12,
+              "outsRecorded": 3
+            }
+          ]
+        }
+      ],
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T10:47:50.448Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "crossRunComparison": {
+    "previousObservationPath": "data/live/20261028T094823Z-run40662945297-attempt2-npb-live-verified.json",
+    "sameDay": true,
+    "NPB": "Previous NPB LIVE DeNA 2-0 SoftBank third bottom; current NPB LIVE DeNA 2-3 SoftBank sixth bottom and fresh 84.748s pitcher 11→16 and outs 3→4.",
+    "KBO": "Naver provider still timed out; no claim that day has no games.",
+    "CPBL": "0 eligible first-team games, source OK.",
+    "qualifyingSameRunLiveComparison": true
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
