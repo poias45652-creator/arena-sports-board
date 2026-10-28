@@ -1,0 +1,274 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T07:49:12.505Z",
+  "purpose": "Current first-team current-collector verification; retains prior history; no production changes",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40455444693,
+    "runAttempt": 15,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122695518259,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12800516661,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T07:49:16Z",
+    "artifactDigest": "sha256:00ee9ac66a792437c4da983d6381917e590cf34490b676484e6a46a2c4836690",
+    "downloadedZipSha256": "sha256:00ee9ac66a792437c4da983d6381917e590cf34490b676484e6a46a2c4836690",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-28T07:49:12.505Z",
+    "observationPath": "data/live/20261028T074912Z-run40455444693-attempt15-pregame-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "reasonNoSecondCapture": "Only one NPB pregame, KBO source timed out, and CPBL returned zero eligible first-team games; no confirmed LIVE state.",
+    "liveGamesConfirmedInAvailableSources": 0,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 1,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "checkedAt": "2026-10-28T07:49:12.505Z",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "kboLiveGames": null,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "capture1CapturedAt": "2026-10-28T07:49:12.505Z",
+    "capture2CapturedAt": null
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "pregame",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T07:48:53.731Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 07:48:53 GMT",
+      "sourceCacheAgeSeconds": 0,
+      "providerUpdatedAt": null,
+      "supportingSources": [
+        {
+          "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-28",
+          "fetchedAt": "2026-10-28T07:48:53.566Z"
+        },
+        {
+          "url": "https://baseball.yahoo.co.jp/npb/game/2021039495/stats",
+          "fetchedAt": "2026-10-28T07:48:53.896Z"
+        }
+      ],
+      "score": {
+        "away": null,
+        "home": null
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "pitchingRows": 0,
+      "liveStateObservedInThisAttempt": false,
+      "liveChangesVerifiedWithinAttempt": false,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "sourceURL": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-10-28&toDate=2026-10-28&page=1&pageSize=100",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "date": "2026-10-28",
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "siteEligibleGames": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "sourceVerification": {
+    "date": "2026-10-28",
+    "checkedAt": "2026-10-28T07:49:12.505Z",
+    "secondCapturePerformed": false,
+    "productionDeployed": false,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 1,
+        "status": "ok",
+        "errors": [],
+        "pregame": 1,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "NPB:2021039495",
+            "away": "橫濱DeNA海灣之星",
+            "home": "福岡軟銀鷹",
+            "startTime": "2026-10-28T09:00:00.000Z",
+            "status": "pregame",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "sportsnavi",
+              "url": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+              "fetchedAt": "2026-10-28T07:48:53.731Z",
+              "httpDate": "Wed, 28 Oct 2026 07:48:53 GMT",
+              "cacheAgeSeconds": 0,
+              "providerUpdatedAt": null,
+              "supportingSources": [
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-28",
+                  "fetchedAt": "2026-10-28T07:48:53.566Z"
+                },
+                {
+                  "url": "https://baseball.yahoo.co.jp/npb/game/2021039495/stats",
+                  "fetchedAt": "2026-10-28T07:48:53.896Z"
+                }
+              ]
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "KBO",
+        "games": 0,
+        "status": "unavailable",
+        "errors": [
+          "The operation was aborted due to timeout"
+        ],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [],
+        "note": "Collector emitted zero records due to timeout; actual first-team games count remains null."
+      },
+      {
+        "league": "CPBL",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": []
+      }
+    ]
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T07:49:14.737Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "details": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "crossRunComparison": {
+    "previousObservationPath": "data/live/20261028T070153Z-run40455444693-attempt14-pregame-kbo-timeout.json",
+    "previousCapturedAt": "2026-10-28T07:01:53.122Z",
+    "sameDay": true,
+    "NPB": "pregame remains pregame with score null; no LIVE numerical change",
+    "KBO": "naver source timed out again; game status unknown",
+    "CPBL": "zero eligible first-team games; source ok",
+    "qualifyingSameDayLiveComparison": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
