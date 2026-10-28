@@ -1,0 +1,181 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T13:24:32.398Z",
+  "purpose": "Fresh 21:24 Taipei recheck, isolated branch only; no deployment. Earlier same-day NPB LIVE evidence preserved independently.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40662945297,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122842938348,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "598574b15a96e4fc613795eaa08a5fde3ca57065",
+    "artifactId": 12819044210,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T13:24:35Z",
+    "artifactDigest": "sha256:09af1e729c2f6ad9b26ef3c15ffe1a7d65942c273cc44e3ac5a19833969dc496",
+    "downloadedZipSha256": "sha256:09af1e729c2f6ad9b26ef3c15ffe1a7d65942c273cc44e3ac5a19833969dc496",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261028T132432Z-run40662945297-attempt5-npb-final-kbo-timeout.json"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T13:24:32.398Z",
+    "capture2CapturedAt": null,
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "No LIVE games in the new first capture. Retained earlier 2026-10-28 two-LIVE proofs separated by >=65s are not attributed to this attempt."
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "final",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T13:24:13.555Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 13:24:13 GMT",
+      "sourceCacheAgeSeconds": 0,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 4
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchingRows": 10,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "liveStateObservedInThisAttempt": false,
+      "liveChangesVerifiedWithinAttempt": false,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "supplementalScheduleEvidence": {
+        "source": "Korean Oct 28 news confirms Samsung-KIA playoff G3 is Oct 29; independent calendar shows Oct 27 and Oct 29",
+        "urls": [
+          "https://www.news1.kr/sports/baseball/6334243",
+          "https://kbo.elezy.com/"
+        ],
+        "confidence": "context_only_not_collector_verified",
+        "offDayVerified": false
+      },
+      "legalAlternativeCandidate": {
+        "url": "https://kbo.elezy.com/",
+        "githubRunnerReachabilityVerified": false,
+        "realTimePlayByPlayVerified": false,
+        "eligibleForProduction": false
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T13:24:34.159Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "priorSameDayLiveProof": {
+    "path": "data/live/20261028T104748Z-run40662945297-attempt3-npb-live-verified.json",
+    "sourceIntervalSeconds": 84.748,
+    "changedPitchCount": [
+      11,
+      16
+    ],
+    "changedPitcherOuts": [
+      3,
+      4
+    ],
+    "verified": true
+  },
+  "comparisonWithPriorAttempt": {
+    "priorObservation": "data/live/20261028T114718Z-run40662945297-attempt4-npb-final-verified.json",
+    "NPB": "No state/score change, remains final 2:4",
+    "KBO": "Naver timeout persists; status unknown",
+    "CPBL": "Source succeeded, zero first-team games. No material change."
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
