@@ -1,0 +1,172 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T11:47:18.544Z",
+  "purpose": "Fresh same-day FINAL observation from isolated collector; earlier same-day LIVE proofs retained; no production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40662945297,
+    "runAttempt": 4,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122796680710,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "598574b15a96e4fc613795eaa08a5fde3ca57065",
+    "artifactId": 12814010691,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T11:47:21Z",
+    "artifactDigest": "sha256:563992da1eceddc0c94bdb1b7e0a1b7add732384a4553497797940f80af450f7",
+    "downloadedZipSha256": "sha256:563992da1eceddc0c94bdb1b7e0a1b7add732384a4553497797940f80af450f7",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-28T11:47:18.544Z",
+    "observationPath": "data/live/20261028T114718Z-run40662945297-attempt4-npb-final-verified.json",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 1,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T11:47:18.544Z",
+    "capture2CapturedAt": null,
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "verifiedWithinAttempt": false,
+    "reason": "No LIVE games on fresh first capture; earlier two-LIVE observations remain in history."
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "final",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T11:46:59.582Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 11:46:56 GMT",
+      "sourceCacheAgeSeconds": 3,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 4
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchingRows": 10,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "liveStateObservedInThisAttempt": false,
+      "liveChangesVerifiedWithinAttempt": false,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T11:47:20.164Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "crossRunComparison": {
+    "previousObservationPath": "data/live/20261028T104748Z-run40662945297-attempt3-npb-live-verified.json",
+    "sameDay": true,
+    "NPB": "18:47 Taipei LIVE DeNA 2-3 SoftBank sixth bottom, now at 19:47 Taipei FINAL DeNA 2-4 SoftBank; previously verified 84.748s pitcher stat change remains preserved. Final transition not a new two-LIVE verification.",
+    "KBO": "Naver timeout persists; do not infer off-day.",
+    "CPBL": "0 validated first-team games; Yahoo Taiwan source status OK.",
+    "qualifyingSameRunLiveComparison": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
