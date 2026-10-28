@@ -1,0 +1,224 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T09:48:23.149Z",
+  "purpose": "Fresh within-run two-capture live verification from isolated collector; not production data deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40662945297,
+    "runAttempt": 2,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122743301630,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "598574b15a96e4fc613795eaa08a5fde3ca57065",
+    "artifactId": 12806447993,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T09:48:28Z",
+    "artifactDigest": "sha256:7e18ba8c129f90e546c123c99891f3efacdf264e38bb0487f8a9167822e71979",
+    "downloadedZipSha256": "sha256:7e18ba8c129f90e546c123c99891f3efacdf264e38bb0487f8a9167822e71979",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261028T094823Z-run40662945297-attempt2-npb-live-verified.json",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 2,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T09:46:58.129Z",
+    "capture2CapturedAt": "2026-10-28T09:48:23.149Z",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableFeeds": 1,
+    "qualifiedLiveNumericChangesThisAttempt": 2,
+    "verifiedWithinAttempt": true
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "live",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T09:48:03.902Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 09:48:01 GMT",
+      "sourceCacheAgeSeconds": 2,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "inning": 3,
+      "half": "bottom",
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchingRows": 2,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "liveStateObservedInThisAttempt": true,
+      "liveChangesVerifiedWithinAttempt": true,
+      "liveChangeProof": {
+        "beforeHash": "b21b571c887c71e7802958bf350e36b69de4856187efa012c786591e9a14d1b7",
+        "afterHash": "b1bcb8ede3caf762ac10b337872bc8d9229ac89f12706de19b7f487eeb54a0a5",
+        "beforeFetchedAt": "2026-10-28T09:46:39.602Z",
+        "afterFetchedAt": "2026-10-28T09:48:03.902Z",
+        "intervalSeconds": 84.3,
+        "changes": {
+          "awayPitching": {
+            "平良 拳太郎:pitchCount": {
+              "before": 27,
+              "after": 33
+            },
+            "平良 拳太郎:outsRecorded": {
+              "before": 6,
+              "after": 7
+            }
+          }
+        }
+      },
+      "liveObservations": [
+        {
+          "capturedAt": "2026-10-28T09:46:58.129Z",
+          "sourceFetchedAt": "2026-10-28T09:46:39.602Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 3,
+          "half": "bottom",
+          "awayPitcher": "平良 拳太郎",
+          "awayPitcherPitchCount": 27,
+          "awayPitcherOutsRecorded": 6,
+          "homePitcher": "前田 悠伍",
+          "homePitcherPitchCount": 56,
+          "homePitcherOutsRecorded": 9
+        },
+        {
+          "capturedAt": "2026-10-28T09:48:23.149Z",
+          "sourceFetchedAt": "2026-10-28T09:48:03.902Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 3,
+          "half": "bottom",
+          "awayPitcher": "平良 拳太郎",
+          "awayPitcherPitchCount": 33,
+          "awayPitcherOutsRecorded": 7,
+          "homePitcher": "前田 悠伍",
+          "homePitcherPitchCount": 56,
+          "homePitcherOutsRecorded": 9
+        }
+      ],
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T09:48:26.453Z",
+    "passed": true,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "crossRunComparison": {
+    "previousObservationPath": "data/live/20261028T091830Z-run40662945297-attempt1-npb-live-verified.json",
+    "sameDay": true,
+    "NPB": "Same LIVE game, prior 2-0 first inning bottom; current 2-0 third inning bottom with fresh within-attempt 84.3 second 27→33 pitches and 6→7 outs.",
+    "KBO": "Naver provider still timed out, no claim of an off-day from collector.",
+    "CPBL": "0 eligible first-team games, source OK.",
+    "qualifyingSameRunLiveComparison": true
+  },
+  "researchOnly": {
+    "KBO": "Public official KBO 2026-10-28 scoreboard currently shows no rows, and other public calendars list next scheduled playoff game 2026-10-29. Not integrated into isolated collector and not sufficient to characterize Naver timeout as success.",
+    "officialScoreboardURL": "https://www.koreabaseball.com/schedule/scoreboard.aspx",
+    "nextScheduledGameSourceURL": "https://kbo.elezy.com/"
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
