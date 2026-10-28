@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-28",
+  "capturedAt": "2026-10-28T09:13:44.797Z",
+  "purpose": "Current first-team data; same-run double-source observation and cross-run numeric-change proof; no production changes",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40455444693,
+    "runAttempt": 17,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 122728164702,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "49913abe66ed7b3d8955a0b3c66d38b42842e288",
+    "artifactId": 12804806408,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-28T09:13:47Z",
+    "artifactDigest": "sha256:a3e707bafafb092ff836824ebe1380c036e76084f95ca967d864691198931c16",
+    "downloadedZipSha256": "sha256:a3e707bafafb092ff836824ebe1380c036e76084f95ca967d864691198931c16",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-28T09:13:44.797Z",
+    "observationPath": "data/live/20261028T091344Z-run40455444693-attempt17-npb-live-crossrun-verified.json",
+    "secondCapturePerformed": true,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "kboLiveGames": null,
+    "pregameGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": 0,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 2,
+    "isolatedDatabaseTest": "passed_npb_1_kbo_unavailable_cpbl_0"
+  },
+  "capture": {
+    "date": "2026-10-28",
+    "capture1CapturedAt": "2026-10-28T09:12:19.731Z",
+    "capture2CapturedAt": "2026-10-28T09:13:44.797Z",
+    "secondCapturePerformed": true,
+    "sourceIntervalSeconds": 85.08,
+    "liveGamesConfirmedInAvailableFeeds": 1,
+    "qualifiedLiveNumericChangesWithinAttempt": 0,
+    "qualifyingCrossRunNumericChanges": 2
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "gameKey": "NPB:2021039495",
+      "away": "橫濱DeNA海灣之星",
+      "home": "福岡軟銀鷹",
+      "startTime": "2026-10-28T09:00:00.000Z",
+      "gameStatus": "live",
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/game/2021039495/score",
+      "sourceFetchedAt": "2026-10-28T09:13:25.906Z",
+      "sourceHttpDate": "Wed, 28 Oct 2026 09:13:24 GMT",
+      "sourceCacheAgeSeconds": 1,
+      "providerUpdatedAt": null,
+      "score": {
+        "away": 2,
+        "home": 0
+      },
+      "inning": 1,
+      "half": "bottom",
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchingRows": 2,
+      "lineupRows": 0,
+      "lineupOfficiallyConfirmed": false,
+      "liveStateObservedInThisAttempt": true,
+      "liveChangesVerifiedWithinAttempt": false,
+      "liveObservations": [
+        {
+          "capturedAt": "2026-10-28T09:12:19.731Z",
+          "sourceFetchedAt": "2026-10-28T09:12:00.826Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 1,
+          "half": "top",
+          "pitcher": "前田 悠伍",
+          "pitcherPitchCount": 27,
+          "pitcherOutsRecorded": 3
+        },
+        {
+          "capturedAt": "2026-10-28T09:13:44.797Z",
+          "sourceFetchedAt": "2026-10-28T09:13:25.906Z",
+          "awayScore": 2,
+          "homeScore": 0,
+          "inning": 1,
+          "half": "bottom",
+          "pitcher": "前田 悠伍",
+          "pitcherPitchCount": 27,
+          "pitcherOutsRecorded": 3
+        }
+      ],
+      "halfInningTransitionObserved": true,
+      "halfInningIntervalSeconds": 85.08,
+      "halfInningExcludedFromCollectorsNumericComparator": true,
+      "sourceTablePitchCountMismatchFromAttempt16ResolvedInThisAttempt": true,
+      "warnings": [
+        "provider_update_time_not_supplied",
+        "bso_and_bases_not_verified",
+        "current_same_run_numeric_verifier_did_not_count_top_to_bottom_transition"
+      ]
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "crossRunComparison": {
+    "sameDay": true,
+    "previousObservationPath": "data/live/20261028T091044Z-run40455444693-attempt16-npb-live-no-numeric-change.json",
+    "previousArtifactId": 12804915781,
+    "previousAttempt": 16,
+    "latestArtifactId": 12804806408,
+    "latestAttempt": 17,
+    "gameKey": "NPB:2021039495",
+    "source": "sportsnavi",
+    "sameTeams": true,
+    "bothStatesLive": true,
+    "previousSourceFetchedAt": "2026-10-28T09:10:26.303Z",
+    "currentSourceFetchedAt": "2026-10-28T09:12:00.826Z",
+    "sourceObservationIntervalSeconds": 94.523,
+    "changedFields": [
+      {
+        "field": "homePitcher:前田 悠伍:pitchCount",
+        "before": 21,
+        "after": 27
+      },
+      {
+        "field": "homePitcher:前田 悠伍:outsRecorded",
+        "before": 2,
+        "after": 3
+      }
+    ],
+    "qualifiedNumericChanges": 2,
+    "qualifyingSameDayLiveComparison": true,
+    "note": "Numerical proof is cross-attempt 16-to-17 LIVE-to-LIVE and independently compared from current-date artifacts. Both single-attempt verifier flags were false."
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-28T09:13:46.254Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
