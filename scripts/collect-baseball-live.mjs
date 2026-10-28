@@ -11,6 +11,13 @@ function materialChanges(old,g){
   ['inning',old.inning,g.inning],['balls',old.balls,g.balls],['strikes',old.strikes,g.strikes],['outs',old.outs,g.outs]
  ];
  for(const [key,before,after] of scalars)if(finite(before)&&finite(after)&&before!==after)changes[key]={before,after};
+ // A same-inning top-to-bottom transition is real game progress, even if the score stays unchanged.
+ if(finite(old.inning)&&old.inning===g.inning&&old.half==='top'&&g.half==='bottom')changes.half={before:'top',after:'bottom'};
+ // Only compare bases when all three occupancy fields are actually known booleans.
+ const knownBases=b=>Array.isArray(b)&&b.length===3&&b.every(x=>typeof x==='boolean');
+ if(knownBases(old.bases)&&knownBases(g.bases))for(let i=0;i<3;i++)if(old.bases[i]!==g.bases[i]){
+  (changes.bases??={})[String(i+1)]={before:old.bases[i],after:g.bases[i]};
+ }
  for(const side of ['away','home']){
   const before=new Map((old.pitching?.[side]||[]).map(p=>[String(p.id||p.name),p]));
   for(const p of g.pitching?.[side]||[]){
