@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-29",
+  "capturedAt": "2026-10-29T15:35:11.107Z",
+  "purpose": "Fresh GitHub runner verification with strict day guard; KBO source rolled to Oct30 in Seoul at 23:35 Taipei; not production data",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 40860168757,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123549851174,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "headSha": "0ab587c4a8fab03c060d80781a9bbe6d4ada4d36",
+    "artifactId": 12910401084,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-29T15:35:13Z",
+    "artifactDigest": "sha256:e8d592b9498bb2d2bca99db57c27ec3334b00a74367d8cd960043ff207e3e239",
+    "downloadedZipSha256": "sha256:e8d592b9498bb2d2bca99db57c27ec3334b00a74367d8cd960043ff207e3e239",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "games": null,
+      "requestedDay": "2026-10-29",
+      "upstreamSelectedDay": "2026-10-28",
+      "error": "NPB schedule selected day mismatch; requested Oct29, upstream Oct28; not off-day evidence",
+      "officialOct29ConditionalG5CancelledBySeriesEnd": true
+    },
+    "KBO": {
+      "status": "unavailable_current_capture",
+      "games": null,
+      "requestedDay": "2026-10-29",
+      "officialSelectedDay": "2026-10-30",
+      "primaryNaver": "timeout",
+      "officialFallback": "selected_date_mismatch",
+      "officialRunnerProbe": {
+        "httpStatus": 200,
+        "sourceUsable": true,
+        "displayDate": "2026-10-30",
+        "htmlBytes": 46201,
+        "capturedAt": "2026-10-29T15:35:11.177Z"
+      },
+      "priorSameDayKboFinalRetained": {
+        "gameKey": "KBO:20261029SSHT0",
+        "away": "三星獅",
+        "home": "起亞虎",
+        "awayScore": 6,
+        "homeScore": 4,
+        "status": "final",
+        "priorCapturedAt": "2026-10-29T14:14:38.081Z"
+      },
+      "priorLiveNumericChangeEvidenceRetained": true,
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx"
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "pitchCount": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "secondCapturePerformed": false,
+  "currentRunLiveNumericChangeVerified": false,
+  "databaseTest": {
+    "performed": false,
+    "passed": null,
+    "reason": "Collection step exited 1 after all-zero/unavailable strict validation; PostgreSQL test skipped",
+    "productionWritten": false
+  },
+  "safety": {
+    "unknownNotZeroFilled": true,
+    "officialLineupNotAssumed": true,
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false
+  },
+  "incident": "KBO official public page advances to Oct30 on Korean local midnight, one hour before Taiwan day boundary; current strict day guard correctly rejects next-day data, but older completed game is unavailable during that hour until date-specific official navigation is implemented.",
+  "historicalEvidencePreserved": true
+}
