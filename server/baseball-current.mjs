@@ -77,6 +77,8 @@ export async function collectLeague(league,options={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
  const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/first/all?date='+date,fetcher);
  const ids=npbScheduleIds(schedule.text),games=[],errors=[];
+ const sampleAt=schedule.text.indexOf('bb-score__content');
+ console.log('NPB_SCHEDULE_DIAGNOSTIC '+JSON.stringify({date,url:schedule.url,ids,plainTop:plain(schedule.text).slice(0,1000),scoreCardHtml:sampleAt>=0?schedule.text.slice(Math.max(0,sampleAt-450),sampleAt+1000):null}));
  if(!ids.length){
   // Require the requested date and the page's explicit no-game marker in the
   // selected-day section. Other dates in the weekly sidebar do not count.
