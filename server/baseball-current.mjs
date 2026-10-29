@@ -79,7 +79,7 @@ export async function collectLeague(league,options={}){
  // The upstream page can ignore the requested query date and return yesterday's
  // selected game. Reject the entire page before parsing weekly navigation cards.
  const selectedText=plain(schedule.text).split('CS・日本シリーズトーナメント表')[0];
- const selectedDayMatches=[...selectedText.matchAll(/(\\d{1,2})月\\s*(\\d{1,2})日[（(][^）)]*[）)]/g)];
+ const selectedDayMatches=[...selectedText.matchAll(/(\d{1,2})月\s*(\d{1,2})日[（(][^）)]*[）)]/g)];
  const selectedDay=selectedDayMatches.at(-1);
  const [,requestedMonth,requestedDay]=date.split('-').map(Number);
  if(!selectedDay||Number(selectedDay[1])!==requestedMonth||Number(selectedDay[2])!==requestedDay)
