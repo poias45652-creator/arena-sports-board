@@ -75,7 +75,7 @@ export async function collectLeague(league,options={}){
  }
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
- const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
+ const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/first/all?date='+date,fetcher);
  const ids=npbScheduleIds(schedule.text),games=[],errors=[];
  if(!ids.length){
   // Require the requested date and the page's explicit no-game marker in the
