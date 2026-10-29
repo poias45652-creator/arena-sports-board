@@ -139,6 +139,34 @@ export function parseKboOfficialScoreboard(html,page,date){
  return {schemaVersion:1,league:'KBO',date,collectedAt:new Date().toISOString(),games,errors,status:errors.length?'partial':'ok',liveLatencyVerified:false,publicFallback:true};
 }
 
+/** The KBO public scoreboard follows Korea time and advances its selected day
+ * at 23:00 Taipei. For the single-hour date gap, use the same public Prev Date
+ * control that the site exposes. Strictly parse/check the resulting day;
+ * never treat a next-day response as requested-day evidence.
+ */
+export async function kboOfficialPageForDate(initialPage,date,fetcher=fetch){
+ const display=plain(initialPage.text.match(/<span\b[^>]*id=["'][^"']*lblGameDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||'');
+ if(display.startsWith(date.replaceAll('-','.')))return initialPage;
+ const selected=display.match(/^(\d{4})\.(\d{2})\.(\d{2})/);
+ const selectedDate=selected?[selected[1],selected[2],selected[3]].join('-'):null;
+ const followingDate=new Date(Date.parse(date+'T00:00:00Z')+86400000).toISOString().slice(0,10);
+ if(selectedDate!==followingDate)throw new Error('Official KBO selected-date mismatch: '+display+' vs '+date);
+ const form=new URLSearchParams();
+ for(const input of initialPage.text.matchAll(/<input\b([^>]*)>/gi)){
+  const attrs=input[1];const name=attrs.match(/\bname=["']([^"']+)["']/i)?.[1];
+  const value=attrs.match(/\bvalue=["']([^"']*)["']/i)?.[1];
+  if(name&&value!==undefined)form.set(name,value);
+ }
+ if(!form.has('__VIEWSTATE')||!form.has('__EVENTVALIDATION')||
+    !initialPage.text.includes('cphContents_cphContents_cphContents_btnPreDate'))
+  throw new Error('KBO public previous-day form cannot be verified; no navigation performed');
+ form.set('__EVENTTARGET','ctl00$ctl00$ctl00$cphContents$cphContents$cphContents$btnPreDate');
+ form.set('__EVENTARGUMENT','');
+ const url='https://www.koreabaseball.com/Schedule/ScoreBoard.aspx';
+ return fetchPublic(url,(u,init)=>fetcher(u,{...init,method:'POST',
+  headers:{...init.headers,'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},body:form.toString()}));
+}
+
 /** NPB's selected-game detail page omits that game's sidebar identity card.
  * Match the exact opaque game ID from the dated schedule, not team-name guesses.
  */
@@ -148,7 +176,8 @@ export async function collectLeague(league,options={}){
   catch(primaryError){
    const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
    try{
-    const page=await fetchPublic('https://www.koreabaseball.com/Schedule/ScoreBoard.aspx',fetcher);
+    const initialPage=await fetchPublic('https://www.koreabaseball.com/Schedule/ScoreBoard.aspx',fetcher);
+    const page=await kboOfficialPageForDate(initialPage,date,fetcher);
     const result=parseKboOfficialScoreboard(page.text,page,date);
     result.status='partial';
     result.errors.push('Naver primary unavailable: '+String(primaryError.message));
