@@ -145,26 +145,41 @@ export function parseKboOfficialScoreboard(html,page,date){
  * never treat a next-day response as requested-day evidence.
  */
 export async function kboOfficialPageForDate(initialPage,date,fetcher=fetch){
- const display=plain(initialPage.text.match(/<span\b[^>]*id=["'][^"']*lblGameDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||'');
+ const selectedDay=page=>plain(page.text.match(/<span\b[^>]*id=["'][^"']*lblGameDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||'');
+ const display=selectedDay(initialPage);
  if(display.startsWith(date.replaceAll('-','.')))return initialPage;
  const selected=display.match(/^(\d{4})\.(\d{2})\.(\d{2})/);
  const selectedDate=selected?[selected[1],selected[2],selected[3]].join('-'):null;
  const followingDate=new Date(Date.parse(date+'T00:00:00Z')+86400000).toISOString().slice(0,10);
  if(selectedDate!==followingDate)throw new Error('Official KBO selected-date mismatch: '+display+' vs '+date);
- const form=new URLSearchParams();
+ const original=new URLSearchParams();
  for(const input of initialPage.text.matchAll(/<input\b([^>]*)>/gi)){
   const attrs=input[1];const name=attrs.match(/\bname=["']([^"']+)["']/i)?.[1];
   const value=attrs.match(/\bvalue=["']([^"']*)["']/i)?.[1];
-  if(name&&value!==undefined)form.set(name,value);
+  if(name&&value!==undefined)original.set(name,value);
  }
- if(!form.has('__VIEWSTATE')||!form.has('__EVENTVALIDATION')||
-    !initialPage.text.includes('cphContents_cphContents_cphContents_btnPreDate'))
-  throw new Error('KBO public previous-day form cannot be verified; no navigation performed');
- form.set('__EVENTTARGET','ctl00$ctl00$ctl00$cphContents$cphContents$cphContents$btnPreDate');
- form.set('__EVENTARGUMENT','');
+ const prefix='ctl00$ctl00$ctl00$cphContents$cphContents$cphContents$';
+ if(!original.has('__VIEWSTATE')||!original.has('__EVENTVALIDATION')||
+    !original.has(prefix+'hfSearchDate')||
+    !initialPage.text.includes(prefix+'btnPreDate')||
+    !initialPage.text.includes(prefix+'btnCalendarSelect'))
+  throw new Error('KBO public day-selection form cannot be verified; no navigation performed');
  const url='https://www.koreabaseball.com/Schedule/ScoreBoard.aspx';
- return fetchPublic(url,(u,init)=>fetcher(u,{...init,method:'POST',
-  headers:{...init.headers,'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},body:form.toString()}));
+ const submit=async(button,searchDate)=>{
+  const form=new URLSearchParams(original);
+  form.set('__EVENTTARGET',prefix+button);
+  form.set('__EVENTARGUMENT','');
+  if(searchDate)form.set(prefix+'hfSearchDate',searchDate);
+  return fetchPublic(url,(u,init)=>fetcher(u,{...init,method:'POST',
+   headers:{...init.headers,'Content-Type':'application/x-www-form-urlencoded; charset=UTF-8'},body:form.toString()}));
+ };
+ // Try the site's public date-picker first; strict validation prevents returning another day.
+ const calendar=await submit('btnCalendarSelect',date.replaceAll('-',''));
+ if(selectedDay(calendar).startsWith(date.replaceAll('-','.')))return calendar;
+ const previous=await submit('btnPreDate',null);
+ if(selectedDay(previous).startsWith(date.replaceAll('-','.')))return previous;
+ throw new Error('Official KBO public date-navigation mismatch: requested '+date+
+  '; calendar '+selectedDay(calendar)+'; previous '+selectedDay(previous));
 }
 
 /** NPB's selected-game detail page omits that game's sidebar identity card.
