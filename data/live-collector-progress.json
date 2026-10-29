@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-29T09:14:08.156Z",
+  "observedAt": "2026-10-29T10:30:03.350Z",
   "dateAsiaTaipei": "2026-10-29",
   "currentGames": {
     "NPB": null,
@@ -17,7 +17,7 @@
   },
   "currentStates": {
     "NPB": "runner_unavailable_yahoo_selected_oct28_when_requested_oct29; independent_official_series_ended_oct28_no_oct29_conditional_game",
-    "KBO": "unavailable_naver_timeout; independent_official_pregame_samsung_at_kia_1730_taipei_not_runner_verified",
+    "KBO": "unavailable_naver_timeout; independent_official_scoreboard_shows_live_samsung2_kia2_bottom3; not runner_verified",
     "CPBL": "source_ok_zero_first_team_games"
   },
   "databaseTest": {
@@ -29,7 +29,7 @@
     "rowsReadBack": null,
     "duplicateWrites": null,
     "details": [],
-    "reason": "Skipped because attempt5 collector exited nonzero after NPB selected-date mismatch and KBO Naver timeout; no production writes",
+    "reason": "Skipped because attempt6 collector exited nonzero after NPB selected-date mismatch and KBO Naver timeout; no production writes",
     "productionWritten": false
   },
   "firstStartTaipei": {
@@ -2384,11 +2384,24 @@
       "KBO": {
         "verified": false,
         "checkedToday": true,
-        "state": "unavailable_timeout",
+        "state": "runner_unavailable_timeout_official_independent_live",
         "source": "naver",
         "offDayVerified": false,
         "independentOfficialPregame": "Samsung at KIA 17:30 Taipei",
-        "evidenceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx"
+        "evidenceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "independentOfficialLive": {
+          "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+          "status": "live",
+          "away": "Samsung Lions",
+          "home": "KIA Tigers",
+          "awayScore": 2,
+          "homeScore": 2,
+          "inning": 3,
+          "half": "bottom",
+          "sourceFreshnessVerified": false,
+          "runnerVerified": false,
+          "liveChangeProofVerified": false
+        }
       },
       "CPBL": {
         "verified": false,
@@ -2398,16 +2411,17 @@
         "offDayVerified": false
       },
       "allVerified": false,
-      "reason": "Oct29 17:14 Taipei attempt5: artifact SHA-256 independently verified. NPB upstream date remains stale (Oct28); KBO Naver still times out before independently confirmed Samsung at KIA 17:30 Taipei; CPBL source OK zero games. No runner-verified LIVE, no DB test; historical proof retained.",
+      "reason": "Oct29 18:30 Taipei attempt6 fresh artifact hash verified. NPB source selected stale Oct28; KBO Naver still times out during independently visible official LIVE (Samsung 2 KIA 2 bottom 3); CPBL collector OK zero games. No runner LIVE proof or DB test; historical evidence retained.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
-        "capturedAt": "2026-10-29T09:14:08.156Z",
+        "capturedAt": "2026-10-29T10:30:03.350Z",
         "runId": 40820774081,
-        "runAttempt": 5,
-        "jobId": 123359958582,
-        "artifactId": 12886165703,
-        "artifactCreatedAt": "2026-10-29T09:14:10Z",
-        "observationPath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json"
+        "runAttempt": 6,
+        "runAttemptConfirmedByApi": false,
+        "jobId": 123393585814,
+        "artifactId": 12889853243,
+        "artifactCreatedAt": "2026-10-29T10:30:05Z",
+        "observationPath": "data/live/20261029T103003Z-run40820774081-attempt6-kbo-official-live-runner-timeout.json"
       }
     }
   },
@@ -2839,9 +2853,9 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-10-29",
-    "checkedAt": "2026-10-29T09:14:08.156Z",
+    "checkedAt": "2026-10-29T10:30:03.350Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json",
+    "latestObservationPath": "data/live/20261029T103003Z-run40820774081-attempt6-kbo-official-live-runner-timeout.json",
     "secondCapturePerformed": false,
     "qualifiedNumericChanges": 0,
     "NPB": {
@@ -2860,15 +2874,24 @@
     "KBO": {
       "verified": false,
       "checkedToday": true,
-      "state": "unavailable_timeout",
+      "state": "unavailable_timeout_independent_official_live",
       "games": null,
       "liveGames": null,
       "source": "naver",
       "error": "The operation was aborted due to timeout",
       "offDayVerified": false,
-      "independentOfficialPregame": true,
+      "independentOfficialPregame": false,
       "officialScoreboardURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
-      "alternativeProviderVerifiedInGithubRunner": false
+      "alternativeProviderVerifiedInGithubRunner": false,
+      "independentOfficialLive": true,
+      "officialExternalScore": {
+        "away": 2,
+        "home": 2,
+        "inning": 3,
+        "half": "bottom"
+      },
+      "sourceFreshnessVerified": false,
+      "liveNumericChangeProofVerified": false
     },
     "CPBL": {
       "verified": false,
@@ -2885,31 +2908,32 @@
       "officialLineupConfirmed": false
     },
     "allVerified": false,
-    "reason": "17:14 Taipei fresh attempt5: Yahoo NPB stale Oct28, Naver KBO timeout, CPBL source OK zero games. No verified LIVE data, no DB test, no production changes."
+    "reason": "18:30 Taipei fresh attempt6; runner NPB stale, runner KBO timeout while public official scoreboard independently shows active game, CPBL source OK zero. No second runner capture because no source-confirmed live; unknowns null."
   },
-  "nextAction": "Continue daily; never disable. NPB Oct29 conditional G5 void after official series completion, continue rejecting stale Yahoo date. KBO Samsung at KIA starts 17:30 Taipei; Naver timed out in runner. Probe a lawful public KBO alternative in isolated branch and capture >=65s LIVE changes when supported. Unknown fields remain null; do not modify main/Render/production.",
+  "nextAction": "Continue daily, never auto-disable. Independently public KBO official scoreboard shows LIVE Samsung 2 KIA 2 bottom 3, but GitHub runner Naver times out; test legal official scoreboard accessibility/parser on isolated branch and if live obtain >=65-second two-source-runner captures. NPB Oct29 conditional G5 void; keep stale selected-date guard. CPBL remains 0; unknown fields null. No production changes.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40820774081,
-    "runAttempt": 5,
-    "runAttemptConfirmedByApi": true,
-    "jobId": 123359958582,
+    "runAttempt": 6,
+    "runAttemptConfirmedByApi": false,
+    "runAttemptEvidence": "New job 123393585814 from rerunning attempt5 job 123359958582; separate attempt field not exposed by connector.",
+    "jobId": 123393585814,
     "jobStatus": "completed",
     "jobConclusion": "failure",
     "failedStep": "Collect current baseball and verify real in-game changes",
     "headSha": "5376f66955ab83b1a7595c435fac81c9cf8bc37b",
-    "artifactId": 12886165703,
+    "artifactId": 12889853243,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-29T09:14:10Z",
-    "artifactDigest": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
-    "downloadedZipSha256": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
+    "artifactCreatedAt": "2026-10-29T10:30:05Z",
+    "artifactDigest": "sha256:a616c335c53fe3fe6e6cc7249cee52ba17f49e7f33f65c8d6fee5ebf2e333fed",
+    "downloadedZipSha256": "sha256:a616c335c53fe3fe6e6cc7249cee52ba17f49e7f33f65c8d6fee5ebf2e333fed",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-29T09:14:08.156Z",
-    "observationPath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json",
+    "capturedAt": "2026-10-29T10:30:03.350Z",
+    "observationPath": "data/live/20261029T103003Z-run40820774081-attempt6-kbo-official-live-runner-timeout.json",
     "secondCapturePerformed": false,
     "liveGamesConfirmedInAvailableSources": 0,
     "pregameGames": {
@@ -2923,16 +2947,16 @@
       "CPBL": 0
     },
     "currentRunQualifiedNumericChanges": 0,
-    "isolatedDatabaseTest": "skipped_collector_exit_nonzero_because_npb_and_kbo_unavailable"
+    "isolatedDatabaseTest": "skipped_collector_exit_nonzero"
   },
-  "latestObservationCommit": "dc003ad261cc9f5b569935b0914370c56559feb3",
+  "latestObservationCommit": "70890b07144fd93e5a684630ed2cc34e83de446f",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json",
-    "lastEvidenceContains": "Oct29 17:14 Taipei fresh GitHub attempt5 (new artifact SHA-256 independently verified), NPB stale date, KBO timeout, CPBL 0 games source OK. No LIVE data or database test; historical proofs preserved."
+    "lastEvidencePath": "data/live/20261029T103003Z-run40820774081-attempt6-kbo-official-live-runner-timeout.json",
+    "lastEvidenceContains": "2026-10-29 18:30 Taipei fresh attempt6 artifact digest independently matched; NPB stale-date, KBO Naver timeout despite official independent LIVE 2-2 bottom 3, CPBL 0 games. Runner LIVE unverified; no DB test; earlier history preserved."
   },
   "currentDayFinalObservation": null,
   "latestObservation": {
@@ -2941,22 +2965,23 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 40820774081,
-    "runAttempt": 5,
-    "runAttemptConfirmedByApi": true,
-    "jobId": 123359958582,
+    "runAttempt": 6,
+    "runAttemptConfirmedByApi": false,
+    "runAttemptEvidence": "New job 123393585814 from rerunning attempt5 job 123359958582; separate attempt field not exposed by connector.",
+    "jobId": 123393585814,
     "jobStatus": "completed",
     "jobConclusion": "failure",
     "failedStep": "Collect current baseball and verify real in-game changes",
     "headSha": "5376f66955ab83b1a7595c435fac81c9cf8bc37b",
-    "artifactId": 12886165703,
+    "artifactId": 12889853243,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-29T09:14:10Z",
-    "artifactDigest": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
-    "downloadedZipSha256": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
+    "artifactCreatedAt": "2026-10-29T10:30:05Z",
+    "artifactDigest": "sha256:a616c335c53fe3fe6e6cc7249cee52ba17f49e7f33f65c8d6fee5ebf2e333fed",
+    "downloadedZipSha256": "sha256:a616c335c53fe3fe6e6cc7249cee52ba17f49e7f33f65c8d6fee5ebf2e333fed",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-29T09:14:08.156Z",
-    "observationPath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json",
+    "capturedAt": "2026-10-29T10:30:03.350Z",
+    "observationPath": "data/live/20261029T103003Z-run40820774081-attempt6-kbo-official-live-runner-timeout.json",
     "secondCapturePerformed": false,
     "liveGamesConfirmedInAvailableSources": 0,
     "pregameGames": {
@@ -2970,6 +2995,6 @@
       "CPBL": 0
     },
     "currentRunQualifiedNumericChanges": 0,
-    "isolatedDatabaseTest": "skipped_collector_exit_nonzero_because_npb_and_kbo_unavailable"
+    "isolatedDatabaseTest": "skipped_collector_exit_nonzero"
   }
 }
