@@ -75,10 +75,16 @@ export async function collectLeague(league,options={}){
  }
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
- const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/first/all?date='+date,fetcher);
+ const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
+ // The upstream page can ignore the requested query date and return yesterday's
+ // selected game. Reject the entire page before parsing weekly navigation cards.
+ const selectedText=plain(schedule.text).split('CS・日本シリーズトーナメント表')[0];
+ const selectedDayMatches=[...selectedText.matchAll(/(\\d{1,2})月\\s*(\\d{1,2})日[（(][^）)]*[）)]/g)];
+ const selectedDay=selectedDayMatches.at(-1);
+ const [,requestedMonth,requestedDay]=date.split('-').map(Number);
+ if(!selectedDay||Number(selectedDay[1])!==requestedMonth||Number(selectedDay[2])!==requestedDay)
+  throw new Error('NPB schedule selected day mismatch: requested '+date+'; upstream day '+(selectedDay?selectedDay[1]+'/'+selectedDay[2]:'unknown')+'; not evidence of an off-day');
  const ids=npbScheduleIds(schedule.text),games=[],errors=[];
- const sampleAt=schedule.text.indexOf('bb-score__content');
- console.log('NPB_SCHEDULE_DIAGNOSTIC '+JSON.stringify({date,url:schedule.url,ids,plainTop:plain(schedule.text).slice(0,1000),scoreCardHtml:sampleAt>=0?schedule.text.slice(Math.max(0,sampleAt-450),sampleAt+1000):null}));
  if(!ids.length){
   // Require the requested date and the page's explicit no-game marker in the
   // selected-day section. Other dates in the weekly sidebar do not count.
