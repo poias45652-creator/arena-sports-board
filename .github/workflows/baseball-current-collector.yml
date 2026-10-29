@@ -46,6 +46,32 @@ jobs:
           node --check server/baseball-live-store.mjs
       - name: Collect current baseball and verify real in-game changes
         run: node scripts/collect-baseball-live.mjs
+      - name: Probe KBO official public scoreboard (diagnostic only)
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import {mkdir,writeFile} from 'node:fs/promises';
+          const date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Seoul',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+          const url='https://www.koreabaseball.com/Schedule/ScoreBoard.aspx';
+          const out={dateAsiaSeoul:date,capturedAt:new Date().toISOString(),url,runnerProbe:true,httpStatus:null,redirected:false,htmlBytes:null,selectedDateMarkerPresent:false,gameTeamNamesPresent:false,sourceUsable:null,error:null};
+          try{
+            const response=await fetch(url,{redirect:'manual',signal:AbortSignal.timeout(12000),headers:{'User-Agent':'YJBaseballSourceCheck/1.0','Accept':'text/html'}});
+            out.httpStatus=response.status;out.httpDate=response.headers.get('date');out.httpAge=response.headers.get('age');
+            out.redirected=response.status>=300&&response.status<400;
+            if(response.ok){
+              const body=await response.text();out.htmlBytes=Buffer.byteLength(body);
+              out.selectedDateMarkerPresent=body.includes(date.replaceAll('-','.'))||body.includes(date.replaceAll('-',''));
+              out.gameTeamNamesPresent=body.includes('삼성')&&body.includes('KIA');
+              const challenge=/challenge-platform|<title>Just a moment/i.test(body);
+              out.sourceUsable=!challenge&&out.htmlBytes>200&&out.htmlBytes<2000000;
+              if(out.sourceUsable)await writeFile('baseball-current/kbo-official-public.html',body);
+              if(challenge)out.error='challenge_detected_no_bypass';
+            }else{out.error='HTTP '+response.status+' (no retry or bypass)';await response.body?.cancel();}
+          }catch(err){out.error=String(err?.message||err);}
+          await mkdir('baseball-current',{recursive:true});
+          await writeFile('baseball-current/kbo-official-probe.json',JSON.stringify(out,null,2));
+          console.log('KBO_OFFICIAL_PROBE '+JSON.stringify(out));
+          NODE
       - name: Install isolated database test driver
         run: npm install --prefix "$RUNNER_TEMP/pg-test" --ignore-scripts --no-audit --no-fund pg@8.16.3
       - name: Verify real database writes without contacting production
