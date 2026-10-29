@@ -1,6 +1,6 @@
 /** Public baseball feeds. Unknown values stay null; fetching does not prove live latency. */
 import {createHash} from 'node:crypto';
-const HOSTS=new Set(['api-gw.sports.naver.com','baseball.yahoo.co.jp','tw.sports.yahoo.com']);
+const HOSTS=new Set(['api-gw.sports.naver.com','baseball.yahoo.co.jp','tw.sports.yahoo.com','www.koreabaseball.com']);
 export const dayInTaipei=(date=new Date())=>new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit'}).format(date);
 export const numberOrNull=value=>value===null||value===undefined||value===''||typeof value==='boolean'||!/^\d+(?:\.\d+)?$/.test(String(value))?null:Number(value);
 export const integerOrNull=value=>{const n=numberOrNull(value);return Number.isSafeInteger(n)&&n>=0?n:null;};
