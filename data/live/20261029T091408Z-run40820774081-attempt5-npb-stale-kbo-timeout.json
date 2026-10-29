@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-29",
+  "capturedAt": "2026-10-29T09:14:08.156Z",
+  "purpose": "Fresh same-day first-team collector revalidation; unavailable feed does not imply an off-day. Historical live proof is retained separately.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40820774081,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123359958582,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "failedStep": "Collect current baseball and verify real in-game changes",
+    "headSha": "5376f66955ab83b1a7595c435fac81c9cf8bc37b",
+    "artifactId": 12886165703,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-29T09:14:10Z",
+    "artifactDigest": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
+    "downloadedZipSha256": "sha256:477837a609c460ed4c05030643c8e49ea9539c689f8b73ac3570e7e0798a75f7",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-29T09:14:08.156Z",
+    "observationPath": "data/live/20261029T091408Z-run40820774081-attempt5-npb-stale-kbo-timeout.json",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "pregameGames": {
+      "NPB": null,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "finalGames": {
+      "NPB": null,
+      "KBO": null,
+      "CPBL": 0
+    },
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "skipped_collector_exit_nonzero_because_npb_and_kbo_unavailable"
+  },
+  "capture": {
+    "date": "2026-10-29",
+    "capture1CapturedAt": "2026-10-29T09:14:08.156Z",
+    "capture2CapturedAt": null,
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "No runner-verified LIVE games; NPB source selected Oct28 instead of requested Oct29, KBO Naver timed out, CPBL returned zero games with source OK."
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "sportsnavi",
+      "requestedDate": "2026-10-29",
+      "upstreamSelectedDay": "2026-10-28",
+      "collectedAt": "2026-10-29T09:13:48.922Z",
+      "error": "NPB schedule selected day mismatch: requested 2026-10-29; upstream day 10/28; not evidence of an off-day",
+      "officialSeriesEvidence": {
+        "url": "https://npb.jp/nippons/2026/",
+        "priorIndependentFinding": "Oct29 conditional Game 5 not held after series finished Oct28",
+        "runnerVerified": false
+      },
+      "score": null,
+      "inning": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "collectedAt": "2026-10-29T09:14:08.156Z",
+      "error": "The operation was aborted due to timeout",
+      "notAnOffDayProof": true,
+      "independentOfficialPregame": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "date": "2026-10-29",
+        "away": "Samsung Lions",
+        "home": "KIA Tigers",
+        "startKorea": "2026-10-29T18:30:00+09:00",
+        "status": "pregame_independent_source_not_runner_verified"
+      },
+      "alternativeProviderVerifiedInGithubRunner": false,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "collectedAt": "2026-10-29T09:13:51.589Z",
+      "errors": [],
+      "offDayOfficiallyVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false
+    }
+  },
+  "databaseTest": {
+    "performed": false,
+    "reason": "Collector exited nonzero; isolated PostgreSQL 16 test skipped.",
+    "productionWritten": false
+  },
+  "priorHistoricalLiveProof": {
+    "date": "2026-10-28",
+    "path": "data/live/20261028T104748Z-run40662945297-attempt3-npb-live-verified.json",
+    "notFreshProofFromThisAttempt": true
+  },
+  "alternativeSourceResearch": {
+    "candidate": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+    "findings": "Public KBO scoreboard still displayed Oct29 Samsung at KIA pregame when checked externally; accessibility and parser operation inside GitHub runner remain unverified. No access challenge bypass attempted."
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
