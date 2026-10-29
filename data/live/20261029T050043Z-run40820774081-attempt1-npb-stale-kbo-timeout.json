@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-29",
+  "capturedAt": "2026-10-29T05:00:43.757Z",
+  "purpose": "Fresh 2026-10-29 Asia/Taipei daily first-team collection; NPB upstream returned the wrong selected date; KBO Naver timeout; no synthetic games or off-day inference.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40820774081,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123272678478,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "failedStep": "Collect current baseball and verify real in-game changes",
+    "headSha": "5376f66955ab83b1a7595c435fac81c9cf8bc37b",
+    "artifactId": 12874382877,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-29T05:00:45Z",
+    "artifactDigest": "sha256:8bfb7e4133127f158715297d8ec2f3b3975a3aa3aea56269b2f8ef193e9f78fc",
+    "downloadedZipSha256": "sha256:8bfb7e4133127f158715297d8ec2f3b3975a3aa3aea56269b2f8ef193e9f78fc",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261029T050043Z-run40820774081-attempt1-npb-stale-kbo-timeout.json"
+  },
+  "capture": {
+    "date": "2026-10-29",
+    "capture1CapturedAt": "2026-10-29T05:00:43.757Z",
+    "capture2CapturedAt": null,
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableFeeds": 0,
+    "qualifiedLiveNumericChangesThisAttempt": 0,
+    "reason": "No confirmed LIVE first-team game in accessible providers; NPB and KBO were unavailable, so lack of a LIVE observation does not prove an off-day."
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "sportsnavi",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-29",
+      "requestedDate": "2026-10-29",
+      "upstreamSelectedDay": "2026-10-28",
+      "error": "NPB schedule selected day mismatch: requested 2026-10-29; upstream day 10/28; not evidence of an off-day",
+      "gameStatus": null,
+      "score": null,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "independentOfficialScheduleEvidence": {
+        "url": "https://npb.jp/bis/2026/games/gm20261029.html",
+        "match": "Fukuoka SoftBank Hawks vs Yokohama DeNA BayStars",
+        "scheduledStartJapan": "2026-10-29T18:00:00+09:00",
+        "status": "scheduled_on_official_page_not_runner_verified"
+      }
+    },
+    "KBO": {
+      "status": "unavailable",
+      "firstTeamGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "source": "naver",
+      "error": "The operation was aborted due to timeout",
+      "collectorUsable": false,
+      "notAnOffDayProof": true,
+      "score": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "alternativeProviderVerifiedInGitHubRunner": false,
+      "independentScheduleEvidence": {
+        "url": "https://www.flashscore.co.kr/baseball/south-korea/kbo/fixtures/",
+        "match": "KIA Tigers vs Samsung Lions",
+        "scheduledStartKorea": "2026-10-29T18:30:00+09:00",
+        "status": "scheduled_external_not_runner_verified"
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "errors": [],
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "lineupOfficiallyConfirmed": false,
+      "offDayOfficiallyVerified": false
+    }
+  },
+  "parserFix": {
+    "issue": "NPB 2026-10-29 Yahoo dated schedule returns 2026-10-28 card; original parser produced erroneous previous-day ID and partial result.",
+    "isolationBranchOnly": true,
+    "guardCommit": "5376f66955ab83b1a7595c435fac81c9cf8bc37b",
+    "guardBehavior": "Compare actual selected-day header to requested YYYY-MM-DD and reject whole stale page before extracting games; no inferred zero-game/off-day outcome.",
+    "syntaxCheck": "passed",
+    "realSourceRetest": "passed_stale_date_detected",
+    "sourceAvailabilityRecovered": false
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "performed": false,
+    "reason": "Collector exited nonzero because every accessible league had zero confirmed games while NPB/KBO were unavailable; the workflow correctly skipped the database test",
+    "productionWritten": false
+  },
+  "priorHistoricalLiveProof": {
+    "date": "2026-10-28",
+    "path": "data/live/20261028T104748Z-run40662945297-attempt3-npb-live-verified.json",
+    "sourceIntervalSeconds": 84.748,
+    "notFreshProofFromThisAttempt": true
+  },
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false,
+    "unknownValuesBackfilled": false
+  }
+}
