@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-29",
+  "capturedAt": "2026-10-29T14:14:38.081Z",
+  "purpose": "Fresh GitHub Actions runner three-league first-team data validation; source status unchanged; no production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40860168757,
+    "runAttempt": 4,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123501850949,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "0ab587c4a8fab03c060d80781a9bbe6d4ada4d36",
+    "artifactId": 12902859868,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-29T14:14:42Z",
+    "artifactDigest": "sha256:9a1ef676307a281068d8ccf992b375dec0687184e0889959c8b273c5fb355808",
+    "downloadedZipSha256": "sha256:9a1ef676307a281068d8ccf992b375dec0687184e0889959c8b273c5fb355808",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-29T14:14:38.081Z",
+    "observationPath": "data/live/20261029T141438Z-run40860168757-attempt4-kbo-final-npb-stale.json",
+    "secondCapturePerformed": false,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "currentRunQualifiedNumericChanges": 0,
+    "isolatedDatabaseTest": "passed_1_kbo_row_written_and_read_back_duplicate_writes_0"
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "games": null,
+      "requestedDay": "2026-10-29",
+      "upstreamSelectedDay": "2026-10-28",
+      "error": "NPB schedule selected day mismatch: requested 2026-10-29; upstream day 10/28; not evidence of an off-day",
+      "offDayVerifiedByCollector": false,
+      "officialSeriesCompletedBy": "2026-10-28",
+      "officialEvidenceURL": "https://npb.jp/nippons/2026/"
+    },
+    "KBO": {
+      "status": "final",
+      "collectorStatus": "partial",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "key": "KBO:20261029SSHT0",
+      "away": "三星獅",
+      "home": "起亞虎",
+      "awayScore": 6,
+      "homeScore": 4,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "pitchingOutsRecorded": null,
+      "officialLineupConfirmed": false,
+      "source": "kbo-official-scoreboard",
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "sourceFetchedAt": "2026-10-29T14:14:38.077Z",
+      "providerHttpDate": "Thu, 29 Oct 2026 14:15:10 GMT",
+      "primaryNaverStatus": "timeout",
+      "priorSameDayLiveProofRetained": {
+        "verified": true,
+        "verificationMethod": "same-date same-game cross-run LIVE-to-LIVE numeric state change, independently sampled on GitHub Actions runner",
+        "beforeFetchedAt": "2026-10-29T10:48:23.778Z",
+        "afterFetchedAt": "2026-10-29T12:18:29.615Z",
+        "intervalSeconds": 5405.837,
+        "changes": {
+          "awayScore": {
+            "before": 2,
+            "after": 6
+          },
+          "homeScore": {
+            "before": 3,
+            "after": 4
+          },
+          "inning": {
+            "before": 4,
+            "after": 7
+          },
+          "outs": {
+            "before": 1,
+            "after": 2
+          }
+        },
+        "beforeHash": "f4212feed2761d8029a284c7a8511d909488055bf57a821e9c592a2a5c142ebd",
+        "afterHash": "009d47fba27a66725ca126d53ea9108d9c3cb5b0105bf6efb630c05538a30d85",
+        "source": "kbo-official-scoreboard",
+        "note": "Latest attempt's own two LIVE samples were 85.937 seconds apart but unchanged. Qualifying numeric changes are cross-run against retained 18:48 Taipei observation."
+      },
+      "liveChangeProofCurrentRun": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayOfficiallyVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No live first-team games in fresh runner capture; KBO final, NPB unavailable, CPBL zero first-team games.",
+  "currentRunLiveNumericChangeVerified": false,
+  "priorSameDayKboLiveNumericChangePreserved": true,
+  "noChangeSincePriorObservation": {
+    "NPB": true,
+    "KBO": true,
+    "CPBL": true,
+    "priorCapturedAt": "2026-10-29T13:34:45.777Z"
+  },
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-10-29T14:14:41.538Z",
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false,
+    "details": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "officialKboRunnerProbe": {
+    "dateAsiaSeoul": "2026-10-29",
+    "capturedAt": "2026-10-29T14:14:38.147Z",
+    "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+    "runnerProbe": true,
+    "httpStatus": 200,
+    "redirected": false,
+    "htmlBytes": 45880,
+    "selectedDateMarkerPresent": true,
+    "gameTeamNamesPresent": true,
+    "sourceUsable": true,
+    "error": null,
+    "httpDate": "Thu, 29 Oct 2026 14:14:39 GMT",
+    "httpAge": null
+  },
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false
+  }
+}
