@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-29",
+  "capturedAt": "2026-10-29T12:18:29.618Z",
+  "purpose": "2026-10-29 three-league fresh GitHub runner observation and same-day cross-run LIVE progress; no production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 40860168757,
+    "runAttempt": 2,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123440769730,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "0ab587c4a8fab03c060d80781a9bbe6d4ada4d36",
+    "artifactId": 12896053720,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-29T12:18:33Z",
+    "artifactDigest": "sha256:08fb6230cbc63e83f3371ab6fb408f6f24f63b14e24931e1af8a6d1b4ae9e003",
+    "downloadedZipSha256": "sha256:08fb6230cbc63e83f3371ab6fb408f6f24f63b14e24931e1af8a6d1b4ae9e003",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-10-29T12:18:29.618Z",
+    "observationPath": "data/live/20261029T121829Z-run40860168757-attempt2-kbo-official-live-crossrun.json",
+    "secondCapturePerformed": true,
+    "captureIntervalSeconds": 85.937,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "currentRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 4,
+    "isolatedDatabaseTest": "passed_1_kbo_row_written_and_read_back_duplicate_writes_0"
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "games": null,
+      "requestedDay": "2026-10-29",
+      "upstreamSelectedDay": "2026-10-28",
+      "error": "NPB schedule selected day mismatch, previous date rejected",
+      "officialSeriesCompletedBy": "2026-10-28",
+      "offDayVerifiedByCollector": false
+    },
+    "KBO": {
+      "status": "live",
+      "collectorStatus": "partial",
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "key": "KBO:20261029SSHT0",
+      "away": "三星獅",
+      "home": "起亞虎",
+      "awayScore": 6,
+      "homeScore": 4,
+      "inning": 7,
+      "half": "bottom",
+      "balls": 0,
+      "strikes": 0,
+      "outs": 2,
+      "bases": null,
+      "pitchCount": null,
+      "pitchingOutsRecorded": null,
+      "officialLineupConfirmed": false,
+      "source": "kbo-official-scoreboard",
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "sourceFetchedAt": "2026-10-29T12:18:29.615Z",
+      "providerHttpDate": "Thu, 29 Oct 2026 12:18:29 GMT",
+      "primaryNaverStatus": "timeout",
+      "liveChangeProof": {
+        "verified": true,
+        "verificationMethod": "same-date same-game cross-run LIVE-to-LIVE numeric state change, independently sampled on GitHub Actions runner",
+        "beforeFetchedAt": "2026-10-29T10:48:23.778Z",
+        "afterFetchedAt": "2026-10-29T12:18:29.615Z",
+        "intervalSeconds": 5405.837,
+        "changes": {
+          "awayScore": {
+            "before": 2,
+            "after": 6
+          },
+          "homeScore": {
+            "before": 3,
+            "after": 4
+          },
+          "inning": {
+            "before": 4,
+            "after": 7
+          },
+          "outs": {
+            "before": 1,
+            "after": 2
+          }
+        },
+        "beforeHash": "f4212feed2761d8029a284c7a8511d909488055bf57a821e9c592a2a5c142ebd",
+        "afterHash": "009d47fba27a66725ca126d53ea9108d9c3cb5b0105bf6efb630c05538a30d85",
+        "source": "kbo-official-scoreboard",
+        "note": "Latest attempt's own two LIVE samples were 85.937 seconds apart but unchanged. Qualifying numeric changes are cross-run against retained 18:48 Taipei observation."
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayOfficiallyVerified": false,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "captures": [
+    {
+      "capturedAt": "2026-10-29T12:17:03.683Z",
+      "sourceFetchedAt": "2026-10-29T12:17:03.678Z",
+      "gameKey": "KBO:20261029SSHT0",
+      "status": "live",
+      "awayScore": 6,
+      "homeScore": 4,
+      "inning": 7,
+      "half": "bottom",
+      "balls": 0,
+      "strikes": 0,
+      "outs": 2,
+      "bases": null,
+      "stateHash": "009d47fba27a66725ca126d53ea9108d9c3cb5b0105bf6efb630c05538a30d85"
+    },
+    {
+      "capturedAt": "2026-10-29T12:18:29.618Z",
+      "sourceFetchedAt": "2026-10-29T12:18:29.615Z",
+      "gameKey": "KBO:20261029SSHT0",
+      "status": "live",
+      "awayScore": 6,
+      "homeScore": 4,
+      "inning": 7,
+      "half": "bottom",
+      "balls": 0,
+      "strikes": 0,
+      "outs": 2,
+      "bases": null,
+      "stateHash": "009d47fba27a66725ca126d53ea9108d9c3cb5b0105bf6efb630c05538a30d85"
+    }
+  ],
+  "secondCapturePerformed": true,
+  "captureIntervalSeconds": 85.937,
+  "withinRunNumericChangeVerified": false,
+  "crossRunNumericChangeVerified": true,
+  "crossRunProof": {
+    "verified": true,
+    "verificationMethod": "same-date same-game cross-run LIVE-to-LIVE numeric state change, independently sampled on GitHub Actions runner",
+    "beforeFetchedAt": "2026-10-29T10:48:23.778Z",
+    "afterFetchedAt": "2026-10-29T12:18:29.615Z",
+    "intervalSeconds": 5405.837,
+    "changes": {
+      "awayScore": {
+        "before": 2,
+        "after": 6
+      },
+      "homeScore": {
+        "before": 3,
+        "after": 4
+      },
+      "inning": {
+        "before": 4,
+        "after": 7
+      },
+      "outs": {
+        "before": 1,
+        "after": 2
+      }
+    },
+    "beforeHash": "f4212feed2761d8029a284c7a8511d909488055bf57a821e9c592a2a5c142ebd",
+    "afterHash": "009d47fba27a66725ca126d53ea9108d9c3cb5b0105bf6efb630c05538a30d85",
+    "source": "kbo-official-scoreboard",
+    "note": "Latest attempt's own two LIVE samples were 85.937 seconds apart but unchanged. Qualifying numeric changes are cross-run against retained 18:48 Taipei observation."
+  },
+  "previousEvidencePath": "data/live/20261029T104823Z-run40860168757-attempt1-kbo-official-live-verified.json",
+  "databaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-10-29T12:18:32.232Z",
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "officialKboRunnerProbe": {
+    "capturedAt": "2026-10-29T12:18:29.679Z",
+    "httpStatus": 200,
+    "htmlBytes": 46602,
+    "selectedDateMarkerPresent": true,
+    "gameTeamNamesPresent": true,
+    "sourceUsable": true,
+    "redirected": false
+  },
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false
+  }
+}
