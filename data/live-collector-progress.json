@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-30T08:24:58.213Z",
+  "observedAt": "2026-10-30T08:55:19.370Z",
   "dateAsiaTaipei": "2026-10-30",
   "currentGames": {
     "NPB": null,
@@ -16,15 +16,15 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "runner_unavailable_yahoo_selected_oct28_for_requested_oct30; official NPB no Oct30 games independent not verified by collector",
-    "KBO": "runner_validated_official_first_team_pregame_samsung_at_kia_oct30_1730_taipei; Naver timeout; official sourceGameId 20261030SSHT0 newly visible; premature 1회초 zero-zero placeholder safely normalized to pregame",
+    "NPB": "runner_unavailable_yahoo_selected_oct28_for_requested_oct30; do not infer off-day from failed collector",
+    "KBO": "official_public_pregame_samsung_at_kia_1730_taipei; zero_BSO_prestart_first_inning_placeholder_suppressed; Naver timeout; official game ID 20261030SSHT0 validated",
     "CPBL": "source_ok_zero_first_team_games"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "performed": true,
     "passed": true,
-    "checkedAt": "2026-10-30T08:25:00.221Z",
+    "checkedAt": "2026-10-30T08:55:21.540Z",
     "rowsWritten": 1,
     "rowsReadBack": 1,
     "duplicateWrites": 0,
@@ -33,22 +33,22 @@
       {
         "league": "NPB",
         "written": 0,
-        "duplicateWrites": 0,
         "readBack": 0,
+        "duplicateWrites": 0,
         "passed": true
       },
       {
         "league": "KBO",
         "written": 1,
-        "duplicateWrites": 0,
         "readBack": 1,
+        "duplicateWrites": 0,
         "passed": true
       },
       {
         "league": "CPBL",
         "written": 0,
-        "duplicateWrites": 0,
         "readBack": 0,
+        "duplicateWrites": 0,
         "passed": true
       }
     ]
@@ -2541,7 +2541,7 @@
       "KBO": {
         "verified": false,
         "checkedToday": true,
-        "state": "pregame_official_placeholder_suppressed",
+        "state": "pregame_official_zero_BSO_placeholder_suppressed",
         "source": "kbo-official-scoreboard",
         "primarySource": "naver_timeout",
         "firstTeamGames": 1,
@@ -2565,16 +2565,17 @@
         "alternativeProviderVerifiedInGithubRunner": true,
         "liveChangeProof": {
           "verified": false,
-          "reason": "Before scheduled 17:30 Taipei start: official site pre-renders empty 1회초, not proof of LIVE; no 65s double poll in corrected run"
+          "reason": "Prestart official 1회초 zero score and zero B/S/O did not evidence actual play; rejected attempt2 85.602s double observation had zero changes; corrected collector pregame no 65s second capture"
         },
         "pregameParserFixCommit": "b487e2f2c86cabb52964e161f94d6f9f9782d8c2",
-        "lastCheckedAt": "2026-10-30T08:24:58.213Z",
+        "lastCheckedAt": "2026-10-30T08:55:19.370Z",
         "rawStatus": "1회초",
         "rawStatusPreStartPlaceholder": true,
         "inning": null,
         "half": null,
-        "sourceFetchedAt": "2026-10-30T08:24:58.209Z",
-        "earlyLivePlaceholderFixCommit": "6d564a01a80e487b14962f6636a4b1494eca71b1"
+        "sourceFetchedAt": "2026-10-30T08:55:19.364Z",
+        "earlyLivePlaceholderFixCommit": "455823e81799bfb1b7cd2451760eca84886f69d5",
+        "zeroBsoPlaceholderFixCommit": "455823e81799bfb1b7cd2451760eca84886f69d5"
       },
       "CPBL": {
         "verified": false,
@@ -2586,34 +2587,34 @@
       },
       "allVerified": false,
       "allScheduledLeaguesVerified": false,
-      "reason": "16:25 Taipei new KBO source quality issue fixed in isolated branch: official 1회초 0-0 appeared >65min before 17:30 scheduled first pitch with no real game events. Before-fix attempt5 double poll 85.703s had no numeric change. After-fix official pregame has real sourceGameId 20261030SSHT0, null score/inning, no false LIVE. NPB still selected Oct28 and CPBL zero. Postgres 1/1/0; new artifact SHA verified.",
+      "reason": "16:55 Taipei KBO early 1會上 0:0 B/S/O=0 was still falsely parsed LIVE. Rejected 16:51:40 and 16:53:05 source snapshots (85.602 seconds, no changes). New isolated commit 455823e reclassifies this prestart zero-state as pregame with scores/inning/B/S/O null, verified in fresh run 41029623066 attempt1, isolated PostgreSQL 1/1/0 and SHA256 matched. NPB stale Oct28 excluded, CPBL source OK zero.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
         "branch": "data/live-source-probe-20260915",
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
-        "runId": 41026200625,
+        "runId": 41029623066,
         "runAttempt": 1,
         "runAttemptConfirmedByApi": true,
-        "jobId": 123964786982,
+        "jobId": 123975928341,
         "jobStatus": "completed",
         "jobConclusion": "success",
-        "headSha": "6d564a01a80e487b14962f6636a4b1494eca71b1",
-        "artifactId": 12963379222,
+        "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+        "artifactId": 12964709046,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-10-30T08:25:01Z",
-        "artifactDigest": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
-        "downloadedZipSha256": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
+        "artifactCreatedAt": "2026-10-30T08:55:22Z",
+        "artifactDigest": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
+        "downloadedZipSha256": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
         "artifactDigestVerifiedIndependently": true,
         "staleArtifactUsed": false,
-        "capturedAt": "2026-10-30T08:24:58.213Z",
-        "observationPath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json",
+        "capturedAt": "2026-10-30T08:55:19.370Z",
+        "observationPath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json",
         "secondCapturePerformed": false,
         "liveGamesConfirmedInAvailableSources": 0,
         "currentRunQualifiedNumericChanges": 0,
         "isolatedDatabaseTest": "passed_1_kbo_pregame_row_written_and_read_back_duplicate_writes_0",
-        "parserRepair": "official_kbo_prestart_empty_first_inning_false_live_normalized_to_pregame",
+        "parserRepair": "official_kbo_zero_BSO_prestart_first_inning_false_live_suppressed",
         "kboSourceGameId": "20261030SSHT0",
         "kboSourceIdValidated": true
       }
@@ -2830,6 +2831,30 @@
         "liveNumericChangeVerified": false,
         "productionChanged": false
       }
+    },
+    {
+      "at": "2026-10-30T08:55:19.370Z",
+      "commit": "455823e81799bfb1b7cd2451760eca84886f69d5",
+      "file": "server/baseball-current.mjs",
+      "change": "Prestart empty KBO 1회초 0-0 may expose B/S/O as zeros, not null. Consider zero/null B/S/O absence of play when first-top 0/0, zero hits/errors and no inning progression occur at least 2 min before start. Reset B/S/O and all unsupported fields to null, preserve source ID, do not affect post-start actual play.",
+      "verifiedByRun": 41029623066,
+      "verifiedByAttempt": 1,
+      "verifiedByJob": 123975928341,
+      "verifiedByArtifact": 12964709046,
+      "verification": {
+        "localFixturePrestartPregameNulls": true,
+        "localFixtureAfterStartLive": true,
+        "syntaxCheck": true,
+        "githubRunnerOfficialHttp200": true,
+        "githubRunnerCollectorPassed": true,
+        "isolatedPostgres16Passed": true,
+        "rowsWritten": 1,
+        "rowsReadBack": 1,
+        "duplicateWrites": 0,
+        "artifactSha256IndependentlyMatched": true,
+        "liveNumericChangeVerified": false,
+        "productionChanged": false
+      }
     }
   ],
   "parserRepairIncidents": [
@@ -2929,6 +2954,23 @@
       "status": "resolved_isolated_branch",
       "productionWritten": false,
       "evidencePath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json"
+    },
+    {
+      "at": "2026-10-30T08:55:19.370Z",
+      "file": "server/baseball-current.mjs",
+      "rootCause": "Previous Oct30 early-live guard only accepted null B/S/O; KBO source began publishing all-zero B/S/O well before 17:30 Taipei start, falsely promoting an empty first-inning card to LIVE.",
+      "initialRunId": 41026200625,
+      "initialAttempt": 2,
+      "initialJobId": 123974631211,
+      "initialArtifactId": 12964663993,
+      "initialCaptureIntervalSeconds": 85.602,
+      "initialQualifiedNumericChanges": 0,
+      "resolvedByCommit": "455823e81799bfb1b7cd2451760eca84886f69d5",
+      "verifiedByRun": 41029623066,
+      "verifiedByArtifact": 12964709046,
+      "status": "resolved_isolated_branch",
+      "productionWritten": false,
+      "evidencePath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json"
     }
   ],
   "productionChanged": false,
@@ -2947,7 +2989,8 @@
     "2026-10-25 22:32 Taipei: CPBL G5 source progressed to FINAL 4:3, with 9-inning runs and pitcher outs available, but full payload still reports missing; CPBL pitchCount/B/S/O/bases remain null. Historical 19:38 partial LIVE 3:2 evidence retained.",
     "2026-10-26 17:31-17:36 Taipei: KBO Naver source timed out in attempts 19 and 20 (four source polls). Current KBO status unknown; prior 18:30 KIA-Samsung pregame record is historical, not proof the game is off or cancelled.",
     "2026-10-29: official NPB championship results show SoftBank won 4-0 by Oct28, so tentative Oct29 Game 5 does not take place; Yahoo default still selects Oct28, guard refuses it, but official confirmed series completion is independent evidence, not runner-proof that provider works.",
-    "2026-10-30 13:00 Taipei initial KBO pregame showed no official game ID (provisional internal key). At 16:20 official scoreboard exposed 20261030SSHT0 ahead of first pitch; it also falsely labelled blank 1회초 0-0 LIVE. Isolated 16:25 repair now classifies as pregame, retains newly visible official ID; actual live changes still unverified today."
+    "2026-10-30 13:00 Taipei initial KBO pregame showed no official game ID (provisional internal key). At 16:20 official scoreboard exposed 20261030SSHT0 ahead of first pitch; it also falsely labelled blank 1회초 0-0 LIVE. Isolated 16:25 repair now classifies as pregame, retains newly visible official ID; actual live changes still unverified today.",
+    "2026-10-30 16:55 Taipei: official KBO pre-start 1회초 0-0 is now accompanied by B/S/O zeros. Earlier null-only guard briefly misclassified it LIVE in attempt2 without numeric change. Fixed at isolated commit 455823e; fresh runner parses as pregame with B/S/O/scores/inning null, source ID preserved. Genuine 17:30 LIVE numeric change remains unverified today."
   ],
   "dataQualityIssues": [
     {
@@ -3191,6 +3234,23 @@
       "correctedScore": null,
       "officialSourceGameId": "20261030SSHT0",
       "evidencePath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json"
+    },
+    {
+      "firstObservedAt": "2026-10-30T08:51:40.104Z",
+      "resolvedAt": "2026-10-30T08:55:19.370Z",
+      "league": "KBO",
+      "warning": "official_prestart_zero_BSO_wrongly_live_second_regression",
+      "status": "resolved_isolated_parser_guard",
+      "gameKey": "KBO:20261030SSHT0",
+      "scheduledFirstPitch": "2026-10-30T09:30:00.000Z",
+      "initialRawState": "1회초 0-0, B/S/O all zero before start",
+      "beforeFetchedAt": "2026-10-30T08:51:40.104Z",
+      "afterFetchedAt": "2026-10-30T08:53:05.706Z",
+      "intervalSeconds": 85.602,
+      "numericChanges": 0,
+      "action": "Never treat all-zero prestart placeholder as LIVE; unknown or unverified fields stay null.",
+      "resolvedByCommit": "455823e81799bfb1b7cd2451760eca84886f69d5",
+      "evidencePath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json"
     }
   ],
   "transientSourceIncidents": [
@@ -3207,9 +3267,9 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-10-30",
-    "checkedAt": "2026-10-30T08:24:58.213Z",
+    "checkedAt": "2026-10-30T08:55:19.370Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json",
+    "latestObservationPath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json",
     "secondCapturePerformed": false,
     "captureIntervalSeconds": null,
     "qualifiedNumericChanges": 0,
@@ -3225,7 +3285,7 @@
     "KBO": {
       "verified": false,
       "checkedToday": true,
-      "state": "official_public_pregame_prestart_empty_first_inning_suppressed",
+      "state": "official_public_pregame_zero_BSO_first_inning_suppressed",
       "games": 1,
       "pregameGames": 1,
       "liveGames": 0,
@@ -3249,7 +3309,7 @@
       "pitchCount": null,
       "startTime": "2026-10-30T09:30:00.000Z",
       "officialLineupConfirmed": false,
-      "lastCheckedAt": "2026-10-30T08:24:58.213Z",
+      "lastCheckedAt": "2026-10-30T08:55:19.370Z",
       "rawStatus": "1회초",
       "rawStatusIsPrestartPlaceholder": true
     },
@@ -3267,37 +3327,44 @@
       "officialLineupConfirmed": false
     },
     "allVerified": false,
-    "reason": "2026-10-30 16:25 Taipei: corrected prestart fake LIVE from KBO official to pregame; official game ID 20261030SSHT0 now exposed; NPB Yahoo Oct28 stale; CPBL source OK zero; no valid LIVE, no numeric-change proof; isolated PostgreSQL 1/1/0; fresh attempt1 artifact independently checked.",
+    "reason": "2026-10-30 16:55 Taipei: new guard handles zero B/S/O appearing on KBO official pregame 1회초 0:0 placeholder, not actual LIVE. Run 41029623066 attempt1 success; one valid pregame, NPB stale date, CPBL zero; PostgreSQL 1/1/0; artifact sha independently checked.",
     "withinRunQualifiedNumericChanges": 0,
-    "crossRunQualifiedNumericChanges": 0
+    "crossRunQualifiedNumericChanges": 0,
+    "rejectedPreFixDoubleCapture": {
+      "runId": 41026200625,
+      "runAttempt": 2,
+      "intervalSeconds": 85.602,
+      "qualifiedNumericChanges": 0,
+      "falselyParsedLive": true
+    }
   },
-  "nextAction": "Continue daily verification without stopping. KBO scheduled 17:30 Taipei: after first pitch, recheck official LiveText ID and actual changing live fields with >=65-second interval; no fake LIVE from early blank 1회초. NPB Yahoo stale Oct28 excluded; CPBL source OK zero this round. No main/Render/production deployment.",
+  "nextAction": "Continue daily first-team-only validation without stopping. After KBO 17:30 Taipei scheduled start, recheck official game ID/true LIVE progress with >=65s two-source-timestamp captures; reject prestart 1회초 zero B/S/O placeholder. NPB Yahoo still stale Oct28; CPBL source OK zero today. No main, Render, login, accounts, env or production deployment.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
-    "runId": 41026200625,
+    "runId": 41029623066,
     "runAttempt": 1,
     "runAttemptConfirmedByApi": true,
-    "jobId": 123964786982,
+    "jobId": 123975928341,
     "jobStatus": "completed",
     "jobConclusion": "success",
-    "headSha": "6d564a01a80e487b14962f6636a4b1494eca71b1",
-    "artifactId": 12963379222,
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 12964709046,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-30T08:25:01Z",
-    "artifactDigest": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
-    "downloadedZipSha256": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
+    "artifactCreatedAt": "2026-10-30T08:55:22Z",
+    "artifactDigest": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
+    "downloadedZipSha256": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-30T08:24:58.213Z",
-    "observationPath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json",
+    "capturedAt": "2026-10-30T08:55:19.370Z",
+    "observationPath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json",
     "secondCapturePerformed": false,
     "liveGamesConfirmedInAvailableSources": 0,
     "currentRunQualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_1_kbo_pregame_row_written_and_read_back_duplicate_writes_0",
-    "parserRepair": "official_kbo_prestart_empty_first_inning_false_live_normalized_to_pregame",
+    "parserRepair": "official_kbo_zero_BSO_prestart_first_inning_false_live_suppressed",
     "kboSourceGameId": "20261030SSHT0",
     "kboSourceIdValidated": true
   },
@@ -3307,46 +3374,46 @@
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json",
-    "lastEvidenceContains": "2026-10-30 16:25 Taipei false KBO early 1회초 LIVE placeholder repaired; first capture 08:20:33Z and second 08:21:58Z had no change. Corrected run41026200625 attempt1 confirmed pregame and official ID; fresh artifact12963379222 at 08:25:01Z SHA256 independently verified; isolated PostgreSQL 1/1/0."
+    "lastEvidencePath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json",
+    "lastEvidenceContains": "2026-10-30 16:55 Taipei: KBO official prestart B/S/O zeros caused second false LIVE regression. Before fix run41026200625 attempt2 had 85.602-second identical 0-0/0-0-0; corrected branch commit455823e runner run41029623066 attempt1 passed, now pregame nulls, artifact12964709046 at 08:55:22Z independent SHA matched, isolated PostgreSQL 1/1/0, NPB stale, CPBL zero."
   },
   "currentDayFinalObservation": {
     "date": "2026-10-30",
-    "capturedAt": "2026-10-30T08:24:58.213Z",
+    "capturedAt": "2026-10-30T08:55:19.370Z",
     "finalGames": {
       "NPB": 0,
       "KBO": 0,
       "CPBL": 0
     },
     "state": "no_verified_final_games_yet",
-    "observationPath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json"
+    "observationPath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json"
   },
   "latestObservation": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
-    "runId": 41026200625,
+    "runId": 41029623066,
     "runAttempt": 1,
     "runAttemptConfirmedByApi": true,
-    "jobId": 123964786982,
+    "jobId": 123975928341,
     "jobStatus": "completed",
     "jobConclusion": "success",
-    "headSha": "6d564a01a80e487b14962f6636a4b1494eca71b1",
-    "artifactId": 12963379222,
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 12964709046,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-30T08:25:01Z",
-    "artifactDigest": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
-    "downloadedZipSha256": "sha256:e8ac6a45347bf384902d9a7fe46b730b8c1cb01b28bddf642ed077f4b234b256",
+    "artifactCreatedAt": "2026-10-30T08:55:22Z",
+    "artifactDigest": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
+    "downloadedZipSha256": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
     "artifactDigestVerifiedIndependently": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-10-30T08:24:58.213Z",
-    "observationPath": "data/live/20261030T082458Z-run41026200625-attempt1-kbo-premature-live-guard-fixed.json",
+    "capturedAt": "2026-10-30T08:55:19.370Z",
+    "observationPath": "data/live/20261030T085519Z-run41029623066-attempt1-kbo-zero-bso-pregame-guard.json",
     "secondCapturePerformed": false,
     "liveGamesConfirmedInAvailableSources": 0,
     "currentRunQualifiedNumericChanges": 0,
     "isolatedDatabaseTest": "passed_1_kbo_pregame_row_written_and_read_back_duplicate_writes_0",
-    "parserRepair": "official_kbo_prestart_empty_first_inning_false_live_normalized_to_pregame",
+    "parserRepair": "official_kbo_zero_BSO_prestart_first_inning_false_live_suppressed",
     "kboSourceGameId": "20261030SSHT0",
     "kboSourceIdValidated": true
   }
