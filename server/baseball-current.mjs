@@ -121,7 +121,7 @@ export function parseKboOfficialScoreboard(html,page,date){
    if(pregameWithoutId&&!startTime)throw new Error('Official pregame card missing start time');
    const provisionalKey='KBO:official-pregame:'+date.replaceAll('-','')+':'+awayCode+':'+homeCode+':'+time?.[1]+time?.[2];
    const g={
-    key:id?'KBO:'+id:provisionalKey,id,league:'KBO',date,startTime,status,rawStatus,away,home,
+    key:id?'KBO:'+id:provisionalKey,id:id??provisionalKey.slice(4),sourceGameId:id,league:'KBO',date,startTime,status,rawStatus,away,home,
     inning:inningStatus?Number(inningStatus[1]):null,
     half:inningStatus?(inningStatus[2]==='초'?'top':'bottom'):null,
     balls:null,strikes:null,outs:null,bases:null,currentPitcher:null,currentBatter:null,
