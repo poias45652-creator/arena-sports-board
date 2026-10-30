@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-30",
+  "capturedAt": "2026-10-30T08:55:19.370Z",
+  "purpose": "daily GitHub isolated NPB/KBO/CPBL first-team validation and KBO zero B/S/O prestart placeholder regression correction",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41029623066,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123975928341,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 12964709046,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-30T08:55:22Z",
+    "artifactDigest": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
+    "downloadedZipSha256": "sha256:162936a42496ca03c7a53d0d8cd9e21042dfaa30d4c80135d4ac2282434445a6",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false
+  },
+  "regression": {
+    "discoveredOnRunId": 41026200625,
+    "discoveredOnRunAttempt": 2,
+    "discoveredOnJobId": 123974631211,
+    "discoveredOnArtifactId": 12964663993,
+    "oldArtifactCreatedAt": "2026-10-30T08:53:10Z",
+    "oldArtifactDigest": "sha256:380116c58cfa261620a2ce683ca470b34115ab6f219f3772c2871a85763b312f",
+    "beforeFetchedAt": "2026-10-30T08:51:40.104Z",
+    "afterFetchedAt": "2026-10-30T08:53:05.706Z",
+    "captureIntervalSeconds": 85.602,
+    "oldParsedState": "live",
+    "sourceRawStatus": "1회초",
+    "oldParsedScores": {
+      "away": 0,
+      "home": 0
+    },
+    "oldParsedBalls": 0,
+    "oldParsedStrikes": 0,
+    "oldParsedOuts": 0,
+    "oldHits": {
+      "away": 0,
+      "home": 0
+    },
+    "oldErrors": {
+      "away": 0,
+      "home": 0
+    },
+    "firstInningRuns": 0,
+    "reason": "Before scheduled 17:30 Taipei / 18:30 Korea first pitch, official page began emitting zero-valued B/S/O. Prior guard only caught null B/S/O so falsely promoted the zero-zero top-first-inning placeholder to LIVE.",
+    "qualifiedNumericChanges": 0,
+    "previousAttemptWasNotGenuineLiveProof": true,
+    "fix": {
+      "file": "server/baseball-current.mjs",
+      "commit": "455823e81799bfb1b7cd2451760eca84886f69d5",
+      "change": "Treat B/S/O zero or null as absence of play evidence when strict prestart 1st-top 0-0 empty-hit/empty-error/empty-inning conditions hold at least two minutes before scheduled start; normalize pregame B/S/O, inning, half, scores, hits and errors to null. Keep source ID and rawStatus; do not suppress real post-start progression.",
+      "localFixtureTest": {
+        "sameLiveRawBeforeFirstPitch": "pregame_with_null_scores_inning_bso",
+        "sameFixtureAfterFirstPitch": "live_with_zero_scores_bso",
+        "syntaxCheck": true
+      },
+      "githubRunnerRegressionPassed": true
+    }
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "games": null,
+      "requestedDate": "2026-10-30",
+      "upstreamSelectedDate": "2026-10-28",
+      "error": "NPB schedule selected day mismatch; cannot claim official off-day from runner",
+      "offDayVerifiedByCollector": false
+    },
+    "KBO": {
+      "status": "pregame",
+      "collectorStatus": "partial",
+      "games": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "gameKey": "KBO:20261030SSHT0",
+      "sourceGameId": "20261030SSHT0",
+      "internalIdProvisional": false,
+      "away": "三星獅",
+      "home": "起亞虎",
+      "startTime": "2026-10-30T09:30:00.000Z",
+      "startTimeTaipei": "2026-10-30T17:30:00+08:00",
+      "rawStatus": "1회초",
+      "rawStatusIsPrestartPlaceholder": true,
+      "awayScore": null,
+      "homeScore": null,
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "lineupsOfficiallyConfirmed": false,
+      "source": "kbo-official-scoreboard",
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "sourceFetchedAt": "2026-10-30T08:55:19.364Z",
+      "officialHttpStatus": 200,
+      "officialHtmlBytes": 46602,
+      "officialHttpDate": "Fri, 30 Oct 2026 08:55:17 GMT",
+      "primaryNaverStatus": "timeout",
+      "warnings": [
+        "official_zero_zero_first_inning_placeholder_before_scheduled_start_not_live",
+        "lineup_confirmation_not_verified",
+        "bases_not_verified",
+        "pitch_count_not_supplied",
+        "provider_update_time_not_supplied"
+      ]
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "After corrected parser, no verified LIVE at 16:55 Taipei; historical false-live attempt contains two unchanged observations 85.602s apart",
+  "currentRunLiveNumericChangeVerified": false,
+  "isolatedDatabaseTest": {
+    "environment": "GitHub Actions PostgreSQL 16; not Render",
+    "passed": true,
+    "checkedAt": "2026-10-30T08:55:21.540Z",
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false
+  },
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false
+  }
+}
