@@ -5,6 +5,7 @@ import {nbaPeriod,type NbaGame} from '@/lib/nba';
 import {basketballPlayText,type BasketballDetail,type BasketballLeague,type BoxPlayer} from '@/lib/basketball-live';
 import {NbaMatch,NbaQuarters,nbaTime} from './nba-match';
 import {nbaRequest} from './nba-request';
+import GameStrip from './game-strip';
 function PlayerPhoto({player}:{player:BoxPlayer}){
  const [failed,setFailed]=useState(false);
  return <span className="basketball-player-photo">{player.photo&&!failed?<img src={player.photo} alt="" width={48} height={48} loading="lazy" onError={()=>setFailed(true)}/>:<UserRound size={26}/>}</span>;
@@ -19,7 +20,7 @@ export default function BasketballLiveCenter({league,games,day}:{league:Basketba
  const [selected,setSelected]=useState('');
  const game=games.find(g=>g.id===selected)||games.find(g=>g.state==='live')||games[0];
  if(!game)return null;
- return <div className="basketball-live-center"><p className="basketball-live-caption">共 {games.length} 場・左右滑動選擇比賽・每 10 秒檢查更新</p><div className="basketball-game-strip" role="group" aria-label="選擇比賽">{games.map(g=><button type="button" key={g.id} aria-pressed={g.id===game.id} onClick={()=>setSelected(g.id)}><span className={g.state==='live'?'nba-live':''}>{g.state==='live'?'LIVE・':''}{g.statusLabel}</span><div><img src={g.away.logo} alt="" width={40} height={40}/><b>{g.awayScore!==null&&g.homeScore!==null?`${g.awayScore} : ${g.homeScore}`:'VS'}</b><img src={g.home.logo} alt="" width={40} height={40}/></div><strong>{g.away.name}<br/>對 {g.home.name}</strong><time dateTime={g.start}>{g.timeConfirmed?nbaTime(g.start):'時間待定'}（台灣）</time></button>)}</div><GameDetails key={`${league}:${game.id}`} league={league} game={game} day={day}/></div>;
+ return <div className="basketball-live-center"><GameStrip className="basketball-game-strip" count={games.length} resetKey={`${league}:${day}`} label="選擇比賽" caption="每 10 秒檢查更新">{games.map(g=><button type="button" key={g.id} aria-pressed={g.id===game.id} onClick={()=>setSelected(g.id)}><span className={g.state==='live'?'nba-live':''}>{g.state==='live'?'LIVE・':''}{g.statusLabel}</span><div><img src={g.away.logo} alt="" width={40} height={40}/><b>{g.awayScore!==null&&g.homeScore!==null?`${g.awayScore} : ${g.homeScore}`:'VS'}</b><img src={g.home.logo} alt="" width={40} height={40}/></div><strong>{g.away.name}<br/>對 {g.home.name}</strong><time dateTime={g.start}>{g.timeConfirmed?nbaTime(g.start):'時間待定'}（台灣）</time></button>)}</GameStrip><GameDetails key={`${league}:${game.id}`} league={league} game={game} day={day}/></div>;
 }
 function GameDetails({league,game,day}:{league:BasketballLeague;game:NbaGame;day:string}){
  const [data,setData]=useState<BasketballDetail|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true),[revision,setRevision]=useState(0),[team,setTeam]=useState(game.away.id),[period,setPeriod]=useState(0),[limit,setLimit]=useState(60);
