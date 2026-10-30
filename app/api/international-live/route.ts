@@ -15,7 +15,7 @@ export async function GET(request:Request){
   if(!['NPB','KBO','CPBL'].includes(league))return Response.json({error:'請指定 NPB、KBO 或 CPBL。'},{status:400,headers});
   const date=url.searchParams.get('date')||dayInTaipei();
   if(!/^\d{4}-\d{2}-\d{2}$/.test(date))return Response.json({error:'日期格式不正確。'},{status:400,headers});
-  const value=await getFeed(league,date);
+  const value=await getFeed(league,date,{preferCached:true});
   return Response.json({...value,games:value.games?.map(withNpbLivePhotos)},{status:value.status==='unavailable'?503:200,headers});
  }catch{return Response.json({error:'使用權或資料服務暫時無法使用。'},{status:503,headers});}
 }
