@@ -138,6 +138,19 @@ export function parseKboOfficialScoreboard(html,page,date){
     if(m){const b=integerOrNull(m[1]),s=integerOrNull(m[2]),o=integerOrNull(m[3]);
      g.balls=b!==null&&b<=3?b:null;g.strikes=s!==null&&s<=2?s:null;g.outs=o!==null&&o<=3?o:null;}
    }
+   // The official scoreboard can pre-render "1회초" with 0:0 and empty game
+   // events well before the scheduled first pitch. It is not LIVE evidence.
+   const prematureEmptyFirstInning=g.status==='live'&&Number.isFinite(Date.parse(g.startTime))&&
+    Number.isFinite(Date.parse(page.fetchedAt))&&Date.parse(page.fetchedAt)<Date.parse(g.startTime)-120000&&
+    g.inning===1&&g.half==='top'&&g.away.score===0&&g.home.score===0&&
+    g.away.hits===0&&g.home.hits===0&&g.away.errors===0&&g.home.errors===0&&
+    g.innings.away.length===1&&g.innings.away[0].inning===1&&g.innings.away[0].runs===0&&
+    g.innings.home.length===0&&g.balls===null&&g.strikes===null&&g.outs===null;
+   if(prematureEmptyFirstInning){
+    g.status='pregame';g.inning=null;g.half=null;
+    for(const side of ['away','home']){g[side].score=null;g[side].hits=null;g[side].errors=null;g.innings[side]=[];}
+    g.warnings.push('official_zero_zero_first_inning_placeholder_before_scheduled_start_not_live');
+   }
    games.push(validateGame(g));
   }catch(err){errors.push(String(err?.message||err));}
  }
