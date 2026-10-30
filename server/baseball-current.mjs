@@ -83,19 +83,23 @@ export function parseKboOfficialScoreboard(html,page,date){
  for(const card of cards){
   try{
    const idMatch=card.match(/LiveText\.aspx\?leagueId=(\d+)(?:&amp;|&)seriesId=(\d+)(?:&amp;|&)gameId=(\d{8}[A-Z0-9]+)(?:&amp;|&)/i);
-   if(!idMatch||idMatch[1]!=='1'||!['0','1','5'].includes(idMatch[2]))throw new Error('Not a recognized first-team regular/postseason game');
-   const id=idMatch[3];
-   if(!id.startsWith(date.replaceAll('-','')))throw new Error('Official game ID/date mismatch');
+   // The first-team public scoreboard hides LiveText/gameId until first pitch.
+   // Only verified pregame cards may use a provisional internal key. Never
+   // invent an official game ID, and never relax LIVE/FINAL identity checks.
+   const rawStatus=plain(card.match(/<strong\b[^>]*class=["']flag["'][^>]*>([\s\S]*?)<\/strong>/i)?.[1]||'');
+   const inningStatus=rawStatus.match(/^(\d{1,2})회(초|말)$/);
+   const status=inningStatus?'live':/경기종료|경기끝|종료|콜드게임/.test(rawStatus)?'final':/경기전|시작전|경기예정/.test(rawStatus)?'pregame':/취소/.test(rawStatus)?'cancelled':/연기/.test(rawStatus)?'postponed':/중단/.test(rawStatus)?'suspended':'unknown';
+   if(status==='unknown')throw new Error('Unknown KBO state: '+rawStatus);
+   const pregameWithoutId=!idMatch&&status==='pregame';
+   if(!pregameWithoutId&&(!idMatch||idMatch[1]!=='1'||!['0','1','5'].includes(idMatch[2])))throw new Error('Not a recognized first-team regular/postseason game');
+   const id=idMatch?.[3]??null;
+   if(id&&!id.startsWith(date.replaceAll('-','')))throw new Error('Official game ID/date mismatch');
    const section=name=>card.match(new RegExp('<p\\b[^>]*class=[\\x22\\x27]'+name+'[\\x22\\x27][^>]*>([\\s\\S]*?)<\\/p>','i'))?.[1]||'';
    const awayRaw=section('leftTeam'),homeRaw=section('rightTeam');
    const awayCode=awayRaw.match(/emblem_([A-Z]{2})\.png/i)?.[1];
    const homeCode=homeRaw.match(/emblem_([A-Z]{2})\.png/i)?.[1];
    if(!KBO_OFFICIAL_TEAMS[awayCode]||!KBO_OFFICIAL_TEAMS[homeCode]||awayCode===homeCode)throw new Error('Official team codes missing or invalid');
-   if(!id.includes(awayCode+homeCode))throw new Error('Official game ID/team code mismatch');
-   const rawStatus=plain(card.match(/<strong\b[^>]*class=["']flag["'][^>]*>([\s\S]*?)<\/strong>/i)?.[1]||'');
-   const inningStatus=rawStatus.match(/^(\d{1,2})회(초|말)$/);
-   const status=inningStatus?'live':/경기종료|경기끝|종료|콜드게임/.test(rawStatus)?'final':/경기전|시작전|경기예정/.test(rawStatus)?'pregame':/취소/.test(rawStatus)?'cancelled':/연기/.test(rawStatus)?'postponed':/중단/.test(rawStatus)?'suspended':'unknown';
-   if(status==='unknown')throw new Error('Unknown KBO state: '+rawStatus);
+   if(id&&!id.includes(awayCode+homeCode))throw new Error('Official game ID/team code mismatch');
    const played=['live','final','suspended'].includes(status);
    const table=card.match(/<table\b[^>]*class=["']tScore["'][^>]*>([\s\S]*?)<\/table>/i)?.[1]||'';
    if(!table)throw new Error('Official score table missing');
@@ -114,15 +118,17 @@ export function parseKboOfficialScoreboard(html,page,date){
    const home={id:homeCode,name:KBO_OFFICIAL_TEAMS[homeCode],score:score(homeRaw,data[1]),hits:played?integerOrNull(data[1].cells[16]):null,errors:played?integerOrNull(data[1].cells[17]):null};
    const time=plain(section('place')).match(/\b([01]\d|2[0-3]):([0-5]\d)\b/);
    const startTime=time?new Date(date+'T'+time[1]+':'+time[2]+':00+09:00').toISOString():null;
+   if(pregameWithoutId&&!startTime)throw new Error('Official pregame card missing start time');
+   const provisionalKey='KBO:official-pregame:'+date.replaceAll('-','')+':'+awayCode+':'+homeCode+':'+time?.[1]+time?.[2];
    const g={
-    key:'KBO:'+id,id,league:'KBO',date,startTime,status,rawStatus,away,home,
+    key:id?'KBO:'+id:provisionalKey,id,league:'KBO',date,startTime,status,rawStatus,away,home,
     inning:inningStatus?Number(inningStatus[1]):null,
     half:inningStatus?(inningStatus[2]==='초'?'top':'bottom'):null,
     balls:null,strikes:null,outs:null,bases:null,currentPitcher:null,currentBatter:null,
     starters:{away:null,home:null},lineups:{away:[],home:[]},lineupConfirmation:'not_verified',
     batting:{away:[],home:[]},pitching:{away:[],home:[]},innings:{away:[],home:[]},
     source:{provider:'kbo-official-scoreboard',url:page.url,fetchedAt:page.fetchedAt,httpDate:page.httpDate??null,cacheAgeSeconds:page.cacheAgeSeconds??null,providerUpdatedAt:null},
-    warnings:['lineup_confirmation_not_verified','bases_not_verified','pitch_count_not_supplied','provider_update_time_not_supplied']
+    warnings:[...(pregameWithoutId?['official_pregame_game_id_not_exposed_internal_key_provisional']:[]),'lineup_confirmation_not_verified','bases_not_verified','pitch_count_not_supplied','provider_update_time_not_supplied']
    };
    if(played)for(const [side,d] of [['away',data[0]],['home',data[1]]])
     g.innings[side]=d.cells.slice(0,15).map((v,i)=>({inning:i+1,runs:integerOrNull(v)})).filter(x=>x.runs!==null);
