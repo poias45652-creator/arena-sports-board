@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-30",
+  "capturedAt": "2026-10-30T09:39:16.507Z",
+  "purpose": "Fresh same-day first-team GitHub Actions collector rerun with verified post-start KBO LIVE change; no production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41029623066,
+    "runAttempt": 2,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 123992703401,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 12968390342,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-30T09:39:20Z",
+    "artifactDigest": "sha256:3b4c5a87914663ab0bff496653a4f67119be984cf8e503c302153b7c79fb3aae",
+    "downloadedZipSha256": "sha256:3b4c5a87914663ab0bff496653a4f67119be984cf8e503c302153b7c79fb3aae",
+    "artifactDigestVerifiedIndependently": true,
+    "staleArtifactUsed": false,
+    "artifactCreatedAfterCapturedAt": true
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-10-30",
+      "upstreamSelectedDate": "2026-10-28",
+      "error": "NPB Yahoo upstream schedule selected 10/28 instead of requested 10/30; date guard rejected stale data",
+      "offDayVerifiedByCollector": false
+    },
+    "KBO": {
+      "collectorStatus": "partial",
+      "status": "live",
+      "games": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "gameKey": "KBO:20261030SSHT0",
+      "sourceGameId": "20261030SSHT0",
+      "away": "三星獅",
+      "home": "起亞虎",
+      "startTime": "2026-10-30T09:30:00.000Z",
+      "source": "kbo-official-scoreboard",
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "officialHttpStatus": 200,
+      "sourceUsable": true,
+      "primaryNaverStatus": "timeout",
+      "first": {
+        "capturedAt": "2026-10-30T09:37:49.785Z",
+        "sourceFetchedAt": "2026-10-30T09:37:49.779Z",
+        "sourceHttpDate": "Fri, 30 Oct 2026 09:38:18 GMT",
+        "status": "live",
+        "rawStatus": "1회초",
+        "awayScore": 0,
+        "homeScore": 0,
+        "awayHits": 1,
+        "homeHits": 0,
+        "inning": 1,
+        "half": "top",
+        "balls": 2,
+        "strikes": 1,
+        "outs": 2,
+        "bases": null,
+        "pitchCount": null
+      },
+      "second": {
+        "capturedAt": "2026-10-30T09:39:16.507Z",
+        "sourceFetchedAt": "2026-10-30T09:39:16.504Z",
+        "sourceHttpDate": "Fri, 30 Oct 2026 09:39:46 GMT",
+        "status": "live",
+        "rawStatus": "1회말",
+        "awayScore": 0,
+        "homeScore": 0,
+        "awayHits": 1,
+        "homeHits": 0,
+        "inning": 1,
+        "half": "bottom",
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": null,
+        "pitchCount": null
+      },
+      "liveChangeProof": {
+        "verified": true,
+        "verificationMethod": "two same-run GitHub Actions actual LIVE snapshots after scheduled first pitch, source timestamps 86.725 seconds apart",
+        "intervalSeconds": 86.725,
+        "beforeHash": "ca06e288e159297826f9dccf5855abd7e708aa078ff38ceedebe385b222f3087",
+        "afterHash": "9b9d73180df48712631f093fc2dcebf202c92b297815ef9cdfb613be8ee37713",
+        "beforeFetchedAt": "2026-10-30T09:37:49.779Z",
+        "afterFetchedAt": "2026-10-30T09:39:16.504Z",
+        "changes": {
+          "balls": {
+            "before": 2,
+            "after": 0
+          },
+          "strikes": {
+            "before": 1,
+            "after": 0
+          },
+          "outs": {
+            "before": 2,
+            "after": 0
+          },
+          "half": {
+            "before": "top",
+            "after": "bottom"
+          }
+        },
+        "numericChangesCount": 3,
+        "qualifiedHalfInningTransition": true
+      },
+      "baseStateKnown": false,
+      "pitchCountKnown": false,
+      "currentPitcherKnown": false,
+      "lineupsOfficiallyConfirmed": false,
+      "sourceDateValid": true,
+      "firstTeamGame": true,
+      "note": "Previously repaired false prestart 1회초 0:0 placeholder is not used as proof. Both current samples occur after 17:30 Taipei first pitch and exhibit actual numeric changes and half-inning transition."
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "secondCapturePerformed": true,
+  "intervalSeconds": 86.725,
+  "withinRunLiveNumericChangeVerified": true,
+  "withinRunNumericChangesCount": 3,
+  "isolatedDatabaseTest": {
+    "environment": "GitHub Actions isolated PostgreSQL 16; not Render",
+    "checkedAt": "2026-10-30T09:39:19.664Z",
+    "passed": true,
+    "rowsWritten": 1,
+    "rowsReadBack": 1,
+    "duplicateWrites": 0,
+    "productionWritten": false,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "readBack": 1,
+        "duplicateWrites": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "readBack": 0,
+        "duplicateWrites": 0,
+        "passed": true
+      }
+    ]
+  },
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "restrictions": {
+    "mainChanged": false,
+    "renderChanged": false,
+    "productionDatabaseWritten": false,
+    "loginChanged": false,
+    "accountsChanged": false,
+    "environmentVariablesChanged": false,
+    "productionDeployed": false
+  }
+}
