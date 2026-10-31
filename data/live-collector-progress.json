@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-10-31T06:00:28.961Z",
+  "observedAt": "2026-10-31T06:54:57.552Z",
   "dateAsiaTaipei": "2026-10-31",
   "currentGames": {
     "NPB": null,
@@ -16,8 +16,8 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "unavailable_yahoo_selected_oct28_for_oct31; independent 2026 Japan Series completed Oct28",
-    "KBO": "unavailable_naver_timeout_official_scoreboard_no_game_identifiable; independent Nov1 playoff Game5 schedule supports Oct31 offday",
+    "NPB": "unavailable_yahoo_selected_oct28_for_oct31; independent Japan Series completed Oct28",
+    "KBO": "unavailable_naver_timeout_official_scoreboard_no_identifiable_game; independent Nov1 Game5 supports Oct31 offday",
     "CPBL": "source_ok_zero_first_team_games"
   },
   "databaseTest": {
@@ -29,7 +29,7 @@
     "rowsReadBack": null,
     "duplicateWrites": null,
     "productionWritten": false,
-    "reason": "collector exited 1 before database test step; no DB result may be claimed"
+    "reason": "Collector exited 1, verification step skipped. PostgreSQL service initialized, but no write/read test was performed."
   },
   "firstStartTaipei": {
     "NPB": null,
@@ -2682,7 +2682,7 @@
       },
       "allVerified": false,
       "allScheduledLeaguesVerified": false,
-      "reason": "2026-10-31 14:00 Taipei: attempt9 completed FAILURE (collector unavailable NPB Yahoo stale Oct28, KBO Naver timeout & official HTTP200 no identifiable first-team game, CPBL OK 0); fresh artifact 13032675136 SHA-256 independently matched; no confirmed LIVE or second capture; DB test skipped. No change from attempt8. Independent off-day evidence is not collector recovery.",
+      "reason": "2026-10-31 14:55 Taipei: attempt10 completed FAILURE (NPB Yahoo stale Oct28, KBO Naver timeout / official HTTP200 no first-team game; CPBL OK zero). Fresh artifact 13033896805 SHA-256 independently matched. No confirmed LIVE, second capture not applicable; DB test skipped. Unchanged from attempt9. Independent off-day evidence does not prove source recovery.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -2690,29 +2690,29 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 41029623066,
-        "runAttempt": 9,
+        "runAttempt": 10,
         "runAttemptConfirmedByApi": true,
-        "jobId": 124459912087,
+        "jobId": 124470759507,
         "jobStatus": "completed",
         "jobConclusion": "failure",
         "failedStep": "Collect current baseball and verify real in-game changes",
         "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-        "artifactId": 13032675136,
+        "artifactId": 13033896805,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-10-31T06:00:31Z",
-        "artifactDigest": "sha256:ff76eed80ab7024d5d4970e4e991294222a71d2bb0dce330dc5cca93057c8c29",
-        "downloadedZipSha256": "sha256:ff76eed80ab7024d5d4970e4e991294222a71d2bb0dce330dc5cca93057c8c29",
+        "artifactCreatedAt": "2026-10-31T06:54:59Z",
+        "artifactDigest": "sha256:ddbe045d4ec3a62b3cc2fddbf9546d1c7edb7ce5de5c91a979743b7ca45c6fb7",
+        "downloadedZipSha256": "sha256:ddbe045d4ec3a62b3cc2fddbf9546d1c7edb7ce5de5c91a979743b7ca45c6fb7",
         "artifactDigestVerifiedIndependently": true,
         "artifactCreatedAfterCapturedAt": true,
         "staleArtifactUsed": false,
-        "artifactArchiveBytes": 30518,
-        "observationPath": "data/live/20261031T060028Z-run41029623066-attempt9-offday-recheck.json",
+        "artifactArchiveBytes": 30519,
+        "observationPath": "data/live/20261031T065457Z-run41029623066-attempt10-offday-recheck.json",
         "secondCapturePerformed": false,
         "captureIntervalSeconds": null,
         "currentRunQualifiedNumericChanges": 0,
         "liveGamesConfirmedInAvailableSources": 0,
         "isolatedDatabaseTest": "skipped_due_to_collector_failure",
-        "capturedAt": "2026-10-31T06:00:28.961Z"
+        "capturedAt": "2026-10-31T06:54:57.552Z"
       }
     }
   },
@@ -3363,9 +3363,9 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-10-31",
-    "checkedAt": "2026-10-31T06:00:28.961Z",
+    "checkedAt": "2026-10-31T06:54:57.552Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261031T060028Z-run41029623066-attempt9-offday-recheck.json",
+    "latestObservationPath": "data/live/20261031T065457Z-run41029623066-attempt10-offday-recheck.json",
     "secondCapturePerformed": false,
     "captureIntervalSeconds": null,
     "qualifiedNumericChanges": 0,
@@ -3404,60 +3404,60 @@
       "bases": null
     },
     "allVerified": false,
-    "reason": "No verified first-team LIVE today. NPB/KBO collectors unavailable; Oct31 off-day evidence is independent and not proof of source recovery.",
+    "reason": "No verified first-team LIVE. NPB/KBO collectors unavailable despite independent off-day evidence; no source recovery or new meaningful finding.",
     "withinRunQualifiedNumericChanges": 0,
     "crossRunQualifiedNumericChanges": 0
   },
-  "nextAction": "Keep daily collection active. Recheck today and KBO Nov1 playoffs; distinguish off-day from unavailable sources; never infer unknown fields, modify main/Render/production or deploy.",
+  "nextAction": "Keep daily collection active. Recheck NPB Yahoo date selection and KBO Nov1 postseason. No off-day inference from unavailable sources, no 0-filling, no main/Render/production changes or deployment.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41029623066,
-    "runAttempt": 9,
+    "runAttempt": 10,
     "runAttemptConfirmedByApi": true,
-    "jobId": 124459912087,
+    "jobId": 124470759507,
     "jobStatus": "completed",
     "jobConclusion": "failure",
     "failedStep": "Collect current baseball and verify real in-game changes",
     "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-    "artifactId": 13032675136,
+    "artifactId": 13033896805,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-10-31T06:00:31Z",
-    "artifactDigest": "sha256:ff76eed80ab7024d5d4970e4e991294222a71d2bb0dce330dc5cca93057c8c29",
-    "downloadedZipSha256": "sha256:ff76eed80ab7024d5d4970e4e991294222a71d2bb0dce330dc5cca93057c8c29",
+    "artifactCreatedAt": "2026-10-31T06:54:59Z",
+    "artifactDigest": "sha256:ddbe045d4ec3a62b3cc2fddbf9546d1c7edb7ce5de5c91a979743b7ca45c6fb7",
+    "downloadedZipSha256": "sha256:ddbe045d4ec3a62b3cc2fddbf9546d1c7edb7ce5de5c91a979743b7ca45c6fb7",
     "artifactDigestVerifiedIndependently": true,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "artifactArchiveBytes": 30518,
-    "observationPath": "data/live/20261031T060028Z-run41029623066-attempt9-offday-recheck.json",
+    "artifactArchiveBytes": 30519,
+    "observationPath": "data/live/20261031T065457Z-run41029623066-attempt10-offday-recheck.json",
     "secondCapturePerformed": false,
     "captureIntervalSeconds": null,
     "currentRunQualifiedNumericChanges": 0,
     "liveGamesConfirmedInAvailableSources": 0,
     "isolatedDatabaseTest": "skipped_due_to_collector_failure",
-    "capturedAt": "2026-10-31T06:00:28.961Z"
+    "capturedAt": "2026-10-31T06:54:57.552Z"
   },
-  "latestObservationCommit": "e9b0841db4fff1058884b91394ad2e78faaa0eb8",
+  "latestObservationCommit": "2766087a243632d8db1ebc6cb7eab591e2e8c961",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261031T060028Z-run41029623066-attempt9-offday-recheck.json",
-    "lastEvidenceContains": "2026-10-31 attempt9 fresh workflow failure: NPB Yahoo stale Oct28; KBO Naver timeout and official no game; CPBL OK zero. Artifact 13032675136 SHA-256 independent check. No LIVE; DB skipped. Historical observations retained."
+    "lastEvidencePath": "data/live/20261031T065457Z-run41029623066-attempt10-offday-recheck.json",
+    "lastEvidenceContains": "2026-10-31 attempt10 fresh workflow failure: NPB Yahoo stale Oct28, KBO Naver timeout / official no identifiable game, CPBL OK zero. Artifact 13033896805 SHA-256 independently matched. No LIVE, database test skipped; previous evidence retained."
   },
   "currentDayFinalObservation": {
     "date": "2026-10-31",
-    "capturedAt": "2026-10-31T06:00:28.961Z",
+    "capturedAt": "2026-10-31T06:54:57.552Z",
     "finalGames": {
       "NPB": null,
       "KBO": null,
       "CPBL": 0
     },
     "state": "no_verified_final_games_in_fresh_collector; NPB/KBO unavailable",
-    "observationPath": "data/live/20261031T060028Z-run41029623066-attempt9-offday-recheck.json",
+    "observationPath": "data/live/20261031T065457Z-run41029623066-attempt10-offday-recheck.json",
     "previousSameDayLiveProofRetained": false
   },
   "latestObservation": {
