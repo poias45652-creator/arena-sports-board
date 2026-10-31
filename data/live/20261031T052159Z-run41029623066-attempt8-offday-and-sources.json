@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-10-31",
+  "capturedAt": "2026-10-31T05:21:59.905Z",
+  "purpose": "Fresh collector observation for Oct31; distinguish unavailability from independent off-day evidence; never infer live results from yesterday",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41029623066,
+    "runAttempt": 8,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 124452522469,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "failureStage": "Collect current baseball and verify real in-game changes",
+    "reason": "all leagues normalized 0 games and NPB/KBO unavailable; script exits 1 instead of reporting an unverified off-day",
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 13031298628,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-10-31T05:22:02Z",
+    "artifactDigest": "sha256:21f050828d02856b759e7e6d602b4e7c2a5e69ae251e91f3e51f9de63c602c0a",
+    "downloadedZipSha256": "sha256:21f050828d02856b759e7e6d602b4e7c2a5e69ae251e91f3e51f9de63c602c0a",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "artifactArchiveBytes": 30518,
+    "observationPath": "data/live/20261031T052159Z-run41029623066-attempt8-offday-and-sources.json",
+    "secondCapturePerformed": false,
+    "captureIntervalSeconds": null,
+    "currentRunQualifiedNumericChanges": 0,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "isolatedDatabaseTest": "not_run_collector_failed_early"
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-10-31",
+      "upstreamSelectedDate": "2026-10-28",
+      "error": "NPB schedule selected day mismatch: requested 2026-10-31; upstream day 10/28; not evidence of an off-day",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-10-31",
+      "independentOffDayEvidence": {
+        "type": "series_completed",
+        "details": "2026 Japan Series completed in four games on Oct28, so Oct31 tentative Game6 not played",
+        "sourceURL": "https://pacificleague.com/news/10056552",
+        "sourcePublishedAt": "2026-10-29",
+        "notCollectorRecovery": true
+      }
+    },
+    "KBO": {
+      "status": "unavailable_no_identifiable_game",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-10-31",
+      "primaryNaverStatus": "timeout",
+      "fallbackStatus": "official_scoreboard_has_no_identifiable_first_team_game",
+      "officialDiagnostic": {
+        "capturedAt": "2026-10-31T05:21:59.972Z",
+        "httpStatus": 200,
+        "htmlBytes": 41249,
+        "selectedDateMarkerPresent": true,
+        "gameTeamNamesPresent": false,
+        "sourceUsable": true,
+        "confirmedGame": false
+      },
+      "independentOffDayEvidence": {
+        "type": "next_playoff_game_scheduled_nov1",
+        "details": "KIA-Samsung playoff Game5 scheduled Nov1; Oct31 is between games, but independent schedule evidence is not a live collector record",
+        "sourceURL": "https://biz.chosun.com/sports/baseball/2026/10/31/GY4TINBXGY4TENJRMJRDGNRYMI/?outputType=amp",
+        "sourcePublishedAt": "2026-10-31",
+        "notCollectorRecovery": true
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "firstTeamGamesCollected": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "intervalSeconds": null,
+  "qualifiedLiveToLiveNumericChanges": 0,
+  "reasonNoSecondCapture": "No verified first-team LIVE; NPB and KBO unavailable not to be equated with verified no games",
+  "isolatedDatabaseTest": {
+    "performed": false,
+    "passed": null,
+    "reason": "collector failed with exit 1 before database step",
+    "productionWritten": false
+  },
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "productionChanged": false
+}
