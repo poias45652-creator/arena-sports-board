@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-11-01T05:11:09.029Z",
+  "observedAt": "2026-11-01T06:11:54.851Z",
   "dateAsiaTaipei": "2026-11-01",
   "currentGames": {
     "NPB": null,
@@ -17,14 +17,14 @@
   },
   "currentStates": {
     "NPB": "unavailable_yahoo_selected_oct28_for_nov1; official Oct28 four-game championship sweep means Nov1 conditional G7 unplayed; collector not recovered",
-    "KBO": "partial_kbo_official_live_1_first_team_game_naver_timeout; same-run_strikes_1_to_2_85.82_seconds",
+    "KBO": "partial_kbo_official_live_1_first_team_game_naver_timeout; 4th top KIA1 Samsung4; current same-run 85.759s unchanged; cross-run 3645.821s scores 0-0 to 1-4 and inning1 to inning4",
     "CPBL": "source_ok_zero_first_team_games"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "performed": true,
     "passed": true,
-    "checkedAt": "2026-11-01T05:11:12.206Z",
+    "checkedAt": "2026-11-01T06:11:57.913Z",
     "rowsWritten": 1,
     "rowsReadBack": 1,
     "duplicateWrites": 0,
@@ -2763,11 +2763,11 @@
         "gameKey": "KBO:20261101HTSS0",
         "away": "起亞虎",
         "home": "三星獅",
-        "awayScore": 0,
-        "homeScore": 0,
-        "inning": 1,
-        "half": "bottom",
-        "balls": null,
+        "awayScore": 1,
+        "homeScore": 4,
+        "inning": 4,
+        "half": "top",
+        "balls": 1,
         "strikes": 2,
         "outs": 1,
         "bases": null,
@@ -2792,9 +2792,37 @@
           "source": "kbo-official-scoreboard"
         },
         "verifiedAt": "2026-11-01T05:11:09.027Z",
-        "latestCheckedAt": "2026-11-01T05:11:09.029Z",
+        "latestCheckedAt": "2026-11-01T06:11:54.851Z",
         "unsupportedFieldsRemainNull": true,
-        "officialLineupConfirmed": false
+        "officialLineupConfirmed": false,
+        "lastVerifiedAt": "2026-11-01T06:11:54.848Z",
+        "sameRunLatestNumericChanges": 0,
+        "sameRunLatestRepeatIntervalSeconds": 85.759,
+        "latestCrossRunLiveProgress": {
+          "verified": true,
+          "measurementType": "same-day cross-run LIVE-to-LIVE numeric changes; latest within-run repeat was unchanged",
+          "fromRunAttempt": 19,
+          "toRunAttempt": 20,
+          "fromFetchedAt": "2026-11-01T05:11:09.027Z",
+          "toFetchedAt": "2026-11-01T06:11:54.848Z",
+          "intervalSeconds": 3645.821,
+          "fromObservationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+          "toObservationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
+          "changes": {
+            "awayScore": {
+              "before": 0,
+              "after": 1
+            },
+            "homeScore": {
+              "before": 0,
+              "after": 4
+            },
+            "inning": {
+              "before": 1,
+              "after": 4
+            }
+          }
+        }
       },
       "CPBL": {
         "verified": false,
@@ -2808,7 +2836,7 @@
       "allVerified": false,
       "allScheduledLeaguesVerified": true,
       "allThreeLeaguesLiveVerified": false,
-      "reason": "Nov1 13:11 Taipei: KBO official scoreboard fallback returned one first-team LIVE game; two same-job captures 85.82s apart confirm strikes 1->2. Naver timeout persists. NPB Yahoo selected Oct28, while official Japan Series was already completed and Nov1 G7 is conditional/unplayed. CPBL source OK zero games. Collector and isolated DB succeeded. Fresh artifact SHA-256 independently matched.",
+      "reason": "Nov1 14:11 Taipei: KBO official scoreboard LIVE KIA1 Samsung4, 4th top; new same-day cross-run LIVE score 0-0 -> 1-4 and inning1 -> 4 over 3645.821s. Fresh same-run 85.759s double observation had zero numeric changes, without invalidating earlier Nov1 13:11 same-run strike-change proof. Naver timeout and NPB Yahoo Oct28 stale day persist; CPBL no games. Isolated DB 1 KBO write/read passed. Attempt20 artifact ZIP independently verified.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -2816,27 +2844,28 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 41029623066,
-        "runAttempt": 19,
+        "runAttempt": 20,
         "runAttemptConfirmedByApi": true,
-        "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=19",
-        "jobId": 124757578177,
+        "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=20",
+        "jobId": 124768886927,
         "jobStatus": "completed",
         "jobConclusion": "success",
         "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-        "artifactId": 13070619465,
+        "artifactId": 13073160654,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-11-01T05:11:14Z",
-        "artifactDigest": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
-        "downloadedZipSha256": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
+        "artifactCreatedAt": "2026-11-01T06:11:59Z",
+        "artifactDigest": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
+        "downloadedZipSha256": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
         "artifactDigestVerifiedIndependently": true,
-        "artifactArchiveBytes": 38853,
+        "artifactArchiveBytes": 38619,
         "artifactCreatedAfterCapturedAt": true,
         "staleArtifactUsed": false,
-        "capturedAt": "2026-11-01T05:11:09.029Z",
-        "observationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+        "capturedAt": "2026-11-01T06:11:54.851Z",
+        "observationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 85.82,
-        "currentRunQualifiedNumericChanges": 1,
+        "captureIntervalSeconds": 85.759,
+        "currentRunQualifiedNumericChanges": 0,
+        "crossRunSameDayQualifiedNumericChanges": 3,
         "liveGamesConfirmedInAvailableSources": 1,
         "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0"
       }
@@ -3489,12 +3518,12 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-11-01",
-    "checkedAt": "2026-11-01T05:11:09.029Z",
+    "checkedAt": "2026-11-01T06:11:54.851Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+    "latestObservationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 85.82,
-    "qualifiedNumericChanges": 1,
+    "captureIntervalSeconds": 85.759,
+    "qualifiedNumericChanges": 0,
     "NPB": {
       "verified": false,
       "checkedToday": true,
@@ -3510,8 +3539,8 @@
       "games": 1,
       "live": 1,
       "score": {
-        "away": 0,
-        "home": 0
+        "away": 1,
+        "home": 4
       },
       "gameKey": "KBO:20261101HTSS0",
       "liveChangeProof": {
@@ -3532,11 +3561,38 @@
         "source": "kbo-official-scoreboard"
       },
       "pitchCount": null,
-      "balls": null,
+      "balls": 1,
       "strikes": 2,
       "outs": 1,
       "bases": null,
-      "primaryNaverStatus": "timeout"
+      "primaryNaverStatus": "timeout",
+      "inning": 4,
+      "half": "top",
+      "latestCrossRunLiveProgress": {
+        "verified": true,
+        "measurementType": "same-day cross-run LIVE-to-LIVE numeric changes; latest within-run repeat was unchanged",
+        "fromRunAttempt": 19,
+        "toRunAttempt": 20,
+        "fromFetchedAt": "2026-11-01T05:11:09.027Z",
+        "toFetchedAt": "2026-11-01T06:11:54.848Z",
+        "intervalSeconds": 3645.821,
+        "fromObservationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+        "toObservationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
+        "changes": {
+          "awayScore": {
+            "before": 0,
+            "after": 1
+          },
+          "homeScore": {
+            "before": 0,
+            "after": 4
+          },
+          "inning": {
+            "before": 1,
+            "after": 4
+          }
+        }
+      }
     },
     "CPBL": {
       "verified": false,
@@ -3550,37 +3606,39 @@
       "bases": null
     },
     "allVerified": false,
-    "withinRunQualifiedNumericChanges": 1,
-    "crossRunQualifiedNumericChanges": 0
+    "withinRunQualifiedNumericChanges": 0,
+    "crossRunQualifiedNumericChanges": 3,
+    "priorTodayWithinRunVerifiedChanges": 1
   },
-  "nextAction": "Continue daily without auto-stop. Track Nov1 KBO official KIA@Samsung LIVE states/final and collect further >=65-second evidence; check Naver recovery and NPB Yahoo stale date. Preserve unknown fields as null. No main/Render/production changes or deployment.",
+  "nextAction": "Continue daily without auto-stop. Recheck Nov1 KBO official KIA@Samsung LIVE/final score and seek further >=65s changes; check Naver and NPB Yahoo recovery. Preserve unsupported values as null. No main/Render/production change or deployment.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41029623066,
-    "runAttempt": 19,
+    "runAttempt": 20,
     "runAttemptConfirmedByApi": true,
-    "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=19",
-    "jobId": 124757578177,
+    "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=20",
+    "jobId": 124768886927,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-    "artifactId": 13070619465,
+    "artifactId": 13073160654,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-01T05:11:14Z",
-    "artifactDigest": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
-    "downloadedZipSha256": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
+    "artifactCreatedAt": "2026-11-01T06:11:59Z",
+    "artifactDigest": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
+    "downloadedZipSha256": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
     "artifactDigestVerifiedIndependently": true,
-    "artifactArchiveBytes": 38853,
+    "artifactArchiveBytes": 38619,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-11-01T05:11:09.029Z",
-    "observationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+    "capturedAt": "2026-11-01T06:11:54.851Z",
+    "observationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 85.82,
-    "currentRunQualifiedNumericChanges": 1,
+    "captureIntervalSeconds": 85.759,
+    "currentRunQualifiedNumericChanges": 0,
+    "crossRunSameDayQualifiedNumericChanges": 3,
     "liveGamesConfirmedInAvailableSources": 1,
     "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0"
   },
@@ -3590,12 +3648,12 @@
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
-    "lastEvidenceContains": "2026-11-01 attempt19 KBO live 0-0 first inning 85.82-second verified strikes 1->2; NPB Yahoo stale and official series ended; CPBL zero games; isolated PostgreSQL 1 KBO written/read; artifact digest independently matched."
+    "lastEvidencePath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
+    "lastEvidenceContains": "2026-11-01 attempt20 KBO live KIA1 Samsung4 4th top; current same-run 85.759s numeric state unchanged, but prior attempt19 live 0-0 first inning -> current 1-4 fourth inning over 3645.821s; isolated PostgreSQL 1 row write/read, NPB stale date, CPBL no games, SHA-256 digest independently matched."
   },
   "currentDayFinalObservation": {
     "date": "2026-11-01",
-    "capturedAt": "2026-11-01T05:11:09.029Z",
+    "capturedAt": "2026-11-01T06:11:54.851Z",
     "finalGames": {
       "NPB": null,
       "KBO": 0,
@@ -3606,8 +3664,8 @@
       "KBO": 1,
       "CPBL": 0
     },
-    "state": "kbo_official_live_verified_npb_unavailable_cpbl_zero",
-    "observationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+    "state": "kbo_official_live_cross_run_progress_npb_unavailable_cpbl_zero",
+    "observationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
     "previousSameDayLiveProofRetained": true
   },
   "latestObservation": {
@@ -3616,27 +3674,28 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41029623066,
-    "runAttempt": 19,
+    "runAttempt": 20,
     "runAttemptConfirmedByApi": true,
-    "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=19",
-    "jobId": 124757578177,
+    "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=20",
+    "jobId": 124768886927,
     "jobStatus": "completed",
     "jobConclusion": "success",
     "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-    "artifactId": 13070619465,
+    "artifactId": 13073160654,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-01T05:11:14Z",
-    "artifactDigest": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
-    "downloadedZipSha256": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
+    "artifactCreatedAt": "2026-11-01T06:11:59Z",
+    "artifactDigest": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
+    "downloadedZipSha256": "sha256:92c53883d7be17a3c2e17cffc580cebdd707ac9724b81da992259f37ed65149a",
     "artifactDigestVerifiedIndependently": true,
-    "artifactArchiveBytes": 38853,
+    "artifactArchiveBytes": 38619,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "capturedAt": "2026-11-01T05:11:09.029Z",
-    "observationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+    "capturedAt": "2026-11-01T06:11:54.851Z",
+    "observationPath": "data/live/20261101T061154Z-run41029623066-attempt20-kbo-live-cross-run-progress.json",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 85.82,
-    "currentRunQualifiedNumericChanges": 1,
+    "captureIntervalSeconds": 85.759,
+    "currentRunQualifiedNumericChanges": 0,
+    "crossRunSameDayQualifiedNumericChanges": 3,
     "liveGamesConfirmedInAvailableSources": 1,
     "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0"
   }
