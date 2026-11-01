@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-01",
+  "capturedAt": "2026-11-01T05:11:09.029Z",
+  "purpose": "Fresh current-date first-team-only collector evidence; LIVE verified with two >=65-second observations",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41029623066,
+    "runAttempt": 19,
+    "runAttemptConfirmedByApi": true,
+    "runAttemptBasis": "GET /actions/runs/41029623066 returned run_attempt=19",
+    "jobId": 124757578177,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
+    "artifactId": 13070619465,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-01T05:11:14Z",
+    "artifactDigest": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
+    "downloadedZipSha256": "sha256:0df54ad27c6ecb6422140110f756fbd26f10a08e9407d805c3634804860aeaed",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactArchiveBytes": 38853,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "capturedAt": "2026-11-01T05:11:09.029Z",
+    "observationPath": "data/live/20261101T051109Z-run41029623066-attempt19-kbo-live-strike-change.json",
+    "secondCapturePerformed": true,
+    "captureIntervalSeconds": 85.82,
+    "currentRunQualifiedNumericChanges": 1,
+    "liveGamesConfirmedInAvailableSources": 1,
+    "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0"
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-11-01",
+      "upstreamSelectedDate": "2026-10-28",
+      "error": "NPB schedule selected day mismatch: requested 2026-11-01; upstream day 10/28; not evidence of an off-day",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-01",
+      "independentSeriesComplete": "SoftBank swept DeNA 4-0 on Oct28; conditional Nov1 Game7 will not occur",
+      "independentOfficialSourceURL": "https://npb.jp/nippons/2026/",
+      "collectorRecovery": false
+    },
+    "KBO": {
+      "status": "partial_official_live",
+      "normalizedGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "primaryNaverStatus": "timeout",
+      "primaryError": "The operation was aborted due to timeout",
+      "fallbackOfficialHttpStatus": 200,
+      "fallbackOfficialValidated": true,
+      "sourceURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "sourceGameId": "20261101HTSS0",
+      "capturedAt": "2026-11-01T05:11:09.029Z",
+      "game": {
+        "key": "KBO:20261101HTSS0",
+        "id": "20261101HTSS0",
+        "sourceGameId": "20261101HTSS0",
+        "league": "KBO",
+        "date": "2026-11-01",
+        "startTime": "2026-11-01T05:00:00.000Z",
+        "status": "live",
+        "rawStatus": "1회말",
+        "away": {
+          "id": "HT",
+          "name": "起亞虎",
+          "score": 0,
+          "hits": 0,
+          "errors": 0
+        },
+        "home": {
+          "id": "SS",
+          "name": "三星獅",
+          "score": 0,
+          "hits": 1,
+          "errors": 0
+        },
+        "inning": 1,
+        "half": "bottom",
+        "balls": null,
+        "strikes": 2,
+        "outs": 1,
+        "bases": null,
+        "currentPitcher": null,
+        "currentBatter": null,
+        "starters": {
+          "away": null,
+          "home": null
+        },
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "lineupConfirmation": "not_verified",
+        "batting": {
+          "away": [],
+          "home": []
+        },
+        "pitching": {
+          "away": [],
+          "home": []
+        },
+        "innings": {
+          "away": [
+            {
+              "inning": 1,
+              "runs": 0
+            }
+          ],
+          "home": [
+            {
+              "inning": 1,
+              "runs": 0
+            }
+          ]
+        },
+        "source": {
+          "provider": "kbo-official-scoreboard",
+          "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+          "fetchedAt": "2026-11-01T05:11:09.027Z",
+          "httpDate": "Sun, 01 Nov 2026 05:10:57 GMT",
+          "cacheAgeSeconds": null,
+          "providerUpdatedAt": null
+        },
+        "warnings": [
+          "lineup_confirmation_not_verified",
+          "bases_not_verified",
+          "pitch_count_not_supplied",
+          "provider_update_time_not_supplied"
+        ],
+        "stateHash": "3a50c9f539ff4c7eafb971952c4dcb0a8367581a92eef21eee60c6f195886ec6",
+        "liveStateObserved": true,
+        "liveChangesVerified": true,
+        "liveChangeProof": {
+          "beforeHash": "d49348982f85e12e3b7a6ed08d1de595f304cd7b7bdf8a137a3d9761b55332b5",
+          "afterHash": "3a50c9f539ff4c7eafb971952c4dcb0a8367581a92eef21eee60c6f195886ec6",
+          "beforeFetchedAt": "2026-11-01T05:09:43.207Z",
+          "afterFetchedAt": "2026-11-01T05:11:09.027Z",
+          "intervalSeconds": 85.82,
+          "changes": {
+            "strikes": {
+              "before": 1,
+              "after": 2
+            }
+          }
+        }
+      },
+      "firstCapture": {
+        "capturedAt": "2026-11-01T05:09:43.213Z",
+        "fetchedAt": "2026-11-01T05:09:43.207Z",
+        "stateHash": "d49348982f85e12e3b7a6ed08d1de595f304cd7b7bdf8a137a3d9761b55332b5",
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 0,
+        "inning": 1,
+        "half": "bottom",
+        "balls": 0,
+        "strikes": 1,
+        "outs": 1,
+        "bases": null,
+        "pitchCount": null,
+        "homeHits": 1
+      },
+      "secondCapture": {
+        "capturedAt": "2026-11-01T05:11:09.029Z",
+        "fetchedAt": "2026-11-01T05:11:09.027Z",
+        "stateHash": "3a50c9f539ff4c7eafb971952c4dcb0a8367581a92eef21eee60c6f195886ec6",
+        "status": "live",
+        "awayScore": 0,
+        "homeScore": 0,
+        "inning": 1,
+        "half": "bottom",
+        "balls": null,
+        "strikes": 2,
+        "outs": 1,
+        "bases": null,
+        "pitchCount": null,
+        "homeHits": 1
+      },
+      "liveChangeProof": {
+        "verified": true,
+        "verificationMethod": "same-job two LIVE official KBO scoreboard captures; strike count changed",
+        "gameKey": "KBO:20261101HTSS0",
+        "beforeHash": "d49348982f85e12e3b7a6ed08d1de595f304cd7b7bdf8a137a3d9761b55332b5",
+        "afterHash": "3a50c9f539ff4c7eafb971952c4dcb0a8367581a92eef21eee60c6f195886ec6",
+        "beforeFetchedAt": "2026-11-01T05:09:43.207Z",
+        "afterFetchedAt": "2026-11-01T05:11:09.027Z",
+        "intervalSeconds": 85.82,
+        "changes": {
+          "strikes": {
+            "before": 1,
+            "after": 2
+          }
+        },
+        "source": "kbo-official-scoreboard"
+      },
+      "unsupportedFieldsStayNull": true
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "firstTeamGamesCollected": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": true,
+  "secondCapturePerformed": true,
+  "intervalSeconds": 85.82,
+  "qualifiedLiveToLiveNumericChanges": 1,
+  "isolatedDatabaseTest": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-11-01T05:11:12.206Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "artifactContents": [
+    "capture-1.json",
+    "capture-2.json",
+    "current.json",
+    "kbo.json",
+    "verification.json",
+    "database-test.json",
+    "kbo-official-probe.json"
+  ],
+  "previousObservationPath": "data/live/20261031T151629Z-run41029623066-attempt18-source-recheck.json",
+  "historicalEvidencePreserved": true,
+  "unknownValuesNotZeroFilled": true,
+  "sourceListedLineupNotOfficialConfirmation": true,
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "productionDeployed": false,
+  "newFindingComparedWithPriorAttempt": "Nov1 KBO KIA at Samsung has valid 85.82-second within-run LIVE strike change; collector job succeeded and isolated PostgreSQL read-back passed despite Naver timeout; NPB Yahoo remains stale."
+}
