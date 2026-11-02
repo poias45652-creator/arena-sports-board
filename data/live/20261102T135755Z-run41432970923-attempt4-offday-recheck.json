@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-02",
+  "capturedAt": "2026-11-02T13:57:55.247Z",
+  "purpose": "Daily 2026-11-02 new GitHub collector attempt4; evidence from independently verified fresh ZIP; no production deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41432970923,
+    "runAttempt": 4,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125317589602,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "4a787bd5d3831b873fba17b41b81fb974da09e81",
+    "artifactId": 13147796543,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-02T13:57:59Z",
+    "artifactDigest": "sha256:f3b79fb28daaa01e17fd5c814efdca66eff3c5d72ccaabdd9c3db6c58511cdca",
+    "downloadedZipSha256": "sha256:f3b79fb28daaa01e17fd5c814efdca66eff3c5d72ccaabdd9c3db6c58511cdca",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "observationPath": "data/live/20261102T135755Z-run41432970923-attempt4-offday-recheck.json",
+    "capturedAt": "2026-11-02T13:57:55.247Z",
+    "secondCapturePerformed": false,
+    "captureIntervalSeconds": null,
+    "currentRunQualifiedNumericChanges": 0,
+    "liveGamesConfirmedInAvailableSources": 0,
+    "finalGamesConfirmedInAvailableSources": 0,
+    "isolatedDatabaseTest": "passed_npb0_kbo0_cpbl0",
+    "primaryNaverStatus": "timeout",
+    "KBOOffDayVerified": true,
+    "NPBOffDayVerifiedByOfficialCalendar": true,
+    "NPBYahooSourceRecovered": false,
+    "CPBLSourceOKZero": true,
+    "productionChanged": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11_detail.html",
+        "fetchedAt": "2026-11-02T13:57:36.123Z",
+        "selectedDate": "2026-11-02",
+        "marker": "official_npb_calendar_exact_date_row_four_blank_cells",
+        "source": "npb-official-first-team-schedule"
+      },
+      "sourceDegraded": true,
+      "yahooSourceRecovered": false,
+      "yahooUpstreamSelectedDate": "2026-11-01",
+      "sourceWarning": "NPB Yahoo selected day mismatch: requested 2026-11-02; upstream day 11/1",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-02T13:57:55.245Z",
+        "selectedDate": "2026.11.02(월)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "sourceDegraded": true,
+      "primaryNaverStatus": "timeout",
+      "publicFallback": true,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "independentRunnerProbe": {
+        "capturedAt": "2026-11-02T13:57:55.313Z",
+        "httpStatus": 200,
+        "htmlBytes": 41249,
+        "selectedDateMarkerPresent": true,
+        "sourceUsable": true
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": null,
+      "source": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No LIVE first-team game in normalized dated sources; NPB official calendar and KBO official scoreboard confirm Nov2 off-days; CPBL Yahoo Taiwan returned zero.",
+  "sameRunQualifiedLiveToLiveNumericChanges": 0,
+  "newCrossRunMaterialChanges": 0,
+  "isolatedDatabaseTest": {
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-11-02T13:57:57.329Z",
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "parserRepair": {
+    "newRepairThisAttempt": false,
+    "existingNpbOfficialOffdayFallbackVerified": true,
+    "primaryNpbYahooStale": true,
+    "primaryKboNaverTimeout": true
+  },
+  "qualitySummary": "2026-11-02 21:57 Taipei: Current baseball collector attempt4 completed successfully with fresh capturedAt 13:57:55.247Z, GitHub artifact created 13:57:59Z and independent ZIP SHA-256 matching GitHub digest. NPB official Nov2 off-day 0 (Yahoo upstream selected Nov1); KBO official Nov2 off-day 0 (Naver timed out, official response HTTP 200); CPBL Yahoo TW 0 (independent official off-day unverified). No LIVE; >=65-second second capture not triggered. Isolated PG16 write/read/dedup passed 0 each. Unknown fields remain null.",
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
