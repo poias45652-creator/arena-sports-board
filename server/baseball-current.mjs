@@ -219,7 +219,7 @@ export function npbOfficialOffDay(html,date){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!html.includes(year+'年'))
   throw new Error('Official NPB calendar year/date could not be verified');
  const rowId='date'+month+day;
- const re=new RegExp('<tr\b[^>]*\bid=["\\x27]'+rowId+'["\\x27][^>]*>([\s\S]*?)<\/tr>','gi');
+ const re=new RegExp(String.raw`<tr\b[^>]*\bid=["']`+rowId+String.raw`["'][^>]*>([\s\S]*?)<\/tr>`,'gi');
  const rows=[...html.matchAll(re)];
  if(rows.length!==1)throw new Error('Official NPB calendar exact date row missing or duplicated: '+rowId);
  const row=rows[0][1],heads=[...row.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)];
