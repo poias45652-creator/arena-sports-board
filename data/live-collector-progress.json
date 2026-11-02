@@ -8,56 +8,65 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-11-01T15:34:04.709Z",
-  "dateAsiaTaipei": "2026-11-01",
+  "observedAt": "2026-11-02T05:38:34.423Z",
+  "dateAsiaTaipei": "2026-11-02",
   "currentGames": {
     "NPB": null,
-    "KBO": 1,
+    "KBO": 0,
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "unavailable_yahoo_selected_oct28_for_nov1; independent series-complete evidence retained; collector unavailable as of 23:34 Taipei",
-    "KBO": "partial_official_final_1_first_team_game_naver_timeout; KIA1 Samsung6 FINAL unchanged at 23:34 Taipei; official previous-day control used after Korea advanced to Nov2; earlier Nov1 LIVE proof retained",
+    "NPB": "collector_unavailable_yahoo_upstream_selected_2026-10-28_for_2026-11-02; official Nov calendar independent no-game evidence only",
+    "KBO": "official_dated_no_games_verified_parser_repaired; Naver primary timeout persists",
     "CPBL": "source_ok_zero_first_team_games"
   },
   "databaseTest": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-    "performed": true,
-    "passed": true,
-    "checkedAt": "2026-11-01T15:34:07.939Z",
-    "checks": [
-      {
-        "league": "NPB",
-        "written": 0,
-        "duplicateWrites": 0,
-        "readBack": 0,
-        "passed": true
-      },
-      {
-        "league": "KBO",
-        "written": 1,
-        "duplicateWrites": 0,
-        "readBack": 1,
-        "passed": true
-      },
-      {
-        "league": "CPBL",
-        "written": 0,
-        "duplicateWrites": 0,
-        "readBack": 0,
-        "passed": true
-      }
-    ],
-    "productionWritten": false
+    "performed": false,
+    "passed": null,
+    "checkedAt": null,
+    "checks": [],
+    "reason": "collector exit 1 due NPB date-mismatch protection; DB step skipped",
+    "productionWritten": false,
+    "previousSuccessfulCheck": {
+      "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+      "performed": true,
+      "passed": true,
+      "checkedAt": "2026-11-01T15:34:07.939Z",
+      "checks": [
+        {
+          "league": "NPB",
+          "written": 0,
+          "duplicateWrites": 0,
+          "readBack": 0,
+          "passed": true
+        },
+        {
+          "league": "KBO",
+          "written": 1,
+          "duplicateWrites": 0,
+          "readBack": 1,
+          "passed": true
+        },
+        {
+          "league": "CPBL",
+          "written": 0,
+          "duplicateWrites": 0,
+          "readBack": 0,
+          "passed": true
+        }
+      ],
+      "productionWritten": false
+    }
   },
   "firstStartTaipei": {
     "NPB": null,
-    "KBO": "13:00",
+    "KBO": null,
     "CPBL": null
   },
   "sourceURLs": {
-    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-01",
-    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-11-01&toDate=2026-11-01&page=1&pageSize=100",
+    "NPB": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-02",
+    "KBO": "https://api-gw.sports.naver.com/schedule/games?upperCategoryId=kbaseball&fromDate=2026-11-02&toDate=2026-11-02&page=1&pageSize=100",
     "CPBL": "https://tw.sports.yahoo.com/cpbl/teams/%E5%91%B3%E5%85%A8/",
     "KBOFallback": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx"
   },
@@ -2919,6 +2928,92 @@
         "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0",
         "previousSameDayLiveProofRetained": true
       }
+    },
+    "2026-11-02": {
+      "NPB": {
+        "verified": false,
+        "checkedToday": true,
+        "state": "collector_unavailable_stale_upstream_date",
+        "requestedDate": "2026-11-02",
+        "upstreamSelectedDate": "2026-10-28",
+        "firstTeamGames": null,
+        "independentNoGameEvidence": "https://npb.jp/games/2026/schedule_11.html",
+        "collectorRecovery": false
+      },
+      "KBO": {
+        "verified": false,
+        "checkedToday": true,
+        "state": "no_games_official_marker_verified",
+        "source": "kbo-official-scoreboard",
+        "firstTeamGames": 0,
+        "notApplicableToday": true,
+        "offDayVerified": true,
+        "offDayEvidence": {
+          "source": "kbo-official-scoreboard",
+          "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+          "fetchedAt": "2026-11-02T05:38:34.421Z",
+          "selectedDate": "2026.11.02(월)",
+          "marker": "데이터가 존재하지 않습니다."
+        },
+        "primaryNaverStatus": "timeout",
+        "parserFixCommit": "76a1bf90b398f3255b400950561709620033ab08"
+      },
+      "CPBL": {
+        "verified": false,
+        "checkedToday": true,
+        "state": "no_games_source_ok",
+        "source": "yahoo-tw",
+        "firstTeamGames": 0,
+        "notApplicableToday": true,
+        "pitchCount": null
+      },
+      "allVerified": false,
+      "allScheduledLeaguesVerified": false,
+      "allThreeLeaguesLiveVerified": false,
+      "reason": "2026-11-02 13:38 Taipei: repaired KBO official no-games marker parser; fresh runner now verifies KBO no games, CPBL no games, NPB Yahoo upstream stale Oct28 and collector remains unavailable. Workflow fails by design from NPB safety guard. No live or DB test this run.",
+      "evidenceRetainedIn": "data/live/",
+      "latestObservation": {
+        "repository": "poias45652-creator/arena-sports-board",
+        "branch": "data/live-source-probe-20260915",
+        "workflow": "Current baseball collector",
+        "workflowPath": ".github/workflows/baseball-current-collector.yml",
+        "runId": 41395147225,
+        "runAttempt": 1,
+        "runAttemptConfirmedByApi": true,
+        "jobId": 125114741968,
+        "jobStatus": "completed",
+        "jobConclusion": "failure",
+        "jobFailureReason": "Collector exited 1 because NPB Yahoo returned stale 10/28 date and all three collectors had zero games; safety guard rejects unverified zero-game days",
+        "headSha": "76a1bf90b398f3255b400950561709620033ab08",
+        "parserFixCommit": "76a1bf90b398f3255b400950561709620033ab08",
+        "artifactId": 13118698844,
+        "artifactName": "baseball-current",
+        "artifactCreatedAt": "2026-11-02T05:38:36Z",
+        "artifactDigest": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
+        "downloadedZipSha256": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
+        "artifactDigestVerifiedIndependently": true,
+        "artifactCreatedAfterCapturedAt": true,
+        "staleArtifactUsed": false,
+        "initialRunAttempt30": {
+          "runId": 41029623066,
+          "jobId": 125113627195,
+          "artifactId": 13119185751,
+          "artifactCreatedAt": "2026-11-02T05:34:48Z",
+          "artifactDigest": "sha256:c4f88c249df4890b6ac68e2bcf37a24697968d7c577e2f2c1a543abdfa6e60cd",
+          "capturedAt": "2026-11-02T05:34:46.087Z",
+          "result": "failed; KBO officially empty page previously unrecognized"
+        },
+        "observationPath": "data/live/20261102T053834Z-run41395147225-attempt1-kbo-offday-parserfix-npb-stale.json",
+        "capturedAt": "2026-11-02T05:38:34.423Z",
+        "secondCapturePerformed": false,
+        "captureIntervalSeconds": null,
+        "currentRunQualifiedNumericChanges": 0,
+        "crossRunSameDayQualifiedNumericChanges": 0,
+        "liveGamesConfirmedInAvailableSources": 0,
+        "finalGamesConfirmedInAvailableSources": 0,
+        "isolatedDatabaseTest": "skipped_after_NPB_date_guard",
+        "previousSameDayLiveProofRetained": false
+      }
     }
   },
   "parserFixes": [
@@ -3781,31 +3876,41 @@
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
-    "runId": 41029623066,
-    "runAttempt": 29,
+    "runId": 41395147225,
+    "runAttempt": 1,
     "runAttemptConfirmedByApi": true,
-    "runAttemptBasis": "GET /repos/poias45652-creator/arena-sports-board/actions/runs/41029623066 returned run_attempt=29",
-    "jobId": 124893459386,
+    "jobId": 125114741968,
     "jobStatus": "completed",
-    "jobConclusion": "success",
-    "headSha": "455823e81799bfb1b7cd2451760eca84886f69d5",
-    "artifactId": 13088928721,
+    "jobConclusion": "failure",
+    "jobFailureReason": "Collector exited 1 because NPB Yahoo returned stale 10/28 date and all three collectors had zero games; safety guard rejects unverified zero-game days",
+    "headSha": "76a1bf90b398f3255b400950561709620033ab08",
+    "parserFixCommit": "76a1bf90b398f3255b400950561709620033ab08",
+    "artifactId": 13118698844,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-01T15:34:09Z",
-    "artifactDigest": "sha256:dad2f9bca2f3d32db1997dd68582ccdbb114c51714c57ebbe15247708d0389e6",
-    "downloadedZipSha256": "sha256:dad2f9bca2f3d32db1997dd68582ccdbb114c51714c57ebbe15247708d0389e6",
+    "artifactCreatedAt": "2026-11-02T05:38:36Z",
+    "artifactDigest": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
+    "downloadedZipSha256": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
     "artifactDigestVerifiedIndependently": true,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "observationPath": "data/live/20261101T153404Z-run41029623066-attempt29-kbo-final-recheck.json",
-    "capturedAt": "2026-11-01T15:34:04.709Z",
+    "initialRunAttempt30": {
+      "runId": 41029623066,
+      "jobId": 125113627195,
+      "artifactId": 13119185751,
+      "artifactCreatedAt": "2026-11-02T05:34:48Z",
+      "artifactDigest": "sha256:c4f88c249df4890b6ac68e2bcf37a24697968d7c577e2f2c1a543abdfa6e60cd",
+      "capturedAt": "2026-11-02T05:34:46.087Z",
+      "result": "failed; KBO officially empty page previously unrecognized"
+    },
+    "observationPath": "data/live/20261102T053834Z-run41395147225-attempt1-kbo-offday-parserfix-npb-stale.json",
+    "capturedAt": "2026-11-02T05:38:34.423Z",
     "secondCapturePerformed": false,
     "captureIntervalSeconds": null,
     "currentRunQualifiedNumericChanges": 0,
     "crossRunSameDayQualifiedNumericChanges": 0,
     "liveGamesConfirmedInAvailableSources": 0,
-    "finalGamesConfirmedInAvailableSources": 1,
-    "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0",
-    "previousSameDayLiveProofRetained": true
+    "finalGamesConfirmedInAvailableSources": 0,
+    "isolatedDatabaseTest": "skipped_after_NPB_date_guard",
+    "previousSameDayLiveProofRetained": false
   }
 }
