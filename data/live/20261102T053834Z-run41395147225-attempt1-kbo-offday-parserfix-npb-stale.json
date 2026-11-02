@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-02",
+  "capturedAt": "2026-11-02T05:38:34.423Z",
+  "purpose": "Daily first-team baseball source validation; isolated GitHub runner; no production writes/deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41395147225,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125114741968,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "jobFailureReason": "Collector exited 1 because NPB Yahoo returned stale 10/28 date and all three collectors had zero games; safety guard rejects unverified zero-game days",
+    "headSha": "76a1bf90b398f3255b400950561709620033ab08",
+    "parserFixCommit": "76a1bf90b398f3255b400950561709620033ab08",
+    "artifactId": 13118698844,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-02T05:38:36Z",
+    "artifactDigest": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
+    "downloadedZipSha256": "sha256:e801adc468975b8ce4894e8440d49104a6f8fb54d9e42cbad61da41642783a50",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "initialRunAttempt30": {
+      "runId": 41029623066,
+      "jobId": 125113627195,
+      "artifactId": 13119185751,
+      "artifactCreatedAt": "2026-11-02T05:34:48Z",
+      "artifactDigest": "sha256:c4f88c249df4890b6ac68e2bcf37a24697968d7c577e2f2c1a543abdfa6e60cd",
+      "capturedAt": "2026-11-02T05:34:46.087Z",
+      "result": "failed; KBO officially empty page previously unrecognized"
+    }
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-11-02",
+      "upstreamSelectedDate": "2026-10-28",
+      "error": "NPB schedule selected day mismatch: requested 2026-11-02; upstream day 10/28; not evidence of an off-day",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-02",
+      "independentNoScheduledGameEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11.html",
+        "scope": "NPB November official calendar lists no Nov 2 fixture; does not restore failed Yahoo collector",
+        "collectorRecovered": false
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "source": "kbo-official-scoreboard",
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-02T05:38:34.421Z",
+        "selectedDate": "2026.11.02(월)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "parserFixVerifiedOnFreshGithubRunner": true,
+      "previousParserError": "Official KBO scoreboard has no identifiable first-team game; not proof of off-day",
+      "primaryNaverStatus": "timeout",
+      "primarySourceDegraded": true,
+      "primarySourceWarning": "Naver primary unavailable: The operation was aborted due to timeout",
+      "fallbackOfficialHttpStatus": 200,
+      "qualityNote": "Official dated no-games marker explicitly validated, no invented fixture; primary Naver timeout retained as source warning"
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No LIVE states in fresh observations",
+  "sameRunQualifiedLiveToLiveNumericChanges": 0,
+  "newCrossRunMaterialChanges": 0,
+  "isolatedDatabaseTest": {
+    "performed": false,
+    "passed": null,
+    "reason": "GitHub workflow stopped before isolated database test because NPB unverified empty schedule activated exit guard",
+    "productionWritten": false
+  },
+  "qualitySummary": "2026-11-02 13:38 Taipei: New job run 41395147225 attempt1 captured official KBO explicit no-games marker after narrow parser repair on isolated branch; KBO 0 first-team fixtures verified, Naver still times out. CPBL source OK with zero games. NPB Yahoo still serves selected 10/28 for requested 11/02; official NPB monthly schedule independently lists no 11/02 event, but collector remains unavailable and cannot be marked recovered. Workflow exit 1 is expected guard behavior; artifact ZIP newly created and SHA256 matched. No live to sample; no production changes.",
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
