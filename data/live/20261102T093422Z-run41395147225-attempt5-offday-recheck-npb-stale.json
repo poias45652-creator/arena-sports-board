@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-02",
+  "capturedAt": "2026-11-02T09:34:22.247Z",
+  "purpose": "Daily first-team source recheck from a fresh GitHub Actions artifact, isolated from production",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41395147225,
+    "runAttempt": 5,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125198397810,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "jobFailureReason": "Yahoo NPB selected 11/1 for requested 11/2; strict all-empty safety guard exits 1; isolated PostgreSQL stages skipped",
+    "headSha": "76a1bf90b398f3255b400950561709620033ab08",
+    "artifactId": 13129083963,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-02T09:34:24Z",
+    "artifactDigest": "sha256:7f1e7db3f990447e7886b0508ad5b7f82872f14c37f3cb62e3d0e4263575ed6f",
+    "downloadedZipSha256": "sha256:7f1e7db3f990447e7886b0508ad5b7f82872f14c37f3cb62e3d0e4263575ed6f",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "pregame": null,
+      "live": null,
+      "final": null,
+      "requestedDate": "2026-11-02",
+      "upstreamSelectedDate": "2026-11-01",
+      "priorAttemptUpstreamSelectedDate": "2026-10-28",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-02",
+      "error": "NPB schedule selected day mismatch: requested 2026-11-02; upstream day 11/1; not evidence of an off-day",
+      "independentOfficialNoScheduledGameEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11_detail.html",
+        "scope": "NPB official November schedule lists no Nov2 first-team fixture; this does not validate Yahoo collector",
+        "collectorRecovered": false
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-02T09:34:22.245Z",
+        "selectedDate": "2026.11.02(월)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "primaryNaverStatus": "timeout",
+      "primarySourceDegraded": true,
+      "publicFallback": true,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No confirmed live game in usable KBO/CPBL feeds; NPB unavailability is not confirmation of zero games",
+  "sameRunQualifiedLiveToLiveNumericChanges": 0,
+  "newCrossRunMaterialChanges": 0,
+  "isolatedDatabaseTest": {
+    "performed": false,
+    "passed": null,
+    "reason": "Collector strict NPB date guard failed before isolated PostgreSQL steps",
+    "productionWritten": false
+  },
+  "qualitySummary": "2026-11-02 17:34 Asia/Taipei: new attempt5 current.json dated Nov2, SHA256 ZIP matches GitHub artifact digest; KBO official dated no-game verified, CPBL source returned zero first-team fixtures, Yahoo NPB selected Nov1 rather than requested Nov2 and remains unavailable despite independent official Nov2 no-game schedule. No confirmed live games. Strict guard failed; isolated DB test skipped. Unknown game fields retained null.",
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
