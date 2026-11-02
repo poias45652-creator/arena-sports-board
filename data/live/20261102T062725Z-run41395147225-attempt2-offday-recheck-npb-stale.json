@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-02",
+  "capturedAt": "2026-11-02T06:27:25.070Z",
+  "purpose": "Daily first-team baseball source validation on isolated GitHub runner; no production writes/deployment",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41395147225,
+    "runAttempt": 2,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125129348673,
+    "jobStatus": "completed",
+    "jobConclusion": "failure",
+    "jobFailureReason": "NPB Yahoo serves selected 2026-10-28 for requested 2026-11-02. Strict date guard prevents classifying three empty collectors as fully verified off-day; downstream isolated database test skipped.",
+    "headSha": "76a1bf90b398f3255b400950561709620033ab08",
+    "artifactId": 13120967691,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-02T06:27:27Z",
+    "artifactDigest": "sha256:b32062357b7f114af1182284e89ad105805001fe7f8ffb979dfae6e61fc0ec8c",
+    "downloadedZipSha256": "sha256:b32062357b7f114af1182284e89ad105805001fe7f8ffb979dfae6e61fc0ec8c",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "unavailable",
+      "normalizedGames": 0,
+      "actualTodayGames": null,
+      "requestedDate": "2026-11-02",
+      "upstreamSelectedDate": "2026-10-28",
+      "sourceURL": "https://baseball.yahoo.co.jp/npb/schedule/?date=2026-11-02",
+      "error": "NPB schedule selected day mismatch: requested 2026-11-02; upstream day 10/28; not evidence of an off-day",
+      "independentNoScheduledGameEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11.html",
+        "scope": "Official NPB monthly calendar independently shows Nov2 with no fixture; this does not restore Yahoo collector",
+        "collectorRecovered": false
+      }
+    },
+    "KBO": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-02T06:27:25.069Z",
+        "selectedDate": "2026.11.02(월)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "primaryNaverStatus": "timeout",
+      "primarySourceDegraded": true,
+      "fallbackOfficialHttpStatus": 200,
+      "fallbackRunnerProbeCapturedAt": "2026-11-02T06:27:25.233Z",
+      "fallbackSourceUsable": true
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No LIVE states in fresh artifact",
+  "sameRunQualifiedLiveToLiveNumericChanges": 0,
+  "newCrossRunMaterialChanges": 0,
+  "isolatedDatabaseTest": {
+    "performed": false,
+    "passed": null,
+    "reason": "Workflow stopped after NPB date guard; PostgreSQL write/read test did not execute",
+    "productionWritten": false
+  },
+  "qualitySummary": "2026-11-02 14:27 Taipei: Independent new GitHub run 41395147225 attempt2 artifact 13120967691 SHA256 matches GitHub digest; KBO official dated no-games marker and CPBL zero confirmed, NPB Yahoo still stale 10/28; official NPB month schedule independently shows no Nov2 fixture without restoring collector. No LIVE games; no second sample required. Exit 1 from strict unverified all-empty day guard; isolated DB step skipped. Unverified statistics remain null. No production changes.",
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
