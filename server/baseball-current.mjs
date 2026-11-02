@@ -78,7 +78,16 @@ export function parseKboOfficialScoreboard(html,page,date){
  const displayed=plain(html.match(/<span\b[^>]*id=["'][^"']*lblGameDate["'][^>]*>([\s\S]*?)<\/span>/i)?.[1]||'');
  if(!displayed.startsWith(date.replaceAll('-','.')))throw new Error('Official KBO selected-date mismatch: '+displayed+' vs '+date);
  const cards=html.split(/<div\b[^>]*class=["']smsScore["'][^>]*>/i).slice(1);
- if(!cards.length)throw new Error('Official KBO scoreboard has no identifiable first-team game; not proof of off-day');
+ if(!cards.length){
+  // A blank or broken page is not a verified no-game day. The site's dated
+  // explicit no-data panel is required before returning zero fixtures.
+  const officialNoGames=/<div\b[^>]*id=["'][^"']*pNoGmae["'][^>]*>[\s\S]*?<td\b[^>]*colspan=["']20["'][^>]*>\s*데이터가 존재하지 않습니다\.\s*<\/td>/i.test(html);
+  if(!officialNoGames)throw new Error('Official KBO scoreboard has no identifiable first-team game; not proof of off-day');
+  return {schemaVersion:1,league:'KBO',date,collectedAt:new Date().toISOString(),
+   games:[],errors:[],status:'ok',offDayVerified:true,
+   offDayEvidence:{url:page.url,fetchedAt:page.fetchedAt,selectedDate:displayed,marker:'데이터가 존재하지 않습니다.'},
+   liveLatencyVerified:false,publicFallback:true};
+ }
  const games=[],errors=[];
  for(const card of cards){
   try{
@@ -213,8 +222,14 @@ export async function collectLeague(league,options={}){
     const initialPage=await fetchPublic('https://www.koreabaseball.com/Schedule/ScoreBoard.aspx',fetcher);
     const page=await kboOfficialPageForDate(initialPage,date,fetcher);
     const result=parseKboOfficialScoreboard(page.text,page,date);
-    result.status='partial';
-    result.errors.push('Naver primary unavailable: '+String(primaryError.message));
+    if(result.offDayVerified){
+     // The public official source has verified today's empty scoreboard.
+     result.status='ok';result.sourceDegraded=true;
+     result.sourceWarnings=['Naver primary unavailable: '+String(primaryError.message)];
+    }else{
+     result.status='partial';
+     result.errors.push('Naver primary unavailable: '+String(primaryError.message));
+    }
     return result;
    }catch(fallbackError){throw new Error('KBO Naver: '+primaryError.message+'; official fallback: '+fallbackError.message);}
   }
