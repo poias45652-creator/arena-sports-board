@@ -210,6 +210,26 @@ export async function kboOfficialPageForDate(initialPage,date,fetcher=fetch){
   '; calendar '+selectedDay(calendar)+'; previous '+selectedDay(previous));
 }
 
+/** Official NPB calendar fallback is ONLY proof of an off-day, never a live score feed.
+ * Require a unique dated first-team row with exactly four explicitly blank cells.
+ * If a fixture is listed or the table structure changes, fail closed.
+ */
+export function npbOfficialOffDay(html,date){
+ const [year,month,day]=date.split('-');
+ if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!html.includes(year+'年'))
+  throw new Error('Official NPB calendar year/date could not be verified');
+ const rowId='date'+month+day;
+ const re=new RegExp('<tr\b[^>]*\bid=["\\x27]'+rowId+'["\\x27][^>]*>([\s\S]*?)<\/tr>','gi');
+ const rows=[...html.matchAll(re)];
+ if(rows.length!==1)throw new Error('Official NPB calendar exact date row missing or duplicated: '+rowId);
+ const row=rows[0][1],heads=[...row.matchAll(/<th\b[^>]*>([\s\S]*?)<\/th>/gi)];
+ if(heads.length!==1||!new RegExp('^'+Number(month)+'/'+Number(day)+'[（(]').test(plain(heads[0][1])))
+  throw new Error('Official NPB calendar date heading mismatch');
+ const cells=[...row.matchAll(/<td\b[^>]*>([\s\S]*?)<\/td>/gi)];
+ if(cells.length!==4)throw new Error('Official NPB calendar expected four game cells, got '+cells.length);
+ return cells.every(cell=>/^(?:\s|&nbsp;|&#160;|&#xA0;)*$/i.test(cell[1]));
+}
+
 /** NPB's selected-game detail page omits that game's sidebar identity card.
  * Match the exact opaque game ID from the dated schedule, not team-name guesses.
  */
@@ -247,8 +267,21 @@ export async function collectLeague(league,options={}){
  const selectedDayMatches=[...selectedText.matchAll(/(\d{1,2})月\s*(\d{1,2})日[（(][^）)]*[）)]/g)];
  const selectedDay=selectedDayMatches.at(-1);
  const [,requestedMonth,requestedDay]=date.split('-').map(Number);
- if(!selectedDay||Number(selectedDay[1])!==requestedMonth||Number(selectedDay[2])!==requestedDay)
-  throw new Error('NPB schedule selected day mismatch: requested '+date+'; upstream day '+(selectedDay?selectedDay[1]+'/'+selectedDay[2]:'unknown')+'; not evidence of an off-day');
+ if(!selectedDay||Number(selectedDay[1])!==requestedMonth||Number(selectedDay[2])!==requestedDay){
+  const upstreamDay=selectedDay?selectedDay[1]+'/'+selectedDay[2]:'unknown';
+  const primaryError='NPB Yahoo selected day mismatch: requested '+date+'; upstream day '+upstreamDay;
+  try{
+   const [year,month]=date.split('-');
+   const calendar=await fetchPublic('https://npb.jp/games/'+year+'/schedule_'+Number(month)+'_detail.html',fetcher);
+   if(!npbOfficialOffDay(calendar.text,date))
+    throw new Error('Official NPB calendar lists a fixture; Yahoo score source unavailable');
+   return {schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games:[],errors:[],
+    status:'ok',offDayVerified:true,sourceDegraded:true,
+    sourceWarnings:[primaryError],
+    offDayEvidence:{url:calendar.url,fetchedAt:calendar.fetchedAt,selectedDate:date,marker:'official_npb_calendar_exact_date_row_four_blank_cells',source:'npb-official-first-team-schedule'},
+    liveLatencyVerified:false};
+  }catch(e){throw new Error(primaryError+'; official calendar fallback: '+String(e?.message||e));}
+ }
  const ids=npbScheduleIds(schedule.text),games=[],errors=[];
  if(!ids.length){
   // Require the requested date and the page's explicit no-game marker in the
