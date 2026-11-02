@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-02",
+  "capturedAt": "2026-11-02T10:59:14.475Z",
+  "purpose": "Daily first-team source recheck from current GitHub Actions artifact; official NPB off-day fallback repaired on isolation branch only",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41432970923,
+    "runAttempt": 1,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125236047290,
+    "jobStatus": "completed",
+    "jobConclusion": "success",
+    "headSha": "4a787bd5d3831b873fba17b41b81fb974da09e81",
+    "artifactId": 13135940312,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-02T10:59:17Z",
+    "artifactDigest": "sha256:a2b9cec6ee5827371bf4d014cd0191e7db764d1c0fdedf24209d69e13688fd54",
+    "downloadedZipSha256": "sha256:a2b9cec6ee5827371bf4d014cd0191e7db764d1c0fdedf24209d69e13688fd54",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11_detail.html",
+        "fetchedAt": "2026-11-02T10:58:55.440Z",
+        "selectedDate": "2026-11-02",
+        "marker": "official_npb_calendar_exact_date_row_four_blank_cells",
+        "source": "npb-official-first-team-schedule"
+      },
+      "sourceDegraded": true,
+      "yahooSourceRecovered": false,
+      "yahooUpstreamSelectedDate": "2026-11-01",
+      "sourceWarning": "NPB Yahoo selected day mismatch: requested 2026-11-02; upstream day 11/1",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    },
+    "KBO": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "offDayEvidence": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-02T10:59:14.473Z",
+        "selectedDate": "2026.11.02(월)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "sourceDegraded": true,
+      "primaryNaverStatus": "timeout",
+      "publicFallback": true,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "independentRunnerProbe": {
+        "capturedAt": "2026-11-02T10:59:14.532Z",
+        "httpStatus": 200,
+        "htmlBytes": 41249,
+        "selectedDateMarkerPresent": true,
+        "sourceUsable": true
+      }
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "actualTodayGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": null,
+      "source": "yahoo-tw",
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "officialLineupConfirmed": false
+    }
+  },
+  "firstTeamOnly": true,
+  "liveStateObserved": false,
+  "secondCapturePerformed": false,
+  "secondCaptureReason": "No LIVE fixture in the three available normalized first-team feeds. NPB no-games verified from dated official calendar; KBO no-games verified from dated official scoreboard; CPBL source reports zero first-team games.",
+  "sameRunQualifiedLiveToLiveNumericChanges": 0,
+  "newCrossRunMaterialChanges": 0,
+  "isolatedDatabaseTest": {
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-11-02T10:59:16.557Z",
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ],
+    "productionWritten": false
+  },
+  "parserRepair": {
+    "file": "server/baseball-current.mjs",
+    "supportingFile": "server/baseball-live-providers.mjs",
+    "commits": [
+      "b4382145f1b30e7d66fda2153f3744e034d94cda",
+      "de56b471cfaedb331c0b6a58a3b2776af6c470fc",
+      "4a787bd5d3831b873fba17b41b81fb974da09e81"
+    ],
+    "change": "When Yahoo selects a stale NPB date, verify an exact dated blank four-cell row in the official NPB first-team monthly calendar; accept only true off-days. Never treat an official fixture row as an off-day, and keep Yahoo marked degraded. No login or forbidden-source bypass.",
+    "verified": true,
+    "workflowSuccess": true,
+    "isolatedDatabaseTestPassed": true
+  },
+  "qualitySummary": "2026-11-02 18:59 Taipei: new current-head workflow succeeded. NPB official Nov2 first-team monthly calendar exact date row confirms 0 games despite Yahoo stale Nov1; Yahoo source remains degraded, not recovered. KBO official dated off-day confirmed; Naver still times out. CPBL source OK 0 games. No LIVE so no 65s double capture. Isolated PostgreSQL write/read/dedup all pass with zero first-team records. New ZIP SHA-256 independently matches GitHub artifact digest. Unknowns remain null.",
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
