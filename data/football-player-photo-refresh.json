@@ -3696,5 +3696,277 @@
     ],
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3111134": {
+    "name": "Oskar Hencke",
+    "birthDate": "",
+    "photo": {
+      "url": "https://image.fupa.net/player/hlnv6Ref00Yj/960x1200.jpeg",
+      "localPath": "/images/players/football/3111134-original.jpg",
+      "sha256": "384f1d4368386e57d0775868cd1946714d7ff79f6346583e5cbf6dd2c1393983",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.fupa.net/player/oskar-hencke-2295430",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "3099575": {
+    "name": "Jykese Fields",
+    "birthDate": "",
+    "photo": {
+      "url": "https://image.fupa.net/player/YJ6H6mcLynvs/960x1200.jpeg",
+      "localPath": "/images/players/football/3099575-original.jpg",
+      "sha256": "7f8ae0414efee252f36547bfee08ac6b3a44ba11495a40b8cc7907b9485d8361",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.fupa.net/player/jykese-fields-2111706",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5327645": {
+    "name": "Nikita Melnyk",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.calcionapoli24.it/eab10fa60270277a875542de66cab924/1280x720/1754668583_578.webp",
+      "localPath": "/images/players/football/5327645-original.webp",
+      "sha256": "b832be416613f5b88d8b643d53080e9d1d6ae157c5cb3b585d9bf78530020eed",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.calcionapoli24.it/calcio_giovanile/ufficiale-acquisto-ssc-napoli-per-la-primavera-un-ucraino-di-17-n657725.html",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes. Source uses Nikita Melnyk, the same Napoli academy player also listed as Mykyta Melnyk.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5327620": {
+    "name": "Cluver Sambi Mbungu",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.olympique-et-lyonnais.com/wp-content/uploads/2026/07/Cluver-Sambi-Mbungu-a-sa-signature-a-lOL-avec-Matthieu-Louis-Jean.jpg",
+      "localPath": "/images/players/football/5327620-original.jpg",
+      "sha256": "706d64e31b955a6ddb048f44888517099f6327769018c5432850941a8b46bf12",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.olympique-et-lyonnais.com/officiel-cluver-sambi-mbungu-sengage-avec-lol-jusquen-2029%2C402176.html",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes. Club signing photo identifies Cluver Sambi Mbungu with sporting director Matthieu Louis-Jean; the frame shows the player on the left.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "167"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "167"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5327647": {
+    "name": "Andrea Chiummariello",
+    "birthDate": "",
+    "photo": {
+      "url": "https://tuttonapolicalcio.it/wp-content/uploads/2026/11/chiummariello_andrea.webp",
+      "localPath": "/images/players/football/5327647-original.webp",
+      "sha256": "4139c4ae47eff63918f3e567f5add04b1515cf0e83127c6372d34e1a7f7e9425",
+      "type": "image/webp"
+    },
+    "evidence": "https://tuttonapolicalcio.it/2026/11/01/andrea-chiummariello-il-baby-centrocampista-convocato-da-allegri/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5327646": {
+    "name": "Claudio Lieto",
+    "birthDate": "",
+    "photo": {
+      "url": "https://tuttonapolicalcio.it/wp-content/uploads/2026/11/lieto_claudio_1.webp",
+      "localPath": "/images/players/football/5327646-original.webp",
+      "sha256": "da53f1cb553ca95ddfd2046f0adf1a33c5b8d7e2d4009a299c3975f8794c7f14",
+      "type": "image/webp"
+    },
+    "evidence": "https://tuttonapolicalcio.it/2026/11/01/napoli-rinnovo-in-vista-per-il-giovane-difensore-claudio-lieto/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5323356": {
+    "name": "Athos Kounounis",
+    "birthDate": "",
+    "photo": {
+      "url": "https://omonoianews.com/wp-content/uploads/2026/04/AthosKounounis-Omonoia.jpg",
+      "localPath": "/images/players/football/5323356-original.jpg",
+      "sha256": "a349b77e109656c97e8c1ca01c1877c023558e2cc91ec4cadbab884ae46fe004",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://omonoianews.com/podosfairo/2026/04/synechizei-na-ependyei-sto-talento-i-omonoia-epangelmatiko-symvolaio-ston-15chrono-atho-kounouni/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "617"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5325687": {
+    "name": "Angel Daniel Garcia",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.olympique-et-lyonnais.com/wp-content/uploads/2026/07/HLBtzb6W0AAm5gs.jpeg",
+      "localPath": "/images/players/football/5325687-original.jpg",
+      "sha256": "ca1c264aa54812284d8754ebcec81d258504aab0d291e01d7d398961f809d99d",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.olympique-et-lyonnais.com/ol-academie-un-tres-bon-cru-pour-le-baccalaureat-2026%2C402268.html",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "167"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "167"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "3126810": {
+    "name": "Iason Georgakopoulos",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.olympiacos.org/wp-content/uploads/2025/08/09/%CE%93%CE%B5%CF%89%CF%81%CE%B3%CE%B1%CE%BA%CF%8C%CF%80%CE%BF%CF%85%CE%BB%CE%BF%CF%82-820x1024.jpeg",
+      "localPath": "/images/players/football/3126810-original.jpg",
+      "sha256": "2871c9e3a2e6ee3b620a9169011051448c7597902b392717fa8eac69fbbf9e76",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.olympiacos.org/2025/08/10/ananeoseis-symvolaion-podosfairiston-tis-akadimias/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "435"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "422718": {
+    "name": "Nikloaos Avramulis",
+    "birthDate": "2008-08-06",
+    "photo": {
+      "url": "https://www.olympiacos.org/wp-content/uploads/2026/09/11/image00001.jpeg",
+      "localPath": "/images/players/football/422718-original.jpg",
+      "sha256": "ae8e10ff9579db97b3df7b2055e968ca32c744fe7043fb1adfcb9d0993e7226f",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.olympiacos.org/2026/09/11/ananeoseis-symvolaion-ston-olympiako-k23/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes. Club announcement names Nikos Avramoulis and confirms 2008-08-06 birthday; frontend spelling Nikloaos Avramulis is retained.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "435"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "419210": {
+    "name": "Zebedee Kennedy",
+    "birthDate": "2010-02-24",
+    "photo": {
+      "url": "https://d251ktlxwvtnkw.cloudfront.net/news/cover/1787927324331_desktop-cover.jpg",
+      "localPath": "/images/players/football/419210-original.jpg",
+      "sha256": "4542570d839e7dea55728850912f8aedca6457ddcc45e90c07397e17ca4cb176",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://comofootball.com/en/como-1907-welcomes-swedish-youth-international-zebedee-kennedy/",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "2572"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "2572"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "406100": {
+    "name": "Arnold Qevani",
+    "birthDate": "2007-09-27",
+    "photo": {
+      "url": "https://clubee-websites-prod.s3.eu-central-1.amazonaws.com/4880/files/image/1X2AFSM4SK9FKS7AZV3YC7FAB4.jpg",
+      "localPath": "/images/players/football/406100-original.jpg",
+      "sha256": "f151d9e95b65f0233e4f4a00d085254729fb366c637f4bc35ec9438c169fd56e",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.flf.lu/post-296485v4/posts/68403",
+    "identity": "Named club announcement or public player profile matched to current frontend player and club/reserve/national team. Original image decoded and visually inspected. Unavailable frontend birthday remains unchanged. CSS frame identifies the named player without altering original image bytes. FLF article names Arnold Qevani, Luxembourg national team. Frame shows the named primary subject in the red Luxembourg shirt.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "582"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
   }
 }

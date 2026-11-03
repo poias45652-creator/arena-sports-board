@@ -143,6 +143,20 @@ test('photo framing isolates reviewed subjects and never applies to a different 
  }
  assert.equal(footballPortraitStyle('193649','Arsen Beglaryan'),undefined,'existing portraits retain their layout');
 });
+test('refreshed portrait frames stay bound to reviewed photo bytes and player identities',async()=>{
+ const {footballPortraitStyle}=await import(moduleUrl('lib/football-portrait-framing.ts'));
+ const frames=JSON.parse(readFileSync('data/football-player-photo-framing.json'));
+ const photos=JSON.parse(readFileSync('data/football-player-photo-refresh.json'));
+ for(const [id,f] of Object.entries(frames)){
+  const p=photos[id];assert.ok(p?.photo?.localPath,id);assert.equal(f.name,p.name);
+  assert.equal(f.photoSha256,p.photo.sha256,'a replacement photo requires a new framing review');
+  assert.equal(createHash('sha256').update(readFileSync('public'+p.photo.localPath)).digest('hex'),f.photoSha256);
+  assert.ok(f.x>=0&&f.y>=0&&f.size>0&&f.x+f.size<=f.width&&f.y+f.size<=f.height);
+  const style=footballPortraitStyle(id,p.name);assert.ok(style,id);
+  assert.ok(Math.abs(style.width/style.height-f.width/f.height)<1e-10);
+  assert.equal(footballPortraitStyle(id,'Unrelated Player'),undefined);
+ }
+});
 test('team and season identity corrections require the reviewed source fingerprint',async()=>{
  const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
  const corrections=JSON.parse(readFileSync('data/football-roster-photo-corrections.json'));

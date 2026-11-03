@@ -14,7 +14,7 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 167,
+  "addedPhotos": 179,
   "remaining": [
     {
       "id": "3125573",
@@ -29,73 +29,12 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": []
-      }
-    },
-    {
-      "id": "3111134",
-      "name": "Oskar Hencke",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "7911"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "7911"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1810393.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://datencenter.dfb.de/en/data-center/people/429857/player",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
-          }
-        ]
-      }
-    },
-    {
-      "id": "3099575",
-      "name": "Jykese Fields",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "7911"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "7911"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1858963.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250200722.jpg",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://www.transfermarkt.com/jykese-fields/profil/spieler/1099437",
-            "result": "HTTP Error 405: Method Not Allowed"
+            "source": "https://www.realracingclub.es/alejandro-laso-2026",
+            "result": "Club image downloaded but published crop cuts off the head; unusable portrait."
           }
         ]
       }
@@ -117,43 +56,16 @@
       ],
       "reason": "no unique full-name and birth-date match",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
             "source": "https://images.fotmob.com/image_resources/playerimages/2203186.png",
             "result": "HTTP Error 403: Forbidden"
-          }
-        ]
-      }
-    },
-    {
-      "id": "419210",
-      "name": "Zebedee Kennedy",
-      "birthDate": "2010-02-24",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "2572"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "2572"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1896448.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://d251ktlxwvtnkw.cloudfront.net/news/cover/1787927324331_desktop-cover.jpg",
-            "result": "Official signing photo is a wide landscape scene; retained for identity evidence, pending a suitable portrait."
+            "source": "https://sport.sky.it/calcio/atleti/mandjou-camara/696039",
+            "result": "Headshot returned 404; source birthday 2009-02-27 conflicts with frontend 2005-11-04, so identity is unresolved."
           }
         ]
       }
@@ -175,7 +87,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -193,41 +105,10 @@
           {
             "source": "https://www.juventus.com/it/news/articoli/u20-antonio-stefano-merola-rinnova-fino-al-2027",
             "result": "HTTP Error 403: Forbidden"
-          }
-        ]
-      }
-    },
-    {
-      "id": "5327646",
-      "name": "Claudio Lieto",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "114"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "114"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2373152.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/655773.png?im=Resize,width=270",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://www.soccerway.com/player/lieto-claudio/OIZnDT0D/",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
+            "source": "https://www.romagnasport.com/tuttocalcio/info_giocatore.php?anno=2026&id=795929",
+            "result": "Downloaded profile photo is a generic avatar; official Juventus image returns 403."
           }
         ]
       }
@@ -249,7 +130,7 @@
       ],
       "reason": "HTTP Error 403: Forbidden",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -263,76 +144,10 @@
           {
             "source": "https://img.uefa.com/imgml/TP/players/2008/2027/324x324/250201669.jpg",
             "result": "HTTP Error 404: Not Found"
-          }
-        ]
-      }
-    },
-    {
-      "id": "5327645",
-      "name": "Nikita Melnyk",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "114"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "114"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1840263.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/710210.png?im=Resize,width=270",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/24/2027/324x324/250198176.jpg",
-            "result": "HTTP Error 404: Not Found"
-          }
-        ]
-      }
-    },
-    {
-      "id": "5327647",
-      "name": "Andrea Chiummariello",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "114"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "114"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1844653.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/644898.png?im=Resize,width=270",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/2008/2027/324x324/250213061.jpg",
-            "result": "HTTP Error 404: Not Found"
+            "source": "https://www.juventus.com/it/news/articoli/u20-francisco-barido-si-trasferisce-al-napoli",
+            "result": "Official image returns 403; no usable portrait downloaded."
           }
         ]
       }
@@ -350,7 +165,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -360,6 +175,10 @@
           {
             "source": "https://www.soccerway.com/player/khoudda-youssef/MmQmrhHd/",
             "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
+          },
+          {
+            "source": "https://globalsportsarchive.com/en/soccer/athlete/youssef-khoudda/7956471",
+            "result": "Downloaded named portrait is a silhouette. Former club announcement has several players without explicit subject positioning."
           }
         ]
       }
@@ -377,7 +196,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -391,72 +210,10 @@
           {
             "source": "https://ke.soccerway.com/player/videira-lenny/S41yl7MG/",
             "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
-          }
-        ]
-      }
-    },
-    {
-      "id": "5325687",
-      "name": "Angel Daniel Garcia",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "167"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "167"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2402214.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://us.soccerway.com/player/garcia-angel/4Q4boJLF/",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
-          }
-        ]
-      }
-    },
-    {
-      "id": "5327620",
-      "name": "Cluver Sambi Mbungu",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "167"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "167"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2429665.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://www.lequipe.fr/Football/FootballFicheJoueur138480.html",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://us.soccerway.com/player/sambi-mbungu-cluver/YZiKSE7M/",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
+            "source": "https://footlab.ai/fr/joueur/669862",
+            "result": "Downloaded API-Sports portrait is a generic avatar. U21 interview page returns 500."
           }
         ]
       }
@@ -474,7 +231,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -484,6 +241,10 @@
           {
             "source": "https://parisfc.fr/wp-content/uploads/2026/07/DSC02699-1.jpg",
             "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://parisfc.fr/equipe-pro/premier-contrat-professionnel-pour-ibrahim-meite/",
+            "result": "Named goalkeeper announcement confirmed; official image still unavailable (403)."
           }
         ]
       }
@@ -501,12 +262,16 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
             "source": "https://www.vfb.de/de/1893/junge-wilde/u19/kader/saisonen/2026-2027/kader/",
             "result": "HTTP Error 404: Not Found"
+          },
+          {
+            "source": "https://sportdaten.sportbild.bild.de/fussball/pe895328/brayann-kenmoe/profil/",
+            "result": "Downloaded profile image is the generic male fallback."
           }
         ]
       }
@@ -524,12 +289,16 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
             "source": "https://www.zerozero.pt/jogador/armen-asatryan/3291686",
             "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://www.uprisingfc.com/team/armenia-u17/22672/",
+            "result": "Named image is only 50x50; rejected as below minimum portrait resolution."
           }
         ]
       }
@@ -547,122 +316,19 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": []
-      }
-    },
-    {
-      "id": "3126810",
-      "name": "Iason Georgakopoulos",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.europa",
-          "team": "435"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+        "checkedAt": "2026-11-03",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1837468.png",
-            "result": "HTTP Error 503: Service Unavailable"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250202294.jpg",
-            "result": "HTTP Error 404: Not Found"
-          }
-        ]
-      }
-    },
-    {
-      "id": "422718",
-      "name": "Nikloaos Avramulis",
-      "birthDate": "2008-08-06",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.europa",
-          "team": "435"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1840248.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/24/2027/324x324/250195215.jpg",
-            "result": "HTTP Error 404: Not Found"
-          }
-        ]
-      }
-    },
-    {
-      "id": "5323356",
-      "name": "Athos Kounounis",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.europa",
-          "team": "617"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2378923.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250217035.jpg",
-            "result": "HTTP Error 404: Not Found"
-          }
-        ]
-      }
-    },
-    {
-      "id": "406100",
-      "name": "Arnold Qevani",
-      "birthDate": "2007-09-27",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.nations",
-          "team": "582"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03T11:08:42.566846+00:00",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1781579.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://clubee-websites-prod.s3.eu-central-1.amazonaws.com/4880/files/image/1X2AFSM4SK9FKS7AZV3YC7FAB4.jpg",
-            "result": "Official national-team article uses a wide action photograph; retained for identity evidence, pending a suitable portrait."
+            "source": "https://www.sofascore.com/football/player/harutyun-asatryan/1105487",
+            "result": "Available same-name record belongs to FC Ararat II, not current frontend FC Ararat-Armenia; no photo assigned without corroboration."
           }
         ]
       }
     }
   ],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 22,
+  "remainingCount": 10,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -792,6 +458,28 @@
       ],
       "remaining": 22,
       "validation": "Named official club/UEFA or public player profiles, decoded original bytes, visual inspection, hashes and actual frontend roster/local photo resolution checks."
+    },
+    {
+      "checkedAt": "2026-11-03",
+      "scope": "Frontend photo assets, source metadata and CSS portrait framing only; original roster identities and statistics preserved.",
+      "recordsFilled": 12,
+      "uniquePortraits": 12,
+      "players": [
+        "3111134",
+        "3099575",
+        "5327645",
+        "5327620",
+        "5327647",
+        "5327646",
+        "5323356",
+        "5325687",
+        "3126810",
+        "422718",
+        "419210",
+        "406100"
+      ],
+      "remaining": 10,
+      "validation": "Named source and current roster identity, original image decode and SHA256, desktop/mobile rendering of actual shared player card, actual frontend parser and local photo resolver."
     }
   ]
 }
