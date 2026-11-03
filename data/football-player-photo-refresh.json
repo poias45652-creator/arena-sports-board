@@ -3181,5 +3181,520 @@
     ],
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3128992": {
+    "name": "Mikel Bermejo Sola",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.lapreferente.com/imagenes/jugadores/20242025/585026.png?f=1738672436",
+      "localPath": "/images/players/football/3128992-original.png",
+      "sha256": "bef5f3e7e895c02abea839837021c2360b38005b3f99f073dcf035dada43210c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.lapreferente.com/J585026C26711/cd-subiza/mikel-bermejo.html",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "97"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3130644": {
+    "name": "Álvaro Fernández Fernández",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.lapreferente.com/imagenes/jugadores/20252026/234062.png?f=1769279579",
+      "localPath": "/images/players/football/3130644-original.png",
+      "sha256": "a33c488ac6f2d53606310f824c48782841d8376208a19ecac3b5c9d5387ac19f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.lapreferente.com/J234062C19734/rayo-cantabria/alvaro-fernandez.html",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "422968": {
+    "name": "Kenan Doganay",
+    "birthDate": "2009-01-22",
+    "photo": {
+      "url": "https://b04-ep-media-prod.azureedge.net/pickerimages/20260727_FS_U19_Doganay_253300_911070_XL.png",
+      "localPath": "/images/players/football/422968-original.png",
+      "sha256": "a705a0310e2accd699ccf0bdd619dcbe7c37b8fbf7d995c48aa37e7075c76825",
+      "type": "image/png"
+    },
+    "evidence": "https://www.bayer04.de/de-de/team/u19-jugend/u19",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "131"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "131"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5325769": {
+    "name": "Gabriel Minutillo",
+    "birthDate": "",
+    "photo": {
+      "url": "https://b04-ep-media-prod.azureedge.net/pickerimages/20260706_Gabriel_Minutillo_B04_U19_342105_902703_XL.png",
+      "localPath": "/images/players/football/5325769-original.png",
+      "sha256": "4784e4674307592ec09c24dbf38260b6c1fb190914ac4855983521010e017c04",
+      "type": "image/png"
+    },
+    "evidence": "https://www.bayer04.de/de-de/team/u19-jugend/u19",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "131"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "131"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5327243": {
+    "name": "Dustin Buck",
+    "birthDate": "",
+    "photo": {
+      "url": "https://b04-ep-media-prod.azureedge.net/pickerimages/20260706_Dustin_Buck_B04_U19_342091_902701_XL.png",
+      "localPath": "/images/players/football/5327243-original.png",
+      "sha256": "29a6d64692d562a80cfef9c087aaf74ceb97c0cb5a8a2b315c9af750bf88a48a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.bayer04.de/de-de/team/u19-jugend/u19",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "131"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "131"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5326829": {
+    "name": "Luca Lo Monaco",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.bolognafc.it/wp-content/uploads/2026/08/Lo-Monaco-scaled.png",
+      "localPath": "/images/players/football/5326829-original.png",
+      "sha256": "0e758010e2156bc60141159479ff635025e888d55b911133d8898b4245738903",
+      "type": "image/png"
+    },
+    "evidence": "https://www.bolognafc.it/player/luca-lo-monaco/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "107"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5324162": {
+    "name": "Jesús Cruz Morales",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.lapreferente.com/imagenes/jugadores/20252026/362897.jpg?f=1767623672",
+      "localPath": "/images/players/football/5324162-original.jpg",
+      "sha256": "2b24a46f75984d087d0672c971a9070bd7cf71950a43721ce584ea78636441ee",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.lapreferente.com/J362897C13169/sevilla-atletico/jesus-cruz.html",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "243"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3101987": {
+    "name": "Abel Cedergren",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.slavia.cz/upload/_imgcache/43a5d8d8bfab6604_494x730.png",
+      "localPath": "/images/players/football/3101987-original.png",
+      "sha256": "05aac125845ad83ded34bfcdb58b5368ef4ef776f1b8742b4db4ae7f5b61130f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.slavia.cz/eng/player/25/3988",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "494"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3111595": {
+    "name": "Matěj Kotrba",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.slavia.cz/upload/_imgcache/4b20dce61a038d50_494x730.png",
+      "localPath": "/images/players/football/3111595-original.png",
+      "sha256": "4277adb67db3284a0d337b63e759e99d3d26219cbf75b8a2f230b6bb4e7641fe",
+      "type": "image/png"
+    },
+    "evidence": "https://www.slavia.cz/eng/player/4/3455",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "494"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5326345": {
+    "name": "Luca Menon",
+    "birthDate": "",
+    "photo": {
+      "url": "https://assets-eu-01.kc-usercontent.com:443/006f7528-416b-01e4-8ef2-ab6ab3f4e177/d472199f-b385-40b2-a728-f3a2c4c92b12/Menon-Small-2627.png",
+      "localPath": "/images/players/football/5326345-original.png",
+      "sha256": "1e3059c77a513f3ea2c451d4d0ffbcad7cc03241ebd4ff67720cab0605d4fd06",
+      "type": "image/png"
+    },
+    "evidence": "https://www.acmilan.com/en/teams/men-first-team/players/luca-menon",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3143886": {
+    "name": "Adam Mouak",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/1/2027/324x324/250213230.jpg",
+      "localPath": "/images/players/football/3143886-original.jpg",
+      "sha256": "30c9ce92de562187e478251ecf028d59475d0865e0ccc58627d1827c303dcafd",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefachampionsleague/clubs/players/250213230--adam-mouak/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "160"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "160"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "410415": {
+    "name": "Lucas Clearie",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250206213.jpg",
+      "localPath": "/images/players/football/410415-original.jpg",
+      "sha256": "eb9512a75e3da4856482964f375fd8d5bb811317a0f830ba856882e3a16fa591",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250206213--lucas-clearie/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "256"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3106899": {
+    "name": "Jonas Petritsch",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250201459.jpg",
+      "localPath": "/images/players/football/3106899-original.jpg",
+      "sha256": "2fbfc4d370bce24f5655c6dcaca82109f7d574a16de1c190f0e835e6e04e1b46",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250201459--jonas-petritsch/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "3746"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3099527": {
+    "name": "Dennis Beldenti",
+    "birthDate": "",
+    "photo": {
+      "url": "https://slyvi-tstorage.fra1.cdn.digitaloceanspaces.com/l55653056712_tml1252706465537_3558102229_1783065045849528.webp",
+      "localPath": "/images/players/football/3099527-original.webp",
+      "sha256": "d8c6df3d73639830e54b0d6f2cecc3c9d1a688eed276731b7aaa9d6890bd2355",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.fiorentinanews.com/news/216824450566/ufficiale-beldenti-un-nuovo-giocatore-della-fiorentina",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "109"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "421785": {
+    "name": "Salvatore Cianciulli",
+    "birthDate": "2008-08-31",
+    "photo": {
+      "url": "https://static.flashscore.com/res/image/data/CUqhSHHG-AZQGbS64.png",
+      "localPath": "/images/players/football/421785-original.png",
+      "sha256": "1cf32acc6dc4b50445cc42c83c1b27c50931e7dd0dc1b56aa28fb34b33f4560a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.soccerway.com/player/cianciulli-salvatore/rc99ex7l/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "109"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "413713": {
+    "name": "Christof Katzmayr",
+    "birthDate": "2008-05-10",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/1/2027/324x324/250206921.jpg",
+      "localPath": "/images/players/football/413713-original.jpg",
+      "sha256": "727020d6fc1312fb27eba38d56c0be6a95ce1e322726bc468c0dfb2332a74f3f",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefachampionsleague/clubs/players/250206921--christof-katzmayr/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "4411"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3122119": {
+    "name": "Tom Santos",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.vfb.de/?proxy=sportdb/spieler/831d8-Santos-png.png",
+      "localPath": "/images/players/football/3122119-original.png",
+      "sha256": "57c6c348f2646166fe05ef20b6ecbabb42b43ca5ac74fbaa0a42f87284216cdc",
+      "type": "image/png"
+    },
+    "evidence": "https://www.vfb.de/de/1893/junge-wilde/u21/kader/saisonen/2026-2027/kader/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "3101339": {
+    "name": "César Bonafé Ceita",
+    "birthDate": "",
+    "photo": {
+      "url": "https://panel.villarrealcf.es/wp-content/uploads/2026/07/BONAFE.png",
+      "localPath": "/images/players/football/3101339-original.png",
+      "sha256": "fd87be2235bb575b3a2e4ccfeaf4a83a3282c3a81b8196eb911c794e6b36a5eb",
+      "type": "image/png"
+    },
+    "evidence": "https://villarrealcf.es/es/villarreal-b/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "102"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "102"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "418762": {
+    "name": "Liam Kennedy",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250223678.jpg",
+      "localPath": "/images/players/football/418762-original.jpg",
+      "sha256": "713c42e824bfffa8a407f8174fe9b1ee9099af5400cd2790a97147606eb84603",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250223678--liam-kennedy/matches/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "256"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "387684": {
+    "name": "Paschalis Toufakis",
+    "birthDate": "2006-09-12",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250190505.jpg",
+      "localPath": "/images/players/football/387684-original.jpg",
+      "sha256": "86f57fa8a437f934fc17cd192c403c6ce36bb723c2fc42701e131dd5d6cfbc36",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250190505--paschalis-toufakis/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "435"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
+  },
+  "5325772": {
+    "name": "David Liz Castro Morgado",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250226203.jpg",
+      "localPath": "/images/players/football/5325772-original.jpg",
+      "sha256": "b27b230997e5b5de8d6458390b01afcc464ea8ccb1a97c2afacc9ee8025e7b4a",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250226203--david-morgado/",
+    "identity": "UEFA named portrait and current club confirmed; shortened display name is corroborated against the full-name profile. Original frontend name, unavailable birthday and statistics are preserved.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "21615"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+    "corroboratingEvidence": "https://www.zerozero.pt/jogador/david-morgado/510331"
+  },
+  "5326689": {
+    "name": "Mauro Roca Martínez",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/2008/2027/324x324/250212022.jpg",
+      "localPath": "/images/players/football/5326689-original.jpg",
+      "sha256": "9e38c574466b914fc7927834f4fb542ddce273b07f5b178bfa85bf59d2d49eca",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefayouthleague/clubs/players/250212022--mauro-roca/",
+    "identity": "UEFA named portrait and current club confirmed; shortened display name is corroborated against the full-name profile. Original frontend name, unavailable birthday and statistics are preserved.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "102"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "102"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+    "corroboratingEvidence": "https://www.lapreferente.com/J366596/villarreal-cf-c/mauro.html"
+  },
+  "5326690": {
+    "name": "Sergio Barrera Martín",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/2008/2027/324x324/250212000.jpg",
+      "localPath": "/images/players/football/5326690-original.jpg",
+      "sha256": "aca049fb357077c5d8fd69ff3a6caa0b5df131fd0b3c69618da5329bb0f86bed",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefayouthleague/clubs/players/250212000--sergio-barrera/",
+    "identity": "UEFA named portrait and current club confirmed; shortened display name is corroborated against the full-name profile. Original frontend name, unavailable birthday and statistics are preserved.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "102"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "102"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00",
+    "corroboratingEvidence": "https://www.lapreferente.com/J484375C22430/villarreal-cf-c/sergio.html"
+  },
+  "3130628": {
+    "name": "Mattia Sonzogni",
+    "birthDate": "",
+    "photo": {
+      "url": "https://static.flashscore.com/res/image/data/tYLb8kgl-WQKdkQQP.png",
+      "localPath": "/images/players/football/3130628-original.png",
+      "sha256": "2fde027139a6a8b035a871ddf77430883ccb9f5ea73e49b3a07b9a663287b254",
+      "type": "image/png"
+    },
+    "evidence": "https://ke.soccerway.com/player/sonzogni-mattia/0vHf6Lj3/",
+    "identity": "Reviewed named player portrait and full-name or shortened-name match with current club, academy/reserve team or national-team profile. Available source birthdays cross-checked; unavailable source birthday is not inferred. Original image decoded and visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T11:08:42.566846+00:00"
   }
 }
