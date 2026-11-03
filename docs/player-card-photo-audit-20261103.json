@@ -14,172 +14,8 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 95,
+  "addedPhotos": 143,
   "remaining": [
-    {
-      "id": "392107",
-      "name": "Trey Ogunsuyi",
-      "birthDate": "2006-11-26",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "eng.1",
-          "team": "366"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "366"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3106512",
-      "name": "Jesús Vizcay Hurtado",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "93"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3122617",
-      "name": "Aritz Conde Albiol",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "93"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3100792",
-      "name": "Frank Germain Jonathan Miller",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "85"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "85"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "375566",
-      "name": "Rubén",
-      "birthDate": "2004-08-26",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "90"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "375392",
-      "name": "Martín Ochoa",
-      "birthDate": "2004-12-20",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "90"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden"
-    },
-    {
-      "id": "3111247",
-      "name": "Jan Peries Duran",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "88"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3111255",
-      "name": "Alejandro Santiago Vargas",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "88"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "168531",
-      "name": "Dani Carvajal",
-      "birthDate": "1992-01-11",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "2922"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3101327",
-      "name": "Sebastián Salazar Trujillo",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "2922"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3121766",
-      "name": "Ibrahima Danfakha Keita",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "2922"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "5327018",
-      "name": "Irahima Danfakha Keita",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "2922"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
     {
       "id": "3128992",
       "name": "Mikel Bermejo Sola",
@@ -191,20 +27,17 @@
           "team": "97"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "112492",
-      "name": "Héctor Mejía",
-      "birthDate": "2005-07-01",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "87"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2358004.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3130644",
@@ -217,20 +50,12 @@
           "team": "87"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3125566",
-      "name": "Gabriel Jiménez Carpintero",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "87"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "3125573",
@@ -243,24 +68,12 @@
           "team": "87"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "405490",
-      "name": "Illia Voloshyn",
-      "birthDate": "2007-01-15",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "86"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "86"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "5324162",
@@ -273,7 +86,17 @@
           "team": "243"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2387654.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3101339",
@@ -290,7 +113,17 @@
           "team": "102"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1929041.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326689",
@@ -307,7 +140,17 @@
           "team": "102"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1834463.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326690",
@@ -324,24 +167,17 @@
           "team": "102"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "371619",
-      "name": "Joselillo",
-      "birthDate": "2007-02-25",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "102"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "102"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1814158.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "422968",
@@ -358,7 +194,17 @@
           "team": "131"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2012866.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5325769",
@@ -375,7 +221,17 @@
           "team": "131"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1844660.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5327243",
@@ -392,76 +248,17 @@
           "team": "131"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3104151",
-      "name": "Tim Binder",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "132"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "132"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3116064",
-      "name": "Josiah Kaled Uwakhonye",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "268"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3109554",
-      "name": "Niko Iličević",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "125"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3114554",
-      "name": "Assad Kotya-Fofana",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "122"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3107094",
-      "name": "Jean-Paul N'Diaye",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "133"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1820542.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3111134",
@@ -478,7 +275,17 @@
           "team": "7911"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1810393.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3099575",
@@ -495,58 +302,17 @@
           "team": "7911"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3105981",
-      "name": "Muhammed Yasin Batuhan Zor",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ger.1",
-          "team": "7911"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "7911"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "5326343",
-      "name": "El Hadji Malick Cissé",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "103"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "103"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "5326344",
-      "name": "Nirash Raffaello Perera",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "103"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "103"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1858963.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326345",
@@ -563,24 +329,17 @@
           "team": "103"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3098218",
-      "name": "Alessandro Di Nunzio",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "104"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "104"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2412013.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "377387",
@@ -597,7 +356,17 @@
           "team": "104"
         }
       ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "no unique full-name and birth-date match",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2203186.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3130628",
@@ -610,33 +379,17 @@
           "team": "105"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3128883",
-      "name": "Isaac Collins Isoa",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "105"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "378197",
-      "name": "Andrea Bonanomi",
-      "birthDate": "2006-01-31",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "105"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1837500.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326829",
@@ -649,7 +402,17 @@
           "team": "107"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2422819.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "419210",
@@ -666,7 +429,17 @@
           "team": "2572"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1896448.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3099527",
@@ -679,20 +452,17 @@
           "team": "109"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "5324063",
-      "name": "Arnis Ademi",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "109"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2424411.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "421785",
@@ -705,24 +475,17 @@
           "team": "109"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
-    },
-    {
-      "id": "3102531",
-      "name": "Arman Durmiši",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "111"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "111"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1838594.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3129035",
@@ -739,7 +502,21 @@
           "team": "111"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1836204.png",
+            "result": "<urlopen error timed out>"
+          },
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1836204.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5327646",
@@ -756,7 +533,21 @@
           "team": "114"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2373152.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/655773.png?im=Resize,width=270",
+            "result": "HTTP Error 404: Not Found"
+          }
+        ]
+      }
     },
     {
       "id": "416154",
@@ -773,7 +564,21 @@
           "team": "114"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1830801.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/653231.png?im=Resize,width=270",
+            "result": "HTTP Error 404: Not Found"
+          }
+        ]
+      }
     },
     {
       "id": "5327645",
@@ -790,7 +595,21 @@
           "team": "114"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1840263.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/710210.png?im=Resize,width=270",
+            "result": "HTTP Error 404: Not Found"
+          }
+        ]
+      }
     },
     {
       "id": "5327647",
@@ -807,24 +626,21 @@
           "team": "114"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3145436",
-      "name": "Milton Agustín Pereyra",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "114"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "114"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1844653.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/644898.png?im=Resize,width=270",
+            "result": "HTTP Error 404: Not Found"
+          }
+        ]
+      }
     },
     {
       "id": "3145596",
@@ -837,7 +653,17 @@
           "team": "172"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2357741.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326304",
@@ -850,37 +676,21 @@
           "team": "2697"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "417256",
-      "name": "Matah Yondjio",
-      "birthDate": "2007-02-10",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "166"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "166"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3145437",
-      "name": "Samir Said Haribou",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "273"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2409733.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/648401.png?im=Resize,width=270",
+            "result": "HTTP Error 404: Not Found"
+          }
+        ]
+      }
     },
     {
       "id": "5325687",
@@ -897,7 +707,17 @@
           "team": "167"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2402214.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5327620",
@@ -914,41 +734,17 @@
           "team": "167"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "402949",
-      "name": "Alejandro Rodríguez",
-      "birthDate": "2008-03-11",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "167"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "167"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "5325768",
-      "name": "Antoine Dominique Henri Valero",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "176"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "176"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2429665.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5326108",
@@ -961,7 +757,21 @@
           "team": "6851"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2406287.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://parisfc.fr/wp-content/uploads/2026/07/DSC02699-1.jpg",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3143886",
@@ -978,33 +788,17 @@
           "team": "160"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3145423",
-      "name": "Dani Slory",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "142"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3145424",
-      "name": "Theodoris Deligiannidis",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "142"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2324862.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "413713",
@@ -1017,7 +811,17 @@
           "team": "4411"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2397894.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3101987",
@@ -1030,7 +834,21 @@
           "team": "494"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1651412.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://www.slavia.cz/upload/_imgcache/b57bb3ae42c00a17_486x720.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3111595",
@@ -1043,33 +861,21 @@
           "team": "494"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3124013",
-      "name": "Paulo Yanick Moreno Vieira Sanches Cardoso",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "2250"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3122116",
-      "name": "Collin Luca Schramm",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1840591.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://www.slavia.cz/upload/_imgcache/699c86840cd1711f_486x720.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3122119",
@@ -1082,98 +888,12 @@
           "team": "134"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3124478",
-      "name": "Luca Berreth",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "406372",
-      "name": "Joyeux Masanka Bungi",
-      "birthDate": "2007-01-24",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3122113",
-      "name": "Julian Lüers",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "388325",
-      "name": "Oliver Rölke",
-      "birthDate": "2005-01-06",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3122117",
-      "name": "Neno Žeželj",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3129105",
-      "name": "Kian Speidel",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "3139428",
-      "name": "Enis Redzepi",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "3141573",
@@ -1186,7 +906,12 @@
           "team": "134"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "5327704",
@@ -1199,7 +924,12 @@
           "team": "20024"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "3102114",
@@ -1212,7 +942,12 @@
           "team": "20024"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": []
+      }
     },
     {
       "id": "410415",
@@ -1225,7 +960,17 @@
           "team": "256"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1908651.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "418762",
@@ -1238,7 +983,21 @@
           "team": "256"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1905007.png",
+            "result": "HTTP Error 403: Forbidden"
+          },
+          {
+            "source": "https://www.celticfc.com/news/2025/june/19/liam-kennedy-pens-first-professional-contract-with-celtic/",
+            "result": "Official contract announcement photo is a wide scene; retained as evidence, not used as a portrait."
+          }
+        ]
+      }
     },
     {
       "id": "3126810",
@@ -1251,7 +1010,17 @@
           "team": "435"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1837468.png",
+            "result": "HTTP Error 503: Service Unavailable"
+          }
+        ]
+      }
     },
     {
       "id": "422718",
@@ -1264,7 +1033,17 @@
           "team": "435"
         }
       ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "no unique full-name and birth-date match",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1840248.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "387684",
@@ -1277,7 +1056,17 @@
           "team": "435"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1690103.png",
+            "result": "HTTP Error 503: Service Unavailable"
+          }
+        ]
+      }
     },
     {
       "id": "5323356",
@@ -1290,20 +1079,17 @@
           "team": "617"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "329479",
-      "name": "Adam Stejskal",
-      "birthDate": "2002-03-28",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.europa",
-          "team": "3746"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2378923.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "3106899",
@@ -1316,7 +1102,17 @@
           "team": "3746"
         }
       ],
-      "reason": "birth date unavailable"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1863033.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "5325772",
@@ -1329,20 +1125,17 @@
           "team": "21615"
         }
       ],
-      "reason": "birth date unavailable"
-    },
-    {
-      "id": "319426",
-      "name": "Brynjar Bjarnason",
-      "birthDate": "1999-12-06",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.nations",
-          "team": "470"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "birth date unavailable",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/2402178.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     },
     {
       "id": "406100",
@@ -1355,24 +1148,21 @@
           "team": "582"
         }
       ],
-      "reason": "HTTP Error 403: Forbidden"
-    },
-    {
-      "id": "342864",
-      "name": "Joshua Keeley",
-      "birthDate": "2003-05-17",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.nations",
-          "team": "476"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
+      "reason": "HTTP Error 403: Forbidden",
+      "latestPhotoCheck": {
+        "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+        "status": "No usable verified portrait downloaded",
+        "attempts": [
+          {
+            "source": "https://images.fotmob.com/image_resources/playerimages/1781579.png",
+            "result": "HTTP Error 403: Forbidden"
+          }
+        ]
+      }
     }
   ],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 94,
+  "remainingCount": 46,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -1406,5 +1196,68 @@
       "3129530"
     ],
     "checkedAt": "2026-11-03T09:07:53.924065+00:00"
-  }
+  },
+  "frontendContinuations": [
+    {
+      "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+      "scope": "Only existing current frontend roster players; photo data and original image assets only. No component, API, backend, roster identity or model changes.",
+      "recordsFilled": 48,
+      "uniquePortraits": 47,
+      "players": [
+        "112492",
+        "371619",
+        "402949",
+        "319426",
+        "388325",
+        "3104151",
+        "3114554",
+        "3107094",
+        "3098218",
+        "5324063",
+        "3102531",
+        "3122113",
+        "329479",
+        "375566",
+        "3111247",
+        "3111255",
+        "3101327",
+        "3121766",
+        "5327018",
+        "3125566",
+        "3116064",
+        "5325768",
+        "3124013",
+        "406372",
+        "342864",
+        "168531",
+        "3106512",
+        "3122116",
+        "3122117",
+        "3122617",
+        "3124478",
+        "3129105",
+        "375392",
+        "378197",
+        "3100792",
+        "3105981",
+        "3109554",
+        "405490",
+        "5326343",
+        "392107",
+        "5326344",
+        "3128883",
+        "3145436",
+        "417256",
+        "3145437",
+        "3139428",
+        "3145423",
+        "3145424"
+      ],
+      "remaining": 46,
+      "sharedIdentity": {
+        "3121766": "5327018"
+      },
+      "validation": "Decoded original image bytes, visual review, source/profile identity, SHA-256 and actual frontend roster parser/local photo resolution checks."
+    }
+  ]
 }

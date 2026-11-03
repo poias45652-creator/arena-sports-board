@@ -2036,5 +2036,1150 @@
       }
     ],
     "scope": "Current frontend roster cards only"
+  },
+  "112492": {
+    "name": "Héctor Mejía",
+    "birthDate": "2005-07-01",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1838692.png",
+      "localPath": "/images/players/football/112492-original.png",
+      "sha256": "638ac439c5ef95ec4df74c5bd098b7c1c9d6388b249edf32b55bd2210a717b29",
+      "type": "image/png"
+    },
+    "evidence": "https://www.realracingclub.es/h-mejia",
+    "identity": "Exact name and current Racing/Rayo Cantabria club, additionally corroborated by official Racing profile and 29 October 2026 lineup. ESPN lists 2005-07-01 and FotMob 2005-07-27; reviewed name-and-club match only, not a matching-birthday claim. Original frontend birthday is unchanged.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1838692",
+    "providerName": "Héctor Mejía",
+    "providerBirthDate": "2005-07-27",
+    "matchedClub": "Rayo Cantabria"
+  },
+  "371619": {
+    "name": "Joselillo",
+    "birthDate": "2007-02-25",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1834473.png",
+      "localPath": "/images/players/football/371619-original.png",
+      "sha256": "be915844fb151885fad37d0090dbae422e0f2a28957450a586900ad3fc06b8d3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1834473",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "102"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "102"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1834473",
+    "providerName": "Joselillo Gaitán",
+    "providerBirthDate": "2007-02-25",
+    "matchedClub": "Villarreal"
+  },
+  "402949": {
+    "name": "Alejandro Rodríguez",
+    "birthDate": "2008-03-11",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1603531.png",
+      "localPath": "/images/players/football/402949-original.png",
+      "sha256": "82d6834c7e69f69b439c33ce627282c403d9e1dc5d7b42aab2e5213ac75f0b1c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1603531",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "167"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "167"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1603531",
+    "providerName": "Alejandro Gomes Rodríguez",
+    "providerBirthDate": "2008-03-11",
+    "matchedClub": "Lyon"
+  },
+  "319426": {
+    "name": "Brynjar Bjarnason",
+    "birthDate": "1999-12-06",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/852424.png",
+      "localPath": "/images/players/football/319426-original.png",
+      "sha256": "f44a6865df4080655e923c17bdbaccd22bc6b08b319c9e15d10e6715e5c8a166",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/852424",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "470"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "852424",
+    "providerName": "Brynjar Ingi Bjarnason",
+    "providerBirthDate": "1999-12-06",
+    "matchedClub": "Sønderjyske"
+  },
+  "388325": {
+    "name": "Oliver Rölke",
+    "birthDate": "2005-01-06",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1665031.png",
+      "localPath": "/images/players/football/388325-original.png",
+      "sha256": "cdc989437197187c419556cdea76173d23224c347c12364469c685ad84fbca5e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1665031",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1665031",
+    "providerName": "Oliver Roelke",
+    "providerBirthDate": "2005-01-06",
+    "matchedClub": "VfB Stuttgart II"
+  },
+  "3104151": {
+    "name": "Tim Binder",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1740666.png",
+      "localPath": "/images/players/football/3104151-original.png",
+      "sha256": "fb9dca68eefc0abf7d0e40c438c18fd7c3bc0ceced0e5d9bd7bfc25a422fd961",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1740666",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "132"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "132"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1740666",
+    "providerName": "Tim Binder",
+    "providerBirthDate": "2007-01-30",
+    "matchedClub": "Bayern München U19"
+  },
+  "3114554": {
+    "name": "Assad Kotya-Fofana",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1829439.png",
+      "localPath": "/images/players/football/3114554-original.png",
+      "sha256": "307462157d16e08011bf10fe593204994e4e66cdfb39642806bfe8ba9ea9a507",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1829439",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "122"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1829439",
+    "providerName": "Assad Kotya-Fofana",
+    "providerBirthDate": "2008-08-12",
+    "matchedClub": "FC Köln U19"
+  },
+  "3107094": {
+    "name": "Jean-Paul N'Diaye",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1975808.png",
+      "localPath": "/images/players/football/3107094-original.png",
+      "sha256": "2ed7b19266dc94725bc269745dfb54500c2302d39c54b508a9c4eabb8431fbcd",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1975808",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "133"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1975808",
+    "providerName": "Jean-Paul Ndiaye",
+    "providerBirthDate": "2006-08-24",
+    "matchedClub": "Schalke 04 II"
+  },
+  "3098218": {
+    "name": "Alessandro Di Nunzio",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2026491.png",
+      "localPath": "/images/players/football/3098218-original.png",
+      "sha256": "ee26b653f96d9fddef44351d2d6bd2bd58240f63cd35254cbb533ea9605ca323",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2026491",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "104"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "104"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2026491",
+    "providerName": "Alessandro Di Nunzio",
+    "providerBirthDate": "2007-04-21",
+    "matchedClub": "Roma"
+  },
+  "5324063": {
+    "name": "Arnis Ademi",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1574399.png",
+      "localPath": "/images/players/football/5324063-original.png",
+      "sha256": "74dec47084a7ab65c61eeb78836f2d9f1d8de544b0bbed76375fd8b60037bc22",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1574399",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "109"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1574399",
+    "providerName": "Arnis Ademi",
+    "providerBirthDate": "2007-01-02",
+    "matchedClub": "ACF Fiorentina U20"
+  },
+  "3102531": {
+    "name": "Arman Durmiši",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1842287.png",
+      "localPath": "/images/players/football/3102531-original.png",
+      "sha256": "38bb39603c781071534cd22300cad1ba845d0acdf412a1469474e83abaa40e7f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1842287",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "111"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "111"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1842287",
+    "providerName": "Arman Durmiši",
+    "providerBirthDate": "2008-06-25",
+    "matchedClub": "Juventus FC U20"
+  },
+  "3122113": {
+    "name": "Julian Lüers",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1689724.png",
+      "localPath": "/images/players/football/3122113-original.png",
+      "sha256": "b4ac4d3c0362eeffc6341359131a7033e637f675c757bf6bf2ab0c0cc4d11680",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1689724",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1689724",
+    "providerName": "Julian Lüers",
+    "providerBirthDate": "2006-01-25",
+    "matchedClub": "VfB Stuttgart II"
+  },
+  "329479": {
+    "name": "Adam Stejskal",
+    "birthDate": "2002-03-28",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/967060.png",
+      "localPath": "/images/players/football/329479-original.png",
+      "sha256": "9a35eda5a6b0923ac7ee2bc2ef79f8c50e22c81082e01c18990b23acaaf0a6b2",
+      "type": "image/png"
+    },
+    "evidence": "https://sksturm.at/n/verstaerkung-fuer-unser-torhueter-team",
+    "identity": "Exact full name, goalkeeper position and current Sturm Graz club confirmed by the official 24 October 2026 signing article. UEFA and ESPN list 2002-03-28; FotMob lists 2002-08-23. Reviewed name-and-club match only; original frontend birthday is unchanged.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "3746"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "967060",
+    "providerName": "Adam Stejskal",
+    "providerBirthDate": "2002-08-23",
+    "matchedClub": "Sturm Graz"
+  },
+  "375566": {
+    "name": "Rubén",
+    "birthDate": "2004-08-26",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1336022.png",
+      "localPath": "/images/players/football/375566-original.png",
+      "sha256": "e49210e81217e495565f6654ea4d89885bb513e63763c4314243990d58d84121",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1336022",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "90"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1336022",
+    "providerName": "Rubén Lopez",
+    "providerBirthDate": "2004-08-26",
+    "matchedClub": "RC Deportivo Fabril"
+  },
+  "3111247": {
+    "name": "Jan Peries Duran",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1882542.png",
+      "localPath": "/images/players/football/3111247-original.png",
+      "sha256": "b816cc1c9078bcb4fafab79c97c7a92fcb259dbcdad99738b79df66338e82138",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1882542",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "88"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1882542",
+    "providerName": "Jan Peries",
+    "providerBirthDate": "2007-04-11",
+    "matchedClub": "Espanyol B"
+  },
+  "3111255": {
+    "name": "Alejandro Santiago Vargas",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1813700.png",
+      "localPath": "/images/players/football/3111255-original.png",
+      "sha256": "5ae1127660e63baab290236017a0baf8047af4883059a49c2833adcd8efad1c3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1813700",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "88"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1813700",
+    "providerName": "Alejandro Santiago",
+    "providerBirthDate": "2007-05-26",
+    "matchedClub": "Espanyol B"
+  },
+  "3101327": {
+    "name": "Sebastián Salazar Trujillo",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1810757.png",
+      "localPath": "/images/players/football/3101327-original.png",
+      "sha256": "05afa3c59967b1638479f8f46ea53da5be083a82371409d5554d4abc03f7acaa",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1810757",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1810757",
+    "providerName": "Sebas Salazar",
+    "providerBirthDate": "2008-06-12",
+    "matchedClub": "Getafe B"
+  },
+  "3121766": {
+    "name": "Ibrahima Danfakha Keita",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2110935.png",
+      "localPath": "/images/players/football/3121766-original.png",
+      "sha256": "95e5293f77c80254106980d55a578b827945a59ddbb5488c1e73e7b6a9f0b71b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.lapreferente.com/J671348C26714/getafe-cf-b/danfakha.html",
+    "identity": "Named Getafe forward Ibrahima Danfakha Keita profile verifies the full name, club and provider birthday 2008-12-11. Current frontend source ID 3121766 has shirt 36 and no birthday; preserve source biography.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2110935",
+    "providerName": "Ibrahima Danfakha",
+    "providerBirthDate": "2008-12-11",
+    "matchedClub": "Getafe B"
+  },
+  "5327018": {
+    "name": "Irahima Danfakha Keita",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2110935.png",
+      "localPath": "/images/players/football/5327018-original.png",
+      "sha256": "95e5293f77c80254106980d55a578b827945a59ddbb5488c1e73e7b6a9f0b71b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.lapreferente.com/J671348C26714/getafe-cf-b/danfakha.html",
+    "identity": "Current ESPN Getafe roster contains the same forward as Ibrahima Danfakha Keita (3121766, shirt 36) and the one-letter spelling Irahima Danfakha Keita (5327018, no shirt/birthday). Named external full-name and club profile supports the reviewed spelling alias. Both existing frontend records use the same verified portrait; no roster entries or statistics are changed.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2110935",
+    "providerName": "Ibrahima Danfakha",
+    "providerBirthDate": "2008-12-11",
+    "matchedClub": "Getafe B"
+  },
+  "3125566": {
+    "name": "Gabriel Jiménez Carpintero",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1897516.png",
+      "localPath": "/images/players/football/3125566-original.png",
+      "sha256": "7a46bf95f4e71e6d5a5198590e594e6f443de11917962c448246be9f09d7cb5e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1897516",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1897516",
+    "providerName": "Gabriel Jimenez",
+    "providerBirthDate": "2007-08-20",
+    "matchedClub": "Rayo Cantabria"
+  },
+  "3116064": {
+    "name": "Josiah Kaled Uwakhonye",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2030060.png",
+      "localPath": "/images/players/football/3116064-original.png",
+      "sha256": "44539ca65c52ddc4eb0a2c71fcdc0ae3ca4beed90cf603bceca6c6312cbeadf6",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2030060",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "268"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2030060",
+    "providerName": "Josiah Uwakhonye",
+    "providerBirthDate": "2007-12-09",
+    "matchedClub": "Borussia Mönchengladbach"
+  },
+  "5325768": {
+    "name": "Antoine Dominique Henri Valero",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1843842.png",
+      "localPath": "/images/players/football/5325768-original.png",
+      "sha256": "0e1cd98d54aa05f084d7016661cab5fa8dfc8d2092273dfaf1c0a7ddb2b5bd2c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1843842",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "176"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "176"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1843842",
+    "providerName": "Antoine Valero",
+    "providerBirthDate": "2008-07-08",
+    "matchedClub": "Marseille"
+  },
+  "3124013": {
+    "name": "Paulo Yanick Moreno Vieira Sanches Cardoso",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1791334.png",
+      "localPath": "/images/players/football/3124013-original.png",
+      "sha256": "21e6bb34eafd0afd2f45b6d73a2195d6222628193abc22bb2653457a2b9cd2c1",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1791334",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "2250"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1791334",
+    "providerName": "Paulo Cardoso",
+    "providerBirthDate": "2006-07-03",
+    "matchedClub": "Sporting CP B"
+  },
+  "406372": {
+    "name": "Joyeux Masanka Bungi",
+    "birthDate": "2007-01-24",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1792585.png",
+      "localPath": "/images/players/football/406372-original.png",
+      "sha256": "f8addf3131bd8d2bc1c6fcd4e45ebcf36e4a58110d8867a83bd67b96eecce72d",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1792585",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1792585",
+    "providerName": "Joyeux Bungi",
+    "providerBirthDate": "2007-01-24",
+    "matchedClub": "VfB Stuttgart II"
+  },
+  "342864": {
+    "name": "Joshua Keeley",
+    "birthDate": "2003-05-17",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1204776.png",
+      "localPath": "/images/players/football/342864-original.png",
+      "sha256": "80436f27672c4eb886285090d3fc2f9b125c7c61abed4612a1e80bf8b2b8be3b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1204776",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "476"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1204776",
+    "providerName": "Josh Keeley",
+    "providerBirthDate": "2003-05-17",
+    "matchedClub": "Luton Town"
+  },
+  "168531": {
+    "name": "Dani Carvajal",
+    "birthDate": "1992-01-11",
+    "photo": {
+      "url": "https://statics-maker.llt-services.com/get/images/2026/10/13/large-wp/c8f4f63f-2a83-4ad9-bde0-1d9618f1503c-26.webp",
+      "localPath": "/images/players/football/168531-original.webp",
+      "sha256": "11c7f6976dec4869129d7a283464b1ab9ffea23b310ff5ba5690a35364acd839",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.getafecf.com/en/players/daniel-carvajal-ramos",
+    "identity": "Official club named player profile directly links this portrait. Exact player and club verified; preserve original frontend biographical fields.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3106512": {
+    "name": "Jesús Vizcay Hurtado",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1899917.png",
+      "localPath": "/images/players/football/3106512-original.png",
+      "sha256": "9e58f6d6b7d5540a1f2b930e26f9c31c5ae7ceb308e188d104b87433a213228b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.athletic-club.eus/en/players/jesus-vizcay-hurtado/",
+    "identity": "Official Athletic Club full-name profile confirms Jesus Vizcay Hurtado / Txus Vizcay, club and provider birthday 2005-08-05. Source frontend birthday remains unavailable.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "93"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1899917",
+    "providerName": "Txus Vizcay",
+    "providerBirthDate": "2005-08-05",
+    "matchedClub": "Athletic Club B"
+  },
+  "3122116": {
+    "name": "Collin Luca Schramm",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1297515-1787127742.jpg?lm=4711",
+      "localPath": "/images/players/football/3122116-original.jpg",
+      "sha256": "613300e4d525944763a368af995e1560b7301e177fe430213cac92234be3ed34",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/vfb-stuttgart-u19/startseite/verein/2517",
+    "identity": "Named player portrait on VfB Stuttgart youth squad; unique matching name and club, with player birth date corroborated by FotMob.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3122117": {
+    "name": "Neno Žeželj",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1200914-1787127813.jpg?lm=4711",
+      "localPath": "/images/players/football/3122117-original.jpg",
+      "sha256": "b3173ad589b77b7ae0a1f4980ae507786420c15b9a1418a4790053b5c3b79abd",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/vfb-stuttgart-u19/startseite/verein/2517",
+    "identity": "Named player portrait on VfB Stuttgart youth squad; unique matching name and club, with player birth date corroborated by FotMob.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3122617": {
+    "name": "Aritz Conde Albiol",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1810899.png",
+      "localPath": "/images/players/football/3122617-original.png",
+      "sha256": "2474c43c7501a7283190d7ad63b4bd87a6f34e4942e8280a06c1998d410ec2f3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.athletic-club.eus/en/players/aritz-conde-albiol/",
+    "identity": "Official Athletic Club full-name profile confirms Aritz Conde Albiol / Aritz Conde, club and provider birthday 2005-10-14. Source frontend birthday remains unavailable.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "93"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1810899",
+    "providerName": "Aritz Conde",
+    "providerBirthDate": "2005-10-14",
+    "matchedClub": "Athletic Club B"
+  },
+  "3124478": {
+    "name": "Luca Berreth",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1453381-1787128456.jpg?lm=4711",
+      "localPath": "/images/players/football/3124478-original.jpg",
+      "sha256": "784d90c99c26bfe6a221d7f9dd8743d8983290e0c9f749aac4fba1a5ebbe6682",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/vfb-stuttgart-u19/startseite/verein/2517",
+    "identity": "Named player portrait on VfB Stuttgart youth squad; unique matching name and club, with player birth date corroborated by FotMob.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3129105": {
+    "name": "Kian Speidel",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1297527-1771268308.jpeg?lm=4711",
+      "localPath": "/images/players/football/3129105-original.jpg",
+      "sha256": "3ec8f1a06bcce4a630eba7e93fcef6991ee629b7d821eda06cce25d34da0c231",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/vfb-stuttgart-u19/startseite/verein/2517",
+    "identity": "Named player portrait on VfB Stuttgart youth squad; unique matching name and club, with player birth date corroborated by FotMob.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "375392": {
+    "name": "Martín Ochoa",
+    "birthDate": "2004-12-20",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/983525-1702411065.jpg?lm=4711",
+      "localPath": "/images/players/football/375392-original.jpg",
+      "sha256": "3dbc690760449cfb6506dc3be5e64db69613aee3c6dc678fb10e579450a3206e",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/martin-ochoa/profil/spieler/983525",
+    "identity": "Named profile portrait with matching source player ID, full name or documented alias and club; player identity manually reviewed.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "90"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "378197": {
+    "name": "Andrea Bonanomi",
+    "birthDate": "2006-01-31",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1048145-1707214020.jpg?lm=4711",
+      "localPath": "/images/players/football/378197-original.jpg",
+      "sha256": "21c47e67db0787f6c93bf6f98bb3c81cc08a39b1be438aaa85a8245477412370",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/andrea-bonanomi/profil/spieler/1048145",
+    "identity": "Named profile portrait with matching source player ID, full name or documented alias and club; player identity manually reviewed.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3100792": {
+    "name": "Frank Germain Jonathan Miller",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1323788-1783779114.jpg?lm=4711",
+      "localPath": "/images/players/football/3100792-original.jpg",
+      "sha256": "37b80ebbbac94403446a4a7e2d3efd8e032df86ef94433f8c9894a2e55b0d3a5",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/germain-milla/profil/spieler/1323788",
+    "identity": "Named profile portrait with matching source player ID, full name or documented alias and club; player identity manually reviewed.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "85"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "85"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3105981": {
+    "name": "Muhammed Yasin Batuhan Zor",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/924089-1793033346.jpg?lm=4711",
+      "localPath": "/images/players/football/3105981-original.jpg",
+      "sha256": "790b55c0f414c43be88b752f143d73a05a418e091c0e90dccccb711a6ce031ca",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/yasin-zor/profil/spieler/924089",
+    "identity": "Named profile portrait with matching source player ID, full name or documented alias and club; player identity manually reviewed.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3109554": {
+    "name": "Niko Iličević",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1318933-1788205802.jpg?lm=4711",
+      "localPath": "/images/players/football/3109554-original.jpg",
+      "sha256": "cc5f549810f44cf9fae77df142717c4a07df80f24103fb7de3c542fd2ac9730e",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/niko-ilicevic/profil/spieler/1318933",
+    "identity": "Named profile portrait with matching source player ID, full name or documented alias and club; player identity manually reviewed.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "125"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "405490": {
+    "name": "Illia Voloshyn",
+    "birthDate": "2007-01-15",
+    "photo": {
+      "url": "https://assets.realmadrid.com/is/image/realmadrid/ILLIA%20VOLOSHYN_JT19630_1500x2000?$Desktop$&fit=wrap&wid=420",
+      "localPath": "/images/players/football/405490-original.png",
+      "sha256": "3fde3c133bde8c564ecd0d668c3bcb4b550d75ed07c9143eb319f0437f1f0afd",
+      "type": "image/png"
+    },
+    "evidence": "https://www.realmadrid.com/en-US/football/academy/juvenil-a/illia-voloshyn",
+    "identity": "Official Real Madrid named player portrait; exact name and 2007-01-15 birth date.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "86"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "86"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "5326343": {
+    "name": "El Hadji Malick Cissé",
+    "birthDate": "",
+    "photo": {
+      "url": "https://assets-eu-01.kc-usercontent.com:443/006f7528-416b-01e4-8ef2-ab6ab3f4e177/2aa67bb3-cf79-44ad-8f80-a0c24bad891b/Cisse-Small-2627.png",
+      "localPath": "/images/players/football/5326343-original.png",
+      "sha256": "ac7d0f9be017ecf9547e6310abf4c984336ba933f39958c446d94463b9219773",
+      "type": "image/png"
+    },
+    "evidence": "https://www.acmilan.com/en/teams/milan-futuro/players/el-hadji-malick-ciss%C3%A9",
+    "identity": "Official AC Milan named player profile photoMedium portrait; exact full name and club.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "392107": {
+    "name": "Trey Ogunsuyi",
+    "birthDate": "2006-11-26",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1448407.png",
+      "localPath": "/images/players/football/392107-original.png",
+      "sha256": "b608bb9affee8127f8f2f3fed339ddaebbecf37dd67a4825b90549d5aec2198e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1448407/trey-samuel-ogunsuyi",
+    "identity": "Trey Ogunsuyi / Trey Samuel-Ogunsuyi; identical 2006-11-26 birth date, Sunderland club and shirt 47.",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "366"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "366"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1448407"
+  },
+  "5326344": {
+    "name": "Nirash Raffaello Perera",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1699701.png",
+      "localPath": "/images/players/football/5326344-original.png",
+      "sha256": "c37d067953ffd7bb10797e30a657b2cb52bda3d97a25648efe0ed39cdf42a8d3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1699701",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1699701",
+    "providerName": "Nirash Perera",
+    "providerBirthDate": "2007-01-02",
+    "matchedClub": "AC Milan U19"
+  },
+  "3128883": {
+    "name": "Isaac Collins Isoa",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1837495.png",
+      "localPath": "/images/players/football/3128883-original.png",
+      "sha256": "2725104d585095576f8e051b23f7f286e9467b11cd8e213a6571ff338392d879",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1837495",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1837495",
+    "providerName": "Isaac Isoa",
+    "providerBirthDate": "2008-03-02",
+    "matchedClub": "Atalanta"
+  },
+  "3145436": {
+    "name": "Milton Agustín Pereyra",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2215848.png",
+      "localPath": "/images/players/football/3145436-original.png",
+      "sha256": "b850a028ff41ab3342086f220de54dd214d9a9faca363059cb6ab1a43540af1d",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2215848",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2215848",
+    "providerName": "Milton Pereyra",
+    "providerBirthDate": "2008-05-13",
+    "matchedClub": "SSC Napoli Under 20"
+  },
+  "417256": {
+    "name": "Matah Yondjio",
+    "birthDate": "2007-02-10",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1882264.png",
+      "localPath": "/images/players/football/417256-original.png",
+      "sha256": "1a64598592ccf07e8d202251266d94de203b5be02bb0cac462ead26712543439",
+      "type": "image/png"
+    },
+    "evidence": "https://www.lequipe.fr/Football/FootballFicheJoueur134403.html",
+    "identity": "Matah Yondjio / Angel Yondjo: identical 2007-02-10 birthday and Lille club. Reviewed shortened-name alias; source frontend name and birthday unchanged.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "166"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "166"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "1882264",
+    "providerName": "Angel Yondjo",
+    "providerBirthDate": "2007-02-10",
+    "matchedClub": "Lille"
+  },
+  "3145437": {
+    "name": "Samir Said Haribou",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2357100.png",
+      "localPath": "/images/players/football/3145437-original.png",
+      "sha256": "c1b15c724bb62877c2baf812958b01977e624842f9bcf780a56f88aefa7825b3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2357100",
+    "identity": "Reviewed unique player name or shortened full-name alias and current club (including named reserve/academy team). Available birthdays cross-checked; unavailable source birthday is not inferred. Original photo bytes visually inspected.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "273"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00",
+    "providerId": "2357100",
+    "providerName": "Samir Haribou",
+    "providerBirthDate": "2007-04-18",
+    "matchedClub": "Lorient"
+  },
+  "3139428": {
+    "name": "Enis Redzepi",
+    "birthDate": "",
+    "photo": {
+      "url": "https://img.a.transfermarkt.technology/portrait/medium/1297517-1787128294.jpg?lm=4711",
+      "localPath": "/images/players/football/3139428-original.jpg",
+      "sha256": "6b6440853d2cabe8d44fb0ad496a46811837f1ac1957b3775a85b7e5fa64acdb",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.transfermarkt.us/vfb-stuttgart-u19/startseite/verein/2517",
+    "identity": "Named Enis Redzepi portrait linked on VfB Stuttgart youth squad; same name and club as current ESPN roster and FotMob.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3145423": {
+    "name": "Dani Slory",
+    "birthDate": "",
+    "photo": {
+      "url": "https://eredivisie.b-cdn.net/production/players/2027/Feyenoord_Dani_Slory.png?width=550&height=776&format=png&quality=80",
+      "localPath": "/images/players/football/3145423-original.png",
+      "sha256": "c016c12f62ec8c7347ef7341da881cf6aa0e55a539c6d07f6ce9ebc726ff15cd",
+      "type": "image/png"
+    },
+    "evidence": "https://eredivisie.nl/clubs/feyenoord/spelers/dani-slory/",
+    "identity": "Named main portrait in the exact player profile, verified against name or full-name alias, club and available birth date.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "142"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
+  },
+  "3145424": {
+    "name": "Theodoris Deligiannidis",
+    "birthDate": "",
+    "photo": {
+      "url": "https://eredivisie.b-cdn.net/production/players/2027/Feyenoord_Theodoris_Delianidis.png?width=550&height=776&format=png&quality=80",
+      "localPath": "/images/players/football/3145424-original.png",
+      "sha256": "5c44f368d867dd384892531ef0f4f65e21812cc47e1a95c7358faeae0c20c73f",
+      "type": "image/png"
+    },
+    "evidence": "https://eredivisie.nl/clubs/feyenoord/spelers/theodoris-deligiannidis/",
+    "identity": "Official Eredivisie player URL uses Theodoris Deligiannidis and displays Theodoros Delianidis / T. Delianidis with this named Feyenoord portrait. Reviewed transliteration alias; original frontend name and unavailable birthday are preserved.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "142"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03T09:58:23.531949+00:00"
   }
 }
