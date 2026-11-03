@@ -26,3 +26,11 @@ test('team facts use selected games and never mix current official stats into an
  assert.match(render({official:null}),/場均得分<\/dt><dd>100/);
  assert.doesNotMatch(render({...matching,official:{...officialData,record:{...officialData.record,wins:0,losses:0}}}),/東西區排名/);
 });
+
+test('roster card averages require a matching season and never use career totals',()=>{
+ const roster=official.parseOfficialTeam(rawTeam(),'2').roster;
+ const row={PERSON_ID:1628369,TEAM_ID:1610612738,STATS_TIMEFRAME:'Season',TO_YEAR:'2026',PTS:0,REB:6.2,AST:4.1};
+ const enrich=r=>official.enrichNbaRoster(roster,1610612738,{props:{pageProps:{players:[r]}}})[0];
+ assert.deepEqual(enrich(row).averages,{season:2027,points:0,rebounds:6.2,assists:4.1});
+ for(const patch of [{TO_YEAR:'2025'},{STATS_TIMEFRAME:'Career'},{TEAM_ID:1610612744},{PERSON_ID:9}])assert.equal(enrich({...row,...patch}).averages,undefined);
+});

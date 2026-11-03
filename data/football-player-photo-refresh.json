@@ -1,0 +1,1936 @@
+{
+  "399893": {
+    "name": "Marcell Washington",
+    "birthDate": "2007-08-21",
+    "providerId": "1838554",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1838554.png",
+      "localPath": "/images/players/football/399893-original.png",
+      "sha256": "1c52ac0cc7df2e54a47f61dc345524bb4fbb286c695b2cc0a6d8d9b6be374261",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1838554",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "359"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "359"
+      }
+    ]
+  },
+  "182573": {
+    "name": "Steven Hall",
+    "birthDate": "2005-01-16",
+    "providerId": "1325805",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1325805.png",
+      "localPath": "/images/players/football/182573-original.png",
+      "sha256": "b2b0d2c2c9bfdd39ea07c2dd4fd2c13638a225bfd5d65a6c086f5b741f8cc9b9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1325805",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "331"
+      }
+    ]
+  },
+  "400110": {
+    "name": "George King",
+    "birthDate": "2007-03-20",
+    "providerId": "1559636",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1559636.png",
+      "localPath": "/images/players/football/400110-original.png",
+      "sha256": "91649a7bf4af148baa7eff0557de190fdf006618cb9779e315ee649b919c2aa9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1559636",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "384"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "384"
+      }
+    ]
+  },
+  "403867": {
+    "name": "Dean Benamar",
+    "birthDate": "2008-05-31",
+    "providerId": "1690903",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1690903.png",
+      "localPath": "/images/players/football/403867-original.png",
+      "sha256": "ec1beedb608f45d802d3b9be88e43c2f6248f9bfb93c6a9b4dd1cc378977a5bd",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1690903",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "384"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "384"
+      }
+    ]
+  },
+  "379855": {
+    "name": "Wellity Lucky",
+    "birthDate": "2006-01-12",
+    "providerId": "1553711",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1553711.png",
+      "localPath": "/images/players/football/379855-original.png",
+      "sha256": "6158dd3204ba096dc8cf1f11e6811dcdeb2ec57612234d74c2e97901a72600d4",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1553711",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "364"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "364"
+      }
+    ]
+  },
+  "380624": {
+    "name": "Michael Laffey",
+    "birthDate": "2005-10-11",
+    "providerId": "1603811",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1603811.png",
+      "localPath": "/images/players/football/380624-original.png",
+      "sha256": "c924cfac59d26c7ff1bd1cba2d9545bd79ca6a8e0c97f42431b15011b887c269",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1603811",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "364"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "364"
+      }
+    ]
+  },
+  "381055": {
+    "name": "Daniel Armer",
+    "birthDate": "2007-10-23",
+    "providerId": "1726964",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1726964.png",
+      "localPath": "/images/players/football/381055-original.png",
+      "sha256": "e9b67a9437d2fc263e0eb7677a16756fe154d7c04aba334094ddc90ab6e0bf41",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1726964",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "360"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "360"
+      }
+    ]
+  },
+  "386199": {
+    "name": "Jaydan Kamason",
+    "birthDate": "2006-12-08",
+    "providerId": "1473693",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1473693.png",
+      "localPath": "/images/players/football/386199-original.png",
+      "sha256": "43c61f693a936f33f34f39cac600116701dd9c3c5640fc42ca347a464ffb3328",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1473693",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "360"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "360"
+      }
+    ]
+  },
+  "397881": {
+    "name": "Tynan Thompson",
+    "birthDate": "2008-04-17",
+    "providerId": "1681978",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1681978.png",
+      "localPath": "/images/players/football/397881-original.png",
+      "sha256": "dae55d891fe944105c49e0c8a46b5d52f583ab961a655f5465556d2369a8a6ed",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1681978",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "360"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "360"
+      }
+    ]
+  },
+  "372016": {
+    "name": "Callum Olusesi",
+    "birthDate": "2007-03-11",
+    "providerId": "1431275",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1431275.png",
+      "localPath": "/images/players/football/372016-original.png",
+      "sha256": "3e0a770a8829e6b6aa028314332194e3e7fbc9744f04d9337b0102dc678f552c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1431275",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "367"
+      }
+    ]
+  },
+  "373796": {
+    "name": "Rúben Montero",
+    "birthDate": "2005-08-28",
+    "providerId": "1559968",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1559968.png",
+      "localPath": "/images/players/football/373796-original.png",
+      "sha256": "211880c984a175eb2e7e0347f001c65b3a815e2f01781ad6513b11a8e853722e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1559968",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "96"
+      }
+    ]
+  },
+  "422929": {
+    "name": "Christian Imga",
+    "birthDate": "2009-02-17",
+    "providerId": "1820604",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1820604.png",
+      "localPath": "/images/players/football/422929-original.png",
+      "sha256": "e216ed4b760927757467084d0f33a6362f31b6fd43e0c024440c983992813c5f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1820604",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "93"
+      }
+    ]
+  },
+  "94947": {
+    "name": "Álex Campos",
+    "birthDate": "2008-02-02",
+    "providerId": "1820574",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1820574.png",
+      "localPath": "/images/players/football/94947-original.png",
+      "sha256": "d7e35b96b7617e9664a738ed6318266669f62711b36671b239cb5d8a83d44dd5",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1820574",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "83"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "83"
+      }
+    ]
+  },
+  "403583": {
+    "name": "Guillem Víctor",
+    "birthDate": "2007-05-03",
+    "providerId": "1830291",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1830291.png",
+      "localPath": "/images/players/football/403583-original.png",
+      "sha256": "9a223ecfff8bc2f211785c7f7da803083227da6cf2c0073dfdf2e26689581004",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1830291",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "83"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "83"
+      }
+    ]
+  },
+  "416496": {
+    "name": "Orian Goren",
+    "birthDate": "2009-03-15",
+    "providerId": "1834445",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1834445.png",
+      "localPath": "/images/players/football/416496-original.png",
+      "sha256": "2e2e02ddb0a1fe25e6a09d3f574fa63c53ea3a29b1e2aa221c5e83e82f55d2c0",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1834445",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "83"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "83"
+      }
+    ]
+  },
+  "416502": {
+    "name": "Ebrima Tunkara",
+    "birthDate": "2010-03-10",
+    "providerId": "1830583",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1830583.png",
+      "localPath": "/images/players/football/416502-original.png",
+      "sha256": "855d45c49f26fe36b6909be3595aa61d165281ac4f7837e7e251fb49d407e9a6",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1830583",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "83"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "83"
+      }
+    ]
+  },
+  "415036": {
+    "name": "Ángel Arcos",
+    "birthDate": "2006-04-18",
+    "providerId": "1700562",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1700562.png",
+      "localPath": "/images/players/football/415036-original.png",
+      "sha256": "78fcd4b1f298ee087ed5920c0fbe725d4cc7720e2816f3c2f2ea627102624cc3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1700562",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "85"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "85"
+      }
+    ]
+  },
+  "324945": {
+    "name": "Yayo",
+    "birthDate": "2004-07-30",
+    "providerId": "1323483",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1323483.png",
+      "localPath": "/images/players/football/324945-original.png",
+      "sha256": "b908b27e5e2d93152c749e0b2fbc9f207d4098890a1aea2024bfa1b0e7dc4622",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1323483",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "90"
+      }
+    ]
+  },
+  "411023": {
+    "name": "Vladyslav Kysil",
+    "birthDate": "2005-06-14",
+    "providerId": "1817609",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1817609.png",
+      "localPath": "/images/players/football/411023-original.png",
+      "sha256": "6bed0e3f2cb1ca431ff2397c6f7fe1c1984a54cc6f9daa32d87ae01b219654b9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1817609",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ]
+  },
+  "384168": {
+    "name": "Jesús Martínez",
+    "birthDate": "2004-02-08",
+    "providerId": "1641028",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1641028.png",
+      "localPath": "/images/players/football/384168-original.png",
+      "sha256": "bd30fcab4b059863eddcd2fc46ff063ba75b063efe3c3829cd790578eb6e5c55",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1641028",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "2922"
+      }
+    ]
+  },
+  "362829": {
+    "name": "Junior Bita",
+    "birthDate": "2005-06-08",
+    "providerId": "1483491",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1483491.png",
+      "localPath": "/images/players/football/362829-original.png",
+      "sha256": "36f3d99446d86e58777714918b8e2b311f8892a5f7f699b2a9a6f1e68fbc1431",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1483491",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ]
+  },
+  "397596": {
+    "name": "Mario Solórzano",
+    "birthDate": "2005-02-08",
+    "providerId": "1700550",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1700550.png",
+      "localPath": "/images/players/football/397596-original.png",
+      "sha256": "43ee1214ca3683733dcc586ec6fbd4ee6e879d54a950a065d7e999afc3de2f14",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1700550",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ]
+  },
+  "397120": {
+    "name": "Ben Hawighorst",
+    "birthDate": "2008-03-01",
+    "providerId": "1682324",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1682324.png",
+      "localPath": "/images/players/football/397120-original.png",
+      "sha256": "18b232bba72bd8211c7bb7fc8abe9e44e5d5789d127edbab8a0ee78e8304cdfc",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1682324",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "131"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "131"
+      }
+    ]
+  },
+  "409827": {
+    "name": "Jannis Bärtl",
+    "birthDate": "2006-06-24",
+    "providerId": "1807485",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1807485.png",
+      "localPath": "/images/players/football/409827-original.png",
+      "sha256": "297c788760a58e93d94de8aeb178767f82289e3bdc5396ace596a2a7ba151a97",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1807485",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "132"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "132"
+      }
+    ]
+  },
+  "405586": {
+    "name": "Cassiano Kiala",
+    "birthDate": "2009-01-11",
+    "providerId": "1771196",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1771196.png",
+      "localPath": "/images/players/football/405586-original.png",
+      "sha256": "0db603e6f552515baabed6ff205a5cbca7b30688b1978144883bc76af28d4a2a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1771196",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "132"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "132"
+      }
+    ]
+  },
+  "291817": {
+    "name": "Lion Schweers",
+    "birthDate": "1996-04-01",
+    "providerId": "658794",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/658794.png",
+      "localPath": "/images/players/football/291817-original.png",
+      "sha256": "978e2a720b31c0bcff19a62c67b08abfcf230bf9c4c99e89d3674fa7b1e318af",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/658794",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "268"
+      }
+    ]
+  },
+  "413727": {
+    "name": "Loris Husic",
+    "birthDate": "2008-01-17",
+    "providerId": "1894328",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1894328.png",
+      "localPath": "/images/players/football/413727-original.png",
+      "sha256": "62f72b6f3a6d86c7a9bd39524dc3c0ab8d50d5f230f019ce76adc1718b28cf6c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1894328",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "3841"
+      }
+    ]
+  },
+  "409974": {
+    "name": "Edion Gashi",
+    "birthDate": "2006-01-22",
+    "providerId": "1813396",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1813396.png",
+      "localPath": "/images/players/football/409974-original.png",
+      "sha256": "7723b74a477e3733fac4c60a37c28c9808414a5d4b3ef28ee43b31a456c5a33d",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1813396",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "133"
+      }
+    ]
+  },
+  "418789": {
+    "name": "Valentin Lässig",
+    "birthDate": "2003-03-03",
+    "providerId": "1457957",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1457957.png",
+      "localPath": "/images/players/football/418789-original.png",
+      "sha256": "30eab7e043e4813405e4d71579f1e2c97a0d76b239233b0a7d3f5de807c5419b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1457957",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ]
+  },
+  "208608": {
+    "name": "Klaus Gjasula",
+    "birthDate": "1989-12-14",
+    "providerId": "571536",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/571536.png",
+      "localPath": "/images/players/football/208608-original.png",
+      "sha256": "af385405bb5e221ac07402a4c492ef0c556441321697c5b70d335744e616c49a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/571536",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ]
+  },
+  "419946": {
+    "name": "Mats Heitmann",
+    "birthDate": "2006-02-11",
+    "providerId": "1921960",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1921960.png",
+      "localPath": "/images/players/football/419946-original.png",
+      "sha256": "f2d26a66618967d1950d7ae22f8226b398809a6d89dd04aba27830df621e61da",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1921960",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "137"
+      }
+    ]
+  },
+  "335207": {
+    "name": "Silvano Vos",
+    "birthDate": "2005-03-16",
+    "providerId": "1334581",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1334581.png",
+      "localPath": "/images/players/football/335207-original.png",
+      "sha256": "29412e82ec14109e57de6b5de6f8079c26fb3c38a0101900906d6a22c066bedd",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1334581",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ]
+  },
+  "409634": {
+    "name": "Lorenzo Paratici",
+    "birthDate": "2008-10-21",
+    "providerId": "2156601",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2156601.png",
+      "localPath": "/images/players/football/409634-original.png",
+      "sha256": "4212d648fedc333a91fba309b7ecde6b9078e307871226e57101457e816b73b1",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2156601",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "104"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "104"
+      }
+    ]
+  },
+  "403445": {
+    "name": "Javison Idele",
+    "birthDate": "2007-01-23",
+    "providerId": "1756869",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1756869.png",
+      "localPath": "/images/players/football/403445-original.png",
+      "sha256": "95f26344335f4a8dbf95cc4abbf92c8e04e63ffd3ad57d55bd5ca5c9520d71ad",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1756869",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ]
+  },
+  "410098": {
+    "name": "Digne Pounga",
+    "birthDate": "2006-05-15",
+    "providerId": "1807305",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1807305.png",
+      "localPath": "/images/players/football/410098-original.png",
+      "sha256": "372a1f83c6d76c3e90dac45ffeb5e0bb413f3f825498f36d8d81aef7b54dcd98",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1807305",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ]
+  },
+  "91873": {
+    "name": "Matteo Darmian",
+    "birthDate": "1989-12-02",
+    "providerId": "46820",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/46820.png",
+      "localPath": "/images/players/football/91873-original.png",
+      "sha256": "b3acdb1f6c5a80606966a739cb1ff6cb4784290b638362f0ed3d943d98840484",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/46820",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "107"
+      }
+    ]
+  },
+  "411276": {
+    "name": "Matteo Papaccioli",
+    "birthDate": "2008-05-09",
+    "providerId": "1817857",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1817857.png",
+      "localPath": "/images/players/football/411276-original.png",
+      "sha256": "7187f8fffb5ba9fd0a9f44cd6b0cd1c0b4d4d60fef72789f16a6ccf186da0198",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1817857",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "2572"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "2572"
+      }
+    ]
+  },
+  "383999": {
+    "name": "Gaël Lafont",
+    "birthDate": "2006-06-07",
+    "providerId": "1418665",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1418665.png",
+      "localPath": "/images/players/football/383999-original.png",
+      "sha256": "c6aba670493fcb2b4e7e302df8bff24d4672a2615ac95d8c9ed3c7a24faf3606",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1418665",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "3263"
+      }
+    ]
+  },
+  "400734": {
+    "name": "Alain Taho",
+    "birthDate": "2007-04-30",
+    "providerId": "1720485",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1720485.png",
+      "localPath": "/images/players/football/400734-original.png",
+      "sha256": "a904a6da1a53034c438720b33f7cb42f307dc8b0a0acf9c75c3367d8ba306952",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1720485",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "110"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "110"
+      },
+      {
+        "league": "uefa.nations",
+        "team": "585"
+      }
+    ]
+  },
+  "384534": {
+    "name": "Leon Jakirovic",
+    "birthDate": "2008-01-16",
+    "providerId": "1645683",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1645683.png",
+      "localPath": "/images/players/football/384534-original.png",
+      "sha256": "b00141d26c35e6ab78141c2b26cef251dff1c09b36ae1955fbcb9c6c89199a4e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1645683",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "110"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "110"
+      }
+    ]
+  },
+  "387837": {
+    "name": "Francesco Stante",
+    "birthDate": "2005-01-19",
+    "providerId": "1413923",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1413923.png",
+      "localPath": "/images/players/football/387837-original.png",
+      "sha256": "d3d7d8a94f2cfa36748416acc8a9cbf94f1848d532c5a16423049cd58beeb236",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1413923",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "110"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "110"
+      }
+    ]
+  },
+  "402778": {
+    "name": "Matteo Lavelli",
+    "birthDate": "2006-12-08",
+    "providerId": "1682320",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1682320.png",
+      "localPath": "/images/players/football/402778-original.png",
+      "sha256": "888d48d59792fd3857a6fd901bf906b33e5075f4e84c1545bc417e51b89ff871",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1682320",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "110"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "110"
+      }
+    ]
+  },
+  "413630": {
+    "name": "David Spinelli",
+    "birthDate": "2008-04-28",
+    "providerId": "1830804",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1830804.png",
+      "localPath": "/images/players/football/413630-original.png",
+      "sha256": "353680f0e49b6fba864968808cbb6aedaf8489747d6817bd5eec7d05bd51f3ce",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1830804",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ]
+  },
+  "422950": {
+    "name": "Djibril Diallo",
+    "birthDate": "2009-03-09",
+    "providerId": "2392905",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2392905.png",
+      "localPath": "/images/players/football/422950-original.png",
+      "sha256": "fd5937de9de0d554e6eb620ec260080b4457b621d61eca7cddda8ec4402be95e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2392905",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "115"
+      }
+    ]
+  },
+  "408358": {
+    "name": "Thomas Sajous",
+    "birthDate": "2008-05-15",
+    "providerId": "1793779",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1793779.png",
+      "localPath": "/images/players/football/408358-original.png",
+      "sha256": "bf9ed4a7ff1fd58eb79ad498be8dc5e9000b6e8a99864a8a6214cbf2d288c10b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1793779",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "166"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "166"
+      }
+    ]
+  },
+  "415421": {
+    "name": "Zadig Lanssade",
+    "birthDate": "2008-03-03",
+    "providerId": "1867240",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1867240.png",
+      "localPath": "/images/players/football/415421-original.png",
+      "sha256": "8e970daa1bcbb8bf87262e523913b714b0af5b2cfec881fda1451dba62d313b4",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1867240",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "166"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "166"
+      }
+    ]
+  },
+  "404675": {
+    "name": "Ibrahim Gomis",
+    "birthDate": "2005-03-20",
+    "providerId": "1816796",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1816796.png",
+      "localPath": "/images/players/football/404675-original.png",
+      "sha256": "079eb4737972d3d9a9358b634083bcc48bb6edc0451723ce408daadded81ced0",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1816796",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "176"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "176"
+      }
+    ]
+  },
+  "403981": {
+    "name": "David Boly",
+    "birthDate": "2009-01-22",
+    "providerId": "1830689",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1830689.png",
+      "localPath": "/images/players/football/403981-original.png",
+      "sha256": "f36309cb7d8955dc7ea5488dc6afe792178ac328dd4f04c25e6d3de6af7f2f72",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1830689",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "160"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "160"
+      }
+    ]
+  },
+  "403762": {
+    "name": "Mateus Mide",
+    "birthDate": "2008-05-10",
+    "providerId": "1760683",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1760683.png",
+      "localPath": "/images/players/football/403762-original.png",
+      "sha256": "446abe2df286ddd98e208ceacacf72a63d56372a0e709ccd10dfb46873f0dcd8",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1760683",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "437"
+      }
+    ]
+  },
+  "403778": {
+    "name": "Petr Potmesil",
+    "birthDate": "2008-01-19",
+    "providerId": "1814509",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1814509.png",
+      "localPath": "/images/players/football/403778-original.png",
+      "sha256": "b5cadd24b034830b0537b84c1f507205470772dee7447f61cf216a6202714f92",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1814509",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "494"
+      }
+    ]
+  },
+  "394429": {
+    "name": "Lucas Taibo",
+    "birthDate": "2006-03-02",
+    "providerId": "1525437",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1525437.png",
+      "localPath": "/images/players/football/394429-original.png",
+      "sha256": "e8ddfea39a40ab6d3cb892db9edd2dac320557f489323258d752dff1fb1cc9ba",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1525437",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "2250"
+      }
+    ]
+  },
+  "414124": {
+    "name": "Salvador Blopa",
+    "birthDate": "2007-06-13",
+    "providerId": "1712326",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1712326.png",
+      "localPath": "/images/players/football/414124-original.png",
+      "sha256": "eeec0c44aad676dde84740277691b059364df41d330f650659c1ccb059a22db6",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1712326",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "2250"
+      }
+    ]
+  },
+  "309478": {
+    "name": "Mateo Tanlongo",
+    "birthDate": "2003-08-12",
+    "providerId": "1220673",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1220673.png",
+      "localPath": "/images/players/football/309478-original.png",
+      "sha256": "c2de515a8c3efcbf5e37f40b29303a49e390f89f2dd66ab93fa93b2ae3df800d",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1220673",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "2250"
+      }
+    ]
+  },
+  "349812": {
+    "name": "Mauro Couto",
+    "birthDate": "2005-11-15",
+    "providerId": "1402606",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1402606.png",
+      "localPath": "/images/players/football/349812-original.png",
+      "sha256": "8ccd961218e8a81db8d9690d7333d19b7a91c7da1d6e57d02023332d3f3bdc55",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1402606",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "2250"
+      }
+    ]
+  },
+  "278013": {
+    "name": "Dominik Draband",
+    "birthDate": "1996-03-07",
+    "providerId": "957446",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/957446.png",
+      "localPath": "/images/players/football/278013-original.png",
+      "sha256": "da370139239f981eb9136790f27a8f9d60175e8fb7c4038a4cdb9f9c77f73fa8",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/957446",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "367010": {
+    "name": "Jerik Von Der Felsen",
+    "birthDate": "2004-10-22",
+    "providerId": "1779890",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1779890.png",
+      "localPath": "/images/players/football/367010-original.png",
+      "sha256": "08e6330197417cdadadb3f8bda865eff9e850d063fe4f589ebf0f4cc4a493380",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1779890",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "386244": {
+    "name": "Julian Bock",
+    "birthDate": "2004-05-29",
+    "providerId": "1658715",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1658715.png",
+      "localPath": "/images/players/football/386244-original.png",
+      "sha256": "f2759ae816c3d0596e8ab6c61ad3f5f72699a50db22ff0495fa1431dd44dbdd3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1658715",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "205976": {
+    "name": "Dominik Nothnagel",
+    "birthDate": "1994-12-28",
+    "providerId": "458813",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/458813.png",
+      "localPath": "/images/players/football/205976-original.png",
+      "sha256": "b1b5fa6cc63ba645a8be7050c456acdd1239485f26b9564c3ba54114c40c8420",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/458813",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "290814": {
+    "name": "Alexander Groiß",
+    "birthDate": "1998-07-01",
+    "providerId": "748503",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/748503.png",
+      "localPath": "/images/players/football/290814-original.png",
+      "sha256": "39f5f67e48da91349d34b3932917fe9100bb44b0afafc6446928a8d96d0b5d49",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/748503",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "344741": {
+    "name": "Michael Glück",
+    "birthDate": "2003-06-13",
+    "providerId": "1385152",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1385152.png",
+      "localPath": "/images/players/football/344741-original.png",
+      "sha256": "8933ee9b00694cf25588c4a12f9c734ff4a53a02691fe2de19ab5c7af2ec6769",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1385152",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "371671": {
+    "name": "Tim Köhler",
+    "birthDate": "2005-05-02",
+    "providerId": "1552926",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1552926.png",
+      "localPath": "/images/players/football/371671-original.png",
+      "sha256": "84f5b19797d66e774f1c58f74030922ab0f335c63eafecde16373057c05b26a5",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1552926",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "386438": {
+    "name": "David Preu",
+    "birthDate": "2004-10-26",
+    "providerId": "1504969",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1504969.png",
+      "localPath": "/images/players/football/386438-original.png",
+      "sha256": "595d9e16deb856bce26f5be782d6a3bee657ec6f1f9650926837fefe788c1c63",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1504969",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "410684": {
+    "name": "Peter Reinhardt",
+    "birthDate": "2005-01-23",
+    "providerId": "1663153",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1663153.png",
+      "localPath": "/images/players/football/410684-original.png",
+      "sha256": "7bb881079919d005547bf1488617974399fa17cc9cbd6708f4a32937f38cc7cb",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1663153",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "262050": {
+    "name": "Nicolas Sessa",
+    "birthDate": "1996-03-23",
+    "providerId": "693728",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/693728.png",
+      "localPath": "/images/players/football/262050-original.png",
+      "sha256": "0aea29815f959f2fbc55667ec790758866ecebc88286a9235b189390635d388a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/693728",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "362406": {
+    "name": "Veit Stange",
+    "birthDate": "2004-02-08",
+    "providerId": "1469964",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1469964.png",
+      "localPath": "/images/players/football/362406-original.png",
+      "sha256": "ce48886002674278e341879a6833561f9d408aa781ef87427ceb20ff19fcf576",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1469964",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "418044": {
+    "name": "Lauri Penna",
+    "birthDate": "2006-07-02",
+    "providerId": "1684429",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1684429.png",
+      "localPath": "/images/players/football/418044-original.png",
+      "sha256": "7e44a6204a43b2b5987b9c377fb7f170ccb0e4310fae0398db1bb4817b3701e7",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1684429",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "356608": {
+    "name": "Jordan Majchrzak",
+    "birthDate": "2004-10-08",
+    "providerId": "1429906",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1429906.png",
+      "localPath": "/images/players/football/356608-original.png",
+      "sha256": "87c9ae7b1c6db166816c083de71bd5403d02af1dd9a5ae75702b473ac52d81f6",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1429906",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "389627": {
+    "name": "Jonathan Akaegbobi",
+    "birthDate": "2006-04-25",
+    "providerId": "1674725",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1674725.png",
+      "localPath": "/images/players/football/389627-original.png",
+      "sha256": "0df247df36a7992a62d060a0799fcdf6d0438626198d2219c49a64a85014aa2e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1674725",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "391053": {
+    "name": "Eliot Bujupi",
+    "birthDate": "2006-07-03",
+    "providerId": "1676500",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1676500.png",
+      "localPath": "/images/players/football/391053-original.png",
+      "sha256": "9a7cb6aff5fda1435115635c32b0a8fba12d400b88306e15ad541f5a2517da54",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1676500",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "409590": {
+    "name": "Tim Van Der Leij",
+    "birthDate": "2006-03-06",
+    "providerId": "1803858",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1803858.png",
+      "localPath": "/images/players/football/409590-original.png",
+      "sha256": "fdce8400aeed12c598d81585e9ed1a6e83d329f9818255e70e04dd9fc48b3700",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1803858",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "399408": {
+    "name": "João Fonseca",
+    "birthDate": "2006-08-31",
+    "providerId": "1534807",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1534807.png",
+      "localPath": "/images/players/football/399408-original.png",
+      "sha256": "01d80c1167cd626b33c6c1992d1a624dd982dd6f50a86dd477310793fdeb584e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1534807",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "1929"
+      }
+    ]
+  },
+  "387202": {
+    "name": "Sean Mcardle",
+    "birthDate": "2007-08-27",
+    "providerId": "1752139",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1752139.png",
+      "localPath": "/images/players/football/387202-original.png",
+      "sha256": "10e96a28fcd8a16c602962cb2d91c45b5a0999cddb8e2a7e610c2835181aeb55",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1752139",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "256"
+      }
+    ]
+  },
+  "408331": {
+    "name": "Joseph Haney",
+    "birthDate": "2009-06-25",
+    "providerId": "1908641",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1908641.png",
+      "localPath": "/images/players/football/408331-original.png",
+      "sha256": "96215f056731a3195cb4a7ccc50c34880b2e9868c98b2c24d5aa003d4215d851",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1908641",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "256"
+      }
+    ]
+  },
+  "341644": {
+    "name": "Isaac Pappoe",
+    "birthDate": "2003-12-20",
+    "providerId": "1435401",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1435401.png",
+      "localPath": "/images/players/football/341644-original.png",
+      "sha256": "577114373ef399d4d9df2ed829791fb42b800b266c808cafb8b3f45b45bfea71",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1435401",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "622"
+      }
+    ]
+  },
+  "338209": {
+    "name": "Simon Simoni",
+    "birthDate": "2004-07-14",
+    "providerId": "1374278",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1374278.png",
+      "localPath": "/images/players/football/338209-original.png",
+      "sha256": "c060224bd678f7a586a82204d219ef6f2100f0e30dfc9231748e0797081b9d53",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1374278",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "585"
+      }
+    ]
+  },
+  "304073": {
+    "name": "Mathias Kvistgaarden",
+    "birthDate": "2002-04-15",
+    "providerId": "1165457",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1165457.png",
+      "localPath": "/images/players/football/304073-original.png",
+      "sha256": "cbae5224d8d0f0709fa5fa48f6a1225cecdcaad62fd5b692d292b68a5f4058f1",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1165457",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "479"
+      }
+    ]
+  },
+  "321136": {
+    "name": "Evert Grünvald",
+    "birthDate": "2001-04-06",
+    "providerId": "1270366",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1270366.png",
+      "localPath": "/images/players/football/321136-original.png",
+      "sha256": "2155f1b54324bd4d734cf32adbcb71e9abef5e3cb57736ac7a3cd77f7ff9414b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1270366",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ]
+  },
+  "258622": {
+    "name": "Arnbjorn Svensson",
+    "birthDate": "1999-07-01",
+    "providerId": "857150",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/857150.png",
+      "localPath": "/images/players/football/258622-original.png",
+      "sha256": "4b831c1e971bb9a0018a1a673d9c83250579ca43ef77efe95accc58061e6f0d3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/857150",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "447"
+      }
+    ]
+  },
+  "237839": {
+    "name": "Alfons Sampsted",
+    "birthDate": "1998-04-06",
+    "providerId": "635947",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/635947.png",
+      "localPath": "/images/players/football/237839-original.png",
+      "sha256": "b434a4abd63d0b5f49accb6c7728d938049b2a128147668e155c66ff89a10619",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/635947",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "470"
+      }
+    ]
+  },
+  "326637": {
+    "name": "Saevar Atli Magnússon",
+    "birthDate": "2000-06-16",
+    "providerId": "683355",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/683355.png",
+      "localPath": "/images/players/football/326637-original.png",
+      "sha256": "d4f63c1cf08b15d07ff647eeedfb3b00ab187749251281b2f95962ff0723a22c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/683355",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "470"
+      }
+    ]
+  },
+  "323295": {
+    "name": "Niv Eliasi",
+    "birthDate": "2002-02-21",
+    "providerId": "1284486",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1284486.png",
+      "localPath": "/images/players/football/323295-original.png",
+      "sha256": "42ffe5e421a3f7e3e5290252183c01b29b63943d58b3dfd87f0273c41e415cb9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1284486",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "461"
+      }
+    ]
+  },
+  "154156": {
+    "name": "Luca Beck",
+    "birthDate": "2005-08-14",
+    "providerId": "1770979",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1770979.png",
+      "localPath": "/images/players/football/154156-original.png",
+      "sha256": "b1828683a9ec428b625fcfa66ef626d02c6c9505c91330b4be7480aa3929572a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1770979",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "589"
+      }
+    ]
+  },
+  "213650": {
+    "name": "Andreas Malin",
+    "birthDate": "1994-01-31",
+    "providerId": "598515",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/598515.png",
+      "localPath": "/images/players/football/213650-original.png",
+      "sha256": "bcf6adb471ef51b5e75a50e2fb56124bd18f82f916d089f4f09a0d4da2ff3db7",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/598515",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "589"
+      }
+    ]
+  },
+  "414678": {
+    "name": "Liam Frendo",
+    "birthDate": "2006-03-16",
+    "providerId": "2068623",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/2068623.png",
+      "localPath": "/images/players/football/414678-original.png",
+      "sha256": "2c03e78447639e61a4b5136cc516aa1200e2a639da529e1dca3f94f69e32e1ab",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/2068623",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "453"
+      }
+    ]
+  },
+  "334038": {
+    "name": "Victor Eriksson",
+    "birthDate": "2000-09-17",
+    "providerId": "1245544",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1245544.png",
+      "localPath": "/images/players/football/334038-original.png",
+      "sha256": "9c4fc088706bc08d881eb7a9ba259c1082f008406d5b1ca838625721c2dfd804",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1245544",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "466"
+      }
+    ]
+  },
+  "373930": {
+    "name": "Yusuf Akcicek",
+    "birthDate": "2006-01-25",
+    "providerId": "1561568",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1561568.png",
+      "localPath": "/images/players/football/373930-original.png",
+      "sha256": "56374cb22793c5eb9017bc0d08968e45156412275b9fc8b404394dcf703bc413",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1561568",
+    "identity": "exact normalized full name and birth date; ESPN roster identity and FotMob playerData; PNG decoded and dimensions verified",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "465"
+      }
+    ]
+  },
+  "3110056": {
+    "name": "David Podar-Stiube",
+    "birthDate": "2010-05-31",
+    "photo": {
+      "url": "https://img.fcbayern.com/image/upload/f_auto/q_auto/ar_1:1,c_fill,g_custom,w_384/v1787908356/cms/public/images/fcbayern-com/spieler/Campus/Portraitbilder/david-podar-stiube.png",
+      "sha256": "bec52f940207a2c21d8b6fea43c0842ea78341863d4ca7f9f88251dbf7a412bc",
+      "type": "image/png",
+      "localPath": "/images/players/football/3110056-original.png"
+    },
+    "evidence": "https://fcbayern.com/de/teams/fc-bayern-campus/u19",
+    "identity": "Official FC Bayern U19 named roster card links this portrait to David Podar-Stiube; Bundesliga and FotMob corroborate date of birth. ESPN Bayern 132 roster jersey 38.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "132"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "132"
+      }
+    ]
+  },
+  "3111009": {
+    "name": "Felix Scott",
+    "birthDate": "",
+    "providerId": "1683918",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1683918.png",
+      "localPath": "/images/players/football/3111009-original.png",
+      "sha256": "d1cd608114e0545f4f7ca1e12bf0876808f53ba2199343d7596730d983237d94",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1683918",
+    "identity": "Unique exact full-name match and same club (including explicitly named reserve/U19/U21 team) in ESPN roster and FotMob current primaryTeam; ESPN birth date is unavailable and not inferred. PNG bytes verified.",
+    "matchedClub": {
+      "teamId": 773657,
+      "teamName": "Sunderland U21",
+      "onLoan": false,
+      "teamColors": {
+        "color": "#D0260D",
+        "colorAlternate": "#D0260D",
+        "colorAway": "#000000",
+        "colorAwayAlternate": "#ffffff"
+      }
+    },
+    "rosterClubs": [
+      "Sunderland",
+      "Sunderland",
+      "Sunderland",
+      "Sunderland",
+      "Sunderland",
+      "Sunderland"
+    ],
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "366"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "366"
+      }
+    ]
+  },
+  "3110063": {
+    "name": "Lorenzo Ossola",
+    "birthDate": "",
+    "providerId": "1689732",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1689732.png",
+      "localPath": "/images/players/football/3110063-original.png",
+      "sha256": "7b8ac1e861b1e26af4d7c82f688664a7ebf64e57e5804f90bbf7c1692b1dc853",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1689732",
+    "identity": "Unique exact full-name match and same club (including explicitly named reserve/U19/U21 team) in ESPN roster and FotMob current primaryTeam; ESPN birth date is unavailable and not inferred. PNG bytes verified.",
+    "matchedClub": {
+      "teamId": 1291621,
+      "teamName": "AC Milan U19",
+      "onLoan": false,
+      "teamColors": {
+        "color": "#CF2C27",
+        "colorAlternate": "#CF2C27",
+        "colorAway": "#000000",
+        "colorAwayAlternate": "#ffffff"
+      }
+    },
+    "rosterClubs": [
+      "AC Milan",
+      "AC Milan",
+      "AC Milan",
+      "AC Milan",
+      "AC Milan",
+      "AC Milan"
+    ],
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ]
+  },
+  "3122110": {
+    "name": "Antonijo Janjić",
+    "birthDate": "",
+    "providerId": "1899974",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1899974.png",
+      "localPath": "/images/players/football/3122110-original.png",
+      "sha256": "091cca1d1a4a7fa3db2b3c62e2f9b9bc91288aaddb1b61b51224bbc40cebdafc",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1899974",
+    "identity": "Unique exact full-name match and same club (including explicitly named reserve/U19/U21 team) in ESPN roster and FotMob current primaryTeam; ESPN birth date is unavailable and not inferred. PNG bytes verified.",
+    "matchedClub": {
+      "teamId": 665291,
+      "teamName": "VfB Stuttgart U19",
+      "onLoan": false,
+      "teamColors": {
+        "color": "#D30029",
+        "colorAlternate": "#FFFFFF",
+        "colorAway": "#1E1E1E",
+        "colorAwayAlternate": "#D30029"
+      }
+    },
+    "rosterClubs": [
+      "VfB Stuttgart",
+      "VfB Stuttgart",
+      "VfB Stuttgart"
+    ],
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ]
+  },
+  "400271": {
+    "name": "Kelechi Nnamdi",
+    "birthDate": "",
+    "providerId": "1681359",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1681359.png",
+      "localPath": "/images/players/football/400271-original.png",
+      "sha256": "004dab009e48c50c037b9f128352b8656effb39e163c64db8726064bd2ec8b7f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1681359",
+    "identity": "Unique exact full-name match and same club (including explicitly named reserve/U19/U21 team) in ESPN roster and FotMob current primaryTeam; ESPN birth date is unavailable and not inferred. PNG bytes verified.",
+    "matchedClub": {
+      "teamId": 1921,
+      "teamName": "Sturm Graz II",
+      "onLoan": false,
+      "teamColors": {
+        "color": "#333333",
+        "colorAlternate": "#DDDDDD",
+        "colorAway": "#333333",
+        "colorAwayAlternate": "#DDDDDD"
+      }
+    },
+    "rosterClubs": [
+      "SK Sturm Graz",
+      "SK Sturm Graz",
+      "SK Sturm Graz"
+    ],
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "3746"
+      }
+    ]
+  }
+}
