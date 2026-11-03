@@ -14,76 +14,8 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 91,
+  "addedPhotos": 95,
   "remaining": [
-    {
-      "id": "399007",
-      "name": "Maalik Hashi",
-      "birthDate": "2008-09-08",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "eng.1",
-          "team": "359"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "359"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "390975",
-      "name": "Andre Annous",
-      "birthDate": "2007-12-28",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "eng.1",
-          "team": "359"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "359"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "395890",
-      "name": "Joshua Lambie",
-      "birthDate": "2007-11-16",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "eng.1",
-          "team": "364"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "364"
-        }
-      ],
-      "reason": "no unique full-name and birth-date match"
-    },
-    {
-      "id": "3129530",
-      "name": "Dexter Oliver",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "eng.1",
-          "team": "382"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "382"
-        }
-      ],
-      "reason": "birth date unavailable"
-    },
     {
       "id": "392107",
       "name": "Trey Ogunsuyi",
@@ -1440,7 +1372,7 @@
     }
   ],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 98,
+  "remainingCount": 94,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -1464,5 +1396,15 @@
     ],
     "limitation": "Many CDN checks timed out; those results are inconclusive, not proven missing. Existing verified identity-matched fallback portraits are preserved. No claim of complete portrait availability."
   },
-  "completedAt": "2026-11-03T08:37:21.296233+00:00"
+  "completedAt": "2026-11-03T08:37:21.296233+00:00",
+  "frontendFollowup": {
+    "scope": "Only players displayed by the current frontend roster parser; no hidden or historical-only roster expansion",
+    "players": [
+      "399007",
+      "390975",
+      "395890",
+      "3129530"
+    ],
+    "checkedAt": "2026-11-03T09:07:53.924065+00:00"
+  }
 }
