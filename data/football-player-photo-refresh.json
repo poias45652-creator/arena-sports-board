@@ -1932,5 +1932,109 @@
         "team": "3746"
       }
     ]
+  },
+  "399007": {
+    "name": "Maalik Hashi",
+    "birthDate": "2008-09-08",
+    "providerId": "1800575",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1800575.png",
+      "localPath": "/images/players/football/399007-original.png",
+      "sha256": "4d43b35dabf6f0fa6529b87004115af95aabaf065e78c6d2ae4c0309ad3504ea",
+      "type": "image/png"
+    },
+    "evidence": "https://www.premierleague.com/en/players/646242/maalik-hashi/career",
+    "identity": "Exact full name and Arsenal club. Premier League confirms ESPN birth date 2008-09-08; FotMob lists 2008-09-03, so this is an explicit reviewed name-and-club portrait match, not a matching-birthday claim.",
+    "providerName": "Maalik Hashi",
+    "matchedClub": "Arsenal U18",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "359"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "359"
+      }
+    ],
+    "scope": "Current frontend roster cards only"
+  },
+  "390975": {
+    "name": "Andre Annous",
+    "birthDate": "2007-12-28",
+    "providerId": "1636592",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1636592.png",
+      "localPath": "/images/players/football/390975-original.png",
+      "sha256": "12218e50596c0a368e542e2fa6fa900c3bfe2d8d826af76d372dabc38a893c2f",
+      "type": "image/png"
+    },
+    "evidence": "https://theanalyst.com/players/8345/andre-harriman-annous",
+    "identity": "Andre Annous / Andre Harriman-Annous: distinctive surname, identical 2007-12-28 birthday and Arsenal club. Opta publishes the full name; current ESPN roster uses the shortened name.",
+    "providerName": "Andre Harriman-Annous",
+    "matchedClub": "Arsenal U21",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "359"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "359"
+      }
+    ],
+    "scope": "Current frontend roster cards only"
+  },
+  "395890": {
+    "name": "Joshua Lambie",
+    "birthDate": "2007-11-16",
+    "providerId": "1644308",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1644308.png",
+      "localPath": "/images/players/football/395890-original.png",
+      "sha256": "5e5f0d0578f68c95365c094876de5526b9b063073ceed544fccc64a65a78e396",
+      "type": "image/png"
+    },
+    "evidence": "https://www.premierleague.com/en/players/631534/joshua-sonni-lambie/career",
+    "identity": "Joshua Lambie / Joshua Sonni-Lambie: matching 2007-11-16 birthday, Liverpool club and distinctive surname; official Premier League profile verifies the full name.",
+    "providerName": "Joshua Sonni-Lambie",
+    "matchedClub": "Liverpool U21",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "364"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "364"
+      }
+    ],
+    "scope": "Current frontend roster cards only"
+  },
+  "3129530": {
+    "name": "Dexter Oliver",
+    "birthDate": "",
+    "providerId": "1897318",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1897318.png",
+      "localPath": "/images/players/football/3129530-original.png",
+      "sha256": "8da2b6c1453663490595ad439603451f1f318ce40171a81fa14781dc291affbc",
+      "type": "image/png"
+    },
+    "evidence": "https://www.mancity.com/news/eds-academy/man-city-academy-players-sign-first-pro-deals-63922321",
+    "identity": "Exact full name and Manchester City club on current ESPN roster, FotMob and official club article. ESPN does not provide a birthday; preserve that missing value.",
+    "providerName": "Dexter Oliver",
+    "matchedClub": "Manchester City U18",
+    "teams": [
+      {
+        "league": "eng.1",
+        "team": "382"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "382"
+      }
+    ],
+    "scope": "Current frontend roster cards only"
   }
 }
