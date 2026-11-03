@@ -41,6 +41,8 @@ import {
 } from "@/lib/football-team-details";
 import "./football.css";
 import "./football-team-profile.css";
+import PlayerTradingCard from './player-trading-card';
+import {playerCountry} from '@/lib/sport-player-profile';
 import {footballPortraitStyle} from "@/lib/football-portrait-framing";
 
 const decimal = (n: number | null | undefined) =>
@@ -749,9 +751,9 @@ function FootballPlayers({
           <p className="team-footnote">
             {data?.season} 賽季・{players.length} 位球員
           </p>
-          <div className="team-player-grid">
+          <div className="xz-player-grid">
             {players.map((p) => (
-              <FootballPlayerCard key={p.id} player={p} />
+              <FootballPlayerCard key={p.id} player={p} roster={data!} />
             ))}
           </div>
           {!players.length && (
@@ -766,60 +768,13 @@ function FootballPlayers({
     </section>
   );
 }
-function FootballPlayerCard({ player: p }: { player: FootballRosterPlayer }) {
-  const portraitStyle = footballPortraitStyle(p.id, p.name);
-  const [failed, setFailed] = useState(false);
-  const [attempt, setAttempt] = useState(0);
-  useEffect(() => {
-    if (!failed || attempt >= 2) return;
-    const retry = setTimeout(() => { setFailed(false); setAttempt(n => n + 1); }, 2000 * (attempt + 1));
-    return () => clearTimeout(retry);
-  }, [failed, attempt]);
-  return (
-    <article className="team-player-card football-player-card">
-      <div className="football-player-portrait">
-        {failed ? (
-          <UserRound size={48} aria-label="尚無球員照片" />
-        ) : (
-          <span className="football-player-photo-frame"><img
-            src={p.photo + (attempt ? `&retry=${attempt}` : "")}
-            alt={p.name}
-            style={portraitStyle}
-            decoding="async"
-            width={100}
-            height={100}
-            loading="lazy"
-            onError={() => setFailed(true)}
-          /></span>
-        )}
-      </div>
-      <h3>
-        <a href={p.href}>
-          {p.name} →
-        </a>
-      </h3>
-      <p>
-        #{p.number || "—"}・
-        {positionNames[p.position] || p.position || "未公布位置"}
-      </p>
-      <p>
-        {p.country || "—"}
-        {p.height ? `・${p.height}` : ""}
-      </p>
-      <dl className="football-player-statline">
-        {[
-          ["出場", p.appearances],
-          ["進球", p.goals],
-          ["助攻", p.assists],
-        ].map(([label, value]) => (
-          <div key={String(label)}>
-            <dt>{label}</dt>
-            <dd>{value ?? "—"}</dd>
-          </div>
-        ))}
-      </dl>
-    </article>
-  );
+function FootballPlayerCard({ player: p, roster }: { player: FootballRosterPlayer; roster: FootballRoster }) {
+  return <PlayerTradingCard name={p.name} number={p.number} position={positionNames[p.position] || p.position || '未公布位置'}
+    league={FOOTBALL_LEAGUES.find(l=>l.code===roster.league)?.name||roster.league} team={roster.team.name} season={roster.season}
+    photo={p.photo} portraitStyle={footballPortraitStyle(p.id,p.name)} href={p.href}
+    bio={[playerCountry(p.country),p.height].filter(v=>v&&v!=='—')}
+    stats={[{label:'出場',value:p.appearances},{label:'進球',value:p.goals},{label:'助攻',value:p.assists}]}
+    badge={<img src={`https://a.espncdn.com/i/teamlogos/soccer/500/${roster.team.id}.png`} alt=""/>}/>;
 }
 function FootballMatches({
   games,

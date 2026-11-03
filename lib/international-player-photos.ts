@@ -1,4 +1,5 @@
 import catalog from '@/data/international-player-photos.json';
+import refreshed from '@/data/international-player-photo-refresh.json';
 import {playerPhotoKey,type NpbPlayerLinks} from './international-profile-links';
 export {playerPhotoKey} from './international-profile-links';
 // NPB handedness markers are not part of a name. English name order and hyphens
@@ -23,11 +24,13 @@ export function npbProfileLinks(year:number):NpbPlayerLinks{
 }
 export function withPlayerPhotos(data:any,league:string,code:string,year:number){
  if(year!==catalog.season)return data;
- const team=(catalog.teams as Record<string,Record<string,{url:string;source:string;alternatives?:string[]}>>)[`${league}:${code}`]||{};
+ const refresh=year===refreshed.season?(refreshed.teams as Record<string,Record<string,{url:string;source:string;originalUrl?:string;number?:string}>>)[`${league}:${code}`]:undefined;
+ const team={...((catalog.teams as Record<string,Record<string,{url:string;source:string;alternatives?:string[]}>>)[`${league}:${code}`]||{}),...Object.fromEntries(Object.entries(refresh||{}).map(([name,p])=>[playerPhotoKey(name),{...p,alternatives:p.originalUrl?[p.originalUrl]:[]}]))};
  const photos={...(data.photos||{})},photoAlternatives:Record<string,string[]>={},photoSources:Record<string,string>={},playerLinks:Record<string,string>={};
  for(const table of [data.bat,data.pit])for(const row of table?.rows||[]){const entry=team[playerPhotoKey(row[0])];if(!entry)continue;const urls=[entry.url,...entry.alternatives||[],photos[row[0]]].filter(Boolean);photos[row[0]]=urls[0];photoAlternatives[row[0]]=[...new Set(urls)];photoSources[row[0]]=entry.source;}
  if(league==='NPB')for(const table of [data.bat,data.pit])for(const row of table?.rows||[]){const id=npbCatalogPlayer(row[0],code)?.id;if(id)playerLinks[row[0]]=`/players/international/npb/${id}`;}
- return {...data,photos,photoAlternatives,photoSources,playerLinks,photosUpdatedAt:league==='NPB'?catalog.npbCheckedAt:catalog.checkedAt};
+ const playerNumbers=Object.fromEntries(Object.entries(refresh||{}).filter(([,p])=>p.number).map(([name,p])=>[playerPhotoKey(name),p.number]));
+ return {...data,photos,photoAlternatives,photoSources,playerLinks,playerNumbers,photosUpdatedAt:refresh?refreshed.checkedAt:league==='NPB'?catalog.npbCheckedAt:catalog.checkedAt};
 }
 
 const npbCodes:Record<string,string>={'1':'g','2':'s','3':'db','4':'d','5':'t','6':'c','7':'l','8':'f','9':'m','11':'b','12':'h','376':'e'};

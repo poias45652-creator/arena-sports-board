@@ -1,3 +1,4 @@
+import {mlbRosterCardStats} from '@/lib/player-card-stats';
 import {coversTeams} from '@/lib/covers';
 import {attachLogs,normalizeSchedule,historyFromLogs,leagueStats} from '@/lib/team-profile';
 export const dynamic='force-dynamic';
@@ -10,7 +11,7 @@ export async function GET(request:Request){
  const q=new URL(request.url).searchParams,id=Number(q.get('id')),yearText=q.get('season')||String(new Date().getUTCFullYear()),current=new Date().getUTCFullYear(),year=yearText==='all'?current:Number(yearText),type=q.get('type')||'R',action=q.get('action')||'profile';
  if(!coversTeams[id]||!Number.isInteger(year)||year<2021||year>current||!['R','S','F','D','L','W'].includes(type)||!['profile','history','roster','league-month'].includes(action))return Response.json({error:'無效球隊或篩選条件'},{status:400});
  try{
-  if(action==='roster'){const mode=q.get('roster')==='fullSeason'||year<current?'fullSeason':'active';const r=await json(`${root}/teams/${id}/roster?rosterType=${mode}&season=${year}`,15*60000);return Response.json({season:year,mode,players:(r.roster||[]).map((p:any)=>({id:p.person.id,name:p.person.fullName,number:p.jerseyNumber||null,position:p.position?.abbreviation||'',status:p.status?.description||''})),fetchedAt:new Date().toISOString()});}
+  if(action==='roster'){const mode=q.get('roster')==='fullSeason'||year<current?'fullSeason':'active';const r=await json(`${root}/teams/${id}/roster?rosterType=${mode}&season=${year}&hydrate=person(stats(type=season,group=[hitting,pitching],season=${year},gameType=${type}))`,15*60000);return Response.json({season:year,mode,players:(r.roster||[]).map((p:any)=>({id:p.person.id,name:p.person.fullName,number:p.jerseyNumber||null,position:p.position?.abbreviation||'',status:p.status?.description||'',stats:mlbRosterCardStats(p.person,p.position?.abbreviation||'',id,year,type)})),fetchedAt:new Date().toISOString()});}
   if(action==='history'){const years=[year-2,year-1].filter(y=>y>=2019);const data=await bounded(years,async y=>({season:y,games:historyFromLogs(await log(id,y,type),id,y)}));return Response.json({seasons:data,fetchedAt:new Date().toISOString()});}
   if(action==='league-month'){const month=Number(q.get('month'));if(!Number.isInteger(month)||month<1||month>12)return Response.json({error:'月份不符'},{status:400});const start=`${year}-${String(month).padStart(2,'0')}-01`,end=new Date(Date.UTC(year,month,0)).toISOString().slice(0,10);const r=await json(`${root}/teams/stats?stats=byDateRange&group=hitting&startDate=${start}&endDate=${end}&sportIds=1&gameType=${type}&limit=1000`,3600000);return Response.json({month,...leagueStats(r,'hitting')});}
   const years=yearText==='all'?Array.from({length:current-2021+1},(_,i)=>2021+i):[year];

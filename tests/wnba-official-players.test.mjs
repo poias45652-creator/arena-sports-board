@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {moduleUrl} from './profile-loader.mjs';
 const m=await import(moduleUrl('lib/wnba-official-players.ts'));
-const {basketballPlayerHref}=await import(moduleUrl('lib/sport-player-profile.ts'));
+const {basketballPlayerHref,playerCountry}=await import(moduleUrl('lib/sport-player-profile.ts'));
 const raw=()=>JSON.parse(readFileSync('tests/fixtures/wnba/official-players.json','utf8'));
 const base={id:4704180,name:'Georgia Amoore',height:'',weight:'',school:'',photo:'https://a.espncdn.com/i/headshots/wnba/players/full/4704180.png',href:'https://www.espn.com/wnba/player/stats/_/id/4704180'};
 test('official identity enriches genuine headshot, bio, season statistics and link',()=>{
@@ -32,6 +32,10 @@ test('actual roster panel renders official photos, data and player links',async(
  function visit(n){if(ts.isConditionalExpression(n)&&n.condition.getText(source)==="tab==='players'")panel=n.whenTrue;ts.forEachChild(n,visit);}visit(source);assert.ok(panel);
  const code=ts.transpileModule('function Panel(){return '+panel.getText(source)+'}',{compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
  const p=m.enrichWnbaPlayer(base,'16',2026,m.parseWnbaOfficialPlayers(raw()));
- const Panel=new Function('React','official','officialError','retry','labelSeason','league','positionZh','basketballPlayerHref',code+';return Panel;')(React,{rosterSeason:'2026',roster:[p]},'',null,String,'WNBA',String,basketballPlayerHref);
- const html=renderToStaticMarkup(React.createElement(Panel));assert.match(html,/cdn.wnba.com\/headshots/);assert.match(html,/href="\/players\/wnba\/1642781"/);assert.doesNotMatch(html,/target="_blank"/);assert.match(html,/2026 場均/);assert.match(html,/Australia/);assert.match(html,/Kentucky/);
+ const cardSource=readFileSync('app/player-trading-card.tsx','utf8').replace(/^import .*;$/gm,'').replace(/export default function/g,'function').replace(/export type/g,'type');
+ const cardCode=ts.transpileModule(cardSource,{compilerOptions:{jsx:ts.JsxEmit.React,target:ts.ScriptTarget.ES2022}}).outputText;
+ const {UserRound}=await import('lucide-react');
+ const PlayerTradingCard=new Function('React','useEffect','useState','UserRound',cardCode+';return PlayerTradingCard;')(React,React.useEffect,React.useState,UserRound);
+ const Panel=new Function('React','official','officialError','retry','labelSeason','league','positionZh','basketballPlayerHref','PlayerTradingCard','playerCountry','team',code+';return Panel;')(React,{rosterSeason:'2026',roster:[p]},'',null,String,'WNBA',String,basketballPlayerHref,PlayerTradingCard,playerCountry,{name:'華盛頓神秘',logo:'/team.svg'});
+ const html=renderToStaticMarkup(React.createElement(Panel));assert.match(html,/cdn.wnba.com\/headshots/);assert.match(html,/href="\/players\/wnba\/1642781"/);assert.doesNotMatch(html,/target="_blank"/);assert.match(html,/2026/);assert.match(html,/場均得分<\/dt><dd>7/);assert.match(html,/澳洲/);assert.match(html,/Kentucky/);
 });

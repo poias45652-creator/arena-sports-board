@@ -1,0 +1,1468 @@
+{
+  "checkedAt": "2026-11-03T08:01:47Z",
+  "leagues": [
+    "eng.1",
+    "esp.1",
+    "ger.1",
+    "ita.1",
+    "fra.1",
+    "uefa.champions",
+    "uefa.europa",
+    "uefa.nations"
+  ],
+  "teamPairs": 222,
+  "players": 5125,
+  "known": 4936,
+  "errors": [],
+  "addedPhotos": 91,
+  "remaining": [
+    {
+      "id": "399007",
+      "name": "Maalik Hashi",
+      "birthDate": "2008-09-08",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "eng.1",
+          "team": "359"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "359"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "390975",
+      "name": "Andre Annous",
+      "birthDate": "2007-12-28",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "eng.1",
+          "team": "359"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "359"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "395890",
+      "name": "Joshua Lambie",
+      "birthDate": "2007-11-16",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "eng.1",
+          "team": "364"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "364"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3129530",
+      "name": "Dexter Oliver",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "eng.1",
+          "team": "382"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "382"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "392107",
+      "name": "Trey Ogunsuyi",
+      "birthDate": "2006-11-26",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "eng.1",
+          "team": "366"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "366"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3106512",
+      "name": "Jesús Vizcay Hurtado",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "93"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3122617",
+      "name": "Aritz Conde Albiol",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "93"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3100792",
+      "name": "Frank Germain Jonathan Miller",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "85"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "85"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "375566",
+      "name": "Rubén",
+      "birthDate": "2004-08-26",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "90"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "375392",
+      "name": "Martín Ochoa",
+      "birthDate": "2004-12-20",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "90"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "3111247",
+      "name": "Jan Peries Duran",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "88"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3111255",
+      "name": "Alejandro Santiago Vargas",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "88"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "168531",
+      "name": "Dani Carvajal",
+      "birthDate": "1992-01-11",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "2922"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3101327",
+      "name": "Sebastián Salazar Trujillo",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "2922"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3121766",
+      "name": "Ibrahima Danfakha Keita",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "2922"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327018",
+      "name": "Irahima Danfakha Keita",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "2922"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3128992",
+      "name": "Mikel Bermejo Sola",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "97"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "112492",
+      "name": "Héctor Mejía",
+      "birthDate": "2005-07-01",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "87"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3130644",
+      "name": "Álvaro Fernández Fernández",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "87"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3125566",
+      "name": "Gabriel Jiménez Carpintero",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "87"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3125573",
+      "name": "Alejandro Laso Molino",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "87"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "405490",
+      "name": "Illia Voloshyn",
+      "birthDate": "2007-01-15",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "86"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "86"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "5324162",
+      "name": "Jesús Cruz Morales",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "243"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3101339",
+      "name": "César Bonafé Ceita",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "102"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "102"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326689",
+      "name": "Mauro Roca Martínez",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "102"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "102"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326690",
+      "name": "Sergio Barrera Martín",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "102"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "102"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "371619",
+      "name": "Joselillo",
+      "birthDate": "2007-02-25",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "esp.1",
+          "team": "102"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "102"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "422968",
+      "name": "Kenan Doganay",
+      "birthDate": "2009-01-22",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "131"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "131"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "5325769",
+      "name": "Gabriel Minutillo",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "131"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "131"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327243",
+      "name": "Dustin Buck",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "131"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "131"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3104151",
+      "name": "Tim Binder",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "132"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "132"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3116064",
+      "name": "Josiah Kaled Uwakhonye",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "268"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3109554",
+      "name": "Niko Iličević",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "125"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3114554",
+      "name": "Assad Kotya-Fofana",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "122"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3107094",
+      "name": "Jean-Paul N'Diaye",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "133"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3111134",
+      "name": "Oskar Hencke",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "7911"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "7911"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3099575",
+      "name": "Jykese Fields",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "7911"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "7911"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3105981",
+      "name": "Muhammed Yasin Batuhan Zor",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ger.1",
+          "team": "7911"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "7911"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326343",
+      "name": "El Hadji Malick Cissé",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "103"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "103"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326344",
+      "name": "Nirash Raffaello Perera",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "103"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "103"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326345",
+      "name": "Luca Menon",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "103"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "103"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3098218",
+      "name": "Alessandro Di Nunzio",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "104"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "104"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "377387",
+      "name": "Mandjou Camara",
+      "birthDate": "2005-11-04",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "104"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "104"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3130628",
+      "name": "Mattia Sonzogni",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "105"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3128883",
+      "name": "Isaac Collins Isoa",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "105"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "378197",
+      "name": "Andrea Bonanomi",
+      "birthDate": "2006-01-31",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "105"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "5326829",
+      "name": "Luca Lo Monaco",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "107"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "419210",
+      "name": "Zebedee Kennedy",
+      "birthDate": "2010-02-24",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "2572"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "2572"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "3099527",
+      "name": "Dennis Beldenti",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "109"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5324063",
+      "name": "Arnis Ademi",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "109"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "421785",
+      "name": "Salvatore Cianciulli",
+      "birthDate": "2008-08-31",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "109"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "3102531",
+      "name": "Arman Durmiši",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "111"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "111"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3129035",
+      "name": "Antonio Stefano Merola",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "111"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "111"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327646",
+      "name": "Claudio Lieto",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "114"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "114"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "416154",
+      "name": "Francisco Baridó",
+      "birthDate": "2007-12-31",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "114"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "114"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "5327645",
+      "name": "Nikita Melnyk",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "114"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "114"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327647",
+      "name": "Andrea Chiummariello",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "114"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "114"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3145436",
+      "name": "Milton Agustín Pereyra",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "ita.1",
+          "team": "114"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "114"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3145596",
+      "name": "Youssef Khoudda",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "172"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326304",
+      "name": "Lenny Videira",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "2697"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "417256",
+      "name": "Matah Yondjio",
+      "birthDate": "2007-02-10",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "166"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "166"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3145437",
+      "name": "Samir Said Haribou",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "273"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5325687",
+      "name": "Angel Daniel Garcia",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "167"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "167"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327620",
+      "name": "Cluver Sambi Mbungu",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "167"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "167"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "402949",
+      "name": "Alejandro Rodríguez",
+      "birthDate": "2008-03-11",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "167"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "167"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "5325768",
+      "name": "Antoine Dominique Henri Valero",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "176"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "176"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5326108",
+      "name": "Ibrahim Meïté",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "6851"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3143886",
+      "name": "Adam Mouak",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "fra.1",
+          "team": "160"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "160"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3145423",
+      "name": "Dani Slory",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "142"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3145424",
+      "name": "Theodoris Deligiannidis",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "142"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "413713",
+      "name": "Christof Katzmayr",
+      "birthDate": "2008-05-10",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "4411"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "3101987",
+      "name": "Abel Cedergren",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "494"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3111595",
+      "name": "Matěj Kotrba",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "494"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3124013",
+      "name": "Paulo Yanick Moreno Vieira Sanches Cardoso",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "2250"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3122116",
+      "name": "Collin Luca Schramm",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3122119",
+      "name": "Tom Santos",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3124478",
+      "name": "Luca Berreth",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "406372",
+      "name": "Joyeux Masanka Bungi",
+      "birthDate": "2007-01-24",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3122113",
+      "name": "Julian Lüers",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "388325",
+      "name": "Oliver Rölke",
+      "birthDate": "2005-01-06",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3122117",
+      "name": "Neno Žeželj",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3129105",
+      "name": "Kian Speidel",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3139428",
+      "name": "Enis Redzepi",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3141573",
+      "name": "Idriss Brayann Youmbissi Kenmoe",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.champions",
+          "team": "134"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5327704",
+      "name": "Armen Asatryan",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "20024"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3102114",
+      "name": "Harutyun Asatryan",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "20024"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "410415",
+      "name": "Lucas Clearie",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "256"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "418762",
+      "name": "Liam Kennedy",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "256"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "3126810",
+      "name": "Iason Georgakopoulos",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "435"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "422718",
+      "name": "Nikloaos Avramulis",
+      "birthDate": "2008-08-06",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "435"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "387684",
+      "name": "Paschalis Toufakis",
+      "birthDate": "2006-09-12",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "435"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "5323356",
+      "name": "Athos Kounounis",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "617"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "329479",
+      "name": "Adam Stejskal",
+      "birthDate": "2002-03-28",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "3746"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "3106899",
+      "name": "Jonas Petritsch",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "3746"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "5325772",
+      "name": "David Liz Castro Morgado",
+      "birthDate": "",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.europa",
+          "team": "21615"
+        }
+      ],
+      "reason": "birth date unavailable"
+    },
+    {
+      "id": "319426",
+      "name": "Brynjar Bjarnason",
+      "birthDate": "1999-12-06",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.nations",
+          "team": "470"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    },
+    {
+      "id": "406100",
+      "name": "Arnold Qevani",
+      "birthDate": "2007-09-27",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.nations",
+          "team": "582"
+        }
+      ],
+      "reason": "HTTP Error 403: Forbidden"
+    },
+    {
+      "id": "342864",
+      "name": "Joshua Keeley",
+      "birthDate": "2003-05-17",
+      "headshot": null,
+      "teams": [
+        {
+          "league": "uefa.nations",
+          "team": "476"
+        }
+      ],
+      "reason": "no unique full-name and birth-date match"
+    }
+  ],
+  "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
+  "remainingCount": 98,
+  "cpbl": {
+    "officialPortraitsUpdated": 178,
+    "teams": {
+      "CPBL:AAA": 32,
+      "CPBL:ACN": 32,
+      "CPBL:ADD": 32,
+      "CPBL:AEO": 28,
+      "CPBL:AJL": 26,
+      "CPBL:AKP": 28
+    },
+    "identity": "Named official CPBL player profile and club roster; unmodified downloaded source bytes",
+    "knownWrongImageCorrected": "張閔勛: replaced unrelated FISU flag with portrait from official CPBL player 0000002282"
+  },
+  "otherLeagues": {
+    "audited": [
+      "NBA",
+      "WNBA",
+      "MLB",
+      "NPB",
+      "KBO"
+    ],
+    "limitation": "Many CDN checks timed out; those results are inconclusive, not proven missing. Existing verified identity-matched fallback portraits are preserved. No claim of complete portrait availability."
+  },
+  "completedAt": "2026-11-03T08:37:21.296233+00:00"
+}

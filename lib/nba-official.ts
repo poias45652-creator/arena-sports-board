@@ -88,7 +88,11 @@ export function enrichNbaRoster(roster:ReturnType<typeof person>[],teamId:number
   const row=matches.length===1?matches[0]:null;
   const clean=(v:unknown)=>typeof v==='string'&&v.trim()!=='-'?v.trim():'';
   const supplement=nbaPlayerSupplement(p.id,p.name);
+  const season=Number(String(p.season||'').slice(0,4));
+  const seasonStats=row?.STATS_TIMEFRAME==='Season'&&Number(row.TO_YEAR)===season&&Number.isInteger(season)&&season>=1946;
+  const averages=seasonStats&&[row.PTS,row.REB,row.AST].some(v=>typeof v==='number'&&Number.isFinite(v))?{season:season+1,points:num(row.PTS),rebounds:num(row.REB),assists:num(row.AST)}:undefined;
   return {...p,photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${p.id}.png`,photoFallback:supplement?.photo.path?`https://cdn.nba.com/headshots/nba/latest/1040x760/${p.id}.png`:undefined,supplementalStats:supplement?.collegeStats??undefined,
+   averages,
    height:clean(p.height)||clean(row?.HEIGHT)||supplement?.bio.height||'',weight:clean(p.weight)||clean(row?.WEIGHT)||supplement?.bio.weight||'',school:clean(p.school)||clean(row?.COLLEGE)||supplement?.bio.school||'',
    country:clean(row?.COUNTRY)||supplement?.bio.country||'',draftYear:row?.DRAFT_YEAR?String(row.DRAFT_YEAR):'',
    position:clean(p.position)||clean(row?.POSITION)||supplement?.bio.position||'',number:p.number||clean(row?.JERSEY_NUMBER)};
