@@ -100,7 +100,9 @@ export function parseKboOfficialScoreboard(html,page,date){
    const status=inningStatus?'live':/경기종료|경기끝|종료|콜드게임/.test(rawStatus)?'final':/경기전|시작전|경기예정/.test(rawStatus)?'pregame':/취소/.test(rawStatus)?'cancelled':/연기/.test(rawStatus)?'postponed':/중단/.test(rawStatus)?'suspended':'unknown';
    if(status==='unknown')throw new Error('Unknown KBO state: '+rawStatus);
    const pregameWithoutId=!idMatch&&status==='pregame';
-   if(!pregameWithoutId&&(!idMatch||idMatch[1]!=='1'||!['0','1','5'].includes(idMatch[2])))throw new Error('Not a recognized first-team regular/postseason game');
+   // The 2026 Korean Series official scoreboard uses seriesId=7, leagueId=1.
+   // Keep the official game/date/team-identity checks below unchanged.
+   if(!pregameWithoutId&&(!idMatch||idMatch[1]!=='1'||!['0','1','5','7'].includes(idMatch[2])))throw new Error('Not a recognized first-team regular/postseason game');
    const id=idMatch?.[3]??null;
    if(id&&!id.startsWith(date.replaceAll('-','')))throw new Error('Official game ID/date mismatch');
    const section=name=>card.match(new RegExp('<p\\b[^>]*class=[\\x22\\x27]'+name+'[\\x22\\x27][^>]*>([\\s\\S]*?)<\\/p>','i'))?.[1]||'';
