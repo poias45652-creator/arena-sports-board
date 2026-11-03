@@ -106,5 +106,59 @@
     "y": 20,
     "size": 560,
     "photoSha256": "f151d9e95b65f0233e4f4a00d085254729fb366c637f4bc35ec9438c169fd56e"
+  },
+  "3125573": {
+    "name": "Alejandro Laso Molino",
+    "width": 960,
+    "height": 1440,
+    "x": 160,
+    "y": 55,
+    "size": 640,
+    "photoSha256": "3875758efaf4a1bcef9ad13a960809d4d9a38cb07e06ae28a12d3db0b31b6f41"
+  },
+  "3129035": {
+    "name": "Antonio Stefano Merola",
+    "width": 1000,
+    "height": 600,
+    "x": 415,
+    "y": 0,
+    "size": 320,
+    "photoSha256": "f4300f4f6198490e1f90c790d5c0e6a699a44909be5325b047b6cae5ac6491c5"
+  },
+  "416154": {
+    "name": "Francisco Baridó",
+    "width": 613,
+    "height": 583,
+    "x": 473,
+    "y": 122,
+    "size": 140,
+    "photoSha256": "1cb92ec47a35cb905949d5c09fd8dc492919a285e303311c6515b1c9f0306524"
+  },
+  "5326304": {
+    "name": "Lenny Videira",
+    "width": 720,
+    "height": 952,
+    "x": 275,
+    "y": 130,
+    "size": 170,
+    "photoSha256": "991f042043fae29c8b96bfa4b8c265d345530147e3d426b81b8bb5d2e577d93c"
+  },
+  "5326108": {
+    "name": "Ibrahim Meïté",
+    "width": 2000,
+    "height": 1334,
+    "x": 1060,
+    "y": 10,
+    "size": 620,
+    "photoSha256": "6fcde800ef77710a410edae2550c39d346daaa4326bc7a31ce15a0cf0a3c856c"
+  },
+  "3141573": {
+    "name": "Idriss Brayann Youmbissi Kenmoe",
+    "width": 180,
+    "height": 260,
+    "x": 10,
+    "y": 0,
+    "size": 160,
+    "photoSha256": "86107d8244b7ecae0da0a81be6fca3a00fe2958915caec446a68ecedb002214f"
   }
 }

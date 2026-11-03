@@ -3968,5 +3968,133 @@
     ],
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-03"
+  },
+  "3125573": {
+    "name": "Alejandro Laso Molino",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.realracingclub.es/public/Image/2026/10/retratosdia2-471_jpg_Vertical.webp",
+      "localPath": "/images/players/football/3125573-original.webp",
+      "sha256": "3875758efaf4a1bcef9ad13a960809d4d9a38cb07e06ae28a12d3db0b31b6f41",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.realracingclub.es/sitesearch",
+    "identity": "Official Racing site search for Alejandro Laso returns an explicitly named Juvenil DH card with the complete vertical portrait. Indexed profile currently returns 404. Full name corroborated by BeSoccer player 3452213. CSS frame uses the original vertical image, not the unusable headless landscape version. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "87"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "3129035": {
+    "name": "Antonio Stefano Merola",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.mondoprimavera.com/wp-content/uploads/2025/10/Antonio-Stefano-Merola-1.jpg",
+      "localPath": "/images/players/football/3129035-original.jpg",
+      "sha256": "f4300f4f6198490e1f90c790d5c0e6a699a44909be5325b047b6cae5ac6491c5",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.mondoprimavera.com/notizie/antonio-stefano-merola-chi-e-storia-carriera-caratteristiche-contratto-valore/",
+    "identity": "MondoPrimavera named profile describes Antonio Stefano Merola, Juventus Next Gen forward born in 2007, with image alt Antonio Stefano Merola Juve. Single player is clearly visible facing the camera. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "111"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "111"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "416154": {
+    "name": "Francisco Baridó",
+    "birthDate": "2007-12-31",
+    "photo": {
+      "url": "https://resource.calcionapoli24.it/www/thumbs/allegati/large/1756818869_322.jpg",
+      "localPath": "/images/players/football/416154-original.jpg",
+      "sha256": "1cb92ec47a35cb905949d5c09fd8dc492919a285e303311c6515b1c9f0306524",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.calcionapoli24.it/notizie/barido-al-napoli-spunta-il-primo-scatto-accordo-fino-al-2028-con-g660848-0.html",
+    "identity": "Named CalcioNapoli24 signing article and its linked gallery identify Napoli signing Francisco Barido with agent Marco Sommella. CSS frame focuses on the young player at the front right. Full name, nationality and Napoli identity corroborated by zerozero player 2529573, which also matches the frontend 2007-12-31 birth date. Other sources use 2008-01-01; frontend birth date is unchanged. Composite article header and back-facing match photo rejected. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "114"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "114"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5326304": {
+    "name": "Lenny Videira",
+    "birthDate": "",
+    "photo": {
+      "url": "https://media.licdn.com/dms/image/v2/D4E05AQFov43vLtfQ4w/videocover-high/B4EZ9nxmTiIcBM-/0/1784152484866?e=2147483647&v=beta&t=SERaSbbz0GYUWOcdrYRJpezAYVSMXLPdnMjIH_Qno-U",
+      "localPath": "/images/players/football/5326304-original.jpg",
+      "sha256": "991f042043fae29c8b96bfa4b8c265d345530147e3d426b81b8bb5d2e577d93c",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://fr.linkedin.com/posts/billion-keys_interview-exclu-u21-lenny-videira-milieu-activity-7483277942677192705-9dmE",
+    "identity": "Public U21 FOOTBALL interview post explicitly names Lenny Videira, Le Mans reserve midfielder born in 2006. Unmodified video-cover image is used; CSS frame shows only the named interview participant in the upper panel, excluding the two unlabeled lower-panel subjects. Interview source has lower resolution than studio portraits. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "2697"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "5326108": {
+    "name": "Ibrahim Meïté",
+    "birthDate": "",
+    "photo": {
+      "url": "https://parisfc.fr/wp-content/uploads/2026/07/DSC02699-1.jpg",
+      "localPath": "/images/players/football/5326108-original.jpg",
+      "sha256": "6fcde800ef77710a410edae2550c39d346daaa4326bc7a31ce15a0cf0a3c856c",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://parisfc.fr/equipe-pro/premier-contrat-professionnel-pour-ibrahim-meite/",
+    "identity": "Paris FC official first-professional-contract announcement names goalkeeper Ibrahim Meite. Original signing image downloaded from the public club page in browser. CSS frame shows the player on the right holding his MEITE 2028 shirt, excluding the club official on the left. Unrelated same-name players are excluded. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "6851"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
+  },
+  "3141573": {
+    "name": "Idriss Brayann Youmbissi Kenmoe",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.vfb.de/?proxy=sportdb%2Fspieler%2F9fb20-kenmoe-180x260.png",
+      "localPath": "/images/players/football/3141573-original.png",
+      "sha256": "86107d8244b7ecae0da0a81be6fca3a00fe2958915caec446a68ecedb002214f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.vfb.de/de/1893/junge-wilde/u19/kader/kader/",
+    "identity": "Official VfB Stuttgart U19 roster names Brayann Kenmoe with this cutout portrait, Cameroon and 2010-02-16 birthday. Full name Idriss Brayann Youmbissi Kenmoe corroborated by Transfermarkt player 1376209 and DFB player 431983. Frontend full name and unavailable birth date are retained. Original bytes decoded and visually reviewed; CSS framing only.",
+    "teams": [
+      {
+        "league": "uefa.champions",
+        "team": "134"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-03"
   }
 }

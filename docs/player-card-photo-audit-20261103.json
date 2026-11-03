@@ -14,31 +14,8 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 179,
+  "addedPhotos": 185,
   "remaining": [
-    {
-      "id": "3125573",
-      "name": "Alejandro Laso Molino",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "esp.1",
-          "team": "87"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://www.realracingclub.es/alejandro-laso-2026",
-            "result": "Club image downloaded but published crop cuts off the head; unusable portrait."
-          }
-        ]
-      }
-    },
     {
       "id": "377387",
       "name": "Mandjou Camara",
@@ -66,88 +43,10 @@
           {
             "source": "https://sport.sky.it/calcio/atleti/mandjou-camara/696039",
             "result": "Headshot returned 404; source birthday 2009-02-27 conflicts with frontend 2005-11-04, so identity is unresolved."
-          }
-        ]
-      }
-    },
-    {
-      "id": "3129035",
-      "name": "Antonio Stefano Merola",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "111"
-        },
-        {
-          "league": "uefa.europa",
-          "team": "111"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1836204.png",
-            "result": "<urlopen error timed out>"
           },
           {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1836204.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1836204.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://www.juventus.com/it/news/articoli/u20-antonio-stefano-merola-rinnova-fino-al-2027",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://www.romagnasport.com/tuttocalcio/info_giocatore.php?anno=2026&id=795929",
-            "result": "Downloaded profile photo is a generic avatar; official Juventus image returns 403."
-          }
-        ]
-      }
-    },
-    {
-      "id": "416154",
-      "name": "Francisco Baridó",
-      "birthDate": "2007-12-31",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "ita.1",
-          "team": "114"
-        },
-        {
-          "league": "uefa.champions",
-          "team": "114"
-        }
-      ],
-      "reason": "HTTP Error 403: Forbidden",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/1830801.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/653231.png?im=Resize,width=270",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://img.uefa.com/imgml/TP/players/2008/2027/324x324/250201669.jpg",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://www.juventus.com/it/news/articoli/u20-francisco-barido-si-trasferisce-al-napoli",
-            "result": "Official image returns 403; no usable portrait downloaded."
+            "source": "https://www.sofascore.com/football/player/mandjou-camara/1612495",
+            "result": "Same-name SOAR midfielder has the frontend birthday 2005-11-04, while Roma academy forward is born 2009-02-27. Cannot safely map a portrait without resolving provider identity; photo-only scope preserves existing data."
           }
         ]
       }
@@ -179,99 +78,14 @@
           {
             "source": "https://globalsportsarchive.com/en/soccer/athlete/youssef-khoudda/7956471",
             "result": "Downloaded named portrait is a silhouette. Former club announcement has several players without explicit subject positioning."
-          }
-        ]
-      }
-    },
-    {
-      "id": "5326304",
-      "name": "Lenny Videira",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "2697"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2409733.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://sport.sky.it/assets/images/archive/headshot/43d5d0eac7d3479a8bca0ad3fd57e7c1/calcio/club/648401.png?im=Resize,width=270",
-            "result": "HTTP Error 404: Not Found"
+            "source": "https://www.transfermarkt.co.uk/youssef-khoudda/profil/spieler/1253657",
+            "result": "Named Auxerre B profile uses default.jpg silhouette; public facepack page returns 401. Earlier former-club group image still has no reliable subject position."
           },
           {
-            "source": "https://ke.soccerway.com/player/videira-lenny/S41yl7MG/",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
-          },
-          {
-            "source": "https://footlab.ai/fr/joueur/669862",
-            "result": "Downloaded API-Sports portrait is a generic avatar. U21 interview page returns 500."
-          }
-        ]
-      }
-    },
-    {
-      "id": "5326108",
-      "name": "Ibrahim Meïté",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "6851"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2406287.png",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://parisfc.fr/wp-content/uploads/2026/07/DSC02699-1.jpg",
-            "result": "HTTP Error 403: Forbidden"
-          },
-          {
-            "source": "https://parisfc.fr/equipe-pro/premier-contrat-professionnel-pour-ibrahim-meite/",
-            "result": "Named goalkeeper announcement confirmed; official image still unavailable (403)."
-          }
-        ]
-      }
-    },
-    {
-      "id": "3141573",
-      "name": "Idriss Brayann Youmbissi Kenmoe",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.champions",
-          "team": "134"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://www.vfb.de/de/1893/junge-wilde/u19/kader/saisonen/2026-2027/kader/",
-            "result": "HTTP Error 404: Not Found"
-          },
-          {
-            "source": "https://sportdaten.sportbild.bild.de/fussball/pe895328/brayann-kenmoe/profil/",
-            "result": "Downloaded profile image is the generic male fallback."
+            "source": "https://infosports.dhnet.be/football/joueur/242061/youssef-khoudda",
+            "result": "Named player profile exposes person_0.jpg, the provider default portrait."
           }
         ]
       }
@@ -299,6 +113,10 @@
           {
             "source": "https://www.uprisingfc.com/team/armenia-u17/22672/",
             "result": "Named image is only 50x50; rejected as below minimum portrait resolution."
+          },
+          {
+            "source": "https://www.transfermarkt.co.in/armen-asatryan/profil/spieler/1375995",
+            "result": "Named Armenia U17 defender profile matches 2009-08-24 but its portrait is default.jpg. No usable verified portrait."
           }
         ]
       }
@@ -322,13 +140,17 @@
           {
             "source": "https://www.sofascore.com/football/player/harutyun-asatryan/1105487",
             "result": "Available same-name record belongs to FC Ararat II, not current frontend FC Ararat-Armenia; no photo assigned without corroboration."
+          },
+          {
+            "source": "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
+            "result": "UEFA roster shows H. Asatryan age 23 but no portrait. Same-name FC Ararat Yerevan II profile has a different club; no full-name-and-birth-date link established to current frontend record."
           }
         ]
       }
     }
   ],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 10,
+  "remainingCount": 4,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -480,6 +302,22 @@
       ],
       "remaining": 10,
       "validation": "Named source and current roster identity, original image decode and SHA256, desktop/mobile rendering of actual shared player card, actual frontend parser and local photo resolver."
+    },
+    {
+      "checkedAt": "2026-11-03",
+      "scope": "Frontend photo assets, source metadata and existing CSS framing configuration only; roster identities, birthdays and statistics preserved.",
+      "recordsFilled": 6,
+      "uniquePortraits": 6,
+      "players": [
+        "3125573",
+        "3129035",
+        "416154",
+        "5326304",
+        "5326108",
+        "3141573"
+      ],
+      "remaining": 4,
+      "validation": "Named sources and current roster identity; original image decode and SHA256; actual shared card at desktop/mobile sizes; actual frontend parser and local photo resolver."
     }
   ]
 }
