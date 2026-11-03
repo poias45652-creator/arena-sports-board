@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-11-03T10:48:43.511Z",
+  "observedAt": "2026-11-03T11:37:57.919Z",
   "dateAsiaTaipei": "2026-11-03",
   "currentGames": {
     "NPB": 0,
@@ -16,14 +16,14 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "2026-11-03 official first-team zero games verified from dated NPB calendar; Yahoo remains stale 2026-11-01; no live applicable",
-    "KBO": "KBO first-team Korean Series Game1 Samsung@KT LIVE 4회말 Samsung 0 KT 5; official ID 20261103SSKT0. Fresh B/S/O changed 0/1/1 to 2/0/2 over 86.589s. Naver timeout; official scoreboard fallback partial. Bases/pitchCount/lineups unverified.",
-    "CPBL": "2026-11-03 Yahoo Taiwan source ok zero first-team games; independent full postseason off-day not verified"
+    "NPB": "2026-11-03 official first-team zero games verified; Yahoo selected date still 2026-11-01; no LIVE",
+    "KBO": "KBO Korean Series Game1 Samsung@KT LIVE 7회초, Samsung 0 KT 8, official game ID 20261103SSKT0. 86.414s new paired LIVE captures verified strikes 0->1; Naver timeout; official fallback partial; unverified bases/pitchCount/lineup null.",
+    "CPBL": "2026-11-03 Yahoo Taiwan zero games; independent full-postseason official off-day not confirmed"
   },
   "databaseTest": {
     "performed": true,
     "passed": true,
-    "checkedAt": "2026-11-03T10:48:46.700Z",
+    "checkedAt": "2026-11-03T11:37:59.751Z",
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "checks": [
       {
@@ -52,7 +52,7 @@
     "previousSuccessfulCheck": {
       "performed": true,
       "passed": true,
-      "checkedAt": "2026-11-03T09:46:24.810Z",
+      "checkedAt": "2026-11-03T10:48:46.700Z",
       "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
       "checks": [
         {
@@ -81,7 +81,7 @@
       "previousSuccessfulCheck": {
         "performed": true,
         "passed": true,
-        "checkedAt": "2026-11-03T08:55:50.566Z",
+        "checkedAt": "2026-11-03T09:46:24.810Z",
         "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
         "checks": [
           {
@@ -110,7 +110,7 @@
         "previousSuccessfulCheck": {
           "performed": true,
           "passed": true,
-          "checkedAt": "2026-11-03T07:50:55.073Z",
+          "checkedAt": "2026-11-03T08:55:50.566Z",
           "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
           "checks": [
             {
@@ -135,7 +135,37 @@
               "passed": true
             }
           ],
-          "productionWritten": false
+          "productionWritten": false,
+          "previousSuccessfulCheck": {
+            "performed": true,
+            "passed": true,
+            "checkedAt": "2026-11-03T07:50:55.073Z",
+            "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+            "checks": [
+              {
+                "league": "NPB",
+                "written": 0,
+                "duplicateWrites": 0,
+                "readBack": 0,
+                "passed": true
+              },
+              {
+                "league": "KBO",
+                "written": 1,
+                "duplicateWrites": 0,
+                "readBack": 1,
+                "passed": true
+              },
+              {
+                "league": "CPBL",
+                "written": 0,
+                "duplicateWrites": 0,
+                "readBack": 0,
+                "passed": true
+              }
+            ],
+            "productionWritten": false
+          }
         }
       }
     }
@@ -3127,15 +3157,29 @@
         "sourceGameId": "20261103SSKT0",
         "primaryNaverStatus": "timeout",
         "collectorStatus": "partial",
-        "officialScoreboardFetchedAt": "2026-11-03T10:48:43.509Z",
+        "officialScoreboardFetchedAt": "2026-11-03T11:37:57.918Z",
         "lineupConfirmation": "not_verified",
         "gameIdOfficiallyVerified": true,
         "seriesId": "7",
         "pregamePlaceholderGuardPassed": true,
         "sourceSeriesId": "7",
-        "verifiedAt": "2026-11-03T10:48:43.511Z",
-        "verificationMethod": "same-run KBO official LIVE-to-LIVE B/S/O numeric changes 0/1/1 -> 2/0/2 in 86.589s",
+        "verifiedAt": "2026-11-03T11:37:57.919Z",
+        "verificationMethod": "same-run official LIVE-to-LIVE strikes 0->1 over 86.414s",
         "liveChangeProof": {
+          "beforeFetchedAt": "2026-11-03T11:36:31.504Z",
+          "afterFetchedAt": "2026-11-03T11:37:57.918Z",
+          "intervalSeconds": 86.414,
+          "changes": {
+            "strikes": {
+              "before": 0,
+              "after": 1
+            }
+          }
+        },
+        "bases": null,
+        "pitchCount": null,
+        "previousSameDayVerifiedObservationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
+        "previousSameDayLiveChangeProof": {
           "beforeFetchedAt": "2026-11-03T10:47:16.920Z",
           "afterFetchedAt": "2026-11-03T10:48:43.509Z",
           "intervalSeconds": 86.589,
@@ -3154,28 +3198,14 @@
             }
           }
         },
-        "bases": null,
-        "pitchCount": null,
-        "previousSameDayVerifiedObservationPath": "data/live/20261103T085546Z-run41606857500-attempt1-kbo-series7-repaired.json",
-        "previousSameDayLiveChangeProof": {
-          "beforeFetchedAt": "2026-11-03T09:44:56.899Z",
-          "afterFetchedAt": "2026-11-03T09:46:22.686Z",
-          "intervalSeconds": 85.787,
-          "changes": {
-            "balls": {
-              "before": 0,
-              "after": 3
-            }
-          }
-        },
         "currentState": {
-          "inning": 4,
-          "half": "bottom",
+          "inning": 7,
+          "half": "top",
           "awayScore": 0,
-          "homeScore": 5,
-          "balls": 2,
-          "strikes": 0,
-          "outs": 2,
+          "homeScore": 8,
+          "balls": 0,
+          "strikes": 1,
+          "outs": 0,
           "bases": null,
           "pitchCount": null,
           "lineupConfirmation": "not_verified"
@@ -3197,7 +3227,7 @@
       "allVerified": false,
       "allScheduledLeaguesVerified": true,
       "allThreeLeaguesLiveVerified": false,
-      "reason": "2026-11-03 18:48 Taipei: new KBO official Korean Series Game1 live 4회말 Samsung 0 KT 5 vs 17:46 1회말 0-0. New 86.589s paired live snapshots show B/S/O changes balls 0->2, strikes 1->0, outs 1->2. Naver still timeout, fallback partial. NPB official offday with Yahoo stale, CPBL zero Yahoo games and full postseason offday unverified. Current run41606857500 attempt3 artifact13222764667 ZIP independently matched SHA256; isolated PG16 0/1/0 passed; no production changes.",
+      "reason": "2026-11-03 19:37:57 Taipei: KBO official Game1 7회초 0-8 vs previous 4회말 0-5. New 86.414s LIVE paired capture strikes 0->1; Naver timeout unchanged, official fallback partial. NPB official offday Yahoo stale; CPBL zero games, official full offday unverified. Run41606857500 attempt4 artifact13226694301 independent ZIP SHA256 match, isolated PG16 0/1/0; production untouched.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -3205,25 +3235,24 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 41606857500,
-        "runAttempt": 3,
+        "runAttempt": 4,
         "runAttemptConfirmedByApi": true,
-        "jobId": 125869995102,
-        "jobStatus": "completed",
+        "jobId": 125892813165,
         "jobConclusion": "success",
         "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
-        "artifactId": 13222764667,
+        "artifactId": 13226694301,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-11-03T10:48:48Z",
-        "artifactDigest": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
-        "downloadedZipSha256": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
+        "artifactCreatedAt": "2026-11-03T11:38:01Z",
+        "artifactDigest": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
+        "downloadedZipSha256": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
         "artifactDigestVerifiedIndependently": true,
         "artifactCreatedAfterCapturedAt": true,
         "staleArtifactUsed": false,
-        "observationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
-        "capturedAt": "2026-11-03T10:48:43.511Z",
+        "observationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
+        "capturedAt": "2026-11-03T11:37:57.919Z",
         "secondCapturePerformed": true,
-        "captureIntervalSeconds": 86.589,
-        "currentRunQualifiedNumericChanges": 3,
+        "captureIntervalSeconds": 86.414,
+        "currentRunQualifiedNumericChanges": 1,
         "liveGamesConfirmedInAvailableSources": 1,
         "finalGamesConfirmedInAvailableSources": 0,
         "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0",
@@ -3235,10 +3264,11 @@
         "officialKboSourceGameIdNowVerified": "20261103SSKT0",
         "KboKoreanSeries7ParserFixed": true,
         "productionChanged": false,
-        "qualifiedNumericChanges": 3,
-        "liveChangeProofVerified": true
+        "qualifiedNumericChanges": 1,
+        "liveChangeProofVerified": true,
+        "jobStatus": "completed"
       },
-      "latestObservationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
+      "latestObservationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
       "priorFailureEvidencePath": "data/live/20261103T085321Z-run41432970923-attempt10-kbo-series7-parser-failure.json"
     }
   },
@@ -4002,12 +4032,12 @@
   ],
   "currentDayLiveChangeProof": {
     "date": "2026-11-03",
-    "checkedAt": "2026-11-03T10:48:43.511Z",
+    "checkedAt": "2026-11-03T11:37:57.919Z",
     "evidenceRetainedIn": "data/live/",
-    "latestObservationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
+    "latestObservationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 86.589,
-    "qualifiedNumericChanges": 3,
+    "captureIntervalSeconds": 86.414,
+    "qualifiedNumericChanges": 1,
     "NPB": {
       "verified": false,
       "checkedToday": true,
@@ -4039,35 +4069,27 @@
       "sourceSeriesId": "7",
       "lineupConfirmation": "not_verified",
       "pitchCount": null,
-      "balls": 2,
-      "strikes": 0,
-      "outs": 2,
+      "balls": 0,
+      "strikes": 1,
+      "outs": 0,
       "bases": null,
-      "inning": 4,
-      "half": "bottom",
+      "inning": 7,
+      "half": "top",
       "awayScore": 0,
-      "homeScore": 5,
+      "homeScore": 8,
       "liveNumericChangeVerified": true,
       "liveChangeProof": {
-        "beforeFetchedAt": "2026-11-03T10:47:16.920Z",
-        "afterFetchedAt": "2026-11-03T10:48:43.509Z",
-        "intervalSeconds": 86.589,
+        "beforeFetchedAt": "2026-11-03T11:36:31.504Z",
+        "afterFetchedAt": "2026-11-03T11:37:57.918Z",
+        "intervalSeconds": 86.414,
         "changes": {
-          "balls": {
-            "before": 0,
-            "after": 2
-          },
           "strikes": {
-            "before": 1,
-            "after": 0
-          },
-          "outs": {
-            "before": 1,
-            "after": 2
+            "before": 0,
+            "after": 1
           }
         }
       },
-      "priorLiveChangeProofRetainedAt": "data/live/20261103T094622Z-run41606857500-attempt2-kbo-live-bso-verified.json"
+      "priorLiveChangeProofRetainedAt": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json"
     },
     "CPBL": {
       "verified": false,
@@ -4087,36 +4109,35 @@
     },
     "allVerified": false,
     "allScheduledLeaguesVerified": true,
-    "withinRunQualifiedNumericChanges": 3,
+    "withinRunQualifiedNumericChanges": 1,
     "crossRunQualifiedNumericChanges": 2,
     "previousSameDayLiveProofRetained": true
   },
-  "nextAction": "Continue daily and in-game recheck without auto-stop; re-run isolated collector while live to validate KBO scores/innings/B/S/O with >=65s paired captures and detect any newly verified fields. NPB Yahoo selected date stale, Naver KBO timeout, CPBL full-postseason offday not officially confirmed. Keep unknown bases/pitch count and unverified lineups null; no main, Render, production DB, login/auth/env changes or deploy.",
+  "nextAction": "Continue daily and in-game rechecks; do not auto-stop. Rerun collector on isolated branch to validate KBO LIVE/FINAL and 65s paired states when live. NPB Yahoo date remains stale, Naver times out, CPBL postseason full offday unverified. Unsupported fields must stay null. No changes to main, Render, production DB, login/auth/env or deploy.",
   "latestRun": {
     "repository": "poias45652-creator/arena-sports-board",
     "branch": "data/live-source-probe-20260915",
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41606857500,
-    "runAttempt": 3,
+    "runAttempt": 4,
     "runAttemptConfirmedByApi": true,
-    "jobId": 125869995102,
-    "jobStatus": "completed",
+    "jobId": 125892813165,
     "jobConclusion": "success",
     "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
-    "artifactId": 13222764667,
+    "artifactId": 13226694301,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-03T10:48:48Z",
-    "artifactDigest": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
-    "downloadedZipSha256": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
+    "artifactCreatedAt": "2026-11-03T11:38:01Z",
+    "artifactDigest": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
+    "downloadedZipSha256": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
     "artifactDigestVerifiedIndependently": true,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "observationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
-    "capturedAt": "2026-11-03T10:48:43.511Z",
+    "observationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
+    "capturedAt": "2026-11-03T11:37:57.919Z",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 86.589,
-    "currentRunQualifiedNumericChanges": 3,
+    "captureIntervalSeconds": 86.414,
+    "currentRunQualifiedNumericChanges": 1,
     "liveGamesConfirmedInAvailableSources": 1,
     "finalGamesConfirmedInAvailableSources": 0,
     "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0",
@@ -4128,21 +4149,22 @@
     "officialKboSourceGameIdNowVerified": "20261103SSKT0",
     "KboKoreanSeries7ParserFixed": true,
     "productionChanged": false,
-    "qualifiedNumericChanges": 3,
-    "liveChangeProofVerified": true
+    "qualifiedNumericChanges": 1,
+    "liveChangeProofVerified": true,
+    "jobStatus": "completed"
   },
-  "latestObservationCommit": "b560d3bc1cedd5d0a76c7949d7f23e71e3bb4722",
+  "latestObservationCommit": "4a521a11d7e9f304c78520fbb9fe51878f4f4e65",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
-    "lastEvidenceContains": "Nov3 KBO Korean Series Game1 LIVE 4회말 0-5, paired 86.589s B/S/O changes; verified current-run run41606857500 attempt3 job125869995102 artifact13222764667 SHA256 match. Existing prior evidence remains."
+    "lastEvidencePath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
+    "lastEvidenceContains": "Nov3 KBO Game1 LIVE 7회초 0-8; fresh paired 86.414s strikes 0->1, 2->3 away hits; verified run41606857500 attempt4 job125892813165 artifact13226694301 SHA256 match, isolated PG16 test passed. Prior historical evidence retained."
   },
   "currentDayFinalObservation": {
     "date": "2026-11-03",
-    "capturedAt": "2026-11-03T10:48:43.511Z",
+    "capturedAt": "2026-11-03T11:37:57.919Z",
     "finalGames": {
       "NPB": 0,
       "KBO": 0,
@@ -4159,7 +4181,7 @@
       "CPBL": 0
     },
     "state": "npb_official_offday_kbo_official_live_cpbl_source_zero",
-    "observationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
+    "observationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
     "previousSameDayLiveProofRetained": true,
     "finalVerifiedFromOfficial": false
   },
@@ -4169,25 +4191,24 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41606857500,
-    "runAttempt": 3,
+    "runAttempt": 4,
     "runAttemptConfirmedByApi": true,
-    "jobId": 125869995102,
-    "jobStatus": "completed",
+    "jobId": 125892813165,
     "jobConclusion": "success",
     "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
-    "artifactId": 13222764667,
+    "artifactId": 13226694301,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-03T10:48:48Z",
-    "artifactDigest": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
-    "downloadedZipSha256": "sha256:b14e7634117736a0203828e0c8d1881a19114ab543f9c0d65e13f9658c1fbc30",
+    "artifactCreatedAt": "2026-11-03T11:38:01Z",
+    "artifactDigest": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
+    "downloadedZipSha256": "sha256:5efaaa7f43890356dc186fe7c8b9638d6180661275054fa4de20e3b2b2033a86",
     "artifactDigestVerifiedIndependently": true,
     "artifactCreatedAfterCapturedAt": true,
     "staleArtifactUsed": false,
-    "observationPath": "data/live/20261103T104843Z-run41606857500-attempt3-kbo-live-verified.json",
-    "capturedAt": "2026-11-03T10:48:43.511Z",
+    "observationPath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json",
+    "capturedAt": "2026-11-03T11:37:57.919Z",
     "secondCapturePerformed": true,
-    "captureIntervalSeconds": 86.589,
-    "currentRunQualifiedNumericChanges": 3,
+    "captureIntervalSeconds": 86.414,
+    "currentRunQualifiedNumericChanges": 1,
     "liveGamesConfirmedInAvailableSources": 1,
     "finalGamesConfirmedInAvailableSources": 0,
     "isolatedDatabaseTest": "passed_npb0_kbo1_cpbl0",
@@ -4199,7 +4220,8 @@
     "officialKboSourceGameIdNowVerified": "20261103SSKT0",
     "KboKoreanSeries7ParserFixed": true,
     "productionChanged": false,
-    "qualifiedNumericChanges": 3,
-    "liveChangeProofVerified": true
+    "qualifiedNumericChanges": 1,
+    "liveChangeProofVerified": true,
+    "jobStatus": "completed"
   }
 }
