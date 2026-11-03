@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-03",
+  "capturedAt": "2026-11-03T08:53:21.967Z",
+  "purpose": "Retain fresh attempt10 parser-failure evidence before isolated branch repair; do not treat failed KBO 0 as no game",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "runId": 41432970923,
+    "runAttempt": 10,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 125817694203,
+    "jobConclusion": "failure",
+    "artifactId": 13217575460,
+    "artifactCreatedAt": "2026-11-03T08:53:24Z",
+    "artifactDigest": "sha256:79ce2162ae88513c643513a08b4ef4ec867d719f34a54916f6d1b1e797826e58",
+    "downloadedZipSha256": "sha256:79ce2162ae88513c643513a08b4ef4ec867d719f34a54916f6d1b1e797826e58",
+    "artifactDigestVerifiedIndependently": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "headSha": "4a787bd5d3831b873fba17b41b81fb974da09e81"
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "games": 0,
+      "offDayVerified": true,
+      "sourceDegraded": true,
+      "yahooSelectedDate": "2026-11-01"
+    },
+    "KBO": {
+      "status": "unavailable",
+      "games": null,
+      "actualGamesUnknownNotZero": true,
+      "primaryNaverStatus": "timeout",
+      "fallbackHttpStatus": 200,
+      "fallbackSelectedDate": "2026-11-03",
+      "fallbackDetectedTeamCodes": [
+        "SS",
+        "KT"
+      ],
+      "fallbackGameId": "20261103SSKT0",
+      "fallbackLeagueId": "1",
+      "fallbackSeriesId": "7",
+      "fallbackRawState": "1회초",
+      "observedStartTimeAsiaTaipei": "2026-11-03T17:30:00+08:00",
+      "parserError": "Not a recognized first-team regular/postseason game",
+      "diagnosis": "Existing seriesId allowlist [0,1,5] rejected KBO official 2026 Korean Series seriesId=7. Official score 0:0/inning1 is a pre-start placeholder, not verified LIVE."
+    },
+    "CPBL": {
+      "status": "ok",
+      "games": 0,
+      "officialFullOffDayVerified": null
+    }
+  },
+  "secondCapturePerformed": false,
+  "isolatedDatabaseTest": {
+    "performed": false,
+    "reason": "collector step failure; database steps skipped"
+  },
+  "repair": {
+    "branch": "data/live-source-probe-20260915",
+    "commit": "bf1097b3defde0386107d2e9a395403f38d95d16",
+    "codePath": "server/baseball-current.mjs",
+    "action": "Accept seriesId=7 only with existing leagueId 1, official date, game-id, team and scoreboard checks; preserve prestart placeholder and unknown-as-null protections",
+    "newWorkflowRunId": 41606857500
+  },
+  "productionChanged": false
+}
