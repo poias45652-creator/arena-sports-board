@@ -160,5 +160,14 @@
     "y": 0,
     "size": 160,
     "photoSha256": "86107d8244b7ecae0da0a81be6fca3a00fe2958915caec446a68ecedb002214f"
+  },
+  "3145596": {
+    "name": "Youssef Khoudda",
+    "width": 1152,
+    "height": 1536,
+    "x": 590,
+    "y": 480,
+    "size": 240,
+    "photoSha256": "c06de5638106613db8551c0425903f4a8e365ee8456a1c11c9b9a06946c4134e"
   }
 }
