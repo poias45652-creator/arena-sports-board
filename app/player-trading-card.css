@@ -1,7 +1,6 @@
 .xz-player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:30px 24px;padding:24px 4px;align-items:start}
 .xz-player-card{--card-ink:#36230d;position:relative;isolation:isolate;display:block;width:100%;max-width:330px;margin:0 auto;color:var(--card-ink);text-decoration:none;border:2px solid #e9c97f;border-radius:32px 32px 70px 70px / 32px 32px 35px 35px;clip-path:polygon(10% 0,40% 0,50% 1.8%,60% 0,90% 0,94% 4%,100% 6%,100% 93%,95% 97%,50% 100%,5% 97%,0 93%,0 6%,6% 4%);background:linear-gradient(155deg,transparent 0 33%,#fff2bf55 33.4% 34%,transparent 34.4% 37%,#fff5ce80 37.5% 38.2%,transparent 39%),repeating-linear-gradient(140deg,#dba45b00 0 9px,#ffedba25 10px 11px),linear-gradient(150deg,#fff1b8 0%,#d99a4f 35%,#efc47d 53%,#bc7f3d 100%);box-shadow:inset 0 0 0 5px #66401b25,inset 0 0 25px #fff0b95c,0 14px 28px #0004;transition:transform .2s,box-shadow .2s;container-type:inline-size;overflow:hidden}
 .xz-player-card:before{content:'';position:absolute;z-index:-1;inset:8px;border:1px solid #fff3c687;border-radius:24px 24px 29px 29px;pointer-events:none}
-.xz-player-card:after{content:'✦';position:absolute;top:14px;left:50%;transform:translateX(-50%);font-size:21px;color:#fff4c9;pointer-events:none}
 a.xz-player-card:hover,.xz-player-card--expand:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 5px #66401b25,0 20px 36px #0006,0 0 22px #e5b85c30}
 a.xz-player-card:active,.xz-player-card--expand:active{transform:translateY(-1px) scale(.99)}
 .xz-player-card:focus-visible,.xz-player-card summary:focus-visible{outline:3px solid #fff4b9;outline-offset:5px}
@@ -26,13 +25,12 @@ a.xz-player-card:active,.xz-player-card--expand:active{transform:translateY(-1px
 .xz-card-stats dd{margin:4px 0 0;font-size:22px;line-height:1.1;font-weight:900;font-variant-numeric:tabular-nums;color:#30200c;overflow-wrap:anywhere}
 .xz-card-bio{font-size:11px;line-height:1.6;margin:10px 0;color:#583b21;min-height:1.6em;overflow-wrap:anywhere}
 .xz-card-footer{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:10px;font-weight:800;padding-top:10px;color:#4d331b;min-height:32px}
-.xz-card-footer>span:nth-child(2){letter-spacing:2px}
 .xz-card-badge{display:flex;align-items:center;min-width:24px}.xz-card-badge img{width:26px;height:26px;object-fit:contain}
 .xz-player-card summary{list-style:none;cursor:pointer}.xz-player-card summary::-webkit-details-marker{display:none}
 .xz-card-details{padding:12px 18px 24px;background:#edc17c;color:#36230d;border-top:1px solid #764b274d}
 .xz-card-details dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;font-size:12px;margin:0}.xz-card-details dd{font-weight:800;margin:3px 0 0}
 .xz-profile-card{width:min(100%,330px);margin:22px auto}
 @media(min-width:1100px){.xz-player-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:560px){.xz-player-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px;padding:18px 0}.xz-card-top{inset:17px 11px auto}.xz-card-number strong{font-size:30px}.xz-card-number>span{font-size:10px;max-width:55px}.xz-card-league{font-size:8px;max-width:62px}.xz-card-copy{padding:9px 9px 14px}.xz-card-copy h3{font-size:17px}.xz-card-team{font-size:10px;min-height:2.8em}.xz-card-stats dt{font-size:10px}.xz-card-stats dd{font-size:18px}.xz-card-footer{flex-wrap:wrap;justify-content:center}.xz-card-footer>span:last-child{width:100%}.xz-card-bio{font-size:10px}.xz-card-photo--framed{margin:75px auto 29px;transform:scale(1)}.xz-player-card:after{top:8px;font-size:14px}}
+@media(max-width:560px){.xz-player-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px;padding:18px 0}.xz-card-top{inset:17px 11px auto}.xz-card-number strong{font-size:30px}.xz-card-number>span{font-size:10px;max-width:55px}.xz-card-league{font-size:8px;max-width:62px}.xz-card-copy{padding:9px 9px 14px}.xz-card-copy h3{font-size:17px}.xz-card-team{font-size:10px;min-height:2.8em}.xz-card-stats dt{font-size:10px}.xz-card-stats dd{font-size:18px}.xz-card-footer{flex-wrap:wrap;justify-content:center}.xz-card-footer>span:last-child{width:100%}.xz-card-bio{font-size:10px}.xz-card-photo--framed{margin:75px auto 29px;transform:scale(1)}}
 @media(max-width:350px){.xz-player-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.xz-player-card{transition:none}a.xz-player-card:hover,.xz-player-card--expand:hover{transform:none}}

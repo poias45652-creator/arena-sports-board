@@ -14,46 +14,10 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 188,
-  "remaining": [
-    {
-      "id": "3102114",
-      "name": "Harutyun Asatryan",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "uefa.europa",
-          "team": "20024"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-04",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://www.sofascore.com/football/player/harutyun-asatryan/1105487",
-            "result": "Available same-name record belongs to FC Ararat II, not current frontend FC Ararat-Armenia; no photo assigned without corroboration."
-          },
-          {
-            "source": "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
-            "result": "UEFA roster shows H. Asatryan age 23 but no portrait. Same-name FC Ararat Yerevan II profile has a different club; no full-name-and-birth-date link established to current frontend record."
-          },
-          {
-            "source": "https://fcpyunik.am/en/article/1820",
-            "result": "Official former-club announcement contains four player portraits without individual image labels. Current frontend provides no birthday and lists Ararat-Armenia, while full public profiles list Ararat II; no reliable cross-source identity match established."
-          },
-          {
-            "source": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html",
-            "result": "Found and visually reviewed a named official Ararat II portrait with birthday 25 June 2003, jersey 33. Current ESPN record has no birthday, jersey or nationality and associates him with Ararat-Armenia. No explicit link between these club contexts was established; no portrait assigned across this unresolved mismatch."
-          }
-        ]
-      }
-    }
-  ],
+  "addedPhotos": 189,
+  "remaining": [],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 1,
+  "remainingCount": 0,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -340,6 +304,66 @@
           }
         }
       ]
+    },
+    {
+      "checkedAt": "2026-11-04",
+      "scope": "Real frontend portrait and shared card decoration removal only. User explicitly requires real people, no AI images.",
+      "recordsFilled": 1,
+      "uniquePortraits": 1,
+      "players": [
+        "3102114"
+      ],
+      "remaining": 0,
+      "attribution": "Manual name/position/age corroboration; club association retained as an unresolved data-quality issue rather than silently rewritten.",
+      "resolvedPhotoChecks": [
+        {
+          "id": "3102114",
+          "name": "Harutyun Asatryan",
+          "birthDate": "",
+          "headshot": null,
+          "teams": [
+            {
+              "league": "uefa.europa",
+              "team": "20024"
+            }
+          ],
+          "reason": "birth date unavailable",
+          "latestPhotoCheck": {
+            "checkedAt": "2026-11-04",
+            "status": "No usable verified portrait downloaded",
+            "attempts": [
+              {
+                "source": "https://www.sofascore.com/football/player/harutyun-asatryan/1105487",
+                "result": "Available same-name record belongs to FC Ararat II, not current frontend FC Ararat-Armenia; no photo assigned without corroboration."
+              },
+              {
+                "source": "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
+                "result": "UEFA roster shows H. Asatryan age 23 but no portrait. Same-name FC Ararat Yerevan II profile has a different club; no full-name-and-birth-date link established to current frontend record."
+              },
+              {
+                "source": "https://fcpyunik.am/en/article/1820",
+                "result": "Official former-club announcement contains four player portraits without individual image labels. Current frontend provides no birthday and lists Ararat-Armenia, while full public profiles list Ararat II; no reliable cross-source identity match established."
+              },
+              {
+                "source": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html",
+                "result": "Found and visually reviewed a named official Ararat II portrait with birthday 25 June 2003, jersey 33. Current ESPN record has no birthday, jersey or nationality and associates him with Ararat-Armenia. No explicit link between these club contexts was established; no portrait assigned across this unresolved mismatch."
+              }
+            ]
+          }
+        }
+      ],
+      "decorationRemoval": [
+        "Top decorative star",
+        "Footer star-bracketed 星準 label"
+      ]
+    }
+  ],
+  "identityReviewPending": [
+    {
+      "id": "3102114",
+      "name": "Harutyun Asatryan",
+      "issue": "Ararat II official portrait and source Ararat-Armenia roster have a conflicting club association. Portrait attributed by full name, midfielder position and corroborated UEFA age 23; no exact source birthday match is available. Team and bio data remain unchanged.",
+      "portraitSource": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html"
     }
   ]
 }
