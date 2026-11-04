@@ -1,6 +1,6 @@
 {
-  "asOf": "2026-11-03T02:27:06.577929+00:00",
-  "sourceCount": 2493,
+  "asOf": "2026-11-04T00:41:59.021687+00:00",
+  "sourceCount": 2502,
   "rejected": [
     {
       "id": "fotmob:3461642",
@@ -63,7 +63,15 @@
       "reason": "club_venue_not_verified"
     },
     {
+      "id": "fotmob:6106331",
+      "reason": "club_venue_not_verified"
+    },
+    {
       "id": "fotmob:6106424",
+      "reason": "club_venue_not_verified"
+    },
+    {
+      "id": "fotmob:6106333",
       "reason": "club_venue_not_verified"
     },
     {
@@ -892,7 +900,7 @@
     }
   ],
   "rejectedReasons": {
-    "club_venue_not_verified": 15,
+    "club_venue_not_verified": 17,
     "date_status_or_score_conflict": 11,
     "away_country_host_requires_reverse_advantage": 17,
     "country_missing_or_ambiguous": 23,
