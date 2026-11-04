@@ -4096,5 +4096,29 @@
     ],
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-03"
+  },
+  "3145596": {
+    "name": "Youssef Khoudda",
+    "birthDate": "",
+    "photo": {
+      "url": "https://media.licdn.com/dms/image/v2/D5622AQHUT7Jahfjkcw/feedshare-image-high-res/feedshare-image-high-res/0/1711730693205?e=2147483647&v=beta&t=0DaIZrLYlCcGKAJZTB5HKm80b2sGwBFtuxWyzTOtgF4",
+      "localPath": "/images/players/football/3145596-original.jpg",
+      "sha256": "c06de5638106613db8551c0425903f4a8e365ee8456a1c11c9b9a06946c4134e",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://fr.linkedin.com/posts/maxime-aubanel-0955aa173_youssef-khoudda-rejoint-laj-auxerre-activity-7179518897253937152-E4wZ",
+    "identity": "Public signing announcement by Maxime Aubanel of Upper Sport Consulting names Youssef Khoudda joining AJ Auxerre. Original image shows the player on the right wearing pink, holding his KHOUDDA shirt with his agent on the left. Club identity corroborated by the former FCVB official signing announcement and current Auxerre frontend roster. Original bytes decoded and visually reviewed; CSS frame isolates the player on the right. Frontend name and unavailable birth date are preserved.",
+    "supportingEvidence": [
+      "https://www.fcvb.fr/actualites-du-club/youssef-khoudda-u17-nat-signe-a-laj-auxerre-%F0%9F%92%99%F0%9F%A4%8D",
+      "https://www.aja.fr/la-n2-prepare-sa-saison-2026-2027/"
+    ],
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "172"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-04"
   }
 }

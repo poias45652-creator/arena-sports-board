@@ -14,7 +14,7 @@
   "players": 5125,
   "known": 4936,
   "errors": [],
-  "addedPhotos": 185,
+  "addedPhotos": 186,
   "remaining": [
     {
       "id": "377387",
@@ -33,7 +33,7 @@
       ],
       "reason": "no unique full-name and birth-date match",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
+        "checkedAt": "2026-11-04",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -47,45 +47,10 @@
           {
             "source": "https://www.sofascore.com/football/player/mandjou-camara/1612495",
             "result": "Same-name SOAR midfielder has the frontend birthday 2005-11-04, while Roma academy forward is born 2009-02-27. Cannot safely map a portrait without resolving provider identity; photo-only scope preserves existing data."
-          }
-        ]
-      }
-    },
-    {
-      "id": "3145596",
-      "name": "Youssef Khoudda",
-      "birthDate": "",
-      "headshot": null,
-      "teams": [
-        {
-          "league": "fra.1",
-          "team": "172"
-        }
-      ],
-      "reason": "birth date unavailable",
-      "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
-        "status": "No usable verified portrait downloaded",
-        "attempts": [
-          {
-            "source": "https://images.fotmob.com/image_resources/playerimages/2357741.png",
-            "result": "HTTP Error 403: Forbidden"
           },
           {
-            "source": "https://www.soccerway.com/player/khoudda-youssef/MmQmrhHd/",
-            "result": "Named profile checked; portrait is a generic placeholder, so it was not accepted."
-          },
-          {
-            "source": "https://globalsportsarchive.com/en/soccer/athlete/youssef-khoudda/7956471",
-            "result": "Downloaded named portrait is a silhouette. Former club announcement has several players without explicit subject positioning."
-          },
-          {
-            "source": "https://www.transfermarkt.co.uk/youssef-khoudda/profil/spieler/1253657",
-            "result": "Named Auxerre B profile uses default.jpg silhouette; public facepack page returns 401. Earlier former-club group image still has no reliable subject position."
-          },
-          {
-            "source": "https://infosports.dhnet.be/football/joueur/242061/youssef-khoudda",
-            "result": "Named player profile exposes person_0.jpg, the provider default portrait."
+            "source": "https://www.ilromanista.eu/news/settore-giovanile/163552/foto-ufficiale-mandjou-camara-e-un-nuovo-giocatore-della-roma",
+            "result": "Club-origin signing image found for the Roma 2009-born forward, but fresh frontend roster still gives 2005-11-04; portrait not assigned across the unresolved birthday conflict."
           }
         ]
       }
@@ -103,7 +68,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
+        "checkedAt": "2026-11-04",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -117,6 +82,10 @@
           {
             "source": "https://www.transfermarkt.co.in/armen-asatryan/profil/spieler/1375995",
             "result": "Named Armenia U17 defender profile matches 2009-08-24 but its portrait is default.jpg. No usable verified portrait."
+          },
+          {
+            "source": "https://www.uprisingfc.com/people/armen-asatryan/8063834/",
+            "result": "Downloaded 50x50 player image was visually confirmed to be a silhouette. Named BeSoccer profile 3673562 also links nofoto_jugador.png; no real headshot found."
           }
         ]
       }
@@ -134,7 +103,7 @@
       ],
       "reason": "birth date unavailable",
       "latestPhotoCheck": {
-        "checkedAt": "2026-11-03",
+        "checkedAt": "2026-11-04",
         "status": "No usable verified portrait downloaded",
         "attempts": [
           {
@@ -144,13 +113,17 @@
           {
             "source": "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
             "result": "UEFA roster shows H. Asatryan age 23 but no portrait. Same-name FC Ararat Yerevan II profile has a different club; no full-name-and-birth-date link established to current frontend record."
+          },
+          {
+            "source": "https://fcpyunik.am/en/article/1820",
+            "result": "Official former-club announcement contains four player portraits without individual image labels. Current frontend provides no birthday and lists Ararat-Armenia, while full public profiles list Ararat II; no reliable cross-source identity match established."
           }
         ]
       }
     }
   ],
   "coverageNote": "Current roster scan across all eight supported football competitions. Existing catalog presence is not a fresh download audit; additions use decoded local images pinned by SHA-256.",
-  "remainingCount": 4,
+  "remainingCount": 3,
   "cpbl": {
     "officialPortraitsUpdated": 178,
     "teams": {
@@ -318,6 +291,22 @@
       ],
       "remaining": 4,
       "validation": "Named sources and current roster identity; original image decode and SHA256; actual shared card at desktop/mobile sizes; actual frontend parser and local photo resolver."
+    },
+    {
+      "checkedAt": "2026-11-04",
+      "scope": "Frontend photo asset, source metadata and existing CSS framing configuration only.",
+      "recordsFilled": 1,
+      "uniquePortraits": 1,
+      "players": [
+        "3145596"
+      ],
+      "remaining": 3,
+      "validation": "Named signing announcement plus club roster corroboration; original image decode and SHA256; actual frontend parser/photo resolver and shared-card desktop/mobile review.",
+      "qualityFollowup": {
+        "player": "5326304",
+        "name": "Lenny Videira",
+        "result": "Public Hudl profile has a blank avatar. U21 profile article routes return HTTP 500, including independent page retrieval; no clearer verified image obtained. Existing interview portrait retained."
+      }
     }
   ]
 }
