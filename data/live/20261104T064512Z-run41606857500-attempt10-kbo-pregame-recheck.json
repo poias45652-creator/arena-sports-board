@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-04",
+  "capturedAt": "2026-11-04T06:45:12.863Z",
+  "purpose": "Fresh current first-team collection; no live games, no second capture and no deployment.",
+  "github": {
+    "repository": "poias45652-creator/arena-sports-board",
+    "branch": "data/live-source-probe-20260915",
+    "workflow": "Current baseball collector",
+    "workflowPath": ".github/workflows/baseball-current-collector.yml",
+    "runId": 41606857500,
+    "runAttempt": 10,
+    "runAttemptConfirmedByApi": true,
+    "jobId": 126433041356,
+    "jobConclusion": "success",
+    "jobStatus": "completed",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
+    "artifactId": 13302225766,
+    "artifactName": "baseball-current",
+    "artifactCreatedAt": "2026-11-04T06:45:16Z",
+    "artifactDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+    "runnerUploadLogDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+    "zipIndependentLocalSha256": "40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+    "artifactDigestVerifiedIndependently": true,
+    "zipDownloaded": true,
+    "zipIndependentlyHashed": true,
+    "artifactCreatedAfterCapturedAt": true,
+    "staleArtifactUsed": false,
+    "secondCapturePerformed": false,
+    "qualifiedNumericChanges": 0,
+    "productionChanged": false
+  },
+  "sources": {
+    "NPB": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "offDayVerified": true,
+      "officialScheduleURL": "https://npb.jp/games/2026/schedule_11_detail.html",
+      "officialScheduleFetchedAt": "2026-11-04T06:44:53.414Z",
+      "upstreamYahooSelectedDate": "2026-11-01",
+      "primaryYahooRecovered": false,
+      "sourceDegraded": true
+    },
+    "KBO": {
+      "status": "partial",
+      "normalizedGames": 1,
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "primaryNaverStatus": "timeout",
+      "source": "kbo-official-scoreboard",
+      "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "officialScoreboardFetchedAt": "2026-11-04T06:45:12.859Z",
+      "officialDiagnosticProbeCapturedAt": "2026-11-04T06:45:12.917Z",
+      "officialDiagnosticHTTPStatus": 200,
+      "officialDiagnosticDateMarkerPresent": true,
+      "officialDiagnosticPageUsable": true,
+      "sourceGameId": null,
+      "officialGameIdVerified": false,
+      "sourceDegraded": true,
+      "lineupConfirmation": "not_verified"
+    },
+    "CPBL": {
+      "status": "ok",
+      "normalizedGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "source": "yahoo-tw",
+      "officialFullOffDayVerified": null,
+      "pitchCount": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null
+    }
+  },
+  "observations": [
+    {
+      "key": "KBO:official-pregame:20261104:SS:KT:1830",
+      "sourceGameId": null,
+      "provisionalInternalKey": true,
+      "date": "2026-11-04",
+      "league": "KBO",
+      "status": "pregame",
+      "rawStatus": "경기전",
+      "startTime": "2026-11-04T09:30:00.000Z",
+      "away": {
+        "id": "SS",
+        "name": "三星獅",
+        "score": null,
+        "hits": null,
+        "errors": null
+      },
+      "home": {
+        "id": "KT",
+        "name": "KT巫師",
+        "score": null,
+        "hits": null,
+        "errors": null
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "currentPitcher": null,
+      "currentBatter": null,
+      "lineupConfirmation": "not_verified",
+      "starters": {
+        "away": null,
+        "home": null
+      },
+      "lineups": {
+        "away": [],
+        "home": []
+      },
+      "source": {
+        "provider": "kbo-official-scoreboard",
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-04T06:45:12.859Z",
+        "httpDate": "Wed, 04 Nov 2026 06:44:49 GMT",
+        "providerUpdatedAt": null
+      },
+      "warnings": [
+        "official_pregame_game_id_not_exposed_internal_key_provisional",
+        "lineup_confirmation_not_verified",
+        "bases_not_verified",
+        "pitch_count_not_supplied",
+        "provider_update_time_not_supplied"
+      ]
+    }
+  ],
+  "verification": {
+    "date": "2026-11-04",
+    "checkedAt": "2026-11-04T06:45:12.863Z",
+    "secondCapturePerformed": false,
+    "productionDeployed": false,
+    "leagues": [
+      {
+        "league": "NPB",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": []
+      },
+      {
+        "league": "KBO",
+        "games": 1,
+        "status": "partial",
+        "errors": [
+          "Naver primary unavailable: The operation was aborted due to timeout"
+        ],
+        "pregame": 1,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": [
+          {
+            "key": "KBO:official-pregame:20261104:SS:KT:1830",
+            "away": "三星獅",
+            "home": "KT巫師",
+            "startTime": "2026-11-04T09:30:00.000Z",
+            "status": "pregame",
+            "awayScore": null,
+            "homeScore": null,
+            "inning": null,
+            "source": {
+              "provider": "kbo-official-scoreboard",
+              "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+              "fetchedAt": "2026-11-04T06:45:12.859Z",
+              "httpDate": "Wed, 04 Nov 2026 06:44:49 GMT",
+              "cacheAgeSeconds": null,
+              "providerUpdatedAt": null
+            },
+            "liveChangeProof": null
+          }
+        ]
+      },
+      {
+        "league": "CPBL",
+        "games": 0,
+        "status": "ok",
+        "errors": [],
+        "pregame": 0,
+        "live": 0,
+        "final": 0,
+        "liveStateObserved": false,
+        "liveChangesVerified": false,
+        "lineupRows": 0,
+        "pitchingRows": 0,
+        "gamesSummary": []
+      }
+    ]
+  },
+  "liveChangeProof": {
+    "currentRunVerified": false,
+    "secondCapturePerformed": false,
+    "reason": "Only KBO official pregame; no LIVE first-team game at capture. No second capture applicable.",
+    "previousDateHistoricProofRetained": true,
+    "previousEvidencePath": "data/live/20261103T113757Z-run41606857500-attempt4-kbo-live-verified.json"
+  },
+  "databaseTest": {
+    "performed": true,
+    "passed": true,
+    "checkedAt": "2026-11-04T06:45:14.482Z",
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "dataQualityNotes": [
+    "NPB Yahoo requested Nov4 but selects Nov1; NPB official first-team calendar verifies an off day.",
+    "KBO official public scoreboard shows Samsung at KT pregame 17:30 Taipei with provisional key; sourceGameId stays null; Naver times out.",
+    "KBO diagnostic team-name check is hardcoded to 삼성 plus KIA and must not count as identity verification or failure for Samsung versus KT.",
+    "CPBL Yahoo returns zero first-team games; independent official full-postseason off-day confirmation remains pending.",
+    "Unknown values remain null; no confirmed lineup. Fresh ZIP independently SHA-256 checked against GitHub digest and runner log."
+  ],
+  "productionChanged": false,
+  "productionDatabaseWritten": false,
+  "automaticDeployment": false
+}
