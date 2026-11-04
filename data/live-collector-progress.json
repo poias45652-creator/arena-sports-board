@@ -8,7 +8,7 @@
   "baselineRunId": 34926808234,
   "baselineJobId": 104246472890,
   "baselineArtifactId": 10380098816,
-  "observedAt": "2026-11-04T06:11:01.929Z",
+  "observedAt": "2026-11-04T06:45:12.863Z",
   "dateAsiaTaipei": "2026-11-04",
   "currentGames": {
     "NPB": 0,
@@ -16,14 +16,14 @@
     "CPBL": 0
   },
   "currentStates": {
-    "NPB": "2026-11-04 14:11 Taipei: official NPB no first-team games; Yahoo still selects Nov1; stale upstream unchanged.",
-    "KBO": "2026-11-04 14:11 Taipei: official Korean Series Samsung at KT remains pregame, 17:30 Taipei. Naver timeout; official backup partial; official game ID still not exposed; unverified live values null.",
-    "CPBL": "2026-11-04 14:11 Taipei: Yahoo source returns zero first-team games; independent full-postseason off-day verification still pending."
+    "NPB": "2026-11-04 14:45 Taipei: NPB official first-team calendar proves no games; Yahoo still selects Nov1 (source degraded, no invented fixture).",
+    "KBO": "2026-11-04 14:45 Taipei: Samsung at KT Korean Series 17:30 Taipei still pregame, official public fallback partial; Naver timeout; official game ID absent, all unverified statistics null.",
+    "CPBL": "2026-11-04 14:45 Taipei: Yahoo CPBL source ok zero first-team games; independent complete official postseason off-day confirmation remains missing."
   },
   "databaseTest": {
     "performed": true,
     "passed": true,
-    "checkedAt": "2026-11-04T06:11:05.117Z",
+    "checkedAt": "2026-11-04T06:45:14.482Z",
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
     "checks": [
       {
@@ -52,7 +52,7 @@
     "previousSuccessfulCheck": {
       "performed": true,
       "passed": true,
-      "checkedAt": "2026-11-03T15:17:29.379Z",
+      "checkedAt": "2026-11-04T06:11:05.117Z",
       "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
       "checks": [
         {
@@ -77,187 +77,7 @@
           "passed": true
         }
       ],
-      "productionWritten": false,
-      "previousSuccessfulCheck": {
-        "performed": true,
-        "passed": true,
-        "checkedAt": "2026-11-03T14:34:18.276Z",
-        "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-        "checks": [
-          {
-            "league": "NPB",
-            "written": 0,
-            "duplicateWrites": 0,
-            "readBack": 0,
-            "passed": true
-          },
-          {
-            "league": "KBO",
-            "written": 1,
-            "duplicateWrites": 0,
-            "readBack": 1,
-            "passed": true
-          },
-          {
-            "league": "CPBL",
-            "written": 0,
-            "duplicateWrites": 0,
-            "readBack": 0,
-            "passed": true
-          }
-        ],
-        "productionWritten": false,
-        "previousSuccessfulCheck": {
-          "performed": true,
-          "passed": true,
-          "checkedAt": "2026-11-03T11:37:59.751Z",
-          "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-          "checks": [
-            {
-              "league": "NPB",
-              "written": 0,
-              "duplicateWrites": 0,
-              "readBack": 0,
-              "passed": true
-            },
-            {
-              "league": "KBO",
-              "written": 1,
-              "duplicateWrites": 0,
-              "readBack": 1,
-              "passed": true
-            },
-            {
-              "league": "CPBL",
-              "written": 0,
-              "duplicateWrites": 0,
-              "readBack": 0,
-              "passed": true
-            }
-          ],
-          "productionWritten": false,
-          "previousSuccessfulCheck": {
-            "performed": true,
-            "passed": true,
-            "checkedAt": "2026-11-03T10:48:46.700Z",
-            "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-            "checks": [
-              {
-                "league": "NPB",
-                "written": 0,
-                "duplicateWrites": 0,
-                "readBack": 0,
-                "passed": true
-              },
-              {
-                "league": "KBO",
-                "written": 1,
-                "duplicateWrites": 0,
-                "readBack": 1,
-                "passed": true
-              },
-              {
-                "league": "CPBL",
-                "written": 0,
-                "duplicateWrites": 0,
-                "readBack": 0,
-                "passed": true
-              }
-            ],
-            "productionWritten": false,
-            "previousSuccessfulCheck": {
-              "performed": true,
-              "passed": true,
-              "checkedAt": "2026-11-03T09:46:24.810Z",
-              "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-              "checks": [
-                {
-                  "league": "NPB",
-                  "written": 0,
-                  "duplicateWrites": 0,
-                  "readBack": 0,
-                  "passed": true
-                },
-                {
-                  "league": "KBO",
-                  "written": 1,
-                  "duplicateWrites": 0,
-                  "readBack": 1,
-                  "passed": true
-                },
-                {
-                  "league": "CPBL",
-                  "written": 0,
-                  "duplicateWrites": 0,
-                  "readBack": 0,
-                  "passed": true
-                }
-              ],
-              "productionWritten": false,
-              "previousSuccessfulCheck": {
-                "performed": true,
-                "passed": true,
-                "checkedAt": "2026-11-03T08:55:50.566Z",
-                "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-                "checks": [
-                  {
-                    "league": "NPB",
-                    "written": 0,
-                    "duplicateWrites": 0,
-                    "readBack": 0,
-                    "passed": true
-                  },
-                  {
-                    "league": "KBO",
-                    "written": 1,
-                    "duplicateWrites": 0,
-                    "readBack": 1,
-                    "passed": true
-                  },
-                  {
-                    "league": "CPBL",
-                    "written": 0,
-                    "duplicateWrites": 0,
-                    "readBack": 0,
-                    "passed": true
-                  }
-                ],
-                "productionWritten": false,
-                "previousSuccessfulCheck": {
-                  "performed": true,
-                  "passed": true,
-                  "checkedAt": "2026-11-03T07:50:55.073Z",
-                  "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
-                  "checks": [
-                    {
-                      "league": "NPB",
-                      "written": 0,
-                      "duplicateWrites": 0,
-                      "readBack": 0,
-                      "passed": true
-                    },
-                    {
-                      "league": "KBO",
-                      "written": 1,
-                      "duplicateWrites": 0,
-                      "readBack": 1,
-                      "passed": true
-                    },
-                    {
-                      "league": "CPBL",
-                      "written": 0,
-                      "duplicateWrites": 0,
-                      "readBack": 0,
-                      "passed": true
-                    }
-                  ],
-                  "productionWritten": false
-                }
-              }
-            }
-          }
-        }
-      }
+      "productionWritten": false
     }
   },
   "firstStartTaipei": {
@@ -3389,7 +3209,7 @@
         "strikes": null,
         "outs": null,
         "bases": null,
-        "officialScheduleFetchedAt": "2026-11-04T06:10:41.994Z"
+        "officialScheduleFetchedAt": "2026-11-04T06:44:53.414Z"
       },
       "KBO": {
         "verified": false,
@@ -3407,7 +3227,7 @@
         "sourceGameId": null,
         "primaryNaverStatus": "timeout",
         "collectorStatus": "partial",
-        "officialScoreboardFetchedAt": "2026-11-04T06:11:01.926Z",
+        "officialScoreboardFetchedAt": "2026-11-04T06:45:12.859Z",
         "lineupConfirmation": "not_verified",
         "gameIdOfficiallyVerified": false,
         "currentState": {
@@ -3446,7 +3266,7 @@
       "allVerified": false,
       "allScheduledLeaguesVerified": true,
       "allThreeLeaguesLiveVerified": false,
-      "reason": "2026-11-04 14:11 Taipei: fresh attempt9 current-baseball collector SUCCESS; NPB official off-day, Yahoo still stale to Nov1. KBO official Samsung@KT 17:30 pregame (temporary key, no official game ID), Naver timeout, partial official fallback. CPBL Yahoo zero, full-postseason independent off-day proof missing. No LIVE, no 65s double capture. New artifact SHA-256 independently checked, isolated PostgreSQL 16 passed. No production changes.",
+      "reason": "2026-11-04 14:45 Taipei: fresh isolated collector attempt10 successful; NPB official off day, Yahoo stale to Nov1; KBO Samsung@KT official pregame 17:30 Taipei, Naver timeout but public fallback partial; CPBL Yahoo zero with independent official postseason off-day still unverified. No LIVE/65s capture. Fresh artifact independent SHA256 confirmed; isolated PostgreSQL 16 passed. No production changes.",
       "evidenceRetainedIn": "data/live/",
       "latestObservation": {
         "repository": "poias45652-creator/arena-sports-board",
@@ -3454,18 +3274,18 @@
         "workflow": "Current baseball collector",
         "workflowPath": ".github/workflows/baseball-current-collector.yml",
         "runId": 41606857500,
-        "runAttempt": 9,
+        "runAttempt": 10,
         "runAttemptConfirmedByApi": true,
-        "jobId": 126421030317,
+        "jobId": 126433041356,
         "jobConclusion": "success",
         "jobStatus": "completed",
         "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
-        "artifactId": 13300256573,
+        "artifactId": 13302225766,
         "artifactName": "baseball-current",
-        "artifactCreatedAt": "2026-11-04T06:11:07Z",
-        "artifactDigest": "sha256:b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
-        "runnerUploadLogDigest": "sha256:b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
-        "zipIndependentLocalSha256": "b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
+        "artifactCreatedAt": "2026-11-04T06:45:16Z",
+        "artifactDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+        "runnerUploadLogDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+        "zipIndependentLocalSha256": "40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
         "artifactDigestVerifiedIndependently": true,
         "zipDownloaded": true,
         "zipIndependentlyHashed": true,
@@ -3474,8 +3294,8 @@
         "secondCapturePerformed": false,
         "qualifiedNumericChanges": 0,
         "productionChanged": false,
-        "observationPath": "data/live/20261104T061101Z-run41606857500-attempt9-kbo-pregame-recheck.json",
-        "capturedAt": "2026-11-04T06:11:01.929Z",
+        "observationPath": "data/live/20261104T064512Z-run41606857500-attempt10-kbo-pregame-recheck.json",
+        "capturedAt": "2026-11-04T06:45:12.863Z",
         "captureIntervalSeconds": null,
         "currentRunQualifiedNumericChanges": 0,
         "liveGamesConfirmedInAvailableSources": 0,
@@ -3489,7 +3309,7 @@
         "officialKboSourceGameIdNowVerified": null,
         "liveChangeProofVerified": false
       },
-      "latestObservationPath": "data/live/20261104T061101Z-run41606857500-attempt9-kbo-pregame-recheck.json"
+      "latestObservationPath": "data/live/20261104T064512Z-run41606857500-attempt10-kbo-pregame-recheck.json"
     }
   },
   "parserFixes": [
@@ -4387,18 +4207,18 @@
     "officialKboSourceGameIdNowVerified": null,
     "liveChangeProofVerified": false
   },
-  "latestObservationCommit": "9cc19d6fd7c5cf67fb67ad43482450d9b9c20997",
+  "latestObservationCommit": "67d0d79e57862d41ce0eedc78bf07affce88ec17",
   "historyRetention": {
     "evidenceFiles": "data/live/",
     "gitHistoryPreservesPriorProgressVersions": true,
     "note": "Daily evidence files remain append-only; progress is a current index plus retained date-level verification history.",
     "artifactOverwriteIssue": "Workflow artifact name baseball-current overwrite:true and retention-days 7; new evidence is persisted in Git under data/live/.",
-    "lastEvidencePath": "data/live/20261104T061101Z-run41606857500-attempt9-kbo-pregame-recheck.json",
-    "lastEvidenceContains": "Nov4 attempt9 independent artifact zip SHA-256 + official KBO pregame and official NPB off-day + CPBL zero. Isolated PG16 passed; historic Nov3 KBO live proof preserved."
+    "lastEvidencePath": "data/live/20261104T064512Z-run41606857500-attempt10-kbo-pregame-recheck.json",
+    "lastEvidenceContains": "Nov4 attempt10 independent artifact ZIP SHA-256 + official KBO pregame + NPB official off-day + CPBL zero. Isolated PG16 passed; Nov3 KBO live verification history preserved."
   },
   "currentDayFinalObservation": {
     "date": "2026-11-04",
-    "capturedAt": "2026-11-04T06:11:01.929Z",
+    "capturedAt": "2026-11-04T06:45:12.863Z",
     "finalGames": {
       "NPB": 0,
       "KBO": 0,
@@ -4415,7 +4235,7 @@
       "CPBL": 0
     },
     "state": "npb_official_offday_kbo_official_pregame_cpbl_source_zero",
-    "observationPath": "data/live/20261104T061101Z-run41606857500-attempt9-kbo-pregame-recheck.json"
+    "observationPath": "data/live/20261104T064512Z-run41606857500-attempt10-kbo-pregame-recheck.json"
   },
   "latestObservation": {
     "repository": "poias45652-creator/arena-sports-board",
@@ -4423,18 +4243,18 @@
     "workflow": "Current baseball collector",
     "workflowPath": ".github/workflows/baseball-current-collector.yml",
     "runId": 41606857500,
-    "runAttempt": 9,
+    "runAttempt": 10,
     "runAttemptConfirmedByApi": true,
-    "jobId": 126421030317,
+    "jobId": 126433041356,
     "jobConclusion": "success",
     "jobStatus": "completed",
     "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
-    "artifactId": 13300256573,
+    "artifactId": 13302225766,
     "artifactName": "baseball-current",
-    "artifactCreatedAt": "2026-11-04T06:11:07Z",
-    "artifactDigest": "sha256:b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
-    "runnerUploadLogDigest": "sha256:b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
-    "zipIndependentLocalSha256": "b6cb5572c26590b6ed4b0da77ed7a8f4884d424539a683eaa1a8efad1cf1da35",
+    "artifactCreatedAt": "2026-11-04T06:45:16Z",
+    "artifactDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+    "runnerUploadLogDigest": "sha256:40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
+    "zipIndependentLocalSha256": "40231ca947a976223d6ac4e348e7697530ef0d708cde74e1b1b1cb8614e32897",
     "artifactDigestVerifiedIndependently": true,
     "zipDownloaded": true,
     "zipIndependentlyHashed": true,
@@ -4443,8 +4263,8 @@
     "secondCapturePerformed": false,
     "qualifiedNumericChanges": 0,
     "productionChanged": false,
-    "observationPath": "data/live/20261104T061101Z-run41606857500-attempt9-kbo-pregame-recheck.json",
-    "capturedAt": "2026-11-04T06:11:01.929Z",
+    "observationPath": "data/live/20261104T064512Z-run41606857500-attempt10-kbo-pregame-recheck.json",
+    "capturedAt": "2026-11-04T06:45:12.863Z",
     "captureIntervalSeconds": null,
     "currentRunQualifiedNumericChanges": 0,
     "liveGamesConfirmedInAvailableSources": 0,
