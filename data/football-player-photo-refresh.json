@@ -4041,13 +4041,16 @@
     "name": "Lenny Videira",
     "birthDate": "",
     "photo": {
-      "url": "https://media.licdn.com/dms/image/v2/D4E05AQFov43vLtfQ4w/videocover-high/B4EZ9nxmTiIcBM-/0/1784152484866?e=2147483647&v=beta&t=SERaSbbz0GYUWOcdrYRJpezAYVSMXLPdnMjIH_Qno-U",
+      "url": "https://storage.googleapis.com/cdn-matchem-bucket-edv4-prod/lenny-videira-convoque-auxerre-le-mans-scaled.jpg",
       "localPath": "/images/players/football/5326304-original.jpg",
-      "sha256": "991f042043fae29c8b96bfa4b8c265d345530147e3d426b81b8bb5d2e577d93c",
+      "sha256": "971be88f94d7251455a6fe4d5dc913e8b21a136be83f70f89a017b314b742991",
       "type": "image/jpeg"
     },
-    "evidence": "https://fr.linkedin.com/posts/billion-keys_interview-exclu-u21-lenny-videira-milieu-activity-7483277942677192705-9dmE",
-    "identity": "Public U21 FOOTBALL interview post explicitly names Lenny Videira, Le Mans reserve midfielder born in 2006. Unmodified video-cover image is used; CSS frame shows only the named interview participant in the upper panel, excluding the two unlabeled lower-panel subjects. Interview source has lower resolution than studio portraits. Original bytes decoded and visually reviewed; CSS framing only.",
+    "evidence": "https://bilto.fr/le-magazine/sport/football/lenny-videira-convoque-auxerre-le-mans/",
+    "supportingEvidence": [
+      "https://fr.linkedin.com/posts/billion-keys_interview-exclu-u21-lenny-videira-milieu-activity-7483277942677192705-9dmE"
+    ],
+    "identity": "Named Bilto article about Lenny Videira, Le Mans midfielder born in 2006, includes this original 2560x1707 match photograph. It replaces the lower-resolution interview cover; CSS framing isolates the central player and excludes the blurred foreground teammate. Original downloaded bytes are preserved and visually reviewed.",
     "teams": [
       {
         "league": "fra.1",
@@ -4055,7 +4058,7 @@
       }
     ],
     "scope": "Current frontend roster cards only",
-    "checkedAt": "2026-11-03"
+    "checkedAt": "2026-11-04"
   },
   "5326108": {
     "name": "Ibrahim Meïté",
@@ -4116,6 +4119,59 @@
       {
         "league": "fra.1",
         "team": "172"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-04"
+  },
+  "5327704": {
+    "name": "Armen Asatryan",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.ffa.am/images/player-portrait/uploads/players/e3a411d78a758e343b466a44fd3141b5.jpg",
+      "localPath": "/images/players/football/5327704-original.jpg",
+      "sha256": "e1789e52baf8dbfd863655e0ff54fdba11441383e9c634a2c24e185a0130ea81",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.ffa.am/hy/players/40752/m-18t-havaqakan",
+    "supportingEvidence": [
+      "https://www.zerozero.pt/jogador/armen-asatryan/3291686?epoca_id=156",
+      "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/"
+    ],
+    "identity": "Official FFA named profile 40752 explicitly identifies Armen Asatryan, a defender born 24 August 2009, and supplies this portrait. Current public club records identify the same defender with Ararat-Armenia and its reserve team; UEFA lists A. Asatryan as an Armenian defender age 17. Frontend unavailable birthday remains unchanged. Original source bytes visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "20024"
+      }
+    ],
+    "scope": "Current frontend roster cards only",
+    "checkedAt": "2026-11-04"
+  },
+  "377387": {
+    "name": "Mandjou Camara",
+    "birthDate": "2009-02-27",
+    "photo": {
+      "url": "https://www.ilromanista.eu/writable/uploads/2025-07/Gv5i-h8XsAAUEx6.jpeg",
+      "localPath": "/images/players/football/377387-original.jpg",
+      "sha256": "bf5c7e3bf21939a1ed09f93a51c3043a3551c36650dd33c6fa97566e29ee4481",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.ilromanista.eu/news/settore-giovanile/163552/foto-ufficiale-mandjou-camara-e-un-nuovo-giocatore-della-roma",
+    "supportingEvidence": [
+      "https://www.asroma.com/it/squadre/giovanili",
+      "https://sport.sky.it/calcio/atleti/mandjou-camara/696039",
+      "https://twitter.com/OfficialASRoma/status/1945106079106396642"
+    ],
+    "identity": "AS Roma signing announcement identifies the player on the left holding the Roma shirt. Official Roma youth roster confirms 27 February 2009; Sky Sport confirms Roma forward number 78 and 183 cm. The ESPN 2005 birthday belongs to a different same-name player. This photo requires the existing explicit Roma/team-season correction, scoped to the two reviewed frontend competitions; global identity and other team contexts are not reassigned.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "104"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "104"
       }
     ],
     "scope": "Current frontend roster cards only",

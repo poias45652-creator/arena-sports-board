@@ -1,0 +1,214 @@
+{
+  "checkedAt": "2026-11-04",
+  "rosterSource": "https://site.api.espn.com/apis/site/v2/sports/soccer/ita.1/teams/104/roster?season=2026",
+  "profileSource": "https://site.web.api.espn.com/apis/common/v3/sports/soccer/ita.1/athletes/377387",
+  "roster": {
+    "id": "377387",
+    "fullName": "Mandjou Camara",
+    "displayName": "Mandjou Camara",
+    "age": 21,
+    "dateOfBirth": "2005-11-04T08:00Z",
+    "citizenship": "Guinea",
+    "jersey": "78",
+    "position": {
+      "id": "19",
+      "name": "Forward",
+      "displayName": "Forward",
+      "abbreviation": "F",
+      "leaf": false
+    },
+    "statistics": {
+      "splits": {
+        "id": "0",
+        "name": "Total",
+        "abbreviation": "Total",
+        "type": "total",
+        "categories": [
+          {
+            "name": "general",
+            "displayName": "General",
+            "shortDisplayName": "General",
+            "abbreviation": "gen",
+            "summary": "",
+            "stats": [
+              {
+                "name": "foulsCommitted",
+                "displayName": "Fouls Committed",
+                "shortDisplayName": "FC",
+                "description": "The number of fouls comitted by a player or team.",
+                "abbreviation": "FC",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "foulsSuffered",
+                "displayName": "Fouls Suffered",
+                "shortDisplayName": "FA",
+                "description": "The number of fouls suffered by a player or team.",
+                "abbreviation": "FA",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "redCards",
+                "displayName": "Red Cards",
+                "shortDisplayName": "RC",
+                "description": "The number of red cards that have been issued.",
+                "abbreviation": "RC",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "yellowCards",
+                "displayName": "Yellow Cards",
+                "shortDisplayName": "YC",
+                "description": "The number of yellow cards accumulated.",
+                "abbreviation": "YC",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "ownGoals",
+                "displayName": "Own Goals",
+                "shortDisplayName": "OG",
+                "description": "The number of own goals conceded.",
+                "abbreviation": "OG",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "appearances",
+                "displayName": "Appearances",
+                "shortDisplayName": "APP",
+                "description": "The number of times a player has made an appearance in a match.",
+                "abbreviation": "APP",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "subIns",
+                "displayName": "Substitute Appearances",
+                "shortDisplayName": "SUBIN",
+                "description": "The number of times a player has come on a sub in a match.",
+                "abbreviation": "SUB",
+                "value": 0.0,
+                "displayValue": "0"
+              }
+            ]
+          },
+          {
+            "name": "offensive",
+            "displayName": "Offensive",
+            "shortDisplayName": "Offensive",
+            "abbreviation": "off",
+            "summary": "",
+            "stats": [
+              {
+                "name": "goalAssists",
+                "displayName": "Assists",
+                "shortDisplayName": "A",
+                "description": "The number of assists.",
+                "abbreviation": "A",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "offsides",
+                "displayName": "Offsides",
+                "shortDisplayName": "OFF",
+                "description": "The number of times a player or team gets caught offside.",
+                "abbreviation": "OFF",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "shotsOnTarget",
+                "displayName": "Shots On Goal",
+                "shortDisplayName": "SOG",
+                "description": "The number of shots that are on goal.",
+                "abbreviation": "SOG",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "totalShots",
+                "displayName": "Shots",
+                "shortDisplayName": "SHOT",
+                "description": "The number of shots attempted.",
+                "abbreviation": "SHOT",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "totalGoals",
+                "displayName": "Total Goals",
+                "shortDisplayName": "G",
+                "description": "The number of goals scored against the opposing team.",
+                "abbreviation": "G",
+                "value": 0.0,
+                "displayValue": "0"
+              }
+            ]
+          },
+          {
+            "name": "goalKeeping",
+            "displayName": "Goal Keeping",
+            "shortDisplayName": "Goal Keeping",
+            "abbreviation": "gk",
+            "summary": "",
+            "stats": [
+              {
+                "name": "saves",
+                "displayName": "Saves",
+                "shortDisplayName": "SV",
+                "description": "The number of times a goalkeeper makes a save.",
+                "abbreviation": "SV",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "shotsFaced",
+                "displayName": "Shots Faced",
+                "shortDisplayName": "SHF",
+                "description": "The number of shots on target a goalkeeper has faced.",
+                "abbreviation": "SHF",
+                "value": 0.0,
+                "displayValue": "0"
+              },
+              {
+                "name": "goalsConceded",
+                "displayName": "Goals Against",
+                "shortDisplayName": "GA",
+                "description": "The number of goals allowed by the goalkeeper.",
+                "abbreviation": "GA",
+                "value": 0.0,
+                "displayValue": "0"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "profile": {
+    "id": "377387",
+    "displayName": "Mandjou Camara",
+    "fullName": "Mandjou Camara",
+    "jersey": "78",
+    "position": {
+      "id": "19",
+      "name": "Forward",
+      "displayName": "Forward",
+      "abbreviation": "F",
+      "leaf": false,
+      "slug": "forward"
+    },
+    "displayDOB": "4/11/2005",
+    "age": 21,
+    "citizenship": "Guinea",
+    "team": {
+      "id": "104",
+      "displayName": "AS Roma"
+    }
+  }
+}
