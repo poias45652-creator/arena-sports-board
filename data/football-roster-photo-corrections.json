@@ -26,5 +26,28 @@
     "exclude": true,
     "source": "https://www.caledonianbraves.com/news/your-questions-david-winters",
     "evidence": "ESPN's player 6841 identifies the Scottish Caledonian Braves forward and lists his historic Scottish club matches, despite inserting him into Czechia's 2026 roster. Caledonian Braves' named interview confirms the Scottish player's career. This exact erroneous Czechia association is quarantined; the global identity and other seasons/teams are retained."
+  },
+  "377387": {
+    "teamId": "104",
+    "league": "ita.1",
+    "additionalLeagues": [
+      "uefa.champions"
+    ],
+    "season": 2026,
+    "sourceRecord": {
+      "name": "Mandjou Camara",
+      "birthDate": "2005-11-04",
+      "displayDOB": "4/11/2005",
+      "number": "78"
+    },
+    "identity": {
+      "name": "Mandjou Camara",
+      "birthDate": "2009-02-27",
+      "country": "Guinea",
+      "position": "F",
+      "height": "183 cm"
+    },
+    "source": "https://www.asroma.com/it/squadre/giovanili",
+    "evidence": "Roma official youth roster gives 27 February 2009; Sky Sport player 696039 corroborates Roma forward number 78 and height 183 cm. ESPN 377387 mixes the older same-name birthday with this Roma player. Only the exact reviewed 2026 Roma roster/profile fingerprint in Serie A and Champions League is corrected for frontend presentation; other teams, competitions and seasons are not reassigned."
   }
 }

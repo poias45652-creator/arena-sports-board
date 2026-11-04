@@ -179,7 +179,7 @@ test('the erroneous Czechia association is excluded only with its exact fingerpr
 test('context portraits never cross identities, including after cache population',async()=>{
  const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
  const corrections=JSON.parse(readFileSync('data/football-roster-photo-corrections.json'));
- const sources=JSON.parse(readFileSync('data/football-reviewed-photo-sources.json'));
+ const sources={...JSON.parse(readFileSync('data/football-reviewed-photo-sources.json')),...Object.fromEntries(Object.entries(JSON.parse(readFileSync('data/football-player-photo-refresh.json'))).map(([id,p])=>[id,p.photo]))};
  const previous=globalThis.fetch;let downloads=0;globalThis.fetch=async()=>{downloads++;throw Error('Reviewed portraits must be local');};
  const get=q=>GET(new Request('http://localhost/api/football-player-photo?'+q));
  try{
@@ -187,11 +187,41 @@ test('context portraits never cross identities, including after cache population
    const prefix=`player=${id}&league=${c.league}`;
    const wrong=[prefix,prefix+`&team=999&season=2026`,prefix+`&team=${c.teamId}&season=2025`,`player=${id}&league=eng.1&team=${c.teamId}&season=2026`];
    for(const q of wrong)assert.equal((await get(q)).status,404);
-   const r=await get(prefix+`&team=${c.teamId}&season=${c.season}`);assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),'image/webp');
+   const r=await get(prefix+`&team=${c.teamId}&season=${c.season}`);assert.equal(r.status,200);assert.equal(r.headers.get('content-type'),sources[id].type);
    const bytes=Buffer.from(await r.arrayBuffer());assert.deepEqual(bytes,readFileSync('public'+sources[id].localPath));assert.equal(createHash('sha256').update(bytes).digest('hex'),sources[id].sha256);
    for(const q of wrong)assert.equal((await get(q)).status,404);
    for(const suffix of ['&team=94','&season=2026','&team=&season=2026','&team=94&season=abc','&team=94&season=2026.5','&team=94&season=2000'])assert.equal((await get(prefix+suffix)).status,400);
   }
   assert.equal((await get('player=6841&league=uefa.nations&team=450&season=2026')).status,404);assert.equal(downloads,0);
+ }finally{globalThis.fetch=previous;}
+});
+test('Roma Camara portrait uses the reviewed roster and profile fingerprints in both competitions',async()=>{
+ const {parseFootballRoster}=await import(moduleUrl('lib/football-team-details.ts'));
+ const {footballRosterPhotoCorrection,matchesFootballRosterCorrection}=await import(moduleUrl('lib/football-roster-photo-corrections.ts'));
+ const {footballPlayerProfile}=await import(moduleUrl('lib/football-player-profile.ts'));
+ const {GET}=await import(moduleUrl('app/api/football-player-photo/route.ts'));
+ const fixture=JSON.parse(readFileSync('tests/fixtures/football-roma-camara-photo-identity.json'));
+ const snapshot=JSON.stringify(fixture),c=footballRosterPhotoCorrection('377387','ita.1','104',2026);
+ assert.ok(matchesFootballRosterCorrection(fixture.roster,c));assert.ok(matchesFootballRosterCorrection(fixture.profile,c));
+ for(const patch of [{displayDOB:'11/4/2005'},{displayDOB:''},{dateOfBirth:'2001-01-01'}, {jersey:'79'}, {displayName:'Another Camara'}])assert.equal(matchesFootballRosterCorrection({...fixture.profile,...patch},c),false);
+ const previous=globalThis.fetch;
+ try{
+  globalThis.fetch=async url=>{
+   if(String(url).includes('/athletes/377387'))return Response.json({athlete:String(url).includes('/uefa.champions/')?{...fixture.profile,displayName:'Another Camara'}:fixture.profile});
+   return new Response('Statistics unavailable',{status:503});
+  };
+  for(const league of ['ita.1','uefa.champions']){
+   const players=parseFootballRoster({team:{id:'104',isNational:false},season:{year:2026},athletes:[fixture.roster]},league,'104',2026,{id:'104',name:'羅馬',englishName:'AS Roma'});
+   assert.equal(players[0].name,'Mandjou Camara');assert.equal(players[0].height,'183 cm');
+   assert.equal(players[0].photo,`/api/football-player-photo?player=377387&league=${league}&team=104&season=2026`);
+   assert.equal((await GET(new Request('http://localhost'+players[0].photo))).status,200);
+  }
+  const profile=await footballPlayerProfile('377387','ita.1',2026,'104');
+  assert.deepEqual(profile.bio.find(([label])=>label==='出生日期'),['出生日期','2009-02-27']);
+  assert.match(profile.photo,/&team=104&season=2026$/);assert.equal(profile.sources[0].url,c.source);
+  const mismatch=await footballPlayerProfile('377387','uefa.champions',2026,'104');
+  assert.equal(mismatch.name,'Another Camara');assert.ok(!mismatch.photo.includes('&team='));
+  assert.equal((await GET(new Request('http://localhost'+mismatch.photo))).status,404);
+  assert.equal(JSON.stringify(fixture),snapshot,'raw source records remain unchanged');
  }finally{globalThis.fetch=previous;}
 });
