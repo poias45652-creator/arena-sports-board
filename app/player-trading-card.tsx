@@ -33,7 +33,7 @@ export default function PlayerTradingCard(p:Props){
   <div className="xz-card-copy"><h3>{p.name}</h3><p className="xz-card-team">{p.team||p.league}{p.season?` · ${p.season}`:''}</p>
    {!!p.stats?.length&&<dl className="xz-card-stats">{p.stats.map(s=><div key={s.label}><dt>{s.label}</dt><dd>{s.value??'—'}</dd></div>)}</dl>}
    <p className="xz-card-bio">{p.bio?.filter(Boolean).join(' · ')||'\u00a0'}</p>
-   <div className="xz-card-footer"><span className="xz-card-badge">{p.badge}</span><span>✦ 星準 ✦</span><span>{p.href?'查看資料 ↗':p.detail?'完整數據 ＋':'球員資料'}</span></div>
+   <div className="xz-card-footer"><span className="xz-card-badge">{p.badge}</span><span>{p.href?'查看資料 ↗':p.detail?'完整數據 ＋':'球員資料'}</span></div>
   </div>
  </>;
  if(p.href)return <a className="xz-player-card" href={p.href} aria-label={`查看 ${p.name} 球員資料`}>{content}</a>;

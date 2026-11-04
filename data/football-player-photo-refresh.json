@@ -4176,5 +4176,31 @@
     ],
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-04"
+  },
+  "3102114": {
+    "name": "Harutyun Asatryan",
+    "birthDate": "",
+    "photo": {
+      "url": "https://www.fcararat.am/media/bearleague/bl1775927350637.png",
+      "localPath": "/images/players/football/3102114-original.png",
+      "sha256": "ea6ba08c4fb295d7733e4b876c6041c7c5a9f7fcab77ff20830d50a74a32903a",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html",
+    "supportingEvidence": [
+      "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
+      "https://fcpyunik.am/en/article/893",
+      "https://fcpyunik.am/en/article/1820",
+      "https://sports.core.api.espn.com/v2/sports/soccer/leagues/uefa.europa/athletes/3102114?lang=en&region=us"
+    ],
+    "identity": "Official club profile explicitly labels this original portrait Harutyun Asatryan (Armenian full name), midfielder, born 25 June 2003. ESPN supplies the same full name and midfield position; UEFA lists H. Asatryan as an Armenian midfielder age 23. Manual portrait attribution is an inference from these name/position/age records, not an exact provider birth-date match. The Ararat II versus Ararat-Armenia roster association remains disputed and is not corrected by this photo-only change. No synthetic image or face matching is used.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "20024"
+      }
+    ],
+    "scope": "Frontend photo presentation only; team association and unavailable biographical fields remain unchanged.",
+    "checkedAt": "2026-11-04"
   }
 }
