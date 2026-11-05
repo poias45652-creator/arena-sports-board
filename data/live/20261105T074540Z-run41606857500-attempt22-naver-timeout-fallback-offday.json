@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-05",
+  "capturedAt": "2026-11-05T07:45:40.342Z",
+  "run": {
+    "id": 41606857500,
+    "attempt": 22,
+    "jobId": 127117793750,
+    "status": "success",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16"
+  },
+  "artifact": {
+    "id": 13396449580,
+    "createdAt": "2026-11-05T07:45:43Z",
+    "sizeBytes": 35030,
+    "digest": "sha256:172c7d5887d7d0e5f9ed1fc66d4c525bf811fa49197004d0929126fba2de5762",
+    "runnerUploadLogDigest": "sha256:172c7d5887d7d0e5f9ed1fc66d4c525bf811fa49197004d0929126fba2de5762",
+    "independentZipSha256": "172c7d5887d7d0e5f9ed1fc66d4c525bf811fa49197004d0929126fba2de5762",
+    "validFreshCurrentAttempt": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "officialOffday": true,
+      "sourceDegraded": true,
+      "yahooSelectedDate": "2026-11-01",
+      "requestedDate": "2026-11-05",
+      "officialCalendarURL": "https://npb.jp/games/2026/schedule_11_detail.html",
+      "officialCalendarFetchedAt": "2026-11-05T07:45:21.739Z",
+      "primaryWarning": "NPB Yahoo selected day mismatch"
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "officialOffday": true,
+      "publicFallback": true,
+      "sourceDegraded": true,
+      "primaryNaverStatus": "timeout",
+      "primaryError": "The operation was aborted due to timeout",
+      "officialScoreboardURL": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+      "officialScoreboardFetchedAt": "2026-11-05T07:45:40.341Z",
+      "selectedDate": "2026.11.05(목)",
+      "officialNoDataMarker": "데이터가 존재하지 않습니다.",
+      "officialDiagnosticHTTPStatus": 200,
+      "officialDiagnosticPageUsable": true,
+      "primaryNaverLivePollingVerified": false
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "officialAutomaticFallback": false,
+      "officialFullOffdayVerified": false,
+      "independentEarlierSameDayCorroboration": "https://stats.cpbl.com.tw/schedule"
+    }
+  },
+  "capture": {
+    "secondCapture": false,
+    "liveGames": 0,
+    "qualifiedNumericChanges": 0
+  },
+  "database": {
+    "isolatedPostgres16": true,
+    "checkedAt": "2026-11-05T07:45:41.967Z",
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0,
+    "duplicateWrites": 0,
+    "passed": true
+  },
+  "productionChanged": false,
+  "priorEvidenceRetained": true,
+  "previousObservation": "data/live/20261105T070859Z-run41606857500-attempt21-all-leagues-offday-recheck.json",
+  "priorDayLiveProof": "data/live/20261104T131707Z-run41606857500-attempt16-kbo-live-verified.json",
+  "unsupportedFields": "unknown fields remain null; CPBL pitchCount unverified, no official lineup inferred",
+  "changeFromPriorAttempt": "KBO Naver primary schedule switched from success-empty at attempt21 to timeout at attempt22; official scoreboard fallback returned valid off-day. Not a confirmation of a persistent outage or of live-source condition."
+}
