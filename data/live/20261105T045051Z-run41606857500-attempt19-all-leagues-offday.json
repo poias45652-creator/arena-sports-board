@@ -88,7 +88,15 @@
       "balls": null,
       "strikes": null,
       "outs": null,
-      "bases": null
+      "bases": null,
+      "independentOfficialScheduleWebView": {
+        "source": "CPBL public stats schedule",
+        "url": "https://stats.cpbl.com.tw/schedule",
+        "date": "2026-11-05",
+        "result": "11/5 週四 page states 今日暫無賽程; 2026 November default schedule list states 目前沒有賽程資料",
+        "scope": "Independently checked public official schedule view, not an integrated runner fallback or exhaustive filter-by-filter validation.",
+        "checkedIndependently": true
+      }
     }
   },
   "verification": {
