@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-05",
+  "capturedAt": "2026-11-05T10:30:10.062Z",
+  "run": {
+    "id": 41606857500,
+    "attempt": 24,
+    "jobId": 127190120288,
+    "status": "success",
+    "startedAt": "2026-11-05T10:29:24Z",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16"
+  },
+  "artifact": {
+    "id": 13407266453,
+    "name": "baseball-current",
+    "createdAt": "2026-11-05T10:30:15Z",
+    "sizeBytes": 35021,
+    "digest": "sha256:0ef51f5d8ea383b88dc4578ad81fcced5a755e97baafc5835785529a924460bf",
+    "runnerUploadLogDigest": "sha256:0ef51f5d8ea383b88dc4578ad81fcced5a755e97baafc5835785529a924460bf",
+    "independentZipSha256": "0ef51f5d8ea383b88dc4578ad81fcced5a755e97baafc5835785529a924460bf",
+    "independentZipHashVerified": true,
+    "validFreshCurrentAttemptByMetadata": true,
+    "artifactCreatedAfterCapture": true
+  },
+  "leagues": {
+    "NPB": {
+      "firstTeamGames": 0,
+      "collectorStatus": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": true,
+      "sourceDegraded": true,
+      "sourceWarnings": [
+        "NPB Yahoo selected day mismatch: requested 2026-11-05; upstream day 11/1"
+      ],
+      "offDayEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11_detail.html",
+        "fetchedAt": "2026-11-05T10:29:50.698Z",
+        "selectedDate": "2026-11-05",
+        "marker": "official_npb_calendar_exact_date_row_four_blank_cells"
+      },
+      "unsupportedFields": {
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null,
+        "lineupConfirmation": "not_verified"
+      }
+    },
+    "KBO": {
+      "firstTeamGames": 0,
+      "collectorStatus": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "offDayVerified": true,
+      "sourceDegraded": true,
+      "sourceWarnings": [
+        "Naver primary unavailable: The operation was aborted due to timeout"
+      ],
+      "offDayEvidence": {
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-05T10:30:10.061Z",
+        "selectedDate": "2026.11.05(목)",
+        "marker": "데이터가 존재하지 않습니다."
+      },
+      "officialDiagnostic": {
+        "capturedAt": "2026-11-05T10:30:10.127Z",
+        "httpStatus": 200,
+        "selectedDateMarkerPresent": true,
+        "gameTeamNamesPresent": false,
+        "sourceUsable": true,
+        "htmlBytes": 41249
+      },
+      "primaryNaverStatus": "timeout",
+      "primaryNaverLivePollingVerified": false,
+      "unsupportedFields": {
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null,
+        "lineupConfirmation": "not_verified"
+      }
+    },
+    "CPBL": {
+      "firstTeamGames": 0,
+      "collectorStatus": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "officialFullOffdayVerified": false,
+      "officialAutomaticFallbackIntegrated": false,
+      "independentPublicSchedule": {
+        "url": "https://stats.cpbl.com.tw/schedule",
+        "date": "2026-11-05",
+        "marker": "11/5 週四 今日暫無賽程; November list currently empty",
+        "scope": "Separate public schedule corroboration; not built into collector"
+      },
+      "unsupportedFields": {
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null,
+        "lineupConfirmation": "not_verified"
+      }
+    }
+  },
+  "liveVerification": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "requiredIntervalSeconds": 65,
+    "qualifiedNumericChanges": 0,
+    "priorDayProofRetained": "data/live/20261104T131707Z-run41606857500-attempt16-kbo-live-verified.json"
+  },
+  "database": {
+    "environment": "GitHub Actions isolated PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-11-05T10:30:13.510Z",
+    "NPB": {
+      "written": 0,
+      "duplicateWrites": 0,
+      "readBack": 0,
+      "passed": true
+    },
+    "KBO": {
+      "written": 0,
+      "duplicateWrites": 0,
+      "readBack": 0,
+      "passed": true
+    },
+    "CPBL": {
+      "written": 0,
+      "duplicateWrites": 0,
+      "readBack": 0,
+      "passed": true
+    }
+  },
+  "productionChanged": false,
+  "sourceQualityChangeConfirmed": false,
+  "changesFromPrevious": "Compared with Nov 5 attempt22, Naver still timed out; attempt23 could not determine primary state; NPBYahoo remains date-stale; all first-team schedules empty. No new active-game data, field completion, parser repair, or new outage."
+}
