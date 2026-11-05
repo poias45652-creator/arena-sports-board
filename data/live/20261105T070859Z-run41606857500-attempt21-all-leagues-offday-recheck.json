@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-05",
+  "capturedAt": "2026-11-05T07:08:59.452Z",
+  "run": {
+    "id": 41606857500,
+    "attempt": 21,
+    "jobId": 127104016434,
+    "status": "success",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16"
+  },
+  "artifact": {
+    "id": 13394819342,
+    "createdAt": "2026-11-05T07:09:03Z",
+    "sizeBytes": 34401,
+    "digest": "sha256:4d438c3a062e56a487ce9bcd838792506b2f1d0ff2a4b7b2d6eb092cbf1a1fa5",
+    "independentZipSha256": "4d438c3a062e56a487ce9bcd838792506b2f1d0ff2a4b7b2d6eb092cbf1a1fa5",
+    "validFreshCurrentAttempt": true
+  },
+  "leagues": {
+    "NPB": {
+      "games": 0,
+      "status": "ok",
+      "officialOffday": true,
+      "yahooDateStale": "2026-11-01"
+    },
+    "KBO": {
+      "games": 0,
+      "status": "ok",
+      "naverScheduleOK": true,
+      "officialOffdayHTMLConfirmed": true,
+      "officialScoreboardHttp": 200,
+      "liveEndpointNotTested": true
+    },
+    "CPBL": {
+      "games": 0,
+      "status": "ok",
+      "officialAutomaticFallback": false
+    }
+  },
+  "capture": {
+    "secondCapture": false,
+    "liveGames": 0,
+    "qualifiedNumericChanges": 0
+  },
+  "database": {
+    "isolatedPostgres16": true,
+    "NPB": 0,
+    "KBO": 0,
+    "CPBL": 0,
+    "duplicateWrites": 0
+  },
+  "productionChanged": false,
+  "priorEvidenceRetained": true,
+  "sourceDetails": {
+    "npb": "https://npb.jp/games/2026/schedule_11_detail.html",
+    "kbo": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+    "cpbl": "https://stats.cpbl.com.tw/schedule"
+  },
+  "previousObservation": "data/live/20261105T061511Z-run41606857500-attempt20-all-leagues-offday-naver-schedule-recovered.json",
+  "priorDayLiveProof": "data/live/20261104T131707Z-run41606857500-attempt16-kbo-live-verified.json",
+  "unsupportedFields": "unknown fields remain null and are not inferred as zero"
+}
