@@ -100,3 +100,11 @@ test('newer evidence in storage invalidates a prior retirement during an outage'
  const feed=await x.get('NPB');assert.equal(feed.status,'stale');assert.equal(feed.games.length,2);
  assert.deepEqual(feed.retiredFixtures,[]);
 });
+
+test('responsive displays do not resurrect retired rows while a shared refresh is running',async()=>{
+ const x=setup();await x.get('NPB');x.outage();x.advance(300001);
+ const retained=await x.get('NPB',undefined,{preferCached:true});
+ assert.equal(retained.refreshing,true);assert.equal(retained.games.length,1);
+ assert.equal(retained.games[0].sourceStale,true);assert.equal(retained.games[0].source.fetchedAt,new Date(observed).toISOString());
+ const completed=await x.get('NPB');assert.equal(completed.games.length,1);assert.equal(completed.retiredFixtures.length,1);
+});
