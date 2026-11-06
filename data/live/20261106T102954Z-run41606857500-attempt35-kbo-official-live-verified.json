@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-06",
+  "capturedAt": "2026-11-06T10:29:54.870Z",
+  "capturedAtTaipei": "2026-11-06T18:29:54.870+08:00",
+  "run": {
+    "id": 41606857500,
+    "attempt": 35,
+    "jobId": 127842152859,
+    "status": "completed",
+    "conclusion": "success",
+    "headBranch": "data/live-source-probe-20260915",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
+    "runStartedAt": "2026-11-06T10:27:46Z",
+    "runUpdatedAt": "2026-11-06T10:30:01Z"
+  },
+  "artifact": {
+    "id": 13494269644,
+    "name": "baseball-current",
+    "createdAt": "2026-11-06T10:29:58Z",
+    "sizeBytes": 40343,
+    "digest": "sha256:4a3022fa4b471f5789751401c2221a1fe1a7c279ec3e068803b3259008bc6ca6",
+    "runnerUploadLogDigest": "sha256:4a3022fa4b471f5789751401c2221a1fe1a7c279ec3e068803b3259008bc6ca6",
+    "independentZipSha256": "sha256:4a3022fa4b471f5789751401c2221a1fe1a7c279ec3e068803b3259008bc6ca6",
+    "integrityVerified": true,
+    "staleArtifactUsed": false
+  },
+  "leagues": {
+    "NPB": {
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "collectorStatus": "ok",
+      "offDayVerified": true,
+      "officialOffDayURL": "https://npb.jp/games/2026/schedule_11_detail.html",
+      "yahooSourceDateStale": "2026-11-01",
+      "sourceDegraded": true
+    },
+    "KBO": {
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 1,
+      "final": 0,
+      "collectorStatus": "partial",
+      "errors": [
+        "Naver primary unavailable: The operation was aborted due to timeout"
+      ],
+      "gameKey": "KBO:20261106KTSS0",
+      "sourceGameId": "20261106KTSS0",
+      "officialGameIdConfirmed": true,
+      "away": "KT巫師",
+      "home": "三星獅",
+      "startTimeTaipei": "2026-11-06T17:30:00+08:00",
+      "state": "live",
+      "score": {
+        "away": 1,
+        "home": 4
+      },
+      "inning": 3,
+      "half": "top",
+      "balls": 1,
+      "strikes": 0,
+      "outs": 0,
+      "bases": null,
+      "pitchCount": null,
+      "starters": {
+        "away": null,
+        "home": null
+      },
+      "lineupConfirmation": "not_verified",
+      "source": {
+        "provider": "kbo-official-scoreboard",
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-06T10:29:54.868Z",
+        "providerUpdatedAt": null
+      },
+      "warnings": [
+        "lineup_confirmation_not_verified",
+        "bases_not_verified",
+        "pitch_count_not_supplied",
+        "provider_update_time_not_supplied"
+      ],
+      "officialScoreboardDiagnostic": {
+        "httpStatus": 200,
+        "selectedDateMarkerPresent": true,
+        "sourceUsable": true
+      }
+    },
+    "CPBL": {
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "collectorStatus": "ok",
+      "officialAutomaticFallbackIntegrated": false,
+      "priorIndependentScheduleCorroborationURL": "https://stats.cpbl.com.tw/schedule",
+      "unsupportedPitchCount": null
+    }
+  },
+  "liveVerification": {
+    "liveGames": 1,
+    "secondCapturePerformed": true,
+    "requiredIntervalSeconds": 65,
+    "captureIntervalSeconds": 86.856,
+    "qualifiedNumericChanges": 1,
+    "gameKey": "KBO:20261106KTSS0",
+    "state": "live",
+    "sameGameIdentity": true,
+    "samples": [
+      {
+        "capturedAt": "2026-11-06T10:28:28.017Z",
+        "sourceFetchedAt": "2026-11-06T10:28:28.012Z",
+        "status": "live",
+        "inning": 3,
+        "half": "top",
+        "awayScore": 1,
+        "homeScore": 4,
+        "balls": 0,
+        "strikes": 0,
+        "outs": 0,
+        "bases": null,
+        "pitchCount": null
+      },
+      {
+        "capturedAt": "2026-11-06T10:29:54.870Z",
+        "sourceFetchedAt": "2026-11-06T10:29:54.868Z",
+        "status": "live",
+        "inning": 3,
+        "half": "top",
+        "awayScore": 1,
+        "homeScore": 4,
+        "balls": 1,
+        "strikes": 0,
+        "outs": 0,
+        "bases": null,
+        "pitchCount": null
+      }
+    ],
+    "proof": {
+      "beforeHash": "db5ad33cd5002b1120a39bd56f385dfcf548518d6005aaba96cd1cb08b114135",
+      "afterHash": "1ee77c099f7b8a7591111248286af167f2c825ce060423149b231d28c774d85d",
+      "changes": {
+        "balls": {
+          "before": 0,
+          "after": 1
+        }
+      },
+      "liveChangesVerified": true
+    },
+    "context": "KBO official first-team Korean Series game; two LIVE samples >=65s apart show actual B count change, not inferred pregame placeholder."
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-11-06T10:29:56.999Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "unknownFieldsPolicy": "Unknown B/S/O/bases/pitchCount/starters remain null; lineup rows are not proof of official confirmation. CPBL pitchCount null.",
+  "changesFromPrevious": "Attempt34 16:38 Taipei KBO verified pregame official ID; attempt35 at 18:29 Taipei KBO official fallback delivers real LIVE 3rd top KT 1 Samsung 4. Two LIVE samples 86.856s apart changed balls 0 to 1. Naver still timeout; NPB and CPBL have 0 first-team games; no deploy or main mutation.",
+  "productionChanged": false,
+  "links": {
+    "run": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/41606857500",
+    "artifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/41606857500/artifacts/13494269644",
+    "kboGame": "https://www.koreabaseball.com/Game/LiveText.aspx?leagueId=1&seriesId=7&gameId=20261106KTSS0&gyear=2026"
+  }
+}
