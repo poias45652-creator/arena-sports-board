@@ -104,7 +104,7 @@
     "secondCapturePerformed": true,
     "requiredIntervalSeconds": 65,
     "captureIntervalSeconds": 85.837,
-    "qualifiedNumericChanges": 4,
+    "qualifiedNumericChanges": 3,
     "gameKey": "KBO:20261106KTSS0",
     "sameGameIdentity": true,
     "state": "live",
@@ -162,9 +162,16 @@
           "after": "bottom"
         }
       },
-      "liveChangesVerified": true
+      "liveChangesVerified": true,
+      "numericChangeFields": [
+        "balls",
+        "strikes",
+        "outs"
+      ],
+      "additionalQualifiedStateTransition": "half: top to bottom"
     },
-    "previousLiveEvidencePath": "data/live/20261106T102954Z-run41606857500-attempt35-kbo-official-live-verified.json"
+    "previousLiveEvidencePath": "data/live/20261106T102954Z-run41606857500-attempt35-kbo-official-live-verified.json",
+    "qualifiedStateChanges": 4
   },
   "database": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
