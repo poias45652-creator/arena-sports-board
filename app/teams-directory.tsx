@@ -1,5 +1,5 @@
 'use client';
-import Link from 'next/link';
+import BaseballTeamCard from './baseball-team-card';
 import {useState} from 'react';
 import {Input} from '@/components/ui/input';
 import {coversTeams} from '@/lib/covers';
@@ -15,7 +15,10 @@ export default function TeamsDirectory(){
    <h3 className="border-b border-white/10 pb-3 text-xl font-bold text-[#ffd538]">{league.name}</h3>
    {league.divisions.map(division=><section key={division.id} aria-label={`${league.name}${division.name}`} className="space-y-3">
     <h4 className="text-lg font-bold">{division.name}</h4>
-    <div className="team-directory">{division.teams.map(id=><Link href={`/teams/${id}`} className="panel team-directory-card" key={id}><img src={`/team-logos/${id}.svg`} width={44} height={44} alt="" loading="lazy"/><span>{teamZh({id})}</span><small>查看球隊資料 →</small></Link>)}</div>
+    <div className="team-directory">{division.teams.map(id=>(
+     <BaseballTeamCard key={id} league="mlb" code={id} href={`/teams/${id}`} name={teamZh({id})}
+       logo={<img src={`/team-logos/${id}.svg`} width={44} height={44} alt="" loading="lazy"/>} />
+    ))}</div>
    </section>)}
   </section>)}</div>
   {!ids.length&&<p className="p-5">找不到符合的球隊。</p>}

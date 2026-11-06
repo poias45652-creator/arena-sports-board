@@ -153,6 +153,21 @@ button,input { font:inherit; }
 .team-identity { display:flex; gap:1.25rem; align-items:center; padding:1.5rem 0 2rem; border-top:4px solid #ffd538; }
 .team-identity h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; }.team-identity>button { margin-left:auto; }
 .team-directory { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }.team-directory-card { display:flex; align-items:center; gap:1rem; padding:1.5rem; flex-wrap:wrap; transition:border-color .15s; }.team-directory-card:hover { border-color:#ffd538; }.team-directory-card span { font-weight:700; }.team-directory-card small { width:100%; color:#91a2b6; font-size:.875rem; }
+.baseball-team-card {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,34%); align-items:center;
+  gap:.625rem; min-height:9rem; padding:.65rem 1rem .65rem 1.25rem; color:inherit;
+}
+.baseball-team-card-copy { display:grid; justify-items:start; align-content:center; gap:.75rem; min-width:0; }
+.baseball-team-card-identity { display:flex; align-items:center; gap:.65rem; min-width:0; }
+.baseball-team-card-identity > img { width:44px; height:44px; flex:none; object-fit:contain; }
+.baseball-team-card-identity strong { line-height:1.35; overflow-wrap:anywhere; }
+.baseball-team-card-record { color:#ffd538; font-size:.875rem; font-weight:700; }
+.baseball-team-card small { color:#a8b9cd; font-size:.875rem; }
+.baseball-team-character { display:block; justify-self:center; width:100%; max-width:8rem; height:auto; object-fit:contain; pointer-events:none; }
+.baseball-team-card:focus-visible { outline:2px solid #ffd538; outline-offset:2px; }
+@media(max-width:480px) {
+  .baseball-team-card { min-height:7.75rem; padding:.625rem .75rem .625rem 1rem; }
+}
 .team-filters { display:flex; gap:1.25rem; flex-wrap:wrap; padding:1.25rem; margin-bottom:1.5rem; }.team-filter { display:flex; flex-direction:column; gap:.5rem; min-width:150px; flex:1; }.team-filter>span { color:#9aaabd; font-size:.875rem; }.team-filter [data-slot=select-trigger] { width:100%; }
 .team-metrics { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1rem; margin:1.5rem 0; padding:1.25rem; background:#091320; border:2px solid #475b75; border-radius:.75rem; box-shadow:0 8px 24px #0005; }.team-metrics>div { min-width:0; padding:1rem; background:#17283d; border:1px solid #61758f; border-top:3px solid #ffd538; border-radius:.5rem; }.team-metrics span,.team-metrics small { display:block; color:#c2d0e1; font-size:.875rem; }.team-metrics small { color:#acbfd5; }.team-metrics strong { display:block; color:#fff; font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums; margin:.6rem 0; }
 .team-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }.team-section-title { font-size:1.125rem; font-weight:750; padding-left:.6rem; border-left:3px solid #ffd538; margin-bottom:1.5rem; }
