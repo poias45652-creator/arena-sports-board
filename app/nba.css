@@ -406,6 +406,34 @@
 .basketball-standings th a { display:inline-flex; width:max-content; align-items:center; gap:.5rem; text-align:left; white-space:nowrap; }
 .basketball-standings th a span { flex:none; }
 .basketball-standings th img { width:30px; height:30px; flex:0 0 30px; object-fit:contain; }
+.nba-board[data-super-league="NBA"] .basketball-standings {
+  --court-gutter: 1.25rem;
+  padding-inline: var(--court-gutter);
+}
+.nba-board[data-super-league="NBA"] .basketball-standings > section {
+  margin-inline: calc(-1 * var(--court-gutter));
+  padding: 1rem var(--court-gutter);
+  background: linear-gradient(90deg, rgb(4 14 27 / 32%), rgb(5 16 32 / 22%)),
+    #0b192a url("/brand/nba-standings-court-v1.webp") center / cover no-repeat;
+}
+.nba-board[data-super-league="NBA"] .basketball-standings h3 {
+  margin: 0 0 .5rem;
+}
+.nba-board[data-super-league="NBA"] .basketball-standings table {
+  color: #f1f5fb;
+  background: rgb(5 15 30 / 38%);
+}
+.nba-board[data-super-league="NBA"] .basketball-standings thead {
+  color: #d5e2f2;
+  background: rgb(21 40 62 / 82%);
+}
+.nba-board[data-super-league="NBA"] .basketball-standings tbody tr:nth-child(even) {
+  background: rgb(26 45 67 / 42%);
+}
+@media (max-width: 760px) {
+  .nba-board[data-super-league="NBA"] .basketball-standings { --court-gutter: .7rem; }
+  .nba-board[data-super-league="NBA"] .basketball-standings > section { background-position: 75% center; }
+}
 @media(max-width:1000px) { .basketball-live-columns { grid-template-columns:minmax(0,1fr) minmax(0,1.2fr); }.basketball-player-numbers { gap:.3rem; }.basketball-player-numbers>div { padding:.65rem .4rem; } }
 @media(max-width:760px) { .basketball-live-columns { grid-template-columns:minmax(0,1fr); }.basketball-game-strip>button { flex-basis:265px; }.basketball-overview { grid-template-columns:repeat(2,minmax(0,1fr)); }.basketball-overview nav { grid-template-columns:1fr; gap:.6rem; }.basketball-scoreboard .nba-match-score { font-size:1.8rem; }.basketball-standings { padding:1rem .7rem; } }
 @media(max-width:420px) { .nba-tabs-row .nba-tabs { gap:.15rem .85rem; }.nba-tabs-row .nba-tabs button { font-size:.76rem; }.basketball-scoreboard { padding-inline:.7rem; }.basketball-scoreboard .nba-team-logo { width:65px; height:65px; }.basketball-scoreboard .nba-team strong { font-size:.75rem; }.basketball-player-card { padding:.8rem; } }
