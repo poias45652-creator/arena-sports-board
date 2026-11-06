@@ -137,3 +137,52 @@
 @media(max-width:767px) {
   .arena-shell.xz-theme>header { position:relative; top:auto; }
 }
+
+/* The stadium sits behind the live MLB standings, including the overview tab. */
+.arena-shell.xz-theme[data-sport="baseball"] .mlb-standings-panel {
+  --mlb-stadium: url('/brand/mlb-night-stands-v1.webp');
+  min-width: 0;
+  overflow: hidden;
+  background: linear-gradient(105deg, rgb(7 17 32 / 96%), rgb(12 29 51 / 85%)),
+              var(--mlb-stadium) right bottom / cover no-repeat, #0c192c;
+}
+.mlb-standings-intro {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 11rem;
+  background: linear-gradient(115deg, #091425, #1a2c4c);
+}
+.mlb-standings-intro::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 auto;
+  width: min(100%, 32rem);
+  pointer-events: none;
+  background: linear-gradient(90deg, #14243d, transparent 43%),
+              linear-gradient(0deg, #0d1a2e, transparent 26%),
+              var(--mlb-stadium) right 54% / cover no-repeat;
+}
+.mlb-standings-intro .standings-heading {
+  align-items: flex-start;
+  flex-direction: column;
+}
+.mlb-standings-intro :is([data-slot="select-trigger"], [data-slot="button"]) {
+  background-color: rgb(9 20 36 / 86%);
+}
+.mlb-standings-intro .standings-meta {
+  justify-content: flex-start;
+  gap: .5rem 2rem;
+  color: #d4dfed;
+  text-shadow: 0 1px 4px #061021;
+}
+@media (max-width: 640px) {
+  .mlb-standings-intro::before {
+    width: 100%;
+    background-image: linear-gradient(90deg, rgb(6 17 33 / 72%), transparent 84%),
+                      linear-gradient(0deg, #0d1a2e, transparent 37%), var(--mlb-stadium);
+  }
+}

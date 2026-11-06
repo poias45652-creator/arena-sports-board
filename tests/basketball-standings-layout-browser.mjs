@@ -2,6 +2,7 @@ import {spawn} from 'node:child_process';
 import {setTimeout as delay} from 'node:timers/promises';
 import {mkdirSync,writeFileSync} from 'node:fs';
 import assert from 'node:assert/strict';
+import {verifyMlbStandings} from './mlb-standings-layout.mjs';
 const engines=await import(process.env.BASKETBALL_PLAYWRIGHT_MODULE||'/tmp/basketball-layout-browser/node_modules/playwright/index.mjs');
 const origin='http://127.0.0.1:3038',dir='evidence/basketball-standings-layout';mkdirSync(dir,{recursive:true});
 const server=spawn(process.execPath,['node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3038'],{env:{...process.env,YJ_RENDER_HTTP_TEST:'1',YJ_FOOTBALL_ADMIN_SMOKE:'1',YJ_BACKGROUND_REFRESH:'0',DATABASE_URL:'postgresql://local-test/fixture',TZ_BINDING_KEY:Buffer.alloc(32).toString('base64'),PLATFORM_ADMIN_USERNAME:'render-test-admin',APP_ORIGIN:origin,NODE_OPTIONS:'--import ./tests/basketball-live-http-preload.mjs'},stdio:['ignore','pipe','pipe']});
@@ -28,6 +29,7 @@ try{
     await page.locator('.basketball-standings header button').click();await page.locator('.basketball-standings tbody tr').first().waitFor();
    }
   }
+  await verifyMlbStandings(page,origin,dir+'/'+browserName+'-'+width+'-MLB.png');
   await page.unrouteAll({behavior:'ignoreErrors'});await context.close();
  }
  await browser.close();browser=null;
