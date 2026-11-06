@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-06",
+  "capturedAt": "2026-11-06T14:13:24.032Z",
+  "capturedAtTaipei": "2026-11-06T22:13:24.032+08:00",
+  "run": {
+    "id": 41606857500,
+    "attempt": 39,
+    "attemptConfirmedByApi": true,
+    "jobId": 127939559137,
+    "status": "completed",
+    "conclusion": "success",
+    "headBranch": "data/live-source-probe-20260915",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16",
+    "runStartedAt": "2026-11-06T14:12:39Z"
+  },
+  "artifact": {
+    "id": 13510660824,
+    "name": "baseball-current",
+    "createdAt": "2026-11-06T14:13:29Z",
+    "sizeBytes": 38658,
+    "digest": "sha256:55d2dc7dc37345b9ea09cc7ec2050089fc032d7128b05de50c51aacbfa9bae61",
+    "runnerUploadLogDigest": "sha256:55d2dc7dc37345b9ea09cc7ec2050089fc032d7128b05de50c51aacbfa9bae61",
+    "independentZipSha256": "sha256:55d2dc7dc37345b9ea09cc7ec2050089fc032d7128b05de50c51aacbfa9bae61",
+    "integrityVerified": true,
+    "staleArtifactUsed": false,
+    "artifactCreatedAfterCapturedAt": true
+  },
+  "leagues": {
+    "NPB": {
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "collectorStatus": "ok",
+      "errors": [],
+      "offDayVerified": true,
+      "officialOffDayURL": "https://npb.jp/games/2026/schedule_11_detail.html",
+      "yahooSourceDateStale": "2026-11-01",
+      "officialOffDaySourceFetchedAt": "2026-11-06T14:13:04.890Z"
+    },
+    "KBO": {
+      "firstTeamGames": 1,
+      "pregame": 0,
+      "live": 0,
+      "final": 1,
+      "collectorStatus": "partial",
+      "errors": [
+        "Naver primary unavailable: The operation was aborted due to timeout"
+      ],
+      "gameKey": "KBO:20261106KTSS0",
+      "sourceGameId": "20261106KTSS0",
+      "officialGameIdConfirmed": true,
+      "away": "KT巫師",
+      "home": "三星獅",
+      "state": "final",
+      "rawStatus": "경기종료",
+      "score": {
+        "away": 1,
+        "home": 5
+      },
+      "hits": {
+        "away": 7,
+        "home": 4
+      },
+      "errorsOnField": {
+        "away": 0,
+        "home": 0
+      },
+      "inning": null,
+      "half": null,
+      "balls": null,
+      "strikes": null,
+      "outs": null,
+      "bases": null,
+      "pitchCount": null,
+      "starters": {
+        "away": null,
+        "home": null
+      },
+      "lineupConfirmation": "not_verified",
+      "source": {
+        "provider": "kbo-official-scoreboard",
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "fetchedAt": "2026-11-06T14:13:24.027Z",
+        "providerUpdatedAt": null
+      },
+      "officialScoreboardDiagnostic": {
+        "httpStatus": 200,
+        "selectedDateMarkerPresent": true,
+        "sourceUsable": true,
+        "htmlBytes": 45810,
+        "capturedAt": "2026-11-06T14:13:24.091Z"
+      },
+      "warnings": [
+        "Naver primary timeout",
+        "bases unavailable",
+        "pitch count unavailable",
+        "lineup unverified",
+        "provider timestamp unavailable"
+      ]
+    },
+    "CPBL": {
+      "firstTeamGames": 0,
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "collectorStatus": "ok",
+      "errors": [],
+      "officialAutomaticFallbackIntegrated": false,
+      "priorIndependentScheduleCorroborationURL": "https://stats.cpbl.com.tw/schedule",
+      "unsupportedPitchCount": null
+    }
+  },
+  "liveVerification": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "requiredIntervalSeconds": 65,
+    "captureIntervalSeconds": null,
+    "qualifiedNumericChangesThisRun": 0,
+    "reason": "KBO FINAL at first capture; NPB and CPBL off-day. No same-run LIVE state.",
+    "priorLiveVerification": {
+      "evidencePath": "data/live/20261106T112220Z-run41606857500-attempt36-kbo-official-sixth-inning-live-verified.json",
+      "runAttempt": 36,
+      "intervalSeconds": 85.837,
+      "qualifiedNumericChanges": 3,
+      "liveVerified": true
+    }
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-11-06T14:13:27.621Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "unknownFieldsPolicy": "Unknown balls/strikes/outs/bases/pitchCount/starters remain null; lineup rows are not official confirmation. CPBL pitchCount remains null.",
+  "changesFromPrevious": "No material change from 2026-11-06 21:27 Taipei: KBO official FINAL KT 1 Samsung 5, Naver timeout; NPB 0 verified off-day Yahoo stale; CPBL 0, official automatic fallback not integrated. New independent ZIP digest matches GitHub and runner; isolated DB passed.",
+  "productionChanged": false,
+  "links": {
+    "run": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/41606857500",
+    "artifact": "https://github.com/poias45652-creator/arena-sports-board/actions/runs/41606857500/artifacts/13510660824",
+    "kboGame": "https://www.koreabaseball.com/Game/LiveText.aspx?leagueId=1&seriesId=7&gameId=20261106KTSS0&gyear=2026"
+  }
+}
