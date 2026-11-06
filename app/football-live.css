@@ -26,3 +26,54 @@
                       url('/brand/football-players-tunnel-v1.webp');
   }
 }
+
+/* Keep the chart behind the match picker and score, even for long event feeds. */
+.arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-live-matchday] {
+  --matchday-chart-height: clamp(620px, 49vw, 900px);
+  background-color: #041225;
+  background-image:
+    linear-gradient(to bottom, transparent 78%, #041225),
+    url('/brand/football-matchday-chart-v1.webp');
+  background-size: 100% var(--matchday-chart-height), 100% var(--matchday-chart-height);
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+[data-live-matchday] .football-game-strip > button {
+  --crowd-position: 0%;
+  color: #f7f9fc;
+  background-color: #102133;
+  background-image:
+    linear-gradient(to bottom, #030b1840, #030b183d 35%, #030b1894 76%, #030b18bf),
+    url('/brand/football-matchday-crowd-v1.webp');
+  background-size: cover, 500% auto;
+  background-position: center, var(--crowd-position) 48%;
+  background-repeat: no-repeat;
+  text-shadow: 0 1px 3px #020812;
+}
+
+[data-live-matchday] .football-game-strip > :nth-child(5n + 2) { --crowd-position: 25%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n + 3) { --crowd-position: 50%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n + 4) { --crowd-position: 75%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n) { --crowd-position: 100%; }
+
+[data-live-matchday] .football-game-strip > button[aria-pressed="true"] {
+  border-color: #ffdb43;
+  box-shadow: inset 0 0 0 1px #ffdb4380;
+}
+
+[data-live-matchday] .football-game-strip > button > span:not(.football-live),
+[data-live-matchday] .football-game-strip time {
+  color: #e0e8f2;
+}
+
+[data-live-matchday] :is(.football-scoreboard, .football-match-info) {
+  background-color: #07162959;
+}
+
+@media (max-width: 650px) {
+  .arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-live-matchday] {
+    background-size: 100% var(--matchday-chart-height), auto var(--matchday-chart-height);
+    background-position: center top, 78% top;
+  }
+}
