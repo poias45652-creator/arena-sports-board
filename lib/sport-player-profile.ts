@@ -23,5 +23,8 @@ export function basketballPlayerHref(league:string,p:{id:number;href?:string;off
   return `/players/nba/${p.id}${query.size?'?'+query:''}`;
  }
  const official=p.officialId||p.href?.match(/^https:\/\/www\.wnba\.com\/player\/(\d+)\//)?.[1];
- return `/players/wnba/${official||p.id}${official?'':'?provider=espn'}`;
+ const query=new URLSearchParams();
+ if(!official)query.set('provider','espn');
+ if(/^\d{4}$/.test(p.season||''))query.set('season',String(p.season));
+ return `/players/wnba/${official||p.id}${query.size?'?'+query:''}`;
 }
