@@ -1,0 +1,158 @@
+{
+  "schemaVersion": 1,
+  "dateAsiaTaipei": "2026-11-06",
+  "capturedAt": "2026-11-06T06:46:09.493Z",
+  "capturedAtTaipei": "2026-11-06T14:46:09.493+08:00",
+  "run": {
+    "id": 41606857500,
+    "attempt": 32,
+    "jobId": 127755943630,
+    "status": "completed",
+    "conclusion": "success",
+    "headBranch": "data/live-source-probe-20260915",
+    "headSha": "bf1097b3defde0386107d2e9a395403f38d95d16"
+  },
+  "artifact": {
+    "id": 13482859646,
+    "name": "baseball-current",
+    "createdAt": "2026-11-06T06:46:13Z",
+    "sizeBytes": 38230,
+    "digest": "sha256:2c7bbdec080e35f8a949040c60d6887c7b9ca2ce7c50e5bd1f612a614b0dc50f",
+    "runnerUploadLogDigest": "sha256:2c7bbdec080e35f8a949040c60d6887c7b9ca2ce7c50e5bd1f612a614b0dc50f",
+    "independentZipSha256": "2c7bbdec080e35f8a949040c60d6887c7b9ca2ce7c50e5bd1f612a614b0dc50f",
+    "independentZipHashVerified": true,
+    "artifactCreatedAfterCapture": true,
+    "freshCurrentRunAttempt": true
+  },
+  "leagues": {
+    "NPB": {
+      "firstTeamGames": 0,
+      "collectorStatus": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "sourceDegraded": true,
+      "offDayVerified": true,
+      "sourceWarnings": [
+        "NPB Yahoo selected day mismatch: requested 2026-11-06; upstream day 11/1"
+      ],
+      "offDayEvidence": {
+        "url": "https://npb.jp/games/2026/schedule_11_detail.html",
+        "fetchedAt": "2026-11-06T06:45:50.281Z",
+        "selectedDate": "2026-11-06",
+        "marker": "official_npb_calendar_exact_date_row_four_blank_cells"
+      }
+    },
+    "KBO": {
+      "firstTeamGames": 1,
+      "collectorStatus": "partial",
+      "pregame": 1,
+      "live": 0,
+      "final": 0,
+      "errors": [
+        "Naver primary unavailable: The operation was aborted due to timeout"
+      ],
+      "sourceDegraded": true,
+      "primaryNaverStatus": "timed_out_again_after_attempt31_recovery",
+      "primaryNaverLivePollingVerified": false,
+      "publicFallback": true,
+      "officialScoreboardDiagnostic": {
+        "dateAsiaSeoul": "2026-11-06",
+        "capturedAt": "2026-11-06T06:46:09.542Z",
+        "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+        "httpStatus": 200,
+        "selectedDateMarkerPresent": true,
+        "sourceUsable": true,
+        "gameTeamNamesPresent": false
+      },
+      "game": {
+        "key": "KBO:official-pregame:20261106:KT:SS:1830",
+        "sourceGameId": null,
+        "officialKboGameIdConfirmed": false,
+        "away": "KT巫師",
+        "home": "三星獅",
+        "startTime": "2026-11-06T09:30:00.000Z",
+        "startTimeTaipei": "2026-11-06T17:30:00+08:00",
+        "status": "pregame",
+        "rawStatus": "경기전",
+        "awayScore": null,
+        "homeScore": null,
+        "inning": null,
+        "balls": null,
+        "strikes": null,
+        "outs": null,
+        "bases": null,
+        "pitchCount": null,
+        "currentPitcher": null,
+        "currentBatter": null,
+        "starters": {
+          "away": null,
+          "home": null
+        },
+        "lineups": {
+          "away": [],
+          "home": []
+        },
+        "lineupConfirmation": "not_verified",
+        "source": {
+          "provider": "kbo-official-scoreboard",
+          "url": "https://www.koreabaseball.com/Schedule/ScoreBoard.aspx",
+          "fetchedAt": "2026-11-06T06:46:09.490Z",
+          "httpDate": "Fri, 06 Nov 2026 06:46:18 GMT"
+        },
+        "liveChangeProof": null
+      }
+    },
+    "CPBL": {
+      "firstTeamGames": 0,
+      "collectorStatus": "ok",
+      "pregame": 0,
+      "live": 0,
+      "final": 0,
+      "errors": [],
+      "officialAutomaticFallbackIntegrated": false,
+      "officialFullOffdayVerified": false
+    }
+  },
+  "liveVerification": {
+    "liveGames": 0,
+    "secondCapturePerformed": false,
+    "requiredIntervalSeconds": 65,
+    "qualifiedNumericChanges": 0,
+    "reason": "KBO pregame only, NPB/CPBL no games; no same-day LIVE change proof.",
+    "priorDayProofRetained": "data/live/20261104T131707Z-run41606857500-attempt16-kbo-live-verified.json"
+  },
+  "database": {
+    "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
+    "productionWritten": false,
+    "checkedAt": "2026-11-06T06:46:12.417Z",
+    "checks": [
+      {
+        "league": "NPB",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      },
+      {
+        "league": "KBO",
+        "written": 1,
+        "duplicateWrites": 0,
+        "readBack": 1,
+        "passed": true
+      },
+      {
+        "league": "CPBL",
+        "written": 0,
+        "duplicateWrites": 0,
+        "readBack": 0,
+        "passed": true
+      }
+    ]
+  },
+  "unknownFieldsPolicy": "unsupported fields null; unconfirmed starters and lineup not promoted to confirmed",
+  "sourceQualityChangeConfirmed": true,
+  "changesFromPrevious": "Attempt31 Naver returned correctly dated parsed pregame key; attempt32 timed out again. Official KBO public scoreboard fallback returned one pregame KT@Samsung using provisional internal key; sourceGameId is null. No LIVE changes; NPB stale-date mitigation and CPBL zero-game collector state unchanged.",
+  "productionChanged": false
+}
