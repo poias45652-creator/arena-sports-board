@@ -159,3 +159,74 @@ test('actual route enforces membership, origin, scope, missing-data response and
  assert.match((await (await POST(request({}))).json()).answer,/65.0%/);
  assert.equal((await POST(request({action:undefined,question:'為什麼？'}))).status,503);
 });
+
+const {fixtureEvidence,withFixtureEvidence}=await import(moduleUrl('lib/ai-fixture-evidence.ts'));
+// Minimal ESPN pregame summary for Washington at Atlanta, November 7 in Taiwan.
+const hawks={id:'401909287',league:'NBA',day:'2026-11-07',start:'2026-11-07T00:00:00Z',home:'亞特蘭大老鷹',away:'華盛頓巫師',homeId:'1',awayId:'27'};
+const captured='2026-11-06T07:50:00Z',now=Date.parse(captured),teams=[{homeAway:'home',team:{id:'1'}},{homeAway:'away',team:{id:'27'}}];
+const recent={id:'401909923',gameDate:'2026-11-05T00:00Z',homeTeamId:'27',awayTeamId:'1',homeTeamScore:'105',awayTeamScore:'120'};
+const played={id:recent.id,date:recent.gameDate,status:'post',statusType:{completed:true},competitors:[{team:{id:'27'},score:'105'},{team:{id:'1'},score:'120'}]};
+const injury={date:'2026-11-05T22:08Z',athlete:{id:'4701230',displayName:'Jalen Johnson'},type:{name:'INJURY_STATUS_DAYTODAY'}};
+const summary={
+ header:{league:{slug:'nba'},id:hawks.id,competitions:[{id:hawks.id,date:hawks.start,status:{type:{name:'STATUS_SCHEDULED'}},competitors:teams}]},
+ lastFiveGames:[{team:{id:'1'},events:[{...recent,opponent:{id:'27'},gameResult:'W'}]},{team:{id:'27'},events:[{...recent,opponent:{id:'1'},gameResult:'L'}]}],
+ seasonseries:[{type:'season',events:[played]}],injuries:[{team:{id:'1'},injuries:[injury]}]
+};
+const evidence=(raw,overrides={})=>fixtureEvidence({...hawks,...overrides},raw,captured,now);
+test('source-only answers use verified historical scores and dated injuries without unlocking forecasts or weights',()=>{
+ const s=withFixtureEvidence(hawks,null,evidence(summary),captured);
+ assert.match(quickAiAnswer(s,'data').answer,/亞特蘭大老鷹 120 比 105 華盛頓巫師/);
+ assert.match(quickAiAnswer(s,'risk').answer,/Jalen Johnson 列為「逐日觀察」/);
+ assert.match(quickAiAnswer(s,'analysis').answer,/尚無可用的模型預測/);
+ assert.equal(quickAiAnswer(s,'weights').answer,AI_INSUFFICIENT);
+ assert.equal(core.fixtureQuestion('兩隊近五場戰績如何？'),'recent');
+ assert.equal(core.fixtureQuestion('兩隊上次交手比分是多少？'),'meetings');
+ assert.equal(core.fixtureQuestion('換成勇士，兩隊近五場戰績如何？'),null);
+ assert.match(core.answerFixtureQuestion(s,'meetings'),/2026-11-05　亞特蘭大老鷹 120 比 105 華盛頓巫師/);
+ assert.match(core.answerFixtureQuestion(s,'recent'),/華盛頓巫師近 1 場：0 勝、1 敗/);
+ assert.equal(core.answerFixtureQuestion({...s,evidence:[]},'meetings'),null);
+ const roster={home:[{name:'Jalen Johnson',status:'expected'}],away:[]};
+ assert.ok(!fixtureEvidence(hawks,summary,captured,now,roster).some(f=>f.id.startsWith('injury-report-')));
+});
+test('evidence rejects wrong fixtures, future results, stale injury updates and malformed or duplicated rows',()=>{
+ for(const patch of [{league:'WNBA'},{id:'1'},{homeId:'27',awayId:'1'},{start:'2026-11-07T01:00Z'}])assert.deepEqual(evidence(summary,patch),[]);
+ assert.deepEqual(fixtureEvidence(hawks,summary,captured,Date.parse(hawks.start)),[]);
+ assert.deepEqual(fixtureEvidence(hawks,summary,captured,now+125000),[]);
+ const bad=structuredClone(summary);
+ bad.lastFiveGames[0].events[0].opponent.id='3';bad.lastFiveGames[1].events.push(bad.lastFiveGames[1].events[0]);
+ bad.seasonseries[0].events[0].date=hawks.start;bad.injuries[0].injuries[0].date='2026-10-01T22:08Z';
+ assert.deepEqual(evidence(bad),[]);
+ assert.deepEqual(evidence({...summary,lastFiveGames:{},injuries:null,seasonseries:'changed'}),[]);
+ const one=evidence({...summary,lastFiveGames:[],injuries:[{team:{id:'1'},injuries:[{...injury,date:'2026-11-07T12:00Z'}]}],seasonseries:[]});
+ assert.deepEqual(one,[]);
+ assert.equal(withFixtureEvidence(hawks,snapshot,[],captured),snapshot);
+ assert.equal(withFixtureEvidence(hawks,null,[],captured),null);
+});
+test('team schedules recover last season meetings missing from the fixture summary',async()=>{
+ const {teamHistoryEvidence}=await import(moduleUrl('lib/ai-fixture-evidence.ts'));
+ const game={id:played.id,state:'final',start:played.date,home:{id:'27'},away:{id:'1'},homeScore:105,awayScore:120};
+ const opponent={...game,id:'123',home:{id:'14'}};
+ const profile={team:{id:'1'},results:[game,opponent,{...game,id:'999',start:hawks.start}],fetchedAt:captured};
+ const facts=teamHistoryEvidence(hawks,'home',profile,[],now);
+ assert.equal(facts.find(f=>f.id==='prior-meetings').text.split('\n').length,2);
+ assert.match(facts.find(f=>f.id==='prior-meetings').text,/亞特蘭大老鷹 120 比 105 華盛頓巫師/);
+ assert.match(facts.find(f=>f.id==='recent-home').text,/近 2 場/);
+ assert.deepEqual(teamHistoryEvidence(hawks,'away',profile,[],now),[]);
+ assert.deepEqual(teamHistoryEvidence(hawks,'home',profile,facts,now),[]);
+ assert.deepEqual(teamHistoryEvidence(hawks,'home',{...profile,fetchedAt:'2025-11-06T07:50:00Z'},[],now),[]);
+});
+test('a blank French scoreboard is retried for the same date and league',async()=>{
+ const {footballSchedule}=await import(moduleUrl('lib/football-source.ts'));
+ const original=globalThis.fetch,requested=[];
+ globalThis.fetch=async input=>{
+  const url=new URL(input);requested.push(url);
+  if(url.searchParams.get('dates')==='20261106'&&!url.searchParams.has('lang'))return new Response('');
+  return Response.json({leagues:[{slug:'fra.1'}],events:[]});
+ };
+ try{
+  const board=await footballSchedule('fra.1','2026-11-07');
+  assert.deepEqual(board.games,[]);
+  assert.equal(requested.filter(u=>u.searchParams.get('dates')==='20261106').length,2);
+  assert.ok(requested.every(u=>u.pathname.endsWith('/fra.1/scoreboard')));
+ }finally{globalThis.fetch=original;}
+});

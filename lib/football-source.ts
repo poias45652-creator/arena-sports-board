@@ -30,7 +30,18 @@ async function source(path:string,ttl:number,timeout=12000):Promise<{value:any;f
     }finally{const next=queue.shift();if(next)next();else active--;}
   })().finally(()=>pending.delete(path));pending.set(path,task);return task;
 }
-async function scoreboard(league:FootballLeague,day:string){return source(`${league}/scoreboard?dates=${day.replaceAll('-','')}&limit=100`,30000,isFootballNationalCompetition(league)?20000:12000);}
+async function scoreboard(league:FootballLeague,day:string){
+ const path=`${league}/scoreboard?dates=${day.replaceAll('-','')}&limit=100`,timeout=isFootballNationalCompetition(league)?20000:12000;
+ try{return await source(path,30000,timeout);}
+ catch(error){
+  // ESPN occasionally responds 200 with an empty/truncated body. A blank
+  // response is not evidence of an off day. Retry the same dated league feed.
+  if(!(error instanceof SyntaxError))throw error;
+  const retry=await source(path+'&lang=en',30000,timeout);
+  if(!retry.value.leagues?.some((l:any)=>l.slug===league))throw Error('足球賽程來源聯賽不符');
+  return retry;
+ }
+}
 export async function footballSchedule(league:FootballLeague,day:string){
   // ESPN soccer accepts a single source day, not a dates range. Fetch both days
   // overlapping the Taiwan date, then filter by the actual kickoff timestamp.

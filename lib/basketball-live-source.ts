@@ -8,8 +8,11 @@ async function source(url:string,ttl:number,league:BasketballLeague){
  const task=(async()=>{const data=JSON.parse(await basketballPage(url,10000,league)),entry={data,fetchedAt:new Date().toISOString(),until:Date.now()+ttl};if(cache.size>=120)cache.delete(cache.keys().next().value!);cache.set(url,entry);return entry;})().finally(()=>pending.delete(url));
  pending.set(url,task);return task;
 }
+export function basketballSummary(game:Pick<NbaGame,'id'|'state'>,league:BasketballLeague){
+ return source(`https://site.api.espn.com/apis/site/v2/sports/basketball/${league.toLowerCase()}/summary?event=${game.id}`,game.state==='final'?300000:8000,league);
+}
 export async function basketballDetail(game:NbaGame,league:BasketballLeague){
- const row=await source(`https://site.api.espn.com/apis/site/v2/sports/basketball/${league.toLowerCase()}/summary?event=${game.id}`,game.state==='final'?300000:8000,league);
+ const row=await basketballSummary(game,league);
  return parseBasketballDetail(row.data,game,league,row.fetchedAt);
 }
 export async function basketballStandings(league:BasketballLeague,season:number,phase:number){

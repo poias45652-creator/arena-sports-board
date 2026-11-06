@@ -61,6 +61,9 @@ export function buildAiFacts(match:AiMatch,analysis:any,suggestion:AiSuggestion|
    if(f&&[f.games,scored,conceded].every(finite))add('form-'+side,'data',`${match[side]}的分析樣本 ${f.games} 場，模型使用的場均${kind==='basketball'?'得分':'進球'} ${num(scored)}、${kind==='basketball'?'失分':'失球'} ${num(conceded)}。`);
   }
   if(kind==='football'){
+   if([p.over25,p.under25].every(v=>finite(v)&&v>=0&&v<=1)&&Math.abs(p.over25+p.under25-1)<0.0001)
+    add('goals-total','data',`正規時間含補時的模型機率：總進球大於 2.5 球 ${pct(p.over25)}、小於 2.5 球 ${pct(p.under25)}。`);
+   if(finite(p.btts)&&p.btts>=0&&p.btts<=1)add('both-score','data',`兩隊在正規時間含補時都有進球的模型機率是 ${pct(p.btts)}。`);
    add('method','analysis','星準依本場啟用的攻防模型計算雙方預期進球，再換算主勝、和局與客勝機率；範圍為正規 90 分鐘含補時。');
    if(analysis.homeForm?.games>0&&analysis.awayForm?.games>0){
     const metrics:[string,string,Metric][]=[['scored','attack',{label:'場均進球',lower:false,good:'這組分析採用的進球數據較高，進攻表現較有利。',bad:'這組分析採用的進球數據較低，進攻表現較弱。'}],['conceded','defense',{label:'場均失球',lower:true,good:'這組分析採用的失球數據較低，防守表現較有利。',bad:'這組分析採用的失球數據較高，防守表現較弱。'}]];
