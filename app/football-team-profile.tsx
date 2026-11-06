@@ -41,6 +41,7 @@ import {
 } from "@/lib/football-team-details";
 import "./football.css";
 import "./football-team-profile.css";
+import {footballPhotoPending} from '@/lib/football-photo-policy';
 import PlayerTradingCard from './player-trading-card';
 import {playerCountry} from '@/lib/sport-player-profile';
 import {footballPortraitStyle} from "@/lib/football-portrait-framing";
@@ -771,7 +772,7 @@ function FootballPlayers({
 function FootballPlayerCard({ player: p, roster }: { player: FootballRosterPlayer; roster: FootballRoster }) {
   return <PlayerTradingCard name={p.name} number={p.number} position={positionNames[p.position] || p.position || '未公布位置'}
     league={FOOTBALL_LEAGUES.find(l=>l.code===roster.league)?.name||roster.league} team={roster.team.name} season={roster.season}
-    photo={p.photo} portraitStyle={footballPortraitStyle(p.id,p.name)} href={p.href}
+    photoPending={footballPhotoPending(p.id)} photo={p.photo} portraitStyle={footballPortraitStyle(p.id,p.name)} href={p.href}
     bio={[playerCountry(p.country),p.height].filter(v=>v&&v!=='—')}
     stats={[{label:'出場',value:p.appearances},{label:'進球',value:p.goals},{label:'助攻',value:p.assists}]}
     badge={<img src={`https://a.espncdn.com/i/teamlogos/soccer/500/${roster.team.id}.png`} alt=""/>}/>;

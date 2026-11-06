@@ -11,7 +11,7 @@ async function getPlayer(id:string){
    if(!response.ok)throw Error('日職資料暫時無法取得');
    const html=await response.text();if(html.length>5000000)throw Error('資料超出上限');
    const data=parseNpbPlayer(html,id),catalog=npbCatalogPlayer(data.player.name,data.player.teamCode);
-   if(catalog?.id===id)data.player.photoUrls=[...new Set([...catalog.photoUrls,...data.player.photoUrls])];
+   if(catalog?.id===id)data.player.photoUrls=catalog.reviewed?catalog.photoUrls:[...new Set([...catalog.photoUrls,...data.player.photoUrls])];
    if(cache.size>=100)cache.delete(cache.keys().next().value!);
    cache.set(id,{until:Date.now()+5*60000,data});return data;
   }catch(error){

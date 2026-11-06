@@ -13,6 +13,7 @@ import {
 } from "./football-team-profile";
 import { reconcileFootballHistory } from "./football-history";
 import supplements from "../data/football-player-supplements.json";
+import { footballPhotoUrl } from "./football-photo-policy";
 import { normalizeFootballPhotoName } from "./football-photo-identity";
 import {footballRosterPhotoCorrection,matchesFootballRosterCorrection} from './football-roster-photo-corrections';
 
@@ -264,8 +265,7 @@ export function parseFootballRoster(
       normalizeFootballPhotoName(candidate.name) === normalizeFootballPhotoName(name) &&
       (!candidate.birthDate || !p.dateOfBirth || candidate.birthDate === String(p.dateOfBirth).slice(0, 10))
       ? candidate : undefined;
-    const photo = `/api/football-player-photo?player=${playerId}&league=${league}`+
-      (correction?.identity?`&team=${id}&season=${season}`:'');
+    const photo = footballPhotoUrl(playerId, league, id, season, p, !!correction?.identity);
     return [{
       id: playerId,
       name: correction?.identity?.name || name,

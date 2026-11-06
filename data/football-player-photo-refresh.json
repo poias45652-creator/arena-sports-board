@@ -4177,30 +4177,1485 @@
     "scope": "Current frontend roster cards only",
     "checkedAt": "2026-11-04"
   },
-  "3102114": {
-    "name": "Harutyun Asatryan",
-    "birthDate": "",
+  "246836": {
+    "name": "Dennis Hadzikadunic",
+    "birthDate": "1998-07-09",
     "photo": {
-      "url": "https://www.fcararat.am/media/bearleague/bl1775927350637.png",
-      "localPath": "/images/players/football/3102114-original.png",
-      "sha256": "ea6ba08c4fb295d7733e4b876c6041c7c5a9f7fcab77ff20830d50a74a32903a",
+      "url": "https://images.fotmob.com/image_resources/playerimages/797797.png",
+      "localPath": "/images/players/football/246836-original.png",
+      "sha256": "b004504895811c24ba92c714dfe55361227b900b6a72908aa7a2004b85febd46",
       "type": "image/png"
     },
-    "evidence": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html",
+    "evidence": "https://www.fotmob.com/players/797797",
     "supportingEvidence": [
-      "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/",
-      "https://fcpyunik.am/en/article/893",
-      "https://fcpyunik.am/en/article/1820",
-      "https://sports.core.api.espn.com/v2/sports/soccer/leagues/uefa.europa/athletes/3102114?lang=en&region=us"
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/452/roster?season=2026"
     ],
-    "identity": "Official club profile explicitly labels this original portrait Harutyun Asatryan (Armenian full name), midfielder, born 25 June 2003. ESPN supplies the same full name and midfield position; UEFA lists H. Asatryan as an Armenian midfielder age 23. Manual portrait attribution is an inference from these name/position/age records, not an exact provider birth-date match. The Ararat II versus Ararat-Armenia roster association remains disputed and is not corrected by this photo-only change. No synthetic image or face matching is used.",
+    "identity": "ESPN team roster ID 246836 and FotMob player ID 797797 share the exact date 1998-07-09, consistent full player name (Dennis Hadzikadunic / Dennis Hadžikadunić) and national affiliation (Bosnia and Herzegovina). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "452"
+      }
+    ],
+    "providerId": "797797"
+  },
+  "225571": {
+    "name": "Dzenis Burnic",
+    "birthDate": "1998-05-22",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/660148.png",
+      "localPath": "/images/players/football/225571-original.png",
+      "sha256": "fab81df7d5193d590e5edcbbb6cf78a1f2504083115c3d116966f766a441a0fa",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/660148",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/452/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 225571 and FotMob player ID 660148 share the exact date 1998-05-22, consistent full player name (Dzenis Burnic / Dženis Burnić) and national affiliation (Bosnia and Herzegovina). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "452"
+      }
+    ],
+    "providerId": "660148"
+  },
+  "420872": {
+    "name": "Matej Deket",
+    "birthDate": "2009-10-01",
+    "photo": {
+      "url": "https://cdn.prod.website-files.com/69679a52dd6e431614feb0fa/697cb5bfb127d299d380f7f0_FK%20Borac%20kartica%20-%20Deket.avif",
+      "localPath": "/images/players/football/420872-original.webp",
+      "sha256": "cae59d9f399a5419d5a5b4cec6ca49dfd87812ea370ff5a298414592378e24a7",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.fkborac.net/",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/452/roster?season=2026",
+      "https://www.uefa.com/under21/teams/players/250204834--matej-deket/"
+    ],
+    "identity": "Official FK Borac team card names Матеј Декет, forward, born 1.10.2009, with its directly labelled image. The exact date matches ESPN’s Bosnia roster and the UEFA U21 profile. The club AVIF photograph was losslessly re-encoded as WebP without generative editing.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "452"
+      }
+    ],
+    "originalSourceSha256": "e1a2b59ed0ccfc2007d6a82e9667dee3694a5c60dcb8b4156ecf9ace4753462c"
+  },
+  "238916": {
+    "name": "Karlo Letica",
+    "birthDate": "1997-02-11",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/539198.png",
+      "localPath": "/images/players/football/238916-original.png",
+      "sha256": "030364af57cd1bea9fea59060f0007430e71fd96a97e53cce24751b5ec0855f7",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/539198",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/477/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 238916 and FotMob player ID 539198 share the exact date 1997-02-11, consistent full player name (Karlo Letica / Karlo Letica) and national affiliation (Croatia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "477"
+      }
+    ],
+    "providerId": "539198"
+  },
+  "345481": {
+    "name": "Marin Soticek",
+    "birthDate": "2004-09-18",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1510950.png",
+      "localPath": "/images/players/football/345481-original.png",
+      "sha256": "9ccd46e8571fc14320e68db8dac0c95d7d8b7e271056e4ba6e24d60b207f0e8e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1510950",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/477/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 345481 and FotMob player ID 1510950 share the exact date 2004-09-18, consistent full player name (Marin Soticek / Marin Šotiček) and national affiliation (Croatia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "477"
+      }
+    ],
+    "providerId": "1510950"
+  },
+  "363661": {
+    "name": "Simun Hrgovic",
+    "birthDate": "2004-03-20",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1466684.png",
+      "localPath": "/images/players/football/363661-original.png",
+      "sha256": "dd0f01707250a11dc9ee206bf99a8f796f72fc0cb64f188f2ad8b03714da8e65",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1466684",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/477/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 363661 and FotMob player ID 1466684 share the exact date 2004-03-20, consistent full player name (Simun Hrgovic / Šimun Hrgović) and national affiliation (Croatia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "477"
+      }
+    ],
+    "providerId": "1466684"
+  },
+  "338232": {
+    "name": "Toni Fruk",
+    "birthDate": "2001-03-09",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1300358.png",
+      "localPath": "/images/players/football/338232-original.png",
+      "sha256": "e9d5e0efc6dc99c19a85acd5675170af72002a15bf6bf92aa21e01d12373573e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1300358",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/477/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 338232 and FotMob player ID 1300358 share the exact date 2001-03-09, consistent full player name (Toni Fruk / Toni Fruk) and national affiliation (Croatia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "477"
+      }
+    ],
+    "providerId": "1300358"
+  },
+  "412186": {
+    "name": "Marten-Chris Paalberg",
+    "birthDate": "2008-10-08",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1759659.png",
+      "localPath": "/images/players/football/412186-original.png",
+      "sha256": "753a0a258c99a92bed73e9d5b0db8d46d531090940e1df508a6d4b9ca383d45f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1759659",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 412186 and FotMob player ID 1759659 share the exact date 2008-10-08, consistent full player name (Marten-Chris Paalberg / Marten-Chris Paalberg) and national affiliation (Estonia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ],
+    "providerId": "1759659"
+  },
+  "347544": {
+    "name": "Mihhail Kolobov",
+    "birthDate": "2005-03-02",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1507078.png",
+      "localPath": "/images/players/football/347544-original.png",
+      "sha256": "e8c23fcf65ddcc706c6066aa1b4e1beef46b25ad415c9ea1ee416d270a6b02a5",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1507078",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 347544 and FotMob player ID 1507078 share the exact date 2005-03-02, consistent full player name (Mihhail Kolobov / Mihhail Kolobov) and national affiliation (Estonia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ],
+    "providerId": "1507078"
+  },
+  "276418": {
+    "name": "Nikita Mihhailov",
+    "birthDate": "2002-06-20",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/949314.png",
+      "localPath": "/images/players/football/276418-original.png",
+      "sha256": "1dafa4d0a39ef4f6f77e62fea96949e3432fc7ca5117ce182419a147c0fd6cc3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/949314",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 276418 and FotMob player ID 949314 share the exact date 2002-06-20, consistent full player name (Nikita Mihhailov / Nikita Mihhailov) and national affiliation (Estonia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ],
+    "providerId": "949314"
+  },
+  "307595": {
+    "name": "Rocco Robert Shein",
+    "birthDate": "2003-07-14",
+    "photo": {
+      "url": "https://a.espncdn.com/i/headshots/soccer/players/full/307595.png",
+      "localPath": "/images/players/football/307595-original.png",
+      "sha256": "43fbe1c303c2925ff34fddd41e13f2286d87e8ea73454c20a074db3ea42b779a",
+      "type": "image/png"
+    },
+    "evidence": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026",
+      "https://www.espn.com/soccer/player/_/id/307595/rocco-robert-shein"
+    ],
+    "identity": "The ESPN Estonia roster explicitly labels the headshot for ESPN ID 307595, Rocco Robert Shein. Original headshot bytes verified and retained.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ]
+  },
+  "275469": {
+    "name": "Vladislav Kreida",
+    "birthDate": "1999-09-25",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/948077.png",
+      "localPath": "/images/players/football/275469-original.png",
+      "sha256": "84caa03586ce4dcd37970336e2438b55fc3c931e16020eb63318f6f5e94f94cd",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/948077",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 275469 and FotMob player ID 948077 share the exact date 1999-09-25, consistent full player name (Vladislav Kreida / Vladislav Kreida) and national affiliation (Estonia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "444"
+      }
+    ],
+    "providerId": "948077"
+  },
+  "307734": {
+    "name": "Giorgi Maisuradze",
+    "birthDate": "2002-01-31",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1177443.png",
+      "localPath": "/images/players/football/307734-original.png",
+      "sha256": "3cfdcb034219cee9187065f366c404d8f063115bb913aae63f965f6ae2478d30",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1177443",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/584/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 307734 and FotMob player ID 1177443 share the exact date 2002-01-31, consistent full player name (Giorgi Maisuradze / Giorgi Maisuradze) and national affiliation (Georgia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "584"
+      }
+    ],
+    "providerId": "1177443"
+  },
+  "289556": {
+    "name": "Giorgi Moistsrapishvili",
+    "birthDate": "2001-09-29",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1067267.png",
+      "localPath": "/images/players/football/289556-original.png",
+      "sha256": "b53b5278fadb8bc89f4008897d2a9d188f825debde20694cc24daa39ec3b4450",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1067267",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/584/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 289556 and FotMob player ID 1067267 share the exact date 2001-09-29, consistent full player name (Giorgi Moistsrapishvili / Giorgi Moistsrapishvili) and national affiliation (Georgia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "584"
+      }
+    ],
+    "providerId": "1067267"
+  },
+  "310854": {
+    "name": "Iva Gelashvili",
+    "birthDate": "2001-04-08",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1210616.png",
+      "localPath": "/images/players/football/310854-original.png",
+      "sha256": "f65fd3b820204c0069cfc919b39d44255c2526328cd07d1049419cca46d3ed91",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1210616",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/584/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 310854 and FotMob player ID 1210616 share the exact date 2001-04-08, consistent full player name (Iva Gelashvili / Iva Gelashvili) and national affiliation (Georgia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "584"
+      }
+    ],
+    "providerId": "1210616"
+  },
+  "363537": {
+    "name": "Nodari Kalichava",
+    "birthDate": "2000-11-24",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/859529.png",
+      "localPath": "/images/players/football/363537-original.png",
+      "sha256": "7ca42393e8a6f267dff11009f9855400e4200a05395b0ebecdd13d4bae5bb303",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/859529",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/584/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 363537 and FotMob player ID 859529 share the exact date 2000-11-24, consistent full player name (Nodari Kalichava / Nodari Kalichava) and national affiliation (Georgia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "584"
+      }
+    ],
+    "providerId": "859529"
+  },
+  "289201": {
+    "name": "Sandro Altunashvili",
+    "birthDate": "1997-05-19",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/689047.png",
+      "localPath": "/images/players/football/289201-original.png",
+      "sha256": "085cca04a79d8915e98958b1335ab909cd4cad0260f91fc0bf23c258ae03f648",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/689047",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/584/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 289201 and FotMob player ID 689047 share the exact date 1997-05-19, consistent full player name (Sandro Altunashvili / Sandro Altunashvili) and national affiliation (Georgia). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "584"
+      }
+    ],
+    "providerId": "689047"
+  },
+  "289536": {
+    "name": "Attila Szalai",
+    "birthDate": "1998-01-20",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/749648.png",
+      "localPath": "/images/players/football/289536-original.png",
+      "sha256": "802ef37b733f206cc8b8b5a31fd91cbea08a2cb45b4993921e7b6c25ca1fee06",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/749648",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 289536 and FotMob player ID 749648 share the exact date 1998-01-20, consistent full player name (Attila Szalai / Attila Szalai) and national affiliation (Hungary). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "749648"
+  },
+  "236141": {
+    "name": "Callum Styles",
+    "birthDate": "2000-03-27",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/748856.png",
+      "localPath": "/images/players/football/236141-original.png",
+      "sha256": "2aedec9eaef44f0a7913cb1e6f3ccd55a004e8aef25b9df56b7c3e18949f3ce3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/748856",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 236141 and FotMob player ID 748856 share the exact date 2000-03-27, consistent full player name (Callum Styles / Callum Styles) and national affiliation (Hungary). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "748856"
+  },
+  "305048": {
+    "name": "Jozef Urblík",
+    "birthDate": "1996-08-22",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/509163.png",
+      "localPath": "/images/players/football/305048-original.png",
+      "sha256": "df241dadd3490c9250076bdf1e2e3588b319d44428cde73777df04a7ff49418f",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/509163",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026",
+      "https://en.valogatott.mlsz.hu/ferfi-a-valogatott/hir/csapat/szalai-attila-es-harom-ujonc-is-a-ferfi-a-valogatott-kereteben"
+    ],
+    "identity": "ESPN team roster ID 305048 and FotMob player ID 509163 share the exact date 1996-08-22, consistent full player name (Jozef Urblík / Jozef Urblík) and national affiliation (Slovakia). Original player-specific PNG decoded and visually reviewed. The Hungarian federation names Urblík József in its November senior squad; both underlying personal profiles report Slovakia. Existing biography and team fields are preserved.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "509163"
+  },
+  "365248": {
+    "name": "Milan Peto",
+    "birthDate": "2005-01-25",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1435931.png",
+      "localPath": "/images/players/football/365248-original.png",
+      "sha256": "02729756d465564565f3168ad5c5ac7d67882a49100e1887c0ce8c4e4a4aefd9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1435931",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 365248 and FotMob player ID 1435931 share the exact date 2005-01-25, consistent full player name (Milan Peto / Milán Pető) and national affiliation (Hungary). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "1435931"
+  },
+  "297781": {
+    "name": "Peter Baráth",
+    "birthDate": "2002-02-21",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1107662.png",
+      "localPath": "/images/players/football/297781-original.png",
+      "sha256": "91c21489cdcffd42bfbd927c4d68325a3d061209671cbdaced7b584893d45af0",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1107662",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 297781 and FotMob player ID 1107662 share the exact date 2002-02-21, consistent full player name (Peter Baráth / Péter Baráth) and national affiliation (Hungary). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "1107662"
+  },
+  "342509": {
+    "name": "Ákos Szendrei",
+    "birthDate": "2003-01-23",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1099956.png",
+      "localPath": "/images/players/football/342509-original.png",
+      "sha256": "b49b66bee2465dcb4b2295fcc6978af85243747833431424550e47504af1ca88",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1099956",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/480/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 342509 and FotMob player ID 1099956 share the exact date 2003-01-23, consistent full player name (Ákos Szendrei / Ákos Szendrei) and national affiliation (Hungary). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "480"
+      }
+    ],
+    "providerId": "1099956"
+  },
+  "326651": {
+    "name": "Adilbek Zhumakhanov",
+    "birthDate": "2002-12-27",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1643149.png",
+      "localPath": "/images/players/football/326651-original.png",
+      "sha256": "d15e55220b9d0cc5af7efc9fa641311b32e0665efb0bce073c4ccfa2e1388b55",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1643149",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/2619/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 326651 and FotMob player ID 1643149 share the exact date 2002-12-27, consistent full player name (Adilbek Zhumakhanov / Adilbek Zhumakhanov) and national affiliation (Kazakhstan). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "2619"
+      }
+    ],
+    "providerId": "1643149"
+  },
+  "405308": {
+    "name": "Almas Tyulyubay",
+    "birthDate": "2001-04-18",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1288131.png",
+      "localPath": "/images/players/football/405308-original.png",
+      "sha256": "e511a7a65dac3431eb1bca23cf667a4a0a64fe986b68b6d9fdc8bef6492bfcaa",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1288131",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/2619/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 405308 and FotMob player ID 1288131 share the exact date 2001-04-18, consistent full player name (Almas Tyulyubay / Almas Tyulyubay) and national affiliation (Kazakhstan). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "2619"
+      }
+    ],
+    "providerId": "1288131"
+  },
+  "258640": {
+    "name": "Aybol Abiken",
+    "birthDate": "1996-06-01",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/858205.png",
+      "localPath": "/images/players/football/258640-original.png",
+      "sha256": "74e9ff4349650ffd4033e723f0f550ef3f553d9b6461863971feeada9aeb21d5",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/858205",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/2619/roster?season=2026"
+    ],
+    "identity": "ESPN team roster ID 258640 and FotMob player ID 858205 share the exact date 1996-06-01, consistent full player name (Aybol Abiken / Aibol Abiken) and national affiliation (Kazakhstan). Original player-specific PNG decoded and visually reviewed.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "2619"
+      }
+    ],
+    "providerId": "858205"
+  },
+  "5330775": {
+    "name": "Vladislav Vasiljev",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/690325.png",
+      "localPath": "/images/players/football/5330775-original.png",
+      "sha256": "08803e09ad423aabc04eb06c72de4dc1ae7f91da724c6638d0b3e16bc9549574",
+      "type": "image/png"
+    },
+    "evidence": "https://kff.kz/en/news/28276",
+    "supportingEvidence": [
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/2619/roster?season=2026",
+      "https://sports.core.api.espn.com/v2/sports/soccer/athletes/5330775/events?limit=50",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/summary?event=401861162",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/summary?event=401861181",
+      "https://www.fotmob.com/players/690325",
+      "https://kpl.kz/player/vasilev-vladislav/"
+    ],
+    "identity": "The ESPN athlete event log lists Moldova on 13 November and Slovakia on 16 November 2026. The Kazakhstan federation selection for those exact two games names Vladislav Vasiliev (Okzhetpes). FotMob ID 690325 is the Kazakhstan international at Okzhetpes Kokshetau; the two Russian namesakes have different clubs and nationalities. The Kazakhstan player is also separately documented by club and birth date in KPL. The ESPN birthday is unreported and has been kept blank.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "2619"
+      }
+    ],
+    "providerId": "690325"
+  },
+  "385576": {
+    "name": "Ivans Patrikejevs",
+    "birthDate": "2005-08-31",
+    "providerId": "1489659",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1489659.png",
+      "localPath": "/images/players/football/385576-original.png",
+      "sha256": "d2c47591e6fbe8d77fdab315461271dab17371730a70ea906ed1f63cfcb151c3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1489659",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1489659",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/456/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Latvia and FotMob Ivans Patrikejevs match by full name (allowing accents/transliteration) and exact date of birth 2005-08-31.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "456"
+      }
+    ]
+  },
+  "409962": {
+    "name": "Arnas Voitinovicius",
+    "birthDate": "2006-08-30",
+    "providerId": "1797817",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1797817.png",
+      "localPath": "/images/players/football/409962-original.png",
+      "sha256": "28bff27098170a099dba3cc8a6bfd661185a2a4bf3df5b171c22b9be8234fab1",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1797817",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1797817",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Arnas Voitinovičius match by full name (allowing accents/transliteration) and exact date of birth 2006-08-30.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "259825": {
+    "name": "Deividas Sesplaukis",
+    "birthDate": "1998-02-02",
+    "providerId": "857626",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/857626.png",
+      "localPath": "/images/players/football/259825-original.png",
+      "sha256": "33a1eee3c7cdd45301a1c56c3e4d0f71f8a03daba93b14f2e9f6d2fafa5aa233",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/857626",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=857626",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Deividas Šešplaukis match by full name (allowing accents/transliteration) and exact date of birth 1998-02-02.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "277158": {
+    "name": "Edgaras Dubickas",
+    "birthDate": "1998-07-09",
+    "providerId": "927134",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/927134.png",
+      "localPath": "/images/players/football/277158-original.png",
+      "sha256": "987c49c5b6362c6b05f6de8af3e6ecaf7addab3245c2c9cee4d3bfbdda58da8e",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/927134",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=927134",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Edgaras Dubickas match by full name (allowing accents/transliteration) and exact date of birth 1998-07-09.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "193870": {
+    "name": "Gratas Sirgedas",
+    "birthDate": "1994-12-17",
+    "providerId": "487356",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/487356.png",
+      "localPath": "/images/players/football/193870-original.png",
+      "sha256": "ea9728c7918f081ed30f974ed740b504ccc3735a1603be1f6fdaaa9da77fdc78",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/487356",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=487356",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Gratas Sirgėdas match by full name (allowing accents/transliteration) and exact date of birth 1994-12-17.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "289855": {
+    "name": "Matas Vareika",
+    "birthDate": "2000-01-27",
+    "providerId": "1067009",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1067009.png",
+      "localPath": "/images/players/football/289855-original.png",
+      "sha256": "4543066e3ae0007281e7b802bed4a032c92c5e43024921e86b3330d5dc7228b7",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1067009",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1067009",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Matas Vareika match by full name (allowing accents/transliteration) and exact date of birth 2000-01-27.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "268166": {
+    "name": "Paulius Golubickas",
+    "birthDate": "1999-08-19",
+    "providerId": "899628",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/899628.png",
+      "localPath": "/images/players/football/268166-original.png",
+      "sha256": "d4921e1dc91e61a70aa963a2021e0a94fecbceb0261fe9a0ca5b69d97ad0a274",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/899628",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=899628",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Paulius Golubickas match by full name (allowing accents/transliteration) and exact date of birth 1999-08-19.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "258462": {
+    "name": "Vincentas Sarkauskas",
+    "birthDate": "1999-08-11",
+    "providerId": "857697",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/857697.png",
+      "localPath": "/images/players/football/258462-original.png",
+      "sha256": "abddc7887cc6a6e2f5cdb938ecf4dea69e0f00caf516305c0b8148315727a26d",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/857697",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=857697",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/460/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Lithuania and FotMob Vincentas Šarkauskas match by full name (allowing accents/transliteration) and exact date of birth 1999-08-11.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "460"
+      }
+    ]
+  },
+  "321931": {
+    "name": "Aleksa Maras",
+    "birthDate": "2001-10-09",
+    "providerId": "1310467",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1310467.png",
+      "localPath": "/images/players/football/321931-original.png",
+      "sha256": "c01a2d88037c9110cfa16e28ec8dbf6b26308cf2aaf5fc885839853b9c2364b8",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1310467",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1310467",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/6775/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Montenegro and FotMob Aleksa Maraš match by full name (allowing accents/transliteration) and exact date of birth 2001-10-09.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "6775"
+      }
+    ]
+  },
+  "363973": {
+    "name": "Eoin Kenny",
+    "birthDate": "2005-12-30",
+    "providerId": "1459970",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1459970.png",
+      "localPath": "/images/players/football/363973-original.png",
+      "sha256": "db1da2a4ab30786a8dd6d273089eb9af2ef58e06126de86504f701dec6d024a6",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1459970",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1459970",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/586/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Northern Ireland and FotMob Eoin Kenny match by full name (allowing accents/transliteration) and exact date of birth 2005-12-30.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "586"
+      }
+    ]
+  },
+  "232289": {
+    "name": "James Penrice",
+    "birthDate": "1998-12-22",
+    "providerId": "719578",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/719578.png",
+      "localPath": "/images/players/football/232289-original.png",
+      "sha256": "b14a6105fce9b503c9a40c4c074bad4665015d9f1ce49a7ccaf5437f86711dd3",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/719578",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=719578",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/580/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Scotland and FotMob James Penrice match by full name (allowing accents/transliteration) and exact date of birth 1998-12-22.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "580"
+      }
+    ]
+  },
+  "183209": {
+    "name": "Aleksandar Mitrovic",
+    "birthDate": "1994-09-16",
+    "providerId": "351860",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/351860.png",
+      "localPath": "/images/players/football/183209-original.png",
+      "sha256": "e4643825141b54f44980144a6047358ae53996e67d28f68458d037cff0d1c314",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/351860",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=351860",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/6757/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Serbia and FotMob Aleksandar Mitrović match by full name (allowing accents/transliteration) and exact date of birth 1994-09-16.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "6757"
+      }
+    ]
+  },
+  "345737": {
+    "name": "Vladimir Lucic",
+    "birthDate": "2002-06-28",
+    "providerId": "1369195",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1369195.png",
+      "localPath": "/images/players/football/345737-original.png",
+      "sha256": "32eb27a06c6cb43a1a3da2a1511a8ca6665b7da8b48ecaf9f7a98e74dcd70cdf",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1369195",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1369195",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/6757/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Serbia and FotMob Vladimir Lučić match by full name (allowing accents/transliteration) and exact date of birth 2002-06-28.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "6757"
+      }
+    ]
+  },
+  "322226": {
+    "name": "Adrian Zeljkovic",
+    "birthDate": "2002-08-19",
+    "providerId": "1439757",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1439757.png",
+      "localPath": "/images/players/football/322226-original.png",
+      "sha256": "9dacf3871afe1f81ad580156ec03886b92f055c72581b489f9761ae31fda76c2",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1439757",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1439757",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/472/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Slovenia and FotMob Adrian Zeljković match by full name (allowing accents/transliteration) and exact date of birth 2002-08-19.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "472"
+      }
+    ]
+  },
+  "305439": {
+    "name": "Zan Zaletel",
+    "birthDate": "1999-09-16",
+    "providerId": "1050895",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1050895.png",
+      "localPath": "/images/players/football/305439-original.png",
+      "sha256": "15eca929d50559465016c490bd39843d18084d8476901aef5f56b682bc883081",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1050895",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1050895",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/472/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Slovenia and FotMob Žan Zaletel match by full name (allowing accents/transliteration) and exact date of birth 1999-09-16.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "472"
+      }
+    ]
+  },
+  "290413": {
+    "name": "Hjalmar Ekdal",
+    "birthDate": "1998-10-21",
+    "providerId": "831044",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/831044.png",
+      "localPath": "/images/players/football/290413-original.png",
+      "sha256": "9e8a025b669f0ba666a2838867ca4366ec2a03503ca05b79eaf7ca30c86b53e9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/831044",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=831044",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/466/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Sweden and FotMob Hjalmar Ekdal match by full name (allowing accents/transliteration) and exact date of birth 1998-10-21.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "466"
+      }
+    ]
+  },
+  "286810": {
+    "name": "Jacob Widell Zetterström",
+    "birthDate": "1998-07-11",
+    "providerId": "1014602",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1014602.png",
+      "localPath": "/images/players/football/286810-original.png",
+      "sha256": "344041ae0e120637a3f3fc982307375f883257633d5d7560df283f1df6f88c1b",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1014602",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1014602",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/466/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Sweden and FotMob Jacob Widell Zetterström match by full name (allowing accents/transliteration) and exact date of birth 1998-07-11.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "466"
+      }
+    ]
+  },
+  "382639": {
+    "name": "Borys Krushynskyi",
+    "birthDate": "2002-05-10",
+    "providerId": "1215344",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1215344.png",
+      "localPath": "/images/players/football/382639-original.png",
+      "sha256": "bd725e6a112278fb6aab051d502decdd79a870a34684600bd193ecbfa2797a85",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1215344",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1215344",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/457/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Ukraine and FotMob Borys Krushynskyi match by full name (allowing accents/transliteration) and exact date of birth 2002-05-10.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "457"
+      }
+    ]
+  },
+  "384984": {
+    "name": "Hennadii Synchuk",
+    "birthDate": "2006-07-10",
+    "providerId": "1424019",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1424019.png",
+      "localPath": "/images/players/football/384984-original.png",
+      "sha256": "1c6ee88e8b5a31c4a4018cc8329b9e2061f7012304d574bac2583be085761829",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1424019",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1424019",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/457/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Ukraine and FotMob Hennadii Synchuk match by full name (allowing accents/transliteration) and exact date of birth 2006-07-10.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "457"
+      }
+    ]
+  },
+  "212262": {
+    "name": "Oleksandr Andrievsky",
+    "birthDate": "1994-06-25",
+    "providerId": "318394",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/318394.png",
+      "localPath": "/images/players/football/212262-original.png",
+      "sha256": "c0ebffa4795188d00c814eb158677e1ad96d320c3ef05c5f51f98b30bec493b1",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/318394",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=318394",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/457/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Ukraine and FotMob Oleksandr Andrievsky match by full name (allowing accents/transliteration) and exact date of birth 1994-06-25.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "457"
+      }
+    ]
+  },
+  "288460": {
+    "name": "Oleksiy Kashchuk",
+    "birthDate": "2000-06-29",
+    "providerId": "845695",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/845695.png",
+      "localPath": "/images/players/football/288460-original.png",
+      "sha256": "b70c3695af02a6e027ce188f4af3de543016c2eaae70f1d8c2f9136982b6d7ea",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/845695",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=845695",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/457/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Ukraine and FotMob Oleksii Kashchuk match by full name (allowing accents/transliteration) and exact date of birth 2000-06-29.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "457"
+      }
+    ]
+  },
+  "367694": {
+    "name": "Kai Andrews",
+    "birthDate": "2006-08-06",
+    "providerId": "1526413",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1526413.png",
+      "localPath": "/images/players/football/367694-original.png",
+      "sha256": "777ac29ede1737843e73064660d9bbddd62a3a442052b413c31530b30c242818",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1526413",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1526413",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/578/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Wales and FotMob Kai Andrews match by full name (allowing accents/transliteration) and exact date of birth 2006-08-06.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "578"
+      }
+    ]
+  },
+  "313225": {
+    "name": "Rubin Colwill",
+    "birthDate": "2002-04-27",
+    "providerId": "1227324",
+    "photo": {
+      "url": "https://images.fotmob.com/image_resources/playerimages/1227324.png",
+      "localPath": "/images/players/football/313225-original.png",
+      "sha256": "41facca8ec235e0beb3154ae1a193863ca911c4cef76fe3ae4675409a72497b9",
+      "type": "image/png"
+    },
+    "evidence": "https://www.fotmob.com/players/1227324",
+    "supportingEvidence": [
+      "https://www.fotmob.com/api/data/playerData?id=1227324",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/578/roster?season=2026"
+    ],
+    "identity": "ESPN national-team roster Wales and FotMob Rubin Colwill match by full name (allowing accents/transliteration) and exact date of birth 2002-04-27.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "578"
+      }
+    ]
+  },
+  "173283": {
+    "name": "Joseph Duncan",
+    "birthDate": "",
+    "photo": {
+      "url": "https://images.webapi.gc.southendutdfcservices.co.uk/eyJrZXkiOiI1MzczYjlhMC05MGE2LTExZjEtOTRiYi04ZmFjNDA0ZDYyZmEuanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo1NTAsImhlaWdodCI6NTUwLCJmaXQiOiJjb3ZlciIsInBvc2l0aW9uIjoidG9wIiwiYmFja2dyb3VuZCI6InRyYW5zcGFyZW50In0sInRvRm9ybWF0IjoicG5nIn19",
+      "localPath": "/images/players/football/173283-original.png",
+      "sha256": "c353e4be9bd10fbdad64843cff1de09a5888bd40c76f767df6051da54c70b81c",
+      "type": "image/png"
+    },
+    "evidence": "https://www.southendunited.co.uk/teams",
+    "supportingEvidence": [
+      "https://faw.cymru/news/cymru-squad-announced-for-norway-and-portugal/",
+      "https://www.southendunited.co.uk/news/2026/november/04/joe-duncan-called-up-to-cymru-senior-squad/",
+      "https://site.web.api.espn.com/apis/common/v3/sports/soccer/uefa.nations/athletes/173283",
+      "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/578/roster?season=2026"
+    ],
+    "identity": "2026 FAW selection names Southend goalkeeper Joe Duncan on loan from Bristol City. Southend first-team roster binds original named image to goalkeeper number 1 Joe Duncan, club player ID p706134. ESPN 173283 current team Southend United and position goalkeeper, jersey 1 and 2026–27 appearances agree. ESPN also reports Ghana citizenship and no DOB, so only the 2026 Wales squad portrait is approved; no global profile or biography reassignment.",
+    "teams": [
+      {
+        "league": "uefa.nations",
+        "team": "578"
+      }
+    ],
+    "contextOnly": true
+  },
+  "3117200": {
+    "name": "Romeo Hueso Moya",
+    "birthDate": "",
+    "sourceBirthDate": "2007-04-03",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/1/2027/324x324/250200685.jpg",
+      "localPath": "/images/players/football/3117200-original.jpg",
+      "sha256": "a04294fe74a3eb41be2272bc83283ee4309da9e99c8702271a2ea62a3986a163",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefachampionsleague/clubs/players/250200685--romeo-hueso/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefachampionsleague/clubs/50124--atleti/squad/",
+      "https://www.atleticodemadrid.com/postpartidos/atletico-de-madrid-manchester-united-01-08-2026-15-00"
+    ],
+    "identity": "UEFA registers Atlético defender Romeo Hueso #26; ESPN has defender Romeo Hueso Moya #26 for the same club, and the club match sheet supplies the full surname.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "1068"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "1068"
+      }
+    ]
+  },
+  "376166": {
+    "name": "Rafa Garrido",
+    "birthDate": "2004-11-09",
+    "sourceBirthDate": "2004-11-09",
+    "photo": {
+      "url": "https://assets.laliga.com/squad/2026/t182/p640504/512x556/p640504_t182_2026_1_001_000.png",
+      "localPath": "/images/players/football/376166-original.png",
+      "sha256": "b57255bed5baf1783e894fbf49a3f1c9d93c777108e00f27cade7698315b9202",
+      "type": "image/png"
+    },
+    "evidence": "https://www.laliga.com/jugador/rafa-garrido",
+    "supportingEvidence": [
+      "https://www.malagacf.com/noticias/rafita-seguira-ligado-al-club-hasta-2029"
+    ],
+    "identity": "Málaga defender Rafa Garrido and LaLiga Rafael Garrido Hierro (Rafita) share the birth date, shirt 31, team and position. This is the league photograph bound to that exact player in its squad data.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "99"
+      }
+    ]
+  },
+  "3124771": {
+    "name": "Jaume Durá I Soler",
+    "birthDate": "",
+    "sourceBirthDate": "2008-05-15",
+    "photo": {
+      "url": "https://www.valenciacf.com/public/Image/2026/9/vcf-mestalla_web_0019_capa-20_RetratoGrande.png",
+      "localPath": "/images/players/football/3124771-original.png",
+      "sha256": "fb68817a1bd1663236fdbd3858102447b4026cd2e1eefb25017a092f7fb0d375",
+      "type": "image/png"
+    },
+    "evidence": "https://www.valenciacf.com/jaume-dura-eng",
+    "supportingEvidence": [
+      "https://www.laliga.com/en-US/player/jaume-dura"
+    ],
+    "identity": "Valencia identifies Jaume Durà in the same exact photo slot as the previous audit; visually checked current bytes. LaLiga registers Valencia #38 Jaume Durá and ESPN has #38 midfielder Jaume Durá I Soler.",
+    "teams": [
+      {
+        "league": "esp.1",
+        "team": "94"
+      }
+    ]
+  },
+  "5328215": {
+    "name": "Yéli Traoré",
+    "birthDate": "",
+    "sourceBirthDate": "2007-06-02",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/1/2027/324x324/250201709.jpg",
+      "localPath": "/images/players/football/5328215-original.jpg",
+      "sha256": "45d642847f2e28d0497f17edf1161fec87ebe8b92a3b116af5769eeec659dffc",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefachampionsleague/clubs/players/250201709--yeli-traore/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefachampionsleague/clubs/75797--lille/squad/",
+      "https://www.losc.fr/en/node/20281"
+    ],
+    "identity": "UEFA 250201709, Lille #43 and ESPN Lille #43; named UEFA portrait. LOSC identifies Yéli Traoré in the senior match squad.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "166"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "166"
+      }
+    ]
+  },
+  "5328183": {
+    "name": "Arthur Bar",
+    "birthDate": "",
+    "sourceBirthDate": "2010-01-25",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/1/2027/324x324/250224292.jpg",
+      "localPath": "/images/players/football/5328183-original.jpg",
+      "sha256": "5a8ede7610aa635d646befc92b19209cd386b7a61bb48145dba29e19c4070a47",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefachampionsleague/clubs/players/250224292--arthur-bar/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefachampionsleague/clubs/52747--paris/squad/",
+      "https://www.fff.fr/equipe-nationale/joueur/11359-bar-arthur/fiche.html",
+      "https://www.psg.fr/formation/effectif-u17"
+    ],
+    "identity": "UEFA 250224292, Paris goalkeeper #90, exact name/club/jersey/position in ESPN. The French federation and PSG also identify the goalkeeper.",
+    "teams": [
+      {
+        "league": "fra.1",
+        "team": "160"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "160"
+      }
+    ]
+  },
+  "3099574": {
+    "name": "Juan Tiago Esteban Poller",
+    "birthDate": "",
+    "sourceBirthDate": "2007-02-27",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250182467.jpg",
+      "localPath": "/images/players/football/3099574-original.jpg",
+      "sha256": "dba1b87a01ddffff9fdb31d916eddec5a2bee502171980560f29715bdb557967",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250182467--tiago-poller/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefaeuropaleague/clubs/2600431--hoffenheim/squad/",
+      "https://s3.tsg-hoffenheim.de/public/Uploads/Web_neu_13617_2025_TSG_Akademie_Guide_A4_2025_26.pdf"
+    ],
+    "identity": "UEFA 250182467, Hoffenheim #45 Tiago Poller, matches the ESPN European squad slot #45 and surname/middle name of Juan Tiago Esteban Poller. Hoffenheim lists midfielder Tiago Poller with the same DOB as UEFA.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ]
+  },
+  "3111135": {
+    "name": "Lion Wagenbach",
+    "birthDate": "",
+    "sourceBirthDate": "2007-04-16",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250200751.jpg",
+      "localPath": "/images/players/football/3111135-original.jpg",
+      "sha256": "6fbb79e81f5ff4ddb6a9714870bef0f9d4794c9e5170c8edb79ecd9b7826d7e9",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250200751--lion-wagenbach/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefaeuropaleague/clubs/2600431--hoffenheim/squad/",
+      "https://s3.tsg-hoffenheim.de/public/Uploads/Web_neu_13617_2025_TSG_Akademie_Guide_A4_2025_26.pdf"
+    ],
+    "identity": "UEFA 250200751, Hoffenheim #49 Lion Wagenbach, equal to the ESPN Europa League name, club and jersey. Club academy guide independently records his name and birth date.",
+    "teams": [
+      {
+        "league": "ger.1",
+        "team": "7911"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "7911"
+      }
+    ]
+  },
+  "407906": {
+    "name": "Matteo Pittarella",
+    "birthDate": "2008-05-26",
+    "sourceBirthDate": "2008-05-26",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250201774.jpg",
+      "localPath": "/images/players/football/407906-original.jpg",
+      "sha256": "28099baf8ad366ae8fc278c9eeae4eadfe70beace3649329f372d0680e7c8dbe",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250201774--matteo-pittarella/",
+    "supportingEvidence": [
+      "https://www.acmilan.com/en/teams/milan-futuro"
+    ],
+    "identity": "UEFA 250201774 and ESPN both identify AC Milan goalkeeper Matteo Pittarella with exact birth date; Milan also labels his portrait on the Futuro roster.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "103"
+      },
+      {
+        "league": "uefa.europa",
+        "team": "103"
+      }
+    ]
+  },
+  "421472": {
+    "name": "Albert Navarro",
+    "birthDate": "2007-05-24",
+    "sourceBirthDate": "2007-05-24",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/2019/2027/324x324/250183311.jpg",
+      "localPath": "/images/players/football/421472-original.jpg",
+      "sha256": "ecbd34d3006812525bea421be6266e25b849b0c4973b676ce4df1acaa813d0cd",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaconferenceleague/clubs/players/250183311--albert-navarro/",
+    "supportingEvidence": [
+      "https://en.atalanta.it/news/u23s-welcome-albert-navarro",
+      "https://www.fcbarcelona.es/es/futbol/juvenil-a/noticias/4097339/albert-navarro-traspasado-al-atalanta"
+    ],
+    "identity": "UEFA 250183311, Atalanta and ESPN agree on player Albert Navarro; exact birthday and Spanish defender in the front-end roster. Official clubs document transfer from Barcelona.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ]
+  },
+  "394493": {
+    "name": "Federico Steffanoni",
+    "birthDate": "2008-09-04",
+    "sourceBirthDate": "2008-09-04",
+    "photo": {
+      "url": "https://media-sdp.legaseriea.it/playerImages/ec93b94f74294dc98ab5bcfd67fc0d88/ed7fdc2a3e7b408b942ec177b7b956b5/b5846a2413804c2e8cab8b773b18370a/home/7609ff8bb1d24a70bfeba987e8a8a81e_left.webp",
+      "localPath": "/images/players/football/394493-original.webp",
+      "sha256": "2dc4e90f03d9acbc46b5d144a2a51048c61bb9ce1969a34d723df9788f19315f",
+      "type": "image/webp"
+    },
+    "evidence": "https://www.legaseriea.it/players/federico-steffanoni",
+    "supportingEvidence": [
+      "https://en.atalanta.it/news/u23s-steffanoni-called-up-to-italy-u19s",
+      "https://www.fotmob.com/players/1682106"
+    ],
+    "identity": "The league labels this portrait Federico Steffanoni. Atalanta confirms the Italy U19 call-up; ESPN roster and FotMob agree on exact name, club and date of birth.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "105"
+      }
+    ]
+  },
+  "5330604": {
+    "name": "Federico Grilli",
+    "birthDate": "",
+    "sourceBirthDate": "2007-04-18",
+    "photo": {
+      "url": "https://d251ktlxwvtnkw.cloudfront.net/wp-content/uploads/2025/08/Grilli_Desktop.jpg",
+      "localPath": "/images/players/football/5330604-original.jpg",
+      "sha256": "65e764ea4d0696b35773efe66dd81139f7ed31f816d2769d133749626a96e7c9",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://comofootball.com/en/homegrown-talent-federico-grilli-signs-first-professional-contract-with-como-1907/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefachampionsleague/clubs/players/250224229--federico-grilli/",
+      "https://www.uefa.com/uefachampionsleague/clubs/79946--como/squad/"
+    ],
+    "identity": "Single original portrait from the Como signing announcement for youth defender Federico Grilli. UEFA 250224229 and ESPN have the same Como defender, #52.",
+    "teams": [
+      {
+        "league": "ita.1",
+        "team": "2572"
+      },
+      {
+        "league": "uefa.champions",
+        "team": "2572"
+      }
+    ]
+  },
+  "5330733": {
+    "name": "Štěpán Dyntar",
+    "birthDate": "",
+    "sourceBirthDate": "2010-08-17",
+    "photo": {
+      "url": "https://1742741114.rsc.cdn77.org/resize/files/2026/08/24/08-14-44/S%CC%8Cte%CC%8Cpa%CC%81n%20Dyntar%20%20WEB.webp?width=500&height=-&quality=90",
+      "localPath": "/images/players/football/5330733-original.webp",
+      "sha256": "a2454d7009c4a12768aba6b611143719e7272374650eee174a1db65ecae63550",
+      "type": "image/webp"
+    },
+    "evidence": "https://sparta.cz/en/tymy/4-u19/hraci/1225-stepan-dyntar",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefaeuropaleague/clubs/players/250227719--stepan-dyntar/",
+      "https://www.uefa.com/uefaeuropaleague/clubs/50033--sparta-praha/squad/"
+    ],
+    "identity": "Sparta player 1225, named image in its U19 profile; UEFA 250227719 and ESPN register Štěpán Dyntar as Sparta goalkeeper #65; club and UEFA DOB match.",
     "teams": [
       {
         "league": "uefa.europa",
-        "team": "20024"
+        "team": "433"
       }
+    ]
+  },
+  "5330802": {
+    "name": "Daniel Zamith De Oliveira Noro",
+    "birthDate": "",
+    "sourceBirthDate": "2008-05-22",
+    "photo": {
+      "url": "https://img.uefa.com/imgml/TP/players/14/2027/324x324/250226208.jpg",
+      "localPath": "/images/players/football/5330802-original.jpg",
+      "sha256": "6ff0ccfab1e6cc6ef4f35ffe77793e1d4ca267a912bd8d4c0320bd9c705eae90",
+      "type": "image/jpeg"
+    },
+    "evidence": "https://www.uefa.com/uefaeuropaleague/clubs/players/250226208--daniel-noro/",
+    "supportingEvidence": [
+      "https://www.uefa.com/uefaeuropaleague/clubs/2603107--torreense/squad/",
+      "https://fiafootball.com/players/daniel-noro/",
+      "https://www.zerozero.pt/jogador/daniel-noro/533615?epoca_id=156"
     ],
-    "scope": "Frontend photo presentation only; team association and unavailable biographical fields remain unchanged.",
-    "checkedAt": "2026-11-04"
+    "identity": "UEFA 250226208 and ESPN both register Torreense forward #63; documented full name Daniel Zamith de Oliveira Noro, official match name Daniel Noro.",
+    "teams": [
+      {
+        "league": "uefa.europa",
+        "team": "21615"
+      }
+    ]
   }
 }

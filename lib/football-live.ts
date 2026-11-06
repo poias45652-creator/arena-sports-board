@@ -1,3 +1,4 @@
+import {footballPhotoUrl} from './football-photo-policy';
 import {footballDay,footballTeamName,parseFootballEvents,type FootballGame,type FootballLeague,type FootballTeam} from './football';
 import {footballCommentaryNames,footballCommentaryText,type FootballCommentaryText} from './football-commentary';
 
@@ -21,7 +22,7 @@ export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:stri
  const player=(p:any,teamId:string):FootballLivePlayer=>{
   const a=p.athlete||p,id=String(a.id||'');
   return {id,name:clean(a.displayName||a.fullName)||'球員資料待更新',number:clean(p.jersey||a.jersey),position:({'G':'守門員','GK':'守門員','D':'後衛','M':'中場','F':'前鋒'} as Record<string,string>)[p.position?.abbreviation]||clean(p.position?.displayName),starter:p.starter===true,
-   photo:/^\d{1,12}$/.test(id)?`/api/football-player-photo?player=${id}&league=${game.league}&team=${teamId}&season=${game.season}`:'',goals:stat(p.stats||[],'totalGoals'),assists:stat(p.stats||[],'goalAssists'),subbedIn:p.subbedIn===true,subbedOut:p.subbedOut===true};
+   photo:footballPhotoUrl(id,game.league,teamId,game.season,{...a,position:p.position||a.position},true),goals:stat(p.stats||[],'totalGoals'),assists:stat(p.stats||[],'goalAssists'),subbedIn:p.subbedIn===true,subbedOut:p.subbedOut===true};
  };
  const lineups:FootballDetail['lineups']=[game.away,game.home].map(team=>{
   const row=(raw.rosters||[]).find((r:any)=>String(r.team?.id)===team.id),seen=new Set<string>();
