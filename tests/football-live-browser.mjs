@@ -52,6 +52,26 @@ try{
   await page.getByRole('navigation',{name:'足球聯賽'}).getByRole('button',{name:'歐霸',exact:true}).click();await trigger.click();await dialog.getByRole('slider').first().waitFor();assert.notEqual(Number(await dialog.getByRole('slider').first().inputValue()),100);await page.keyboard.press('Escape');
   await page.getByRole('navigation',{name:'足球聯賽'}).getByRole('button',{name:'歐冠',exact:true}).click();await trigger.click();await dialog.getByRole('button',{name:'全部還原'}).click();await dialog.getByRole('button',{name:'套用',exact:true}).click();
   await page.getByLabel('比賽日期（台灣時間）').fill('2026-10-16');await page.getByRole('heading',{name:'2026-10-16 沒有歐冠賽事'}).waitFor();
+  await nav.getByRole('button',{name:'即時比分',exact:true}).click();
+  const emptyDay = page.locator('.football-empty[data-live-empty-day]');
+  await emptyDay.waitFor();
+  assert.ok(await emptyDay.evaluate(async card => {
+    const art = new Image();
+    art.src = '/brand/football-players-tunnel-v1.webp';
+    await art.decode();
+    return getComputedStyle(card).backgroundImage.includes(art.src);
+  }));
+  const shell = page.locator('.arena-shell[data-sport="football"]');
+  assert.match(await shell.evaluate(el=>getComputedStyle(el, '::before').backgroundImage), /xingzhun-football-bg-v1/);
+  await page.locator('.football-content-panel').screenshot({path:directory+'/'+size+'-empty-day.png'});
+  await nav.getByRole('button',{name:'概覽',exact:true}).click();
+  assert.equal(await page.locator('[data-live-empty-day]').count(),0);
+  await nav.getByRole('button',{name:'即時比分',exact:true}).click();
+  const nextDayUrl = origin+'/api/football?league=uefa.champions&date=2026-10-16&kind=next';
+  await page.route(nextDayUrl, route=>route.fulfill({json:{day:'2026-10-17'}}));
+  await emptyDay.getByRole('button',{name:'下一個比賽日'}).click();
+  await page.getByRole('heading',{name:'2026-10-17 沒有歐冠賽事'}).waitFor();
+  await page.unroute(nextDayUrl);
   let schedulePolls=0,detailPolls=0;
   await page.route('**/api/football?league=uefa.champions&date=2026-10-15',async route=>{schedulePolls++;const response=await route.fetch({headers:{...route.request().headers(),cookie}}),json=await response.json();json.games=json.games.map(g=>({...g,state:'live',statusLabel:'進行中 80′'}));await route.fulfill({response,json});});
   await page.route('**/api/football?kind=detail**',async route=>{detailPolls++;const response=await route.fetch({headers:{...route.request().headers(),cookie}}),json=await response.json();json.game={...json.game,state:'live',statusLabel:'進行中 80′'};await route.fulfill({response,json});});
