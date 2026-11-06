@@ -93,7 +93,7 @@
 .xz-assistant-welcome h3 { font-size:clamp(28px,2.5vw,36px); font-weight:750; line-height:1.45; letter-spacing:.04em; margin:10px 0 13px; color:#f1f3f4; }
 .xz-assistant-welcome h3>span { color:var(--assistant-gold); }
 .xz-assistant-welcome-description { font-size:13px; line-height:1.9; color:#a2b0c1; }
-.xz-assistant-action-cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:29px 0 14px; }
+.xz-assistant-action-cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin:29px 0 14px; }
 .xz-assistant-action { --action-color:#e6c17c; --action-tint:#e6c17c10; position:relative; min-width:0; min-height:154px; text-align:left; border:1px solid #e6c17c30; border-radius:16px; padding:17px 16px 18px; background:linear-gradient(140deg,var(--action-tint),#111c29); box-shadow:inset 0 1px 0 #ffffff05; }
 .xz-assistant-action.risk { --action-color:#dfab94; --action-tint:#dfab940b; border-color:#dfab9426; }
 .xz-assistant-action.weights { --action-color:#92c3c3; --action-tint:#92c3c30b; border-color:#92c3c326; }

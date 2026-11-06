@@ -1,7 +1,7 @@
 import {getRawDb} from '@/db';
 import {readSession} from '@/lib/arena-session';
 import {requestOrigin} from '@/lib/request-origin';
-import {AI_ACTIONS,AI_INSUFFICIENT,quickAiAnswer,readAiBody,resolveAiSelection,selectAiEvidence,validAiDay,type AiAction} from '@/lib/ai-assistant';
+import {AI_ACTIONS,AI_INSUFFICIENT,fixtureQuestion,answerFixtureQuestion,quickAiAnswer,readAiBody,resolveAiSelection,selectAiEvidence,validAiDay,type AiAction} from '@/lib/ai-assistant';
 import {consumeAiQuota,readAiSettings} from '@/lib/ai-assistant-settings';
 import {AI_LEAGUES,listAiMatches,loadAiSnapshot,validAiLeague} from '@/server/ai-assistant-data';
 import {nextAiMatches} from '@/server/ai-assistant-next';
@@ -41,11 +41,14 @@ export async function POST(request:Request){
   if(action!==undefined&&question!==undefined)return reply({error:'提問格式錯誤'},400);
   if(active.has(member.memberId)||!await quota(member.memberId,'question'))return reply({error:'請稍後再問，每位會員每日最多 100 次'},429);
   memberId=member.memberId;active.add(memberId);
-  let snapshot;try{snapshot=await loadAiSnapshot(league,day,gameId,settings);}catch{return reply({answer:AI_INSUFFICIENT});}
+  const lookup=action===undefined?fixtureQuestion(question):null;
+  let snapshot;try{snapshot=await loadAiSnapshot(league,day,gameId,settings,lookup?'data':action);}catch{return reply({answer:AI_INSUFFICIENT});}
   if(!snapshot)return reply({answer:AI_INSUFFICIENT});
   if(action!==undefined)return reply({...quickAiAnswer(snapshot,action as AiAction),capturedAt:snapshot.capturedAt,mode:'data'});
   const config=await readAiSettings(getRawDb());
   if(!config.enabled||!config.key)return reply({error:'AI 自由提問尚未啟用，可先使用上方快捷分析。'},503);
+  const direct=lookup&&answerFixtureQuestion(snapshot,lookup);
+  if(direct)return reply({answer:direct,capturedAt:snapshot.capturedAt,mode:'data'});
   const history=Array.isArray(input.history)?input.history.filter((q:unknown)=>typeof q==='string'&&q.length<=600).slice(-4):[];
   let selection;try{selection=await selectAiEvidence(snapshot,question.trim(),history,config.key);}catch{return reply({error:'AI 連線暫時無法使用，請稍後再試。'},502);}
   const result=resolveAiSelection(snapshot,selection);
