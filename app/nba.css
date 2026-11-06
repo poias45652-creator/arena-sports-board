@@ -83,6 +83,20 @@
 .nba-card[data-state=live] .nba-match-score,.nba-card[data-state=final] .nba-match-score { color:#f5d2ad; font-size:2rem; }
 .nba-match-score span { color:#667b94; font-size:1rem; }
 .nba-card-analysis { min-width:0; padding:1.5rem 1.75rem; border-left:1px solid #2a384a; background:#0d1724; }
+/* Only the NBA pregame cards use these two backdrops. */
+.nba-board[data-super-league="NBA"] .nba-games[data-view="analysis"] .nba-match-overview {
+  background: linear-gradient(180deg, #040c181c, #040c1833 54%, #040c186e),
+    url('/brand/nba-pregame-arena-v1.webp') center center / cover no-repeat, #08111e;
+  text-shadow: 0 1px 4px #050b13;
+}
+.nba-board[data-super-league="NBA"] .nba-games[data-view="analysis"] .nba-card-analysis {
+  background: linear-gradient(125deg, #04101d26, #04101d0d),
+    url('/brand/nba-pregame-court-chart-v1.webp') center top / cover no-repeat, #061323;
+}
+.nba-board[data-super-league="NBA"] .nba-games[data-view="analysis"] .nba-match-overview
+  :is(.nba-match-score, .nba-team small, .nba-form > span, .nba-form small, .nba-form > div > span, .nba-form em) {
+  color: #c4d3e3;
+}
 .nba-analysis-numbers { min-width:0; }
 .nba-analysis-heading { display:flex; justify-content:space-between; align-items:center; gap:.5rem; padding-bottom:.8rem; }
 .nba-analysis-heading>span { font-size:.8rem; font-weight:750; color:#d7e2ef; }
