@@ -57,4 +57,26 @@ await request('/api/admin/accounts',200,{method:'PATCH',headers,body:JSON.string
 pre=(await (await request('/api/admin/accounts',200,{headers:{cookie}})).json()).accounts.find(x=>x.username==='pre-http-user');assert.equal(pre.note,'改過的備註');assert.equal(pre.expiresAt,expiry);
 await request('/api/admin/accounts',200,{method:'DELETE',headers,body:JSON.stringify({pendingUsername:'pre-http-user',confirmUsername:'pre-http-user'})});
 assert.equal((await (await request('/api/admin/accounts',200,{headers:{cookie}})).json()).accounts.length,1);
+const ofaLogin = await request('/api/session', 200, {
+  method: 'POST', headers: {origin, 'content-type': 'application/json'},
+  body: JSON.stringify({username: 'vrv01', password: 'local-fixture-only'}),
+});
+assert.equal((await ofaLogin.json()).source, 'ofa');
+const ofaCookie = ofaLogin.headers.getSetCookie().find(value => value.startsWith('__Host-arena_tz='))?.split(';')[0];
+assert.ok(ofaCookie);
+const ofa = {headers: {cookie: ofaCookie}};
+for (const path of ['/admin/accounts', '/admin?view=system']) {
+  const html = await (await request(path, 200, ofa)).text();
+  const link = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
+    .find(([, , contents]) => contents.replace(/<[^>]+>/g, '') === '返回賽事');
+  const href = link?.[1].match(/\bhref="([^"]+)"/)?.[1].replaceAll('&amp;', '&');
+  assert.equal(href, '/?league=MLB&view=analysis', path);
+  await request(href, 200, ofa);
+  const session = await (await request('/api/session', 200, ofa)).json();
+  assert.equal(session.signedIn, true);
+  assert.equal(session.username, 'vrv01');
+}
+await request('/api/admin/accounts', 200, ofa);
+const guestReturn = await request('/?league=MLB&view=analysis', 307);
+assert.equal(new URL(guestReturn.headers.get('location'), origin).pathname, '/login');
 console.log(`${checks} HTTP checks passed against the production Next.js build with an isolated PostgreSQL fixture.`);
