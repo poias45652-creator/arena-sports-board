@@ -97,7 +97,9 @@
         "bases": null,
         "pitchCount": null,
         "lineupConfirmation": "not_verified",
-        "gameIdentityNote": "provisional internal key, official source game ID not yet exposed"
+        "gameIdentityNote": "provisional internal key, official source game ID not yet exposed",
+        "startTimeTaipei": "2026-11-06T17:30:00+08:00",
+        "startTimeSeoul": "2026-11-06T18:30:00+09:00"
       }
     },
     "CPBL": {
@@ -123,7 +125,7 @@
     "requiredIntervalSeconds": 65,
     "qualifiedNumericChanges": 0,
     "priorDayProofRetained": "data/live/20261104T131707Z-run41606857500-attempt16-kbo-live-verified.json",
-    "reason": "no LIVE games; Korean Series KT@Samsung pregame 18:30 Taipei"
+    "reason": "no LIVE games; Korean Series KT@Samsung pregame 17:30 Asia/Taipei (18:30 Asia/Seoul)"
   },
   "database": {
     "environment": "isolated GitHub Actions PostgreSQL 16; not Render",
