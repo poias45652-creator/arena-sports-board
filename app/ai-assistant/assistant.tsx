@@ -12,7 +12,7 @@ const stamp=(s:string)=>new Date(s).toLocaleString('zh-TW',{timeZone:'Asia/Taipe
 const ACTION_DETAILS={
  analysis:{title:'看懂分析',description:'了解星準的判斷依據與本場重點。',Icon:ChartNoAxesCombined},
  risk:{title:'掌握不利因素',description:'比較雙方數據，查看各隊的具體劣勢。',Icon:TriangleAlert},
- data:{title:'查本場資料',description:'查看已核對的球隊與球員資料。',Icon:ListChecks},
+ data:{title:'查本場資料',description:'查看賽前近況、比分與單場統計。',Icon:ListChecks},
  weights:{title:'比較兩隊權重',description:'依各隊表現，查看各自的建議配置。',Icon:SlidersHorizontal},
 } as const;
 function currentSettings(match:AiMatch){
