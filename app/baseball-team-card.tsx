@@ -21,7 +21,7 @@ export default function BaseballTeamCard({league, code, href, name, logo, record
         {record && <span className="baseball-team-card-record">{record}</span>}
         <small>查看球隊資料 →</small>
       </div>
-      <img className="baseball-team-character" src={`/team-characters/${league}/${code}.webp`}
+      <img className="baseball-team-character" src={`/team-characters/${league}/${code}.webp?v=2`}
         width={256} height={256} alt="" loading="lazy" decoding="async" />
     </Link>
   );
