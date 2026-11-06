@@ -27,16 +27,16 @@
   }
 }
 
-/* Keep the chart behind the match picker and score, even for long event feeds. */
+/* Blend the edges of each chart tile so long match reports can grow naturally. */
 .arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-live-matchday] {
   --matchday-chart-height: clamp(620px, 49vw, 900px);
   background-color: #041225;
   background-image:
-    linear-gradient(to bottom, transparent 78%, #041225),
+    linear-gradient(to bottom, #041225, transparent 8%, transparent 87%, #041225),
     url('/brand/football-matchday-chart-v1.webp');
   background-size: 100% var(--matchday-chart-height), 100% var(--matchday-chart-height);
   background-position: center top;
-  background-repeat: no-repeat;
+  background-repeat: repeat-y;
 }
 
 [data-live-matchday] .football-game-strip > button {
@@ -65,6 +65,14 @@
 [data-live-matchday] .football-game-strip > button > span:not(.football-live),
 [data-live-matchday] .football-game-strip time {
   color: #e0e8f2;
+}
+
+[data-live-matchday] :is(.football-stat-panel, .football-lineups, .football-events) {
+  background-color: rgb(8 24 43 / 40%);
+}
+
+[data-live-matchday] :is(.football-stat-teams, .football-lineups header, .football-event header, .football-lineup-player) {
+  background-color: rgb(26 45 66 / 68%);
 }
 
 [data-live-matchday] :is(.football-scoreboard, .football-match-info) {
