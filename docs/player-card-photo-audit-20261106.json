@@ -3009,6 +3009,61 @@
           "observation": "作客 Torreense，Ararat-Armenia 的 11 名先發與 11 名替補皆未列 Harutyun Asatryan。單場名單僅能證明本場登錄情形。",
           "url": "https://www.uefa.com/uefaeuropaleague/match/2050124--torreense-vs-ararat-armenia/lineups/",
           "lineupData": "https://match.uefa.com/v5/matches/2050124/lineups?language=EN"
+        },
+        {
+          "type": "ESPN 同一球員編號的兩張賽季球隊名單",
+          "checkedOn": "2026-11-06",
+          "athleteId": "3102114",
+          "uid": "s:600~a:3102114",
+          "guid": "53a356db-0e49-385e-95fa-55373efdd435",
+          "rosters": [
+            {
+              "team": "Ararat Yerevan",
+              "teamId": "534",
+              "league": "uefa.europa.conf_qual",
+              "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.europa.conf_qual/teams/534/roster?season=2026"
+            },
+            {
+              "team": "Ararat-Armenia",
+              "teamId": "20024",
+              "league": "uefa.europa",
+              "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.europa/teams/20024/roster?season=2026"
+            }
+          ],
+          "observation": "兩隊名單的球員列均使用相同的 ESPN ID、UID、GUID、全名與中場位置，也都缺生日、背號、原照。可確認是同一筆 ESPN 紀錄；兩個欄位來源都為 ESPN，無法獨立確認 Ararat-Armenia 這一列的真人身分。"
+        },
+        {
+          "type": "亞美尼亞超級聯賽正式比賽表",
+          "date": "2026-04-25",
+          "matchId": "f38900",
+          "url": "https://premierleague.ffa.am/en/games/f38900",
+          "observation": "Ararat-Armenia 4–0 FC Ararat。客隊 FC Ararat 的替補名單列全名 Harutyun Asatryan、33 號，與候選照片的球會、姓名與球衣號相符。"
+        },
+        {
+          "type": "UEFA 結構化球員資料",
+          "url": "https://comp.uefa.com/v2/players?playerIds=250169154",
+          "personId": "250169154",
+          "observation": "此個人編號的全名、位置及生日 2003-06-25 與候選人相符；回應有國家隊編號，沒有可連至 Ararat-Armenia 的 clubId。"
+        },
+        {
+          "type": "亞美尼亞超級聯賽 Ararat-Armenia 官方賽程與比賽表",
+          "url": "https://premierleague.ffa.am/en/clubs/ararat-armenia_1",
+          "checkedOn": "2026-11-06",
+          "matchSheets": [
+            "https://premierleague.ffa.am/en/games/f96106",
+            "https://premierleague.ffa.am/en/games/f96111",
+            "https://premierleague.ffa.am/en/games/f96119",
+            "https://premierleague.ffa.am/en/games/f96122",
+            "https://premierleague.ffa.am/en/games/f96132",
+            "https://premierleague.ffa.am/en/games/f96133",
+            "https://premierleague.ffa.am/en/games/f96144",
+            "https://premierleague.ffa.am/en/games/f96146",
+            "https://premierleague.ffa.am/en/games/f96155",
+            "https://premierleague.ffa.am/en/games/f96159",
+            "https://premierleague.ffa.am/en/games/f96166",
+            "https://premierleague.ffa.am/en/games/f96172"
+          ],
+          "observation": "逐場檢查 2026-08-01 至 2026-11-01 的本季前 12 場正式聯賽先發與替補，沒有 Harutyun Asatryan 的全名。單靠未列入比賽名單，不能判定球員合約或轉會狀態。"
         }
       ],
       "applied": true,
