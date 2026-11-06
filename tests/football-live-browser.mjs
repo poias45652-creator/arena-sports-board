@@ -24,6 +24,17 @@ try{
   await page.route('**/api/football-player-photo?**',async route=>{const id=new URL(route.request().url()).searchParams.get('player'),path=`tests/fixtures/football-live/player-${id}.png`;if(existsSync(path))await route.fulfill({contentType:'image/png',body:readFileSync(path)});else await route.fallback();});
   await page.clock.install({time:new Date('2026-10-15T17:00:00Z')});
   await page.goto(origin+'/?league=FOOTBALL&competition=uefa.champions&view=live&date=2026-10-15');await page.getByRole('heading',{name:'先發名單 LINEUP'}).waitFor({timeout:60000});
+  const matchday = page.locator('.football-content-panel[data-live-matchday]');
+  const strip = matchday.locator('.football-game-strip');
+  const cards = strip.getByRole('button');
+  assert.ok(await matchday.evaluate(el=>getComputedStyle(el).backgroundImage.includes('football-matchday-chart-v1.webp')));
+  const positions = await cards.evaluateAll(elements=>elements.slice(0,5).map(el=>getComputedStyle(el).backgroundPositionX));
+  assert.equal(new Set(positions).size,5);
+  assert.ok(await cards.first().evaluate(el=>getComputedStyle(el).backgroundImage.includes('football-matchday-crowd-v1.webp')));
+  await page.getByRole('button',{name:'向右查看賽事'}).click();
+  await page.waitForFunction(()=>document.querySelector('.football-game-strip').scrollLeft>0);
+  await strip.press('Home');
+  await page.waitForFunction(()=>document.querySelector('.football-game-strip').scrollLeft===0);
   assert.equal(await page.locator('.football-game-strip>button').count(),9);assert.deepEqual(await page.locator('.football-score-teams>div>b').allTextContents(),['2','3']);assert.equal(await page.locator('.football-lineups .football-lineup-player:visible').count(),22);
   assert.ok((await page.locator('.football-stat-panel').textContent()).includes('52.2%'));assert.ok((await page.locator('.football-match-info').textContent()).includes('43,951'));
   await page.locator('.football-substitutes').first().locator('summary').click();assert.ok(await page.locator('.football-lineups .football-lineup-player:visible').count()>22);
@@ -44,7 +55,7 @@ try{
   await page.getByRole('group',{name:'足球賽事狀態'}).getByRole('button',{name:'未開賽',exact:true}).click();await page.getByRole('heading',{name:'沒有符合篩選條件的比賽'}).waitFor();assert.equal(await page.locator('.football-match-detail').count(),0);await page.getByRole('group',{name:'足球賽事狀態'}).getByRole('button',{name:'全部',exact:true}).click();
   const nav=page.getByRole('navigation',{name:'足球頁面'});await nav.getByRole('button',{name:'戰績排名'}).click();await page.locator('.football-standings tbody tr').first().waitFor();assert.equal(await page.locator('.football-standings tbody tr').count(),36);assert.ok((await page.locator('.football-standings tbody tr').first().textContent()).includes('3.00'));assert.equal(await page.locator('.football-standings tbody tr').first().locator('.form-W').count(),2);await page.screenshot({path:`${directory}/${size}-standings.png`});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'standings overflow');
   if(size==='desktop')for(const [name,count] of [['英超',20],['西甲',20],['義甲',20],['德甲',18],['法甲',18],['歐霸',36],['歐國聯',54]]){await page.getByRole('navigation',{name:'足球聯賽'}).getByRole('button',{name,exact:true}).click();await page.waitForFunction(n=>document.querySelectorAll('.football-standings tbody tr').length===n,count);}
-  await page.getByRole('navigation',{name:'足球聯賽'}).getByRole('button',{name:'歐冠',exact:true}).click();await nav.getByRole('button',{name:'概覽',exact:true}).click();await page.getByRole('button',{name:'查看比分與賽事紀錄'}).waitFor();assert.equal(await page.locator('.football-overview-stats strong').first().textContent(),'9');
+  await page.getByRole('navigation',{name:'足球聯賽'}).getByRole('button',{name:'歐冠',exact:true}).click();await nav.getByRole('button',{name:'概覽',exact:true}).click();await page.getByRole('button',{name:'查看比分與賽事紀錄'}).waitFor();assert.equal(await matchday.count(),0);assert.equal(await page.locator('.football-overview-stats strong').first().textContent(),'9');
   await page.locator('.football-game-strip>button').nth(1).click();await page.getByRole('heading',{name:'先發名單 LINEUP'}).waitFor();assert.deepEqual(await page.locator('.football-score-teams>div>b').allTextContents(),['6','3']);
   const trigger=page.getByRole('button',{name:/模型比例/}),dialog=page.getByRole('dialog',{name:'足球模型比例'});await trigger.click();await dialog.getByRole('slider').first().waitFor();const original=Number(await dialog.getByRole('slider').first().inputValue());assert.equal(await dialog.getByRole('slider').count(),5);assert.ok(await dialog.getByRole('slider').nth(2).isDisabled());
   await dialog.getByRole('slider').first().press('End');await dialog.getByRole('button',{name:'取消',exact:true}).click();await trigger.click();assert.equal(Number(await dialog.getByRole('slider').first().inputValue()),original);await dialog.getByRole('slider').first().press('End');await dialog.getByRole('button',{name:'套用',exact:true}).click();
@@ -55,6 +66,7 @@ try{
   await nav.getByRole('button',{name:'即時比分',exact:true}).click();
   const emptyDay = page.locator('.football-empty[data-live-empty-day]');
   await emptyDay.waitFor();
+  assert.equal(await matchday.count(),0);
   assert.ok(await emptyDay.evaluate(async card => {
     const art = new Image();
     art.src = '/brand/football-players-tunnel-v1.webp';
@@ -66,6 +78,7 @@ try{
   await page.locator('.football-content-panel').screenshot({path:directory+'/'+size+'-empty-day.png'});
   await nav.getByRole('button',{name:'概覽',exact:true}).click();
   assert.equal(await page.locator('[data-live-empty-day]').count(),0);
+  assert.equal(await matchday.count(),0);
   await nav.getByRole('button',{name:'即時比分',exact:true}).click();
   const nextDayUrl = origin+'/api/football?league=uefa.champions&date=2026-10-16&kind=next';
   await page.route(nextDayUrl, route=>route.fulfill({json:{day:'2026-10-17'}}));
