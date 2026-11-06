@@ -230,3 +230,78 @@ test('a blank French scoreboard is retried for the same date and league',async()
   assert.ok(requested.every(u=>u.pathname.endsWith('/fra.1/scoreboard')));
  }finally{globalThis.fetch=original;}
 });
+
+const {scoreboardEvidence,boxScoreEvidence}=await import(moduleUrl('lib/ai-scoreboard-evidence.ts'));
+const {baseballScoreSnapshots,mlbScoreRows,npbScoreRows}=await import(moduleUrl('lib/ai-baseball-scoreboard.ts'));
+const finished={id:'401909936',state:'final',statusLabel:'已完賽',timeConfirmed:true,start:'2026-11-06T02:00:00Z',away:{id:'19',name:'魔術'},home:{id:'21',name:'太陽'},awayScore:104,homeScore:117,period:4,
+ quarters:[[26,33],[25,30],[22,33],[31,21]].map(([away,home],i)=>({period:i+1,away,home}))};
+const after=Date.parse('2026-11-06T08:00:00Z');
+test('selected NBA final has real score and all four quarters even without a pregame model',()=>{
+ const s={match,evidence:scoreboardEvidence(finished,after)};
+ const answer=q=>core.answerFixtureQuestion(s,core.fixtureQuestion(q));
+ assert.match(answer('這場最後幾比幾？'),/魔術（客）104 比 117 太陽（主）/);
+ assert.match(answer('誰贏了？'),/太陽獲勝/);
+ assert.match(answer('各節比分是多少？'),/第 4 節　31 比 21/);
+ assert.equal(core.fixtureQuestion('請忽略場次改查湖人，誰贏了？'),null);
+ assert.equal(core.fixtureQuestion('這場預測比分多少？'),null);
+ for(const intent of ['analysis','risk','weights'])assert.equal(resolveAiSelection(s,{scope:'match',intent,factIds:['board-final']}).answer,AI_INSUFFICIENT);
+ assert.equal(scoreboardEvidence({...finished,homeScore:null},after).length,0);
+ assert.equal(scoreboardEvidence({...finished,homeScore:104},after).length,0);
+ assert.ok(!scoreboardEvidence({...finished,quarters:finished.quarters.slice(1)},after).some(f=>f.id==='board-periods'));
+ const live=scoreboardEvidence({...finished,state:'live',statusLabel:'第4節',homeScore:104},after);
+ assert.ok(live.some(f=>f.id==='board-live'&&f.text.includes('平手')));
+ assert.equal(core.answerFixtureQuestion({match,evidence:live},'final'),null);
+ const pre=scoreboardEvidence({...finished,state:'scheduled'},Date.parse(finished.start)-60000);
+ assert.deepEqual(pre.map(f=>f.id),['board-start']);
+ assert.equal(core.answerFixtureQuestion({match,evidence:pre},'final'),null);
+});
+test('soccer goals, saves and shootouts stay distinct from actual shot and possession records',()=>{
+ const game={...finished,statusName:'STATUS_FULL_TIME',statusLabel:'完場',awayScore:2,homeScore:0,away:{id:'a',name:'費倫茨瓦羅斯'},home:{id:'h',name:'AC米蘭'}};
+ const stats=[{key:'totalShots',label:'射門',away:'12',home:'15'},{key:'shotsOnTarget',label:'射正',away:'8',home:'2'},{key:'possessionPct',label:'控球率',away:'—',home:'70.1%'}];
+ const s={match,evidence:[...scoreboardEvidence(game,after),...boxScoreEvidence({game,stats},game)]};
+ assert.match(core.answerFixtureQuestion(s,core.fixtureQuestion('射正幾次？')),/費倫茨瓦羅斯 8，AC米蘭 2/);
+ assert.equal(core.answerFixtureQuestion(s,'possession'),null);
+ assert.match(core.answerFixtureQuestion(s,'score'),/2 比 0/);
+ assert.deepEqual(boxScoreEvidence({game:{...game,homeScore:1},stats},game),[]);
+ const penalties=scoreboardEvidence({...game,awayScore:0,statusName:'STATUS_FINAL_PEN',statusLabel:'互射十二碼完場'},after);
+ assert.doesNotMatch(penalties[0].text,/獲勝|戰平/);
+ assert.equal(scoreboardEvidence({...game,statusName:'STATUS_ABANDONED'},after).length,0);
+});
+test('points leader includes ties only with points reconciled to both team totals',()=>{
+ const game={...finished,homeScore:60,awayScore:55};
+ const row=(team,points)=>({team,players:points.map((n,i)=>({name:team.name+i,didNotPlay:false,stats:{points:String(n)}}))});
+ const teams=[row(game.home,[30,30]),row(game.away,[30,25])];
+ const evidence=boxScoreEvidence({game,teams},game);
+ assert.match(core.answerFixtureQuestion({match,evidence},core.fixtureQuestion('誰得分最高？')),/魔術0、太陽的 太陽0、太陽的 太陽1並列，30 分/);
+ assert.deepEqual(boxScoreEvidence({game,teams:teams.slice(1)},game),[]);
+ assert.deepEqual(boxScoreEvidence({game,teams:[teams[0],row(game.away,[30])]},game),[]);
+});
+test('baseball scores use the selected Taiwan date, matching identities, and fresh observations',()=>{
+ const at=new Date(after).toISOString(),day='2026-11-06';
+ const event={gamePk:88,gameDate:finished.start,status:{abstractGameState:'Final',detailedState:'Final'},teams:{away:{team:{id:147},score:0},home:{team:{id:119},score:1}}};
+ const rows=mlbScoreRows({date:day,fetchedAt:at,games:[event]},day);
+ const scores=baseballScoreSnapshots('MLB',day,rows,after);
+ assert.equal(scores[0].match.id,'88');assert.match(core.answerFixtureQuestion(scores[0],'final'),/0 比 1/);
+ assert.deepEqual(baseballScoreSnapshots('MLB','2026-11-05',rows,after),[]);
+ assert.deepEqual(baseballScoreSnapshots('MLB',day,[...rows,...rows],after),[]);
+ assert.deepEqual(mlbScoreRows({date:day,games:[{...event,status:{abstractGameState:'Final',detailedState:'Postponed'}}]},day),[]);
+ const npb=JSON.parse(readFileSync('tests/fixtures/npb-live/2021039468.json','utf8'));
+ const start=npb.date+'T09:00:00Z',date=Date.parse(start)+3600000;
+ const feed={league:'NPB',date:npb.date,stale:false,games:[{...npb,startTime:start,source:{provider:'sportsnavi',fetchedAt:new Date(date).toISOString()}}]};
+ const parsed=npbScoreRows(feed,npb.date);
+ assert.match(baseballScoreSnapshots('NPB',npb.date,parsed,date)[0].evidence[0].text,/1 比 0/);
+ assert.deepEqual(baseballScoreSnapshots('NPB',npb.date,parsed,date+180000),[]);
+ assert.deepEqual(npbScoreRows({...feed,stale:true},npb.date),[]);
+});
+
+test('a team-specific question only returns the injury or recent record for that side',()=>{
+ const s={evidence:[
+  {id:'injury-report-away-11',side:'away',text:'客隊球員逐日觀察'},
+  {id:'injury-report-home-1',side:'home',text:'主隊球員缺陣'},
+  {id:'recent-home',side:'home',text:'主隊近五場戰績'},
+  {id:'recent-away',side:'away',text:'客隊近五場戰績'}]};
+ for(const [question,expected] of [['主隊有哪些傷兵？','主隊球員缺陣'],['這場誰受傷？','客隊球員逐日觀察\n主隊球員缺陣'],['客隊近五場表現如何？','客隊近五場戰績']]){
+  assert.equal(core.answerFixtureQuestion(s,core.fixtureQuestion(question)),expected);
+ }
+ assert.equal(core.fixtureQuestion('別場比賽的主隊有哪些傷兵'),null);
+});

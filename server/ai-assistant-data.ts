@@ -1,6 +1,8 @@
 import {getRawDb} from '@/db';
-import {aiDay,type AiMatch,type AiSnapshot,type AiEvidence,type AiAction} from '@/lib/ai-assistant';
+import {aiDay,type AiMatch,type AiSnapshot,type AiEvidence,type AiAction,type FixtureQuestion} from '@/lib/ai-assistant';
 import {fixtureEvidence,teamHistoryEvidence,withFixtureEvidence} from '@/lib/ai-fixture-evidence';
+import {baseballScoreSnapshots,mlbScoreRows,npbScoreRows} from '@/lib/ai-baseball-scoreboard';
+import {scoreboardEvidence,boxScoreEvidence,scheduledStartEvidence} from '@/lib/ai-scoreboard-evidence';
 import {fresh,isPregame} from '@/lib/baseball';
 import {buildAiFacts} from '@/lib/ai-assistant-facts';
 import {aiTeamSuggestion} from './ai-team-suggestions';
@@ -32,19 +34,57 @@ function buildSnapshot(match:AiMatch,analysis:any,kind:'baseball'|'basketball'|'
  return buildAiFacts(match,analysis,aiTeamSuggestion(match,analysis,kind),kind);
 }
 // Only existing website providers are reachable. Never accept client facts or URLs.
+async function listedBaseballScores(league:'MLB'|'NPB',day:string){
+ if(day>aiDay())return [];
+ if(league==='NPB'){
+  const {getInternationalLive}=await import('@/lib/international-feed');
+  return baseballScoreSnapshots(league,day,npbScoreRows(await getInternationalLive(league,day),day));
+ }
+ const {GET}=await import('@/app/api/baseball/route');
+ const scores=await json(await GET(new Request('https://arena.internal/api/baseball?kind=scores&date='+encodeURIComponent(day))));
+ return baseballScoreSnapshots(league,day,mlbScoreRows(scores,day));
+}
 export async function listAiMatches(league:string,day:string):Promise<AiMatch[]>{
  let games:any[];
- if(league==='MLB'){const {loadSource}=await import('@/app/api/analysis/source');games=(await loadSource('schedule')).games||[];}
- else if(league==='NPB'){const {getInternationalPregame}=await import('@/lib/international-feed');games=(await getInternationalPregame('NPB',day)).pregame?.games||[];}
- else games=(await sportRequest(league,day,'schedule')).games||[];
+ if(league==='MLB'||league==='NPB'){
+  if(day>aiDay())return baseballPregameMatches(league,day);
+  const scores=await listedBaseballScores(league,day).catch(()=>[]);
+  if(!scores.length)return baseballPregameMatches(league,day);
+  const scheduled=await baseballPregameMatches(league,day).catch(()=>[]);
+  return [...scheduled.filter(g=>!scores.some(s=>s.match.id===g.id||
+   Date.parse(s.match.start)===Date.parse(g.start)&&s.match.home===g.home&&s.match.away===g.away)),...scores.map(s=>s.match)].slice(0,40);
+ }
+ games=(await sportRequest(league,day,'schedule')).games||[];
  return games.map(g=>matchOf(g,league,day)).filter(g=>aiDay(g.start)===day).slice(0,40);
 }
-export async function loadAiSnapshot(league:string,day:string,id:string,rawSettings:unknown,action?:AiAction):Promise<AiSnapshot|null>{
+async function baseballPregameMatches(league:'MLB'|'NPB',day:string):Promise<AiMatch[]>{
+ let games:any[];
+ if(league==='MLB'){const {loadSource}=await import('@/app/api/analysis/source');games=(await loadSource('schedule')).games||[];}
+ else {const {getInternationalPregame}=await import('@/lib/international-feed');games=(await getInternationalPregame('NPB',day)).pregame?.games||[];}
+ return games.map(g=>matchOf(g,league,day)).filter(g=>aiDay(g.start)===day).slice(0,40);
+}
+export async function loadAiSnapshot(league:string,day:string,id:string,rawSettings:unknown,action?:AiAction,lookup?:FixtureQuestion|null):Promise<AiSnapshot|null>{
  const now=Date.now();
+ const startQuery=lookup==='start'||lookup==='score';
+ if((league==='MLB'||league==='NPB')&&day<=aiDay(now)&&(action==='data'||action===undefined)){
+  if(rawSettings!==undefined&&!parseBaseballSettings(rawSettings))return null;
+  const rows=await listedBaseballScores(league,day).catch(()=>[]);
+  const board=rows.find(s=>s.match.id===id);
+  if(board){
+   if(action==='data')return board;
+   const saved=await loadAiSnapshot(league,day,id,rawSettings,'analysis').catch(()=>null);
+   if(!saved)return board;
+   return {...saved,boardCapturedAt:board.capturedAt,evidence:[...saved.evidence,...board.evidence]};
+  }
+ }
  if(league==='MLB'){
   const settings=rawSettings===undefined?defaultBaseballSettings():parseBaseballSettings(rawSettings);if(!settings)return null;
   const {loadSource}=await import('@/app/api/analysis/source');
   const schedule=await loadSource('schedule'),g=schedule.games?.find((g:any)=>String(g.id)===id&&aiDay(g.date)===day);if(!g)return null;
+  if(startQuery&&isPregame(g,now)&&fresh(schedule.fetchedAt,now,120000)){
+   const match=matchOf(g,league,day);
+   return {match,model:'官方賽程',capturedAt:schedule.fetchedAt,suggestion:null,evidence:[scheduledStartEvidence(match.start,match.away,match.home)]};
+  }
   let report:any,retained=false;
   if(Date.parse(g.date)<=now){
    const row=await getRawDb().prepare('SELECT payload FROM analysis_snapshots WHERE game_id=? AND start_time=? ORDER BY captured_at DESC LIMIT 1').bind(Number(id),g.date).first();
@@ -86,6 +126,10 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   const {getInternationalPregame}=await import('@/lib/international-feed');
   const data=await getInternationalPregame('NPB',day),g=data.pregame?.games.find((g:any)=>String(g.id)===id&&g.date===day);if(!g)return null;
   const {buildRunAnalysis,internationalMultifactor,analysisStartTime}=await import('@/lib/baseball-run-analysis');
+  if(startQuery&&!g.live&&analysisStartTime(g.start)>now&&fresh(g.source?.observedAt,now,86400000)){
+   const match=matchOf(g,league,day);
+   return {match,model:'賽程',capturedAt:g.source.observedAt,suggestion:null,evidence:[scheduledStartEvidence(match.start,match.away,match.home)]};
+  }
   const analysis=buildRunAnalysis(g,Date.now(),'NPB',false,settings);
   // The board may expose a simulation; the assistant must not treat assumed data as evidence.
   const match=matchOf(g,league,day),facts:AiEvidence[]=[];
@@ -118,6 +162,20 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
  const g=schedule.games.find(g=>g.id===id&&aiDay(g.start)===day);
  if(!g)return null;
  const match=matchOf(g,league,day),pregame=g.state==='scheduled'&&g.timeConfirmed&&Date.parse(g.start)>Date.now();
+ const readingData=action==='data'||action===undefined;
+ const boardFacts=readingData?scoreboardEvidence(g):[];
+ const observed=boardFacts.some(f=>f.id==='board-final'||f.id==='board-live');
+ const wantsDetail=!lookup||['scorer','shots','onTarget','corners','possession'].includes(lookup);
+ const boardDetails=observed&&wantsDetail?(async()=>{
+  try{
+   const detail=football?await (await import('@/lib/football-live-source')).footballDetail(g as import('@/lib/football').FootballGame):
+    await (await import('@/lib/basketball-live-source')).basketballDetail(g as import('@/lib/nba').NbaGame,league as 'NBA'|'WNBA');
+   return boxScoreEvidence(detail,g);
+  }catch{return [];}
+ })():[];
+ const boardSnapshot=():AiSnapshot=>({match,model:'賽事紀錄',capturedAt:schedule.fetchedAt,evidence:boardFacts,suggestion:null});
+ if(action==='data'&&pregame&&boardFacts.length&&lookup&&['score','start','final','leader'].includes(lookup))return boardSnapshot();
+ if(action==='data'&&observed)return {...boardSnapshot(),evidence:[...boardFacts,...await boardDetails]};
  const loadSummary=async()=>{
   if(football)return (await import('@/lib/football-live-source')).footballSummary({league,id,state:g.state});
   return (await import('@/lib/basketball-live-source')).basketballSummary({id,state:g.state},league as 'NBA'|'WNBA');
@@ -128,19 +186,24 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
   if(!pregame||action==='weights'||(action!=='data'&&action!==undefined&&facts.length))return facts;
   const needHistory=!facts.some(f=>f.id==='prior-meetings');
   const sides=(['home','away'] as const).filter(side=>!facts.some(f=>f.id==='recent-'+side)||(side==='home'&&needHistory));
-  const profiles=await Promise.allSettled(sides.map(async side=>{
+  const profile=async(side:'home'|'away')=>{
    const team=g[side].id;
    if(football)return (await import('@/lib/football-source')).footballTeamProfile(league,team);
    return league==='NBA'?(await import('@/lib/nba-source')).nbaTeamProfile(team):(await import('@/lib/wnba-source')).wnbaTeamProfile(team);
-  }));
+  };
+  const profiles=await Promise.allSettled(sides.map(profile));
   for(const [i,p] of profiles.entries())if(p.status==='fulfilled')facts.push(...teamHistoryEvidence(match,sides[i],p.value,facts));
+  if(needHistory&&sides.length===1&&sides[0]==='home'&&profiles[0].status==='rejected'){
+   const away=await profile('away').catch(()=>null);
+   if(away)facts.push(...teamHistoryEvidence(match,'away',away,facts));
+  }
   return Date.parse(g.start)>Date.now()?facts:[];
  };
  let quickFacts:AiEvidence[]|undefined;
  if(action==='data'&&pregame){
   const row=await summaryRequest;
   quickFacts=await loadFacts(row);
-  if(quickFacts.length)return {match,model:'賽前資料',capturedAt:row?.fetchedAt||new Date().toISOString(),evidence:quickFacts,suggestion:null};
+  if(quickFacts.length)return {match,model:'賽前資料',capturedAt:row?.fetchedAt||new Date().toISOString(),evidence:[...boardFacts,...quickFacts],suggestion:null};
  }
  const [result,summary]=await Promise.all([
   sportRequest(league,day,'analysis',id,settings).catch(()=>null),
@@ -150,8 +213,13 @@ export async function loadAiSnapshot(league:string,day:string,id:string,rawSetti
  const analysis=football?readyFootballAnalysis(g as import('@/lib/football').FootballGame,result,at):
   readyNbaAnalysis(g as import('@/lib/nba').NbaGame,result,at);
  const model=analysis?buildSnapshot(match,{...analysis,retained:!!result?.retained},football?'football':'basketball'):null;
- if(!pregame||action==='weights')return model;
+ if(!pregame||action==='weights'){
+  if(!boardFacts.length)return model;
+  return {...(model||boardSnapshot()),boardCapturedAt:schedule.fetchedAt,evidence:[...(model?.evidence||[]),...boardFacts,...await boardDetails]};
+ }
  const c=result?.analysis?.playerContext;
  const facts=quickFacts??await loadFacts(summary,c?.status==='applied'&&analysis?c:undefined);
- return withFixtureEvidence(match,model,facts,summary?.fetchedAt||new Date(at).toISOString());
+ const snapshot=withFixtureEvidence(match,model,facts,summary?.fetchedAt||new Date(at).toISOString());
+ if(!boardFacts.length)return snapshot;
+ return {...(snapshot||boardSnapshot()),boardCapturedAt:schedule.fetchedAt,evidence:[...boardFacts,...(snapshot?.evidence||[])]};
 }
