@@ -28,6 +28,14 @@ try{
   const strip = matchday.locator('.football-game-strip');
   const cards = strip.getByRole('button');
   assert.ok(await matchday.evaluate(el=>getComputedStyle(el).backgroundImage.includes('football-matchday-chart-v1.webp')));
+  // Check the rendered pixels well below the first tile, through the lineup panel.
+  const lineupTitle = matchday.locator('.football-lineups h3');
+  await lineupTitle.scrollIntoViewIfNeeded();
+  const withChart = await lineupTitle.screenshot();
+  const hideChart = await page.addStyleTag({content:'[data-live-matchday] { background-image: none !important; }'});
+  const withoutChart = await lineupTitle.screenshot();
+  await hideChart.evaluate(style=>style.remove());
+  assert.ok(!withChart.equals(withoutChart), 'chart is visible behind the lower lineup');
   const positions = await cards.evaluateAll(elements=>elements.slice(0,5).map(el=>getComputedStyle(el).backgroundPositionX));
   assert.equal(new Set(positions).size,5);
   assert.ok(await cards.first().evaluate(el=>getComputedStyle(el).backgroundImage.includes('football-matchday-crowd-v1.webp')));
