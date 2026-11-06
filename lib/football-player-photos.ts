@@ -1,3 +1,4 @@
+import {footballPhotoPending,footballPhotoScopeAllowed} from './football-photo-policy';
 import catalog from '../data/football-player-photos.json';
 import reviewedSources from '../data/football-reviewed-photo-sources.json';
 import europaCatalog from '../data/football-europa-player-photos.json';
@@ -67,7 +68,7 @@ async function readPhoto(identity:FootballPhotoIdentity,verified?:ReviewedPhoto)
  return {bytes,type:verified?.type||'image/png',expires:Date.now()+86400000};
 }
 export async function footballPlayerPhoto(id:string,league:string,teamId?:string,season?:number):Promise<Photo|null>{
- if(!/^\d{1,12}$/.test(id)||!isFootballLeague(league))return null;
+ if(!/^\d{1,12}$/.test(id)||!isFootballLeague(league)||footballPhotoPending(id)||!footballPhotoScopeAllowed(id,league,teamId,season))return null;
  // Colliding provider IDs may only use their explicitly reviewed team/season.
  // Check this before the cache so one context cannot leak a portrait into another.
  const correction=footballRosterPhotoCorrection(id,league,teamId,season);

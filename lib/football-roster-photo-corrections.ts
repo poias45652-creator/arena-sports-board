@@ -5,6 +5,7 @@ type Identity = {name:string;birthDate:string;country:string;position:string;hei
 type Correction = {
  teamId:string;league:string;additionalLeagues?:string[];season:number;
  sourceRecord:{name:string;birthDate:string;number:string;country?:string;displayDOB?:string};
+ additionalSourceRecords?:{name:string;birthDate:string;number:string;country:string;position:string}[];
  identity?:Identity;exclude?:boolean;source:string;evidence:string;
 };
 const corrections=records as Record<string,Correction>;
@@ -23,5 +24,14 @@ export function matchesFootballRosterCorrection(p:any,c:Correction){
   (!c.sourceRecord.country||String(p.citizenship||p.birthPlace?.country||'')===c.sourceRecord.country);
  // Keep the reviewed photo after the upstream service repairs this exact identity.
  const repaired=!!c.identity&&name===normalizeFootballPhotoName(c.identity.name)&&birth===c.identity.birthDate;
- return original||repaired;
+ return original||repaired||matchesAdditionalSourceRecord(p,c);
+}
+
+function matchesAdditionalSourceRecord(p:any, c:Correction) {
+ return c.additionalSourceRecords?.some(source =>
+  normalizeFootballPhotoName(p.displayName || p.fullName || '') === normalizeFootballPhotoName(source.name) &&
+  String(p.dateOfBirth || '').slice(0,10) === source.birthDate &&
+  String(p.jersey || '') === source.number && p.citizenship === source.country &&
+  p.position?.abbreviation === source.position
+ ) ?? false;
 }

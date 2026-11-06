@@ -1,0 +1,25 @@
+{
+  "pending": [
+    "3102114"
+  ],
+  "scoped": {
+    "173283": [
+      {
+        "league": "uefa.nations",
+        "team": "578",
+        "season": 2026,
+        "name": "Joseph Duncan",
+        "position": "G"
+      }
+    ],
+    "5330775": [
+      {
+        "league": "uefa.nations",
+        "team": "2619",
+        "season": 2026,
+        "name": "Vladislav Vasiljev",
+        "position": "M"
+      }
+    ]
+  }
+}

@@ -1,10 +1,11 @@
 {
   "339195": {
     "teamId": "1538", "league": "esp.1", "season": 2026,
+    "additionalSourceRecords": [{"name": "Thiago Fernandez", "birthDate": "2007-07-08", "number": "24", "country": "Paraguay", "position": "D"}],
     "sourceRecord": {"name": "Thiago Fernández", "birthDate": "2007-01-23", "number": "24"},
     "identity": {"name": "Thiago Fernández", "birthDate": "2004-04-03", "country": "Argentina", "position": "M", "height": "175 cm"},
     "source": "https://www.laliga.com/jugador/thiago-fernandez",
-    "evidence": "LaLiga identifies Levante number 24 as the Argentine born 3 April 2004. Villarreal's official 2026 loan announcement corroborates the full name Thiago Cruz Fernandez and birth date. ESPN's global profile incorrectly combines this Levante record with Racing Montevideo's Uruguayan namesake."
+    "evidence": "LaLiga identifies Levante number 24 as the Argentine born 3 April 2004. Villarreal's official 2026 loan announcement corroborates the full name Thiago Cruz Fernandez and birth date. ESPN's global profile incorrectly combines this Levante record with Racing Montevideo's Uruguayan namesake. The November 2026 Levante #24 roster now carries the exact name, birthday, nationality and position of a Paraguayan Libertad defender. Levante and Villarreal both identify their Argentine loanee. Only these exact source fingerprints in the 2026 Levante slot match."
   },
   "16340": {
     "teamId": "94", "league": "esp.1", "season": 2026,

@@ -1,3 +1,4 @@
+import {footballPhotoUrl} from './football-photo-policy';
 import {footballTeamName,type FootballLeague} from './football';
 import {footballTeamHref,footballCompetitionName} from './football-team-profile';
 import {footballProfileDefaultSeason} from './football-team-details';
@@ -23,16 +24,27 @@ export function footballPlayerGames(p:any,id:string,league:string,team:string,se
  return {columns,rows:rows.sort((a,b)=>Date.parse(b.date!)-Date.parse(a.date!))};
 }
 export async function footballPlayerProfile(id:string,league:FootballLeague,requestedSeason?:number,teamContext=''):Promise<SportPlayerData>{
- const season=requestedSeason||footballProfileDefaultSeason(league),root=`https://www.espn.com/soccer/player`,bioRaw=await playerSource(`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${league}/athletes/${id}`),p=bioRaw.athlete;
+ const season=requestedSeason||footballProfileDefaultSeason(league),root=`https://www.espn.com/soccer/player`,bioRaw=await playerSource(`https://site.web.api.espn.com/apis/common/v3/sports/soccer/${league}/athletes/${id}`);
+ let p=bioRaw.athlete;
  if(String(p?.id)!==id||!p.displayName)throw Error('找不到這位球員');
- const team=teamContext||String(p.team?.id||''),reviewed=footballRosterPhotoCorrection(id,league,team,season),correction=reviewed&&matchesFootballRosterCorrection(p,reviewed)?reviewed:undefined,identity=correction?.identity;
+ const team=teamContext||String(p.team?.id||''),reviewed=footballRosterPhotoCorrection(id,league,team,season);
+ // An ESPN ID can point to an entirely different club player. Validate this
+ // season's actual roster before presenting a known collision in squad context.
+ const useRoster=!!(teamContext && reviewed?.additionalSourceRecords && String(p.team?.id)!==teamContext);
+ if(useRoster){
+  const raw=await playerSource(`https://site.api.espn.com/apis/site/v2/sports/soccer/${league}/teams/${teamContext}/roster?season=${season}`);
+  const player=raw.athletes?.find((a:any)=>String(a.id)===id);
+  if(String(raw.team?.id)!==teamContext||Number(raw.season?.year)!==season||!player||!matchesFootballRosterCorrection(player,reviewed!))throw Error('此球隊的球員身分仍待核對');
+  p={...player,team:raw.team};
+ }
+ const correction=reviewed&&matchesFootballRosterCorrection(p,reviewed)?reviewed:undefined,identity=correction?.identity;
  if(correction?.exclude)throw Error('此來源球員身分仍待核對');
- const identityMismatch=!!identity&&playerNameKey(identity.name)!==playerNameKey(p.displayName);
+ const identityMismatch=useRoster||!!identity&&playerNameKey(identity.name)!==playerNameKey(p.displayName);
  const urls=[`${root}/stats/_/id/${id}/type/${league}${team?'/team/'+team:''}`,`${root}/matches/_/id/${id}/type/${league}${team?'/team/'+team:''}/year/${season}`];
  const warnings:string[]=[],history:PlayerRow[]=[],games:PlayerRow[]=[];let columns:PlayerColumn[]=[],gameColumns:PlayerColumn[]=[];
  if(identityMismatch)warnings.push('此球員已核對個人身分，來源成績仍待完成身分同步。');
  else{const results=await Promise.allSettled(urls.map(async u=>espnPagePlayer(await playerSource(u,true),id)));for(let i=0;i<results.length;i++){const result=results[i];try{if(result.status==='rejected')throw result.reason;const parsed=i===0?footballPlayerHistory(result.value,id,league,team):footballPlayerGames(result.value,id,league,team,season);if(i===0){columns=parsed.columns;history.push(...parsed.rows);}else{gameColumns=parsed.columns;games.push(...parsed.rows);}}catch{warnings.push(i===0?'歷年成績暫時無法取得。':'逐場紀錄暫時無法取得。');}}}
  const selected=history.find(r=>r.season===season),name=identity?.name||p.displayName;
- return {id,sport:'football',league,name,photo:`/api/football-player-photo?player=${id}&league=${league}`+(reviewed&&!identity?'':`&team=${team}&season=${season}`),number:String(p.jersey||''),position:playerPosition(identity?.position||p.position?.displayName||p.position?.abbreviation||''),team:p.team?.id?{name:footballTeamName(p.team.displayName),href:footballTeamHref(league,String(p.team.id))}:null,
+ return {id,sport:'football',league,name,photo:footballPhotoUrl(id,league,team,season,p,!reviewed||!!identity),number:String(p.jersey||''),position:playerPosition(identity?.position||p.position?.displayName||p.position?.abbreviation||''),team:p.team?.id?{name:footballTeamName(p.team.displayName),href:footballTeamHref(league,String(p.team.id))}:null,
  bio:[['出生日期',identity?.birthDate||String(p.dateOfBirth||'').slice(0,10)||'—'],['國籍',playerCountry(identity?.country||p.citizenship)],['身高',identity?.height||p.displayHeight||'—'],['體重',!identityMismatch&&p.displayWeight?String(p.displayWeight).replace('lbs','磅'):'—']],season,phase:'2',seasons:[...new Set([season,...history.map(r=>r.season!)])].sort((a,b)=>b-a),summary:selected?.values||{},summaryLabel:`${selected?.label||season} · ${footballCompetitionName(league)}${selected?.team?' · '+selected.team:''}`,columns,gameColumns,history,games,warnings,sources:correction?.identity?[{label:'球員身分核對來源',url:correction.source}]:[{label:'ESPN 球員資料',url:urls[0]}],fetchedAt:new Date().toISOString()};
 }

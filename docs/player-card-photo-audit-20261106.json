@@ -1,0 +1,2992 @@
+{
+  "checkedAt": "2026-11-06",
+  "season": 2026,
+  "coverage": "本季 14 個聯盟／賽事的球隊球員卡，按原稽核名單去重；含 MLB 目前及球季名單。可載入照片與照片身分待確認分開統計。",
+  "baseline": {
+    "rosterCount": 9131,
+    "missing": 174,
+    "identityReviewPending": 1
+  },
+  "after": {
+    "resolvedMissing": 174,
+    "remainingFromMissingList": 0,
+    "identityReviewPending": 1,
+    "withoutDisplayedPortraitIncludingPending": 1
+  },
+  "byGroup": {
+    "MLB": {
+      "players": 1560,
+      "resolved": 0,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "CPBL": {
+      "players": 331,
+      "resolved": 38,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "NPB": {
+      "players": 738,
+      "resolved": 2,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "KBO": {
+      "players": 574,
+      "resolved": 69,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "NBA": {
+      "players": 524,
+      "resolved": 0,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "WNBA": {
+      "players": 223,
+      "resolved": 0,
+      "remainingFromMissingList": 0,
+      "identityPending": 0
+    },
+    "football": {
+      "players": 5181,
+      "resolved": 65,
+      "remainingFromMissingList": 0,
+      "identityPending": 1
+    }
+  },
+  "verification": "逐一從對應球隊名單取得實際球員卡照片。驗證 175 人、182 筆球隊與賽事組合。174 名已補球員均解析到本地原圖或既有已審核的真人去背照，回傳檔案已比對 SHA-256。待確認者的球隊卡不請求照片，照片 API 回傳 404。",
+  "scopedCollisionEvidence": {
+    "339195": {
+      "teamId": "1538",
+      "league": "esp.1",
+      "season": 2026,
+      "useExistingClubPortrait": {
+        "url": "https://statics-maker.llt-services.com/lev/images/2026/08/11/large/a8f421d7-4976-4df0-97f2-282652a3b89e-704.png",
+        "sha256": "b3767dfea3503c2e369a1eaed1797cd435d798a2da56aaf0f5d72e9048238d61",
+        "type": "image/webp",
+        "localPath": "/images/players/football/339195-cutout.webp"
+      },
+      "additionalReviewedSourceFingerprint": {
+        "name": "Thiago Fernandez",
+        "birthDate": "2007-07-08",
+        "country": "Paraguay",
+        "number": "24",
+        "position": "D"
+      },
+      "profileDisplayDOB": "8/7/2007",
+      "globalEspnProfileTeam": "Libertad",
+      "globalEspnJersey": "31",
+      "correctClubIdentity": {
+        "name": "Thiago Fernández",
+        "birthDate": "2004-04-03",
+        "country": "Argentina",
+        "number": "24"
+      },
+      "officialProof": [
+        "https://www.laliga.com/jugador/thiago-fernandez",
+        "https://villarrealcf.es/en/acuerdo-de-cesion-con-el-levante-por-thiago-fernandez/",
+        "https://www.levanteud.com/noticias/thiago-fernandez-se-convierte-en-jugador-del-levante-ud"
+      ],
+      "actualRoster": "https://site.api.espn.com/apis/site/v2/sports/soccer/esp.1/teams/1538/roster?season=2026",
+      "handling": "Keep the older Uruguayan fingerprint; accept the additional Paraguayan fingerprint only in the scoped Levante 2026 #24 club slot. Do not associate the original image with the global ESPN person or any other club. Existing reviewed official local portrait has the expected SHA256."
+    }
+  },
+  "resolved": [
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:黎克",
+      "name": "#黎克",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007787",
+      "localPath": "/images/players/nov06/cpbl/0000007787.jpg",
+      "sha256": "bab1e7e639cf7b3b5b5d52cfab60655bedd877f5f932f6c50f692803cd2bf691"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:德保拉",
+      "name": "德保拉",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006006",
+      "localPath": "/images/players/nov06/cpbl/0000006006.jpg",
+      "sha256": "454c601aba8bc3c83a8c6567af34f9d8d04056a52e298a72fd900ababfbde5bc"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:游竣宥",
+      "name": "游竣宥",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007281",
+      "localPath": "/images/players/nov06/cpbl/0000007281.jpg",
+      "sha256": "a33ae8a2ec0e2e9970eee92d1e741c0b557898b91fd70aee0a3e98c7d88202e5"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:蔡琞傑",
+      "name": "蔡琞傑",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007621",
+      "localPath": "/images/players/nov06/cpbl/0000007621.jpg",
+      "sha256": "240d82e38cf92351ecd79ba6a9ebd2bc4072131ce2689349c67d5b05abdf898b"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:鄧朝駿",
+      "name": "鄧朝駿",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007279",
+      "localPath": "/images/players/nov06/cpbl/0000007279.jpg",
+      "sha256": "e0a6180079acbf6fc827f3ddec4b6bbce026aa9ad00d139745b7e8e7d4e686b0"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:錢可倫",
+      "name": "錢可倫",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007622",
+      "localPath": "/images/players/nov06/cpbl/0000007622.jpg",
+      "sha256": "80da2df9eb90e16010d1f989ee17ab4a5a7615b4b49763e23b55fc962adcaa1c"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:陳九登",
+      "name": "陳九登",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007282",
+      "localPath": "/images/players/nov06/cpbl/0000007282.jpg",
+      "sha256": "7968500b5924a520bea860a4c21ef696016e6c9fa951611d5888135f43abfee0"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:陳冠穎",
+      "name": "陳冠穎",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007283",
+      "localPath": "/images/players/nov06/cpbl/0000007283.jpg",
+      "sha256": "14542a47c0fe306f0c45e611960cf6e0c3ba7fdbc27279cff748bd8a3b4a6df5"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ACN:陳柏均",
+      "name": "陳柏均",
+      "priorReason": "team_logo",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "中信兄弟",
+          "teamId": "ACN"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006875",
+      "localPath": "/images/players/nov06/cpbl/0000006875.jpg",
+      "sha256": "6870720ef32cd67c9671efe1459c7fdd67ee9451e901705c4c968ddeb3dff66f"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:劉時豪",
+      "name": "劉時豪",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000001258",
+      "localPath": "/images/players/nov06/cpbl/0000001258.jpg",
+      "sha256": "aa85ca1f992a3c20aa16368ad6444e1fb44b264dfaf9ffa7376408837ca8a209"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:威鳳山",
+      "name": "威鳳山",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://www.tsghawks.com/roster_list/pitcher-74/",
+      "localPath": "/images/players/nov06/cpbl/0000007836.png",
+      "sha256": "ed15cbbf2abedb53e04e1440f442ae0806b53965bfde2a18e9505279d0241a58"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:朱盟",
+      "name": "朱盟",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007631",
+      "localPath": "/images/players/nov06/cpbl/0000007631.jpg",
+      "sha256": "8a1dd2183a1dd4b1d59d2571c8a7d2f115ad4ce04b853e3a605f590a9df63809"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:永田颯太郎",
+      "name": "永田颯太郎",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://www.tsghawks.com/roster_list/infielder-94/",
+      "localPath": "/images/players/nov06/cpbl/0000007833.png",
+      "sha256": "e6c8993e9e3c847f4177001bf4902ff5dbf7afc43aed56166bdf6865107ebdff"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:王維中",
+      "name": "王維中",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000001603",
+      "localPath": "/images/players/nov06/cpbl/0000001603.jpg",
+      "sha256": "5782d8a4443894b56b7f31e4265ce038027feae8646640efc9320bfc6167031c"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:董秉軒",
+      "name": "董秉軒",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000005296",
+      "localPath": "/images/players/nov06/cpbl/0000005296.jpg",
+      "sha256": "173b9689fcce068831d4e6a3dc53e8c53d7f963188c9bd42a960699e1a4905ce"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:許承恩",
+      "name": "許承恩",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007628",
+      "localPath": "/images/players/nov06/cpbl/0000007628.jpg",
+      "sha256": "89b5ed308c5339b80c1655f6bb36aa4cf72b24004002660feded77514688c789"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:賴智垣",
+      "name": "賴智垣",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000002272",
+      "localPath": "/images/players/nov06/cpbl/0000002272.jpg",
+      "sha256": "7ac03cdd351f9fa5e0dc060bc797fc55989a96ccf6e4cc28bd57946000ae2292"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:韋宏亮",
+      "name": "韋宏亮",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007580",
+      "localPath": "/images/players/nov06/cpbl/0000007580.jpg",
+      "sha256": "3b2ece30decc37f311b8dc6568e8053800d4a9e918aaf9ac3fc957412273d5c7"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:顏采丞",
+      "name": "顏采丞",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007629",
+      "localPath": "/images/players/nov06/cpbl/0000007629.jpg",
+      "sha256": "a488fa6b4bf04ea54bc48ba68b4d0bfb699cd10fd8b5a7351a5bcfd46b1a4cea"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AKP:黃子鵬",
+      "name": "黃子鵬",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "台鋼雄鷹",
+          "teamId": "AKP"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000002274",
+      "localPath": "/images/players/nov06/cpbl/0000002274.jpg",
+      "sha256": "6bf7feb521708fe384c3aa2cc187b8fd789594b4e1cd8d3e161a7921274c2c07"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AEO:邦力多",
+      "name": "邦力多",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "富邦悍將",
+          "teamId": "AEO"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006063",
+      "localPath": "/images/players/nov06/cpbl/0000006063.jpg",
+      "sha256": "0d477491ea7ffa469fd2a012e905712dfa7310e20ecfb62a542cb3c5e3d56735"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:榊原元稀",
+      "name": "#榊原元稀",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007793",
+      "localPath": "/images/players/nov06/cpbl/0000007793.jpg",
+      "sha256": "023710352f078209dcd0bf1b0b178b002f6212742c431ea3e7c462f1db465284"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:麥斯威尼",
+      "name": "#麥斯威尼",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007789",
+      "localPath": "/images/players/nov06/cpbl/0000007789.jpg",
+      "sha256": "03a7af6382eaa8d1f61301be918fc50af8945c80a440762a21b375cb8fcd2928"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:劉家翔",
+      "name": "劉家翔",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006860",
+      "localPath": "/images/players/nov06/cpbl/0000006860.jpg",
+      "sha256": "aa9f613d11c55e3cef095febfea5464af037b630d7df94dbb42e3051878e9d77"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:威克",
+      "name": "威克",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007822",
+      "localPath": "/images/players/nov06/cpbl/0000007822.png",
+      "sha256": "1a0b51d580db5a60e3e051b6d98c636f104b4c56af906e92a966c3dc73246452"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:威能帝",
+      "name": "威能帝",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007062",
+      "localPath": "/images/players/nov06/cpbl/0000007062.jpg",
+      "sha256": "0664d32415791711021ae4440a00df399238128183ad50b6715a77ef292f7fc5"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:曾家輝",
+      "name": "曾家輝",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007074",
+      "localPath": "/images/players/nov06/cpbl/0000007074.jpg",
+      "sha256": "c2e4c4a6633c010d0e805fcaa2671f41564afa238fa3c57355a9f184603eba4d"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:林子崴",
+      "name": "林子崴",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006237",
+      "localPath": "/images/players/nov06/cpbl/0000006237.jpg",
+      "sha256": "b827c6ec4786edf5e94d920e89fa8920b8a182f20a0703fa71a752518c4ae4a3"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:歐晉",
+      "name": "歐晉",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000005536",
+      "localPath": "/images/players/nov06/cpbl/0000005536.jpg",
+      "sha256": "3be95c0538f0a5f9df83f0904e729b46500f6f3f7b0a2b90a8cfdce637d0833a"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:王奕翔",
+      "name": "王奕翔",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007619",
+      "localPath": "/images/players/nov06/cpbl/0000007619.jpg",
+      "sha256": "0887596f3a99237e19c01a8faaafeb6503696ddeddbf4d837bd6a539e8414758"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:艾菩樂",
+      "name": "艾菩樂",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006906",
+      "localPath": "/images/players/nov06/cpbl/0000006906.jpg",
+      "sha256": "1eddd74801095b9d8448b1519fd9d63cb052f219d51edfee34c166c3568987fb"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:許賀捷",
+      "name": "許賀捷",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007589",
+      "localPath": "/images/players/nov06/cpbl/0000007589.jpg",
+      "sha256": "8c06b73f9ddee574ea1e72616812cd7721f4b88ecc5649b60df028fa368dc9ce"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:道威聖",
+      "name": "道威聖",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007806",
+      "localPath": "/images/players/nov06/cpbl/0000007806.png",
+      "sha256": "189d673357dd6e289be03b99f84b6e85419d96d5838ecef591927c0ff8235ce6"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:邱邦",
+      "name": "邱邦",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006770",
+      "localPath": "/images/players/nov06/cpbl/0000006770.jpg",
+      "sha256": "851b502ab48f1c2241c0d6c187ab3285a132e4d558fd7cb6f079dd2314bdf4b0"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:邱駿威",
+      "name": "邱駿威",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000006720",
+      "localPath": "/images/players/nov06/cpbl/0000006720.jpg",
+      "sha256": "875110f272f30a31f635d28ab253b3cd00d7fe4748078404729dfe6ea1123a25"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:陳柏豪",
+      "name": "陳柏豪",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000000779",
+      "localPath": "/images/players/nov06/cpbl/0000000779.jpg",
+      "sha256": "3efd9a224e6b359536a97e9d701cf8c91d37a9fc94e88dfcb2c21681c460d28f"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "AJL:魔爾曼",
+      "name": "魔爾曼",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "樂天桃猿",
+          "teamId": "AJL"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007790",
+      "localPath": "/images/players/nov06/cpbl/0000007790.jpg",
+      "sha256": "f41955b11321971328e7598ca5edd06b79e2ead3d19ae8295736e2455d6e07f0"
+    },
+    {
+      "group": "CPBL",
+      "idOrRosterKey": "ADD:戴伯丞",
+      "name": "戴伯丞",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "CPBL",
+          "team": "統一獅",
+          "teamId": "ADD"
+        }
+      ],
+      "source": "https://stats.cpbl.com.tw/players/0000007036",
+      "localPath": "/images/players/nov06/cpbl/0000007036.jpg",
+      "sha256": "16286e0134789c585c296dbe8cd87970aeaef31c07ebbbffb3f8a83945ec0b07"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:boushleycaleb",
+      "name": "Caleb Boushley",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56036",
+      "localPath": "/images/players/nov06/kbo/56036.jpg",
+      "sha256": "9035eadf0271991c9a0a7ecc6a7297ff426461e3511d1af62715c3167db340d9"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:chahanhyeon",
+      "name": "Cha Hyeon Han",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=51058",
+      "localPath": "/images/players/nov06/kbo/51058.jpg",
+      "sha256": "e0df0b8ea43bbfe1a5ffd4138bcd4e3812394bb7025a0d6e15461208a834b015"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:aninsan",
+      "name": "In San An",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=50901",
+      "localPath": "/images/players/nov06/kbo/50901.jpg",
+      "sha256": "4333d9378d21ec731de8de755da9cefc631146a8f3430a339b6dadddc575a323"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:hyeongjoonlim",
+      "name": "Joon-hyeong Lim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=69113",
+      "localPath": "/images/players/nov06/kbo/69113.jpg",
+      "sha256": "4a591fab26fee56f6d13bfcde2d0685b9725b28d95f8d4c8b350d67c5c19c001"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:kangminsung",
+      "name": "Min-sung Kang",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=69064",
+      "localPath": "/images/players/nov06/kbo/69064.jpg",
+      "sha256": "b0cabe866b671ac0268ab743ba5a66b52ddbe7ffa132da2ad3d958822adbf4c6"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "KT:jinohseo",
+      "name": "Seo Jin Oh",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "KT 巫師",
+          "teamId": "KT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=55005",
+      "localPath": "/images/players/nov06/kbo/55005.jpg",
+      "sha256": "6b887a9be55c6971f2d0fa2f04d8f9030883ac4a2f9a77a7757d6a6c4807aa76"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:chaechoiheung",
+      "name": "Chae-heung Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=68419",
+      "localPath": "/images/players/nov06/kbo/68419.jpg",
+      "sha256": "1a62128c39d42072f8395c62ec9d5f59e1026c5c62c3db3daaea68827f0acb3e"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:chansongui",
+      "name": "Chan-ui Song",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=68110",
+      "localPath": "/images/players/nov06/kbo/68110.jpg",
+      "sha256": "bdc38361ab18f6cc60017ee6411339344411d7385e068d196814ef9ee0dcf826"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:daehyunkim",
+      "name": "Dae-hyun Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=66145",
+      "localPath": "/images/players/nov06/kbo/66145.jpg",
+      "sha256": "c86dc620b2a0699f595432051a813ef14b17a8a362c3399da8c1bf95372ae2a8"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:jongjunlee",
+      "name": "Jong Jun Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50904",
+      "localPath": "/images/players/nov06/kbo/50904.jpg",
+      "sha256": "951576a0c2663d3f1a94f02a4b790ac566a603e4d7b8d7c5aad0db7f6a017380"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:jukimsung",
+      "name": "Ju-sung Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=66162",
+      "localPath": "/images/players/nov06/kbo/66162.jpg",
+      "sha256": "9805be1b37485b199fe827e2a68badfee2032d5ea56bf208b4e62f55f1d7f08a"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LG:kimyeongyu",
+      "name": "Yu-yeong Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "LG 雙子",
+          "teamId": "LG"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=64596",
+      "localPath": "/images/players/nov06/kbo/64596.jpg",
+      "sha256": "d8e8f1885333339f02b768e180fcc0be9842b5332a28213f376fe8af6edaf6ad"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:drewverhagen",
+      "name": "Drew VerHagen",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56928",
+      "localPath": "/images/players/nov06/kbo/56928.jpg",
+      "sha256": "e72f3d855b670b03878fde9c3cdb26868b35eaeb1421a6cc0082cd8a12213935"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:hongjaemoon",
+      "name": "Jae Moon Hong",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=55996",
+      "localPath": "/images/players/nov06/kbo/55996.jpg",
+      "sha256": "8defa3fe6da7fbdbbb1403284060cd0bb76065ae3d2da3c7d29170bfe27299c8"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:hanjeepark",
+      "name": "Jee-han Park",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=69994",
+      "localPath": "/images/players/nov06/kbo/69994.jpg",
+      "sha256": "3fb0b3c8b32693e66f8c02797c860007aec861a8fd51311ed751dad3167eabb9"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:jinougryou",
+      "name": "Jin Oug Ryou",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=65949",
+      "localPath": "/images/players/nov06/kbo/65949.jpg",
+      "sha256": "dcee5dd40cb287d73d2258cd7c4a31ccd9662de66cd06fca02f7fda82918c630"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:hoshinsung",
+      "name": "Sung Ho Shin",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=53989",
+      "localPath": "/images/players/nov06/kbo/53989.jpg",
+      "sha256": "0875aae7c50681c02b4f8c448091623424cafb07b7554d313f88d535afa6383f"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "NC:choisungyoung",
+      "name": "Sung-young Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "NC 恐龍",
+          "teamId": "NC"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=66920",
+      "localPath": "/images/players/nov06/kbo/66920.jpg",
+      "sha256": "0d7a15e809ac137b1cfdffed8b2369d8fb530d9ccb4611858256ff56ca724fea"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:chungdongyoon",
+      "name": "Dong-yoon Chung",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=66858",
+      "localPath": "/images/players/nov06/kbo/66858.jpg",
+      "sha256": "e2dadfb40e7a143542515cb5377d74fa8c45ac003df97265d7bad870bb468d8d"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:ginjirohiramoto",
+      "name": "Hiramoto Ginjiro",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56800",
+      "localPath": "/images/players/nov06/kbo/56800.jpg",
+      "sha256": "2fc2d54361fc09fe552e08b9797bb5cb2eec1fff232f396a29a106205650bceb"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:hyoryuseung",
+      "name": "Hyo Seung Ryu",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=50868",
+      "localPath": "/images/players/nov06/kbo/50868.jpg",
+      "sha256": "d282f5aca0de305916b1dbf60ad50127f94c10ed16f4236c021a74ad294262a3"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:jeungseokwoo",
+      "name": "Jeung Woo Seok",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=52804",
+      "localPath": "/images/players/nov06/kbo/52804.jpg",
+      "sha256": "6829496a035fee98c61ad4ba85478c9197171e665eb87f8f57fde1af50b338df"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:hunjangji",
+      "name": "Ji Hun Jang",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=51895",
+      "localPath": "/images/players/nov06/kbo/51895.jpg",
+      "sha256": "8d5e933d7f8fc55f7a6aee0beea16a79d32715eb2a50cebea6d844af8edffdad"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:byunkunwoo",
+      "name": "Kun Woo Byun",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=54808",
+      "localPath": "/images/players/nov06/kbo/54808.jpg",
+      "sha256": "58e8298979440bff8b9be3d2e4c2156c6fc9c61356ab1997ad5e9350ab27ae96"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SK:hyeongkimtaek",
+      "name": "Taek-hyeong Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "SSG 登陸者",
+          "teamId": "SK"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=65343",
+      "localPath": "/images/players/nov06/kbo/65343.jpg",
+      "sha256": "0209019db6b486f6838db8862b9ea050b6323307cf6283fda3e4f9d5f93a1479"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:ikjaelee",
+      "name": "Jae-ik Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=63492",
+      "localPath": "/images/players/nov06/kbo/63492.jpg",
+      "sha256": "c69a9793e96a9ac46188192154a9f14154b33db444936d0fed220e01832d03ee"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:binjeongyoon",
+      "name": "Jeong-bin Yoon",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=68463",
+      "localPath": "/images/players/nov06/kbo/68463.jpg",
+      "sha256": "ecb20f0372b5217896abd96808c9289857b8e6b8d60b845a2d8ebafd0984b110"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:chajunseung",
+      "name": "Seung Jun Cha",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=55435",
+      "localPath": "/images/players/nov06/kbo/55435.jpg",
+      "sha256": "91feb7ef48fec68576d814a821dfe7b3a7c9cba8c3c12a8a3b47d352fc701b40"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:sunyeopyook",
+      "name": "Sun Yeop Yook",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=54404",
+      "localPath": "/images/players/nov06/kbo/54404.jpg",
+      "sha256": "93c5d678f33c4bc1df9efe13ce04fc046fa990bc2b53e9cbd6a1ac29f36e7136"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:hongpyowon",
+      "name": "Won Pyo Hong",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50430",
+      "localPath": "/images/players/nov06/kbo/50430.jpg",
+      "sha256": "349314afe06b9d4493e93b99a2e2e661595925247cef6d93e442fe749891cbcd"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:jaeparkyong",
+      "name": "Yong Jae Park",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56468",
+      "localPath": "/images/players/nov06/kbo/56468.jpg",
+      "sha256": "a7b812090ad9990532746e303c2f1ba8ea0bd2f6d3e50fd30d7ad0525421dcfa"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "SS:kimsuyun",
+      "name": "Yun-su Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "三星獅",
+          "teamId": "SS"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=68403",
+      "localPath": "/images/players/nov06/kbo/68403.jpg",
+      "sha256": "59e2c7c5f4926181b9340b94d17b9ac2438f016e262d4c1a678efbe1640518c0"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:dongkimkyu",
+      "name": "Dong Kyu Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=53164",
+      "localPath": "/images/players/nov06/kbo/53164.jpg",
+      "sha256": "7ea2094b58c977f09cbc6e04ffc0f04d212fc6113630fbcd3c5a0cbd8ea320e7"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:choihyunwoo",
+      "name": "Hyun Woo Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56312",
+      "localPath": "/images/players/nov06/kbo/56312.jpg",
+      "sha256": "550c9fbe0546b31e3bdae6051162aec831039d19c1ec731cbb6f4995c845d7e4"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:junleewoo",
+      "name": "Jun Woo Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=55301",
+      "localPath": "/images/players/nov06/kbo/55301.jpg",
+      "sha256": "64257f09a40f6aad82a84dc8cefae771e95f9e3e5e5c9ee85ad1f5cb62a745e6"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:kennyrosenberg",
+      "name": "Kenny Rosenberg",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=55322",
+      "localPath": "/images/players/nov06/kbo/55322.jpg",
+      "sha256": "908c19cc7781881147e546af3e4094a9f47d3d8ceaf52b9bcf35c4809c9eb2ea"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:angkimsi",
+      "name": "Si Ang Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=51303",
+      "localPath": "/images/players/nov06/kbo/51303.jpg",
+      "sha256": "4160f74f3dc8f20fc5cfbd527bf1d64ad9a63bc22a26579f6e13692353ed1bf6"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:choosungwon",
+      "name": "Sung-won Choo",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=69332",
+      "localPath": "/images/players/nov06/kbo/69332.jpg",
+      "sha256": "80d83eec6c73942af49af07f1d12d3bde84cfe2e654bddb89ce55e3b64c4e20b"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:leetaeyang",
+      "name": "Tae Yang Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56366",
+      "localPath": "/images/players/nov06/kbo/56366.jpg",
+      "sha256": "83cdbb26c6a3a89928318d02f487e95a1674b7e7daf095401ff0a1f58c695238"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "WO:jukimyeon",
+      "name": "Yeon Ju Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "培證英雄",
+          "teamId": "WO"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=54368",
+      "localPath": "/images/players/nov06/kbo/54368.jpg",
+      "sha256": "fd2a88aaf8f137ee20d2e3749c60f017cdd6157eeb69fe846a857f2a07e808a3"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:chrisflexen",
+      "name": "Chris Flexen",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50234",
+      "localPath": "/images/players/nov06/kbo/50234.jpg",
+      "sha256": "9f1ed7be4128aedee07278bbe9d4508817da6b081ae4d9d2591b5b0081263fd1"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:hyunjunryu",
+      "name": "Hyun Jun Ryu",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=54219",
+      "localPath": "/images/players/nov06/kbo/54219.jpg",
+      "sha256": "286e7c9a0dfcdb1c8411ca25859c6b6d206b4fe1e7025e6736b34d84e17e5d37"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:ichirotamura",
+      "name": "Ichiro Tamura",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56218",
+      "localPath": "/images/players/nov06/kbo/56218.jpg",
+      "sha256": "572111ba435f9a49678e208f6e4bcc6fb993a15965292166a54ef83a5910dc4e"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:kimmyeongsin",
+      "name": "Myeong-sin Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=67246",
+      "localPath": "/images/players/nov06/kbo/67246.jpg",
+      "sha256": "e1dcf3da086a02968424e70bc212e1d4cb25172fb3619b70d4e09184820fc645"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:hohongsung",
+      "name": "Sung-ho Hong",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=66233",
+      "localPath": "/images/players/nov06/kbo/66233.jpg",
+      "sha256": "9d4ff5e27caaa0416be3d9b59a093015eb1ddc70d12ab1a6c0275677c9778bcd"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:choijoonwon",
+      "name": "Won-joon Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=67263",
+      "localPath": "/images/players/nov06/kbo/67263.jpg",
+      "sha256": "43621c30f28e5d4ced6a1587fefb30e3fb1da53e4e19d8b2e9bacda151409671"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "OB:leeyongchan",
+      "name": "Yongchan Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "斗山熊",
+          "teamId": "OB"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=77211",
+      "localPath": "/images/players/nov06/kbo/77211.jpg",
+      "sha256": "c772723f6de0e800be043ec71cf73832b83ab3dfc0347b4a3ee443020b8c94a7"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:bojeongkeun",
+      "name": "Bo-keun Jeong",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=68518",
+      "localPath": "/images/players/nov06/kbo/68518.jpg",
+      "sha256": "d08cc639f0018f7ea2dd823cff0c5a6a65ac434141cac08b9d06faeb684efd32"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:chanhyung",
+      "name": "Chan Hyung",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=55530",
+      "localPath": "/images/players/nov06/kbo/55530.jpg",
+      "sha256": "a7ab502132150fb83a7cd58548c70e880dd3b4b5d62874fa6e441d0464019082"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:changhoonkim",
+      "name": "Chang Hoon Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=51586",
+      "localPath": "/images/players/nov06/kbo/51586.jpg",
+      "sha256": "f2cc69c5756b31321832edb9380020f556d2a90268071466d9c5b835ecdfed72"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:choichungyeon",
+      "name": "Chung-yeon Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=66451",
+      "localPath": "/images/players/nov06/kbo/66451.jpg",
+      "sha256": "2d0fea6c5082ddc060eb182629b8257d76a6cda0f03148385ea30264d5af22e6"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:changdoosung",
+      "name": "Doo-sung Chang",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=68507",
+      "localPath": "/images/players/nov06/kbo/68507.jpg",
+      "sha256": "5a67eb1d18c5241855fae02ab64a4e8b4dd419b856180b4941496162393acf45"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:choihang",
+      "name": "Hang Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=62884",
+      "localPath": "/images/players/nov06/kbo/62884.jpg",
+      "sha256": "387c8f695fd4d728232bf0215ffe228e78b2ac94ae24020e03cb0731fc26fa06"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:deokjongna",
+      "name": "Jong-deok Na",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=67539",
+      "localPath": "/images/players/nov06/kbo/67539.jpg",
+      "sha256": "b7440d6d4ae12a65adaed42481d94b93cc3a9405ac3ff5718010934cc130b409"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:choikeon",
+      "name": "Keon Choi",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=68036",
+      "localPath": "/images/players/nov06/kbo/68036.jpg",
+      "sha256": "b83864c03f88b95da501c26a197c152945df309aff2e7013e907bbbc770e0c74"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:hongkimin",
+      "name": "Min Ki Hong",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50596",
+      "localPath": "/images/players/nov06/kbo/50596.jpg",
+      "sha256": "5b21abaec702e7f6d503eb8784d329c3e71b5098904ecdd7ddbed351240ea31d"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:heonleeseung",
+      "name": "Seung-heon Lee",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=68529",
+      "localPath": "/images/players/nov06/kbo/68529.jpg",
+      "sha256": "56f3855397be97993dd31ce5548489637aa3a8177f62dd53a3920b6a623fab46"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "LT:shinsuyong",
+      "name": "Yong-su Shin",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "樂天巨人",
+          "teamId": "LT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=69508",
+      "localPath": "/images/players/nov06/kbo/69508.jpg",
+      "sha256": "08d51248b6b7d3ee230b2bd287b85a7c878fd35990305893e6a280c32a093998"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HT:hyeonkimsu",
+      "name": "Hyeon-su Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "起亞虎",
+          "teamId": "HT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=69516",
+      "localPath": "/images/players/nov06/kbo/69516.jpg",
+      "sha256": "fd8ea2cdb4569e2e77eb591f11ffb0a19ac91b1a1722152ea9c053f0bb44df63"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HT:hyoukjaejang",
+      "name": "Jae Hyouk Jang",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "起亞虎",
+          "teamId": "HT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50641",
+      "localPath": "/images/players/nov06/kbo/50641.jpg",
+      "sha256": "95ad42defc4cb9c02e1cf0d6efea701feccdc432f8205c9611bd02d7709bc7e6"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HT:keonkimkuk",
+      "name": "Keon-kuk Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "起亞虎",
+          "teamId": "HT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=76225",
+      "localPath": "/images/players/nov06/kbo/76225.jpg",
+      "sha256": "f2a104c38a386874f82067687800279816f0841c2dfd940d3af76ff320f799a5"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HT:hoonkimsee",
+      "name": "See-hoon Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "起亞虎",
+          "teamId": "HT"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=68928",
+      "localPath": "/images/players/nov06/kbo/68928.jpg",
+      "sha256": "b3cce53ccf6f78c1f75d48901061793d6bba88b9083415be4fb8a88deaf58997"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:bumjunkim",
+      "name": "Bum Jun Kim",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=50710",
+      "localPath": "/images/players/nov06/kbo/50710.jpg",
+      "sha256": "90e940e53f5d62eee2f414455436fa2cdb77013e32e5c8aad1f9ca41cbd63636"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:donghajun",
+      "name": "Dong Jun Ha",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56797",
+      "localPath": "/images/players/nov06/kbo/56797.jpg",
+      "sha256": "bb60c7ed98fd180b4e69899fa317269c738efd4fbc200aa0261156bdddae577a"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:cushingjack",
+      "name": "Jack Cushing",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=56760",
+      "localPath": "/images/players/nov06/kbo/56760.jpg",
+      "sha256": "285511d216812e0ad6942e3be0839dd325cf1bba6466afda4b8f4c352ebf59c1"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:hyeokjangyoo",
+      "name": "Jang-hyeok Yoo",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=69766",
+      "localPath": "/images/players/nov06/kbo/69766.jpg",
+      "sha256": "84bcd586ebb033a6986725094307f8156e2390153697dac0e6a4d3814032c7d1"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:changjisu",
+      "name": "Ji-su Chang",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=69645",
+      "localPath": "/images/players/nov06/kbo/69645.jpg",
+      "sha256": "a6dcf416b4d7fe77b6d332a9482e79e1f1bd0167685ea983446786031a55da70"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:baekeomsang",
+      "name": "Sang-baek Eom",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId=65056",
+      "localPath": "/images/players/nov06/kbo/65056.jpg",
+      "sha256": "6e6604dcb896710e69f2cf47f631d0f853c7d3c504202b77bba9ec83f1d07918"
+    },
+    {
+      "group": "KBO",
+      "idOrRosterKey": "HH:choejunwon",
+      "name": "Won Jun Choe",
+      "priorReason": "no_frontend_photo_link",
+      "verifiedIn": [
+        {
+          "league": "KBO",
+          "team": "韓華鷹",
+          "teamId": "HH"
+        }
+      ],
+      "source": "https://www.koreabaseball.com/Record/Player/HitterDetail/Basic.aspx?playerId=53705",
+      "localPath": "/images/players/nov06/kbo/53705.jpg",
+      "sha256": "e4b580673a17606f73a95d83600c1a7fe3eb587042b54e2e53cdb55fc44a97c2"
+    },
+    {
+      "group": "NPB",
+      "idOrRosterKey": "2108913",
+      "name": "セデーニョ",
+      "priorReason": "grey_silhouette",
+      "verifiedIn": [
+        {
+          "league": "NPB",
+          "team": "東京養樂多燕子",
+          "teamId": "s"
+        }
+      ],
+      "source": "https://www.yakult-swallows.co.jp/players/detail/2108913",
+      "localPath": "/images/players/nov06/npb/s-2108913.jpg",
+      "sha256": "19b57bf9864d28f637e9a44f40fafdc7a449db747a0b082e48c4906b006a99f5"
+    },
+    {
+      "group": "NPB",
+      "idOrRosterKey": "1660014",
+      "name": "ペルドモ",
+      "priorReason": "grey_silhouette",
+      "verifiedIn": [
+        {
+          "league": "NPB",
+          "team": "歐力士猛牛",
+          "teamId": "b"
+        }
+      ],
+      "source": "https://npb.jp/bis/players/13215157.html",
+      "localPath": "/images/players/nov06/npb/b-1660014.jpg",
+      "sha256": "0d9a9cee8b45d9929ea6494fc6f91f278ead43d6d37e77b47b8e9d3283aa75ea"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "3117200",
+      "name": "Romeo Hueso Moya",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "esp.1",
+          "team": "Atlético Madrid",
+          "teamId": "1068"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "Atlético Madrid",
+          "teamId": "1068"
+        }
+      ],
+      "source": "https://www.uefa.com/uefachampionsleague/clubs/players/250200685--romeo-hueso/",
+      "localPath": "/images/players/football/3117200-original.jpg",
+      "sha256": "a04294fe74a3eb41be2272bc83283ee4309da9e99c8702271a2ea62a3986a163"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "339195",
+      "name": "Thiago Fernandez",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "esp.1",
+          "team": "Levante",
+          "teamId": "1538"
+        }
+      ],
+      "source": "https://www.laliga.com/jugador/thiago-fernandez",
+      "localPath": "/images/players/football/339195-cutout.webp",
+      "sha256": "b3767dfea3503c2e369a1eaed1797cd435d798a2da56aaf0f5d72e9048238d61"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "376166",
+      "name": "Rafa Garrido",
+      "priorReason": "photo_integrity_mismatch",
+      "verifiedIn": [
+        {
+          "league": "esp.1",
+          "team": "Málaga",
+          "teamId": "99"
+        }
+      ],
+      "source": "https://www.laliga.com/jugador/rafa-garrido",
+      "localPath": "/images/players/football/376166-original.png",
+      "sha256": "b57255bed5baf1783e894fbf49a3f1c9d93c777108e00f27cade7698315b9202"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "3124771",
+      "name": "Jaume Durá I Soler",
+      "priorReason": "photo_integrity_mismatch",
+      "verifiedIn": [
+        {
+          "league": "esp.1",
+          "team": "Valencia",
+          "teamId": "94"
+        }
+      ],
+      "source": "https://www.valenciacf.com/jaume-dura-eng",
+      "localPath": "/images/players/football/3124771-original.png",
+      "sha256": "fb68817a1bd1663236fdbd3858102447b4026cd2e1eefb25017a092f7fb0d375"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5328215",
+      "name": "Yéli Traoré",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "fra.1",
+          "team": "Lille",
+          "teamId": "166"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "Lille",
+          "teamId": "166"
+        }
+      ],
+      "source": "https://www.uefa.com/uefachampionsleague/clubs/players/250201709--yeli-traore/",
+      "localPath": "/images/players/football/5328215-original.jpg",
+      "sha256": "45d642847f2e28d0497f17edf1161fec87ebe8b92a3b116af5769eeec659dffc"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5328183",
+      "name": "Arthur Bar",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "fra.1",
+          "team": "Paris Saint-Germain",
+          "teamId": "160"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "Paris Saint-Germain",
+          "teamId": "160"
+        }
+      ],
+      "source": "https://www.uefa.com/uefachampionsleague/clubs/players/250224292--arthur-bar/",
+      "localPath": "/images/players/football/5328183-original.jpg",
+      "sha256": "5a8ede7610aa635d646befc92b19209cd386b7a61bb48145dba29e19c4070a47"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "3099574",
+      "name": "Juan Tiago Esteban Poller",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ger.1",
+          "team": "TSG Hoffenheim",
+          "teamId": "7911"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "TSG Hoffenheim",
+          "teamId": "7911"
+        }
+      ],
+      "source": "https://www.uefa.com/uefaeuropaleague/clubs/players/250182467--tiago-poller/",
+      "localPath": "/images/players/football/3099574-original.jpg",
+      "sha256": "dba1b87a01ddffff9fdb31d916eddec5a2bee502171980560f29715bdb557967"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "3111135",
+      "name": "Lion Wagenbach",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ger.1",
+          "team": "TSG Hoffenheim",
+          "teamId": "7911"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "TSG Hoffenheim",
+          "teamId": "7911"
+        }
+      ],
+      "source": "https://www.uefa.com/uefaeuropaleague/clubs/players/250200751--lion-wagenbach/",
+      "localPath": "/images/players/football/3111135-original.jpg",
+      "sha256": "6fbb79e81f5ff4ddb6a9714870bef0f9d4794c9e5170c8edb79ecd9b7826d7e9"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "407906",
+      "name": "Matteo Pittarella",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ita.1",
+          "team": "AC Milan",
+          "teamId": "103"
+        },
+        {
+          "league": "uefa.europa",
+          "team": "AC Milan",
+          "teamId": "103"
+        }
+      ],
+      "source": "https://www.uefa.com/uefaeuropaleague/clubs/players/250201774--matteo-pittarella/",
+      "localPath": "/images/players/football/407906-original.jpg",
+      "sha256": "28099baf8ad366ae8fc278c9eeae4eadfe70beace3649329f372d0680e7c8dbe"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "421472",
+      "name": "Albert Navarro",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ita.1",
+          "team": "Atalanta",
+          "teamId": "105"
+        }
+      ],
+      "source": "https://www.uefa.com/uefaconferenceleague/clubs/players/250183311--albert-navarro/",
+      "localPath": "/images/players/football/421472-original.jpg",
+      "sha256": "ecbd34d3006812525bea421be6266e25b849b0c4973b676ce4df1acaa813d0cd"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "394493",
+      "name": "Federico Steffanoni",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ita.1",
+          "team": "Atalanta",
+          "teamId": "105"
+        }
+      ],
+      "source": "https://www.legaseriea.it/players/federico-steffanoni",
+      "localPath": "/images/players/football/394493-original.webp",
+      "sha256": "2dc4e90f03d9acbc46b5d144a2a51048c61bb9ce1969a34d723df9788f19315f"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5330604",
+      "name": "Federico Grilli",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "ita.1",
+          "team": "Como",
+          "teamId": "2572"
+        },
+        {
+          "league": "uefa.champions",
+          "team": "Como",
+          "teamId": "2572"
+        }
+      ],
+      "source": "https://comofootball.com/en/homegrown-talent-federico-grilli-signs-first-professional-contract-with-como-1907/",
+      "localPath": "/images/players/football/5330604-original.jpg",
+      "sha256": "65e764ea4d0696b35773efe66dd81139f7ed31f816d2769d133749626a96e7c9"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5330733",
+      "name": "Štěpán Dyntar",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.europa",
+          "team": "Sparta Prague",
+          "teamId": "433"
+        }
+      ],
+      "source": "https://sparta.cz/en/tymy/4-u19/hraci/1225-stepan-dyntar",
+      "localPath": "/images/players/football/5330733-original.webp",
+      "sha256": "a2454d7009c4a12768aba6b611143719e7272374650eee174a1db65ecae63550"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5330802",
+      "name": "Daniel Zamith De Oliveira Noro",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.europa",
+          "team": "Torreense",
+          "teamId": "21615"
+        }
+      ],
+      "source": "https://www.uefa.com/uefaeuropaleague/clubs/players/250226208--daniel-noro/",
+      "localPath": "/images/players/football/5330802-original.jpg",
+      "sha256": "6ff0ccfab1e6cc6ef4f35ffe77793e1d4ca267a912bd8d4c0320bd9c705eae90"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "246836",
+      "name": "Dennis Hadzikadunic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Bosnia-Herzegovina",
+          "teamId": "452"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/797797",
+      "localPath": "/images/players/football/246836-original.png",
+      "sha256": "b004504895811c24ba92c714dfe55361227b900b6a72908aa7a2004b85febd46"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "225571",
+      "name": "Dzenis Burnic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Bosnia-Herzegovina",
+          "teamId": "452"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/660148",
+      "localPath": "/images/players/football/225571-original.png",
+      "sha256": "fab81df7d5193d590e5edcbbb6cf78a1f2504083115c3d116966f766a441a0fa"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "420872",
+      "name": "Matej Deket",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Bosnia-Herzegovina",
+          "teamId": "452"
+        }
+      ],
+      "source": "https://www.fkborac.net/",
+      "localPath": "/images/players/football/420872-original.webp",
+      "sha256": "cae59d9f399a5419d5a5b4cec6ca49dfd87812ea370ff5a298414592378e24a7"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "238916",
+      "name": "Karlo Letica",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Croatia",
+          "teamId": "477"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/539198",
+      "localPath": "/images/players/football/238916-original.png",
+      "sha256": "030364af57cd1bea9fea59060f0007430e71fd96a97e53cce24751b5ec0855f7"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "345481",
+      "name": "Marin Soticek",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Croatia",
+          "teamId": "477"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1510950",
+      "localPath": "/images/players/football/345481-original.png",
+      "sha256": "9ccd46e8571fc14320e68db8dac0c95d7d8b7e271056e4ba6e24d60b207f0e8e"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "363661",
+      "name": "Simun Hrgovic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Croatia",
+          "teamId": "477"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1466684",
+      "localPath": "/images/players/football/363661-original.png",
+      "sha256": "dd0f01707250a11dc9ee206bf99a8f796f72fc0cb64f188f2ad8b03714da8e65"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "338232",
+      "name": "Toni Fruk",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Croatia",
+          "teamId": "477"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1300358",
+      "localPath": "/images/players/football/338232-original.png",
+      "sha256": "e9d5e0efc6dc99c19a85acd5675170af72002a15bf6bf92aa21e01d12373573e"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "412186",
+      "name": "Marten-Chris Paalberg",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Estonia",
+          "teamId": "444"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1759659",
+      "localPath": "/images/players/football/412186-original.png",
+      "sha256": "753a0a258c99a92bed73e9d5b0db8d46d531090940e1df508a6d4b9ca383d45f"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "347544",
+      "name": "Mihhail Kolobov",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Estonia",
+          "teamId": "444"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1507078",
+      "localPath": "/images/players/football/347544-original.png",
+      "sha256": "e8c23fcf65ddcc706c6066aa1b4e1beef46b25ad415c9ea1ee416d270a6b02a5"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "276418",
+      "name": "Nikita Mihhailov",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Estonia",
+          "teamId": "444"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/949314",
+      "localPath": "/images/players/football/276418-original.png",
+      "sha256": "1dafa4d0a39ef4f6f77e62fea96949e3432fc7ca5117ce182419a147c0fd6cc3"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "307595",
+      "name": "Rocco Robert Shein",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Estonia",
+          "teamId": "444"
+        }
+      ],
+      "source": "https://site.api.espn.com/apis/site/v2/sports/soccer/uefa.nations/teams/444/roster?season=2026",
+      "localPath": "/images/players/football/307595-original.png",
+      "sha256": "43fbe1c303c2925ff34fddd41e13f2286d87e8ea73454c20a074db3ea42b779a"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "275469",
+      "name": "Vladislav Kreida",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Estonia",
+          "teamId": "444"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/948077",
+      "localPath": "/images/players/football/275469-original.png",
+      "sha256": "84caa03586ce4dcd37970336e2438b55fc3c931e16020eb63318f6f5e94f94cd"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "307734",
+      "name": "Giorgi Maisuradze",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Georgia",
+          "teamId": "584"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1177443",
+      "localPath": "/images/players/football/307734-original.png",
+      "sha256": "3cfdcb034219cee9187065f366c404d8f063115bb913aae63f965f6ae2478d30"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "289556",
+      "name": "Giorgi Moistsrapishvili",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Georgia",
+          "teamId": "584"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1067267",
+      "localPath": "/images/players/football/289556-original.png",
+      "sha256": "b53b5278fadb8bc89f4008897d2a9d188f825debde20694cc24daa39ec3b4450"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "310854",
+      "name": "Iva Gelashvili",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Georgia",
+          "teamId": "584"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1210616",
+      "localPath": "/images/players/football/310854-original.png",
+      "sha256": "f65fd3b820204c0069cfc919b39d44255c2526328cd07d1049419cca46d3ed91"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "363537",
+      "name": "Nodari Kalichava",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Georgia",
+          "teamId": "584"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/859529",
+      "localPath": "/images/players/football/363537-original.png",
+      "sha256": "7ca42393e8a6f267dff11009f9855400e4200a05395b0ebecdd13d4bae5bb303"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "289201",
+      "name": "Sandro Altunashvili",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Georgia",
+          "teamId": "584"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/689047",
+      "localPath": "/images/players/football/289201-original.png",
+      "sha256": "085cca04a79d8915e98958b1335ab909cd4cad0260f91fc0bf23c258ae03f648"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "289536",
+      "name": "Attila Szalai",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/749648",
+      "localPath": "/images/players/football/289536-original.png",
+      "sha256": "802ef37b733f206cc8b8b5a31fd91cbea08a2cb45b4993921e7b6c25ca1fee06"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "236141",
+      "name": "Callum Styles",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/748856",
+      "localPath": "/images/players/football/236141-original.png",
+      "sha256": "2aedec9eaef44f0a7913cb1e6f3ccd55a004e8aef25b9df56b7c3e18949f3ce3"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "305048",
+      "name": "Jozef Urblík",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/509163",
+      "localPath": "/images/players/football/305048-original.png",
+      "sha256": "df241dadd3490c9250076bdf1e2e3588b319d44428cde73777df04a7ff49418f"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "365248",
+      "name": "Milan Peto",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1435931",
+      "localPath": "/images/players/football/365248-original.png",
+      "sha256": "02729756d465564565f3168ad5c5ac7d67882a49100e1887c0ce8c4e4a4aefd9"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "297781",
+      "name": "Peter Baráth",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1107662",
+      "localPath": "/images/players/football/297781-original.png",
+      "sha256": "91c21489cdcffd42bfbd927c4d68325a3d061209671cbdaced7b584893d45af0"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "342509",
+      "name": "Ákos Szendrei",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Hungary",
+          "teamId": "480"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1099956",
+      "localPath": "/images/players/football/342509-original.png",
+      "sha256": "b49b66bee2465dcb4b2295fcc6978af85243747833431424550e47504af1ca88"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "326651",
+      "name": "Adilbek Zhumakhanov",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Kazakhstan",
+          "teamId": "2619"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1643149",
+      "localPath": "/images/players/football/326651-original.png",
+      "sha256": "d15e55220b9d0cc5af7efc9fa641311b32e0665efb0bce073c4ccfa2e1388b55"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "405308",
+      "name": "Almas Tyulyubay",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Kazakhstan",
+          "teamId": "2619"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1288131",
+      "localPath": "/images/players/football/405308-original.png",
+      "sha256": "e511a7a65dac3431eb1bca23cf667a4a0a64fe986b68b6d9fdc8bef6492bfcaa"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "258640",
+      "name": "Aybol Abiken",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Kazakhstan",
+          "teamId": "2619"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/858205",
+      "localPath": "/images/players/football/258640-original.png",
+      "sha256": "74e9ff4349650ffd4033e723f0f550ef3f553d9b6461863971feeada9aeb21d5"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "5330775",
+      "name": "Vladislav Vasiljev",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Kazakhstan",
+          "teamId": "2619"
+        }
+      ],
+      "source": "https://kff.kz/en/news/28276",
+      "localPath": "/images/players/football/5330775-original.png",
+      "sha256": "08803e09ad423aabc04eb06c72de4dc1ae7f91da724c6638d0b3e16bc9549574"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "385576",
+      "name": "Ivans Patrikejevs",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Latvia",
+          "teamId": "456"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1489659",
+      "localPath": "/images/players/football/385576-original.png",
+      "sha256": "d2c47591e6fbe8d77fdab315461271dab17371730a70ea906ed1f63cfcb151c3"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "409962",
+      "name": "Arnas Voitinovicius",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1797817",
+      "localPath": "/images/players/football/409962-original.png",
+      "sha256": "28bff27098170a099dba3cc8a6bfd661185a2a4bf3df5b171c22b9be8234fab1"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "259825",
+      "name": "Deividas Sesplaukis",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/857626",
+      "localPath": "/images/players/football/259825-original.png",
+      "sha256": "33a1eee3c7cdd45301a1c56c3e4d0f71f8a03daba93b14f2e9f6d2fafa5aa233"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "277158",
+      "name": "Edgaras Dubickas",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/927134",
+      "localPath": "/images/players/football/277158-original.png",
+      "sha256": "987c49c5b6362c6b05f6de8af3e6ecaf7addab3245c2c9cee4d3bfbdda58da8e"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "193870",
+      "name": "Gratas Sirgedas",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/487356",
+      "localPath": "/images/players/football/193870-original.png",
+      "sha256": "ea9728c7918f081ed30f974ed740b504ccc3735a1603be1f6fdaaa9da77fdc78"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "289855",
+      "name": "Matas Vareika",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1067009",
+      "localPath": "/images/players/football/289855-original.png",
+      "sha256": "4543066e3ae0007281e7b802bed4a032c92c5e43024921e86b3330d5dc7228b7"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "268166",
+      "name": "Paulius Golubickas",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/899628",
+      "localPath": "/images/players/football/268166-original.png",
+      "sha256": "d4921e1dc91e61a70aa963a2021e0a94fecbceb0261fe9a0ca5b69d97ad0a274"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "258462",
+      "name": "Vincentas Sarkauskas",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Lithuania",
+          "teamId": "460"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/857697",
+      "localPath": "/images/players/football/258462-original.png",
+      "sha256": "abddc7887cc6a6e2f5cdb938ecf4dea69e0f00caf516305c0b8148315727a26d"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "321931",
+      "name": "Aleksa Maras",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Montenegro",
+          "teamId": "6775"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1310467",
+      "localPath": "/images/players/football/321931-original.png",
+      "sha256": "c01a2d88037c9110cfa16e28ec8dbf6b26308cf2aaf5fc885839853b9c2364b8"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "363973",
+      "name": "Eoin Kenny",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Northern Ireland",
+          "teamId": "586"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1459970",
+      "localPath": "/images/players/football/363973-original.png",
+      "sha256": "db1da2a4ab30786a8dd6d273089eb9af2ef58e06126de86504f701dec6d024a6"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "232289",
+      "name": "James Penrice",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Scotland",
+          "teamId": "580"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/719578",
+      "localPath": "/images/players/football/232289-original.png",
+      "sha256": "b14a6105fce9b503c9a40c4c074bad4665015d9f1ce49a7ccaf5437f86711dd3"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "183209",
+      "name": "Aleksandar Mitrovic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Serbia",
+          "teamId": "6757"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/351860",
+      "localPath": "/images/players/football/183209-original.png",
+      "sha256": "e4643825141b54f44980144a6047358ae53996e67d28f68458d037cff0d1c314"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "345737",
+      "name": "Vladimir Lucic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Serbia",
+          "teamId": "6757"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1369195",
+      "localPath": "/images/players/football/345737-original.png",
+      "sha256": "32eb27a06c6cb43a1a3da2a1511a8ca6665b7da8b48ecaf9f7a98e74dcd70cdf"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "322226",
+      "name": "Adrian Zeljkovic",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Slovenia",
+          "teamId": "472"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1439757",
+      "localPath": "/images/players/football/322226-original.png",
+      "sha256": "9dacf3871afe1f81ad580156ec03886b92f055c72581b489f9761ae31fda76c2"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "305439",
+      "name": "Zan Zaletel",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Slovenia",
+          "teamId": "472"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1050895",
+      "localPath": "/images/players/football/305439-original.png",
+      "sha256": "15eca929d50559465016c490bd39843d18084d8476901aef5f56b682bc883081"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "290413",
+      "name": "Hjalmar Ekdal",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Sweden",
+          "teamId": "466"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/831044",
+      "localPath": "/images/players/football/290413-original.png",
+      "sha256": "9e8a025b669f0ba666a2838867ca4366ec2a03503ca05b79eaf7ca30c86b53e9"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "286810",
+      "name": "Jacob Widell Zetterström",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Sweden",
+          "teamId": "466"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1014602",
+      "localPath": "/images/players/football/286810-original.png",
+      "sha256": "344041ae0e120637a3f3fc982307375f883257633d5d7560df283f1df6f88c1b"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "382639",
+      "name": "Borys Krushynskyi",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Ukraine",
+          "teamId": "457"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1215344",
+      "localPath": "/images/players/football/382639-original.png",
+      "sha256": "bd725e6a112278fb6aab051d502decdd79a870a34684600bd193ecbfa2797a85"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "384984",
+      "name": "Hennadii Synchuk",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Ukraine",
+          "teamId": "457"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1424019",
+      "localPath": "/images/players/football/384984-original.png",
+      "sha256": "1c6ee88e8b5a31c4a4018cc8329b9e2061f7012304d574bac2583be085761829"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "212262",
+      "name": "Oleksandr Andrievsky",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Ukraine",
+          "teamId": "457"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/318394",
+      "localPath": "/images/players/football/212262-original.png",
+      "sha256": "c0ebffa4795188d00c814eb158677e1ad96d320c3ef05c5f51f98b30bec493b1"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "288460",
+      "name": "Oleksiy Kashchuk",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Ukraine",
+          "teamId": "457"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/845695",
+      "localPath": "/images/players/football/288460-original.png",
+      "sha256": "b70c3695af02a6e027ce188f4af3de543016c2eaae70f1d8c2f9136982b6d7ea"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "173283",
+      "name": "Joseph Duncan",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Wales",
+          "teamId": "578"
+        }
+      ],
+      "source": "https://www.southendunited.co.uk/teams",
+      "localPath": "/images/players/football/173283-original.png",
+      "sha256": "c353e4be9bd10fbdad64843cff1de09a5888bd40c76f767df6051da54c70b81c"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "367694",
+      "name": "Kai Andrews",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Wales",
+          "teamId": "578"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1526413",
+      "localPath": "/images/players/football/367694-original.png",
+      "sha256": "777ac29ede1737843e73064660d9bbddd62a3a442052b413c31530b30c242818"
+    },
+    {
+      "group": "football",
+      "idOrRosterKey": "313225",
+      "name": "Rubin Colwill",
+      "priorReason": "photo_resolver_returned_empty",
+      "verifiedIn": [
+        {
+          "league": "uefa.nations",
+          "team": "Wales",
+          "teamId": "578"
+        }
+      ],
+      "source": "https://www.fotmob.com/players/1227324",
+      "localPath": "/images/players/football/313225-original.png",
+      "sha256": "41facca8ec235e0beb3154ae1a193863ca911c4cef76fe3ae4675409a72497b9"
+    }
+  ],
+  "identityReviewPending": [
+    {
+      "group": "football",
+      "idOrRosterKey": "3102114",
+      "name": "Harutyun Asatryan",
+      "affectedCards": [
+        {
+          "competition": "uefa.europa",
+          "team": "Ararat-Armenia",
+          "reason": "conflicting_club_identity",
+          "frontendPhotoApi": "/api/football-player-photo?player=3102114&league=uefa.europa"
+        }
+      ],
+      "espn": {
+        "id": "3102114",
+        "uid": "s:600~a:3102114",
+        "teamId": "20024",
+        "team": "Ararat-Armenia",
+        "position": "中場",
+        "dob": null,
+        "jersey": null,
+        "headshot": null,
+        "url": "https://sports.core.api.espn.com/v2/sports/soccer/leagues/uefa.europa/athletes/3102114?lang=en&region=us"
+      },
+      "candidate": {
+        "club": "FC Ararat II",
+        "clubProfileId": "50000669",
+        "birthDate": "2003-06-25",
+        "jerseyOnClubProfile": 33,
+        "profile": "https://www.fcararat.am/am/teams/ararat-2/players-ararat-2/player/50000669-%D5%80%D5%A1%D6%80%D5%B8%D6%82%D5%A9%D5%B5%D5%B8%D6%82%D5%B6%2B%D4%B1%D5%BD%D5%A1%D5%BF%D6%80%D5%B5%D5%A1%D5%B6.html",
+        "originalPhoto": "https://www.fcararat.am/media/bearleague/bl1775927350637.png",
+        "sha256": "ea6ba08c4fb295d7733e4b876c6041c7c5a9f7fcab77ff20830d50a74a32903a"
+      },
+      "sources": [
+        {
+          "type": "UEFA U19 個人頁",
+          "personId": "250169154",
+          "birthDate": "2003-06-25",
+          "url": "https://www.uefa.com/under19/teams/players/250169154--harutyun-asatryan/"
+        },
+        {
+          "type": "UEFA 亞美尼亞聯賽 Ararat-Armenia 球隊名單",
+          "observation": "中場 H. Asatryan，23 歲。名單未提供可對照青年隊個人編號的連結。",
+          "url": "https://www.uefa.com/nationalassociations/teams/2610304--ararat-armenia/squad/"
+        },
+        {
+          "type": "亞美尼亞足協賽事",
+          "date": "2026-10-19",
+          "matchId": "f98540",
+          "observation": "Ararat-Armenia II 3–3 Ararat II。同名球員以 26 號代表客隊 Ararat II，48 分鐘進球。",
+          "url": "https://www.ffa.am/hy/match-info/f98540"
+        },
+        {
+          "type": "Pyunik 官方離隊公告",
+          "date": "2024-07-04",
+          "url": "https://fcpyunik.am/en/article/1820"
+        },
+        {
+          "type": "Sofascore 生涯資料，次級佐證",
+          "playerId": "1105487",
+          "observation": "可追到 Pyunik II、BKMA II、Mika、Van、Ararat II。未查得證實加盟 Ararat-Armenia 的官方轉會或登錄。",
+          "url": "https://www.sofascore.com/football/player/harutyun-asatryan/1105487"
+        },
+        {
+          "type": "UEFA 賽季歐霸名單",
+          "url": "https://www.uefa.com/uefaeuropaleague/clubs/2610304/squad/",
+          "observation": "此季具名球員未提供可串接至同一人的註冊證據。"
+        }
+      ],
+      "applied": true,
+      "status": "照片身分待確認",
+      "action": "已停用照片與自動替補，移除前台可直接存取的候選圖檔。候選生日及識別碼只留於稽核，不回填 ESPN。"
+    }
+  ]
+}
