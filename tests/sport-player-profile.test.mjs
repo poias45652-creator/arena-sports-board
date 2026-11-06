@@ -42,3 +42,36 @@ test('a rookie without official season statistics keeps a valid current year, ne
  globalThis.fetch=async input=>new Response('<script id="__NEXT_DATA__">'+JSON.stringify({props:{pageProps:String(input).endsWith('/players')?{players:[{PERSON_ID:9990001,PLAYER_SLUG:'test-rookie'}]}:{player:{info:{PERSON_ID:9990001,DISPLAY_FIRST_LAST:'Test Rookie'},gameLogs:[]}}}})+'</script>');
  try{const p=await b.basketballPlayerProfile('9990001','NBA');assert.equal(p.season,new Date().getUTCFullYear());assert.deepEqual(p.summary,{});assert.ok(p.seasons.every(y=>y>=1947));}finally{globalThis.fetch=native;}
 });
+
+test('Suns roster cards and profiles survive an unavailable NBA directory and player page',async t=>{
+ const leagueTeam=1610612756,season='2026';
+ const row=(id,name,birthday)=>({TeamID:leagueTeam,SEASON:season,PLAYER_ID:id,PLAYER:name,BIRTH_DATE:birthday,NUM:'0',POSITION:'F'});
+ const roster=[row(1642346,'Ryan Dunn','JAN 07, 2003'),row(1631166,'Drew Timme','SEP 09, 2000'),row(1628415,'Dillon Brooks','JAN 22, 1996')];
+ const athlete=(id,name,birthday)=>({id,uid:'s:40~l:46~a:'+id,displayName:name,dateOfBirth:birthday+'T08:00Z'});
+ const athletes=[athlete('4888725','Ryan Dunn','2003-01-07'),athlete('4431695','Drew Timme','2000-09-09'),athlete('3155526','Dillon Brooks','1996-02-22')];
+ const metric=(name,value)=>({name,value});
+ const statistics=[{stats:[metric('gamesPlayed',6),metric('avgPoints',4.333),metric('avgRebounds',3.667),metric('avgAssists',0)]}];
+ const leaders=athletes.filter(p=>p.displayName!=='Drew Timme').map(athlete=>({athlete,statistics}));
+ const team={id:'21'},clock={year:2027,type:2};
+ t.mock.method(globalThis,'fetch',async input=>{
+  const u=new URL(input);
+  if(u.pathname==='/team/1610612756/suns')return new Response('<script id="__NEXT_DATA__">'+JSON.stringify({props:{pageProps:{team:{id:leagueTeam,info:{TEAM_ID:leagueTeam},roster}}}})+'</script>');
+  if(u.pathname.endsWith('/21/roster'))return Response.json({team,season:clock,athletes});
+  if(u.pathname.endsWith('/21/athletes/statistics')&&u.searchParams.get('season')==='2027'&&u.searchParams.get('seasontype')==='2')return Response.json({team,season:clock,results:[{name:'game',leaders}]});
+  if(u.pathname.endsWith('/4888725/stats'))return Response.json({filters:[{name:'league',value:'nba'},{name:'seasontype',value:'2'}],categories:[{name:'averages',names:['avgPoints','avgRebounds','avgAssists'],statistics:[{season:{year:2027},teamId:21,stats:['4.3','3.7','0.0']}]}]});
+  return new Response('',{status:403});
+ });
+ const official=await import(moduleUrl('lib/nba-official.ts'));
+ const result=await official.officialTeamProfile('21');
+ const [dunn,timme,brooks]=result.roster;
+ assert.deepEqual(dunn.averages,{season:2027,points:4.3,rebounds:3.7,assists:0});
+ assert.equal(timme.averages,undefined);assert.equal(timme.seasonStatsEmpty,true);
+ assert.equal(brooks.averages,undefined);assert.equal(brooks.seasonStatsEmpty,false,'birthday mismatch cannot confirm missing stats');
+ assert.equal(shared.basketballPlayerHref('NBA',dunn,'21'),'/players/nba/1642346?team=21&season=2027');
+ const data=await b.basketballPlayerProfile('1642346','NBA',2027,'2','official','21');
+ assert.equal(data.name,'Ryan Dunn');assert.equal(data.id,'1642346');assert.equal(data.team.href,'/teams/nba/21');
+ assert.deepEqual(data.summary,{avgPoints:'4.3',avgRebounds:'3.7',avgAssists:'0.0'});
+ await assert.rejects(()=>b.basketballPlayerProfile('9990011','NBA',2027,'2','official','21'));
+ const older=await b.basketballPlayerProfile('1642346','NBA',2026,'2','official','21');
+ assert.deepEqual(older.summary,{});
+});

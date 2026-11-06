@@ -10,7 +10,23 @@ test('player logs preserve postseason and percentages; wrong-player logs rejecte
 const game=(id,patch={})=>({id,start:'2025-01-02T01:00:00Z',season:2025,phase:2,state:'final',neutral:false,home:nba.nbaTeam('2'),away:nba.nbaTeam('5'),homeScore:100,awayScore:90,...patch});
 test('full season filters do not expire older games; summaries and opponent/month denominators agree',()=>{const a=game('1'),b=game('2',{start:'2025-02-02T01:00:00Z',homeScore:80});const rows=profile.profileResults([a,a,b,game('3',{phase:3}),game('4',{homeScore:null}),game('5',{state:'scheduled'}),game('6',{season:2024}),game('7',{start:'2099-01-01T00:00:00Z'}),game('8',{home:nba.nbaTeam('9'),away:nba.nbaTeam('5')})],'2',2025,2,'all');assert.equal(rows.length,2);assert.equal(nba.nbaForm(rows,'2',rows.length).wins,1);const op=profile.profileGroups(rows,'2','opponent');assert.equal(op.length,1);assert.equal(op[0].wins/op[0].games,0.5);assert.equal(profile.profileGroups(rows,'2','month').reduce((a,r)=>a+r.games,0),2);});
 test('venue filtering precedes recent-game limit and excludes neutral fixtures',()=>{const rows=[game('1'),game('2',{start:'2025-02-01T00:00:00Z',home:nba.nbaTeam('5'),away:nba.nbaTeam('2')}),game('3',{start:'2025-03-01T00:00:00Z',neutral:true})];assert.equal(profile.profileResults(rows,'2',2025,2,'home',1)[0].id,'1');assert.equal(profile.profileResults(rows,'2',2025,2,'away',1)[0].id,'2');assert.equal(profile.profileResults(rows,'2',2025,3,'all').length,0);});
-test('official source resolves player index, deduplicates concurrent public fetches and rejects arbitrary IDs',async()=>{const native=globalThis.fetch,paths=[];globalThis.fetch=async input=>{paths.push(String(input));let data;if(String(input).endsWith('/players'))data={props:{pageProps:{players:[{PERSON_ID:1628369,PLAYER_SLUG:'jayson-tatum'}]}}};else data={props:{pageProps:{player:{info:{PERSON_ID:1628369,DISPLAY_FIRST_LAST:'Jayson Tatum'},gameLogs:[]}}}};return new Response('<script id="__NEXT_DATA__" type="application/json">'+JSON.stringify(data)+'</script>');};try{const a=await Promise.all([official.officialPlayerProfile(1628369),official.officialPlayerProfile(1628369)]);assert.equal(a[0].id,1628369);assert.equal(paths.length,2);assert.equal(await official.officialPlayerProfile(999),null);assert.ok(paths.every(p=>p.startsWith('https://www.nba.com/')));}finally{globalThis.fetch=native;}});
+test('official profile uses the numeric URL once for concurrent readers, keeping the slug fallback for older upstreams',async t=>{
+ const paths=[];
+ const page=data=>new Response('<script id="__NEXT_DATA__">'+JSON.stringify({props:{pageProps:data}})+'</script>');
+ const player=id=>page({player:{info:{PERSON_ID:id,DISPLAY_FIRST_LAST:'Jayson Tatum'},gameLogs:[]}});
+ t.mock.method(globalThis,'fetch',async input=>{
+  const path=new URL(input).pathname;paths.push(path);
+  if(path==='/players')return page({players:[{PERSON_ID:1628369,PLAYER_SLUG:'jayson-tatum'}]});
+  if(path==='/player/1642346')return page({player:{info:{PERSON_ID:1642346,DISPLAY_FIRST_LAST:'Ryan Dunn'},gameLogs:[]}});
+  if(path==='/player/1628369/jayson-tatum')return player(1628369);
+  return new Response('',{status:404});
+ });
+ const result=await Promise.all([official.officialPlayerProfile(1642346),official.officialPlayerProfile(1642346)]);
+ assert.ok(result.every(p=>p.name==='Ryan Dunn'));assert.deepEqual(paths,['/player/1642346']);
+ assert.equal((await official.officialPlayerProfile(1628369)).id,1628369);
+ assert.equal(await official.officialPlayerProfile(999),null);
+ assert.equal(await official.officialPlayerProfile(-1),null);
+});
 test('team facts use selected games and never mix current official stats into another season or range',async()=>{
  const {readFileSync}=await import('node:fs'),ts=(await import('typescript')).default,React=(await import('react')).default,{renderToStaticMarkup}=await import('react-dom/server');
  const source=ts.createSourceFile('profile.tsx',readFileSync('app/nba-team-profile.tsx','utf8'),ts.ScriptTarget.Latest,true,ts.ScriptKind.TSX);

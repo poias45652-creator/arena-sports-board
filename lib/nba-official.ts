@@ -1,4 +1,6 @@
 import {nbaPage,BasketballSourceUnavailable} from './wnba-fetch';
+import {playerSource} from './sport-player-fetch';
+import {verifiedBasketballIdentity} from './sport-player-profile';
 import {NBA_TEAMS,nbaTeam} from './nba';
 import {nbaPlayerSupplement,type NbaCollegeStats} from './nba-player-supplements';
 // NBA.com uses different team identifiers from the scoreboard provider.
@@ -9,7 +11,13 @@ export function localTeam(id:number){return NBA_TEAMS.find(t=>officialTeam(t.id)
 const num=(v:unknown):number|null=>typeof v==='number'&&Number.isFinite(v)?v:null;
 const str=(v:unknown)=>typeof v==='string'?v:'';
 const bioText=(v:unknown)=>str(v).trim()==='-'?'':str(v).trim();
-const person=(r:any)=>({id:Number(r.PLAYER_ID),name:str(r.PLAYER),slug:str(r.PLAYER_SLUG),number:str(r.NUM),position:str(r.POSITION),height:str(r.HEIGHT),weight:str(r.WEIGHT),experience:str(r.EXP),school:str(r.SCHOOL),season:str(r.SEASON),photo:undefined as string|undefined,photoFallback:undefined as string|undefined,href:undefined as string|undefined,country:undefined as string|undefined,draftYear:undefined as string|undefined,supplementalStats:undefined as NbaCollegeStats|undefined,averages:undefined as {season:number;points:number|null;rebounds:number|null;assists:number|null}|null|undefined});
+function rosterBirthDate(value:unknown){
+ const date=bioText(value);
+ if(!/^[A-Z]{3} \d{1,2}, \d{4}$/i.test(date))return '';
+ const ms=Date.parse(date+' 00:00:00 GMT');
+ return Number.isFinite(ms)?new Date(ms).toISOString().slice(0,10):'';
+}
+const person=(r:any)=>({id:Number(r.PLAYER_ID),name:str(r.PLAYER),slug:str(r.PLAYER_SLUG),birthDate:rosterBirthDate(r.BIRTH_DATE),seasonStatsEmpty:false,number:str(r.NUM),position:str(r.POSITION),height:str(r.HEIGHT),weight:str(r.WEIGHT),experience:str(r.EXP),school:str(r.SCHOOL),season:str(r.SEASON),photo:undefined as string|undefined,photoFallback:undefined as string|undefined,href:undefined as string|undefined,country:undefined as string|undefined,draftYear:undefined as string|undefined,supplementalStats:undefined as NbaCollegeStats|undefined,averages:undefined as {season:number;points:number|null;rebounds:number|null;assists:number|null}|null|undefined});
 export function parseOfficialTeam(data:any,id:string){
  const t=data?.props?.pageProps?.team,expected=officialTeam(id)?.[0];
  if(!expected||Number(t?.id)!==expected||Number(t?.info?.TEAM_ID)!==expected||!Array.isArray(t.roster))throw Error('NBA 球隊資料不符');
@@ -56,13 +64,80 @@ async function page(path:string,deadline=Infinity){
   }finally{const next=queue.shift();if(next)next();else active--;}
  })().finally(()=>pending.delete(path));pending.set(path,task);return task;
 }
-export async function officialTeamProfile(id:string){const t=officialTeam(id);if(!t)throw Error('球隊不存在');const [raw,index]=await Promise.all([page(`team/${t[0]}/${t[1]}`),page('players').catch(()=>null)]);const value=parseOfficialTeam(raw,id);return {...value,roster:enrichNbaRoster(value.roster,t[0],index),fetchedAt:new Date().toISOString()};}
+async function nbaTeamRoster(id:string){
+ const t=officialTeam(id);
+ if(!t)throw Error('球隊不存在');
+ return parseOfficialTeam(await page(`team/${t[0]}/${t[1]}`),id);
+}
+
+async function teamSeasonAverages(teamId:string,year:number){
+ const root=`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/${teamId}`;
+ const [directory,stats]=await Promise.all([
+  playerSource(root+'/roster'),
+  playerSource(`${root}/athletes/statistics?season=${year}&seasontype=2`),
+ ]);
+ const leaders=stats.results?.find((r:any)=>r.name==='game')?.leaders;
+ if(String(directory.team?.id)!==teamId||directory.season?.year!==year||!Array.isArray(directory.athletes)||
+    String(stats.team?.id)!==teamId||stats.season?.year!==year||stats.season?.type!==2||!Array.isArray(leaders))throw Error('球隊場均資料不符');
+ return {athletes:directory.athletes as any[],leaders:leaders as any[]};
+}
+
+type TeamSeasonStats=Awaited<ReturnType<typeof teamSeasonAverages>>;
+function rosterAverages(player:ReturnType<typeof person>,stats:TeamSeasonStats|null,year:number){
+ if(!stats||Number(player.season)+1!==year)return null;
+ const people=stats.athletes.filter(a=>verifiedBasketballIdentity(a,player));
+ if(people.length!==1)return null;
+ const id=String(people[0].id),uid=`s:40~l:46~a:${id}`;
+ if(people[0].uid!==uid)return null;
+ const matches=stats.leaders.filter(r=>String(r.athlete?.id)===id&&r.athlete?.uid===uid);
+ if(!matches.length)return {empty:true as const};
+ if(matches.length!==1)return null;
+ if(!Array.isArray(matches[0].statistics))return null;
+ const values=matches[0].statistics.flatMap((g:any)=>Array.isArray(g?.stats)?g.stats:[]);
+ const value=(key:string)=>num(values.find((s:any)=>s?.name===key)?.value);
+ const games=value('gamesPlayed');
+ if(games===0)return {empty:true as const};
+ if(games===null||games<0)return null;
+ const average=(key:string)=>{const n=value(key);return n===null?null:Math.round(n*10)/10;};
+ const points=average('avgPoints'),rebounds=average('avgRebounds'),assists=average('avgAssists');
+ if([points,rebounds,assists].every(v=>v===null))return null;
+ return {averages:{season:year,points,rebounds,assists}};
+}
+
+export async function officialTeamProfile(id:string){
+ const index=page('players',Date.now()+6000).catch(()=>null);
+ const value=await nbaTeamRoster(id),year=Number(value.rosterSeason)+1;
+ const stats=Number.isInteger(year)&&year>=1947?await teamSeasonAverages(id,year).catch(()=>null):null;
+ const roster=enrichNbaRoster(value.roster,value.officialId,await index).map(p=>{
+  const line=rosterAverages(p,stats,year);
+  return {...p,averages:line?.averages??p.averages,seasonStatsEmpty:!!line?.empty};
+ });
+ return {...value,roster,fetchedAt:new Date().toISOString()};
+}
+
+export async function nbaRosterPlayer(teamId:string,id:number){
+ const team=await officialTeamProfile(teamId);
+ const matches=team.roster.filter(p=>p.id===id);
+ if(matches.length!==1)throw Error('名單沒有相符的球員');
+ return {...matches[0],team:team.team,sourceUrl:team.sourceUrl};
+}
+
+export async function nbaPlayerById(id:number){
+ if(!Number.isSafeInteger(id)||id<=0)throw Error('球員編號錯誤');
+ const raw=await page(`player/${id}`,Date.now()+6000);
+ return {...parseOfficialPlayer(raw,id),fetchedAt:new Date().toISOString()};
+}
+
 export async function officialPlayerProfile(id:number){
- // Resolve the slug from the official player index; arbitrary URLs are never fetched.
- const index=await page('players'),players=index?.props?.pageProps?.players;
- if(!Array.isArray(players))throw Error('NBA 球員索引錯誤');
- const p=players.find((p:any)=>Number(p.PERSON_ID)===id);if(!p||!/^[-a-z0-9]+$/.test(p.PLAYER_SLUG))return null;
- return {...parseOfficialPlayer(await page(`player/${id}/${p.PLAYER_SLUG}`),id),fetchedAt:new Date().toISOString()};
+ if(!Number.isSafeInteger(id)||id<=0)return null;
+ // Older upstreams can still require the canonical slug.
+ try{return await nbaPlayerById(id);}catch{
+  const index=await page('players',Date.now()+6000),players=index?.props?.pageProps?.players;
+  if(!Array.isArray(players))throw Error('NBA 球員索引錯誤');
+  const p=players.find((p:any)=>Number(p.PERSON_ID)===id);
+  if(!p||!/^[-a-z0-9]+$/.test(p.PLAYER_SLUG))return null;
+  return {...parseOfficialPlayer(await page(`player/${id}/${p.PLAYER_SLUG}`,Date.now()+6000),id),fetchedAt:new Date().toISOString()};
+ }
 }
 
 // Preserve the publication time and NBA identity for availability evidence.

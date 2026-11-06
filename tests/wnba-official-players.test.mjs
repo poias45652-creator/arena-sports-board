@@ -24,7 +24,7 @@ test('audited fallback has real identity and bio only; it never invents live sta
   const out=m.enrichWnbaPlayer({...base,id:Number(id),name:p.name},'16',2026,[]);
   assert.equal(out.officialId,p.id);assert.equal(out.averages,null);assert.equal(out.photo,photos[p.id]?.url||`https://cdn.wnba.com/headshots/wnba/latest/1040x760/${p.id}.png`);
  }
- const ui=readFileSync('app/nba-team-profile.tsx','utf8');assert.ok(ui.includes('p.photo||'));assert.ok(ui.includes('basketballPlayerHref(league,p)'));assert.ok(ui.includes('p.photoFallback'));
+ const ui=readFileSync('app/nba-team-profile.tsx','utf8');assert.ok(ui.includes('p.photo||'));assert.ok(ui.includes('p.photoFallback'));
 });
 test('actual roster panel renders official photos, data and player links',async()=>{
  const ts=(await import('typescript')).default,React=(await import('react')).default,{renderToStaticMarkup}=await import('react-dom/server');

@@ -21,6 +21,7 @@ a.xz-player-card:active,.xz-player-card--expand:active{transform:translateY(-1px
 .xz-card-copy h3{margin:0;color:#30200c;font-size:clamp(18px,7.5cqw,24px);font-weight:950;line-height:1.15;letter-spacing:-.5px;overflow-wrap:anywhere;min-height:2.3em;display:flex;align-items:center;justify-content:center}
 .xz-card-team{font-size:12px;font-weight:700;margin:7px 0 12px;min-height:1.4em;line-height:1.4;color:#5b3b1d;overflow-wrap:anywhere}
 .xz-card-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 5px;margin:0;padding:12px 0;border-top:1px solid #764b274d;border-bottom:1px solid #764b274d}
+.xz-card-stats-note{margin:0;padding:16px 0;border-block:1px solid #764b274d;color:#583b21;font-size:12px;font-weight:700}
 .xz-card-stats dt{font-size:11px;font-weight:800;line-height:1.3;color:#65401b}
 .xz-card-stats dd{margin:4px 0 0;font-size:22px;line-height:1.1;font-weight:900;font-variant-numeric:tabular-nums;color:#30200c;overflow-wrap:anywhere}
 .xz-card-bio{font-size:11px;line-height:1.6;margin:10px 0;color:#583b21;min-height:1.6em;overflow-wrap:anywhere}

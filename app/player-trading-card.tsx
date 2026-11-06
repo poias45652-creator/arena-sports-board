@@ -7,7 +7,7 @@ export type PlayerCardStat={label:string;value:string|number|null|undefined};
 type Props={
  name:string;number?:string|number|null;position:string;league:string;team?:string;
  season?:string|number;photo?:string;photoAlternatives?:string[];portraitStyle?:CSSProperties;
- stats?:PlayerCardStat[];bio?:string[];badge?:ReactNode;href?:string;detail?:ReactNode;
+ statsNote?:string;stats?:PlayerCardStat[];bio?:string[];badge?:ReactNode;href?:string;detail?:ReactNode;
 };
 
 function Portrait({name,urls,style}:{name:string;urls:string[];style?:CSSProperties}){
@@ -31,7 +31,7 @@ export default function PlayerTradingCard(p:Props){
   <div className="xz-card-top"><div className="xz-card-number"><small>背號</small><strong>{p.number===null||p.number===undefined||p.number===''?'—':p.number}</strong><span>{p.position||'位置未公布'}</span></div><span className="xz-card-league">{p.league}</span></div>
   <Portrait key={`${p.name}:${urls.join('|')}`} name={p.name} urls={urls} style={p.portraitStyle}/>
   <div className="xz-card-copy"><h3>{p.name}</h3><p className="xz-card-team">{p.team||p.league}{p.season?` · ${p.season}`:''}</p>
-   {!!p.stats?.length&&<dl className="xz-card-stats">{p.stats.map(s=><div key={s.label}><dt>{s.label}</dt><dd>{s.value??'—'}</dd></div>)}</dl>}
+   {p.statsNote?<p className="xz-card-stats-note">{p.statsNote}</p>:!!p.stats?.length&&<dl className="xz-card-stats">{p.stats.map(s=><div key={s.label}><dt>{s.label}</dt><dd>{s.value??'—'}</dd></div>)}</dl>}
    <p className="xz-card-bio">{p.bio?.filter(Boolean).join(' · ')||'\u00a0'}</p>
    <div className="xz-card-footer"><span className="xz-card-badge">{p.badge}</span><span>{p.href?'查看資料 ↗':p.detail?'完整數據 ＋':'球員資料'}</span></div>
   </div>
