@@ -135,6 +135,7 @@ export default function FootballBoard(){
     <nav className="football-page-tabs" aria-label="足球頁面">{FOOTBALL_VIEWS.map(([id,label])=><button type="button" key={id} aria-pressed={view===id} onClick={()=>setView(id)}>{label}</button>)}</nav>
     {view!=='standings'&&<div
       className="football-content-panel"
+      data-football-view={view}
       data-live-matchday={view === 'live' && current && board.games.length > 0 ? '' : undefined}
     ><div className="football-toolbar"><div><h2>{FOOTBALL_VIEWS.find(([id])=>id===view)?.[1]}</h2><p>{selected.fullName}・台灣時間</p></div><div className="football-date"><button type="button" aria-label="前一天" onClick={()=>setDay(shiftFootballDay(day,-1))}><ArrowLeft size={17}/></button><label><CalendarDays size={17}/><span className="sr-only">比賽日期（台灣時間）</span><input type="date" value={day} min={shiftFootballDay(footballDay(),-365)} max={shiftFootballDay(footballDay(),365)} onChange={e=>{if(e.target.value)setDay(e.target.value);}}/></label><button type="button" aria-label="後一天" onClick={()=>setDay(shiftFootballDay(day,1))}><ArrowRight size={17}/></button><button type="button" onClick={()=>setDay(footballDay())}>今天</button><button type="button" aria-label="更新足球資料" disabled={loading} onClick={()=>setReload(n=>n+1)}><RefreshCw size={17} className={loading?'animate-spin':''}/></button></div><FootballModelWeights key={league} league={league} settings={settings} onApply={applySettings}/></div>
     <TeamWeightNotice count={teamBook.count} onClear={teamBook.clear}/>

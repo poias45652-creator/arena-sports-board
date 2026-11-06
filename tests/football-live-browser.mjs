@@ -97,6 +97,26 @@ try{
   await page.route('**/api/football?league=uefa.champions&date=2026-10-15',async route=>{schedulePolls++;const response=await route.fetch({headers:{...route.request().headers(),cookie}}),json=await response.json();json.games=json.games.map(g=>({...g,state:'live',statusLabel:'進行中 80′'}));await route.fulfill({response,json});});
   await page.route('**/api/football?kind=detail**',async route=>{detailPolls++;const response=await route.fetch({headers:{...route.request().headers(),cookie}}),json=await response.json();json.game={...json.game,state:'live',statusLabel:'進行中 80′'};await route.fulfill({response,json});});
   await page.goto(origin+'/?league=FOOTBALL&competition=uefa.champions&view=live&date=2026-10-15');await page.getByRole('heading',{name:'先發名單 LINEUP'}).waitFor();const s=schedulePolls,d=detailPolls;await page.clock.fastForward(11000);for(let i=0;i<30&&(schedulePolls<=s||detailPolls<=d);i++)await delay(100);assert.ok(schedulePolls>s);assert.ok(detailPolls>d);assert.ok((await page.locator('.football-score-vs').textContent()).includes('LIVE'));
+  await page.goto(origin+'/?league=FOOTBALL&competition=uefa.europa&view=analysis&date=2026-10-16',{waitUntil:'domcontentloaded'});
+  const pregame = page.locator('.football-content-panel[data-football-view="analysis"]');
+  const details = pregame.locator('.football-card .sport-market-details').first();
+  await details.locator('summary').click();
+  await details.getByRole('region',{name:'全場讓分與大小分析'}).waitFor();
+  await pregame.locator('.football-probabilities strong').first().waitFor();
+  assert.ok(await pregame.evaluate(async panel=>{
+    const image = new Image();
+    image.src = '/brand/football-pregame-tactics-v1.webp';
+    await image.decode();
+    return getComputedStyle(panel).backgroundImage.includes(image.src);
+  }));
+  // The shared pitch must still be visible through the last row of cards.
+  const lowerCardHeader = pregame.locator('.football-card-top').last();
+  const pitchVisible = await lowerCardHeader.screenshot();
+  const hidePitch = await page.addStyleTag({content:'[data-football-view="analysis"] { background-image:none !important; }'});
+  const pitchHidden = await lowerCardHeader.screenshot();
+  await hidePitch.evaluate(el=>el.remove());
+  assert.ok(!pitchVisible.equals(pitchHidden), 'pitch shows through lower pre-match cards');
+  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1), 'pre-match grid fits viewport');
   assert.deepEqual(errors,[]);results.push({size,passed:true});await page.unrouteAll({behavior:'ignoreErrors'});await context.close();
  }
  writeFileSync(directory+'/result.json',JSON.stringify({results},null,2));console.log('PASS: football desktop/mobile live scores, lineups, stats, timeline, all eight league tables, overview, model apply/cancel/reset/reload, league isolation, source recovery, date/filter changes and real custom API isolation.');
