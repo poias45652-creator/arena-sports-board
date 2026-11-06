@@ -18,6 +18,11 @@ try{
    await page.goto(origin+'/?league='+league+'&view=standings');
    await page.locator('.basketball-standings tbody tr').first().waitFor();
    if(league==='NBA'){await page.locator('.basketball-standings select').last().selectOption('1');await page.locator('.basketball-standings tbody tr').first().waitFor();}
+   const courtPath='/brand/nba-standings-court-v1.webp';
+   const backgrounds=await page.locator('.basketball-standings > section').evaluateAll(groups=>groups.map(group=>getComputedStyle(group).backgroundImage));
+   assert.ok(backgrounds.length>0);
+   for(const background of backgrounds)assert.equal(background.includes(courtPath),league==='NBA');
+   if(league==='NBA')await page.evaluate(async path=>{const court=new Image();court.src=path;await court.decode();},courtPath);
    await page.locator('.basketball-standings').evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-(innerWidth<768?16:90)));
    const geometry=await page.locator('.basketball-standings tbody tr').evaluateAll(rows=>rows.map(row=>{const name=row.querySelector('th a'),range=document.createRange();range.selectNodeContents(name);const a=range.getBoundingClientRect(),c=row.children[2].getBoundingClientRect();return {team:name.textContent,right:a.right,winLeft:c.left,overlap:a.right>c.left-2};}));
    const header=await page.locator('main>header').evaluate(el=>({position:getComputedStyle(el).position,bottom:el.getBoundingClientRect().bottom}));
