@@ -75,3 +75,47 @@ test('Suns roster cards and profiles survive an unavailable NBA directory and pl
  const older=await b.basketballPlayerProfile('1642346','NBA',2026,'2','official','21');
  assert.deepEqual(older.summary,{});
 });
+
+test('WNBA trade summaries prefer the season total and preserve individual team rows',async t=>{
+ const names=['avgPoints','avgRebounds','avgAssists'];
+ const season={year:2026,displayName:'2026'};
+ const statistics=[
+  {season,teamId:'20',teamSlug:'atlanta-dream',stats:['0.7','0.2','0.1']},
+  {season,teamId:'6',teamSlug:'los-angeles-sparks',stats:['6.0','3.0','1.0']},
+  {season,teamSlug:'2026 Totals',stats:['1.0','0.3','0.2']},
+ ];
+ const raw={filters:[{name:'league',value:'wnba'},{name:'seasontype',value:'2'}],categories:[{name:'averages',names,statistics}]};
+ t.mock.method(globalThis,'fetch',async input=>{
+  const path=new URL(input).pathname;
+  if(path.endsWith('/stats'))return Response.json(raw);
+  if(path.endsWith('/4597509'))return Response.json({athlete:{id:'4597509',displayName:'Aaliyah Nye',team:{id:'6'}}});
+  return new Response('',{status:404});
+ });
+ const p=await b.basketballPlayerProfile('4597509','WNBA',2026,'2','espn');
+ assert.deepEqual(p.summary,{avgPoints:'1.0',avgRebounds:'0.3',avgAssists:'0.2'});
+ assert.match(p.summaryLabel,/合計$/);
+ assert.equal(p.history.find(r=>r.team==='洛杉磯火花').values.avgPoints,'6.0');
+ statistics[2]={season,teamSlug:'unknown',stats:['9','9','9']};
+ assert.ok(!b.basketballPlayerHistory(raw,'WNBA','2').some(r=>r.team==='合計'));
+});
+
+test('a WNBA roster link opens its season even when the last player stats are from a prior year',async t=>{
+ const raw=JSON.parse(readFileSync('tests/fixtures/wnba/official-players.json','utf8'));
+ const id=1630387, player={id,season:'2026',href:'https://www.wnba.com/player/1630387/iliana-rupert'};
+ const url=shared.basketballPlayerHref('WNBA',player);
+ assert.equal(url,'/players/wnba/1630387?season=2026');
+ assert.equal(shared.basketballPlayerHref('WNBA',{id:4790263,season:'2026'}),'/players/wnba/4790263?provider=espn&season=2026');
+ t.mock.method(globalThis,'fetch',async input=>{
+  const path=new URL(input).pathname;
+  const html=data=>new Response('<script id="__NEXT_DATA__">'+JSON.stringify(data)+'</script>');
+  if(path==='/players')return html(raw);
+  if(path.endsWith('/iliana-rupert'))return html({props:{pageProps:{player:{pid:id,info:{PERSON_ID:id,DISPLAY_FIRST_LAST:'Iliana Rupert'},stats:{TimeFrame:'2025',PTS:9.3,REB:3.9,AST:1.6}}}}});
+  return new Response('',{status:404});
+ });
+ for(const year of [2026,undefined]){
+  const p=await b.basketballPlayerProfile(String(id),'WNBA',year);
+  assert.equal(p.season,2026);assert.deepEqual(p.summary,{});
+ }
+ const previous=await b.basketballPlayerProfile(String(id),'WNBA',2025);
+ assert.equal(previous.summary.avgPoints,'9.3');
+});

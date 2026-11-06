@@ -11,7 +11,16 @@ export {verifiedBasketballIdentity} from './sport-player-profile';
 export function basketballPlayerHistory(raw:any,league:string,phase:string):PlayerRow[]{
  if(raw.filters?.find((f:any)=>f.name==='league')?.value!==league.toLowerCase()||String(raw.filters?.find((f:any)=>f.name==='seasontype')?.value)!==phase)throw Error('球員成績聯盟或賽事不符');
  const category=raw.categories?.find((c:any)=>c.name==='averages');if(!category||!Array.isArray(category.statistics))throw Error('歷年成績尚未提供');
- return category.statistics.flatMap((r:any)=>{const year=Number(r.season?.year);if(!Number.isInteger(year)||year<1947)return [];return [{season:year,label:label(league,year),team:team(league,String(r.teamId))?.name||(r.teamId==='0'?'合計':'球季合計'),values:namedValues(category.names,r.stats)}];}).sort((a:PlayerRow,b:PlayerRow)=>b.season!-a.season!);
+ return category.statistics.flatMap((row:any)=>{
+  const year=Number(row.season?.year);
+  if(!Number.isInteger(year)||year<1947)return [];
+  const teamId=String(row.teamId??'');
+  // ESPN omits teamId on multi-team totals and uses e.g. "2026 Totals".
+  const totalSlug=String(row.teamSlug||'').trim().replace(/\s+/g,' ');
+  const total=teamId==='0'||(!teamId&&[String(year),row.season.displayName].some(season=>season&&totalSlug===season+' Totals'));
+  const teamName=total?'合計':team(league,teamId)?.name||'球隊未提供';
+  return [{season:year,label:label(league,year),team:teamName,values:namedValues(category.names,row.stats)}];
+ }).sort((a:PlayerRow,b:PlayerRow)=>b.season!-a.season!);
 }
 export function basketballPlayerGames(raw:any,league:string,season:number,phase:string):PlayerRow[]{
  if(Number(raw.filters?.find((f:any)=>f.name==='season')?.value)!==season||!Array.isArray(raw.names)||!Array.isArray(raw.seasonTypes))throw Error('逐場紀錄年度不符');
@@ -22,6 +31,7 @@ export function basketballPlayerGames(raw:any,league:string,season:number,phase:
 }
 export async function basketballPlayerProfile(id:string,league:'NBA'|'WNBA',requestedSeason?:number,phase='2',provider='official',rosterTeam=''):Promise<SportPlayerData>{
  let name='',birthDate='',photo='',number='',position='',height='',weight='',country='',school='',teamId='',sourceUrl='',officialStats:any=null,officialSeason=0,officialGames:any[]=[],espnId=provider==='espn'?id:'';
+ let activeRosterSeason:number|undefined;
  const warnings:string[]=[];
  const lower=league.toLowerCase(),espnRoot=`https://site.web.api.espn.com/apis/common/v3/sports/basketball/${lower}/athletes`;
  if(provider==='espn'){
@@ -42,6 +52,7 @@ export async function basketballPlayerProfile(id:string,league:'NBA'|'WNBA',requ
   }
  }else{
   const directory=await officialWnbaDirectory(),entry=directory.players.find(p=>p.id===Number(id));if(!entry)throw Error('找不到這位球員');
+  if(entry.active)activeRosterSeason=directory.season;
   const html=await playerSource(entry.href,true),json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];if(!json)throw Error('球員資料暫時無法讀取');const p=JSON.parse(json).props?.pageProps?.player,i=p?.info;
   if(Number(p?.pid)!==Number(id)||Number(i?.PERSON_ID)!==Number(id)||playerNameKey(i.DISPLAY_FIRST_LAST)!==playerNameKey(entry.name))throw Error('球員身分不符');
   name=i.DISPLAY_FIRST_LAST;birthDate=String(i.BIRTHDATE||'').slice(0,10);photo=entry.photo;number=String(i.JERSEY||'');position=i.POSITION||'';height=i.HEIGHT||entry.height;weight=i.WEIGHT?`${i.WEIGHT} 磅`:'';country=i.COUNTRY||'';school=i.SCHOOL||'';sourceUrl=entry.href;
@@ -52,7 +63,7 @@ export async function basketballPlayerProfile(id:string,league:'NBA'|'WNBA',requ
  if(!espnId&&teamId)try{const roster=await playerSource(`https://site.api.espn.com/apis/site/v2/sports/basketball/${lower}/teams/${teamId}/roster`);if(String(roster.team?.id)!==teamId)throw Error();const matches=(roster.athletes||[]).filter((p:any)=>verifiedBasketballIdentity(p,{name,birthDate}));if(matches.length===1)espnId=String(matches[0].id);}catch{}
  if(espnId)try{const raw=await playerSource(`${espnRoot}/${espnId}/stats?seasontype=${phase}`);history=basketballPlayerHistory(raw,league,phase);sources.push({label:'ESPN 歷年與逐場成績',url:`https://www.espn.com/${lower}/player/stats/_/id/${espnId}`});}catch{warnings.push('歷年成績暫時無法取得。');}
  else warnings.push('歷年成績尚未完成球員身分核對。');
- const season=requestedSeason||history[0]?.season||officialSeason||new Date().getUTCFullYear();
+ const season=requestedSeason||activeRosterSeason||history[0]?.season||officialSeason||new Date().getUTCFullYear();
  if(espnId)try{games=basketballPlayerGames(await playerSource(`${espnRoot}/${espnId}/gamelog?season=${season}&seasontype=${phase}`),league,season,phase);}catch{warnings.push('完整逐場紀錄暫時無法取得。');}
  if(!games.length&&officialGames.length){const prefix=phase==='3'?'4':phase==='1'?'1':'2';games=officialGames.filter(g=>g.season===prefix+String(league==='NBA'?season-1:season)&&['W','L'].includes(g.result)&&Number.isFinite(Date.parse(g.date+' 12:00:00 GMT'))).map(g=>({season,label:String(g.matchup).replace(/\b[A-Z]{2,3}\b/g,(code:string)=>{const aliases:Record<string,string>={GSW:'GS',NOP:'NO',NYK:'NY',SAS:'SA',UTA:'UTAH',WAS:'WSH',LAS:'LA',LVA:'LV',NYL:'NY'};return (league==='NBA'?NBA_TEAMS:WNBA_TEAMS).find(t=>t.code===(aliases[code]||code))?.name||code;}).replace(' vs. ',' 主場對 ').replace(' @ ',' 客場對 '),date:new Date(g.date+' 12:00:00 GMT').toISOString(),competition:phaseName(phase),result:g.result==='W'?'勝':'負',values:Object.fromEntries(['minutes','points','rebounds','assists','steals','blocks','turnovers'].map(k=>[k,g[k]===null||g[k]===undefined?'—':String(g[k])]))}));if(games.length)warnings.push('目前顯示官方近期逐場紀錄。');}
  const rows=history.filter(r=>r.season===season),selected=rows.find(r=>r.team==='合計')||rows.find(r=>r.team===team(league,teamId)?.name)||rows[0],summary=selected?.values||{};
