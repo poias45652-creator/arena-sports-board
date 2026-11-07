@@ -1,6 +1,4 @@
 'use client';
-import DomesticResults from './football-domestic-results';
-import {domesticLeague} from '@/lib/football-five-league';
 import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
@@ -145,7 +143,6 @@ export default function FootballBoard(){
     <div className="football-filters" role="group" aria-label="足球賽事狀態">{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完場']].map(([value,label])=><button type="button" key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div>
     {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；當日已開賽的賽前預測仍保留。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}
     {loading&&!board?<div className="football-empty" role="status"><RefreshCw className="animate-spin"/><h3>正在取得{selected.name}賽程</h3><p>賽程載入後會自動計算可分析的比賽。</p></div>:board&&!games.length?<div className="football-empty" data-live-empty-day={view === 'live' && current && board.games.length === 0 ? '' : undefined}><CalendarDays size={30}/><h3>{board.games.length?'沒有符合篩選條件的比賽':`${day} 沒有${selected.name}賽事`}</h3><p>{board.games.length?'可切換至全部查看當日賽程。':'可查看下一個比賽日，或自行選擇日期。'}</p>{!board.games.length&&<button type="button" className="football-primary" disabled={nextBusy} onClick={()=>void nextMatch()}>{nextBusy?'正在查詢…':'下一個比賽日'}<ArrowRight size={16}/></button>}{notice&&<p role="status">{notice}</p>}</div>:null}
-    {view==='analysis'&&domesticLeague(league)&&<DomesticResults key={league} league={league}/>}
     {view==='analysis'&&<div className="football-games">{games.map(game=><FootballCard snapshot={odds.data} oddsError={odds.error} oddsErrorCode={odds.errorCode} oddsLoading={odds.loading} key={game.id} game={game} report={reports[game.id]} activity={analysisActivity[fixtureKey(game)!]} analysisAvailable={board?.analysisAvailable!==false} notice={board?.notice} now={clock} unavailable={unavailable}/>)}</div>}
     {view==='live'&&games.length>0&&<FootballLiveCenter key={league+day} games={games} initialGameId={selectedGame}/>}
     {view==='overview'&&current&&<><div className="football-overview-stats">{[['當日賽事',board.games.length],['進行中',board.games.filter(g=>g.state==='live').length],['未開賽',board.games.filter(g=>g.state==='scheduled').length],['已完場',board.games.filter(g=>g.state==='final').length]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><div className="football-overview-links"><button onClick={()=>setView('live')}>查看比分與賽事紀錄 <ArrowRight size={16}/></button><button onClick={()=>setView('analysis')}>查看賽前分析 <ArrowRight size={16}/></button><button onClick={()=>setView('standings')}>查看戰績排名 <ArrowRight size={16}/></button></div><FootballGameStrip games={games} selected="" onSelect={id=>{setSelectedGame(id);setView('live');}}/></>}
