@@ -3,12 +3,22 @@ import {useEffect,useId,useRef,useState} from 'react';
 import {createPortal} from 'react-dom';
 import {FRONT_VIEWS} from '@/lib/sport-navigation';
 import {useSuperWorkspace} from './super-workspace';
+import {useSource} from './use-source';
+import type {SuperSnapshot} from '@/lib/super007';
 
 type Picks={active:boolean;date:string;rows:{label:string}[]};
 export default function RegionalBasketballBoard({league,onViewChange}:{league:'NBL'|'KBL';onViewChange:(view:string)=>void}){
   const frame=useRef<HTMLIFrameElement>(null),pane=useId(),workspace=useSuperWorkspace();
   const [src]=useState(()=>'/regional-basketball/board'+window.location.search+window.location.hash);
   const [height,setHeight]=useState(640),[picks,setPicks]=useState<Picks>({active:false,date:'',rows:[]});
+  const odds=useSource<SuperSnapshot>('member-odds',60000);
+  const sendOdds=()=>{
+    const source=odds.data?.source==='hr9988'?odds.data.regionalTzMarkets:undefined;
+    const markets=source?.filter(row=>row.league===league)??[];
+    const message=odds.error?'TZ 盤口暫時無法讀取，請確認會員的 TZ 體育館連線。':source?'':odds.loading?'正在讀取 TZ 盤口。':'請連接 TZ 體育館以查看盤口。';
+    frame.current?.contentWindow?.postMessage({type:'basketball-tz-markets',markets,message},location.origin);
+  };
+  useEffect(sendOdds,[odds.data,odds.error,odds.loading,league]);
   useEffect(()=>{
     const send=(type:string)=>frame.current?.contentWindow?.postMessage({type,search:location.search,hash:location.hash},location.origin);
     const back=()=>send('basketball-history'),refresh=()=>send('basketball-refresh'),assistant=()=>send('basketball-assistant');
@@ -31,7 +41,7 @@ export default function RegionalBasketballBoard({league,onViewChange}:{league:'N
     return()=>{window.removeEventListener('message',receive);window.removeEventListener('popstate',back);window.removeEventListener('arena-refresh-all',refresh);window.removeEventListener('regional-basketball-assistant',assistant);};
   },[league,onViewChange]);
   return <div data-super-league={league}>
-    <iframe ref={frame} title={league==='NBL'?'澳洲職籃賽事與球員':'韓國職籃賽事與球員'} src={src} style={{display:'block',width:'100%',height,border:0,scrollMarginTop:'5rem'}}/>
+    <iframe onLoad={sendOdds} ref={frame} title={league==='NBL'?'澳洲職籃賽事與球員':'韓國職籃賽事與球員'} src={src} style={{display:'block',width:'100%',height,border:0,scrollMarginTop:'5rem'}}/>
     {picks.active&&<span hidden data-super-parlay={pane}/>}
     {workspace?.activePane===pane&&workspace.host&&createPortal(<section className="p-4"><h3>{league} 單場推薦</h3><p>{picks.date}</p>{picks.rows.length?<ul>{picks.rows.map(row=><li key={row.label}>{row.label}</li>)}</ul>:<p>目前沒有同時具備有效賽前盤口與模型預測的場次。</p>}</section>,workspace.host)}
   </div>;
