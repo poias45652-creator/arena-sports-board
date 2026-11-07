@@ -2,6 +2,7 @@ import {getRawDb} from '@/db';
 import {summarizeDailyWinRate,saveDailyResults,validDailyDay,dailySportDay,backfillLegacyDaily} from '@/lib/daily-win-rate';
 import {nbaSchedule} from '@/lib/nba-source';
 import {wnbaSchedule} from '@/lib/wnba-source';
+import {saveFootballResults} from '@/lib/football-ledger';
 import {footballSchedule} from '@/lib/football-source';
 import {FOOTBALL_LEAGUES} from '@/lib/football';
 
@@ -23,7 +24,7 @@ async function refreshResults(day:string){
  try{await saveDailyResults(db,'MLB',await mlbFinals(day));}catch{errors.push('MLB');}
  try{await saveDailyResults(db,'NBA',(await nbaSchedule(day)).games);}catch{errors.push('NBA');}
  try{await saveDailyResults(db,'WNBA',(await wnbaSchedule(day)).games);}catch{errors.push('WNBA');}
- for(const league of FOOTBALL_LEAGUES){try{const {calendar,...board}=await footballSchedule(league.code,day);await saveDailyResults(db,'FOOTBALL',board.games);}catch{errors.push('FOOTBALL:'+league.code);}}
+ for(const league of FOOTBALL_LEAGUES){try{const {calendar,...board}=await footballSchedule(league.code,day);await saveFootballResults(db,board.games);await saveDailyResults(db,'FOOTBALL',board.games);}catch{errors.push('FOOTBALL:'+league.code);}}
  return errors;
 }
 export async function GET(request:Request){

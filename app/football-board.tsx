@@ -1,4 +1,7 @@
 'use client';
+import DomesticResults from './football-domestic-results';
+import {domesticLeague} from '@/lib/football-five-league';
+import {evidenceDescription} from '@/lib/recent-opponents';
 import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
@@ -143,6 +146,7 @@ export default function FootballBoard(){
     <div className="football-filters" role="group" aria-label="足球賽事狀態">{[['all','全部'],['scheduled','未開賽'],['live','進行中'],['final','已完場']].map(([value,label])=><button type="button" key={value} aria-pressed={filter===value} onClick={()=>setFilter(value)}>{label}</button>)}</div>
     {error&&<div className="football-alert" role="alert">{error} {board?'目前顯示上次取得的賽程；當日已開賽的賽前預測仍保留。':''}<button type="button" onClick={()=>setReload(n=>n+1)}>重新載入</button></div>}
     {loading&&!board?<div className="football-empty" role="status"><RefreshCw className="animate-spin"/><h3>正在取得{selected.name}賽程</h3><p>賽程載入後會自動計算可分析的比賽。</p></div>:board&&!games.length?<div className="football-empty" data-live-empty-day={view === 'live' && current && board.games.length === 0 ? '' : undefined}><CalendarDays size={30}/><h3>{board.games.length?'沒有符合篩選條件的比賽':`${day} 沒有${selected.name}賽事`}</h3><p>{board.games.length?'可切換至全部查看當日賽程。':'可查看下一個比賽日，或自行選擇日期。'}</p>{!board.games.length&&<button type="button" className="football-primary" disabled={nextBusy} onClick={()=>void nextMatch()}>{nextBusy?'正在查詢…':'下一個比賽日'}<ArrowRight size={16}/></button>}{notice&&<p role="status">{notice}</p>}</div>:null}
+    {view==='analysis'&&domesticLeague(league)&&<DomesticResults key={league} league={league}/>}
     {view==='analysis'&&<div className="football-games">{games.map(game=><FootballCard snapshot={odds.data} oddsError={odds.error} oddsErrorCode={odds.errorCode} oddsLoading={odds.loading} key={game.id} game={game} report={reports[game.id]} activity={analysisActivity[fixtureKey(game)!]} analysisAvailable={board?.analysisAvailable!==false} notice={board?.notice} now={clock} unavailable={unavailable}/>)}</div>}
     {view==='live'&&games.length>0&&<FootballLiveCenter key={league+day} games={games} initialGameId={selectedGame}/>}
     {view==='overview'&&current&&<><div className="football-overview-stats">{[['當日賽事',board.games.length],['進行中',board.games.filter(g=>g.state==='live').length],['未開賽',board.games.filter(g=>g.state==='scheduled').length],['已完場',board.games.filter(g=>g.state==='final').length]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><div className="football-overview-links"><button onClick={()=>setView('live')}>查看比分與賽事紀錄 <ArrowRight size={16}/></button><button onClick={()=>setView('analysis')}>查看賽前分析 <ArrowRight size={16}/></button><button onClick={()=>setView('standings')}>查看戰績排名 <ArrowRight size={16}/></button></div><FootballGameStrip games={games} selected="" onSelect={id=>{setSelectedGame(id);setView('live');}}/></>}
@@ -160,8 +164,23 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
     <div className="football-match"><FootballTeamIdentity team={game.home} side="home" league={game.league} day={footballDay(game.start)}/><b>{game.homeScore!==null&&game.awayScore!==null?`${game.homeScore} : ${game.awayScore}`:'VS'}</b><FootballTeamIdentity team={game.away} side="away" league={game.league} day={footballDay(game.start)}/></div>
     {(game.venue||game.neutral)&&<p className="football-venue">{game.neutral?'中立場・':''}{game.venue}</p>}
     {a?<>
-      <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
+      <div className="football-analysis-title"><strong>{a.probabilities&&a.probabilities.draw>Math.max(a.probabilities.home,a.probabilities.away)?'和局首選':a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
+      {a.domesticForecast&&<p className="px-4 text-sm">{a.selection?.pick?'七成精選':'一般分析'}{a.domesticForecast.drawRisk?'・和局風險較高':''}{a.selection?.source==='shots'&&a.selection.pick?'・射正與 Elo':a.domesticForecast.scoreFallback?'・比分備援':a.domesticForecast.shotApplied?'・近期射門品質已計入':a.external?.modelFamily==='score-market'?'・依近期比分計算':''}</p>}
       <FootballAnalysisNumbers analysis={a}/>
+      {a.matchEvidence&&<details className="px-4 py-2 text-sm"><summary>近期對手與傷停</summary>
+        {(['home','away'] as const).map(side=><p className="my-2" key={side}><strong>{game[side].name}</strong>　{evidenceDescription(a.matchEvidence!,side)}</p>)}
+        {a.contextForecast&&<div className="my-2">
+          <p>{a.contextForecast.formPolicy==='base'?'近期戰績與對手實力由基礎模型計入。':'雙方近況齊備時，按最近對手的強度修正。'}</p>
+          <table className="my-2 w-full text-right tabular-nums">
+            <caption className="sr-only">本場賽前機率調整</caption>
+            <thead><tr><th scope="col" className="text-left">計算階段</th><th scope="col">主勝</th><th scope="col">和局</th><th scope="col">客勝</th></tr></thead>
+            <tbody>{([['基礎模型',a.contextForecast.baseline],['計入近況',a.contextForecast.formOnly],...(a.domesticForecast?.shotApplied?[['計入射門品質',a.domesticForecast.afterShots] as const]:[]),['最終預測',a.probabilities]] as const).map(([label,p])=>
+              <tr key={label}><th scope="row" className="text-left">{label}</th>{(['home','draw','away'] as const).map(k=><td key={k}>{(100*p[k]).toFixed(1)}%</td>)}</tr>)}</tbody>
+          </table>
+          <p>{a.contextForecast.injuryCoverage!=='both'?'雙方傷停名單未核齊，傷停暫不計入。':a.contextForecast.injuryShiftApplied?'雙方缺陣差異已計入最終預測。':a.matchEvidence.absences?.method==='minutes'&&[...(a.matchEvidence.absences.home??[]),...(a.matchEvidence.absences.away??[])].some(p=>!p.role)?'部分傷員近期分鐘不足，本場僅列名單。':'雙方傷停名單已核對，未調整勝率。'}</p>
+        </div>}
+        {a.matchEvidence.absences&&<a href={a.matchEvidence.absences.source} target="_blank" rel="noreferrer">查看本場傷情報告</a>}
+      </details>}
     </>:(eligible||retainFootballForecast(game,now))?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
     {eligible&&<SportMarkets game={game} analysis={a} analysisState={presentation.state} analysisMessage={presentation.message} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} errorCode={oddsErrorCode} sport="FOOTBALL" now={now}/>}
   </article>;

@@ -1,0 +1,568 @@
+{
+  "englishInjuries": {
+    "sourcesVerified": 1140,
+    "coverage": {
+      "snapshotTooOldOrNoRoster": 546,
+      "unmatchedScoreOrModel": 44
+    },
+    "all": {
+      "n": 550,
+      "rolesComplete": 12,
+      "adjusted": 12,
+      "boundApplied": 83,
+      "windowComplete": 387,
+      "windowApplied": 387,
+      "scores": {
+        "base": {
+          "hits": 304,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.96808,
+          "brier": 0.575897
+        },
+        "adjusted": {
+          "hits": 304,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.967818,
+          "brier": 0.575676
+        },
+        "headcount": {
+          "hits": 304,
+          "changed": 15,
+          "corrected": 5,
+          "spoiled": 5,
+          "logLoss": 0.964837,
+          "brier": 0.573779
+        },
+        "team_window": {
+          "hits": 301,
+          "changed": 8,
+          "corrected": 2,
+          "spoiled": 5,
+          "logLoss": 0.966098,
+          "brier": 0.574611
+        },
+        "bounded": {
+          "hits": 305,
+          "changed": 1,
+          "corrected": 1,
+          "spoiled": 0,
+          "logLoss": 0.967574,
+          "brier": 0.575575
+        }
+      }
+    },
+    "season": {
+      "2022-23": {
+        "n": 166,
+        "rolesComplete": 0,
+        "adjusted": 0,
+        "boundApplied": 14,
+        "windowComplete": 136,
+        "windowApplied": 136,
+        "scores": {
+          "base": {
+            "hits": 85,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.981889,
+            "brier": 0.586737
+          },
+          "adjusted": {
+            "hits": 85,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.981889,
+            "brier": 0.586737
+          },
+          "headcount": {
+            "hits": 85,
+            "changed": 7,
+            "corrected": 2,
+            "spoiled": 2,
+            "logLoss": 0.982207,
+            "brier": 0.586723
+          },
+          "team_window": {
+            "hits": 83,
+            "changed": 3,
+            "corrected": 0,
+            "spoiled": 2,
+            "logLoss": 0.98167,
+            "brier": 0.586543
+          },
+          "bounded": {
+            "hits": 85,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.981519,
+            "brier": 0.586608
+          }
+        }
+      },
+      "2023-24": {
+        "n": 201,
+        "rolesComplete": 2,
+        "adjusted": 2,
+        "boundApplied": 28,
+        "windowComplete": 162,
+        "windowApplied": 162,
+        "scores": {
+          "base": {
+            "hits": 113,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.949118,
+            "brier": 0.561785
+          },
+          "adjusted": {
+            "hits": 113,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.949129,
+            "brier": 0.561785
+          },
+          "headcount": {
+            "hits": 113,
+            "changed": 8,
+            "corrected": 3,
+            "spoiled": 3,
+            "logLoss": 0.941952,
+            "brier": 0.557094
+          },
+          "team_window": {
+            "hits": 112,
+            "changed": 5,
+            "corrected": 2,
+            "spoiled": 3,
+            "logLoss": 0.946387,
+            "brier": 0.560396
+          },
+          "bounded": {
+            "hits": 114,
+            "changed": 1,
+            "corrected": 1,
+            "spoiled": 0,
+            "logLoss": 0.949695,
+            "brier": 0.562255
+          }
+        }
+      },
+      "2024-25": {
+        "n": 183,
+        "rolesComplete": 10,
+        "adjusted": 10,
+        "boundApplied": 41,
+        "windowComplete": 89,
+        "windowApplied": 89,
+        "scores": {
+          "base": {
+            "hits": 106,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.97638,
+            "brier": 0.581565
+          },
+          "adjusted": {
+            "hits": 106,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.975582,
+            "brier": 0.5809
+          },
+          "headcount": {
+            "hits": 106,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.974218,
+            "brier": 0.580364
+          },
+          "team_window": {
+            "hits": 106,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.973622,
+            "brier": 0.5794
+          },
+          "bounded": {
+            "hits": 106,
+            "changed": 0,
+            "corrected": 0,
+            "spoiled": 0,
+            "logLoss": 0.974561,
+            "brier": 0.580195
+          }
+        }
+      }
+    },
+    "max24h": {
+      "n": 91,
+      "rolesComplete": 2,
+      "adjusted": 2,
+      "boundApplied": 15,
+      "windowComplete": 55,
+      "windowApplied": 55,
+      "scores": {
+        "base": {
+          "hits": 57,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.943648,
+          "brier": 0.557967
+        },
+        "adjusted": {
+          "hits": 57,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.943752,
+          "brier": 0.558048
+        },
+        "headcount": {
+          "hits": 57,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.93666,
+          "brier": 0.553447
+        },
+        "team_window": {
+          "hits": 56,
+          "changed": 1,
+          "corrected": 0,
+          "spoiled": 1,
+          "logLoss": 0.941239,
+          "brier": 0.556341
+        },
+        "bounded": {
+          "hits": 57,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.942879,
+          "brier": 0.557522
+        }
+      }
+    },
+    "max1h": {
+      "n": 1,
+      "rolesComplete": 0,
+      "adjusted": 0,
+      "boundApplied": 0,
+      "windowComplete": 1,
+      "windowApplied": 1,
+      "scores": {
+        "base": {
+          "hits": 0,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 1.398064,
+          "brier": 0.881066
+        },
+        "adjusted": {
+          "hits": 0,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 1.398064,
+          "brier": 0.881066
+        },
+        "headcount": {
+          "hits": 0,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 1.416782,
+          "brier": 0.901131
+        },
+        "team_window": {
+          "hits": 0,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 1.3991,
+          "brier": 0.882185
+        },
+        "bounded": {
+          "hits": 0,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 1.398064,
+          "brier": 0.881066
+        }
+      }
+    },
+    "acted": {
+      "n": 12,
+      "rolesComplete": 12,
+      "adjusted": 12,
+      "boundApplied": 12,
+      "windowComplete": 12,
+      "windowApplied": 12,
+      "scores": {
+        "base": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.944754,
+          "brier": 0.558015
+        },
+        "adjusted": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.932764,
+          "brier": 0.547879
+        },
+        "headcount": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.93912,
+          "brier": 0.552566
+        },
+        "team_window": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.936672,
+          "brier": 0.550676
+        },
+        "bounded": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.932764,
+          "brier": 0.547879
+        }
+      }
+    },
+    "complete": {
+      "n": 12,
+      "rolesComplete": 12,
+      "adjusted": 12,
+      "boundApplied": 12,
+      "windowComplete": 12,
+      "windowApplied": 12,
+      "scores": {
+        "base": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.944754,
+          "brier": 0.558015
+        },
+        "adjusted": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.932764,
+          "brier": 0.547879
+        },
+        "headcount": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.93912,
+          "brier": 0.552566
+        },
+        "team_window": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.936672,
+          "brier": 0.550676
+        },
+        "bounded": {
+          "hits": 6,
+          "changed": 0,
+          "corrected": 0,
+          "spoiled": 0,
+          "logLoss": 0.932764,
+          "brier": 0.547879
+        }
+      }
+    }
+  },
+  "formAndDraw": {
+    "eng.1": {
+      "base": {
+        "n": 1349,
+        "hits": 726,
+        "logLoss": 0.981763
+      },
+      "strongerForm": {
+        "n": 1349,
+        "hits": 725,
+        "logLoss": 0.983546
+      },
+      "drawPolicy": "off",
+      "fixedOrSelectedAlert": {
+        "n": 32,
+        "draws": 7
+      },
+      "annualAuditPeriods": [
+        {
+          "n": 755,
+          "draws": 175,
+          "alerts": 42,
+          "alertDraws": 11
+        },
+        {
+          "n": 594,
+          "draws": 155,
+          "alerts": 186,
+          "alertDraws": 38
+        }
+      ]
+    },
+    "esp.1": {
+      "base": {
+        "n": 1384,
+        "hits": 735,
+        "logLoss": 0.978318
+      },
+      "strongerForm": {
+        "n": 1384,
+        "hits": 738,
+        "logLoss": 0.981352
+      },
+      "drawPolicy": "off",
+      "fixedOrSelectedAlert": {
+        "n": 169,
+        "draws": 44
+      },
+      "annualAuditPeriods": [
+        {
+          "n": 763,
+          "draws": 201,
+          "alerts": 151,
+          "alertDraws": 39
+        },
+        {
+          "n": 621,
+          "draws": 149,
+          "alerts": 59,
+          "alertDraws": 14
+        }
+      ]
+    },
+    "ita.1": {
+      "base": {
+        "n": 2105,
+        "hits": 1120,
+        "logLoss": 0.980847
+      },
+      "strongerForm": {
+        "n": 2105,
+        "hits": 1113,
+        "logLoss": 0.980565
+      },
+      "drawPolicy": "fixed",
+      "fixedOrSelectedAlert": {
+        "n": 582,
+        "draws": 174
+      },
+      "annualAuditPeriods": [
+        {
+          "n": 1501,
+          "draws": 402,
+          "alerts": 476,
+          "alertDraws": 145
+        },
+        {
+          "n": 604,
+          "draws": 160,
+          "alerts": 187,
+          "alertDraws": 54
+        }
+      ]
+    },
+    "ger.1": {
+      "base": {
+        "n": 1693,
+        "hits": 884,
+        "logLoss": 0.991094
+      },
+      "strongerForm": {
+        "n": 1693,
+        "hits": 873,
+        "logLoss": 0.991454
+      },
+      "drawPolicy": "annual",
+      "fixedOrSelectedAlert": {
+        "n": 376,
+        "draws": 109
+      },
+      "annualAuditPeriods": [
+        {
+          "n": 1201,
+          "draws": 291,
+          "alerts": 258,
+          "alertDraws": 77
+        },
+        {
+          "n": 492,
+          "draws": 123,
+          "alerts": 118,
+          "alertDraws": 32
+        }
+      ]
+    },
+    "fra.1": {
+      "base": {
+        "n": 1134,
+        "hits": 582,
+        "logLoss": 1.000286
+      },
+      "strongerForm": {
+        "n": 1134,
+        "hits": 576,
+        "logLoss": 1.002927
+      },
+      "drawPolicy": "off",
+      "fixedOrSelectedAlert": {
+        "n": 26,
+        "draws": 6
+      },
+      "annualAuditPeriods": [
+        {
+          "n": 637,
+          "draws": 156,
+          "alerts": 105,
+          "alertDraws": 22
+        },
+        {
+          "n": 497,
+          "draws": 112,
+          "alerts": 94,
+          "alertDraws": 30
+        }
+      ]
+    }
+  }
+}

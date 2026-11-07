@@ -79,8 +79,16 @@ function paint(){
   if(target){s.jumped=true;requestAnimationFrame(()=>document.getElementById(location.hash.slice(1))?.scrollIntoView());}
  }
 }
+window.addEventListener('message',event=>{
+ if(parent===window||event.origin!==location.origin||event.source!==parent)return;
+ const data=event.data;
+ if(data?.type!=='basketball-tz-markets'||!Array.isArray(data.markets))return;
+ s.tzMarkets=data.markets;
+ s.tzMessage=typeof data.message==='string'?data.message:'';
+ if(s.info&&s.view==='analysis')paint();
+});
 function showSources(){
- const links=s.info.sources||[];modalBody('<div class="dialog-inner"><button class="close" aria-label="關閉">×</button><span class="dtag">'+s.league+'</span><h2>資料來源</h2><ul class="source-list">'+links.map((url,i)=>'<li>'+link(url,(s.league==='KBL'?['球隊名單','官方賽程','官方排名']:['官方聯盟','官方排名','官方賽程'])[i]||'來源')+'</li>').join('')+(s.league==='NBL'?'<li>'+link('https://schedule.nbl.com.au/nbl','NBL Game Centre')+'</li>':'')+'</ul><p class="dsub">場中每 30 秒重新核對比分。球員場均資料日期顯示於球員頁，盤口及傷停另列各自來源。</p></div>');
+ const links=s.info.sources||[];modalBody('<div class="dialog-inner"><button class="close" aria-label="關閉">×</button><span class="dtag">'+s.league+'</span><h2>資料來源</h2><ul class="source-list">'+links.map((url,i)=>'<li>'+link(url,(s.league==='KBL'?['球隊名單','官方賽程','官方排名']:['官方聯盟','官方排名','官方賽程'])[i]||'來源')+'</li>').join('')+(s.league==='NBL'?'<li>'+link('https://schedule.nbl.com.au/nbl','NBL Game Centre')+'</li>':'')+'</ul><p class="dsub">場中每 30 秒重新核對比分。球員場均資料日期顯示於球員頁，全場盤口採用 TZ。</p></div>');
 }
 function modalBody(html){modal.innerHTML=html;if(!modal.open)modal.showModal();modal.querySelector('.close')?.focus();}
 async function loadLeague(){
@@ -93,7 +101,7 @@ async function loadLeague(){
  const res=await Promise.allSettled(jobs.map(cacheFetch));if(id!==token)return;
  const [people,boxes,cx,frozen,fallback,peopleIndex,teamGames,detailIndex,rankArchive,extra]=res.map(v=>v.value);
  s.detailIndex=detailIndex||{};s.rankArchive=rankArchive||{};s.extras=extra?.teams||people?.formerPlayers||{};s.aliases=extra?.aliases||{};
- s.peopleIndex=peopleIndex||{};s.teamGames=teamGames||[];s.rostersLoaded=!!people;s.rosters=people?.teams||{};s.playerAsOf=people?.asOf||'';s.boxes=boxes||[];s.baseContext=cx||{markets:[],injuries:[]};s.context={...s.baseContext,injuries:s.baseContext.injuries.map(i=>({...i,checkedAt:s.baseContext.checkedAt}))};s.frozen=frozen?.[s.league]||{};s.fallback=fallback||{feeds:{},details:{},rankings:{}};
+ s.peopleIndex=peopleIndex||{};s.teamGames=teamGames||[];s.rostersLoaded=!!people;s.rosters=people?.teams||{};s.playerAsOf=people?.asOf||'';s.boxes=boxes||[];s.baseContext={checkedAt:cx?.checkedAt,injuries:cx?.injuries||[]};s.context={...s.baseContext,injuries:s.baseContext.injuries.map(i=>({...i,checkedAt:s.baseContext.checkedAt}))};s.frozen=frozen?.[s.league]||{};s.fallback=fallback||{feeds:{},details:{},rankings:{}};
  for(const feed of Object.values(s.fallback.feeds||{}))s.all=merge(s.all,feed.games);
  s.all=merge(s.all,s.teamGames.filter(g=>g.season===s.seasonEnd));
 
@@ -206,7 +214,7 @@ async function history(id){
 async function context(id){
  if(Date.now()-contextTime<90000)return;contextTime=Date.now();try{
  const v=await getJson(api('context'),17000);if(id!==token)return;extraContext=v;
- s.context={...s.baseContext,markets:[...(v.markets||[]),...s.baseContext.markets],injuries:[...s.baseContext.injuries.map(i=>({...i,checkedAt:s.baseContext.checkedAt})),...(v.injuries||[])]};
+ s.context={...s.baseContext,injuries:[...s.baseContext.injuries.map(i=>({...i,checkedAt:s.baseContext.checkedAt})),...(v.injuries||[])]};
  s.version++;if(s.view==='analysis')paint();
  }catch{}
 }

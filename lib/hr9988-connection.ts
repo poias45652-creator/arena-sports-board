@@ -1,3 +1,4 @@
+import {regionalTzMarkets} from './regional-tz-markets';
 import {claimSuperSession,releaseSuperSession} from './super-session-lock';
 import {superDeviceEntryUrl,superLaunchIsGet,superLaunchShape} from './super-entry-url';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
@@ -176,6 +177,10 @@ export async function hrConnection(memberId:string|null,db:HrDatabase,secret:str
    // Only the explicit update action may replace an expired session; polling never logs in.
    if(mode!=='connect'||sourceOwner||operationSignal.aborted||!(e instanceof HrError)||e.code!=='source_auth_expired')throw e;
    session=await login();snapshot=await collect(session,sourceFetch);
+  }
+  if(!memberId.startsWith('ofa:')&&['hr9988.net','www.hr9988.net','m.hr9988.net'].includes(new URL(session.origin).hostname)){
+   const previous=sameVersion&&row?.snapshot?JSON.parse(row.snapshot).regionalTzMarkets:undefined;
+   snapshot.regionalTzMarkets=regionalTzMarkets(snapshot,previous);
   }
   const encrypted=await encryptToken(JSON.stringify(session),memberId+':hr9988',key),fetchedAt=Date.parse(snapshot.fetchedAt);
   const saved=await db.prepare('UPDATE hr_connections SET encrypted_session=?,snapshot=?,fetched_at=?,last_error=NULL,error_code=NULL,busy_until=0 WHERE member_id=? AND operation_id=? AND EXISTS (SELECT 1 FROM tz_bindings WHERE member_id=? AND verified_at=? AND expires_at>?) RETURNING operation_id').bind(encrypted,JSON.stringify(snapshot),fetchedAt,memberId,operationId,memberId,binding.verified_at,Date.now()).first();

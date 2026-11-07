@@ -31,3 +31,15 @@ test('the settled ledger counts the latest capture once, including later withdra
  const later={...row,captured_at:'2026-11-01T16:00:00Z',payload:JSON.stringify({probabilities:p,selection:{version:selectionVersion,source:'shots',pick:null,probability:.62}})};
  assert.deepEqual(footballSelectionAudit([later,row]),{evaluated:1,picks:0,hits:0,drawPicks:0,drawHits:0});
 });
+test('精選與傷停校正後的畫面和結算採同一機率',async()=>{
+  const {finalizeDomesticSelection}=await import(moduleUrl('lib/football-shot-selection.ts'));
+  const selection={version:selectionVersion,source:'shots',pick:'home',probability:.72};
+  const base={status:'ready',probabilities:{home:.69,draw:.20,away:.11},selection};
+  assert.equal(finalizeDomesticSelection(base).selection.pick,null);
+  const published={...base,probabilities:{home:.74,draw:.16,away:.10}};
+  assert.equal(finalizeDomesticSelection(published).selection.probability,.74);
+  const xg=finalizeDomesticSelection({...base,selection:undefined,domesticForecast:{shotApplied:true},probabilities:{home:.12,draw:.72,away:.16}},
+    {homeGames:14,awayGames:17,fetchedAt:'2026-11-07T10:00:00Z'});
+  assert.equal(xg.selection.source,'xg');assert.equal(xg.selection.pick,'draw');
+  assert.equal(finalizeDomesticSelection({...published,selection:{...selection,pick:null}}).selection.pick,null);
+});

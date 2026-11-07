@@ -1,3 +1,4 @@
+import {absenceLoad,availabilityAdvantage,pregameEvidence,baseballRunMultiplier,baseballSeasonSignal,evidenceDescription} from './recent-opponents';
 import {BASEBALL_MODEL_NAMES,BASEBALL_FACTOR_LABELS,INNINGS_DEFAULTS,normalizeBaseballWeights,parseBaseballSettings,baseballSettingsForGame,type BaseballModelSettings,type InningWeights,type MultiWeights} from './baseball-model-settings';
 import {pitcherIdentity} from './international-pitcher-identity';
 import {scoreGrid,settle,type Outcome,type Settlement} from './markets';
@@ -59,11 +60,17 @@ export function internationalMultifactor(g:PregameGame,now:number,league:ModelLe
    starterObservedAt:t.starter.source?.observedAt};
  };
  const h=values('home'),a=values('away');
+ const evidence=pregameEvidence(g.matchEvidence,now,start);
+ const reportedLoad=(side:Side)=>{
+  const list=evidence?.absences?.[side];
+  return Array.isArray(list)?absenceLoad(list):null;
+ };
  const factors=Object.entries(weights).map(([key,weight])=>{
-  const home=h[key as keyof typeof h.observed]??null,away=a[key as keyof typeof a.observed]??null;
+  const home=key==='injuries'?reportedLoad('home'):h[key as keyof typeof h.observed]??null;
+  const away=key==='injuries'?reportedLoad('away'):a[key as keyof typeof a.observed]??null;
   const log5=key==='season'&&home!==null&&away!==null?(home-home*away)/(home+away-2*home*away):null;
-  const score=home===null||away===null?null:key==='season'?2*log5!-1:Math.max(-1,Math.min(1,(away-home)/(key==='starterWhip'?.8:4)));
-  return {name:BASEBALL_FACTOR_LABELS[key as keyof MultiWeights],weight,home,away,score,contribution:score===null?0:weight*score/2};
+  const score=home===null||away===null?null:key==='season'?baseballSeasonSignal(2*log5!-1,evidence):key==='injuries'?availabilityAdvantage(evidence):Math.max(-1,Math.min(1,(away-home)/(key==='starterWhip'?.8:4)));
+  return {name:key==='season'&&evidence?.home&&evidence.away?'本季戰績與近期對手強度':BASEBALL_FACTOR_LABELS[key as keyof MultiWeights],weight,home,away,score,contribution:score===null?0:weight*score/2};
  });
  const core=[h.season,a.season,h.starterEra,a.starterEra,h.starterWhip,a.starterWhip].every(n=>n!==null);
  const homeWin=core ? .5+factors.reduce((n,f)=>n+f.contribution,0)/100:null;
@@ -188,8 +195,11 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  }
  if(report.mode==='simulation')report.notes.push('資料不足・模擬推演：替代參數不是投手實測成績；未校準，不代表實際勝率。',...report.assumptions!);
  const a=report.inputs.away!,h=report.inputs.home!;
+ const evidence=pregameEvidence(g.matchEvidence,now,start);
+ if(evidence)for(const side of sides)report.notes.push((side==='home'?'主隊：':'客隊：')+evidenceDescription(evidence,side));
+ if(evidence&&(evidence.home&&evidence.away||availabilityAdvantage(evidence)!==0))report.version+='-recent-availability-v2';
  const cap=league==='KBO'?11:12;
- const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1,personal?.weights.innings)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1,personal?.weights.innings));
+ const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1,personal?.weights.innings)*baseballRunMultiplier(evidence,false)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1,personal?.weights.innings)*baseballRunMultiplier(evidence,true));
  const expected={away:away.slice(0,9).reduce((a,b)=>a+b,0),home:home.slice(0,9).reduce((a,b)=>a+b,0)};
  if(Object.values(expected).some(n=>n<=0||n>15))return stop('預期得分超出可計算範圍');
  const full=scoreDistribution(away,home,league==='CPBL'?.6:0),firstHalf=scoreGrid(away.slice(0,5).reduce((a,b)=>a+b,0),home.slice(0,5).reduce((a,b)=>a+b,0),false);
@@ -205,7 +215,10 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
 }
 
 
-export const validAnalysisVersion=(r:RunAnalysis,league:ModelLeague)=>r.version===MODEL_VERSION[league]&&r.mode!=='simulation'||r.mode==='simulation'&&r.version===MODEL_VERSION[league]+'-simulation-v1';
+export function validAnalysisVersion(r:RunAnalysis,league:ModelLeague){
+ const base=MODEL_VERSION[league]+(r.mode==='simulation'?'-simulation-v1':'');
+ return r.version===base||r.version===base+'-recent-availability-v1'||r.version===base+'-recent-availability-v2';
+}
 // Fallback parameters live only in an analysis report, never in source stats.
 function simulationInput(g:PregameGame,side:Side,now:number,league:ModelLeague,assumptions:string[]):RunModelInput{
  const t=g[side],table=g.comparison,start=analysisStartTime(g.start);

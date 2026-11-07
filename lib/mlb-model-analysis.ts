@@ -1,3 +1,4 @@
+import {baseballRunMultiplier,evidenceDescription,pregameEvidence} from './recent-opponents';
 import {fresh,type Match} from './baseball';
 import {scoreGrid,type RunSnapshot} from './markets';
 import {scoreDistribution} from './baseball-run-analysis';
@@ -11,6 +12,7 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
  if(!data||data.year!==game.season||!Number.isFinite(data.league)||data.league<=0)return null;
  if('version' in weights)weights=baseballSettingsForGame(weights,game.home.id,game.away.id).weights.innings;
  const w=normalizeBaseballWeights(weights,INNINGS_DEFAULTS);if(!w)return null;
+ const evidence=pregameEvidence(game.matchEvidence,Date.now(),Date.parse(game.date));
  const rate=(side:'home'|'away')=>{
   const other=side==='home'?'away':'home',bat=data.rows.find(r=>r.id===game[side].id),pit=data.rows.find(r=>r.id===game[other].id);
   if(!bat||!pit||bat.batGames<20||pit.pitchGames<20)return null;
@@ -20,7 +22,8 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
   // No starter in extra frames. An all-starter setting falls back to a neutral rate.
   const rest=w.offense+w.defense+w.bullpen;
   const extra=rest?(w.offense*offense+w.defense*defense+w.bullpen*data.league)/rest:data.league;
-  return {full,extra};
+  const factor=baseballRunMultiplier(evidence,side==='home');
+  return {full:full*factor,extra:extra*factor};
  };
  const a=rate('away'),h=rate('home');if(!a||!h||[a.full,h.full,a.extra,h.extra].some(n=>!Number.isFinite(n)||n<=0||n>15))return null;
  const inputs=Object.fromEntries((['home','away'] as const).map(side=>{
@@ -34,7 +37,7 @@ export function mlbInningProjection(game:Match,data:RunSnapshot|null,weights:Inn
  if(!regulation.length||!mass)return null;
  const full=regulation.flatMap(o=>o.away===o.home?extra.map(e=>({away:o.away+e.away,home:o.home+Math.min(e.home,e.away+1),p:o.p*e.p/mass})):[o]);
  const half=scoreGrid(a.full*5/9,h.full*5/9,false),homeWin=full.reduce((s,o)=>s+(o.home>o.away?o.p:0),0);
-  return {runs:{away:a.full,home:h.full},inputs,full,half,homeWin,notes:['逐局得分採獨立卜瓦松分布；九局下領先免打、再見比分以超前一分近似。','延長賽採下一個分出勝負的局數近似，未納入突破僵局跑者與中途平手局的累積得分。','牛棚缺少獨立實測 ERA，以本季聯盟得分均值維持中性權重。']};
+  return {runs:{away:a.full,home:h.full},inputs,full,half,homeWin,notes:[...(evidence?[evidenceDescription(evidence,'home'),evidenceDescription(evidence,'away')]:[]),'逐局得分採獨立卜瓦松分布；九局下領先免打、再見比分以超前一分近似。','延長賽採下一個分出勝負的局數近似，未納入突破僵局跑者與中途平手局的累積得分。','牛棚缺少獨立實測 ERA，以本季聯盟得分均值維持中性權重。']};
 }
 export function mlbSelectedWinner(game:Match,report:AnalysisReport|undefined,now:number,scheduleOK:boolean,settings:BaseballModelSettings,market:'moneyline'|'fullGamePk',projection:ReturnType<typeof mlbInningProjection>,runsFresh:boolean):WinnerAnalysis{
  settings=baseballSettingsForGame(settings,game.home.id,game.away.id);
@@ -42,6 +45,6 @@ export function mlbSelectedWinner(game:Match,report:AnalysisReport|undefined,now
  if(settings[market]==='multifactor'||!base.canEstimate)return base;
  if(!projection||!runsFresh)return {...base,homeWin:null,canEstimate:false,canRecommend:false,ready:false,status:'blocked',favoredSide:null,reason:'逐局得分所需的本季得失分資料不足或已過期'};
  const homeWin=projection.homeWin,favoredSide=Math.abs(homeWin-.5)<1e-6?null:homeWin>.5?'home':'away';
- return {...base,version:'mlb-personal-innings-v1',homeWin,favoredSide,canRecommend:favoredSide!==null,ready:false,status:'preliminary',reason:projection.notes.join(' '),factors:[],coverage:100-settings.weights.innings.bullpen,missing:['牛棚獨立實測 ERA']};
+ return {...base,version:game.matchEvidence?'mlb-personal-innings-v1-recent-availability':'mlb-personal-innings-v1',homeWin,favoredSide,canRecommend:favoredSide!==null,ready:false,status:'preliminary',reason:projection.notes.join(' '),factors:[],coverage:100-settings.weights.innings.bullpen,missing:['牛棚獨立實測 ERA']};
 }
 export const mlbRunsFresh=(data:RunSnapshot|null,error:string,now:number)=>!error&&fresh(data?.fetchedAt,now,25*60000);

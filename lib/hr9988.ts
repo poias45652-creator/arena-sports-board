@@ -115,6 +115,13 @@ export function hrFootballSourceCoverage(categories:any[]){
 }
 
 let lastBasketballShapeLoggedAt=0,lastSportPairingLoggedAt=0,lastBaseballShapeLoggedAt=0;
+function basketballLeague(name:string){
+ if(/^NBA\b/i.test(name))return 'NBA';
+ if(/^WNBA\b/i.test(name))return 'WNBA';
+ if(/^(?:澳洲國家籃球聯賽|NBL(?:\s*澳洲(?:國家籃球聯賽|職籃))?)$/i.test(name))return 'NBL';
+ if(/^(?:韓國籃球聯賽|KBL(?:\s*韓國(?:籃球聯賽|職籃))?)$/i.test(name))return 'KBL';
+ return null;
+}
 /** Parse the observed GameDetail shape, without inventing a fetch timestamp. */
 export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnapshot {
  const response=value as any;
@@ -129,7 +136,7 @@ export function parseHrGameDetail(value: unknown, fetchedAt: string): SuperSnaps
    const code=hrMlbCompetition(name)?'MLB':/^(CPBL\b|中華職棒|中華職業棒球)/i.test(name)?'CPBL':/^(NPB\b|日本職棒)/i.test(name)?'NPB':/^(KBO\b|韓國職棒)/i.test(name)?'KBO':null;
    if(code||/棒球|baseball/i.test(String(category.CatName||'')))sourceLeagues.push({name:name.slice(0,100),league:code,games:Array.isArray(league.Team)?league.Team.length:0});
    const europaCategory=Number.isSafeInteger(category.CatID)&&category.CatID>0&&![101,102,888888].includes(category.CatID)&&hrFootballCompetition(String(category.CatName||''))==='uefa.europa';
-   const sport=category.CatID===102?(/^NBA\b/i.test(name)?'NBA':/^WNBA\b/i.test(name)?'WNBA':null):category.CatID===1||category.CatID===31||europaCategory?'FOOTBALL':null;
+   const sport=category.CatID===102?basketballLeague(name):category.CatID===1||category.CatID===31||europaCategory?'FOOTBALL':null;
    const competition=sport==='FOOTBALL'?hrFootballCompetition(name):null;
    if(!code&&!sport)continue;
    if(!Array.isArray(league.Team))throw new Error('SUPER MLB 賽事格式改變');

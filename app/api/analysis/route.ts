@@ -38,7 +38,12 @@ export async function POST(request:Request){
   else {let task=pending.get(id);if(!task){task=build(id).finally(()=>pending.delete(id));pending.set(id,task);}report=await task;if(reports.size>=40)reports.delete(reports.keys().next().value!);reports.set(id,{until:Date.now()+60000,data:report});}
   let storage:AnalysisReport['storage']={saved:false,reason:'已到開賽時間'};
   if(isPregame(report.game,Date.now())){
-   try{const db=getRawDb(),slot=Math.floor(Date.parse(report.capturedAt)/300000);await db.prepare('INSERT INTO analysis_snapshots (id,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET start_time=excluded.start_time,captured_at=excluded.captured_at,version=excluded.version,payload=excluded.payload WHERE excluded.captured_at>analysis_snapshots.captured_at').bind(`${id}:${slot}`,id,report.game.date,report.capturedAt,report.version,JSON.stringify(report)).run();const winner=winnerAnalysis(report.game,report,Date.parse(report.capturedAt),true);if(winner.canRecommend&&winner.homeWin!==null)await saveDailyForecast(db,'MLB',report.game,{home:winner.homeWin,away:1-winner.homeWin},report.capturedAt,winner.version);storage={saved:true};}
+   try{const db=getRawDb(),slot=Math.floor(Date.parse(report.capturedAt)/300000);await db.prepare('INSERT INTO analysis_snapshots (id,game_id,start_time,captured_at,version,payload) VALUES (?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET start_time=excluded.start_time,captured_at=excluded.captured_at,version=excluded.version,payload=excluded.payload WHERE excluded.captured_at>analysis_snapshots.captured_at').bind(`${id}:${slot}`,id,report.game.date,report.capturedAt,report.version,JSON.stringify(report)).run();const winner=winnerAnalysis(report.game,report,Date.parse(report.capturedAt),true);if(winner.canRecommend&&winner.homeWin!==null){
+     const injury=winner.factors.find(f=>f.name==='傷兵影響'),list=report.game.matchEvidence?.absences;
+     const pair=injury&&injury.score!==null&&list?.home&&list.away
+       ?{beforeHome:winner.homeWin-injury.contribution/100,reports:list.home.length+list.away.length}:undefined;
+     await saveDailyForecast(db,'MLB',report.game,{home:winner.homeWin,away:1-winner.homeWin},report.capturedAt,winner.version,pair);
+   }storage={saved:true};}
    catch{storage={saved:false,reason:'分析已完成，但雲端紀錄儲存失敗，稍後重試'};}
   }
   return Response.json({...report,storage},{headers:{'Cache-Control':'no-store'}});

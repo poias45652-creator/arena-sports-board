@@ -1,0 +1,77 @@
+{
+  "eng.1": {
+    "featuredEnabled": true,
+    "early": {
+      "n": 755,
+      "hits": 393,
+      "featured": 119,
+      "featuredHits": 86
+    },
+    "recent": {
+      "n": 594,
+      "hits": 297,
+      "featured": 58,
+      "featuredHits": 40
+    }
+  },
+  "esp.1": {
+    "featuredEnabled": true,
+    "early": {
+      "n": 758,
+      "hits": 384,
+      "featured": 96,
+      "featuredHits": 74
+    },
+    "recent": {
+      "n": 621,
+      "hits": 321,
+      "featured": 94,
+      "featuredHits": 73
+    }
+  },
+  "ita.1": {
+    "featuredEnabled": true,
+    "early": {
+      "n": 759,
+      "hits": 374,
+      "featured": 87,
+      "featuredHits": 60
+    },
+    "recent": {
+      "n": 604,
+      "hits": 316,
+      "featured": 52,
+      "featuredHits": 36
+    }
+  },
+  "ger.1": {
+    "featuredEnabled": true,
+    "early": {
+      "n": 592,
+      "hits": 297,
+      "featured": 118,
+      "featuredHits": 81
+    },
+    "recent": {
+      "n": 492,
+      "hits": 242,
+      "featured": 78,
+      "featuredHits": 54
+    }
+  },
+  "fra.1": {
+    "featuredEnabled": true,
+    "early": {
+      "n": 637,
+      "hits": 322,
+      "featured": 58,
+      "featuredHits": 39
+    },
+    "recent": {
+      "n": 496,
+      "hits": 249,
+      "featured": 65,
+      "featuredHits": 40
+    }
+  }
+}

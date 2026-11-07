@@ -50,6 +50,18 @@ export function applyShotSelection(game:FootballGame, base:FootballAnalysis, cal
       '勝和負、大小球與比分取自同一個90分鐘比分分布。此分支未使用實測 xG、傷停名單或賠率。']};
 }
 
+// The card and the settlement ledger must use the probability after the site's existing form and injury corrections.
+export function finalizeDomesticSelection(analysis:FootballAnalysis, xg?:{homeGames:number;awayGames:number;fetchedAt:string}):FootballAnalysis {
+  if(!analysis.probabilities || analysis.status!=='ready') return analysis;
+  if(xg && analysis.domesticForecast?.shotApplied) {
+    return {...analysis,selection:{version:selectionVersion,source:'xg',homeGames:xg.homeGames,awayGames:xg.awayGames,
+      sourceFetchedAt:xg.fetchedAt,...leader(analysis.probabilities)}};
+  }
+  const previous=analysis.selection;
+  if(!previous || (previous.source==='shots' && previous.pick===null)) return analysis;
+  return {...analysis,selection:{...previous,...leader(analysis.probabilities)}};
+}
+
 export async function selectDomesticForecast(game:FootballGame, base:FootballAnalysis, read:Source, existing?:{shotCalendars?:ShotCalendar[];fetchedAt:string}|null):Promise<FootballAnalysis> {
   const now=Date.now();
   if (!isShotLeague(game.league) || game.neutral || base.status!=='ready' || !base.probabilities ||

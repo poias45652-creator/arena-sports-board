@@ -28,8 +28,14 @@ export const isFootballClubCup=(league:string)=>league==='uefa.champions'||leagu
 export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysis:FootballAnalysis|undefined){
   return isFootballClubCup(game.league)&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
 }
-export type FootballAnalysis = {
-  selection?:import('./football-shot-selection').FootballSelection;
+export type FootballProbabilities={home:number;draw:number;away:number;over25:number;under25:number;btts:number};
+export type FootballContextForecast={
+  baseline:FootballProbabilities; formOnly:FootballProbabilities;
+  formPolicy:'base'|'recent'; injuryCoverage:'both'|'partial'|'none'; injuryShiftApplied:boolean;
+};
+export type DomesticForecast={policy:'five-league-v1'; scoreFallback:boolean;featured:boolean; drawRisk:boolean; shotApplied:boolean;
+  beforeShots:FootballProbabilities; afterShots:FootballProbabilities; partialRoleTrial?:FootballProbabilities; shotGames?:{home:number;away:number}};
+export type FootballAnalysis = {selection?:import('./football-shot-selection').FootballSelection;domesticForecast?:DomesticForecast;contextForecast?:FootballContextForecast;matchEvidence?:import('./recent-opponents').MatchEvidence;
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
   calibration?:FootballCalibrationStatus;
   quality?:{label:string;warnings:string[];historyConflicts:number;archiveSupplementGames:number};
@@ -39,7 +45,7 @@ export type FootballAnalysis = {
   xgEvidence?:import('./football-cup-xg-source').CupXgEvidence;
   cupAdjustment?:{priorGames:number;opponentWeight:number;blend:number;homeEffectiveGames:number;awayEffectiveGames:number;homeReliability:number;awayReliability:number};
   scoreDistribution?:{home:number;away:number;rho:number;scores:{home:number;away:number;probability:number}[]};
-  expected?:{home:number;away:number};probabilities?:{home:number;draw:number;away:number;over25:number;under25:number;btts:number};
+  expected?:{home:number;away:number};probabilities?:FootballProbabilities;
   scores?:{home:number;away:number;probability:number}[];lean?:string;notes:string[];
 };
 const TEAM_NAMES:Record<string,string> = {

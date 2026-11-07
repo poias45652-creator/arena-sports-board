@@ -1,8 +1,9 @@
+import {regionalTeams,type RegionalLeague} from './regional-basketball-names';
 import {NBA_TEAMS} from './nba';
 import {WNBA_TEAMS} from './wnba';
 import {FOOTBALL_TEAM_NAMES,footballTeamName} from './football';
 import {cleanTeamName,teamNameResolver} from './team-name-identity';
-export type MarketSport='NBA'|'WNBA'|'FOOTBALL';
+export type MarketSport='NBA'|'WNBA'|'FOOTBALL'|RegionalLeague;
 const aliases:Record<string,string>={'聖馬力諾':'聖馬利諾','意大利':'義大利','格魯吉亞':'喬治亞','克羅地亞':'克羅埃西亞','斯洛文尼亞':'斯洛維尼亞','北馬其頓共和國':'北馬其頓','波黑':'波士尼亞與赫塞哥維納','黑山':'蒙特內哥羅','塞浦路斯':'賽普勒斯','法羅群島':'法羅群島','多蒙特':'多特蒙德','利華古遜':'勒沃庫森','阿仙奴':'阿森納','車路士':'切爾西','愛華頓':'艾佛頓','紐卡素':'紐卡索聯','阿士東維拉':'阿斯頓維拉','白禮頓':'布萊頓','富咸':'富勒姆','賓福特':'布倫特福德','韋斯咸':'西漢姆聯','列斯聯':'里茲聯','般尼':'伯恩利','新特蘭':'桑德蘭','巴塞羅那':'巴塞隆納','皇家貝蒂斯':'皇家貝提斯','維拉利爾':'比利亞雷亞爾','切爾達':'塞爾塔','祖雲達斯':'尤文圖斯','拿玻里':'拿坡里','費倫天拿':'佛羅倫斯','博洛尼亞':'波隆那','烏甸尼斯':'烏迪內斯','萊比錫':'RB萊比錫','慕遜加柏':'門興','弗賴堡':'弗萊堡','巴黎聖日門':'巴黎聖日耳曼'};
 // Whole-name identities observed in the supplied October 2/3 SUPER responses.
 // These additions apply only to football, never youth/women suffixes or basketball.
@@ -47,8 +48,10 @@ const nbaAliases:Record<string,string>={'費城76人':'費城七六人','曼斐�
 // SUPER appends (女) to WNBA names. Map only registered full team names in
 // this league; never strip women/youth qualifiers from other competitions.
 const wnbaAliases=new Map(WNBA_TEAMS.map(team=>[`${team.name}(女)`,team.name]));
-export const registeredNames:Record<MarketSport,ReadonlySet<string>>={NBA:new Set(NBA_TEAMS.map(t=>t.name)),WNBA:new Set(WNBA_TEAMS.map(t=>t.name)),FOOTBALL:new Set(FOOTBALL_TEAM_NAMES)};
+export const registeredNames:Record<MarketSport,ReadonlySet<string>>={NBL:new Set(Object.keys(regionalTeams.NBL)),KBL:new Set(Object.keys(regionalTeams.KBL)),NBA:new Set(NBA_TEAMS.map(t=>t.name)),WNBA:new Set(WNBA_TEAMS.map(t=>t.name)),FOOTBALL:new Set(FOOTBALL_TEAM_NAMES)};
+const regionalResolver=(league:RegionalLeague)=>teamNameResolver(Object.entries(regionalTeams[league]).flatMap(([code,names])=>names.map(name=>[name,code] as const)));
 const sportResolvers={
+ NBL:regionalResolver('NBL'),KBL:regionalResolver('KBL'),
  NBA:teamNameResolver([...NBA_TEAMS.map(t=>[t.name,t.name] as const),...Object.entries(nbaAliases)]),
  WNBA:teamNameResolver([...WNBA_TEAMS.map(t=>[t.name,t.name] as const),...wnbaAliases.entries()]),
  FOOTBALL:teamNameResolver([...FOOTBALL_TEAM_NAMES.map(name=>[name,name] as const),...Object.entries(aliases),...Object.entries(footballAliases)]),

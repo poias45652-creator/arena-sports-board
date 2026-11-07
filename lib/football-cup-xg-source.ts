@@ -5,6 +5,9 @@ const DAY=86400000;
 type Row=[string,string,string,string,string,number,number,number,number,boolean,string,string,string,boolean];
 const rows=seed.rows as Row[];
 const identities=seed.identities as Record<string,{espnId:string;canonicalId:string}>;
+export function reviewedFotmobTeamId(id:number){
+ return identities['fotmob:'+id]?.espnId;
+}
 const canonical=new Map(Object.values(identities).map(t=>[t.espnId,t.canonicalId]));
 const NATIONAL=new Set(['uefa.nations','uefa.euro','uefa.euroq','fifa.world','fifa.worldq.uefa']);
 export type CupXgEvidence={sources:string[];sourceUpdatedAt:string;stale:boolean;modelApplied:false;home:{games:number;for:number|null;against:number|null;latest:string|null};away:{games:number;for:number|null;against:number|null;latest:string|null}};
