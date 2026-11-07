@@ -16,7 +16,8 @@ import {parseLiveGame,mergeLiveGame} from '@/lib/live-game';
 import {parseLineups,parseBullpen} from '@/lib/rotowire';
 import { validateCollectorSnapshot } from '@/lib/pinnacle';
 import { parseRuns } from '@/lib/markets';
-import { parseStats, shiftDay, taipeiDay, isMlbPostseason, type Kind } from '@/lib/baseball';
+import { parseStats, shiftDay, taipeiDay, isPregame, isMlbPostseason, type Kind } from '@/lib/baseball';
+import {attachMlbEvidence} from '@/lib/baseball-match-context';
 import {parseMlbSchedule,withMlbSeasonRecords} from '@/lib/mlb-schedule';
 export const dynamic='force-dynamic';
 const cache=new Map<string,{data:unknown;expires:number}>();
@@ -153,6 +154,7 @@ export async function GET(request:Request){
         const source=`https://statsapi.mlb.com/api/v1/schedule?sportId=1&startDate=${shiftDay(day,-1)}&endDate=${shiftDay(day,7)}&hydrate=team,probablePitcher`;
         const r=await fetch(source,{signal:AbortSignal.timeout(12000)});if(!r.ok)throw new Error(`賽程來源回覆 ${r.status}`);const json=await r.json();if(!Array.isArray(json.dates))throw new Error('賽程格式錯誤');
         let games=parseMlbSchedule(json);
+        const evidence=games.some(g=>isPregame(g,Date.now()))?attachMlbEvidence(games):null;
         await Promise.all([...new Set(games.filter(g=>isMlbPostseason(g.gameType)).map(g=>g.season))].map(async season=>{
           try{
             const raw=await cached(`postseason-records:${season}`,5*60000,async()=>{
@@ -183,6 +185,10 @@ export async function GET(request:Request){
             // Missing pitching rates must not suppress the schedule or substitute another pitcher.
           }
         }));
+        if(evidence){
+          const contexts=new Map((await evidence).map(g=>[g.id,g.matchEvidence]));
+          games=games.map(g=>({...g,matchEvidence:contexts.get(g.id)}));
+        }
         return {games,fetchedAt:new Date().toISOString(),source};
       });return Response.json(data,{headers:{'Cache-Control':'no-store'}});
     }

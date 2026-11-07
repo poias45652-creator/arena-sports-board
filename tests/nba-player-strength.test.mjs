@@ -82,3 +82,14 @@ test('saved NBA weights validate the schema and safely recover corrupt or unusab
  assert.deepEqual(s.readNbaWeights(s.writeNbaWeights([80,10,5,5,0])),[80,10,5,5,0]);
  for(const raw of [null,'{','{}','null','{"version":2,"weights":[80,10,5,5,0]}',...[[0,0,0,0,0],[101,0,0,0,0],[20,20],['20',20,20,20,20]].map(weights=>JSON.stringify({version:1,weights}))])assert.deepEqual(s.readNbaWeights(raw),[20,20,20,20,20]);
 });
+test('recent margin and rated opposition reach the final player-adjusted probability',()=>{
+ const rated=Object.entries(snapshot.teams).filter(([,t])=>t.games>=8).sort(([,a],[,b])=>a.net-b.net);
+ const weak=rated[0][0],strong=rated.at(-1)[0];
+ const results=(opponent,margin)=>Array.from({length:4},()=>({opponent,margin}));
+ const run=(opponent,margin)=>m.applyPlayerStrength(game,{...base,recentResults:{home:results(opponent,margin),away:results(weak,0)}},home,away,now);
+ const low=run(weak,1),difficult=run(strong,1);
+ assert.ok(difficult.probabilities.home>low.probabilities.home);
+ assert.ok(run(strong,4).probabilities.home>difficult.probabilities.home);
+ assert.equal(difficult.playerContext.calibrated,false);
+ assert.deepEqual(difficult.playerContext.recentOpponentGames,{home:4,away:4});
+});

@@ -1,4 +1,5 @@
 'use client';
+import {evidenceDescription} from '@/lib/recent-opponents';
 import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
@@ -162,6 +163,10 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
     {a?<>
       <div className="football-analysis-title"><strong>{a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
       <FootballAnalysisNumbers analysis={a}/>
+      {a.matchEvidence&&<details className="px-4 py-2 text-sm"><summary>近期對手與傷停</summary>
+        {(['home','away'] as const).map(side=><p className="my-2" key={side}><strong>{game[side].name}</strong>　{evidenceDescription(a.matchEvidence!,side)}</p>)}
+        {a.matchEvidence.absences&&<a href={a.matchEvidence.absences.source} target="_blank" rel="noreferrer">查看本場傷情報告</a>}
+      </details>}
     </>:(eligible||retainFootballForecast(game,now))?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
     {eligible&&<SportMarkets game={game} analysis={a} analysisState={presentation.state} analysisMessage={presentation.message} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} errorCode={oddsErrorCode} sport="FOOTBALL" now={now}/>}
   </article>;

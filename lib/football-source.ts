@@ -1,3 +1,4 @@
+import {footballAbsences,withFootballMatchContext} from './football-match-context';
 import type {FootballModelSettings} from './football-model-weights';
 import {loadNationalFootballPool} from './football-national-source';
 import {attachCupXgEvidence} from './football-cup-xg-source';
@@ -75,8 +76,11 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   if(game.state!=='scheduled'||!game.timeConfirmed||Date.parse(game.start)<=Date.now())return {game,analysis:analyzeFootball(game,[]),sourceFetchedAt:schedule.fetchedAt};
   if(isFootballNationalCompetition(league))return nationalGameAnalysis(game,settings);
   const model=settings?.model||'auto',marketActive=(model==='auto'||model==='score')&&!!selectFootballMarketModel(league);
+  const injuries=footballAbsences(game);
   const marketRequest=marketActive?loadFootballMarketContext(league).catch(()=>null):Promise.resolve(null);
   const externalRequest=!marketActive&&(model==='auto'||model==='elo')?loadExternalFootballContext(league).catch(()=>null):Promise.resolve(null);
+  const seasonPool=marketActive?null:source(league+'/scoreboard?dates='+new Date().getUTCFullYear()+'&limit=1000',30*60000)
+    .then(r=>parseFootballEvents(r.value,league)).catch(()=>[]);
   const years=[game.season,game.season-1];
   const requests=[game.home.id,game.away.id].flatMap(team=>years.map(year=>({team,year})));
   const results=await Promise.allSettled(requests.map(async({team,year})=>{
@@ -126,10 +130,14 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   if((model==='elo'&&!analysis.external?.modelApplied)||(model==='score'&&analysis.external?.modelFamily!=='score-market')||(model==='calibrated'&&analysis.calibration?.status!=='applied')){
     analysis={...analysis,status:'waiting',reason:'此場缺少所選模型所需的資料，可改回依來源自動選模。'};delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.scoreDistribution;delete analysis.lean;
   }
+  const pool=market?.history||await seasonPool||[];
+  const contextHistory=reconcileFootballHistory([...pool,...merged.games.filter(g=>g.league===league)],[]).games;
+  analysis=withFootballMatchContext(game,analysis,contextHistory,await injuries);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 
 async function nationalGameAnalysis(game:FootballGame,settings?:FootballModelSettings){
+  const injuries=footballAbsences(game);
   const poolRequest=loadNationalFootballPool();
   // National competitions span multi-year cycles. Request both calendar years
   // together and preserve each event's competition; do not load club xG models.
@@ -163,6 +171,7 @@ async function nationalGameAnalysis(game:FootballGame,settings?:FootballModelSet
     delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.lean;
   }
   analysis.quality={label:warnings.length?'資料有限':'國家隊正式賽果完整',warnings,historyConflicts:merged.conflicts,archiveSupplementGames:0};
+  analysis=withFootballMatchContext(game,analysis,reconcileFootballHistory(merged.games,pool?.games||[]).games,await injuries);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:success.map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:null};
 }
 

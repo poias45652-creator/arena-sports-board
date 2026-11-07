@@ -14,7 +14,7 @@ export type PregameSide = {
  retainedSource?:PregameGame['source'];
  lineup?:{name:string;order:number|null;position:string|null}[];
 };
-export type PregameGame = {
+export type PregameGame = {matchEvidence?:import('./recent-opponents').MatchEvidence;
  id:string;league:string;date:string;start:string;away:PregameSide;home:PregameSide;
  source:{name:string;url:string;observedAt:string;publishedAt:string|null;sourceTitle:string;contentSha256:string};
  kind:string;liveVerified:boolean;comparison?:SourceTable;seasonPhase?:'REGULAR_SEASON'|'POSTSEASON';

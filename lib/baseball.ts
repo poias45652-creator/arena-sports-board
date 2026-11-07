@@ -19,7 +19,7 @@ export function parseStats(text:string,kind:Kind):StatRow[]{
   if(!result.length)throw new Error('來源沒有有效資料');return result;
 }
 export type TeamSide={id:number;name:string;wins:number|null;losses:number|null;pitcherId:number|null;pitcherName:string;pitcherEra?:number|null;pitcherWhip?:number|null;pitcherOuts?:number|null};
-export type Match={id:number;date:string;season:number;gameType:string;state:string;status:string;startTimeTBD:boolean;doubleHeader?:string;gameNumber?:number;away:TeamSide;home:TeamSide};
+export type Match={matchEvidence?:import('./recent-opponents').MatchEvidence;id:number;date:string;season:number;gameType:string;state:string;status:string;startTimeTBD:boolean;doubleHeader?:string;gameNumber?:number;away:TeamSide;home:TeamSide};
 export type Schedule={games:Match[];fetchedAt:string;source:string};
 export function doubleheaderLabel(g:Pick<Match,'doubleHeader'|'gameNumber'>):'G1'|'G2'|null {
   if(g.doubleHeader!=='Y'&&g.doubleHeader!=='S')return null;

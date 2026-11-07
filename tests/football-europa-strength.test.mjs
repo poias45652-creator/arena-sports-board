@@ -41,6 +41,7 @@ test('all 18 captured Europa fixtures pass through the production source adapter
  const RealDate=Date;globalThis.Date=class extends RealDate{constructor(...args){super(...(args.length?args:[now]));}static now(){return now;}};
  t.after(()=>{globalThis.Date=RealDate;});
  const paths=[];t.mock.method(globalThis,'fetch',async value=>{
+  if(String(value).startsWith('https://www.fotmob.com/api/data/matches?'))return Response.json({leagues:[]});
   const path=String(value).split('/soccer/')[1];paths.push(path);
   const key=path.replace(/&limit=100$/,'&limit=1000');
   const source=capture.sources.find(s=>s.path===path||s.path===key);

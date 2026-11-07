@@ -18,6 +18,9 @@ import cpblSeason from '@/data/cpbl-pitcher-supplement-20260919.json';
 import {applyCpblPitcherReview} from './cpbl-reviewed-pitcher';
 import {supplementCpblPitchers} from './cpbl-pitcher-supplement';
 import {supplementKboTeamRuns} from './kbo-team-runs';
+import {attachInternationalEvidence} from './baseball-match-context';
+import {collectProfileGames} from './international-profile-source';
+import {cachedMatchSource} from './match-source-cache';
 import {getKboRunHistory} from './kbo-run-history';
 import {applyKboPitcherReview} from './kbo-reviewed-pitcher';
 import {getCpblGameLogs} from './cpbl-game-logs-store';
@@ -47,6 +50,10 @@ export async function getStoredInternationalPregame(league:string,date:string){
  return stored?storedPregameResponse(league,date,stored.payload):null;
 }
 
+const seasonResults=cachedMatchSource(async key=>{
+ const [league,year]=key.split(':');
+ return collectProfileGames(league as 'NPB'|'CPBL',Number(year));
+},15*60000);
 const pending=new Map<string,Promise<any>>(),cache=new Map<string,{until:number;data:any}>();
 export async function getInternationalPregame(league:string,date=dayInTaipei()){
  if(!['CPBL','NPB','KBO'].includes(league)||!/^\d{4}-\d{2}-\d{2}$/.test(date))throw Error('Invalid league/date');
@@ -72,6 +79,9 @@ export async function getInternationalPregame(league:string,date=dayInTaipei()){
   const backup=backupTeams.length?await collectNpbSeasonBackup(date,backupTeams):{rows:[],bullpens:[],teamRuns:[],errors:[]};
   if(backup.rows.length)pregame=supplementSeasonPitching(pregame,backup);
   if(backup.bullpens.length||backup.teamRuns.length)pregame=supplementBullpens(pregame,{rows:backup.bullpens,teamRuns:backup.teamRuns});
+  if(pregame.games.some(g=>Date.parse(g.start.replace(' ','T')+'+08:00')>Date.now())){
+   pregame=await attachInternationalEvidence(pregame,kboHistory?Promise.resolve(kboHistory):seasonResults(league+':'+pregame.season));
+  }
   if(pregame.games.length||pregame.excludedFixtures?.length)try{
    await getRawDb().prepare(`INSERT INTO baseball_pregame (key,league,date,observed_at,payload) VALUES (?,?,?,?,?)
     ON CONFLICT(key) DO UPDATE SET observed_at=excluded.observed_at,payload=excluded.payload WHERE excluded.observed_at>=baseball_pregame.observed_at`)

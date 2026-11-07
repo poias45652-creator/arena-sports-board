@@ -2,7 +2,7 @@ import {buildRunAnalysis,analysisFixtureKey,analysisStartTime,isModelLeague,type
 import {internationalTeam} from './international-teams';
 import type {PregameData} from './international-pregame';
 
-export type ForecastSnapshot={id:string;league:ModelLeague;fixtureKey:string;date:string;startTime:string;capturedAt:string;version:string;payload:{schemaVersion:1;league:ModelLeague;fixtureKey:string;date:string;startTime:string;capturedAt:string;version:string;fixture:{away:string;home:string;starters?:{away?:string;home?:string}};win:{away:number;home:number;draw:number};expectedFinal:{away:number;home:number};inputs:Partial<Record<'away'|'home',RunModelInput>>;sources:{name:string;url:string;observedAt:string}[]}};
+export type ForecastSnapshot={id:string;league:ModelLeague;fixtureKey:string;date:string;startTime:string;capturedAt:string;version:string;payload:{schemaVersion:1;league:ModelLeague;fixtureKey:string;date:string;startTime:string;capturedAt:string;version:string;fixture:{away:string;home:string;starters?:{away?:string;home?:string}};win:{away:number;home:number;draw:number};expectedFinal:{away:number;home:number};matchEvidence?:import('./recent-opponents').MatchEvidence;inputs:Partial<Record<'away'|'home',RunModelInput>>;sources:{name:string;url:string;observedAt:string}[]}};
 export type AuditFinal={key:string;league:ModelLeague;date:string;startTime:string;away:string;home:string;awayScore:number;homeScore:number;observedAt:string};
 const validWin=(win:any)=>win&&['away','home','draw'].every(k=>typeof win[k]==='number'&&Number.isFinite(win[k])&&win[k]>=0&&win[k]<=1)&&Math.abs(win.away+win.home+win.draw-1)<1e-8;
 export function createForecastSnapshots(data:PregameData,now=Date.now()):ForecastSnapshot[]{
@@ -17,7 +17,7 @@ export function createForecastSnapshots(data:PregameData,now=Date.now()):Forecas
   const expectedFinal=r.grids.full.reduce((n,o)=>({away:n.away+o.away*o.p,home:n.home+o.home*o.p}),{away:0,home:0});
   const sources=[g.source,...(g.comparisonSource?[g.comparisonSource]:[])];
   for(const side of ['away','home'] as const){const t=g[side];if(t.starter.source)sources.push({...g.source,...t.starter.source});if(t.gameLogs)sources.push({...g.source,name:'逐場比賽日誌',url:t.gameLogs.sourceUrl,observedAt:t.gameLogs.observedAt});}
-  const payload:ForecastSnapshot['payload']={schemaVersion:1,league,fixtureKey,date:g.date,startTime,capturedAt,version:r.version,fixture:r.fixture,win:r.win!,expectedFinal,inputs:r.inputs,sources:sources.map(s=>({name:s.name,url:s.url,observedAt:s.observedAt}))};
+  const payload:ForecastSnapshot['payload']={schemaVersion:1,league,fixtureKey,date:g.date,startTime,capturedAt,version:r.version,fixture:r.fixture,win:r.win!,expectedFinal,matchEvidence:g.matchEvidence,inputs:r.inputs,sources:sources.map(s=>({name:s.name,url:s.url,observedAt:s.observedAt}))};
   return [{id,league,fixtureKey,date:g.date,startTime,capturedAt,version:r.version,payload}];
  });
 }

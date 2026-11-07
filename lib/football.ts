@@ -28,7 +28,7 @@ export const isFootballClubCup=(league:string)=>league==='uefa.champions'||leagu
 export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysis:FootballAnalysis|undefined){
   return isFootballClubCup(game.league)&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
 }
-export type FootballAnalysis = {
+export type FootballAnalysis = {matchEvidence?:import('./recent-opponents').MatchEvidence;
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
   calibration?:FootballCalibrationStatus;
   quality?:{label:string;warnings:string[];historyConflicts:number;archiveSupplementGames:number};
