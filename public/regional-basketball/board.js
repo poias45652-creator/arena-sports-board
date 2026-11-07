@@ -3,9 +3,9 @@ import {$,e,shift,today,validDay,key,stamp,timeTW,readStore,writeStore,getJson,t
 import {assistantPanel} from './assistant.js';
 import {overview,liveCenter} from './live-ui.js';
 import {teamProfile,playerProfile,teams,standings} from './profiles.js';
-import {analysis,weightsForm,storeWeights} from './analysis-ui.js';
-const nav={overview:'概覽',live:'即時比分',analysis:'賽前分析・串關',standings:'戰績排名',teams:'球隊一覽'};
-const s={projections:new Map(),saved:{},legs:new Set(),version:0,boxSide:'away',boxMore:false,playPeriod:'all',playLimit:60,filter:'all',asyncId:0,detailBusy:false};
+import {analysis,weightsForm,storeWeights,singleGameRecommendations} from './analysis-ui.js';
+const nav={overview:'概覽',live:'即時比分',analysis:'賽前分析',standings:'戰績排名',teams:'球隊一覽'};
+const s={projections:new Map(),saved:{},version:0,boxSide:'away',boxMore:false,playPeriod:'all',playLimit:60,filter:'all',asyncId:0,detailBusy:false};
 const memo=new Map(),cacheFetch=(url)=>{if(!memo.has(url))memo.set(url,getJson(url).catch(err=>{memo.delete(url);throw err}));return memo.get(url);};
 const api=(kind,params={})=>'/api/regional-basketball/'+kind+'?'+new URLSearchParams({league:s.league,...params});
 let token=0,refreshToken=0,detailsToken=0,rankToken=0,contextTime=0,historyTime=0,extraContext=null;
@@ -70,7 +70,8 @@ function paint(){
  const pane=$('content'),open=new Set([...pane.querySelectorAll('details[open][data-persist]')].map(x=>x.dataset.persist));
  const scrolls=new Map([...pane.querySelectorAll('[data-scroll]')].map(x=>[x.dataset.scroll,x.scrollLeft]));
  pane.innerHTML=toolbar()+(!s.teamCode&&s.notice?'<div class="message" role="status">'+e(s.notice)+'</div>':'')+body;
- publishRecommendations(s);
+ const showPicks=s.view==='analysis'&&!s.teamCode&&!s.playerId&&s.visible.length>0;
+ publishRecommendations(s.date,showPicks,showPicks?singleGameRecommendations(s):[]);
  for(const el of pane.querySelectorAll('details[data-persist]'))el.open=open.has(el.dataset.persist);
  for(const el of pane.querySelectorAll('[data-scroll]'))el.scrollLeft=scrolls.get(el.dataset.scroll)||0;
  if(location.hash&&!s.jumped&&s.rostersLoaded){
@@ -86,7 +87,7 @@ async function loadLeague(){
  const id=++token;++refreshToken;++detailsToken;++rankToken;
  s.busy=true;s.fallback=null;s.info=s.catalog[s.league];const lc=s.league.toLowerCase();
  s.seasonEnd=Number(s.info.season.slice(0,4))+(s.league==='WNBA'?0:1);s.rankSeason=s.rankSeason||s.seasonEnd;s.currentRanking=s.info.standings;s.ranking=s.currentRanking;s.rankSource=s.info.sources[s.league==='KBL'?2:1];s.rankLabel='已保存排名';s.rankNote='';s.rankSeries=[];s.rankBusy=false;s.detail=null;s.detailBusy=false;s.detailError=false;s.detailKey='';s.isLive=false;s.notice='';
- s.all=[...s.info.games];s.rosterTimes={};s.rosterTimestamps={};s.playerTimes={};s.peopleIndex={};s.playerFiles={};s.playerFileLoading=new Set();s.teamGames=[];s.extras={};s.aliases={};s.rankArchive={};s.detailIndex={};s.jumped=false;s.activeRosterSeason=s.info.season;s.rostersLoaded=false;s.rosters={};s.boxes=[];s.context={markets:[],injuries:[]};s.frozen={};s.busy=true;s.asOf=s.info.asOf?.length>10?s.info.asOf:'2026-11-07T00:00:00+08:00';s.archiveDate=s.all.some(g=>g.date===s.date);s.baseAsOf=s.asOf;s.baseRankAsOf=s.info.standingsThrough||s.asOf;s.projections.clear();s.legs.clear();s.teamCode=teamFor(s,s.teamCode)?s.teamCode:'';s.boxMore=false;s.version++;contextTime=0;historyTime=0;extraContext=null;
+ s.all=[...s.info.games];s.rosterTimes={};s.rosterTimestamps={};s.playerTimes={};s.peopleIndex={};s.playerFiles={};s.playerFileLoading=new Set();s.teamGames=[];s.extras={};s.aliases={};s.rankArchive={};s.detailIndex={};s.jumped=false;s.activeRosterSeason=s.info.season;s.rostersLoaded=false;s.rosters={};s.boxes=[];s.context={markets:[],injuries:[]};s.frozen={};s.busy=true;s.asOf=s.info.asOf?.length>10?s.info.asOf:'2026-11-07T00:00:00+08:00';s.archiveDate=s.all.some(g=>g.date===s.date);s.baseAsOf=s.asOf;s.baseRankAsOf=s.info.standingsThrough||s.asOf;s.projections.clear();s.teamCode=teamFor(s,s.teamCode)?s.teamCode:'';s.boxMore=false;s.version++;contextTime=0;historyTime=0;extraContext=null;
  setupShell();paint();
  const jobs=['/api/regional-basketball/data/'+lc+'-players.json','/api/regional-basketball/data/'+lc+'-boxes.json','/api/regional-basketball/data/context.json','/api/regional-basketball/data/pregame.json','/api/regional-basketball/data/'+lc+'-fallback.json','/api/regional-basketball/data/'+lc+'-index.json','/api/regional-basketball/data/'+lc+'-team-games.json','/api/regional-basketball/data/'+lc+'-detail-index.json','/api/regional-basketball/data/rankings-'+lc+'.json','/api/regional-basketball/data/'+lc+'-extra-players.json'];
  const res=await Promise.allSettled(jobs.map(cacheFetch));if(id!==token)return;
@@ -281,7 +282,6 @@ document.addEventListener('change',ev=>{const t=ev.target;if(t.id==='pick-day'){
  if(t.dataset.pyear!==undefined){s.playerYear=t.value;s.playerRecord='';route();paint();return;}
  if(t.dataset.precord!==undefined){s.playerYear=document.querySelector('[data-pyear]').value;s.playerRecord=t.value;route();paint();return;}
  if(t.dataset.rankseason!==undefined)s.rankSeason=Number(t.value);else s.phase=Number(t.value);route();rank();return;}
- if(t.dataset.leg!==undefined){if(t.checked)s.legs.add(t.dataset.leg);else s.legs.delete(t.dataset.leg);paint();}
 });
 $('source').addEventListener('click',showSources);modal.addEventListener('click',ev=>{if(ev.target===modal)modal.close();});
 window.addEventListener('popstate',()=>{if(modal.open)modal.close();adoptRoute();loadLeague();});
