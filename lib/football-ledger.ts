@@ -1,5 +1,5 @@
 import type {Database} from '../db';
-import type {FootballAnalysis,FootballGame} from './football';
+import type {FootballAnalysis,FootballGame,FootballLeague} from './football';
 import {uncalibratedCupAnalysis} from './football';
 import {readyFootballAnalysis,retainFootballForecast,type FootballReport} from './football-recommendations';
 import {footballForecastSettingsKey,type FootballModelSettings} from './football-model-weights';
@@ -117,4 +117,29 @@ export async function footballLiveAudit(db:Database){
   const paired=await db.prepare(`SELECT f.league,f.version,f.start_time,f.captured_at,f.payload,r.home_goals,r.away_goals FROM football_forecasts f JOIN football_results r ON f.league=r.league AND f.game_id=r.game_id AND f.start_time=r.start_time ORDER BY f.start_time DESC LIMIT 5000`).all();
   const counts=await db.prepare("SELECT COUNT(*) AS snapshots,COUNT(DISTINCT league || '|' || game_id) AS games FROM football_forecasts").first();
   return {available:true,counts,...summarizeFootballVerification(paired.results),scope:'正式上線後保存的最後一筆賽前快照；只核對實際90分鐘完場，不是實際下注紀錄。',limit:5000};
+}
+
+// Latest default pre-match snapshot per fixture. Never let a superseded version
+// or a personal weight profile enter the public settled sample.
+export async function domesticFootballRecord(db:Database,league:FootballLeague){
+ const {results}=await db.prepare(`SELECT f.payload,f.version,f.captured_at,f.start_time,r.home_goals,r.away_goals
+  FROM football_results r JOIN football_forecasts f ON f.league=r.league AND f.game_id=r.game_id AND f.start_time=r.start_time
+  WHERE r.league=? AND f.version LIKE '%-five-league-v1' AND NOT EXISTS
+   (SELECT 1 FROM football_forecasts n WHERE n.league=f.league AND n.game_id=f.game_id AND n.start_time=f.start_time
+    AND (n.captured_at>f.captured_at OR (n.captured_at=f.captured_at AND n.version>f.version)))
+  ORDER BY f.start_time DESC LIMIT 500`).bind(league).all();
+ let all=0,hits=0,featured=0,featuredHits=0;
+ for(const r of results){
+  try{
+   const a=JSON.parse(r.payload).analysis,p=a?.probabilities;
+   if(!scorable(p)||a.domesticForecast?.policy!=='five-league-v1'||a.version!==r.version||a.capturedAt!==r.captured_at||
+      !(Date.parse(r.captured_at)<Date.parse(r.start_time)-60000)||r.home_goals==null||r.away_goals==null)continue;
+   const h=Number(r.home_goals),v=Number(r.away_goals);
+   if(![h,v].every(x=>Number.isInteger(x)&&x>=0))continue;
+   const ps=[p.home,p.draw,p.away],hit=Number(ps.indexOf(Math.max(...ps))===(h>v?0:h===v?1:2));
+   all++;hits+=hit;
+   if(a.domesticForecast.featured===true){featured++;featuredHits+=hit;}
+  }catch{/* Incomplete historical payloads cannot supply a verified pick. */}
+ }
+ return {all,hits,featured,featuredHits};
 }

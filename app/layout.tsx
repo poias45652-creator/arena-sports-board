@@ -3,6 +3,7 @@ import Script from "next/script";
 import ViewOnlyBoundary from "./view-only-boundary";
 import "./globals.css";
 import "./xingzhun-theme.css";
+import "./standings-theme.css";
 import "../public/ui/button-feedback.css";
 
 export const metadata: Metadata = {

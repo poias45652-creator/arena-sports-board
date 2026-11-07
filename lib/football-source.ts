@@ -1,3 +1,9 @@
+import fallbackAudit from '../data/football/five-league-score-fallback.json';
+import {domesticScoreEstimate} from './football-domestic-fallback';
+import {parseMarketFootballEvents} from './football-market-core';
+import fiveLeagueStudy from '../data/football/five-league-verification.json';
+import {domesticLeague,recentShotEstimate} from './football-five-league';
+import {customFootballSettings} from './football-model-weights';
 import {footballAbsences,withFootballMatchContext} from './football-match-context';
 import type {FootballModelSettings} from './football-model-weights';
 import {loadNationalFootballPool} from './football-national-source';
@@ -6,7 +12,7 @@ import {applyNationalFootballModel,NATIONAL_MODEL_VERSION} from './football-nati
 import {analyzeFootball,footballDay,isFootballNationalCompetition,needsFootballRecentForm,parseFootballEvents,parseFootballTeamHistory,shiftFootballDay,type FootballGame,type FootballLeague} from './football';
 import {archivedFootballHistory,footballArchiveCutoff} from './football-archive';
 import {reconcileFootballHistory} from './football-history';
-import {applyExternalFootballAnalysis,loadExternalFootballContext} from './football-external-source';
+import {applyExternalFootballAnalysis,domesticShotHistory,loadExternalFootballContext} from './football-external-source';
 import {loadFootballMarketContext,applyFootballMarketAnalysis} from './football-market-source';
 import {selectFootballMarketModel} from './football-market-model';
 import {footballProfileTeam,footballProfileResults,footballProfileUpcoming,type FootballTeamProfileData} from './football-team-profile';
@@ -78,8 +84,18 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   const model=settings?.model||'auto',marketActive=(model==='auto'||model==='score')&&!!selectFootballMarketModel(league);
   const injuries=footballAbsences(game);
   const marketRequest=marketActive?loadFootballMarketContext(league).catch(()=>null):Promise.resolve(null);
-  const externalRequest=!marketActive&&(model==='auto'||model==='elo')?loadExternalFootballContext(league).catch(()=>null):Promise.resolve(null);
-  const seasonPool=marketActive?null:source(league+'/scoreboard?dates='+new Date().getUTCFullYear()+'&limit=1000',30*60000)
+  const domestic=domesticLeague(league)&&!customFootballSettings(settings)?fiveLeagueStudy[league]:null;
+  const externalRequest=((!marketActive&&(model==='auto'||model==='elo'))||(marketActive&&domestic?.applyShots))?loadExternalFootballContext(league).catch(()=>null):Promise.resolve(null);
+  const getScorePool=async()=>{
+    const currentYear=new Date().getUTCFullYear();
+    const years=await Promise.all([currentYear-1,currentYear].map(async year=>{
+      const {value}=await source(league+'/scoreboard?dates='+year+'&limit=1000',30*60000);
+      return parseMarketFootballEvents(value,league);
+    }));
+    return reconcileFootballHistory(years.flat(),[],league).games;
+  };
+  const domesticPool=domestic&&!marketActive?getScorePool().catch(()=>null):null;
+  const seasonPool=marketActive||domesticPool?null:source(league+'/scoreboard?dates='+new Date().getUTCFullYear()+'&limit=1000',30*60000)
     .then(r=>parseFootballEvents(r.value,league)).catch(()=>[]);
   const years=[game.season,game.season-1];
   const requests=[game.home.id,game.away.id].flatMap(team=>years.map(year=>({team,year})));
@@ -111,7 +127,7 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
     delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.lean;
   }
   const external=await externalRequest;
-  if(external)analysis=applyExternalFootballAnalysis(game,analysis,merged.games,external,Date.now(),settings);
+  if(external&&!marketActive)analysis=applyExternalFootballAnalysis(game,analysis,merged.games,external,Date.now(),settings);
   const market=await marketRequest;
   if(market)analysis=applyFootballMarketAnalysis(game,analysis,market,Date.now(),settings);
   // Describe the history used by the final estimate, including an external
@@ -130,9 +146,32 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   if((model==='elo'&&!analysis.external?.modelApplied)||(model==='score'&&analysis.external?.modelFamily!=='score-market')||(model==='calibrated'&&analysis.calibration?.status!=='applied')){
     analysis={...analysis,status:'waiting',reason:'此場缺少所選模型所需的資料，可改回依來源自動選模。'};delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.scoreDistribution;delete analysis.lean;
   }
-  const pool=market?.history||await seasonPool||[];
+  const fullPool=market?.history??(domesticPool?await domesticPool:domestic&&marketActive?await getScorePool().catch(()=>null):null);
+  const pool=fullPool||await seasonPool||[];
   const contextHistory=reconcileFootballHistory([...pool,...merged.games.filter(g=>g.league===league)],[]).games;
-  analysis=withFootballMatchContext(game,analysis,contextHistory,await injuries);
+  const absences=await injuries,asOf=Date.now();
+  let study=domestic&&analysis.version===domestic.baseVersion&&analysis.external?.modelApplied?domestic:null;
+  const before=Math.floor(asOf/86400000)*86400000;
+  let scoreFallback=false;
+  const fixture=market?.fixtures.get(game.id)??fullPool?.find(g=>g.id===game.id);
+  if(!study&&domestic&&domesticLeague(league)&&fullPool&&fixture?.state==='scheduled'&&fixture.start===game.start&&fixture.home.id===game.home.id&&fixture.away.id===game.away.id){
+    const fallback=domesticScoreEstimate(game,fullPool,before);
+    if(fallback){
+      scoreFallback=true;
+      study={...domestic,applyShots:false,drawAlertEnabled:false,featuredEnabled:fallbackAudit[league].featuredEnabled};
+      const p=fallback.probabilities;
+      const ranked=[{name:'主勝',p:p.home},{name:'和局',p:p.draw},{name:'客勝',p:p.away}].sort((a,b)=>b.p-a.p);
+      analysis={...analysis,...fallback,status:'ready',reason:'',version:'football-domestic-scores-v1',capturedAt:new Date(asOf).toISOString(),historyMode:'competition',
+        lean:ranked[0].p-ranked[1].p>=.08?'模型傾向'+ranked[0].name:'勝負接近，保留觀望',
+        calibration:{status:'baseline',label:'聯賽比分備援',version:'football-domestic-scores-v1',holdoutGames:0,recentGames:0,reasons:[],uncertainty:'依歷史比分計算。'},
+        notes:['使用已核對的同聯賽結果、主客近況及對手強度。射門品質來源不足，本場採比分備援。']};
+    }
+  }
+  const checked=study&&!scoreFallback&&external?domesticShotHistory(game,external,market?.history||contextHistory,!!market,asOf):null;
+  const shots=study?.applyShots&&checked&&!game.neutral?recentShotEstimate(checked.shots,league,checked.home,checked.away,before):null;
+  // The three external base models use the league's whole history for prior opponent records.
+  const formPool=study&&checked&&!market?checked.shots.map(g=>({id:g.id,at:Date.parse(g.start),home:g.homeId,away:g.awayId,homeScore:g.homeGoals,awayScore:g.awayGoals})):undefined;
+  analysis=withFootballMatchContext(game,analysis,scoreFallback?fullPool!:contextHistory,absences,asOf,study?{study,shots,scoreFallback,form:formPool&&checked?{rows:formPool,home:checked.home,away:checked.away}:undefined}:undefined);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 

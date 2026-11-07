@@ -1,10 +1,10 @@
 // Inputs are completed games from one competition pool. A tie counts as half a win.
 export type FinalResult = {id:string; at:number; home:string; away:string; homeScore:number; awayScore:number};
 export type RecentForm = {games:number; wins:number; ties:number; ratedOpponents:number; rating:number; latest:string};
-export type Absence = {name:string; weight:number};
+export type Absence = {name:string; weight:number; role?:import('./football-player-role').FootballRole;playerId?:number;status?:'injury'|'suspension'};
 export type MatchEvidence = {
   home:RecentForm|null; away:RecentForm|null; asOf?:string;
-  absences:{home:Absence[]|null; away:Absence[]|null; source:string; checkedAt:string}|null;
+  absences:{home:Absence[]|null; away:Absence[]|null; source:string; checkedAt:string; method?:'minutes'}|null;
 };
 
 export function recentOpponents(rows:FinalResult[], home:string, away:string, cutoff:number, maxAgeDays:number){
@@ -72,6 +72,6 @@ export function baseballRunMultiplier(e:MatchEvidence|undefined,home:boolean){
 export function evidenceDescription(e:MatchEvidence,side:'home'|'away'){
   const f=e[side], injuries=e.absences?.[side];
   const record=f?`近 ${f.games} 場 ${f.wins} 勝 ${f.games-f.wins-f.ties} 敗${f.ties?' '+f.ties+' 和':''}，其中 ${f.ratedOpponents} 場有對手強度資料`:'近期完賽樣本不足';
-  const injured=injuries?.length?'傷情報告列出 '+injuries.map(p=>p.name).join('、'):injuries?'來源未列符合條件的傷員':'傷情未確認';
+  const injured=injuries?.length?'傷情報告列出 '+injuries.map(p=>p.name+(p.status==='suspension'?'（停賽）':'')+(p.role?`（近 ${p.role.games} 場名單、${p.role.starts} 場先發、共 ${p.role.minutes} 分鐘）`:'')).join('、'):injuries?'來源未列符合條件的傷員':'傷情未確認';
   return record+'。'+injured+'。';
 }

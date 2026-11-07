@@ -107,8 +107,11 @@ try{
     const image = new Image();
     image.src = '/brand/football-pregame-skybox-v1.webp';
     await image.decode();
-    return getComputedStyle(panel).backgroundImage.includes(image.src);
-  }));
+    const style = getComputedStyle(panel);
+    return style.backgroundImage.includes(image.src)
+      && style.backgroundSize.endsWith(' 100%')
+      && style.backgroundRepeat.split(',').every(layer => layer.trim() === 'no-repeat');
+  }), 'one stadium panorama covers the full height of the expanded pregame panel');
   await pregame.evaluate(panel=>panel.scrollIntoView({block:'start'}));
   await page.screenshot({path:directory+'/'+size+'-pregame-skybox.png'});
   const matchCards = pregame.locator('.football-card');

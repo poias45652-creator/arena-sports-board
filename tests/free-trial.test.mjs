@@ -52,12 +52,13 @@ test('persistent daily lifecycle survives reloads, outages, final correction and
   globalThis.__trialFixture={id:'123',start:'2026-10-02T05:00:00Z',state:'scheduled',timeConfirmed:true,home:{name:'主隊',id:'1'},away:{name:'客隊',id:'2'},homeScore:null,awayScore:null,statusName:'STATUS_SCHEDULED',statusLabel:'未開賽',private:'hidden'};
   globalThis.__trialFail=false;globalThis.__trialAnalysis=0;
   const stubs=`
+   const domesticLeague=league=>league==='eng.1';
    const getRawDb=()=>globalThis.__trialDb;
    const baseballSource=async()=>Response.json({games:[]});const getInternationalLive=async()=>({games:[],status:'ok'});
    const nbaSchedule=async()=>({games:[]});const wnbaSchedule=nbaSchedule;
    const FOOTBALL_LEAGUES=[{code:'eng.1',fullName:'英超'}];
    const footballSchedule=async()=>{if(globalThis.__trialFail)throw Error('offline');return {games:[globalThis.__trialFixture],fetchedAt:new Date(Date.now()).toISOString()}};
-   const footballGameAnalysis=async()=>{globalThis.__trialAnalysis++;return {analysis:{status:'ready',probabilities:{home:.6,away:.3,draw:.1},expected:{home:2,away:1},scores:[{home:2,away:1,probability:.18},{home:1,away:1,probability:.15},{home:2,away:0,probability:.12}]}}};
+   const footballGameAnalysis=async()=>{globalThis.__trialAnalysis++;return {analysis:{status:'ready',domesticForecast:{featured:true},probabilities:{home:.6,away:.3,draw:.1},expected:{home:2,away:1},scores:[{home:2,away:1,probability:.18},{home:1,away:1,probability:.15},{home:2,away:0,probability:.12}]}}};
   `;
   const route=fs.readFileSync('app/api/free-trial/route.ts','utf8').replace(/^import .*;\n/gm,'');let serial=0;
   const request=async()=>{const mod=await load(helpers+stubs+route+`\n// instance ${serial++}`);return (await mod.GET(new Request('https://example.test/api/free-trial?game=secret&date=2000-01-01'))).json();};

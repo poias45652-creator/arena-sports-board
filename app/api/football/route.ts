@@ -1,7 +1,7 @@
 import {footballDay,isFootballLeague,validFootballDay} from '@/lib/football';
 import {footballGameAnalysis,footballSchedule,nextFootballDay} from '@/lib/football-source';
 import {getRawDb} from '@/db';
-import {loadFootballForecast,saveFootballForecast,saveFootballResults} from '@/lib/football-ledger';
+import {domesticFootballRecord,loadFootballForecast,saveFootballForecast,saveFootballResults} from '@/lib/football-ledger';
 import {saveDailyForecast,saveDailyResults} from '@/lib/daily-win-rate';
 import {createFootballRouteTrace} from '@/lib/football-route-observability';
 import {footballDetail,footballStandings} from '@/lib/football-live-source';
@@ -12,11 +12,12 @@ const savedResults=new Map<string,number>();
 export async function GET(request:Request){
   const p=new URL(request.url).searchParams,league=p.get('league')||'eng.1',day=p.get('date')||footballDay(),kind=p.get('kind')||'schedule';
   const headers={'Cache-Control':'private, no-store'};
-  if(!isFootballLeague(league)||!validFootballDay(day)||Math.abs(Date.parse(day)-Date.parse(footballDay()))>370*86400000||!['schedule','analysis','next','detail','standings','models'].includes(kind))return Response.json({error:'足球聯賽或日期參數錯誤'},{status:400,headers});
+  if(!isFootballLeague(league)||!validFootballDay(day)||Math.abs(Date.parse(day)-Date.parse(footballDay()))>370*86400000||!['schedule','analysis','next','detail','standings','models','featured-record'].includes(kind))return Response.json({error:'足球聯賽或日期參數錯誤'},{status:400,headers});
   const rawSettings=p.get('settings'),settings=rawSettings&&rawSettings.length<=2000?parseFootballSettings(rawSettings):undefined;
   if(rawSettings&&(!settings||!validateFootballSettings(settings,footballModelCatalog(league))))return Response.json({error:'足球模型比例無效，請重新設定。'},{status:400,headers});
   const game=p.get('game')||'',trace=createFootballRouteTrace({league,date:day,kind,game:kind==='analysis'&&/^\d{1,12}$/.test(game)?game:null});
   try{
+    if(kind==='featured-record')return Response.json(await domesticFootballRecord(getRawDb(),league),{headers:{'Cache-Control':'private, max-age=60'}});
     if(kind==='models')return Response.json(footballModelCatalog(league),{headers});
     if(kind==='standings'){
       const season=Number(p.get('season')||new Date().getUTCFullYear());

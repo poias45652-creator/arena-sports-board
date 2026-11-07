@@ -1,8 +1,10 @@
-import {footballTeamName,type FootballAnalysis,type FootballGame,type FootballLeague,type FootballContextForecast,type FootballProbabilities} from './football';
+import {loadFootballPlayerRole} from './football-player-role';
+import {tiltFootballGrid,shotTilts,featuredThreshold,type ShotEstimate,domesticLeague} from './football-five-league';
+import {footballTeamName,type FootballAnalysis,type FootballGame,type FootballLeague,type FootballContextForecast} from './football';
 import {reviewedFotmobTeamId} from './football-cup-xg-source';
 import {cachedMatchSource,matchSourceText} from './match-source-cache';
 import contextAudit from '../data/football/context-calibration-20261107.json';
-import {availabilityAdvantage,formAdvantage,recentOpponents,pregameEvidence,type Absence,type MatchEvidence} from './recent-opponents';
+import {availabilityAdvantage,formAdvantage,recentOpponents,pregameEvidence,type Absence,type MatchEvidence,type FinalResult} from './recent-opponents';
 
 const leagues:Record<FootballLeague,number>={'eng.1':47,'esp.1':87,'ita.1':55,'ger.1':54,'fra.1':53,'uefa.champions':42,'uefa.europa':73,'uefa.nations':9806};
 const daily=cachedMatchSource(async day=>JSON.parse(await matchSourceText('https://www.fotmob.com/api/data/matches?date='+day,4_000_000)),300000);
@@ -27,64 +29,67 @@ export async function footballAbsences(game:FootballGame):Promise<MatchEvidence[
     const match=matches[0],{data,checkedAt}=await detail(String(match.id)),g=data.general,lineup=data.content?.lineup;
     if(!g||g.started!==false||String(g.matchId)!==String(match.id)||Date.parse(g.matchTimeUTCDate)!==kickoff||
       (!leagueIds.includes(g.leagueId)&&!leagueIds.includes(g.parentLeagueId))||lineup?.matchId!==match.id||Date.now()>=kickoff)return null;
-    function side(key:'home'|'away'):Absence[]|null{
+    const useMinutes=domesticLeague(game.league);
+    async function side(key:'home'|'away'):Promise<Absence[]|null>{
       const team=lineup[key+'Team'];
       if(team?.id!==match[key].id||g[key+'Team']?.id!==team.id||!Array.isArray(team.unavailable))return null;
       const players=new Map<number,Absence>();
       for(const p of team.unavailable){
-        if(!Number.isSafeInteger(p.id)||!p.name||p.unavailability?.type!=='injury')continue;
+        const status=p.unavailability?.type;
+        if(!Number.isSafeInteger(p.id)||!p.name||(status!=='injury'&&!(useMinutes&&status==='suspension')))continue;
         const uncertain=/doubtful|questionable|fitness test/i.test(p.unavailability.expectedReturn||'');
-        players.set(p.id,{name:p.name,weight:uncertain?.35:1});
+        players.set(p.id,{name:p.name,weight:uncertain?.35:1,...(useMinutes?{playerId:p.id,status}:{})});
       }
-      return [...players.values()];
+      if(!useMinutes)return [...players.values()];
+      return Promise.all([...players].map(async ([id,player])=>{
+        const role=await loadFootballPlayerRole(id,team.id,g.leagueId,Date.parse(checkedAt));
+        return {...player,role,weight:role?player.weight*role.minutes/(90*role.games):0};
+      }));
     }
-    return {home:side('home'),away:side('away'),source:'https://www.fotmob.com/match/'+match.id,checkedAt};
+    const [home,away]=await Promise.all([side('home'),side('away')]);
+    if(Date.now()>=kickoff)return null;
+    return {home,away,...(useMinutes?{method:'minutes' as const}:{}),source:'https://www.fotmob.com/match/'+match.id,checkedAt};
   }catch{return null;}
 }
 
-type FootballGrid = NonNullable<FootballAnalysis['scoreDistribution']>;
-
-// Every market, including the top scores, uses the same normalized score grid.
-function tiltFootballGrid(grid:FootballGrid,shift:number) {
-  const scores=grid.scores.map(s=>({...s,probability:s.probability*Math.exp(shift*(s.home-s.away))}));
-  const mass=scores.reduce((sum,s)=>sum+s.probability,0);
-  const probabilities:FootballProbabilities={home:0,draw:0,away:0,over25:0,under25:0,btts:0};
-  const expected={home:0,away:0};
-  for(const s of scores){
-    s.probability/=mass;
-    probabilities[s.home>s.away?'home':s.home===s.away?'draw':'away']+=s.probability;
-    probabilities[s.home+s.away>2?'over25':'under25']+=s.probability;
-    if(s.home&&s.away)probabilities.btts+=s.probability;
-    expected.home+=s.home*s.probability;expected.away+=s.away*s.probability;
-  }
-  return {probabilities,expected,scoreDistribution:{...grid,...expected,scores},
-    scores:[...scores].sort((a,b)=>b.probability-a.probability).slice(0,3)};
-}
-
-export function withFootballMatchContext(game:FootballGame,base:FootballAnalysis,history:FootballGame<string>[],absences:MatchEvidence['absences'],now=Date.now()):FootballAnalysis{
+type DomesticContext={study:{featuredEnabled:boolean;drawAlertEnabled:boolean;drawThreshold:number;applyShots:boolean};
+  shots:ShotEstimate|null;scoreFallback?:boolean;form?:{rows:FinalResult[];home:string;away:string}};
+export function withFootballMatchContext(game:FootballGame,base:FootballAnalysis,history:FootballGame<string>[],absences:MatchEvidence['absences'],now=Date.now(),domestic?:DomesticContext):FootballAnalysis{
   const kickoff=Date.parse(game.start);
   if(base.status!=='ready'||game.state!=='scheduled'||!base.scoreDistribution||!base.probabilities||!(kickoff>now))return base;
   const marketStudy=base.version===contextAudit.baseVersion && (game.league==='ger.1'||game.league==='ita.1')
     ?contextAudit.leagues[game.league]:null;
-  const cutoff=marketStudy?Math.floor(now/86400000)*86400000:now;
+  const cutoff=marketStudy||domestic?Math.floor(now/86400000)*86400000:now;
   const rows=history.filter(g=>g.id!==game.id&&g.state==='final'&&g.statusName==='STATUS_FULL_TIME'&&g.homeScore!==null&&g.awayScore!==null&&Date.parse(g.start)<cutoff)
     .map(g=>({id:g.id,at:Date.parse(g.start),home:g.home.id,away:g.away.id,homeScore:g.homeScore!,awayScore:g.awayScore!}));
-  const raw={...recentOpponents(rows,game.home.id,game.away.id,now,game.league==='uefa.nations'?180:100),absences};
+  const leagueForm=domestic?.form;
+  const raw={...recentOpponents(leagueForm?leagueForm.rows.filter(g=>g.at<cutoff):rows,leagueForm?.home??game.home.id,leagueForm?.away??game.away.id,now,game.league==='uefa.nations'?180:100),absences};
   const evidence=pregameEvidence(raw,now,kickoff)!;
   const hasHome=Array.isArray(evidence.absences?.home),hasAway=Array.isArray(evidence.absences?.away);
   const useExtraForm=!base.cupAdjustment&&game.league!=='uefa.nations'&&(!marketStudy||marketStudy.selection==='v1');
   const formShift=useExtraForm ? 0.16*formAdvantage(evidence) : 0;
-  const injuryShift=.075*availabilityAdvantage(evidence);
+  const measured=!!domesticLeague(game.league)&&evidence.absences?.method==='minutes';
+  const missingRole=measured&&[...(evidence.absences?.home??[]),...(evidence.absences?.away??[])].some(p=>!p.role);
+  const injuryShift=missingRole?0:.075*availabilityAdvantage(evidence);
   const formGrid=formShift?tiltFootballGrid(base.scoreDistribution,formShift):null;
   const contextForecast:FootballContextForecast={baseline:base.probabilities,formOnly:formGrid?.probabilities??base.probabilities,
     formPolicy:useExtraForm?'recent':'base',injuryCoverage:hasHome&&hasAway?'both':hasHome||hasAway?'partial':'none',injuryShiftApplied:injuryShift!==0};
-  const version=(marketStudy||formShift||injuryShift) ? base.version+'-recent-availability-v2' : base.version;
-  const result={...base,version,capturedAt:new Date(now).toISOString(),matchEvidence:evidence,contextForecast};
-  if(!formShift&&!injuryShift)return result;
-  const adjusted=injuryShift?tiltFootballGrid(base.scoreDistribution,formShift+injuryShift):formGrid!;
+  const shots=domestic?.study.applyShots&&domestic.shots&&base.expected?shotTilts(base.expected,domestic.shots):undefined;
+  const afterShots=shots?tiltFootballGrid(base.scoreDistribution,formShift,shots):formGrid;
+  const afterInjuries=injuryShift?tiltFootballGrid(base.scoreDistribution,formShift+injuryShift,shots):afterShots;
+  const published=afterInjuries?.probabilities??base.probabilities;
+  const finalTop=Math.max(published.home,published.draw,published.away);
+  const domesticForecast=domestic?{policy:'five-league-v1' as const,scoreFallback:!!domestic.scoreFallback,featured:domestic.study.featuredEnabled&&finalTop>=featuredThreshold,
+    drawRisk:domestic.study.drawAlertEnabled&&published.draw>=domestic.study.drawThreshold,shotApplied:!!shots,
+    beforeShots:formGrid?.probabilities??base.probabilities,afterShots:afterShots?.probabilities??base.probabilities,
+    ...(shots&&domestic.shots?{shotGames:{home:domestic.shots.homeGames,away:domestic.shots.awayGames}}:{})}:undefined;
+  const version=domestic?base.version+'-five-league-v1':(marketStudy||formShift||injuryShift) ? base.version+'-recent-availability-v2' : base.version;
+  const result={...base,version,capturedAt:new Date(now).toISOString(),matchEvidence:evidence,contextForecast,...(domesticForecast?{domesticForecast}:{})};
+  if(!afterInjuries)return result;
+  const adjusted=afterInjuries;
   const p=adjusted.probabilities;
   const ranked=[{name:'主勝',p:p.home},{name:'和局',p:p.draw},{name:'客勝',p:p.away}].sort((a,b)=>b.p-a.p);
   return {...result,...adjusted,lean:ranked[0].p-ranked[1].p>=.08?`模型傾向${ranked[0].name}`:'勝負接近，保留觀望',
-    calibration:{status:'baseline',label:injuryShift?'已套用雙方傷停':'已套用近期表現',version,reasons:['傷停幅度另以實際賽前紀錄核對'],holdoutGames:0,recentGames:0,uncertainty:'個別賽事的機率仍有不確定性。'},
+    calibration:{status:'baseline',label:injuryShift?'已套用雙方傷停':shots?'已套用近期射門品質':'已套用近期表現',version,reasons:['傷停幅度另以實際賽前紀錄核對'],holdoutGames:0,recentGames:0,uncertainty:'個別賽事的機率仍有不確定性。'},
     notes:[...base.notes.map(n=>'基礎模型：'+n),'調整後的勝和負與比分使用同一份分布。']};
 }

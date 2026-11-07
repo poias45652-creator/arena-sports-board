@@ -1,3 +1,4 @@
+import {domesticLeague} from '@/lib/football-five-league';
 import {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialScorePredictions,trialResult,retainTrialProgress,type TrialProgress,type TrialData,type TrialFixture} from '@/lib/free-trial';
 import {GET as baseballSource} from '../baseball/route';
 import {POST as baseballAnalysis} from '../analysis/route';
@@ -77,7 +78,8 @@ async function analyze(chosen:Candidate,day:string):Promise<TrialData>{
   }else{
    const report=game.sport==='football'?await footballGameAnalysis(game.league as FootballLeague,day,game.id):await(game.league==='NBA'?nbaGameAnalysis:wnbaGameAnalysis)(day,game.id);
    const a=report?.analysis;
-   if(a?.status==='ready'){data.probabilities=trialProbabilities(a.probabilities);if(a.expected)data.expected={home:a.expected.home,away:a.expected.away};if(game.sport==='football'&&'scores' in a&&Array.isArray(a.scores))data.scores=a.scores;}
+   const eligible=game.sport!=='football'||!domesticLeague(game.league)||(a&&'domesticForecast' in a&&a.domesticForecast?.featured===true);
+   if(a?.status==='ready'&&eligible){data.probabilities=trialProbabilities(a.probabilities);if(a.expected)data.expected={home:a.expected.home,away:a.expected.away};if(game.sport==='football'&&'scores' in a&&Array.isArray(a.scores))data.scores=a.scores;}
    if(a?.homeForm&&a?.awayForm)data.details=[{label:'近期分析場數',home:String(a.homeForm.games),away:String(a.awayForm.games)}];
   }
  }catch{/* Keep the actual selected fixture without inventing missing analysis. */}

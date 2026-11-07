@@ -9,6 +9,7 @@ import {moduleUrl} from './profile-loader.mjs';
 const football=await import(moduleUrl('lib/football.ts'));
 const reports=await import(moduleUrl('lib/football-recommendations.ts'));
 const refresh=await import(moduleUrl('app/football-report-refresh.ts'));
+const fiveLeague=await import(moduleUrl('lib/football-five-league.ts'));
 const scenarios=await import(moduleUrl('lib/football-score-scenarios.ts'));
 const profile=await import(moduleUrl('lib/football-team-profile.ts'));
 function component(file,dependencies){
@@ -129,7 +130,7 @@ if(process.env.FOOTBALL_UI_PREVIEW_PATH){
 }
 
 test('floating recommendations only show loading for actual work and explain unsupported schedules',()=>{
-  const Pane=component('app/football-recommendations.tsx',{'react':{useId:()=>':football:'},'react-dom':{createPortal:child=>child},'@/lib/football-team-profile':profile,'@/lib/football-score-scenarios':scenarios,'@/lib/football-recommendations':reports,'./sport-markets':{default:SportMarkets},'./super-workspace':{useSuperWorkspace:()=>({activePane:':football:',host:{}})}}).default;
+  const Pane=component('app/football-recommendations.tsx',{'@/lib/football-five-league':fiveLeague,'react':{useId:()=>':football:'},'react-dom':{createPortal:child=>child},'@/lib/football-team-profile':profile,'@/lib/football-score-scenarios':scenarios,'@/lib/football-recommendations':reports,'./sport-markets':{default:SportMarkets},'./super-workspace':{useSuperWorkspace:()=>({activePane:':football:',host:{}})}}).default;
   const props={snapshot,oddsError:'',games:[game],reports:{},league:game.league,leagueName:'歐冠',day:football.footballDay(game.start),now,sourceFetchedAt:fixture.capturedAt,unavailable:false,loading:false};
   const previous=Date.now;Date.now=()=>now;
   try{
