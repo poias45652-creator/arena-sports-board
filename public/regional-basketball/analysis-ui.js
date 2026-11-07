@@ -65,11 +65,17 @@ export function analysis(s){
  return '<section id="game-cards" class="nba-games" data-view="analysis" aria-label="逐場賽前分析">'+s.visible.map(g=>{
   const r=reportFor(s,g),live=g.status==='in_progress'&&s.isLive;
   return '<article class="nba-card" data-state="'+(live?'live':e(g.status))+'"><header><div class="nba-card-labels"><span class="nba-phase-tag">'+e(({1:'熱身賽',2:'例行賽',3:'季後賽',4:'盃賽'})[g.phase??2]||'聯盟賽事')+'</span><span class="'+(live?'nba-live':'nba-game-status')+'"><i></i>'+gameLabel(s,g)+'</span></div><time>'+gameTime(g)+'</time></header><div class="nba-card-layout" data-analysis="true"><div class="nba-match-overview">'+matchup(s,g)+quarters(s,g)+form(s,g)+'</div><div class="nba-card-analysis">'+numbers(r)+breakdown(s,g,r)+'</div></div></article>';
- }).join('')+'</section><details class="xz-parlay" data-persist="parlay"><summary>串關組合</summary>'+parlay(s)+'</details>';
+ }).join('')+'</section>';
 }
-function parlay(s){
- const candidates=s.games.filter(g=>g.status==='scheduled'&&stamp(g)>Date.now()).flatMap(g=>{const m=marketFor(s,g);if(m?.kind!=='public_pregame')return [];const r=reportFor(s,g);if(!r.ready||r.homeProb===r.awayProb)return [];return [{g,m,team:r.homeProb>r.awayProb?g.home:g.away}];});
- if(!candidates.length)return '<p class="muted">目前沒有同時具備有效賽前盤口與模型預測的場次。</p>';
- const chosen=candidates.filter(x=>s.legs.has(key(x.g)));
- return candidates.map(x=>'<label class="leg"><input type="checkbox" data-leg="'+e(key(x.g))+'" '+(s.legs.has(key(x.g))?'checked':'')+'> <span>'+e(name(s,x.team))+' 獨贏<small>'+e(name(s,x.g.away)+' vs '+name(s,x.g.home))+'</small></span></label>').join('')+'<p class="smalltext">'+(chosen.length>=2?'已選 '+chosen.length+' 場': '可選擇兩場以上不同對戰')+'</p>';
+
+export function singleGameRecommendations(s){
+ const rows=[];
+ for(const g of s.games){
+  if(g.status!=='scheduled'||stamp(g)<=Date.now()||marketFor(s,g)?.kind!=='public_pregame')continue;
+  const report=reportFor(s,g);
+  if(!report.ready||report.homeProb===report.awayProb)continue;
+  const team=report.homeProb>report.awayProb?g.home:g.away;
+  rows.push({label:name(s,team)+' 獨贏（'+name(s,g.away)+' vs '+name(s,g.home)+'）'});
+ }
+ return rows;
 }

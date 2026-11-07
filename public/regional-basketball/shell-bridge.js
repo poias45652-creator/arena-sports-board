@@ -6,10 +6,8 @@ function send(type,data={}){
 }
 export function syncLocation(){send('basketball-route',{search:location.search,hash:location.hash});}
 export function scrollBoardTop(){send('basketball-scroll');}
-export function publishRecommendations(state){
-  const panel=document.querySelector('.xz-parlay');
-  const rows=panel?[...panel.querySelectorAll('.leg')].map(row=>({label:row.textContent.trim(),selected:!!row.querySelector('input')?.checked})):[];
-  send('basketball-picks',{active:!!panel,date:state.date,rows});
+export function publishRecommendations(date,active,rows){
+  send('basketball-picks',{date,active,rows});
 }
 const body=document.body, main=document.querySelector('main.nba-board'),dialog=document.getElementById('modal');
 function fitDialog(){
@@ -30,7 +28,7 @@ if(embedded){
   parent.addEventListener('scroll',fitDialog,{passive:true});parent.addEventListener('resize',fitDialog);
   window.addEventListener('pagehide',()=>{parent.removeEventListener('scroll',fitDialog);parent.removeEventListener('resize',fitDialog);});
 }
-const restricted='[data-ask],[data-weights],[data-assistant],[data-rankrefresh],[data-detailrefresh],[data-refresh],[data-weight],[data-applyweights],[data-resetweights],[data-leg],#weight-target';
+const restricted='[data-ask],[data-weights],[data-assistant],[data-rankrefresh],[data-detailrefresh],[data-refresh],[data-weight],[data-applyweights],[data-resetweights],#weight-target';
 if(body.dataset.viewer==='true'){
   for(const type of ['click','change','input','keydown'])document.addEventListener(type,event=>{
     if(event.target instanceof Element&&event.target.closest(restricted)){event.preventDefault();event.stopImmediatePropagation();}

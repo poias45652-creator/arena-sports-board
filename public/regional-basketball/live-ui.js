@@ -7,7 +7,7 @@ function miniCard(s,g){
 }
 export function overview(s){
  const stats=[['當日賽事',s.games.length],['進行中',s.games.filter(g=>g.status==='in_progress').length],['已完賽',s.games.filter(g=>g.status==='final').length],['聯盟球隊',s.info.teams.length]];
- return '<div class="basketball-overview">'+stats.map(([l,v])=>'<div><span>'+l+'</span><strong>'+v+'</strong></div>').join('')+'<nav aria-label="籃球功能捷徑">'+[['live','查看比分與球員成績'],['analysis','查看賽前分析與串關'],['standings','查看戰績排名']].map(([v,l])=>'<button data-view="'+v+'">'+l+'<span>→</span></button>').join('')+'</nav></div>'+(s.visible.length?'<div class="nba-games" data-view="overview">'+s.visible.map(g=>miniCard(s,g)).join('')+'</div>':noGames(s));
+ return '<div class="basketball-overview">'+stats.map(([l,v])=>'<div><span>'+l+'</span><strong>'+v+'</strong></div>').join('')+'<nav aria-label="籃球功能捷徑">'+[['live','查看比分與球員成績'],['analysis','查看賽前分析'],['standings','查看戰績排名']].map(([v,l])=>'<button data-view="'+v+'">'+l+'<span>→</span></button>').join('')+'</nav></div>'+(s.visible.length?'<div class="nba-games" data-view="overview">'+s.visible.map(g=>miniCard(s,g)).join('')+'</div>':noGames(s));
 }
 export function noGames(s){
   if(s.filter!=='all'&&s.games.length)return empty('沒有符合篩選條件的場次。');

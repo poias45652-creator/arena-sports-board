@@ -4,7 +4,7 @@ import {createPortal} from 'react-dom';
 import {FRONT_VIEWS} from '@/lib/sport-navigation';
 import {useSuperWorkspace} from './super-workspace';
 
-type Picks={active:boolean;date:string;rows:{label:string;selected:boolean}[]};
+type Picks={active:boolean;date:string;rows:{label:string}[]};
 export default function RegionalBasketballBoard({league,onViewChange}:{league:'NBL'|'KBL';onViewChange:(view:string)=>void}){
   const frame=useRef<HTMLIFrameElement>(null),pane=useId(),workspace=useSuperWorkspace();
   const [src]=useState(()=>'/regional-basketball/board'+window.location.search+window.location.hash);
@@ -33,6 +33,6 @@ export default function RegionalBasketballBoard({league,onViewChange}:{league:'N
   return <div data-super-league={league}>
     <iframe ref={frame} title={league==='NBL'?'澳洲職籃賽事與球員':'韓國職籃賽事與球員'} src={src} style={{display:'block',width:'100%',height,border:0,scrollMarginTop:'5rem'}}/>
     {picks.active&&<span hidden data-super-parlay={pane}/>}
-    {workspace?.activePane===pane&&workspace.host&&createPortal(<section className="p-4"><h3>{league} 串關組合</h3><p>{picks.date}</p>{picks.rows.length?<ul>{picks.rows.map(row=><li key={row.label}>{row.selected?'已選・':''}{row.label}</li>)}</ul>:<p>目前沒有同時具備有效賽前盤口與模型預測的場次。</p>}</section>,workspace.host)}
+    {workspace?.activePane===pane&&workspace.host&&createPortal(<section className="p-4"><h3>{league} 單場推薦</h3><p>{picks.date}</p>{picks.rows.length?<ul>{picks.rows.map(row=><li key={row.label}>{row.label}</li>)}</ul>:<p>目前沒有同時具備有效賽前盤口與模型預測的場次。</p>}</section>,workspace.host)}
   </div>;
 }
