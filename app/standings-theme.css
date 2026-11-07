@@ -46,15 +46,18 @@ section.sport-standings .football-record b { font-weight:700; }
 section.sport-standings .football-form span { min-width:1.5rem; text-align:center; font-size:.875rem; }
 section.mlb-standings-panel .standings-table tbody td { padding-block:.55rem; }
 
-/* Each league's live standings sit over a single view of the cheering section. */
-section.npb-standings-panel .npb-ouendan-table {
+/* The background follows the league, including when the list is filtered. */
+.npb-standings-panel [data-division="太平洋聯盟"] {
+  --npb-scene: url('/brand/npb-pacific-broadcast-v1.webp');
+}
+section.npb-standings-panel .npb-league-table {
   background: linear-gradient(100deg, rgb(3 13 28 / 60%), rgb(3 13 28 / 55%)),
-              url('/brand/npb-standings-ouendan-v1.webp') center / cover no-repeat #0b182c;
+              var(--npb-scene, url('/brand/npb-standings-ouendan-v1.webp')) center / cover no-repeat #0b182c;
   text-shadow: 0 1px 3px #020710;
 }
-section.npb-standings-panel .npb-ouendan-table thead th { background: rgb(13 32 54 / 72%); }
-section.npb-standings-panel .npb-ouendan-table tbody tr:nth-child(even) { background: rgb(35 57 82 / 33%); }
-section.npb-standings-panel .npb-ouendan-table tbody tr:is(:hover, :focus-within) { background: rgb(24 46 67 / 68%); }
+section.npb-standings-panel .npb-league-table thead th { background: rgb(13 32 54 / 72%); }
+section.npb-standings-panel .npb-league-table tbody tr:nth-child(even) { background: rgb(35 57 82 / 33%); }
+section.npb-standings-panel .npb-league-table tbody tr:is(:hover, :focus-within) { background: rgb(24 46 67 / 68%); }
 section.npb-standings-panel .npb-division-title {
   background: repeating-linear-gradient(125deg, transparent 0 2px, rgb(106 135 173 / 6%) 2px 3px),
               linear-gradient(105deg, #132844, #0b162b 45%, #1a2d47 86%, #101d32);
