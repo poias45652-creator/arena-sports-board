@@ -11,9 +11,9 @@ const now=Date.parse('2026-10-27T10:00:00Z');
 const sample=()=>({status:'ready',day:taipeiDay(now),updatedAt:new Date(now).toISOString(),game:{key:'NPB:real-123',id:'real-123',sport:'baseball',league:'NPB',leagueName:'日本職棒',start:'2026-10-27T10:30:00Z',away:'客隊名稱',home:'主隊名稱'},probabilities:{home:.634,away:.366},progress:{state:'scheduled',label:'未開賽',stale:false}});
 test('homepage league list matches the current front end and excludes backend-only competitions',()=>{
  assert.equal(response.status,200);assert.match(response.headers.get('content-type'),/text\/html/);
- assert.equal(leagues.length,12);assert.deepEqual(leagues.filter(l=>l.sport==='baseball').map(l=>l.code),['MLB','NPB']);
+ assert.equal(leagues.length,14);assert.deepEqual(leagues.filter(l=>l.sport==='basketball').map(l=>l.code),['NBA','WNBA','NBL','KBL']);assert.deepEqual(leagues.filter(l=>l.sport==='baseball').map(l=>l.code),['MLB','NPB']);
  for(const text of ['CPBL','KBO','中職','韓職','中信兄弟','統一獅','道奇 vs 洋基','湖人 vs 勇士','__LEAGUE_COUNT__','__FRONT_LEAGUES__'])assert.ok(!html.includes(text),text);
- assert.match(html,/12 個熱門聯盟/);assert.doesNotMatch(html,/data-entry=|entryDialog|GPT 首頁設計預覽/);
+ assert.match(html,/14 個熱門聯盟/);assert.doesNotMatch(html,/data-entry=|entryDialog|GPT 首頁設計預覽/);
  for(const path of ['/login','/free-trial','/game-life','/ai-assistant'])assert.ok(html.includes('href="'+path+'"'));
 });
 test('reported CPBL fixture and any backend-only league never enter homepage results',()=>{

@@ -1,0 +1,28 @@
+body.arena-shell{position:relative;isolation:isolate;min-height:100vh}
+.arena-shell::before{position:fixed;inset:0;z-index:-1;content:"";pointer-events:none}
+.frame.nba-board{width:100%;max-width:1432px;padding-inline:24px}
+.topin{height:65px}.topin .brand img{width:40px;height:40px}
+.arena-shell .league-switcher{margin-top:24px;padding:12px;gap:16px}
+.sportbar a,.sportbar .onsport{min-height:60px}.leagues{margin:22px 0}.league{min-height:46px}
+#league-en{color:#a9b6c9;letter-spacing:normal}.nba-heading h1 b{font:inherit}
+#viewbar.nba-tabs{gap:1.5rem;margin-bottom:0;overflow-x:auto;scrollbar-width:none}
+.nba-tabs-row .snapshot{flex-shrink:0;align-self:center;color:#f1d8af;border:1px solid #976d38;background:#0d161e;padding:12px;border-radius:8px;font-size:13px}
+.nba-heading-stats.hero-stats{margin:0}.nba-heading-stats.hero-stats div+div{border-left:1px solid #d6b78026}
+.nba-team-directory .nba-team{border-color:#937039}
+.nba-team-directory .nba-team:hover{border-color:#f3cf94}
+body.profile-open>.top,.profile-open>.frame>:not(#content){display:none}
+body.profile-open>.frame{width:100%;max-width:none;padding:0}
+.nba-profile .nba-back,.sp-nav a{color:#f2cf91}
+.nba-profile .nba-source-link{background:transparent;padding:0}
+.nba-profile .nba-team{margin:0}.nba-profile dd{margin-inline-start:0}
+.nba-profile-panel .xz-player-grid{margin:0}
+.xz-player-card{font-family:inherit}.xz-card-bio{min-height:1.6em}
+.nba-profile .nba-panel-title span,.sp-caption{color:#b1bfd2}
+.sp-nav a:focus-visible,.nba-back:focus-visible{outline:2px solid #efc97c}
+.sp-bio dd{margin:0}.sp-panel .sp-reference{display:inline;color:#e7c785;text-decoration:underline}
+.sp-panel .sp-scroll button{border:0;background:none;padding:0;margin:0;color:#e7c785}
+.sp-page footer.sp-caption{display:block;background:none;border:0;padding:0}
+.sp-panel .scope-note{color:#e4c590;margin:0 0 14px;line-height:1.65}
+.nba-profile .empty,.sp-page .empty{padding:15px;min-height:0}
+@media(max-width:700px){.frame.nba-board{padding-inline:12px}.arena-shell .league-switcher{margin-top:14px;padding:7px;gap:5px}.sportbar a,.sportbar .onsport{min-height:47px}.leagues{gap:6px;margin:12px 0}.league{padding:6px 9px;min-height:38px}#viewbar.nba-tabs{gap:.8rem}.nba-tabs-row{flex-wrap:wrap}.nba-tabs-row .snapshot{padding:6px}.profile-open .frame{padding:0}}
+[hidden]{display:none!important}
