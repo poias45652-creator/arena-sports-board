@@ -50,14 +50,11 @@ function numbers(r){
  return '<small class="nba-updated">分析更新 '+e(timeTW(r.asOf))+'</small><div class="nba-analysis-numbers"><div class="nba-analysis-heading"><span>賽前預測</span><small>'+(r.frozen?'賽前存檔':'效率模擬')+'</small></div><div class="nba-forecast-score"><span>預估比分<small>客：主</small></span><b>'+(sc?sc.away:'—')+'<i>:</i>'+(sc?sc.home:'—')+'</b></div><div class="nba-probabilities"><div><span>客勝</span><strong>'+num(a,1)+'%</strong></div><div><span>主勝</span><strong>'+num(h,1)+'%</strong></div></div><div class="nba-probability-bar"><i style="width:'+a+'%"></i><i style="width:'+h+'%"></i></div><div class="nba-estimates"><div><span>預估總分</span><b>'+(sc?sc.home+sc.away:num(r.total))+'</b></div><div><span>預估分差</span><b>'+(sc?(sc.home>sc.away?'主':'客')+' +'+Math.abs(sc.home-sc.away):'勝負未定')+'</b></div></div></div>';
 }
 function breakdown(s,g,r){
- const m=marketFor(s,g),quotes=m?.quotes||[],inj=injuries(s,g),id=e(key(g));
+ const m=marketFor(s,g),quotes=m?.quotes||[],id=e(key(g));
  const graded=r.ready&&g.status==='final'&&r.homeProb!==r.awayProb&&g.homeScore!==g.awayScore;
  const result=graded?'<p>'+((r.homeProb>r.awayProb)===(g.homeScore>g.awayScore)?'勝方命中':'勝方未命中')+'</p>':'';
  const prices=marketCards(s,g,r,m,quotes);
- const flags={confirmed_out:'確認缺陣',fitness_test:'賽前測試',listed:'列入傷停報告',questionable:'出賽存疑'};
- const injuriesText=inj.length?'<ul>'+inj.map(x=>'<li>'+e(name(s,x.team)+'・'+x.player+'・'+(flags[x.status]||'待確認')+' '+(x.reason||''))+'</li>').join('')+'</ul>':'<p>此場尚無已核實的傷停名單。</p>';
- const impact=r.ready&&r.injuryAdjustmentApplied?'<p>缺陣與替補調整　客隊 '+num(r.awayInjuryPoints,1)+' 分，主隊 '+num(r.homeInjuryPoints,1)+' 分。</p>':'';
- return '<details class="match-market-details sport-market-details" data-persist="market:'+id+'"><summary><strong>查看分析</strong><span>'+(quotes.length?quotes.length+' 種玩法':'盤口待確認')+'</span></summary>'+prices+'<div class="xz-market-body">'+result+'<h4>傷停與出賽狀態</h4>'+injuriesText+impact+'<button class="official" data-open-game="'+e(g.id||g.home)+'">查看本場比分與球員數據 →</button></div></details>';
+ return '<details class="match-market-details sport-market-details" data-persist="market:'+id+'"><summary><strong>查看分析</strong><span>'+(quotes.length?quotes.length+' 種玩法':'盤口待確認')+'</span></summary>'+prices+(result?'<div class="xz-market-body">'+result+'</div>':'')+'</details>';
 }
 export function analysis(s){
  if(!s.visible.length)return noGames(s);
