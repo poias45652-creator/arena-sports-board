@@ -165,6 +165,16 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
       <FootballAnalysisNumbers analysis={a}/>
       {a.matchEvidence&&<details className="px-4 py-2 text-sm"><summary>近期對手與傷停</summary>
         {(['home','away'] as const).map(side=><p className="my-2" key={side}><strong>{game[side].name}</strong>　{evidenceDescription(a.matchEvidence!,side)}</p>)}
+        {a.contextForecast&&<div className="my-2">
+          <p>{a.contextForecast.formPolicy==='base'?'近期戰績與對手實力由基礎模型計入。':'雙方近況齊備時，按最近對手的強度修正。'}</p>
+          <table className="my-2 w-full text-right tabular-nums">
+            <caption className="sr-only">本場賽前機率調整</caption>
+            <thead><tr><th scope="col" className="text-left">計算階段</th><th scope="col">主勝</th><th scope="col">和局</th><th scope="col">客勝</th></tr></thead>
+            <tbody>{([['基礎模型',a.contextForecast.baseline],['計入近況',a.contextForecast.formOnly],['最終預測',a.probabilities]] as const).map(([label,p])=>
+              <tr key={label}><th scope="row" className="text-left">{label}</th>{(['home','draw','away'] as const).map(k=><td key={k}>{(100*p[k]).toFixed(1)}%</td>)}</tr>)}</tbody>
+          </table>
+          <p>{a.contextForecast.injuryCoverage!=='both'?'雙方傷停名單未核齊，這場沿用近況勝率。':a.contextForecast.injuryShiftApplied?'雙方傷停名單已核對，差異已計入最終預測。':'雙方傷停名單已核對，傷停權重相同。'}</p>
+        </div>}
         {a.matchEvidence.absences&&<a href={a.matchEvidence.absences.source} target="_blank" rel="noreferrer">查看本場傷情報告</a>}
       </details>}
     </>:(eligible||retainFootballForecast(game,now))?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}

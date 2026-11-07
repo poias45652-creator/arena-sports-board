@@ -54,22 +54,67 @@ export async function saveFootballResults(db:Database,games:FootballGame[],now=D
   }
   return count;
 }
-export function summarizeFootballForecasts(rows:any[]){
-  const groups:Record<string,{league:string;version:string;n:number;logLoss:number;brier:number;accuracy:number;over25Brier:number;bttsBrier:number}>={};
+type ProbabilitySet=NonNullable<FootballAnalysis['probabilities']>;
+type OutcomeTotals={n:number;logLoss:number;brier:number;accuracy:number;over25Brier:number;bttsBrier:number};
+const emptyTotals=():OutcomeTotals=>({n:0,logLoss:0,brier:0,accuracy:0,over25Brier:0,bttsBrier:0});
+
+function scorable(p:ProbabilitySet|undefined):p is ProbabilitySet {
+  return !!p&&[p.home,p.draw,p.away,p.over25,p.btts].every(n=>Number.isFinite(n)&&n>=0&&n<=1)
+    &&Math.abs(p.home+p.draw+p.away-1)<1e-6;
+}
+function addOutcome(t:OutcomeTotals,p:ProbabilitySet,home:number,away:number){
+  const y=home>away?0:home<away?2:1,values=[p.home,p.draw,p.away];
+  t.n++;
+  t.logLoss-=Math.log(Math.max(values[y],1e-12));
+  t.brier+=values.reduce((sum,n,i)=>sum+(n-Number(i===y))**2,0);
+  t.accuracy+=Number(values.indexOf(Math.max(...values))===y);
+  t.over25Brier+=(p.over25-Number(home+away>2))**2;
+  t.bttsBrier+=(p.btts-Number(home>0&&away>0))**2;
+}
+function averages(t:OutcomeTotals){
+  return {n:t.n,logLoss:t.logLoss/t.n,brier:t.brier/t.n,accuracy:t.accuracy/t.n,
+    over25Brier:t.over25Brier/t.n,bttsBrier:t.bttsBrier/t.n};
+}
+export function summarizeFootballVerification(rows:any[]){
+  const groups=new Map<string,{league:string;version:string;totals:OutcomeTotals}>();
+  const paired=new Map<string,{league:string;version:string;coverage:string;injuryShiftApplied:boolean;baseline:OutcomeTotals;formOnly:OutcomeTotals;published:OutcomeTotals}>();
   for(const row of rows){
     try{
-      if(!Number.isFinite(Date.parse(row.captured_at))||!Number.isFinite(Date.parse(row.start_time))||Date.parse(row.captured_at)>=Date.parse(row.start_time)-60000)continue;
-      const p=JSON.parse(row.payload).probabilities,values=[p.home,p.draw,p.away],home=Number(row.home_goals),away=Number(row.away_goals);
-      if(values.some(n=>!Number.isFinite(n)||n<0||n>1)||Math.abs(values.reduce((a,b)=>a+b,0)-1)>1e-6||![p.over25,p.btts].every(n=>Number.isFinite(n)&&n>=0&&n<=1)||!Number.isInteger(home)||!Number.isInteger(away)||home<0||away<0)continue;
-      const y=home>away?0:home<away?2:1,key=row.league+'|'+row.version;
-      const a=groups[key]??={league:row.league,version:row.version,n:0,logLoss:0,brier:0,accuracy:0,over25Brier:0,bttsBrier:0};
-      a.n++;a.logLoss-=Math.log(Math.max(values[y],1e-12));a.brier+=values.reduce((sum,n,i)=>sum+(n-Number(i===y))**2,0);a.accuracy+=Number(values.indexOf(Math.max(...values))===y);a.over25Brier+=(p.over25-Number(home+away>2))**2;a.bttsBrier+=(p.btts-Number(home>0&&away>0))**2;
-    }catch{/* Invalid snapshots are excluded rather than assigned zero error. */}
+      const captured=Date.parse(row.captured_at),start=Date.parse(row.start_time);
+      if(!Number.isFinite(captured)||!Number.isFinite(start)||captured>=start-60000)continue;
+      const payload=JSON.parse(row.payload),p=payload.probabilities;
+      if(row.home_goals==null||row.away_goals==null)continue;
+      const home=Number(row.home_goals),away=Number(row.away_goals);
+      if(!scorable(p)||!Number.isInteger(home)||!Number.isInteger(away)||home<0||away<0)continue;
+      const league=row.league,version=row.version,key=league+'|'+version;
+      const group=groups.get(key)??{league,version,totals:emptyTotals()};
+      addOutcome(group.totals,p,home,away);
+      groups.set(key,group);
+
+      // Older rows have no counterfactuals. All three stages must be from one
+      // saved pregame analysis; never backfill a missing stage after kickoff.
+      const a=payload.analysis,c=a?.contextForecast;
+      if(!c||a.version!==version||a.capturedAt!==row.captured_at||!scorable(c.baseline)||!scorable(c.formOnly))continue;
+      const coverage=c.injuryCoverage,injuryShiftApplied=c.injuryShiftApplied;
+      if(!['both','partial','none'].includes(coverage)||typeof injuryShiftApplied!=='boolean'||(injuryShiftApplied&&coverage!=='both'))continue;
+      const pairKey=[key,coverage,injuryShiftApplied].join('|');
+      const pair=paired.get(pairKey)??{league,version,coverage,injuryShiftApplied,baseline:emptyTotals(),formOnly:emptyTotals(),published:emptyTotals()};
+      addOutcome(pair.baseline,c.baseline,home,away);
+      addOutcome(pair.formOnly,c.formOnly,home,away);
+      addOutcome(pair.published,p,home,away);
+      paired.set(pairKey,pair);
+    }catch{/* Malformed snapshots cannot supply verification data. */}
   }
-  return Object.values(groups).map(g=>({...g,logLoss:g.logLoss/g.n,brier:g.brier/g.n,accuracy:g.accuracy/g.n,over25Brier:g.over25Brier/g.n,bttsBrier:g.bttsBrier/g.n}));
+  return {
+    groups:[...groups.values()].map(g=>({league:g.league,version:g.version,...averages(g.totals)})),
+    comparisons:[...paired.values()].map(p=>({...p,baseline:averages(p.baseline),formOnly:averages(p.formOnly),published:averages(p.published)}))
+  };
+}
+export function summarizeFootballForecasts(rows:any[]){
+  return summarizeFootballVerification(rows).groups;
 }
 export async function footballLiveAudit(db:Database){
   const paired=await db.prepare(`SELECT f.league,f.version,f.start_time,f.captured_at,f.payload,r.home_goals,r.away_goals FROM football_forecasts f JOIN football_results r ON f.league=r.league AND f.game_id=r.game_id AND f.start_time=r.start_time ORDER BY f.start_time DESC LIMIT 5000`).all();
   const counts=await db.prepare("SELECT COUNT(*) AS snapshots,COUNT(DISTINCT league || '|' || game_id) AS games FROM football_forecasts").first();
-  return {available:true,counts,groups:summarizeFootballForecasts(paired.results),scope:'正式上線後保存的最後一筆賽前快照；只核對實際90分鐘完場，不是實際下注紀錄。',limit:5000};
+  return {available:true,counts,...summarizeFootballVerification(paired.results),scope:'正式上線後保存的最後一筆賽前快照；只核對實際90分鐘完場，不是實際下注紀錄。',limit:5000};
 }

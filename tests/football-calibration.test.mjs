@@ -62,3 +62,54 @@ test('missing historical feeds are visible while missing current-season feeds pa
   const unavailable=await footballGameAnalysis('ger.1',footballDay(start),'998877');assert.equal(unavailable.analysis.status,'waiting');assert.equal(unavailable.analysis.probabilities,undefined);assert.match(unavailable.analysis.reason,/本季/);
  }finally{globalThis.fetch=realFetch;}
 });
+
+test('the live audit compares three stages from the same pregame capture and never reconstructs legacy or invalid rows',async()=>{
+ const {summarizeFootballVerification}=await import(moduleUrl('lib/football-ledger.ts'));
+ const p={home:.6,draw:.25,away:.15,over25:.54,under25:.46,btts:.52};
+ const baseline={...p,home:.5,away:.25},formOnly={...p,home:.55,away:.20};
+ const version='v2',captured_at='2026-09-28T03:00:00Z';
+ const c={baseline,formOnly,injuryCoverage:'both',injuryShiftApplied:true};
+ const row=(contextForecast,at=captured_at)=>({league:'ita.1',version,start_time:'2026-09-28T05:00:00Z',captured_at,home_goals:2,away_goals:1,
+   payload:JSON.stringify({probabilities:p,analysis:{version,capturedAt:at,contextForecast}})});
+ const {groups,comparisons}=summarizeFootballVerification([row(c),row(undefined),row({...c,formOnly:null}),row(c,'2026-09-28T06:00:00Z'),
+   {...row(c),captured_at:'2026-09-29T03:00:00Z'},{...row(c),home_goals:null}]);
+ assert.equal(groups[0].n,4);
+ assert.equal(comparisons.length,1);
+ const [a]=comparisons;
+ assert.deepEqual([a.baseline.n,a.formOnly.n,a.published.n],[1,1,1]);
+ assert.ok(a.published.brier<a.formOnly.brier&&a.formOnly.brier<a.baseline.brier);
+});
+
+test('daily win rates keep missing results pending, accept verified zero scores and ignore previously backfilled null MLB probabilities',async()=>{
+ const {backfillLegacyDaily,summarizeDailyWinRate,saveDailyResults}=await import(moduleUrl('lib/daily-win-rate.ts'));
+ const db=new PGlite({parsers:{20:Number}});
+ await db.exec(readFileSync('db/render-schema.sql','utf8')+';SET search_path TO yj_platform_v1,pg_catalog;');
+ const adapter={prepare(sql){
+   let values=[],i=0;const query=sql.replace(/\?/g,()=>'$'+(++i));
+   const statement={bind(...v){values=v;return statement;},run(){return db.query(query,values);},async first(){return (await db.query(query,values)).rows[0];},async all(){return {results:(await db.query(query,values)).rows};}};
+   return statement;
+ }};
+ const day='2026-09-29',capture=analysis.capturedAt,start=game.start;
+ try{
+  await saveFootballForecast(adapter,game,analysis,now);
+  const mlbGame={...game,id:21,date:start};
+  await db.query('INSERT INTO analysis_snapshots VALUES ($1,$2,$3,$4,$5,$6)',['21a',21,start,capture,'v1',JSON.stringify({game:mlbGame,trialWin:{homeWin:null}})]);
+  await backfillLegacyDaily(adapter,day);
+  assert.equal((await db.query('SELECT * FROM daily_results')).rows.length,0);
+  assert.deepEqual((await db.query('SELECT sport FROM daily_forecasts')).rows.map(r=>r.sport),['FOOTBALL']);
+  // Simulate two affected rows already present from an older release.
+  await db.query('INSERT INTO daily_forecasts VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',['MLB|21|'+start,'MLB','21',day,start,capture,'away',JSON.stringify({legacyBackfill:true,probabilities:{home:0,away:1}})]);
+  await db.query('INSERT INTO daily_results VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',['FOOTBALL|1|'+start,'FOOTBALL','1',day,start,0,0,capture]);
+  assert.equal((await summarizeDailyWinRate(adapter,day)).total.pending,1);
+  assert.equal((await summarizeDailyWinRate(adapter,day)).total.recommendations,1);
+  for(const [sport,g] of [['FOOTBALL',{...game,statusName:'STATUS_FINAL_AET'}],['FOOTBALL',{...game,statusName:'STATUS_FULL_TIME',homeScore:null,awayScore:1}],['NBA',{...game,homeScore:'',awayScore:100}]]){
+   assert.equal(await saveDailyResults(adapter,sport,[{homeScore:1,awayScore:2,...g,state:'final'}]),0);
+  }
+  const real={...game,state:'final',statusName:'STATUS_FULL_TIME',homeScore:0,awayScore:0};
+  await saveFootballResults(adapter,[real]);
+  await saveDailyResults(adapter,'FOOTBALL',[real]);
+  assert.equal((await summarizeDailyWinRate(adapter,day)).total.settled,1);
+  await db.query('UPDATE analysis_snapshots SET payload=$1 WHERE game_id=21',[JSON.stringify({game:mlbGame,trialWin:{homeWin:0}})]);
+  assert.equal((await summarizeDailyWinRate(adapter,day)).total.recommendations,2);
+ }finally{await db.close();}
+});

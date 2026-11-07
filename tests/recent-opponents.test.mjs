@@ -77,3 +77,45 @@ test('MLB injury report rejects wrong teams and stale reports and a later return
  assert.equal(mlbReportedAbsences(raw,game,now).home.length,0);
  assert.equal(mlbReportedAbsences(raw,game,now+2*86400000),null);
 });
+
+test('partial or stale injury coverage cannot move either sport; an explicit empty list is comparable',()=>{
+ const fixture=JSON.parse(readFileSync('data/npb-pregame-20260920.json')).games[3];
+ const g={state:'scheduled',league:'ita.1',id:'x',start,home:{id:'h'},away:{id:'a'}};
+ const b={status:'ready',version:'test',notes:[],...footballDistribution(1.2,1.2)};
+ const unknown={...evidence.absences,home:null};
+ const stale={...evidence.absences,checkedAt:new Date(now-7200000).toISOString()};
+ for(const report of [unknown,{...unknown,home:unknown.away,away:null},stale]){
+   const forecast=football.withFootballMatchContext(g,b,[],report,now);
+   assert.deepEqual(forecast.probabilities,b.probabilities);
+   assert.equal(forecast.contextForecast.injuryShiftApplied,false);
+   assert.equal(forecast.contextForecast.injuryCoverage,report===stale?'none':'partial');
+   for(const moneyline of ['multifactor','innings']){
+     const settings={...defaultBaseballSettings(),moneyline};
+     const neutral=buildRunAnalysis(fixture,now,'NPB',false,settings);
+     const adjusted=buildRunAnalysis({...fixture,matchEvidence:{asOf:evidence.asOf,home:null,away:null,absences:report}},now,'NPB',false,settings);
+     assert.deepEqual(adjusted.win,neutral.win);
+     assert.equal(adjusted.personalModel.multifactor.coverage,neutral.personalModel.multifactor.coverage);
+   }
+ }
+ const complete=football.withFootballMatchContext(g,b,[],evidence.absences,now);
+ assert.equal(complete.contextForecast.injuryCoverage,'both');
+ assert.equal(complete.contextForecast.injuryShiftApplied,true);
+ assert.deepEqual(complete.contextForecast.baseline,complete.contextForecast.formOnly);
+ assert.notDeepEqual(complete.probabilities,complete.contextForecast.formOnly);
+});
+
+test('the frozen score-model gate keeps German form inside the baseline and admits the verified Italian adjustment',()=>{
+ const b={status:'ready',version:'football-market-v4-20260928',notes:[],...footballDistribution(1.4,1.1)};
+ const g={state:'scheduled',id:'target',start,home:{id:'h'},away:{id:'a'}};
+ const rows=Array.from({length:8},(_,i)=>({id:String(i),start:new Date(now-(i+1)*day).toISOString(),state:'final',statusName:'STATUS_FULL_TIME',home:{id:i%2?'h':'x'+i},away:{id:i%2?'y'+i:'a'},homeScore:2,awayScore:0}));
+ const de=football.withFootballMatchContext({...g,league:'ger.1'},b,rows,null,now);
+ const it=football.withFootballMatchContext({...g,league:'ita.1'},b,rows,null,now);
+ assert.equal(de.contextForecast.formPolicy,'base');
+ assert.equal(de.matchEvidence.home.games,4);
+ assert.deepEqual(de.probabilities,b.probabilities);
+ assert.equal(it.contextForecast.formPolicy,'recent');
+ assert.ok(it.probabilities.home>b.probabilities.home);
+ const combined=football.withFootballMatchContext({...g,league:'ita.1'},b,rows,evidence.absences,now);
+ assert.deepEqual(combined.contextForecast.formOnly,it.probabilities);
+ assert.ok(combined.probabilities.home>it.probabilities.home);
+});

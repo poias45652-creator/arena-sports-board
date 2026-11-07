@@ -60,11 +60,14 @@ export function internationalMultifactor(g:PregameGame,now:number,league:ModelLe
    starterObservedAt:t.starter.source?.observedAt};
  };
  const h=values('home'),a=values('away');
+ const evidence=pregameEvidence(g.matchEvidence,now,start);
+ const reportedLoad=(side:Side)=>{
+  const list=evidence?.absences?.[side];
+  return Array.isArray(list)?absenceLoad(list):null;
+ };
  const factors=Object.entries(weights).map(([key,weight])=>{
-  const evidence=pregameEvidence(g.matchEvidence,now,start);
-  const injuryData=key==='injuries'&&evidence?.absences&&(evidence.absences.home||evidence.absences.away);
-  const home=injuryData?absenceLoad(evidence?.absences?.home):h[key as keyof typeof h.observed]??null;
-  const away=injuryData?absenceLoad(evidence?.absences?.away):a[key as keyof typeof a.observed]??null;
+  const home=key==='injuries'?reportedLoad('home'):h[key as keyof typeof h.observed]??null;
+  const away=key==='injuries'?reportedLoad('away'):a[key as keyof typeof a.observed]??null;
   const log5=key==='season'&&home!==null&&away!==null?(home-home*away)/(home+away-2*home*away):null;
   const score=home===null||away===null?null:key==='season'?baseballSeasonSignal(2*log5!-1,evidence):key==='injuries'?availabilityAdvantage(evidence):Math.max(-1,Math.min(1,(away-home)/(key==='starterWhip'?.8:4)));
   return {name:key==='season'&&evidence?.home&&evidence.away?'本季戰績與近期對手強度':BASEBALL_FACTOR_LABELS[key as keyof MultiWeights],weight,home,away,score,contribution:score===null?0:weight*score/2};
@@ -194,7 +197,7 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
  const a=report.inputs.away!,h=report.inputs.home!;
  const evidence=pregameEvidence(g.matchEvidence,now,start);
  if(evidence)for(const side of sides)report.notes.push((side==='home'?'主隊：':'客隊：')+evidenceDescription(evidence,side));
- if(evidence&&(evidence.home&&evidence.away||evidence.absences?.home?.length||evidence.absences?.away?.length))report.version+='-recent-availability-v1';
+ if(evidence&&(evidence.home&&evidence.away||availabilityAdvantage(evidence)!==0))report.version+='-recent-availability-v2';
  const cap=league==='KBO'?11:12;
  const away=Array.from({length:cap},(_,i)=>inningRunRate(a,h,i+1,personal?.weights.innings)*baseballRunMultiplier(evidence,false)),home=Array.from({length:cap},(_,i)=>inningRunRate(h,a,i+1,personal?.weights.innings)*baseballRunMultiplier(evidence,true));
  const expected={away:away.slice(0,9).reduce((a,b)=>a+b,0),home:home.slice(0,9).reduce((a,b)=>a+b,0)};
@@ -214,7 +217,7 @@ export function buildRunAnalysis(g:PregameGame,now=Date.now(),league:ModelLeague
 
 export function validAnalysisVersion(r:RunAnalysis,league:ModelLeague){
  const base=MODEL_VERSION[league]+(r.mode==='simulation'?'-simulation-v1':'');
- return r.version===base||r.version===base+'-recent-availability-v1';
+ return r.version===base||r.version===base+'-recent-availability-v1'||r.version===base+'-recent-availability-v2';
 }
 // Fallback parameters live only in an analysis report, never in source stats.
 function simulationInput(g:PregameGame,side:Side,now:number,league:ModelLeague,assumptions:string[]):RunModelInput{

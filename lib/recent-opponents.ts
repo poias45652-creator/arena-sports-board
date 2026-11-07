@@ -56,7 +56,9 @@ export function absenceLoad(rows:Absence[]|null|undefined){
   return rows?.length?Math.min(1,rows.reduce((total,p)=>total+p.weight,0)/4):0;
 }
 export function availabilityAdvantage(e?:MatchEvidence){
-  return absenceLoad(e?.absences?.away)-absenceLoad(e?.absences?.home);
+  const report=e?.absences;
+  if(!Array.isArray(report?.home)||!Array.isArray(report?.away))return 0;
+  return absenceLoad(report.away)-absenceLoad(report.home);
 }
 
 // Use the existing season and injury budgets. Personal settings can turn either factor off.
