@@ -50,15 +50,18 @@ export function applyShotSelection(game:FootballGame, base:FootballAnalysis, cal
       '勝和負、大小球與比分取自同一個90分鐘比分分布。此分支未使用實測 xG、傷停名單或賠率。']};
 }
 
-export async function selectDomesticForecast(game:FootballGame, base:FootballAnalysis, read:Source):Promise<FootballAnalysis> {
+export async function selectDomesticForecast(game:FootballGame, base:FootballAnalysis, read:Source, existing?:{shotCalendars?:ShotCalendar[];fetchedAt:string}|null):Promise<FootballAnalysis> {
   const now=Date.now();
   if (!isShotLeague(game.league) || game.neutral || base.status!=='ready' || !base.probabilities ||
       game.state!=='scheduled' || !game.timeConfirmed || Date.parse(game.start)<=now || !/^\d+$/.test(game.id)) return base;
   if (domesticXgReady(base)) return applyShotSelection(game,base,[],base.external!.fetchedAt,now);
   const year=new Date(game.start).getUTCFullYear();
+  if (existing?.shotCalendars?.length===2 && existing.shotCalendars.some(c=>c.year===year)) {
+    return applyShotSelection(game,base,existing.shotCalendars,existing.fetchedAt,now);
+  }
   try {
     const feeds=await Promise.all([year-1,year].map(async y => {
-      const feed=await read(`${game.league}/scoreboard?dates=${y}&limit=1000`,y<new Date(now).getUTCFullYear()?86400000:1800000,6000);
+      const feed=await read(`${game.league}/scoreboard?dates=${y}&limit=1000`,y<new Date(now).getUTCFullYear()?86400000:1800000,15000);
       if (!feed.value || typeof feed.value !== 'object') throw Error('年度來源格式無效');
       let calendar=parsedCalendars.get(feed.value);
       if (!calendar || calendar.league!==game.league || calendar.year!==y) {

@@ -1,3 +1,4 @@
+import {parseShotCalendar,type ShotCalendar} from './football-shot-calendar';
 import {footballWeightedParameters,type FootballModelSettings} from './football-model-weights';
 // Server-only expanded score history for the accepted DE/IT market model.
 import archive from '../data/football/market-history-20260928.json';
@@ -7,22 +8,26 @@ import {marketFootballDistribution,marketFootballFeatures,marketFootballRates,pa
 import {footballMarketAudit,footballMarketRuntime,selectFootballMarketModel} from './football-market-model';
 const names=archive.teams as Record<string,string>;
 const archived:FootballGame[]=archive.games.map(r=>({id:String(r[0]),league:String(r[1]) as FootballLeague,start:String(r[2]),home:{id:String(r[3]),name:names[String(r[3])]||String(r[3]),englishName:names[String(r[3])]||String(r[3])},away:{id:String(r[4]),name:names[String(r[4])]||String(r[4]),englishName:names[String(r[4])]||String(r[4])},homeScore:Number(r[5]),awayScore:Number(r[6]),neutral:!!r[7],season:Number(r[8]),state:'final',statusName:'STATUS_FULL_TIME',statusLabel:'完場',timeConfirmed:true,venue:'',sourceUrl:''}));
-export type FootballMarketContext={history:FootballGame[];fetchedAt:string;fixtures:Map<string,FootballGame>;conflicts:number};
+export type FootballMarketContext={shotCalendars?:ShotCalendar[];history:FootballGame[];fetchedAt:string;fixtures:Map<string,FootballGame>;conflicts:number};
 const cache=new Map<string,{expires:number;value?:FootballMarketContext;error?:Error}>(),pending=new Map<string,Promise<FootballMarketContext>>();
 let active=0;const queue:(()=>void)[]=[];
 async function fetchYear(league:FootballLeague,year:number){
  if(active>=2)await new Promise<void>(r=>queue.push(r));else active++;
- try{const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard?dates=${year}&limit=1000`,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('聯賽年度來源暫時無法更新');const text=await r.text();if(text.length>12000000)throw Error('聯賽資料過大');return parseMarketFootballEvents(JSON.parse(text),league);}
+ try{const r=await fetch(`https://site.api.espn.com/apis/site/v2/sports/soccer/${league}/scoreboard?dates=${year}&limit=1000`,{cache:'no-store',signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error('聯賽年度來源暫時無法更新');const text=await r.text();if(text.length>12000000)throw Error('聯賽資料過大');const data=JSON.parse(text),games=parseMarketFootballEvents(data,league);
+   let shots:ShotCalendar|undefined;
+   try { shots=parseShotCalendar(data,league,year); } catch { /* Incomplete shot data do not invalidate verified scores. */ }
+   return {games,shots};}
  finally{const next=queue.shift();if(next)next();else active--;}
 }
 export async function loadFootballMarketContext(league:FootballLeague):Promise<FootballMarketContext>{
  if(league!=='ger.1'&&league!=='ita.1')throw Error('不支援此聯賽');const now=Date.now(),year=new Date(now).getUTCFullYear(),key=league+':'+year,hit=cache.get(key);
  if(hit&&hit.expires>now){if(hit.error)throw hit.error;return hit.value!;}if(pending.has(key))return pending.get(key)!;
  const task=(async()=>{
-  const live=(await Promise.all([year-1,year].map(y=>fetchYear(league,y)))).flat(),base=archived.filter(g=>g.league===league),baseIds=new Set(base.map(g=>g.id));
+  const annual=await Promise.all([year-1,year].map(y=>fetchYear(league,y)));
+  const live=annual.flatMap(a=>a.games),base=archived.filter(g=>g.league===league),baseIds=new Set(base.map(g=>g.id));
   const excluded=[...archive.excludedKeys,...live.filter(g=>(g.state!=='final'||g.statusName!=='STATUS_FULL_TIME'||g.homeScore===null||g.awayScore===null)&&baseIds.has(g.id)).map(marketFixtureKey)];
   const merged=reconcileMarketHistory([...base,...live.filter(g=>Date.parse(g.start)<Date.now())],excluded);
-  const value={history:merged.games as FootballGame[],fetchedAt:new Date().toISOString(),fixtures:new Map(live.map(g=>[g.id,g])),conflicts:merged.excluded.filter(k=>k.startsWith(league+'|')).length};
+  const value={shotCalendars:annual.flatMap(a=>a.shots?[a.shots]:[]),history:merged.games as FootballGame[],fetchedAt:new Date().toISOString(),fixtures:new Map(live.map(g=>[g.id,g])),conflicts:merged.excluded.filter(k=>k.startsWith(league+'|')).length};
   cache.set(key,{expires:Date.now()+30*60000,value});return value;
  })().catch(e=>{const error=e instanceof Error?e:new Error('聯賽來源失敗');cache.set(key,{expires:Date.now()+30000,error});throw error;}).finally(()=>pending.delete(key));pending.set(key,task);return task;
 }
