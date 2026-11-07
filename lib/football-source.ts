@@ -1,3 +1,4 @@
+import {selectDomesticForecast,finalizeDomesticSelection} from './football-shot-selection';
 import fallbackAudit from '../data/football/five-league-score-fallback.json';
 import {domesticScoreEstimate} from './football-domestic-fallback';
 import {parseMarketFootballEvents} from './football-market-core';
@@ -171,7 +172,9 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   const shots=study?.applyShots&&checked&&!game.neutral?recentShotEstimate(checked.shots,league,checked.home,checked.away,before):null;
   // The three external base models use the league's whole history for prior opponent records.
   const formPool=study&&checked&&!market?checked.shots.map(g=>({id:g.id,at:Date.parse(g.start),home:g.homeId,away:g.awayId,homeScore:g.homeGoals,awayScore:g.awayGoals})):undefined;
+  if(domestic&&!shots)analysis=await selectDomesticForecast(game,analysis,source,market);
   analysis=withFootballMatchContext(game,analysis,scoreFallback?fullPool!:contextHistory,absences,asOf,study?{study,shots,scoreFallback,form:formPool&&checked?{rows:formPool,home:checked.home,away:checked.away}:undefined}:undefined);
+  if(domestic)analysis=finalizeDomesticSelection(analysis,shots&&external?{homeGames:shots.homeGames,awayGames:shots.awayGames,fetchedAt:external.fetchedAt}:undefined);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 

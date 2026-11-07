@@ -165,7 +165,7 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
     {(game.venue||game.neutral)&&<p className="football-venue">{game.neutral?'中立場・':''}{game.venue}</p>}
     {a?<>
       <div className="football-analysis-title"><strong>{a.probabilities&&a.probabilities.draw>Math.max(a.probabilities.home,a.probabilities.away)?'和局首選':a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
-      {a.domesticForecast&&<p className="px-4 text-sm">{a.domesticForecast.featured?'精選推薦':'一般分析'}{a.domesticForecast.drawRisk?'・和局風險較高':''}{a.domesticForecast.scoreFallback?'・比分備援':a.domesticForecast.shotApplied?'・近期射門品質已計入':a.external?.modelFamily==='score-market'?'・依近期比分計算':''}</p>}
+      {a.domesticForecast&&<p className="px-4 text-sm">{a.selection?.pick?'七成精選':'一般分析'}{a.domesticForecast.drawRisk?'・和局風險較高':''}{a.selection?.source==='shots'&&a.selection.pick?'・射正與 Elo':a.domesticForecast.scoreFallback?'・比分備援':a.domesticForecast.shotApplied?'・近期射門品質已計入':a.external?.modelFamily==='score-market'?'・依近期比分計算':''}</p>}
       <FootballAnalysisNumbers analysis={a}/>
       {a.matchEvidence&&<details className="px-4 py-2 text-sm"><summary>近期對手與傷停</summary>
         {(['home','away'] as const).map(side=><p className="my-2" key={side}><strong>{game[side].name}</strong>　{evidenceDescription(a.matchEvidence!,side)}</p>)}

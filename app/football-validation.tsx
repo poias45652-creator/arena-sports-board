@@ -3,7 +3,7 @@ import {useEffect,useState} from 'react';
 import {FOOTBALL_LEAGUES,type FootballLeague} from '@/lib/football';
 import {footballCalibrationRuntime as audit,footballCalibrationAudit,selectFootballCalibration} from '@/lib/football-calibration';
 
-type Live={available:boolean;error?:string;counts?:{snapshots:number;games:number};groups?:{league:string;version:string;n:number;logLoss:number;brier:number;accuracy:number}[]};
+type Live={available:boolean;selection?:{evaluated:number;picks:number;hits:number};error?:string;counts?:{snapshots:number;games:number};groups?:{league:string;version:string;n:number;logLoss:number;brier:number;accuracy:number}[]};
 const decimal=(n:number)=>n.toFixed(4),pct=(n:number)=>(n*100).toFixed(1)+'%';
 export default function FootballValidation({league}:{league:FootballLeague}){
   const [open,setOpen]=useState(false),[live,setLive]=useState<Live|null>(null),[reload,setReload]=useState(0);
@@ -28,7 +28,7 @@ export default function FootballValidation({league}:{league:FootballLeague}){
       <h3>原版本限制</h3>
       <ul><li>原版本只使用比分近況，未建模對手強度、先發、傷停、xG或實際盤口；不能據此推算獲利。</li><li>同賽事不足10場或近況過舊時，自動補抓球隊其他正式賽事並降權；補充後仍少於5場則不產生機率。跨賽事版本尚未獨立驗收，不列為已校準，也不混入上表的同賽事回測。</li><li>歷史資料是事後下載的賽果，可能含供應商修正，並非當時保存的即時快照。前瞻驗證另行統計。</li><li>沒有即時自動改寫參數。新模型仍需重新訓練、保留測試與驗收；校準有效至 {audit.expiresAt.slice(0,10)}，到期回到基礎模型。已看過的測試期不能反覆調到通過，下一版須保留新的未見資料。</li></ul>
       <h3>上線後賽前快照</h3>
-      {!live?<p role="status">正在讀取…</p>:!live.available?<p role="alert">{live.error}</p>:<><p>已保存 {Number(live.counts?.snapshots||0)} 筆預測，涵蓋 {Number(live.counts?.games||0)} 場比賽。</p>{!live.groups?.length?<p>目前沒有已配對完場賽果，尚不能評估上線後表現。</p>:<div className="football-audit-scroll"><table><thead><tr><th>聯賽／版本</th><th>場數</th><th>Log loss</th><th>Brier</th><th>命中率</th></tr></thead><tbody>{live.groups.map(g=><tr key={g.league+g.version}><th>{FOOTBALL_LEAGUES.find(l=>l.code===g.league)?.name||g.league}<small>{g.version}</small></th><td>{g.n}</td><td>{decimal(g.logLoss)}</td><td>{decimal(g.brier)}</td><td>{pct(g.accuracy)}</td></tr>)}</tbody></table></div>}</>}
+      {!live?<p role="status">正在讀取…</p>:!live.available?<p role="alert">{live.error}</p>:<><p>已保存 {Number(live.counts?.snapshots||0)} 筆預測，涵蓋 {Number(live.counts?.games||0)} 場比賽。</p>{live.selection&&<p>勝和負精選已結算 {live.selection.picks} 場，命中 {live.selection.hits} 場{live.selection.picks>0&&'（'+pct(live.selection.hits/live.selection.picks)+'）'}。共核對 {live.selection.evaluated} 場有精選判定的賽前紀錄。</p>}{!live.groups?.length?<p>目前沒有已配對完場賽果，尚不能評估上線後表現。</p>:<div className="football-audit-scroll"><table><thead><tr><th>聯賽／版本</th><th>場數</th><th>Log loss</th><th>Brier</th><th>命中率</th></tr></thead><tbody>{live.groups.map(g=><tr key={g.league+g.version}><th>{FOOTBALL_LEAGUES.find(l=>l.code===g.league)?.name||g.league}<small>{g.version}</small></th><td>{g.n}</td><td>{decimal(g.logLoss)}</td><td>{decimal(g.brier)}</td><td>{pct(g.accuracy)}</td></tr>)}</tbody></table></div>}</>}
       <p>只有實際被查看並成功保存的賽前分析會入帳；每版本保留開賽前最後一筆，開賽後不能覆寫。查看已完場日期的賽程時更新賽果，統計最多最近5,000筆已配對快照。這不是所有賽事，也不是實際下注成績。</p>
       <button type="button" onClick={()=>setReload(n=>n+1)}>更新快照統計</button>
     </div>}

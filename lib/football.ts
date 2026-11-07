@@ -35,7 +35,7 @@ export type FootballContextForecast={
 };
 export type DomesticForecast={policy:'five-league-v1'; scoreFallback:boolean;featured:boolean; drawRisk:boolean; shotApplied:boolean;
   beforeShots:FootballProbabilities; afterShots:FootballProbabilities; partialRoleTrial?:FootballProbabilities; shotGames?:{home:number;away:number}};
-export type FootballAnalysis = {domesticForecast?:DomesticForecast;contextForecast?:FootballContextForecast;matchEvidence?:import('./recent-opponents').MatchEvidence;
+export type FootballAnalysis = {selection?:import('./football-shot-selection').FootballSelection;domesticForecast?:DomesticForecast;contextForecast?:FootballContextForecast;matchEvidence?:import('./recent-opponents').MatchEvidence;
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
   calibration?:FootballCalibrationStatus;
   quality?:{label:string;warnings:string[];historyConflicts:number;archiveSupplementGames:number};
