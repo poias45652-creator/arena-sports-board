@@ -3,10 +3,10 @@ import {scheduleRevision,scheduleCatalog} from '@/lib/project-schedules';
 import {getRawDb} from '@/db';
 import {baseballBackgroundStatus} from '@/server/baseball-background-state.mjs';
 export const dynamic = 'force-dynamic';
-export async function GET(request?:Request) {
+export async function GET(request:Request) {
   try {
     await getRawDb().prepare('SELECT COUNT(*) AS count FROM account_access').first();
-    if(request&&new URL(request.url).searchParams.get('check')==='schedules'){
+    if(new URL(request.url).searchParams.get('check')==='schedules'){
       const {tasks,synced}=await scheduleCatalog();
       return Response.json({ok:synced,revision:scheduleRevision,registered:tasks.length,enabled:tasks.filter(t=>t.enabled).length},{status:synced?200:503,headers:{'Cache-Control':'no-store'}});
     }
