@@ -111,13 +111,19 @@ try{
   }));
   await pregame.evaluate(panel=>panel.scrollIntoView({block:'start'}));
   await page.screenshot({path:directory+'/'+size+'-pregame-skybox.png'});
-  // The shared pitch must still be visible through the last row of cards.
-  const lowerCardHeader = pregame.locator('.football-card-top').last();
-  const pitchVisible = await lowerCardHeader.screenshot();
-  const hidePitch = await page.addStyleTag({content:'[data-football-view="analysis"] { background-image:none !important; }'});
-  const pitchHidden = await lowerCardHeader.screenshot();
-  await hidePitch.evaluate(el=>el.remove());
-  assert.ok(!pitchVisible.equals(pitchHidden), 'pitch shows through lower pre-match cards');
+  const matchCards = pregame.locator('.football-card');
+  assert.ok(await matchCards.evaluateAll(async cards => {
+    const image = new Image();
+    image.src = '/brand/football-rain-goal-v1.webp';
+    await image.decode();
+    return cards.length > 0 && cards.every(card => getComputedStyle(card).backgroundImage.includes(image.src));
+  }));
+  const lowerCardHeader = matchCards.last().locator('.football-card-top');
+  const rainVisible = await lowerCardHeader.screenshot();
+  const hideRain = await page.addStyleTag({content:'[data-football-view="analysis"] .football-card { background-image:none !important; }'});
+  const rainHidden = await lowerCardHeader.screenshot();
+  await hideRain.evaluate(el=>el.remove());
+  assert.ok(!rainVisible.equals(rainHidden), 'rainy goal is visible in the last match card');
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1), 'pre-match grid fits viewport');
   assert.deepEqual(errors,[]);results.push({size,passed:true});await page.unrouteAll({behavior:'ignoreErrors'});await context.close();
  }
