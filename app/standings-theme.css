@@ -44,3 +44,4 @@ section.sport-standings .standings-rank[data-place="1"] { color:#211a0c; backgro
 section.sport-standings :is(.record-line, .football-record) { font-size:1rem; }
 section.sport-standings .football-record b { font-weight:700; }
 section.sport-standings .football-form span { min-width:1.5rem; text-align:center; font-size:.875rem; }
+section.mlb-standings-panel .standings-table tbody td { padding-block:.55rem; }
