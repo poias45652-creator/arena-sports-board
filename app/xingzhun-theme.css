@@ -75,26 +75,40 @@
   background-image:var(--xz-ornament),linear-gradient(130deg,var(--xz-panel),var(--xz-panel-deep));
   background-size:180px 180px,auto; background-position:right bottom,center; background-repeat:no-repeat;
 }
-/* One tactics sheet under the entire pre-match grid, including expanded cards. */
+/* Keep the stadium panorama at its natural proportions even on long matchdays. */
 .arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-football-view="analysis"] {
-  --pitch-height: clamp(580px, 65vw, 1080px);
-  background-color: #081427;
+  background-color: #132c27;
   background-image:
-    linear-gradient(to bottom, #081427, transparent 6%, transparent 94%, #081427),
-    url('/brand/football-pregame-tactics-v1.webp');
+    linear-gradient(90deg, rgb(4 19 17 / 78%), transparent 29% 74%, rgb(4 19 17 / 70%)),
+    url('/brand/football-pregame-skybox-v1.webp');
   background-position: center top;
-  background-size: 100% var(--pitch-height), max(100%, 720px) var(--pitch-height);
-  background-repeat: repeat-y;
+  background-size: 100% 12rem, max(100%, 760px) auto;
+  background-repeat: no-repeat, repeat-y;
+}
+[data-football-view="analysis"] .football-toolbar > div:first-child,
+[data-football-view="analysis"] .football-status > span {
+  width: fit-content;
+  padding: .18rem .45rem;
+  border-radius: .3rem;
+  background: rgb(5 25 22 / 82%);
+  color: #f1f2e9;
+}
+[data-football-view="analysis"] .football-toolbar p {
+  color: #d7e2db;
+}
+[data-football-view="analysis"] .football-filters button[aria-pressed="true"] {
+  background: #16352e;
 }
 .arena-shell.xz-theme[data-sport="football"] [data-football-view="analysis"] .football-card {
-  background: rgb(6 16 35 / 42%);
+  border-color: #d8ba76;
+  background: linear-gradient(145deg, rgb(7 36 31 / 91%), rgb(4 24 24 / 95%));
 }
 [data-football-view="analysis"] .football-goals > div,
 [data-football-view="analysis"] .sport-market-option {
-  background-color: rgb(7 18 35 / 81%);
+  background-color: rgb(3 23 24 / 82%);
 }
 [data-football-view="analysis"] .match-market-details {
-  background-color: rgb(8 20 38 / 67%);
+  background-color: rgb(5 27 25 / 80%);
 }
 .arena-shell.xz-theme :is(.score-card,.nba-card-analysis,.international-lineups>div) { background:var(--xz-panel-deep); }
 .arena-shell.xz-theme .nba-card>header { background:var(--xz-panel)!important; border-bottom-color:var(--xz-rule); }

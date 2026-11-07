@@ -105,10 +105,12 @@ try{
   await pregame.locator('.football-probabilities strong').first().waitFor();
   assert.ok(await pregame.evaluate(async panel=>{
     const image = new Image();
-    image.src = '/brand/football-pregame-tactics-v1.webp';
+    image.src = '/brand/football-pregame-skybox-v1.webp';
     await image.decode();
     return getComputedStyle(panel).backgroundImage.includes(image.src);
   }));
+  await pregame.evaluate(panel=>panel.scrollIntoView({block:'start'}));
+  await page.screenshot({path:directory+'/'+size+'-pregame-skybox.png'});
   // The shared pitch must still be visible through the last row of cards.
   const lowerCardHeader = pregame.locator('.football-card-top').last();
   const pitchVisible = await lowerCardHeader.screenshot();
