@@ -3,7 +3,7 @@ import {useEffect,useState} from 'react';
 import {taipeiDay} from '@/lib/baseball';
 import {scheduleLiveUntil} from '@/lib/sport-live';
 import {FOOTBALL_LEAGUES} from '@/lib/football';
-const sources=[['NBA','/api/nba'],['WNBA','/api/wnba'],...FOOTBALL_LEAGUES.map(({code})=>[code,`/api/football?league=${code}`])] as const;
+const sources=[['NBA','/api/nba'],['WNBA','/api/wnba'],['NBL','/api/regional-basketball/feed?league=NBL'],['KBL','/api/regional-basketball/feed?league=KBL'],...FOOTBALL_LEAGUES.map(({code})=>[code,`/api/football?league=${code}`])] as const;
 export function useSportLive(){
  const [until,setUntil]=useState<Record<string,number>>({}),[now,setNow]=useState(Date.now);
  useEffect(()=>{
@@ -22,5 +22,5 @@ export function useSportLive(){
   document.addEventListener('visibilitychange',resume);window.addEventListener('arena-refresh-all',resume);
   return()=>{controller.abort();clearInterval(poll);clearInterval(clock);document.removeEventListener('visibilitychange',resume);window.removeEventListener('arena-refresh-all',resume);};
  },[]);
- return {NBA:(until.NBA||0)>now,WNBA:(until.WNBA||0)>now,FOOTBALL:sources.slice(2).some(([code])=>(until[code]||0)>now)};
+ return {NBA:(until.NBA||0)>now,WNBA:(until.WNBA||0)>now,NBL:(until.NBL||0)>now,KBL:(until.KBL||0)>now,FOOTBALL:FOOTBALL_LEAGUES.some(({code})=>(until[code]||0)>now)};
 }
