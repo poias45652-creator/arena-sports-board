@@ -48,7 +48,7 @@ section.mlb-standings-panel .standings-table tbody td { padding-block:.55rem; }
 
 /* The background follows the league, including when the list is filtered. */
 .npb-standings-panel [data-division="太平洋聯盟"] {
-  --npb-scene: url('/brand/npb-pacific-broadcast-v1.webp');
+  --npb-scene: url('/brand/npb-pacific-ouendan-v1.webp');
 }
 section.npb-standings-panel .npb-league-table {
   background: linear-gradient(100deg, rgb(3 13 28 / 60%), rgb(3 13 28 / 55%)),
