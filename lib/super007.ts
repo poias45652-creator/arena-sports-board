@@ -1,8 +1,9 @@
+import type {RegionalTzMarket} from './regional-tz-markets';
 import {mlbTeamName} from './mlb-team-names';
 import type {Match} from './baseball';
 import type {OddsSnapshot,Quote,MarketKey} from './pinnacle';
 import {parseSourceLine} from './settlement';
-export type SuperSnapshot={games:any[];sportGames?:any[];internationalGames?:any[];sourceLeagues?:{name:string;league:string|null;games:number}[];sourceScope?:{category:'baseball';phase:'pregame';available:boolean};fetchedAt:string;source:string};
+export type SuperSnapshot={games:any[];regionalTzMarkets?:RegionalTzMarket[];sportGames?:any[];internationalGames?:any[];sourceLeagues?:{name:string;league:string|null;games:number}[];sourceScope?:{category:'baseball';phase:'pregame';available:boolean};fetchedAt:string;source:string};
 // Exact SUPER aliases observed in the 2026-09-12 source display.
 // Retain team orientation and uniqueness. Explicit doubleheader labels permit
 // changed start times on the same Taipei date, never an unlabelled guess.

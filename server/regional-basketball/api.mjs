@@ -1,10 +1,8 @@
 import {getKblFeed,getKblDetail,getKblHistory,getKblStandings,getKblBox} from './kbl.mjs';
 import {getNblFeed,getNblHistory,getNblStandings} from './nbl.mjs';
-import {fetchNblMarkets} from './market-feed.mjs';
 import {rosterBase} from './nbl-seed.mjs';
 import {getNblRoster} from './nbl-roster.mjs';
 import {getKblRoster,getKblPlayerLog} from './kbl-roster.mjs';
-import {fetchKblMarkets} from './kbl-market.mjs';
 import {fetchKblTeamNotices} from './kbl-availability.mjs';
 import {fetchNblInjuries} from './injury-feed.mjs';
 import {getNblDetail} from './nbl-detail.mjs';
@@ -72,9 +70,8 @@ export async function api(req,readAsset=async()=>null){
    })));return json({boxes:res.flatMap(r=>r.status==='fulfilled'&&r.value?[r.value]:[])},200,180);
   }
   if(kind==='context'){
-   if(isK){const both=await Promise.allSettled([run('markets',100,fetchKblMarkets),run('notices',1800,fetchKblTeamNotices)]);return json({markets:both[0].value||[],notices:both[1].value||[],injuries:[]},200,45);}
-   const j=await Promise.allSettled([run('markets',100,fetchNblMarkets),run('injuries',1800,fetchNblInjuries)]);
-   return json({markets:j[0].status==='fulfilled'?j[0].value:[],injuries:j[1].status==='fulfilled'?j[1].value:[]},200,45);
+   if(isK)return json({notices:await run('notices',1800,fetchKblTeamNotices),injuries:[]},200,45);
+   return json({injuries:await run('injuries',1800,fetchNblInjuries)},200,45);
   }
   return json({error:'無效的查詢'},400);
  }catch(err){return json({error:sourceNote[l]+' 資料服務暫未回應',asOf:new Date().toISOString()},503);}

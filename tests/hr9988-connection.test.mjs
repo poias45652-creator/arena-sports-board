@@ -28,7 +28,7 @@ test('OFA collector accepts methodless launches and mobile source hosts using it
    assert.equal(request.endpoint,'https://www.ofa1188.net/api/v2/game/SUPER/login');assert.equal(request.headers.Authorization,'Bearer tz-test-ofa:test');
    return Response.json({code:200,data:{game_method:method,game_url:'https://'+host+'/#/APILogin?MemID=0123456789abcdef0123456789abcdef',game_post:{}}});
   }));
-  assert.equal(r.status,200);assert.equal((await r.json()).connection.status,'connected');assert.equal(calls[1].endpoint,'https://sp1788.net/api/mb/sin/outApiLogin');assert.equal(calls.filter(c=>c.endpoint.includes('/SUPER/login')).length,1);
+  assert.equal(r.status,200);const body=await r.json();assert.equal(body.connection.status,'connected');assert.equal(body.regionalTzMarkets,undefined);assert.equal(calls[1].endpoint,'https://sp1788.net/api/mb/sin/outApiLogin');assert.equal(calls.filter(c=>c.endpoint.includes('/SUPER/login')).length,1);
  }
 });
 test('collector rejects POST payloads before exchanging a ticket',async()=>{
@@ -49,7 +49,7 @@ function flow(calls,hook){return async(endpoint,options)=>{
 test('authenticated baseball menu yields private parsed odds, encrypts session, and cached refresh skips source calls',async()=>{
  const {db,sql}=await setup(),calls=[];
  const response=await hrConnection('a',db,secret,'connect',flow(calls));assert.equal(response.status,200);
- const result=await response.json();assert.equal(result.connection.status,'connected');assert.equal(result.games.length,4);assert.equal(result.source,'hr9988');assert.match(response.headers.get('cache-control'),/private/);
+ const result=await response.json();assert.equal(result.connection.status,'connected');assert.equal(result.games.length,4);assert.equal(result.source,'hr9988');assert.deepEqual(result.regionalTzMarkets,[]);assert.match(response.headers.get('cache-control'),/private/);
  assert.equal(calls.length,4);assert.equal(calls[0].headers.Authorization,'Bearer tz-test-a');assert.deepEqual(calls[0].body,{game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop'});
  assert.equal(calls[1].endpoint,'https://hr9988.net/api/mb/sin/outApiLogin');assert.equal(calls[1].body.MemID,'0123456789abcdef0123456789abcdef');assert.equal(calls[1].headers.Authorization,undefined);
  assert.equal(calls[2].endpoint,'https://hr9988.net/api/GameInfo/Menu');assert.deepEqual(calls[2].body,{});

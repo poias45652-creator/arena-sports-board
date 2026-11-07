@@ -27,7 +27,7 @@ export function sportQuoteLabel(quote:SportQuote,side:'home'|'away'|'over'|'unde
  return `${venue}${giving?'讓':'受讓'} ${giving?'-':'+'}${line}`;
 }
 const marketTypes=(sport:MarketSport)=>sport==='FOOTBALL'?{spread:101,total:102,moneyline:110}:{spread:103,total:104,moneyline:111};
-function sourceTime(value:unknown){
+export function sourceTime(value:unknown){
  if(typeof value!=='string'||!/^\d{4}\/\d{2}\/\d{2} \d{2}:\d{2}:\d{2}$/.test(value))return NaN;
  const local=value.replaceAll('/','-').replace(' ','T'),time=Date.parse(local+'+08:00');
  return Number.isFinite(time)&&new Date(time+8*3600000).toISOString().slice(0,19)===local?time:NaN;
@@ -115,7 +115,7 @@ export function sportMarketStatus(snapshot:any,game:SportFixture,sport:MarketSpo
 // accounts, tokens, URLs, or member IDs are retained. Bounds are explicit.
 export function sportSourceAudit(snapshot:any,now=Date.now()){
  const supported=new Set<string>(FOOTBALL_LEAGUES.map(l=>l.code));
- const rows=(Array.isArray(snapshot?.sportGames)?snapshot.sportGames:[]).filter((r:any)=>r&&(['NBA','WNBA'].includes(r.league)||r.league==='FOOTBALL'&&supported.has(r.competition)));
+ const rows=(Array.isArray(snapshot?.sportGames)?snapshot.sportGames:[]).filter((r:any)=>r&&(['NBA','WNBA','NBL','KBL'].includes(r.league)||r.league==='FOOTBALL'&&supported.has(r.competition)));
  const safe=(v:unknown,n=100)=>typeof v==='string'?v.slice(0,n):'';
  const unrecognizedTeamNames=[...new Map(rows.flatMap((r:any)=>[r.home,r.away].filter(name=>!registeredNames[r.league as MarketSport].has(sportTeamKey(safe(name),r.league))).map(name=>[`${r.league}:${safe(name)}`,{sport:r.league,name:safe(name)}] as const))).values()];
  return {schema:1,revision:'sport-pairing-v4',fetchedAt:safe(snapshot?.fetchedAt,40),fixtureCount:rows.length,truncated:rows.length>120,unrecognizedTeamNameCount:unrecognizedTeamNames.length,unrecognizedTeamNamesTruncated:unrecognizedTeamNames.length>120,unrecognizedTeamNames:unrecognizedTeamNames.slice(0,120),fixtures:rows.slice(0,120).map((r:any)=>{
