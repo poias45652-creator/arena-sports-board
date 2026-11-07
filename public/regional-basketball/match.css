@@ -13,3 +13,13 @@ body:not(.profile-open)>.top{position:sticky;top:0;z-index:50;background:#081019
 .xz-game-link{align-self:center;background:transparent;border:0;color:#dfc99c;padding:.4rem .8rem;font-size:.8rem}.nba-date .nba-today{width:auto}.nba-card .nba-team img[src*=kbl-]{scale:1.28}.nba-game-status{color:#b0bdcc}
 
 .sp-bio dd .sp-bio-note{display:block;margin-top:.2rem;color:#abbace;font-size:.76rem;line-height:1.45}.sp-bio dd a{font-size:.72rem;color:#e5c88d;white-space:nowrap}
+
+.basketball-scoreboard .nba-period-scores {
+  table-layout: fixed;
+  width: 100%;
+  min-width: calc(var(--score-columns) * 3rem);
+}
+.basketball-scoreboard .nba-period-scores :is(th, td) {
+  text-align: center;
+  padding-inline: .2rem;
+}

@@ -10,7 +10,7 @@ export function matchup(s,g){
 export function periodName(n){const match=/^(?:Q)?(\d+)$/.exec(String(n));return match?(+match[1]>4?'延長 '+(+match[1]-4):'第 '+match[1]+' 節'):String(n||'');}
 export function quarters(s,g,ps=g.periods||[]){
  if(!ps.length)return '';
- return '<div class="nba-table-scroll"><table class="nba-quarter-table nba-period-scores" aria-label="逐節比分"><thead><tr><th>球隊</th>'+ps.map((p,i)=>'<th>'+e(periodName(p.label||p.period||i+1))+'</th>').join('')+'<th>總分</th></tr></thead><tbody>'+['away','home'].map(k=>'<tr><th>'+teamAnchor(s,g[k],e(g[k]))+'</th>'+ps.map(p=>'<td><span>'+num(p[k])+'</span></td>').join('')+'<td><span>'+num(g[k+'Score'])+'</span></td></tr>').join('')+'</tbody></table></div>';
+ return '<div class="nba-table-scroll"><table class="nba-quarter-table nba-period-scores" style="--score-columns:'+(ps.length+2)+'" aria-label="逐節比分"><thead><tr><th>球隊</th>'+ps.map((p,i)=>'<th>'+e(periodName(p.label||p.period||i+1))+'</th>').join('')+'<th>總分</th></tr></thead><tbody>'+['away','home'].map(k=>'<tr><th>'+teamAnchor(s,g[k],e(g[k]))+'</th>'+ps.map(p=>'<td><span>'+num(p[k])+'</span></td>').join('')+'<td><span>'+num(g[k+'Score'])+'</span></td></tr>').join('')+'</tbody></table></div>';
 }
 export function gameLabel(s,g){return g.status==='in_progress'?(s.isLive?'LIVE・':'場中快照・')+[periodName(g.period),g.clock].filter(Boolean).map(e).join(' '):e(stateName(g));}
 export const gameTime=g=>e(smallDate(g.date)+' '+(g.time||'時間待定'));
