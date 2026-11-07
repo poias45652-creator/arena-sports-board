@@ -112,7 +112,7 @@
     "secondCapturePerformed": true,
     "requiredIntervalSeconds": 65,
     "captureIntervalSeconds": 85.736,
-    "qualifiedNumericChangesThisRun": 2,
+    "qualifiedNumericChangesThisRun": 1,
     "verified": true,
     "gameKey": "KBO:20261107KTSS0",
     "firstCaptureAt": "2026-11-07T06:21:36.446Z",
@@ -131,7 +131,8 @@
         "after": 2
       }
     },
-    "evidence": "Same game two LIVE official scoreboard captures 85.736 seconds apart. Fourth inning top B from 1 to 0 and outs from 1 to 2."
+    "evidence": "Same game two LIVE official scoreboard captures 85.736 seconds apart. Fourth inning top B from 1 to 0 and outs from 1 to 2.",
+    "changedNumericFields": 2
   },
   "comparisonWithPriorToday": {
     "previousObservationPath": "data/live/20261107T052611Z-run41606857500-attempt41-kbo-official-live-verified.json",
