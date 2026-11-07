@@ -8,6 +8,9 @@ import type {SourceTable} from '@/lib/international';
 import InternationalTeamLogo from './international-team-logo';
 
 type Data={tables?:SourceTable[];error?:string;fetchedAt?:string;status?:string};
+const gamesBackSourceHeader='與前一名勝差／魔術數字';
+const gamesBackLabel='與前一名勝差';
+
 export default function NpbStandings({data,year,loading,onRefresh,onTeamSelect}:{data?:Data;year:number;loading:boolean;onRefresh:()=>void;onTeamSelect:(name:string)=>void}){
  const [scope,setScope]=useState('all');
  const tables=(data?.tables||[]).filter(t=>scope==='all'||t.title===scope);
@@ -18,12 +21,12 @@ export default function NpbStandings({data,year,loading,onRefresh,onTeamSelect}:
   {!tables.length&&<p role="status" className="p-5 text-slate-400">{loading?'正在取得 NPB 戰績…':'戰績暫時無法取得'}</p>}
   {tables.map(t=><section key={t.title} aria-label={t.title} data-division={t.title}>
    <h3 className="npb-division-title">{t.title}<span>{t.rows.length} 隊</span></h3>
-   <Table className="standings-table npb-league-table"><TableHeader><TableRow><TableHead>排名</TableHead><TableHead>球隊</TableHead><TableHead>勝－敗－和</TableHead><TableHead className="text-right">勝率</TableHead><TableHead className="text-right">與前一名勝差 / M</TableHead><TableHead>連勝／敗</TableHead><TableHead>近 5 場</TableHead></TableRow></TableHeader><TableBody>{t.rows.map(row=>{
+   <Table className="standings-table npb-league-table"><TableHeader><TableRow><TableHead>排名</TableHead><TableHead>球隊</TableHead><TableHead>勝－敗－和</TableHead><TableHead className="text-right">勝率</TableHead><TableHead className="text-right">{gamesBackLabel}</TableHead><TableHead>連勝／敗</TableHead><TableHead>近 5 場</TableHead></TableRow></TableHeader><TableBody>{t.rows.map(row=>{
     const value=(h:string)=>row[t.headers.indexOf(h)]||'—';
     const name=value('球隊'),rate=Number(value('勝率')),rank=value('排名');
-    return <TableRow key={name}><TableCell><StandingsRank rank={rank} played={Number(value('出賽')) > 0}/></TableCell><TableCell><button type="button" className="cpbl-standings-team" onClick={()=>onTeamSelect(name)}><InternationalTeamLogo league="NPB" name={name} size={32}/><span>{name}</span></button></TableCell><TableCell><div className="record-line"><span className="text-emerald-300">{value('勝')}</span>－<span className="text-rose-300">{value('敗')}</span>－<span className="text-slate-300">{value('和')}</span></div><div className="win-track" aria-hidden="true"><span style={{width:`${Number.isFinite(rate)?Math.min(1,Math.max(0,rate))*100:0}%`}}/></div></TableCell><TableCell className="standings-key-stat text-right">{value('勝率')}</TableCell><TableCell className="text-right tabular-nums">{value('與前一名勝差／魔術數字')}</TableCell><TableCell><span className="text-slate-400" aria-label="連勝敗尚未提供">—</span></TableCell><TableCell><span className="text-slate-400" aria-label="近五場尚未提供">—</span></TableCell></TableRow>;
+    return <TableRow key={name}><TableCell><StandingsRank rank={rank} played={Number(value('出賽')) > 0}/></TableCell><TableCell><button type="button" className="cpbl-standings-team" onClick={()=>onTeamSelect(name)}><InternationalTeamLogo league="NPB" name={name} size={32}/><span>{name}</span></button></TableCell><TableCell><div className="record-line"><span className="text-emerald-300">{value('勝')}</span>－<span className="text-rose-300">{value('敗')}</span>－<span className="text-slate-300">{value('和')}</span></div><div className="win-track" aria-hidden="true"><span style={{width:`${Number.isFinite(rate)?Math.min(1,Math.max(0,rate))*100:0}%`}}/></div></TableCell><TableCell className="standings-key-stat text-right">{value('勝率')}</TableCell><TableCell className="text-right tabular-nums">{value(gamesBackSourceHeader)}</TableCell><TableCell><span className="text-slate-400" aria-label="連勝敗尚未提供">—</span></TableCell><TableCell><span className="text-slate-400" aria-label="近五場尚未提供">—</span></TableCell></TableRow>;
    })}</TableBody></Table>
-   <details className="npb-season-details"><summary>完整球季數據</summary><Table className="standings-table"><TableHeader><TableRow>{t.headers.map(h=><TableHead key={h} className="whitespace-nowrap">{h}</TableHead>)}</TableRow></TableHeader><TableBody>{t.rows.map((row,i)=><TableRow key={i}>{row.map((cell,j)=><TableCell key={j} data-stat={t.headers[j]} className="whitespace-nowrap">{cell||'—'}</TableCell>)}</TableRow>)}</TableBody></Table></details>
+   <details className="npb-season-details"><summary>完整球季數據</summary><Table className="standings-table"><TableHeader><TableRow>{t.headers.map(h=><TableHead key={h} className="whitespace-nowrap">{h===gamesBackSourceHeader?gamesBackLabel:h}</TableHead>)}</TableRow></TableHeader><TableBody>{t.rows.map((row,i)=><TableRow key={i}>{row.map((cell,j)=><TableCell key={j} data-stat={t.headers[j]} className="whitespace-nowrap">{cell||'—'}</TableCell>)}</TableRow>)}</TableBody></Table></details>
   </section>)}
   <div className="standings-meta"><span>{data?.fetchedAt?`更新：${new Date(data.fetchedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei'})}（台灣）`:'等待同步'}</span><span>M 為魔術數字 · 連勝／敗與近 5 場尚未提供</span></div>
  </section>;
