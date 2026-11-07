@@ -40,9 +40,10 @@ const component=new Function('require','exports','React',source+'\nreturn export
  if(['react-dom','@/lib/football-team-profile','@/lib/football-recommendations','@/lib/football-five-league','./super-workspace','./sport-markets'].includes(key))return {};
  throw Error('Unexpected import '+key);
 },{},React);
-test('shared card and floating panel renderer labels scenario probabilities and margin probabilities separately',()=>{
+test('shared card and floating panel show score scenarios without margin probabilities or their explanatory note',()=>{
  const html=renderToStaticMarkup(React.createElement(component,{analysis:arsenal()}));
- for(const text of ['data-score-mode="attacking"','三組比分情境','主推','進攻','大勝','70.3%','47.6%','26.9%','10.9%','7.6%','8.6%'])assert.ok(html.includes(text),text);
+ for(const text of ['data-score-mode="attacking"','三組比分情境','主推','進攻','大勝','70.3%','10.9%','7.6%','8.6%'])assert.ok(html.includes(text),text);
+ assert.doesNotMatch(html,/football-margin-chances|贏[23]球以上|進取情境|47\.6%|26\.9%/);
  const close=renderToStaticMarkup(React.createElement(component,{analysis:make(1.76,1.53)}));
  assert.ok(close.includes('三組比分預測'));assert.ok(!close.includes('大勝'));
 });

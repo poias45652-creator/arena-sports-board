@@ -53,6 +53,16 @@ test('recorded same-cup Inter card keeps probabilities and three scores independ
   assert.ok(!html.includes('animate-spin'));
 });
 
+test('足球賽事卡即使有傷停與分階段機率也不顯示該區內容',()=>{
+  const probabilities=analysis.probabilities;
+  const report={game,analysis:{...analysis,
+    matchEvidence:{absences:{home:[{name:'Bukayo Saka'}],away:[],source:'https://example.test/injury-report'}},
+    contextForecast:{baseline:probabilities,formOnly:probabilities,formPolicy:'recent',injuryCoverage:'both',injuryShiftApplied:true}}};
+  const html=render({report});
+  assert.match(html,/football-probabilities/);
+  assert.doesNotMatch(html,/近期對手與傷停|Bukayo Saka|計算階段|本場賽前機率調整|查看本場傷情報告|example\.test\/injury-report/);
+});
+
 test('Europa uses the Champions card layout, score scenarios and league-specific team links',()=>{
   const europa={...game,league:'uefa.europa'};
   const html=render({game:europa,report:{game:europa,analysis}});
