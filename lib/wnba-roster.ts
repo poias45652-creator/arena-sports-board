@@ -1,10 +1,14 @@
+import {officialBasketballSeason,playerSeasonResult,noRegularAppearance} from './basketball-season-totals';
 import {officialWnbaRoster} from './wnba-official';
 import {enrichWnbaPlayer,wnbaOfficialPlayers} from './wnba-official-players';
 import {wnbaTeam} from './wnba';
-const cache=new Map<string,{value:ReturnType<typeof parseWnbaRoster>;until:number}>(),pending=new Map<string,Promise<ReturnType<typeof parseWnbaRoster>>>();
+type EspnRoster = ReturnType<typeof parseWnbaRoster>;
+type EnrichedPlayer = ReturnType<typeof enrichWnbaPlayer<EspnRoster['roster'][number]>>;
+type EnrichedRoster = Omit<EspnRoster,'roster'> & {roster:EnrichedPlayer[]};
+const cache=new Map<string,{value:EnrichedRoster;until:number}>(),pending=new Map<string,Promise<EnrichedRoster>>();
 export function parseWnbaRoster(raw:any,id:string){
  const team=wnbaTeam(id);if(!team||String(raw?.team?.id)!==id||!Array.isArray(raw.athletes)||!Number.isInteger(raw.season?.year))throw Error('WNBA 球員名單不符');
- const roster=raw.athletes.map((p:any)=>{if(!/^\d{1,10}$/.test(String(p.id))||!/^s:40~l:59~a:\d+$/.test(p.uid)||!p.displayName)throw Error('WNBA 球員資料不符');return {id:Number(p.id),name:String(p.displayName),number:String(p.jersey||''),position:String(p.position?.abbreviation||''),height:String(p.displayHeight||''),weight:typeof p.weight==='number'?String(p.weight):'',experience:String(p.experience?.years??''),school:String(p.college?.name||''),season:String(raw.season.year),slug:'',photo:`https://a.espncdn.com/i/headshots/wnba/players/full/${p.id}.png`,href:`https://www.espn.com/wnba/player/stats/_/id/${p.id}`};});
+ const roster=(raw.athletes as any[]).map((p:any)=>{if(!/^\d{1,10}$/.test(String(p.id))||!/^s:40~l:59~a:\d+$/.test(p.uid)||!p.displayName)throw Error('WNBA 球員資料不符');return {id:Number(p.id),name:String(p.displayName),number:String(p.jersey||''),position:String(p.position?.abbreviation||''),height:String(p.displayHeight||''),weight:typeof p.weight==='number'?String(p.weight):'',experience:String(p.experience?.years??''),school:String(p.college?.name||''),season:String(raw.season.year),slug:'',photo:`https://a.espncdn.com/i/headshots/wnba/players/full/${p.id}.png`,href:`https://www.espn.com/wnba/player/stats/_/id/${p.id}`};});
  const coach=raw.coach?.[0];
  return {team,season:String(raw.season.year),rosterSeason:String(raw.season.year),roster,background:{coach:coach?[coach.firstName,coach.lastName].filter(Boolean).join(' '):''},recordSummary:String(raw.team.recordSummary||''),sourceLabel:'WNBA',sourceUrl:`https://www.espn.com/wnba/team/_/name/${team.code.toLowerCase()}`};
 }
@@ -15,5 +19,12 @@ async function espnWnbaRoster(id:string){
 
 export async function wnbaRoster(id:string){
  if(!wnbaTeam(id))throw Error('球隊不存在');
- try{return await officialWnbaRoster(id);}catch{return espnWnbaRoster(id);}
+ const team=await officialWnbaRoster(id).catch(()=>espnWnbaRoster(id));
+ const year=Number(team.rosterSeason),totals=await officialBasketballSeason('WNBA',year);
+ return {...team,roster:team.roster.map(player=>{
+  const officialId=player.href.startsWith('https://www.wnba.com/player/')?Number(player.href.split('/')[4]):undefined;
+  const {line,missing}=playerSeasonResult(totals,officialId);
+  const averages=line?{season:year,points:line.points,rebounds:line.rebounds,assists:line.assists}:player.averages;
+  return {...player,averages,statsNote:!averages&&missing?noRegularAppearance:undefined};
+ })};
 }

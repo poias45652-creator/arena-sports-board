@@ -1,3 +1,4 @@
+import {officialBasketballSeason,playerSeasonResult,noRegularAppearance} from './basketball-season-totals';
 import {nbaPage,BasketballSourceUnavailable} from './wnba-fetch';
 import {playerSource} from './sport-player-fetch';
 import {verifiedBasketballIdentity} from './sport-player-profile';
@@ -17,7 +18,7 @@ function rosterBirthDate(value:unknown){
  const ms=Date.parse(date+' 00:00:00 GMT');
  return Number.isFinite(ms)?new Date(ms).toISOString().slice(0,10):'';
 }
-const person=(r:any)=>({id:Number(r.PLAYER_ID),name:str(r.PLAYER),slug:str(r.PLAYER_SLUG),birthDate:rosterBirthDate(r.BIRTH_DATE),seasonStatsEmpty:false,number:str(r.NUM),position:str(r.POSITION),height:str(r.HEIGHT),weight:str(r.WEIGHT),experience:str(r.EXP),school:str(r.SCHOOL),season:str(r.SEASON),photo:undefined as string|undefined,photoFallback:undefined as string|undefined,href:undefined as string|undefined,country:undefined as string|undefined,draftYear:undefined as string|undefined,supplementalStats:undefined as NbaCollegeStats|undefined,averages:undefined as {season:number;points:number|null;rebounds:number|null;assists:number|null}|null|undefined});
+const person=(r:any)=>({id:Number(r.PLAYER_ID),name:str(r.PLAYER),slug:str(r.PLAYER_SLUG),birthDate:rosterBirthDate(r.BIRTH_DATE),seasonStatsEmpty:false,statsNote:undefined as string|undefined,number:str(r.NUM),position:str(r.POSITION),height:str(r.HEIGHT),weight:str(r.WEIGHT),experience:str(r.EXP),school:str(r.SCHOOL),season:str(r.SEASON),photo:undefined as string|undefined,photoFallback:undefined as string|undefined,href:undefined as string|undefined,country:undefined as string|undefined,draftYear:undefined as string|undefined,supplementalStats:undefined as NbaCollegeStats|undefined,averages:undefined as {season:number;points:number|null;rebounds:number|null;assists:number|null}|null|undefined});
 export function parseOfficialTeam(data:any,id:string){
  const t=data?.props?.pageProps?.team,expected=officialTeam(id)?.[0];
  if(!expected||Number(t?.id)!==expected||Number(t?.info?.TEAM_ID)!==expected||!Array.isArray(t.roster))throw Error('NBA 球隊資料不符');
@@ -37,7 +38,8 @@ export function parseOfficialPlayer(data:any,id:number){
  if(logs.some((g:any)=>Number(g.Player_ID)!==id))throw Error('NBA 球員紀錄不符');
  const validStats=s&&Number(s.PLAYER_ID)===id;
  const supplement=nbaPlayerSupplement(id,str(i.DISPLAY_FIRST_LAST));
- return {id,name:str(i.DISPLAY_FIRST_LAST),team:localTeam(Number(i.TEAM_ID)),position:bioText(i.POSITION)||supplement?.bio.position||'',number:str(i.JERSEY),height:bioText(i.HEIGHT)||supplement?.bio.height||'',weight:bioText(i.WEIGHT)||supplement?.bio.weight||'',birthDate:str(i.BIRTHDATE).slice(0,10),country:bioText(i.COUNTRY)||supplement?.bio.country||'',school:bioText(i.SCHOOL)||supplement?.bio.school||'',experience:num(i.SEASON_EXP),draft:{year:str(i.DRAFT_YEAR),round:str(i.DRAFT_ROUND),pick:str(i.DRAFT_NUMBER)},
+ const rosterSeason=p.roster?.find((r:any)=>Number(r.PLAYER_ID)===id&&Number(r.TeamID)===Number(i.TEAM_ID))?.SEASON;
+ return {id,rosterSeason:/^\d{4}$/.test(rosterSeason)?Number(rosterSeason)+1:undefined,officialSeasons:Array.isArray(i.SEASONS)?i.SEASONS as string[]:[],name:str(i.DISPLAY_FIRST_LAST),team:localTeam(Number(i.TEAM_ID)),position:bioText(i.POSITION)||supplement?.bio.position||'',number:str(i.JERSEY),height:bioText(i.HEIGHT)||supplement?.bio.height||'',weight:bioText(i.WEIGHT)||supplement?.bio.weight||'',birthDate:str(i.BIRTHDATE).slice(0,10),country:bioText(i.COUNTRY)||supplement?.bio.country||'',school:bioText(i.SCHOOL)||supplement?.bio.school||'',experience:num(i.SEASON_EXP),draft:{year:str(i.DRAFT_YEAR),round:str(i.DRAFT_ROUND),pick:str(i.DRAFT_NUMBER)},
   photo:supplement?.photo.path||`https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`,photoFallback:supplement?.photo.path?`https://cdn.nba.com/headshots/nba/latest/1040x760/${id}.png`:undefined,supplement,
   stats:{season:validStats?str(s.TimeFrame):'',points:validStats?num(s.PTS):null,rebounds:validStats?num(s.REB):null,assists:validStats?num(s.AST):null},
   games:logs.filter((g:any)=>g.GAME_STATUS===3).map((g:any)=>({id:str(g.Game_ID),season:str(g.SEASON_ID),date:str(g.GAME_DATE),matchup:str(g.MATCHUP),result:str(g.WL),minutes:num(g.MIN),points:num(g.PTS),rebounds:num(g.REB),assists:num(g.AST),steals:num(g.STL),blocks:num(g.BLK),turnovers:num(g.TOV),fieldGoals:num(g.FG_PCT),threes:num(g.FG3_PCT),freeThrows:num(g.FT_PCT),plusMinus:num(g.PLUS_MINUS)})),
@@ -107,10 +109,14 @@ function rosterAverages(player:ReturnType<typeof person>,stats:TeamSeasonStats|n
 export async function officialTeamProfile(id:string){
  const index=page('players',Date.now()+6000).catch(()=>null);
  const value=await nbaTeamRoster(id),year=Number(value.rosterSeason)+1;
- const stats=Number.isInteger(year)&&year>=1947?await teamSeasonAverages(id,year).catch(()=>null):null;
+ const [stats,totals]=Number.isInteger(year)&&year>=1947?await Promise.all([
+  teamSeasonAverages(id,year).catch(()=>null),officialBasketballSeason('NBA',year),
+ ]):[null,null];
  const roster=enrichNbaRoster(value.roster,value.officialId,await index).map(p=>{
   const line=rosterAverages(p,stats,year);
-  return {...p,averages:line?.averages??p.averages,seasonStatsEmpty:!!line?.empty};
+  const official=playerSeasonResult(totals,p.id);
+  const averages=official.line?{season:year,points:official.line.points,rebounds:official.line.rebounds,assists:official.line.assists}:line?.averages??p.averages;
+  return {...p,averages,seasonStatsEmpty:!!line?.empty||official.missing,statsNote:!averages&&official.missing?noRegularAppearance:undefined};
  });
  return {...value,roster,fetchedAt:new Date().toISOString()};
 }

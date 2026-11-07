@@ -119,3 +119,65 @@ test('a WNBA roster link opens its season even when the last player stats are fr
  const previous=await b.basketballPlayerProfile(String(id),'WNBA',2025);
  assert.equal(previous.summary.avgPoints,'9.3');
 });
+
+test('league season totals keep official IDs separate, preserve a real zero and reject ambiguous splits',async()=>{
+ const stats=await import(moduleUrl('lib/basketball-season-totals.ts'));
+ const url=stats.basketballSeasonUrl('WNBA',2026),parameters=Object.fromEntries(url.searchParams);
+ const table={name:'LeagueDashPlayerStats',headers:['PLAYER_ID','GP','PTS','REB','AST'],rowSet:[
+  [1642876,1,4,4,2],[1641807,1,0,2,1],[1628269,40,6.4,4.5,1.8],[1628269,4,4.3,2.3,1.8],
+ ]};
+ const raw={resource:'leaguedashplayerstats',parameters,resultSets:[table]};
+ const index=stats.parseBasketballSeason(raw,url);
+ assert.equal(stats.playerSeasonResult(index,1641807).line.points,0);
+ assert.deepEqual(stats.playerSeasonResult(index,1628269),{line:null,missing:false});
+ assert.deepEqual(stats.playerSeasonResult(index,9876543),{line:null,missing:true});
+ assert.deepEqual(stats.playerSeasonResult(null,9876543),{line:null,missing:false});
+ for(const params of [{Season:'2025'},{LeagueID:'00'},{SeasonType:'Pre Season'},{TeamID:1611661324},{LastNGames:1}]){
+  assert.throws(()=>stats.parseBasketballSeason({...raw,parameters:{...parameters,...params}},url));
+ }
+ assert.throws(()=>stats.parseBasketballSeason({...raw,resultSets:[{...table,rowSet:[]}]},url));
+});
+
+test('NBA official whole-season totals reach card and profile with stale ESPN, isolated by year and phase',async t=>{
+ const id=9912345,tid=1610612740,year=2024;
+ const team={id:tid,info:{TEAM_ID:tid},roster:[{TeamID:tid,SEASON:'2023',PLAYER_ID:id,PLAYER:'Test Player',BIRTH_DATE:'SEP 09, 2000'}]};
+ const html=data=>new Response('<script id="__NEXT_DATA__">'+JSON.stringify({props:{pageProps:data}})+'</script>');
+ t.mock.method(globalThis,'fetch',async input=>{
+  const u=new URL(input);
+  if(u.pathname==='/team/1610612740/pelicans')return html({team});
+  if(u.pathname==='/player/'+id)return html({player:{info:{PERSON_ID:id,TEAM_ID:tid,DISPLAY_FIRST_LAST:'Test Player',BIRTHDATE:'2000-09-09'},roster:team.roster,stats:{PLAYER_ID:id,TimeFrame:'2022-23',PTS:9,REB:1,AST:8}}});
+  if(u.hostname==='stats.nba.com'&&u.searchParams.get('Season')==='2023-24')
+   return Response.json({resource:'leaguedashplayerstats',parameters:Object.fromEntries(u.searchParams),resultSets:[{name:'LeagueDashPlayerStats',headers:['PLAYER_ID','GP','PTS','REB','AST'],rowSet:[[id,1,0,2,1]]}]});
+  return new Response('',{status:404});
+ });
+ const official=await import(moduleUrl('lib/nba-official.ts'));
+ const roster=await official.officialTeamProfile('3');
+ assert.deepEqual(roster.roster[0].averages,{season:year,points:0,rebounds:2,assists:1});
+ const p=await b.basketballPlayerProfile(String(id),'NBA');
+ assert.equal(p.season,year);assert.equal(p.summary.avgPoints,'0');assert.equal(p.summary.avgRebounds,'2');assert.equal(p.summary.avgAssists,'1');
+ assert.equal(p.history.find(r=>r.season===year).team,'合計');
+ const archive=await b.basketballPlayerProfile(String(id),'NBA',2023);
+ assert.equal(archive.summary.avgPoints,'9');
+ const pre=await b.basketballPlayerProfile(String(id),'NBA',year,'1');assert.deepEqual(pre.summary,{});
+});
+
+test('a basketball search hit must match the professional league, identity and birthday before reading ESPN history',async t=>{
+ const names=['Test Prospect A','Test Prospect B','Test Prospect C'],ids=['9987101','9987102','9987103'];
+ const lookedUp=[];
+ const html=player=>new Response('<script id="__NEXT_DATA__">'+JSON.stringify({props:{pageProps:{player}}})+'</script>');
+ t.mock.method(globalThis,'fetch',async input=>{
+  const u=new URL(input),id=u.pathname.split('/').at(-1);
+  if(u.hostname==='www.nba.com'&&ids.includes(id))return html({info:{PERSON_ID:Number(id),DISPLAY_FIRST_LAST:names[ids.indexOf(id)],BIRTHDATE:'2000-05-17'}});
+  if(u.pathname==='/apis/search/v2'){
+   const name=u.searchParams.get('query'),i=names.indexOf(name);
+   return Response.json({results:[{type:'player',contents:[{uid:'s:40~l:69~a:'+ids[i],displayName:name}]}]});
+  }
+  if(u.hostname==='sports.core.api.espn.com'){
+   const i=ids.indexOf(id);return Response.json({uid:`s:40~l:${i===2?'69':'46'}~a:${id}`,id,displayName:names[i],dateOfBirth:i===1?'2000-05-18':'2000-05-17'});
+  }
+  if(u.pathname.endsWith('/stats'))lookedUp.push(u.pathname.split('/').at(-2));
+  return new Response('',{status:404});
+ });
+ for(const id of ids)await b.basketballPlayerProfile(id,'NBA',2024,'1');
+ assert.deepEqual(lookedUp,[ids[0]]);
+});
