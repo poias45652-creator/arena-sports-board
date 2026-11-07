@@ -62,7 +62,7 @@ export function teamProfile(s){
 }
 
 export function standings(s){
- const rows=standingsRows(s),stage=s.rankArchive?.[s.rankSeason]?.[s.phase],years=Object.keys(s.rankArchive||{}).map(Number).sort((a,b)=>b-a);
+ const rows=standingsRows(s),years=Object.keys(s.rankArchive||{}).map(Number).sort((a,b)=>b-a);
  const select=(attr,options,value)=>'<select '+attr+'>'+options.map(([v,l])=>'<option value="'+e(v)+'" '+(v===value?'selected':'')+'>'+e(l)+'</option>').join('')+'</select>';
  const signed=n=>n==null?'—':(n>0?'+':'')+num(n,1);
  const labels=['排名','球隊','勝','負','勝率','勝差','主場','客場','近十場','連勝敗','場均得分','場均失分','淨勝分'];
@@ -72,5 +72,5 @@ export function standings(s){
   return '<tr><td><span class="standings-rank" '+(place?'data-place="'+e(place)+'"':'')+'>'+e(place??'—')+'</span></td><th scope="row">'+(teamFor(s,x.code)?teamAnchor(s,x.code,logo(teamFor(s,x.code))+'<span>'+e(name(s,x.code))+'</span>'):e(({ORI:'高陽獵戶座',CAR:'高陽胡蘿蔔'})[x.code]||x.teamName||x.code))+'</th><td>'+num(x.wins)+'</td><td>'+num(x.losses)+'</td><td class="standings-key-stat">'+pct(x.winPct)+'</td>'+[x.gb==null?'—':Number(x.gb),x.homeRecord,x.awayRecord,x.last10,streak,num(x.pf,1),num(x.pa,1),signed(x.pf!=null&&x.pa!=null?x.pf-x.pa:null)].map(v=>'<td>'+e(v)+'</td>').join('')+'</tr>';
  }).join('')+'</tbody></table></div></section>':'';
  return '<section class="basketball-standings sport-standings" id="rankings"><header><div><h2>戰績排名</h2><p>'+e(s.league+'・'+yearTag(s.rankSeason)+'・'+phaseName[s.phase])+'</p></div><div><label>球季'+select('data-rankseason',(years.length?years:[s.seasonEnd,s.seasonEnd-1,s.seasonEnd-2]).map(y=>[y,yearTag(y)]),s.rankSeason)+'</label><label>賽季'+select('data-phase',[[2,'例行賽'],[1,'熱身賽'],[3,'季後賽']],s.phase)+'</label><button data-rankrefresh>更新</button></div></header><p class="nba-updated">'+e(s.rankLabel||'已保存排名')+'（台灣）</p>'+
- table+(s.rankSeries?.length?cells(['階段','對戰','系列賽勝場'],s.rankSeries.map(v=>[e(v.round),e(name(s,v.home)+' vs '+name(s,v.away)),e(v.homeWins+'–'+v.awayWins)])):'')+(!rows.length&&!s.rankSeries?.length?empty(s.rankBusy?'正在查詢聯盟戰績…':s.rankNote||'此球季及階段尚無已完成賽事。'):'')+'<p class="xz-data-source">'+link(s.rankSource||stage?.url,'聯盟戰績來源')+'</p></section>';
+ table+(s.rankSeries?.length?cells(['階段','對戰','系列賽勝場'],s.rankSeries.map(v=>[e(v.round),e(name(s,v.home)+' vs '+name(s,v.away)),e(v.homeWins+'–'+v.awayWins)])):'')+(!rows.length&&!s.rankSeries?.length?empty(s.rankBusy?'正在查詢聯盟戰績…':s.rankNote||'此球季及階段尚無已完成賽事。'):'')+'</section>';
 }
