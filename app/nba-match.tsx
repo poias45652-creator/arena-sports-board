@@ -40,5 +40,13 @@ export function NbaAnalysisNumbers({game,analysis}:{game:NbaGame;analysis:NbaAna
 }
 export function NbaQuarters({game}:{game:NbaGame}){
  if(!game.quarters.length)return null;
- return <div className="nba-table-scroll"><table className="nba-quarter-table"><caption className="sr-only">逐節比分</caption><thead><tr><th>球隊</th>{game.quarters.map(q=><th key={q.period}>{nbaPeriod(q.period)}</th>)}<th>總分</th></tr></thead><tbody>{(['away','home'] as const).map(side=><tr key={side}><th><a href={basketballTeamHref(game[side])}>{game[side].code}</a></th>{game.quarters.map(q=><td key={q.period}>{q[side]??'—'}</td>)}<td>{game[`${side}Score`]??'—'}</td></tr>)}</tbody></table></div>;
+ return <div className="nba-table-scroll"><table className="nba-quarter-table nba-period-scores">
+  <caption className="sr-only">逐節比分</caption>
+  <thead><tr><th scope="col">球隊</th>{game.quarters.map(q=><th key={q.period} scope="col">{nbaPeriod(q.period)}</th>)}<th scope="col">總分</th></tr></thead>
+  <tbody>{(['away','home'] as const).map(side=><tr key={side}>
+   <th scope="row"><a href={basketballTeamHref(game[side])}>{game[side].code}</a></th>
+   {game.quarters.map(q=><td key={q.period}><span>{q[side]??'—'}</span></td>)}
+   <td><span>{game[`${side}Score`]??'—'}</span></td>
+  </tr>)}</tbody>
+ </table></div>;
 }

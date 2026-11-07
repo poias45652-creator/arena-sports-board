@@ -145,6 +145,17 @@
 .nba-quarter-table th,.nba-quarter-table td { min-width:42px; padding:.55rem .4rem; border-bottom:1px solid #29364a; }
 .nba-quarter-table thead { color:#7d92ad; font-size:.65rem; }
 .nba-quarter-table tbody td:last-child { color:var(--nba-accent); font-weight:850; }
+.nba-period-scores { background:rgb(6 15 27 / 52%); font-variant-numeric:tabular-nums; }
+.nba-period-scores thead { background:#101e30; color:#dbe6f2; font-size:.8rem; }
+.nba-period-scores tbody th { color:#fff; font-size:.92rem; font-weight:750; }
+.nba-period-scores tbody td > span {
+  display:inline-block; min-width:2.15em; padding:.16em .28em; border-radius:.25rem;
+  background:#0b1727; color:#fff; font-size:clamp(1.125rem, 1rem + .35vw, 1.375rem);
+  font-weight:800; line-height:1.2;
+}
+.nba-period-scores tbody td:last-child > span {
+  background:#302517; color:#ffe39b; font-size:clamp(1.25rem, 1.12rem + .4vw, 1.5rem);
+}
 .nba-empty { display:grid; justify-items:center; gap:1rem; padding:3.5rem 1rem; border:1px solid var(--nba-border); border-radius:1rem; background:#111d2bd9; text-align:center; color:#91a5bf; }
 .nba-empty>svg { color:#bb885c; }
 .nba-empty h3 { color:#d9e4f0; font-size:1rem; font-weight:750; }
