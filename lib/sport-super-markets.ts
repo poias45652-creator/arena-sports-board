@@ -1,4 +1,5 @@
-import {parseSourceLine,netProfit,type ParsedLine} from './settlement';
+import {basketballMarketGrid as integerGrid,settleSportGrid as settleGrid} from '../public/regional-basketball/market-math.mjs';
+import {parseSourceLine,type ParsedLine} from './settlement';
 import {FOOTBALL_LEAGUES} from './football';
 import {sportTeamKey,registeredNames,type MarketSport} from './sport-team-names';
 export {sportTeamKey} from './sport-team-names';
@@ -123,30 +124,8 @@ export function sportSourceAudit(snapshot:any,now=Date.now()){
   return {id:Number.isSafeInteger(r.id)?r.id:null,sport:r.league,competition:safe(r.competition),leagueName:safe(r.leagueName),home:safe(r.home),away:safe(r.away),start:safe(r.start,40),live:typeof r.live==='boolean'?r.live:null,availableMarkets:result.availableCount,marketStates:Object.fromEntries(Object.entries(result.markets).map(([k,v])=>[k,v.code]))};
  })};
 }
-export function settleSportGrid(grid:SportGrid,quote:SportQuote,side:'home'|'away'|'over'|'under'):SportOutcomes|null{
- if(quote.kind==='moneyline'||!grid.length||grid.some(r=>!Number.isFinite(r.value)||!Number.isFinite(r.p)||r.p<0)||Math.abs(grid.reduce((n,r)=>n+r.p,0)-1)>1e-6)return null;
- const out:SportOutcomes={win:0,partialWin:0,push:0,partialLoss:0,loss:0,ev:0},direction=side==='away'||side==='under'?-1:1,price=direction===1?quote.home:quote.away;
- for(const row of grid){
-  const parts=quote.parts||[quote.line],fraction=parts.reduce((n,line)=>{const delta=quote.kind==='spread'?row.value+line:row.value-line;return n+direction*(Math.abs(delta)<1e-9?quote.boundary:Math.sign(delta));},0)/parts.length;
-  out[fraction===1?'win':fraction===-1?'loss':fraction>0?'partialWin':fraction<0?'partialLoss':'push']+=row.p;
-  out.ev+=netProfit(fraction,price)*row.p;
- }
- return out;
-}
-const cdf=(z:number)=>{const sign=z<0?-1:1,x=Math.abs(z)/Math.SQRT2,t=1/(1+.3275911*x),erf=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-.284496736)*t+.254829592)*t*Math.exp(-x*x);return .5*(1+sign*erf);};
-export function basketballMarketGrid(mean:number,sigma:number,kind:'margin'|'total',homeProbability?:number):SportGrid{
- if(!Number.isFinite(mean)||!Number.isFinite(sigma)||sigma<=0)return [];
- const low=Math.floor(mean-9*sigma),high=Math.ceil(mean+9*sigma);
- if(high-low>2000)return [];
- const grid:SportGrid=[];
- for(let value=low;value<=high;value++){
-  if(kind==='margin'&&value===0||kind==='total'&&value<=0)continue;
-  grid.push({value,p:cdf((value+.5-mean)/sigma)-cdf((value-.5-mean)/sigma)});
- }
- const sum=grid.reduce((n,r)=>n+r.p,0);if(sum<=0)return [];
- if(kind==='margin'&&Number.isFinite(homeProbability)&&homeProbability!>=0&&homeProbability!<=1){const homeMass=grid.filter(r=>r.value>0).reduce((n,r)=>n+r.p,0),awayMass=sum-homeMass;if(homeMass<=0||awayMass<=0)return [];return grid.map(r=>({...r,p:r.p*(r.value>0?homeProbability!/homeMass:(1-homeProbability!)/awayMass)}));}
- return grid.map(r=>({...r,p:r.p/sum}));
-}
+export const settleSportGrid:(grid:SportGrid,quote:SportQuote,side:'home'|'away'|'over'|'under')=>SportOutcomes|null=settleGrid;
+export const basketballMarketGrid:(mean:number,sigma:number,kind:'margin'|'total',homeProbability?:number)=>SportGrid=integerGrid;
 export function footballMarketGrids(analysis:any):{margin:SportGrid;total:SportGrid}|null{
  const d=analysis?.scoreDistribution,e=analysis?.expected;
  if(!d||!e||![d.home,d.away,e.home,e.away].every(n=>Number.isFinite(n)&&n>=0)||Math.abs(d.home-e.home)>1e-6||Math.abs(d.away-e.away)>1e-6||!Array.isArray(d.scores)||!d.scores.length)return null;
