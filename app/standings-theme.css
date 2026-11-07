@@ -1,0 +1,46 @@
+/* Shared by every league table, including the international baseball admin views. */
+section.sport-standings {
+  min-width:0;
+  --standings-ink:#f1f5fb;
+  --standings-gold:#ffe1a0;
+}
+section.sport-standings :is(.nba-updated, header p, header label, .standings-meta, .football-standings-note) {
+  color:#bfd0df; font-size:.8125rem;
+}
+section.sport-standings h3 {
+  display:flex; align-items:center; gap:.65rem; margin-bottom:.75rem;
+  color:#ffe2a1; font-size:1.375rem; font-weight:800; letter-spacing:.04em;
+}
+section.sport-standings h3::after {
+  content:""; height:1px; flex:1; background:linear-gradient(to right,#a78a50,transparent 75%);
+}
+section.sport-standings table {
+  color:var(--standings-ink); background:rgb(5 17 33 / 68%);
+  font-size:1rem; font-weight:600; font-variant-numeric:lining-nums tabular-nums;
+}
+section.sport-standings table thead th {
+  color:#dbe7f2; background:#14283c; border-bottom:1px solid #697582;
+  font-size:.875rem; font-weight:700;
+}
+section.sport-standings thead th:nth-child(2) { text-align:left; }
+section.sport-standings tbody tr:nth-child(even) { background:rgb(30 51 72 / 60%); }
+section.sport-standings tbody tr:focus-within { background:#203a50; }
+section.sport-standings tbody td { font-family:Arial,"Microsoft JhengHei",system-ui,sans-serif; }
+section.sport-standings tbody :is(a, button, [data-stat="球隊"]) {
+  color:#f8fafc; font-family:var(--font-sans); font-size:1.125rem; font-weight:750;
+}
+section.sport-standings tbody :is(a, button):is(:hover, :focus-visible) { color:#ffe2a1; text-decoration:underline; }
+section.sport-standings tbody :is(.standings-key-stat, [data-stat="勝率"]) {
+  color:var(--standings-gold); background:rgb(199 158 76 / 9%); font-size:1.1875rem; font-weight:800;
+}
+section.sport-standings .standings-rank {
+  display:inline-grid; place-items:center; min-width:2rem; min-height:2rem;
+  color:#dce7f1; font-weight:700;
+}
+section.sport-standings .standings-rank:is([data-place="1"], [data-place="2"], [data-place="3"]) {
+  border:1px solid #9d8356; border-radius:.4rem; color:#ffdf95; background:#292b2d;
+}
+section.sport-standings .standings-rank[data-place="1"] { color:#211a0c; background:#f3d18a; }
+section.sport-standings :is(.record-line, .football-record) { font-size:1rem; }
+section.sport-standings .football-record b { font-weight:700; }
+section.sport-standings .football-form span { min-width:1.5rem; text-align:center; font-size:.875rem; }
