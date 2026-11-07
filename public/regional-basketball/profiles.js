@@ -1,4 +1,4 @@
-import {e,num,pct,logo,link,teamFor,name,teamButton,results,record,recentRun,smallDate,stateName,stamp,panelHeading,tabBtn,empty,standingsRows} from './shared.js';
+import {e,num,pct,logo,teamFor,name,teamButton,results,record,recentRun,smallDate,stateName,stamp,panelHeading,tabBtn,empty,standingsRows} from './shared.js';
 import {teamAnchor} from './match.js';
 import {tradingCard} from './player-profile.js';
 export {playerProfile} from './player-profile.js';
@@ -56,7 +56,7 @@ export function teamProfile(s){
  }else{
   const groups=new Map();for(const r of decisions){if(!groups.has(r.opp))groups.set(r.opp,[]);groups.get(r.opp).push(r);}
   content='<div class="nba-profile-columns">'+panel('對各隊戰績',[...groups].map(([c,rr])=>{const w=rr.filter(r=>r.win).length,wp=w*100/rr.length;return '<div class="nba-opponent"><a data-team="'+e(c)+'" href="'+e(paths(s,c))+'">'+logo(teamFor(s,c))+'<strong>'+e(name(s,c))+'</strong></a><span>'+w+' 勝 '+(rr.length-w)+' 負</span><b>'+pct(wp)+'</b><div class="nba-win-bar"><i style="width:'+wp+'%"></i></div></div>';}).join('')||empty('此範圍尚無對戰紀錄'))+
-  panel('球隊資訊','<p class="nba-profile-caption">'+caption+'</p><dl class="nba-facts">'+[['統計場次',gp+' 場'],['比賽日期',gp?rows.at(-1).g.date+' ～ '+rows[0].g.date:null],['主場城市',t.city],['目前球員人數',s.rostersLoaded?players.length+' 位':null]].filter(([,v])=>v).map(([l,v])=>'<dt>'+e(l)+'</dt><dd>'+e(v)+'</dd>').join('')+'</dl><button class="nba-source-link" data-teamview="roster">查看球員名單 ↗</button>　'+link(t.clubUrl||t.url,'球隊官網'))+'</div>';
+  panel('球隊資訊','<p class="nba-profile-caption">'+caption+'</p><dl class="nba-facts">'+[['統計場次',gp+' 場'],['比賽日期',gp?rows.at(-1).g.date+' ～ '+rows[0].g.date:null],['主場城市',t.city],['目前球員人數',s.rostersLoaded?players.length+' 位':null]].filter(([,v])=>v).map(([l,v])=>'<dt>'+e(l)+'</dt><dd>'+e(v)+'</dd>').join('')+'</dl><button class="nba-source-link" data-teamview="roster">查看球員名單 →</button>')+'</div>';
  }
  return head+heading+summary+content+end;
 }

@@ -11,7 +11,6 @@ export const key=g=>[g.date,g.home,g.away].join('/');
 export const num=(v,d=0)=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(+v)?Number(v).toFixed(d):'—';
 export const pct=(v)=>v==null?'—':num(v,1)+'%';
 export const logo=(t,c='')=>t?'<img class="'+e(c)+'" alt="" src="'+e(t.logo)+'">':'';
-export const link=(u,label)=>/^https?:\/\//i.test(u||'')?'<a class="textlink" target="_blank" rel="noopener noreferrer" href="'+e(u)+'">'+e(label)+' ↗</a>':'';
 export const stateName=g=>({final:'完賽',in_progress:'進行中',scheduled:'未開賽',fixture:'賽程',postponed:'延期',cancelled:'取消'}[g.status]||'狀態待確認');
 export const status=(g,live=false)=>'<span class="status '+(g.status==='in_progress'&&live?'is-live':'')+'">'+(g.status==='in_progress'&&live?'● LIVE ': '')+e(g.status==='in_progress' ? [g.period||'場中',g.clock||'',live?'':'快照'].filter(Boolean).join(' ') : stateName(g))+'</span>';
 export const teamFor=(s,c)=>s.info.teams.find(t=>t.code===c);
@@ -31,7 +30,7 @@ export function recentRun(rows,limit=5){return '<div class="run">'+rows.slice(0,
 export function readStore(k,fallback){if(document.body.dataset.viewer==='true')return fallback;try{return JSON.parse(localStorage.getItem(k))??fallback}catch{return fallback}}
 export function writeStore(k,v){if(document.body.dataset.viewer==='true')return false;try{localStorage.setItem(k,JSON.stringify(v));return true}catch{return false}}
 export async function getJson(url,timeout=15000){
-  const r=await fetch(url,{signal:AbortSignal.timeout(timeout)});if(!r.ok)throw Error('來源暫未回應');return r.json();
+  const r=await fetch(url,{signal:AbortSignal.timeout(timeout)});if(!r.ok)throw Error('資料暫時無法載入');return r.json();
 }
 export function standingsRows(s){
   const info=s.ranking;

@@ -15,7 +15,7 @@ export default function RegionalBasketballBoard({league,onViewChange}:{league:'N
   const sendOdds=()=>{
     const source=odds.data?.source==='hr9988'?odds.data.regionalTzMarkets:undefined;
     const markets=source?.filter(row=>row.league===league)??[];
-    const message=odds.error?'TZ 盤口暫時無法讀取，請確認會員的 TZ 體育館連線。':source?'':odds.loading?'正在讀取 TZ 盤口。':'請連接 TZ 體育館以查看盤口。';
+    const message=odds.error?'盤口暫時無法讀取，請確認會員體育館連線。':source?'':odds.loading?'正在讀取盤口。':'請連接會員體育館以查看盤口。';
     frame.current?.contentWindow?.postMessage({type:'basketball-tz-markets',markets,message},location.origin);
   };
   useEffect(sendOdds,[odds.data,odds.error,odds.loading,league]);
