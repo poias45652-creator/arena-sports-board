@@ -23,6 +23,10 @@ try{
  }const response=await route.fetch({headers:{...request.headers(),cookie}});return route.fulfill({response});});
  for(const [key,path] of [['nba','/players/nba/203083'],['wnba','/players/wnba/1642286'],['football','/players/football/eng.1/250787?team=382&season=2026']]){
   await page.goto(origin+path);await page.getByRole('heading',{name:samples[key].name,level:1,exact:true}).waitFor();assert.ok(await page.getByRole('heading',{name:'個人資料',exact:true}).isVisible());
+  const footer=page.locator('footer.sp-caption');
+  assert.match(await footer.innerText(),/更新 .+（台灣）/);
+  assert.equal((await footer.innerText()).includes('資料來源'),key==='football');
+  assert.equal(await footer.getByRole('link').count(),key==='football'?samples[key].sources.length:0);
   assert.ok(await page.locator('.sp-metrics strong').count()>=3);assert.equal(await page.getByRole('link',{name:'返回球隊'}).getAttribute('href'),samples[key].team.href);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'mobile page must not overflow');await page.screenshot({path:`${directory}/${size}-${key}-overview.png`});
   await page.getByRole('button',{name:'歷年成績',exact:true}).click();assert.equal(await page.locator('tbody tr').count(),samples[key].history.length);
