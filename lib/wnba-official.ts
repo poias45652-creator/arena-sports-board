@@ -38,6 +38,9 @@ export async function officialWnbaDirectory(){
   if(!json)throw new WnbaSourceUnavailable('WNBA 官網資料缺漏',false);const value=parseOfficialWnbaDirectory(JSON.parse(json));cache={value,until:Date.now()+15*60000};return value;
  })().finally(()=>pending.delete('players'));pending.set('players',task);return task;
 }
+export function wnbaTeamIdForSlug(slug:string){
+ return Object.keys(slugs).find(id=>slugs[id]===slug)||'';
+}
 export function officialWnbaRosterFromDirectory(data:ReturnType<typeof parseOfficialWnbaDirectory>,id:string){
  const team=wnbaTeam(id);if(!team)throw Error('球隊不存在');
  const roster=data.players.filter(p=>p.teamSlug===slugs[id]&&p.active);if(!roster.length)throw Error('官網尚無此球隊名單');
