@@ -5,7 +5,7 @@ import {addNpbLive} from './baseball-npb-live.mjs';
 import {addNpbContext} from './baseball-npb-context.mjs';
 import {enrichLeaguePlayText} from './baseball-play-text.mjs';
 import {collectCpblCurrent} from './cpbl-current.mjs';
-import {npbScheduleProof} from './baseball-npb-schedule.mjs';
+import {npbScheduleProof,npbScheduleHasWrongDay,npbOfficialCalendarUrl,npbOfficialOffday} from './baseball-npb-schedule.mjs';
 export {dayInTaipei} from './baseball-live-providers.mjs';
 
 // Validate every page independently before optional details can be merged. In
@@ -32,9 +32,18 @@ export async function collectLeague(league,options={}){
  }
  const date=options.date||dayInTaipei(),fetcher=options.fetcher||fetch;
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Invalid date');
- const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher);
- const scheduleVerification={},ids=npbScheduleIds(schedule.text),scheduleProof=npbScheduleProof(schedule,date,scheduleVerification),games=[],errors=[],warnings=[],npbTextPages=new Map();
- if(!ids.length&&!scheduleProof?.noGames)throw new Error('No recognizable first-team schedule; not proof of no games');
+ const schedule=await fetchPublic('https://baseball.yahoo.co.jp/npb/schedule/?date='+date,fetcher).catch(()=>null);
+ const scheduleVerification={},games=[],errors=[],warnings=[],npbTextPages=new Map();
+ const useSchedule=schedule&&!npbScheduleHasWrongDay(schedule.text,date);
+ const ids=useSchedule?npbScheduleIds(schedule.text):[];
+ let scheduleProof=useSchedule?npbScheduleProof(schedule,date,scheduleVerification):null;
+ if(!ids.length&&!scheduleProof?.noGames){
+  const calendar=await fetchPublic(npbOfficialCalendarUrl(date),fetcher);
+  scheduleProof=npbOfficialOffday(calendar,date);
+  if(!scheduleProof)throw new Error('No verified first-team schedule for the requested date');
+  scheduleVerification.stage='official_offday';
+ }
+ if(!ids.length)return {schemaVersion:1,league,date,collectedAt:new Date().toISOString(),games,errors,warnings,scheduleProof,scheduleVerification,status:'ok',liveLatencyVerified:false};
  const anchors=[...schedule.text.matchAll(/<a\b[^>]*href=["'][^"']*\/npb\/game\/(\d+)\/(?:index|score)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi)];
  await Promise.all(ids.map(async id=>{
   try{

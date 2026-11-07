@@ -140,3 +140,10 @@ test('多因子缺少必要來源時回報部分就緒，觸發快速自動恢�
  assert.equal(internationalPregameHealth(feed,[{status:'ready',personalModel:{multifactor:{homeWin:.6}}}]),'ready');
  assert.equal(internationalPregameHealth(feed,[{status:'started',personalModel}]),'ready');
 });
+
+test('NPB verified November off day renders on the pregame board without a source warning or analysis',()=>{
+ const date='2026-11-07',now=Date.parse(date+'T12:00:00Z');
+ const html=renderSource({status:'ready',noGames:true,pregame:{date,league:'NPB',games:[]}},date,{now,loading:true});
+ assert.match(html,/2026-11-07 日職一軍沒有安排正式賽事/);
+ assert.doesNotMatch(html,/尚未取得可用的同日|賽前來源暫時無法取得|data-analysis-status/);
+});

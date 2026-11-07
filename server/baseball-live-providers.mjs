@@ -26,7 +26,9 @@ export function validateGame(g){
  g.stateHash=createHash('sha256').update(JSON.stringify(payload)).digest('hex');g.liveStateObserved=g.status==='live'&&g.inning!==null;g.liveChangesVerified=false;return g;
 }
 export async function fetchPublic(url,fetcher=fetch){
- const u=new URL(url);assert(u.protocol==='https:'&&HOSTS.has(u.hostname)&&!u.username&&!u.password,'Source URL is not allowed');
+ const u=new URL(url);
+ const officialCalendar=u.origin==='https://npb.jp'&&!u.search&&!u.hash&&/^\/games\/\d{4}\/schedule_(?:0[1-9]|1[0-2])_detail\.html$/.test(u.pathname);
+ assert(u.protocol==='https:'&&(HOSTS.has(u.hostname)||officialCalendar)&&!u.username&&!u.password,'Source URL is not allowed');
  const r=await fetcher(u.href,{redirect:'manual',cache:'no-store',headers:{'User-Agent':'YJBaseballSourceCheck/1.0','Accept':'application/json,text/html;q=0.8'},signal:AbortSignal.timeout(20000)});
  if(!r.ok){await r.body?.cancel();throw new Error(`HTTP ${r.status} from ${u.hostname}; no access challenge bypassed`);}
  let length=0;const parts=[];for await(const part of r.body){length+=part.byteLength;if(length>8_000_000)throw new Error('Source response exceeds 8 MB');parts.push(part);}
