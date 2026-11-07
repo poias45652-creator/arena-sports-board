@@ -37,7 +37,7 @@ const source=ts.transpileModule(fs.readFileSync('app/football-recommendations.ts
 const component=new Function('require','exports','React',source+'\nreturn exports.FootballAnalysisNumbers;')(key=>{
  if(key==='react')return React;
  if(key==='@/lib/football-score-scenarios')return scenarios;
- if(['react-dom','@/lib/football-team-profile','@/lib/football-recommendations','./super-workspace','./sport-markets'].includes(key))return {};
+ if(['react-dom','@/lib/football-team-profile','@/lib/football-recommendations','@/lib/football-five-league','./super-workspace','./sport-markets'].includes(key))return {};
  throw Error('Unexpected import '+key);
 },{},React);
 test('shared card and floating panel renderer labels scenario probabilities and margin probabilities separately',()=>{

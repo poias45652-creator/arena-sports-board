@@ -1,5 +1,6 @@
 'use client';
 
+import {domesticLeague} from '@/lib/football-five-league';
 import {useId} from 'react';
 import {createPortal} from 'react-dom';
 import type {FootballGame,FootballLeague} from '@/lib/football';
@@ -31,19 +32,20 @@ export default function FootballRecommendationsPane(props:Props){
   const docked=workspace?.activePane===id&&!!workspace.host;
   const clock=Math.max(props.now,Date.now());
   const unavailable=props.unavailable||(props.sourceFetchedAt?footballSourceStale(props.sourceFetchedAt,clock):!props.loading);
-  const rows=docked?footballRecommendations({...props,now:clock,unavailable}):[];
+  const domestic=domesticLeague(props.league);
+  const rows=docked?footballRecommendations({...props,now:clock,unavailable}).filter(r=>!domestic||r.analysis.domesticForecast?.featured===true):[];
   const pending=props.loading||props.games.some(game=>!!props.analysisActivity?.[footballFixtureKey(game)!]);
   return <>
     <span data-super-parlay={id} hidden/>
     {docked&&createPortal(<section className="football-recommendations" aria-label="足球推薦內容">
-      <div className="football-recommendations-context"><strong>{props.leagueName}</strong><span>{props.day}・{rows.length} 場</span></div>
+      <div className="football-recommendations-context"><strong>{props.leagueName}</strong><span>{props.day}・{domestic?'精選 ':''}{rows.length} 場</span></div>
       {rows.length?rows.map(row=><article className="football-recommendation-card" key={row.game.id}>
         <header><time dateTime={row.game.start}>{time(row.game.start)}</time><span>{row.game.state==='live'?'LIVE':row.game.state==='final'?'完場':'90 分鐘'}</span></header>
         {retainFootballForecast(row.game,clock)&&<p>賽前預測・保留至今日 24:00</p>}
         <div className="football-recommendation-match"><div><small>主隊</small><a className="football-team-link" href={footballTeamHref(props.league,row.game.home.id,props.day)} aria-label={`查看${row.game.home.name}球隊數據`}><strong>{row.game.home.name}</strong></a></div><b>{row.game.homeScore!==null&&row.game.awayScore!==null?`${row.game.homeScore} : ${row.game.awayScore}`:'VS'}</b><div><small>客隊</small><a className="football-team-link" href={footballTeamHref(props.league,row.game.away.id,props.day)} aria-label={`查看${row.game.away.name}球隊數據`}><strong>{row.game.away.name}</strong></a></div></div>
         <dl className="football-recommendation-directions">{[['勝負推薦',row.result],['雙方進球',row.btts]].map(([label,pick])=>typeof pick==='object'&&pick&&<div key={String(label)}><dt>{String(label)}</dt><dd><strong>{pick.label}</strong><b>{percent(pick.probability)}</b></dd></div>)}</dl>
         <FootballAnalysisNumbers analysis={row.analysis}/><SportMarkets game={row.game} analysis={row.analysis} snapshot={props.snapshot} sourceLoading={props.sourceLoading} error={props.oddsError} errorCode={props.oddsErrorCode} sport="FOOTBALL" now={clock}/>
-      </article>):<p className="football-recommendations-empty" role="status">{props.analysisNotice||(unavailable?'推薦資料暫時無法取得':pending?'正在整理足球推薦…':'目前沒有可用的賽前推薦')}</p>}
+      </article>):<p className="football-recommendations-empty" role="status">{props.analysisNotice||(unavailable?'推薦資料暫時無法取得':pending?'正在整理足球推薦…':domestic?'目前沒有符合 60% 門檻的精選賽事':'目前沒有可用的賽前推薦')}</p>}
     </section>,workspace!.host!)}
   </>;
 }

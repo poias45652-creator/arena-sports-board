@@ -43,7 +43,7 @@ export async function GET(request:Request){
    const result=await nbaGameAnalysis(day,id,weights);if(!result)return Response.json({error:'本日查無此賽事'},{status:404,headers});
    const pick=result.analysis?nbaPick(result.game,result.analysis):null;
    // Browser-specific experiments must never overwrite the shared daily ledger.
-   let dailySaved=false;if(pick&&isDefaultNbaWeights(weights))try{dailySaved=await saveDailyForecast(getRawDb(),'NBA',result.game,result.analysis!.probabilities!,result.analysis!.capturedAt,result.analysis!.model);}catch{/* Recommendation still renders; ledger retries on the next pregame analysis. */}
+   let dailySaved=false;if(pick&&isDefaultNbaWeights(weights))try{dailySaved=await saveDailyForecast(getRawDb(),'NBA',result.game,result.analysis!.probabilities!,result.analysis!.capturedAt,result.analysis!.model,result.analysis!.playerContext?.availabilityComparison);}catch{/* Recommendation still renders; ledger retries on the next pregame analysis. */}
    return Response.json({...result,dailySaved},{headers});
   }
   return Response.json(await nbaSchedule(day),{headers});

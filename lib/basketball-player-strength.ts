@@ -1,11 +1,11 @@
 import type {NbaGame} from './nba';
-import type {EfficiencyAnalysis} from './basketball-efficiency';
+import type {EfficiencyAnalysis,RecentBasketballResult} from './basketball-efficiency';
 import {nbaEfficiencyWeightShift} from './nba-model-weights';
 export type PlayerAvailability='out'|'doubtful'|'questionable'|'probable'|'expected'|'unknown';
 export type PlayerEvidence={id:number;name:string;status:PlayerAvailability;publishedAt?:string;sourceUrl:string;minutesCap?:number;minutesConfirmed?:boolean};
 export type PlayerRating={games:number;rate:number;minutes:number;lastPlayed:number;sampleMinutes:number;points:number;rebounds:number;assists:number;steals:number;blocks:number;turnovers:number;name:string;sourceId:string};
 export type RotationPlayer=PlayerEvidence&{minutes:number;minutesLow:number;minutesHigh:number;rating:PlayerRating|null};
-export type NbaPlayerContext={status:'applied'|'unavailable';marginSigma?:number;reason?:string;calibrated:boolean;preseason:boolean;minutesConfirmed:boolean;recommendationEligible:boolean;sourceFetchedAt:string;statsCapturedAt:string;home:RotationPlayer[];away:RotationPlayer[];homeOpponentNet?:number;awayOpponentNet?:number;marginRange?:[number,number];probabilityRange?:[number,number];features?:number[];coefficients?:number[];sources:string[]};
+export type NbaPlayerContext={status:'applied'|'unavailable';recentOpponentGames?:{home:number;away:number};availabilityComparison?:{beforeHome:number;reports:number;unknown:number};marginSigma?:number;reason?:string;calibrated:boolean;preseason:boolean;minutesConfirmed:boolean;recommendationEligible:boolean;sourceFetchedAt:string;statsCapturedAt:string;home:RotationPlayer[];away:RotationPlayer[];homeOpponentNet?:number;awayOpponentNet?:number;marginRange?:[number,number];probabilityRange?:[number,number];features?:number[];coefficients?:number[];sources:string[]};
 export type TeamStats={net:number;sos:number;strength:number;rest:number;games:number;lastPlayed:number;pointsFor:number;pointsAgainst:number};
 export function availabilityFromNews(id:number,name:string,sourceUrl:string,news:any[],now:number,opponentWords:string[]=[]):PlayerEvidence{
  const rows=news.filter(n=>Number(n.nbaId??n.wnbaId??n.Player?.NBAId)===id&&Number.isFinite(Number(n.date??n.DateTime))&&Number(n.date??n.DateTime)<=now&&now-Number(n.date??n.DateTime)<=72*3600000).sort((a,b)=>Number(b.date??b.DateTime)-Number(a.date??a.DateTime));
@@ -66,17 +66,40 @@ function applyPlayerStrength(game:NbaGame,base:EfficiencyAnalysis,homeEvidence:P
  // Old team results lose relevance across an offseason. This preseason
  // adjustment is explicitly a scenario estimate, not a calibrated win rate.
  const relevance=(t:TeamStats)=>context.preseason?Math.exp(-Math.max(0,(now/1000-t.lastPlayed)/86400-30)/90):1;
- const features=(hs:number,as:number)=>[game.neutral?0:1,hs-as,h.net*relevance(h)-a.net*relevance(a),h.sos*relevance(h)-a.sos*relevance(a),Math.min(7,(Date.parse(game.start)/1000-h.lastPlayed)/86400)-Math.min(7,(Date.parse(game.start)/1000-a.lastPlayed)/86400)];
+ // Reweight recent margins and their actual opponents together. Keep the established
+ // longer-window inputs when either side lacks a comparable rated sample.
+ const recent=(rows:RecentBasketballResult[]|undefined)=>{
+  const rated=(rows||[]).filter(r=>Number.isFinite(r.margin)&&teams[r.opponent]?.games>=8&&Number.isFinite(teams[r.opponent].net));
+  if(rated.length<3)return null;
+  let net=0,sos=0,total=0;
+  for(const [i,r] of rated.entries()){
+    const weight=.85**i;net+=weight*r.margin;sos+=weight*teams[r.opponent].net;total+=weight;
+  }
+  return {net:net/total,sos:sos/total,count:rated.length};
+ };
+ const hr=recent(base.recentResults?.home),ar=recent(base.recentResults?.away);
+ const net=(t:TeamStats,r:ReturnType<typeof recent>)=>hr&&ar&&r
+   ? .65*t.net*relevance(t)+.35*(r.net+r.sos-t.sos) : t.net*relevance(t);
+ // Express the recent margin on the earlier schedule's scale. The model's
+ // existing SOS coefficient still applies to the reference schedule only.
+ const features=(hs:number,as:number)=>[game.neutral?0:1,hs-as,net(h,hr)-net(a,ar),h.sos*relevance(h)-a.sos*relevance(a),Math.min(7,(Date.parse(game.start)/1000-h.lastPlayed)/86400)-Math.min(7,(Date.parse(game.start)/1000-a.lastPlayed)/86400)];
  const efficiencyWeightShift=nbaEfficiencyWeightShift(base);
  const project=(x:number[])=>x.reduce((n,v,i)=>n+v*model.coefficients[i],0)+efficiencyWeightShift;
  const x=features(value(home),value(away)),margin=project(x);
  const strengthScenario=(e:PlayerEvidence[],s:'low'|'central'|'high')=>allocateMinutes(e,context.preseason,s).reduce((n,p)=>n+p.minutes*(playerRatings[String(p.id)]?.rate??.30),0);
  const margins:number[]=[];for(const hs of ['low','central','high'] as const)for(const as of ['low','central','high'] as const)margins.push(project(features(strengthScenario(homeEvidence,hs),strengthScenario(awayEvidence,as))));
  const probabilities=margins.map(m=>normalCdf(m/model.sigma)),homeProbability=normalCdf(margin/model.sigma);
+ // On the same rotation, remove only the reported status discount. Preserve
+ // documented minutes limits (which can also reflect coaching decisions).
+ const reports=[...homeEvidence,...awayEvidence].filter(p=>['out','doubtful','questionable','probable'].includes(p.status));
+ const supported=reports.length>0&&reports.every(p=>!!p.sourceUrl&&Date.parse(p.publishedAt??'')<=now&&now-Date.parse(p.publishedAt??'')<=72*3600000);
+ const unweighted=(players:PlayerEvidence[])=>strengthScenario(players.map(p=>({...p,status:'expected'})),'central');
+ const availabilityComparison=supported?{beforeHome:normalCdf(project(features(unweighted(homeEvidence),unweighted(awayEvidence)))/model.sigma),
+   reports:reports.length,unknown:[...homeEvidence,...awayEvidence].filter(p=>p.status==='unknown').length}:undefined;
  const round=(x:number)=>Math.round(x*10)/10,total=base.expected.total,homeScore=round((total+margin)/2),awayScore=round((total-margin)/2);
  const minutesConfirmed=[...home,...away].filter(p=>p.minutes>0).every(p=>p.minutesConfirmed);
  const uncertain=[...home,...away].some(p=>['unknown','questionable','doubtful'].includes(p.status)&&p.minutesHigh>12);
- return {...base,model:league==='NBA'?'nba-player-opponent-v3':'wnba-player-opponent-v3',capturedAt:new Date(now).toISOString(),simulation:undefined,expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:homeProbability,away:1-homeProbability},playerContext:{...context,status:'applied',marginSigma:model.sigma,calibrated:!base.customWeights&&!context.preseason&&model.regularSeasonValidated,home,away,minutesConfirmed,recommendationEligible:!context.preseason&&!uncertain,homeOpponentNet:h.sos,awayOpponentNet:a.sos,marginRange:[Math.min(...margins),Math.max(...margins)],probabilityRange:[Math.min(...probabilities),Math.max(...probabilities)],features:x,coefficients:model.coefficients}};
+ return {...base,model:league==='NBA'?'nba-player-opponent-v3':'wnba-player-opponent-v3',capturedAt:new Date(now).toISOString(),simulation:undefined,expected:{home:homeScore,away:awayScore,total:round(homeScore+awayScore),margin:round(homeScore-awayScore)},probabilities:{home:homeProbability,away:1-homeProbability},playerContext:{...context,status:'applied',availabilityComparison,marginSigma:model.sigma,calibrated:!(hr&&ar)&&!base.customWeights&&!context.preseason&&model.regularSeasonValidated,home,away,minutesConfirmed,recommendationEligible:!context.preseason&&!uncertain,homeOpponentNet:hr&&ar?hr.sos:h.sos,awayOpponentNet:hr&&ar?ar.sos:a.sos,...(hr&&ar?{recentOpponentGames:{home:hr.count,away:ar.count}}:{}),marginRange:[Math.min(...margins),Math.max(...margins)],probabilityRange:[Math.min(...probabilities),Math.max(...probabilities)],features:x,coefficients:model.coefficients}};
 }
 
 

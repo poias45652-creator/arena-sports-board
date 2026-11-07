@@ -1,0 +1,278 @@
+[
+  {
+    "sport": "NBA",
+    "id": "401909938",
+    "home": "印第安納溜馬",
+    "away": "丹佛金塊",
+    "start": "2026-11-07T22:00Z",
+    "capturedAt": "2026-11-07T10:28:56.215Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.31083587205587726,
+      "reports": 3,
+      "unknown": 31
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.31083587205587726,
+      "away": 0.6891641279441227
+    },
+    "published": {
+      "home": 0.3107358575579229,
+      "away": 0.6892641424420771
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909939",
+    "home": "亞特蘭大老鷹",
+    "away": "布魯克林籃網",
+    "start": "2026-11-08T00:30Z",
+    "capturedAt": "2026-11-07T10:29:35.964Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.6852131310137187,
+      "reports": 4,
+      "unknown": 31
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.6852131310137187,
+      "away": 0.3147868689862813
+    },
+    "published": {
+      "home": 0.674581614130966,
+      "away": 0.32541838586903404
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909940",
+    "home": "克里夫蘭騎士",
+    "away": "紐約尼克",
+    "start": "2026-11-08T01:00Z",
+    "capturedAt": "2026-11-07T10:30:19.563Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.47930187577961747,
+      "reports": 5,
+      "unknown": 29
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.47930187577961747,
+      "away": 0.5206981242203825
+    },
+    "published": {
+      "home": 0.4793916989676055,
+      "away": 0.5206083010323945
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909941",
+    "home": "奧克拉荷馬雷霆",
+    "away": "華盛頓巫師",
+    "start": "2026-11-08T01:00Z",
+    "capturedAt": "2026-11-07T10:30:51.934Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.7590169969813796,
+      "reports": 2,
+      "unknown": 34
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.7590169969813796,
+      "away": 0.2409830030186204
+    },
+    "published": {
+      "home": 0.7795078179130781,
+      "away": 0.2204921820869219
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909942",
+    "home": "金州勇士",
+    "away": "奧蘭多魔術",
+    "start": "2026-11-08T01:30Z",
+    "capturedAt": "2026-11-07T10:31:31.542Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.7227980805009108,
+      "reports": 5,
+      "unknown": 30
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.7227980805009108,
+      "away": 0.27720191949908923
+    },
+    "published": {
+      "home": 0.7261917115821575,
+      "away": 0.27380828841784255
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909943",
+    "home": "鳳凰城太陽",
+    "away": "休士頓火箭",
+    "start": "2026-11-08T02:00Z",
+    "capturedAt": "2026-11-07T10:31:50.750Z",
+    "model": "nba-efficiency-monte-carlo-v2",
+    "availabilityComparison": null,
+    "context": "unavailable",
+    "reason": "official_roster_or_availability_unavailable",
+    "base": null,
+    "published": {
+      "home": 0.2993,
+      "away": 0.7007
+    }
+  },
+  {
+    "sport": "NBA",
+    "id": "401909944",
+    "home": "波特蘭拓荒者",
+    "away": "聖安東尼奧馬刺",
+    "start": "2026-11-08T03:00Z",
+    "capturedAt": "2026-11-07T10:32:41.345Z",
+    "model": "nba-player-opponent-v3",
+    "availabilityComparison": {
+      "beforeHome": 0.5375531630076622,
+      "reports": 1,
+      "unknown": 33
+    },
+    "context": "applied",
+    "base": {
+      "home": 0.5375531630076622,
+      "away": 0.4624468369923378
+    },
+    "published": {
+      "home": 0.5424214154287617,
+      "away": 0.45757858457123834
+    }
+  },
+  {
+    "sport": "NBL",
+    "id": "2026-11-08/SYD/SEM",
+    "home": "SYD",
+    "away": "SEM",
+    "start": "2026-11-08T04:00:00.000Z",
+    "capturedAt": "2026-11-07T10:32:06.179Z",
+    "inputAsOf": "2026-11-07T10:32:06.160Z",
+    "originalSnapshotAsOf": "2026-11-07T08:20:21.265Z",
+    "originalSnapshotProbability": 0.7548,
+    "base": {
+      "home": 0.7548,
+      "away": 0.24519999999999997
+    },
+    "published": {
+      "home": 0.7548,
+      "away": 0.24519999999999997
+    },
+    "sources": [
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates"
+    ]
+  },
+  {
+    "sport": "NBL",
+    "id": "2026-11-08/PER/CNS",
+    "home": "PER",
+    "away": "CNS",
+    "start": "2026-11-08T06:00:00.000Z",
+    "capturedAt": "2026-11-07T10:32:06.190Z",
+    "inputAsOf": "2026-11-07T10:32:06.179Z",
+    "originalSnapshotAsOf": "2026-11-07T08:20:21.265Z",
+    "originalSnapshotProbability": 0.6877,
+    "base": {
+      "home": 0.6877,
+      "away": 0.3123
+    },
+    "published": {
+      "home": 0.6877,
+      "away": 0.3123
+    },
+    "sources": [
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates",
+      "https://www.nbl.com.au/news/nbl26-the-latest-injury-updates"
+    ]
+  },
+  {
+    "sport": "KBL",
+    "id": "2026-11-08/SK/DB",
+    "home": "SK",
+    "away": "DB",
+    "start": "2026-11-08T05:00:00.000Z",
+    "capturedAt": "2026-11-07T10:32:06.209Z",
+    "inputAsOf": "2026-11-07T10:32:06.196Z",
+    "originalSnapshotAsOf": "2026-11-07T08:20:21.265Z",
+    "originalSnapshotProbability": 0.5653,
+    "base": {
+      "home": 0.568,
+      "away": 0.43200000000000005
+    },
+    "published": {
+      "home": 0.568,
+      "away": 0.43200000000000005
+    },
+    "sources": [
+      "https://www.jumpball.co.kr/news/newsview.php?ncode=1065588544073339",
+      "https://www.jumpball.co.kr/news/newsview.php?ncode=1065597339349414"
+    ]
+  },
+  {
+    "sport": "KBL",
+    "id": "2026-11-08/MOB/JJK",
+    "home": "MOB",
+    "away": "JJK",
+    "start": "2026-11-08T05:00:00.000Z",
+    "capturedAt": "2026-11-07T10:32:06.226Z",
+    "inputAsOf": "2026-11-07T10:32:06.209Z",
+    "originalSnapshotAsOf": "2026-11-07T08:20:21.265Z",
+    "originalSnapshotProbability": 0.3268,
+    "base": {
+      "home": 0.326,
+      "away": 0.6739999999999999
+    },
+    "published": {
+      "home": 0.326,
+      "away": 0.6739999999999999
+    },
+    "sources": [
+      "https://www.yna.co.kr/view/AKR20261028169251007",
+      "https://www.jumpball.co.kr/news/newsview.php?ncode=1065590143207499",
+      "https://www.jumpball.co.kr/news/newsview.php?ncode=1065570373068914"
+    ]
+  },
+  {
+    "sport": "KBL",
+    "id": "2026-11-08/LG/KCC",
+    "home": "LG",
+    "away": "KCC",
+    "start": "2026-11-08T07:30:00.000Z",
+    "capturedAt": "2026-11-07T10:32:06.235Z",
+    "inputAsOf": "2026-11-07T10:32:06.226Z",
+    "originalSnapshotAsOf": "2026-11-07T08:20:21.265Z",
+    "originalSnapshotProbability": 0.5608,
+    "base": {
+      "home": 0.6151,
+      "away": 0.3849
+    },
+    "published": {
+      "home": 0.5612,
+      "away": 0.43879999999999997
+    },
+    "sources": [
+      "https://www.jumpball.co.kr/news/newsview.php?ncode=1065592732882683"
+    ]
+  }
+]

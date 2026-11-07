@@ -141,3 +141,21 @@ export function applyExternalFootballAnalysis(game:FootballGame,base:FootballAna
  return {...result,status:'ready',reason:'',capturedAt:new Date(now).toISOString(),version,historyMode:'competition',homeForm:features.home,awayForm:features.away,expected:{home:rates.home,away:rates.away},...distribution,lean:best[0].p-best[1].p>=.08?`模型傾向${best[0].name}`:'勝負接近，保留觀望',external:{...evidence,modelApplied:true},calibration:{status:'applied',label:strength?'xG與對手強度校準・觀察中':'外部資料校準・觀察中',version,reasons:[],holdoutGames:entry.sampleSizes.holdout,recentGames:entry.sampleSizes.audit2026,uncertainty:'獨立歷史測試與近期驗收通過，仍需持續觀察上線後表現。'},notes:[`${context.sources.join('＋')}逐場資料；${p.usesXg?'加入歷史xG、':'使用歷史進球、'}對手Elo、時間衰減及場地差異。`,'所有特徵只用預測當日之前的有效賽果；不使用本場賽後xG或收盤賠率。',strength?'2021–2022選模、2023–2024時間保留測試；2025、2026另行驗收，與現行聯賽模型比較。':'2019–2020獨立測試；2025、2026另行驗收。候選未通過的聯賽保留原模型。','尚未納入確認先發與傷停；歷史改善不保證未來命中率或獲利。']};
 }
 
+
+// Require the exact UTC day, both reviewed IDs and the same regulation score
+// when adding real xG to a model built from ESPN's score archive.
+export function domesticShotHistory(game:FootballGame,context:Context,primary:FootballGame<string>[],scoreModel:boolean,now:number){
+ const home=externalId(game.home.id,game.league),away=externalId(game.away.id,game.league);
+ const age=now-Date.parse(context.fetchedAt);
+ if(!home||!away||!context.teams.has(home)||!context.teams.has(away)||!Number.isFinite(age)||age<0||age>35*60000)return null;
+ const cutoff=externalDayCutoff(new Date(now).toISOString()),oldest=cutoff-365*86400000;
+ const inWindow=(g:{start:string;league:string})=>g.league===game.league&&Date.parse(g.start)>=oldest&&Date.parse(g.start)<cutoff;
+ const archive=context.history.filter(inWindow);
+ const espn=primary.filter(inWindow).map(fromEspn).filter((g):g is ExternalFootballGame=>!!g);
+ const merged=mergeExternalFootballHistory(archive,espn,context.excluded);
+ if(!scoreModel)return {home,away,shots:merged.games};
+ const key=(g:ExternalFootballGame)=>[g.start.slice(0,10),g.homeId,g.awayId,g.homeGoals,g.awayGoals].join('|');
+ const paired=new Set(espn.map(key));
+ const verified=new Set(merged.games.filter(g=>g.homeXg!==null&&g.awayXg!==null).map(key));
+ return {home,away,shots:archive.filter(g=>paired.has(key(g))&&verified.has(key(g)))};
+}
