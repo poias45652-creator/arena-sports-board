@@ -1,6 +1,7 @@
+import {recordedWnbaIdentity,recordedWnbaEspnId,recordedWnbaPhoto} from './wnba-profile-identity';
 import {officialBasketballSeason,playerSeasonResult,noRegularAppearance,basketballSeasonUrl} from './basketball-season-totals';
 import {officialPlayerProfile,nbaPlayerById,nbaRosterPlayer} from './nba-official';
-import {officialWnbaDirectory} from './wnba-official';
+import {officialWnbaDirectory,wnbaTeamIdForSlug} from './wnba-official';
 import {NBA_TEAMS,nbaTeam} from './nba';
 import {WNBA_TEAMS,wnbaTeam} from './wnba';
 import {playerSource} from './sport-player-fetch';
@@ -40,7 +41,18 @@ export async function basketballPlayerProfile(id:string,league:'NBA'|'WNBA',requ
  const warnings:string[]=[];
  const lower=league.toLowerCase(),espnRoot=`https://site.web.api.espn.com/apis/common/v3/sports/basketball/${lower}/athletes`;
  if(provider==='espn'){
-  const p=(await playerSource(`${espnRoot}/${id}`)).athlete;if(String(p?.id)!==id||!p.displayName)throw Error('球員身分不符');name=p.displayName;birthDate=String(p.dateOfBirth||'').slice(0,10);photo=p.headshot?.href||'';number=String(p.jersey||'');position=p.position?.displayName||'';height=p.displayHeight||'';weight=String(p.displayWeight||'').replace('lbs','磅');country=p.citizenship||p.birthPlace?.country||'';school=p.college?.name||'';teamId=String(p.team?.id||'');sourceUrl=`https://www.espn.com/${lower}/player/_/id/${id}`;
+  let p=(await playerSource(`${espnRoot}/${id}`).catch(()=>null))?.athlete;
+  if(String(p?.id)!==id||!p.displayName||(p.uid&&p.uid!=='s:40~l:59~a:'+id)){
+   const core=await playerSource(`https://sports.core.api.espn.com/v2/sports/basketball/leagues/${lower}/athletes/${id}?lang=en&region=us`).catch(()=>null);
+   if(core?.uid==='s:40~l:59~a:'+id && String(core.id)===id && core.displayName)p=core;
+   else {
+    const saved=recordedWnbaIdentity(id,'espn');
+    if(!saved)throw Error('找不到這位球員');
+    const profile=await basketballPlayerProfile(String(saved.id),'WNBA',requestedSeason,phase,'official');
+    return {...profile,id};
+   }
+  }
+  name=p.displayName;birthDate=String(p.dateOfBirth||'').slice(0,10);photo=p.headshot?.href||'';number=String(p.jersey||'');position=p.position?.displayName||'';height=p.displayHeight||'';weight=String(p.displayWeight||'').replace('lbs','磅');country=p.citizenship||p.birthPlace?.country||'';school=p.college?.name||'';teamId=String(p.team?.id||'');sourceUrl=`https://www.espn.com/${lower}/player/_/id/${id}`;
  }else if(league==='NBA'){
   const p=rosterTeam?await nbaPlayerById(Number(id)).catch(()=>null):await officialPlayerProfile(Number(id));
   if(p){
@@ -56,13 +68,34 @@ export async function basketballPlayerProfile(id:string,league:'NBA'|'WNBA',requ
    warnings.push('球員基本資料取自 NBA 官方球隊名單。');
   }
  }else{
-  const directory=await officialWnbaDirectory(),entry=directory.players.find(p=>p.id===Number(id));if(!entry)throw Error('找不到這位球員');
-  if(entry.active)activeRosterSeason=directory.season;
-  const html=await playerSource(entry.href,true),json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];if(!json)throw Error('球員資料暫時無法讀取');const p=JSON.parse(json).props?.pageProps?.player,i=p?.info;
-  if(Number(p?.pid)!==Number(id)||Number(i?.PERSON_ID)!==Number(id)||playerNameKey(i.DISPLAY_FIRST_LAST)!==playerNameKey(entry.name))throw Error('球員身分不符');
-  officialSeasons=Array.isArray(i.SEASONS)?i.SEASONS:[];name=i.DISPLAY_FIRST_LAST;birthDate=String(i.BIRTHDATE||'').slice(0,10);photo=entry.photo;number=String(i.JERSEY||'');position=i.POSITION||'';height=i.HEIGHT||entry.height;weight=i.WEIGHT?`${i.WEIGHT} 磅`:'';country=i.COUNTRY||'';school=i.SCHOOL||'';sourceUrl=entry.href;
-  const code=({LAS:'LA',LVA:'LV',NYL:'NY',WAS:'WSH',GSV:'GS'} as Record<string,string>)[p.teamAbbr]||p.teamAbbr;teamId=WNBA_TEAMS.find(t=>t.code===code)?.id||'';
-  officialStats={points:p.stats?.PTS,rebounds:p.stats?.REB,assists:p.stats?.AST};officialSeason=Number(p.stats?.TimeFrame);officialGames=(p.latestGames||[]).filter((g:any)=>Number(g.Player_ID)===Number(id)&&g.GAME_STATUS===3).map((g:any)=>({id:g.Game_ID,season:g.SEASON_ID,date:g.GAME_DATE,matchup:g.MATCHUP,result:g.WL,minutes:g.MIN,points:g.PTS,rebounds:g.REB,assists:g.AST,steals:g.STL,blocks:g.BLK,turnovers:g.TOV,fieldGoals:g.FG_PCT,threes:g.FG3_PCT,freeThrows:g.FT_PCT}));
+  const directory=await officialWnbaDirectory().catch(()=>null);
+  const entry=directory?.players.find(player=>player.id===Number(id));
+  const saved=recordedWnbaIdentity(id,'official');
+  const bio=entry??saved;
+  if(!bio)throw Error('找不到這位球員');
+  if(entry?.active)activeRosterSeason=directory?.season;
+  name=bio.name; height=bio.height; weight=bio.weight?bio.weight+' 磅':'';
+  country=bio.country; school=bio.school;
+  photo=entry?.photo||recordedWnbaPhoto(bio.id,bio.name);
+  sourceUrl=`https://www.wnba.com/player/${bio.id}/${bio.slug}`;
+  espnId=recordedWnbaEspnId(id,name);
+  number=entry?.number||'';position=entry?.position||'';teamId=entry?.active?wnbaTeamIdForSlug(entry.teamSlug):'';
+  let p:any;
+  try{
+   const html=await playerSource(sourceUrl,true);
+   const json=html.match(/<script\b[^>]*id=["']__NEXT_DATA__["'][^>]*>([\s\S]*?)<\/script>/)?.[1];
+   const raw=json&&JSON.parse(json).props?.pageProps?.player;
+   if(Number(raw?.pid)===Number(id)&&Number(raw?.info?.PERSON_ID)===Number(id)&&playerNameKey(raw.info.DISPLAY_FIRST_LAST||'')===playerNameKey(name))p=raw;
+  }catch{/* The directory and saved identity are independent of this detail page. */}
+  if(!p){
+   warnings.push('個人頁資料暫時無法取得，已顯示核對過的球員資料。');
+   if(entry?.averages){officialStats=entry.averages;officialSeason=entry.averages.season;}
+  }else{
+   const i=p.info;
+   officialSeasons=Array.isArray(i.SEASONS)?i.SEASONS:[];name=i.DISPLAY_FIRST_LAST;birthDate=String(i.BIRTHDATE||'').slice(0,10);number=String(i.JERSEY||'');position=i.POSITION||'';height=i.HEIGHT||height;weight=i.WEIGHT?`${i.WEIGHT} 磅`:'';country=i.COUNTRY||'';school=i.SCHOOL||'';
+   const code=({LAS:'LA',LVA:'LV',NYL:'NY',WAS:'WSH',GSV:'GS'} as Record<string,string>)[p.teamAbbr]||p.teamAbbr;teamId=WNBA_TEAMS.find(t=>t.code===code)?.id||teamId;
+   officialStats={points:p.stats?.PTS,rebounds:p.stats?.REB,assists:p.stats?.AST};officialSeason=Number(p.stats?.TimeFrame);officialGames=(Array.isArray(p.latestGames)?p.latestGames:[]).filter((g:any)=>Number(g.Player_ID)===Number(id)&&g.GAME_STATUS===3).map((g:any)=>({id:g.Game_ID,season:String(g.SEASON_ID??''),date:g.GAME_DATE,matchup:g.MATCHUP,result:g.WL,minutes:g.MIN,points:g.PTS,rebounds:g.REB,assists:g.AST,steals:g.STL,blocks:g.BLK,turnovers:g.TOV,fieldGoals:g.FG_PCT,threes:g.FG3_PCT,freeThrows:g.FT_PCT}));
+  }
  }
  const sources=[{label:`${league} 球員資料`,url:sourceUrl}];let history:PlayerRow[]=[],games:PlayerRow[]=[];
  if(!espnId&&teamId)try{const roster=await playerSource(`https://site.api.espn.com/apis/site/v2/sports/basketball/${lower}/teams/${teamId}/roster`);if(String(roster.team?.id)!==teamId)throw Error();const matches=(roster.athletes||[]).filter((p:any)=>verifiedBasketballIdentity(p,{name,birthDate}));if(matches.length===1)espnId=String(matches[0].id);}catch{identityLookupFailed=true;}

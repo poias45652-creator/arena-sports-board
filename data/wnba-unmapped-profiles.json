@@ -1,0 +1,231 @@
+{
+  "source": "https://www.wnba.com/players",
+  "checkedOn": "2026-11-07",
+  "players": [
+    {
+      "id": 203405,
+      "name": "Kayla Alexander",
+      "slug": "kayla-alexander",
+      "height": "6-4",
+      "weight": "186",
+      "school": "Syracuse",
+      "country": "Canada"
+    },
+    {
+      "id": 1643434,
+      "name": "Janiah Barker",
+      "slug": "janiah-barker",
+      "height": "6-4",
+      "weight": "185",
+      "school": "Tennessee",
+      "country": "USA"
+    },
+    {
+      "id": 1628882,
+      "name": "Lexie Brown",
+      "slug": "lexie-brown",
+      "height": "5-9",
+      "weight": "162",
+      "school": "Duke",
+      "country": "USA"
+    },
+    {
+      "id": 1630150,
+      "name": "Chennedy Carter",
+      "slug": "chennedy-carter",
+      "height": "5-9",
+      "weight": "143",
+      "school": "Texas A&M",
+      "country": "USA"
+    },
+    {
+      "id": 1643487,
+      "name": "Quionche Carter",
+      "slug": "quionche-carter",
+      "height": "6-1",
+      "weight": "",
+      "school": "Florida Gulf Coast",
+      "country": "USA"
+    },
+    {
+      "id": 1643488,
+      "name": "Emma Cechova",
+      "slug": "emma-cechova",
+      "height": "6-4",
+      "weight": "180",
+      "school": "Czech Republic",
+      "country": "Czech Republic"
+    },
+    {
+      "id": 203024,
+      "name": "Damiris Dantas",
+      "slug": "damiris-dantas",
+      "height": "6-4",
+      "weight": "203",
+      "school": "Real Celta Vigo",
+      "country": "Brazil"
+    },
+    {
+      "id": 1630108,
+      "name": "Mariella Fasoula",
+      "slug": "mariella-fasoula",
+      "height": "6-4",
+      "weight": "209",
+      "school": "Vanderbilt",
+      "country": "Greece"
+    },
+    {
+      "id": 1643686,
+      "name": "Nadia Fingall",
+      "slug": "nadia-fingall",
+      "height": "6-4",
+      "weight": "",
+      "school": "Stanford",
+      "country": "USA"
+    },
+    {
+      "id": 1643525,
+      "name": "Alex Fowler",
+      "slug": "alex-fowler",
+      "height": "6-2",
+      "weight": "",
+      "school": "Portland",
+      "country": "Australia"
+    },
+    {
+      "id": 1642826,
+      "name": "Aubrey Griffin",
+      "slug": "aubrey-griffin",
+      "height": "6-1",
+      "weight": "160",
+      "school": "Connecticut",
+      "country": ""
+    },
+    {
+      "id": 1629581,
+      "name": "Emese Hof",
+      "slug": "emese-hof",
+      "height": "6-3",
+      "weight": "219",
+      "school": "Miami",
+      "country": "Netherlands"
+    },
+    {
+      "id": 1630115,
+      "name": "Joyner Holmes",
+      "slug": "joyner-holmes",
+      "height": "6-3",
+      "weight": "210",
+      "school": "University of Texas at Austin",
+      "country": "USA"
+    },
+    {
+      "id": 1629479,
+      "name": "Teaira McCowan",
+      "slug": "teaira-mccowan",
+      "height": "6-8",
+      "weight": "239",
+      "school": "Mississippi State",
+      "country": "USA"
+    },
+    {
+      "id": 1631263,
+      "name": "Nikolina Milic",
+      "slug": "nikolina-milic",
+      "height": "6-3",
+      "weight": "181",
+      "school": "",
+      "country": "Bosnia and Herzegovina"
+    },
+    {
+      "id": 1642293,
+      "name": "Alissa Pili",
+      "slug": "alissa-pili",
+      "height": "5-11",
+      "weight": "235",
+      "school": "Utah",
+      "country": "USA"
+    },
+    {
+      "id": 1643647,
+      "name": "Tima Pouye",
+      "slug": "tima-pouye",
+      "height": "5-10",
+      "weight": "",
+      "school": "",
+      "country": "France"
+    },
+    {
+      "id": 1642808,
+      "name": "JJ Quinerly",
+      "slug": "jj-quinerly",
+      "height": "5-8",
+      "weight": "",
+      "school": "West Virginia",
+      "country": "USA"
+    },
+    {
+      "id": 1630154,
+      "name": "Kamiah Smalls",
+      "slug": "kamiah-smalls",
+      "height": "5-10",
+      "weight": "161",
+      "school": "James Madison",
+      "country": "USA"
+    },
+    {
+      "id": 1630134,
+      "name": "Sug Sutton",
+      "slug": "sug-sutton",
+      "height": "5-8",
+      "weight": "140",
+      "school": "University of Texas at Austin",
+      "country": "USA"
+    },
+    {
+      "id": 1642210,
+      "name": "Julie Vanloo",
+      "slug": "julie-vanloo",
+      "height": "5-8",
+      "weight": "",
+      "school": "",
+      "country": "Belgium"
+    },
+    {
+      "id": 1630461,
+      "name": "Kiana Williams",
+      "slug": "kiana-williams",
+      "height": "5-8",
+      "weight": "140",
+      "school": "Stanford",
+      "country": "USA"
+    },
+    {
+      "id": 1630138,
+      "name": "Peyton Williams",
+      "slug": "peyton-williams",
+      "height": "6-3",
+      "weight": "",
+      "school": "Kansas State",
+      "country": "USA"
+    },
+    {
+      "id": 1642775,
+      "name": "Alex Wilson",
+      "slug": "alex-wilson",
+      "height": "5-9",
+      "weight": "164",
+      "school": "",
+      "country": "Australia"
+    },
+    {
+      "id": 1643461,
+      "name": "Laura Ziegler",
+      "slug": "laura-ziegler",
+      "height": "6-2",
+      "weight": "",
+      "school": "Louisville",
+      "country": "USA"
+    }
+  ]
+}
