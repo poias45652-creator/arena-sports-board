@@ -18,11 +18,19 @@ try{
    await page.goto(origin+'/?league='+league+'&view=standings');
    await page.locator('.basketball-standings tbody tr').first().waitFor();
    if(league==='NBA'){await page.locator('.basketball-standings select').last().selectOption('1');await page.locator('.basketball-standings tbody tr').first().waitFor();}
-   const courtPath='/brand/nba-standings-court-v1.webp';
-   const backgrounds=await page.locator('.basketball-standings > section').evaluateAll(groups=>groups.map(group=>getComputedStyle(group).backgroundImage));
-   assert.ok(backgrounds.length>0);
-   for(const background of backgrounds)assert.ok(background.includes(courtPath),league+' 分區排名應顯示球場背景');
-   await page.evaluate(async path=>{const court=new Image();court.src=path;await court.decode();},courtPath);
+   const conferenceImages = new Map([
+    ['東區', '/brand/nba-east-spotlight-v1.webp'],
+    ['西區', '/brand/nba-west-baseline-v1.webp'],
+   ]);
+   const groups = await page.locator('.basketball-standings > section').evaluateAll(sections =>
+    sections.map(section => ({name: section.querySelector('h3').textContent, image: getComputedStyle(section).backgroundImage})));
+   assert.ok(groups.length > 0);
+   if (league === 'NBA') assert.deepEqual(groups.map(group => group.name).sort(), [...conferenceImages.keys()].sort());
+   for (const group of groups) {
+    const path = league === 'NBA' ? conferenceImages.get(group.name) : '/brand/nba-standings-court-v1.webp';
+    assert.ok(group.image.includes(path), league + group.name + '應顯示對應的球場背景');
+    await page.evaluate(async src => {const photo = new Image(); photo.src = src; await photo.decode();}, path);
+   }
    await page.locator('.basketball-standings').evaluate(el=>window.scrollTo(0,el.getBoundingClientRect().top+scrollY-(innerWidth<768?16:90)));
    const geometry=await page.locator('.basketball-standings tbody tr').evaluateAll(rows=>rows.map(row=>{const name=row.querySelector('th a'),range=document.createRange();range.selectNodeContents(name);const a=range.getBoundingClientRect(),c=row.children[2].getBoundingClientRect();return {team:name.textContent,right:a.right,winLeft:c.left,overlap:a.right>c.left-2};}));
    const header=await page.locator('main>header').evaluate(el=>({position:getComputedStyle(el).position,bottom:el.getBoundingClientRect().bottom}));

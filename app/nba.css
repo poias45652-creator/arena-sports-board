@@ -425,14 +425,29 @@
   margin-inline: calc(-1 * var(--court-gutter));
   padding: 1rem var(--court-gutter);
   background: linear-gradient(90deg, rgb(4 14 27 / 32%), rgb(5 16 32 / 22%)),
-    #0b192a url("/brand/nba-standings-court-v1.webp") center / cover no-repeat;
+    #0b192a var(--conference-court, url("/brand/nba-standings-court-v1.webp")) center / cover no-repeat;
+}
+.nba-board[data-super-league="NBA"] [data-conference="東區"] {
+  --conference-court: url("/brand/nba-east-spotlight-v1.webp");
+  --court-mobile-position: 82%;
+}
+.nba-board[data-super-league="NBA"] [data-conference="西區"] {
+  --conference-court: url("/brand/nba-west-baseline-v1.webp");
+  --court-mobile-position: 18%;
+}
+.nba-board[data-super-league="NBA"] .basketball-standings table {
+  background: rgb(5 16 31 / 35%);
+  text-shadow: 0 1px 3px #07101a;
+}
+.nba-board[data-super-league="NBA"] .basketball-standings tbody tr:nth-child(even) {
+  background: rgb(26 46 66 / 42%);
 }
 .nba-board .basketball-standings h3 {
   margin: 0 0 .5rem;
 }
 @media (max-width: 760px) {
   .nba-board .basketball-standings { --court-gutter: .7rem; }
-  .nba-board .basketball-standings > section { background-position: 75% center; }
+  .nba-board .basketball-standings > section { background-position: var(--court-mobile-position, 75%) center; }
   .nba-board .basketball-standings :is(th, td) { padding-inline:.55rem; }
   .nba-board .basketball-standings tbody th { min-width:0; }
 }
