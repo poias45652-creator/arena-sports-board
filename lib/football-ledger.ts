@@ -1,3 +1,4 @@
+import {footballSelectionAudit} from './football-selection-audit';
 import type {Database} from '../db';
 import type {FootballAnalysis,FootballGame} from './football';
 import {uncalibratedCupAnalysis} from './football';
@@ -15,7 +16,7 @@ export async function saveFootballForecast(db:Database,game:FootballGame,analysi
   if(!validFootballForecast(game,analysis,now))return false;
   const settingsKey=footballForecastSettingsKey(settings);
   const id=[game.league,game.id,game.start,analysis.version].join('|');
-  const payload=JSON.stringify({home:game.home,away:game.away,probabilities:analysis.probabilities,calibration:analysis.calibration?.status,historyMode:analysis.historyMode,homeForm:analysis.homeForm,awayForm:analysis.awayForm,quality:analysis.quality,external:analysis.external,game,analysis});
+  const payload=JSON.stringify({home:game.home,away:game.away,selection:analysis.selection,probabilities:analysis.probabilities,calibration:analysis.calibration?.status,historyMode:analysis.historyMode,homeForm:analysis.homeForm,awayForm:analysis.awayForm,quality:analysis.quality,external:analysis.external,game,analysis});
   // Each version keeps its most recent valid pregame observation. Capture and
   // kickoff checks are server-side; after kickoff there is no rewrite path.
   if(settingsKey){
@@ -69,7 +70,7 @@ export function summarizeFootballForecasts(rows:any[]){
   return Object.values(groups).map(g=>({...g,logLoss:g.logLoss/g.n,brier:g.brier/g.n,accuracy:g.accuracy/g.n,over25Brier:g.over25Brier/g.n,bttsBrier:g.bttsBrier/g.n}));
 }
 export async function footballLiveAudit(db:Database){
-  const paired=await db.prepare(`SELECT f.league,f.version,f.start_time,f.captured_at,f.payload,r.home_goals,r.away_goals FROM football_forecasts f JOIN football_results r ON f.league=r.league AND f.game_id=r.game_id AND f.start_time=r.start_time ORDER BY f.start_time DESC LIMIT 5000`).all();
+  const paired=await db.prepare(`SELECT f.league,f.game_id,f.version,f.start_time,f.captured_at,f.payload,r.home_goals,r.away_goals FROM football_forecasts f JOIN football_results r ON f.league=r.league AND f.game_id=r.game_id AND f.start_time=r.start_time ORDER BY f.start_time DESC LIMIT 5000`).all();
   const counts=await db.prepare("SELECT COUNT(*) AS snapshots,COUNT(DISTINCT league || '|' || game_id) AS games FROM football_forecasts").first();
-  return {available:true,counts,groups:summarizeFootballForecasts(paired.results),scope:'正式上線後保存的最後一筆賽前快照；只核對實際90分鐘完場，不是實際下注紀錄。',limit:5000};
+  return {available:true,counts,selection:footballSelectionAudit(paired.results),groups:summarizeFootballForecasts(paired.results),scope:'正式上線後保存的最後一筆賽前快照；只核對實際90分鐘完場，不是實際下注紀錄。',limit:5000};
 }

@@ -29,6 +29,7 @@ export function uncalibratedCupAnalysis(game:Pick<FootballGame,'league'>,analysi
   return isFootballClubCup(game.league)&&analysis?.historyMode==='recent-form'&&analysis.external?.modelApplied!==true;
 }
 export type FootballAnalysis = {
+  selection?:import('./football-shot-selection').FootballSelection;
   status:'ready'|'waiting'|'closed';reason:string;version:string;capturedAt:string;
   calibration?:FootballCalibrationStatus;
   quality?:{label:string;warnings:string[];historyConflicts:number;archiveSupplementGames:number};

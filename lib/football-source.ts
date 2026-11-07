@@ -1,4 +1,5 @@
-import type {FootballModelSettings} from './football-model-weights';
+import {selectDomesticForecast} from './football-shot-selection';
+import {customFootballSettings,type FootballModelSettings} from './football-model-weights';
 import {loadNationalFootballPool} from './football-national-source';
 import {attachCupXgEvidence} from './football-cup-xg-source';
 import {applyNationalFootballModel,NATIONAL_MODEL_VERSION} from './football-national-model';
@@ -126,6 +127,7 @@ export async function footballGameAnalysis(league:FootballLeague,day:string,id:s
   if((model==='elo'&&!analysis.external?.modelApplied)||(model==='score'&&analysis.external?.modelFamily!=='score-market')||(model==='calibrated'&&analysis.calibration?.status!=='applied')){
     analysis={...analysis,status:'waiting',reason:'此場缺少所選模型所需的資料，可改回依來源自動選模。'};delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.scoreDistribution;delete analysis.lean;
   }
+  if(!customFootballSettings(settings))analysis=await selectDomesticForecast(game,analysis,source);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:[...success,...extraSuccess].map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:archiveSupplementGames?footballArchiveCutoff:null};
 }
 
@@ -163,6 +165,7 @@ async function nationalGameAnalysis(game:FootballGame,settings?:FootballModelSet
     delete analysis.probabilities;delete analysis.expected;delete analysis.scores;delete analysis.lean;
   }
   analysis.quality={label:warnings.length?'資料有限':'國家隊正式賽果完整',warnings,historyConflicts:merged.conflicts,archiveSupplementGames:0};
+  if(!customFootballSettings(settings))analysis=await selectDomesticForecast(game,analysis,source);
   return {game,analysis:attachCupXgEvidence(game,analysis),sourceFetchedAt:success.map(r=>r.fetchedAt).sort()[0]||null,archiveAsOf:null};
 }
 
