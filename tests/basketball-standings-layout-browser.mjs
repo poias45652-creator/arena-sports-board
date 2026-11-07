@@ -18,16 +18,19 @@ try{
    await page.goto(origin+'/?league='+league+'&view=standings');
    await page.locator('.basketball-standings tbody tr').first().waitFor();
    if(league==='NBA'){await page.locator('.basketball-standings select').last().selectOption('1');await page.locator('.basketball-standings tbody tr').first().waitFor();}
-   const conferenceImages = new Map([
+   const conferenceImages = new Map(league === 'WNBA' ? [
+    ['東區', '/brand/wnba-east-three-v1.webp'],
+    ['西區', '/brand/wnba-west-three-v1.webp'],
+   ] : [
     ['東區', '/brand/nba-east-spotlight-v1.webp'],
     ['西區', '/brand/nba-west-baseline-v1.webp'],
    ]);
    const groups = await page.locator('.basketball-standings > section').evaluateAll(sections =>
     sections.map(section => ({name: section.querySelector('h3').textContent, image: getComputedStyle(section).backgroundImage})));
    assert.ok(groups.length > 0);
-   if (league === 'NBA') assert.deepEqual(groups.map(group => group.name).sort(), [...conferenceImages.keys()].sort());
+   assert.deepEqual(groups.map(group => group.name).sort(), [...conferenceImages.keys()].sort());
    for (const group of groups) {
-    const path = league === 'NBA' ? conferenceImages.get(group.name) : '/brand/nba-standings-court-v1.webp';
+    const path = conferenceImages.get(group.name);
     assert.ok(group.image.includes(path), league + group.name + '應顯示對應的球場背景');
     await page.evaluate(async src => {const photo = new Image(); photo.src = src; await photo.decode();}, path);
    }
