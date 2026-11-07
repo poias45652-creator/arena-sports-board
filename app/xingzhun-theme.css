@@ -101,14 +101,19 @@
 }
 .arena-shell.xz-theme[data-sport="football"] [data-football-view="analysis"] .football-card {
   border-color: #d8ba76;
-  background: linear-gradient(145deg, rgb(7 36 31 / 91%), rgb(4 24 24 / 95%));
+  background:
+    linear-gradient(to bottom, rgb(2 10 18 / 38%), transparent 7rem, rgb(3 13 22 / 18%) 17rem),
+    url('/brand/football-rain-goal-v1.webp') left top / max(100%, 24rem) auto no-repeat #04101a;
+}
+[data-football-view="analysis"] .football-card :is(.football-card-top, .football-match, .football-venue, .football-analysis-title, .football-probabilities) {
+  text-shadow: 0 1px 3px #020910;
 }
 [data-football-view="analysis"] .football-goals > div,
 [data-football-view="analysis"] .sport-market-option {
-  background-color: rgb(3 23 24 / 82%);
+  background-color: rgb(4 16 27 / 86%);
 }
 [data-football-view="analysis"] .match-market-details {
-  background-color: rgb(5 27 25 / 80%);
+  background-color: rgb(4 16 27 / 84%);
 }
 .arena-shell.xz-theme :is(.score-card,.nba-card-analysis,.international-lineups>div) { background:var(--xz-panel-deep); }
 .arena-shell.xz-theme .nba-card>header { background:var(--xz-panel)!important; border-bottom-color:var(--xz-rule); }
