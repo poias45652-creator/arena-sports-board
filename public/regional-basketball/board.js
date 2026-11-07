@@ -1,5 +1,5 @@
 import {syncLocation,scrollBoardTop,publishRecommendations} from './shell-bridge.js';
-import {$,e,shift,today,validDay,key,stamp,timeTW,readStore,writeStore,getJson,tabBtn,link,teamFor,name,empty} from './shared.js';
+import {$,e,shift,today,validDay,key,stamp,timeTW,readStore,writeStore,getJson,tabBtn,teamFor,name,empty} from './shared.js';
 import {assistantPanel} from './assistant.js';
 import {overview,liveCenter} from './live-ui.js';
 import {teamProfile,playerProfile,teams,standings} from './profiles.js';
@@ -87,14 +87,11 @@ window.addEventListener('message',event=>{
  s.tzMessage=typeof data.message==='string'?data.message:'';
  if(s.info&&s.view==='analysis')paint();
 });
-function showSources(){
- const links=s.info.sources||[];modalBody('<div class="dialog-inner"><button class="close" aria-label="關閉">×</button><span class="dtag">'+s.league+'</span><h2>資料來源</h2><ul class="source-list">'+links.map((url,i)=>'<li>'+link(url,(s.league==='KBL'?['球隊名單','官方賽程','官方排名']:['官方聯盟','官方排名','官方賽程'])[i]||'來源')+'</li>').join('')+(s.league==='NBL'?'<li>'+link('https://schedule.nbl.com.au/nbl','NBL Game Centre')+'</li>':'')+'</ul><p class="dsub">場中每 30 秒重新核對比分。球員場均資料日期顯示於球員頁，全場盤口採用 TZ。</p></div>');
-}
 function modalBody(html){modal.innerHTML=html;if(!modal.open)modal.showModal();modal.querySelector('.close')?.focus();}
 async function loadLeague(){
  const id=++token;++refreshToken;++detailsToken;++rankToken;
  s.busy=true;s.fallback=null;s.info=s.catalog[s.league];const lc=s.league.toLowerCase();
- s.seasonEnd=Number(s.info.season.slice(0,4))+(s.league==='WNBA'?0:1);s.rankSeason=s.rankSeason||s.seasonEnd;s.currentRanking=s.info.standings;s.ranking=s.currentRanking;s.rankSource=s.info.sources[s.league==='KBL'?2:1];s.rankLabel='已保存排名';s.rankNote='';s.rankSeries=[];s.rankBusy=false;s.detail=null;s.detailBusy=false;s.detailError=false;s.detailKey='';s.isLive=false;s.notice='';
+ s.seasonEnd=Number(s.info.season.slice(0,4))+(s.league==='WNBA'?0:1);s.rankSeason=s.rankSeason||s.seasonEnd;s.currentRanking=s.info.standings;s.ranking=s.currentRanking;s.rankLabel='已保存排名';s.rankNote='';s.rankSeries=[];s.rankBusy=false;s.detail=null;s.detailBusy=false;s.detailError=false;s.detailKey='';s.isLive=false;s.notice='';
  s.all=[...s.info.games];s.rosterTimes={};s.rosterTimestamps={};s.playerTimes={};s.peopleIndex={};s.playerFiles={};s.playerFileLoading=new Set();s.teamGames=[];s.extras={};s.aliases={};s.rankArchive={};s.detailIndex={};s.jumped=false;s.activeRosterSeason=s.info.season;s.rostersLoaded=false;s.rosters={};s.boxes=[];s.context={markets:[],injuries:[]};s.frozen={};s.busy=true;s.asOf=s.info.asOf?.length>10?s.info.asOf:'2026-11-07T00:00:00+08:00';s.archiveDate=s.all.some(g=>g.date===s.date);s.baseAsOf=s.asOf;s.baseRankAsOf=s.info.standingsThrough||s.asOf;s.projections.clear();s.teamCode=teamFor(s,s.teamCode)?s.teamCode:'';s.boxMore=false;s.version++;contextTime=0;historyTime=0;extraContext=null;
  setupShell();paint();
  const jobs=['/api/regional-basketball/data/'+lc+'-players.json','/api/regional-basketball/data/'+lc+'-boxes.json','/api/regional-basketball/data/context.json','/api/regional-basketball/data/pregame.json','/api/regional-basketball/data/'+lc+'-fallback.json','/api/regional-basketball/data/'+lc+'-index.json','/api/regional-basketball/data/'+lc+'-team-games.json','/api/regional-basketball/data/'+lc+'-detail-index.json','/api/regional-basketball/data/rankings-'+lc+'.json','/api/regional-basketball/data/'+lc+'-extra-players.json'];
@@ -107,7 +104,7 @@ async function loadLeague(){
 
  s.all=merge(s.all,Object.values(s.detailIndex).map(g=>({...g,officialId:g.officialId||g.id})));
  const stage=s.rankArchive?.[s.rankSeason]?.[s.phase];
- if(stage){s.ranking=stage.rows;s.rankSource=stage.url;s.rankLabel='更新 '+timeTW(stage.asOf);s.rankSeries=stage.series||[];}
+ if(stage){s.ranking=stage.rows;s.rankLabel='更新 '+timeTW(stage.asOf);s.rankSeries=stage.series||[];}
  const f=s.fallback.feeds?.[s.date];if(f?.asOf){s.asOf=f.asOf;s.baseAsOf=f.asOf;}
  s.archiveDate=s.all.some(g=>g.date===s.date)||!!f;s.version++;paint();loadDetail();if(s.playerId)loadPlayerFile(s.playerId);refresh();
 }
@@ -148,12 +145,12 @@ function adoptRank(online,stage){
 }
 async function rank(){
  const n=++rankToken,y=s.rankSeason,p=s.phase,stage=s.rankArchive?.[y]?.[p],fb=s.fallback?.rankings?.[y]?.[p],current=y===s.seasonEnd&&p===2;
- s.ranking=stage?.rows||fb?.standings||(current?s.currentRanking:[]);s.rankSeries=stage?.series||fb?.series||[];s.rankSource=stage?.url||s.info.sources[s.league==='KBL'?2:1];s.rankLabel=stage?.asOf?'更新 '+timeTW(stage.asOf):'已保存排名';s.rankBusy=true;s.rankNote='';paint();
+ s.ranking=stage?.rows||fb?.standings||(current?s.currentRanking:[]);s.rankSeries=stage?.series||fb?.series||[];s.rankLabel=stage?.asOf?'更新 '+timeTW(stage.asOf):'已保存排名';s.rankBusy=true;s.rankNote='';paint();
  if(stage&&y<s.seasonEnd){s.rankBusy=false;paint();return;}
  try{const v=await getJson(api('standings',{season:y,phase:p}),14000);if(n!==rankToken)return;
   s.ranking=adoptRank(v,stage);if(v.series?.length)s.rankSeries=v.series;
-  if(s.ranking!==stage?.rows){s.rankLabel='更新 '+timeTW(v.asOf);s.rankSource=v.url||v.source||s.rankSource;}
-  s.rankNote=v.note||'';if(current&&s.ranking.length)s.currentRanking=s.ranking;
+  if(s.ranking!==stage?.rows){s.rankLabel='更新 '+timeTW(v.asOf);}
+  s.rankNote=v.note?'此球季及階段暫無排名。':'';if(current&&s.ranking.length)s.currentRanking=s.ranking;
  }catch{if(n===rankToken)s.rankNote='尚無可核實的排名。';}
  finally{if(n===rankToken){s.rankBusy=false;paint();}}
 }
@@ -232,7 +229,7 @@ async function refresh(){
  if(f.standings?.length){s.currentRanking=f.standings;if(s.rankSeason===s.seasonEnd&&s.phase===2)s.ranking=adoptRank({standings:f.standings},s.rankArchive?.[s.rankSeason]?.[2]);}
  s.version++;select();loadDetail(true);paint();
  }catch{
- if(n!==refreshToken||id!==token)return;s.isLive=false;s.busy=false;s.notice=s.all.some(g=>g.date===day)?'即時來源暫未回應，顯示最近一次已核實的資料。':'即時來源暫未回應，此日期暫無可用資料。';select();loadDetail(true);paint();
+ if(n!==refreshToken||id!==token)return;s.isLive=false;s.busy=false;s.notice=s.all.some(g=>g.date===day)?'即時更新暫時中斷，顯示最近一次已核實的資料。':'即時更新暫時中斷，此日期暫無可用資料。';select();loadDetail(true);paint();
  }
 }
 function setDate(value){
@@ -291,7 +288,7 @@ document.addEventListener('change',ev=>{const t=ev.target;if(t.id==='pick-day'){
  if(t.dataset.precord!==undefined){s.playerYear=document.querySelector('[data-pyear]').value;s.playerRecord=t.value;route();paint();return;}
  if(t.dataset.rankseason!==undefined)s.rankSeason=Number(t.value);else s.phase=Number(t.value);route();rank();return;}
 });
-$('source').addEventListener('click',showSources);modal.addEventListener('click',ev=>{if(ev.target===modal)modal.close();});
+modal.addEventListener('click',ev=>{if(ev.target===modal)modal.close();});
 window.addEventListener('popstate',()=>{if(modal.open)modal.close();adoptRoute();loadLeague();});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
 setInterval(()=>{if(!document.hidden&&s.fallback&&s.date===today()&&!modal.open&&['overview','live','analysis'].includes(s.view))refresh();},30000);

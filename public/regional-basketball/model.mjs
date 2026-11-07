@@ -241,7 +241,7 @@ function rotationChange(team,roster,rows,boxes,reports,cutoff) {
 export function analyzeGame({game,games=[],boxes=[],homeWeights,awayWeights,injuries=[],rosters={},gamesAsOf,asOf=Date.now()}={}) {
   const unavailable=reason=>({ready:false,reason,homeProb:null,awayProb:null,homeScore:null,awayScore:null,
     total:null,margin:null,spreadSigma:null,totalSigma:null,homeMetrics:null,awayMetrics:null});
-  if(!game||!Array.isArray(games)||!Array.isArray(boxes))return unavailable('賽程或技術統計來源不足');
+  if(!game||!Array.isArray(games)||!Array.isArray(boxes))return unavailable('賽程或技術統計不足');
   const cutoff=timestamp(asOf),tip=start(game),home=teamCode(game.home),away=teamCode(game.away);
   if(!home||!away||home===away||!Number.isFinite(tip)||!Number.isFinite(cutoff)||game.timeConfirmed===false)
     return unavailable('對戰身分或開賽時間尚未確認');

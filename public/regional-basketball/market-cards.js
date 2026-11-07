@@ -29,7 +29,7 @@ function outcomeHtml(result) {
 
 export function marketCards(s, g, report, market, quotes) {
   if (!quotes.length) {
-    const reason = s.tzMessage || (stamp(g) <= Date.now() ? '此場沒有已核實的 TZ 賽前存檔。' : 'TZ 尚未提供可配對的全場盤口。');
+    const reason = s.tzMessage || (stamp(g) <= Date.now() ? '此場沒有已核實的賽前盤口存檔。' : '此場暫無可配對的全場盤口。');
     return '<p class="sport-markets sport-market-pending">' + e(reason) + '</p>';
   }
   const historical = !report.ready && ['final', 'in_progress'].includes(g.status) && stamp(g) <= Date.now();
@@ -61,5 +61,5 @@ export function marketCards(s, g, report, market, quotes) {
   const basis = historical && model.ready ? '<p class="sport-market-pending">歷史回算・採聯盟預設權重與比賽日前的技術統計，未計入賽前預測命中紀錄。</p>' : '';
   const timing = stamp(g) <= Date.now() ? '存檔盤口' : '賽前盤口';
   return '<section class="sport-markets" aria-label="全場過盤率"><div class="sport-market-heading"><span>全場・含延長賽</span><small>賠率不含本金</small></div>' +
-    basis + blocks.join('') + '<p>' + e('TZ・' + timing) + '・查核 ' + e(timeTW(market.checkedAt)) + '</p></section>';
+    basis + blocks.join('') + '<p>' + e(timing) + '・查核 ' + e(timeTW(market.checkedAt)) + '</p></section>';
 }
