@@ -18,7 +18,6 @@ const time=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asi
 export function FootballAnalysisNumbers({analysis,showScores=true}:{analysis:ReadyFootballAnalysis;showScores?:boolean}){
   const p=analysis.probabilities,scenarios=footballScoreScenarios(analysis);
   return <>
-    {analysis.selection?.pick&&<p className="football-selection"><strong>勝和負精選 · {({home:'主勝',draw:'和局',away:'客勝'})[analysis.selection.pick]}</strong> · {percent(analysis.selection.probability)} · {analysis.selection.source==='xg'?'近期 xG':'近期射正與 Elo'}</p>}
     <div className="football-probabilities">{[['主勝',p.home],['和局',p.draw],['客勝',p.away]].map(([label,value])=><div key={String(label)}><span>{label}</span><strong>{percent(Number(value))}</strong></div>)}</div>
     <div className="football-probability-bar" aria-hidden="true"><span style={{width:p.home*100+'%'}}/><span style={{width:p.draw*100+'%'}}/><span style={{width:p.away*100+'%'}}/></div>
     <div className="football-goals"><div><span>模型大 2.5 球</span><b>{percent(p.over25)}</b></div><div><span>模型小 2.5 球</span><b>{percent(p.under25)}</b></div><div><span>雙方都進球</span><b>{percent(p.btts)}</b></div></div>
