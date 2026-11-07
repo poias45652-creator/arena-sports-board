@@ -129,6 +129,11 @@ test('league season totals keep official IDs separate, preserve a real zero and 
  const raw={resource:'leaguedashplayerstats',parameters,resultSets:[table]};
  const index=stats.parseBasketballSeason(raw,url);
  assert.equal(stats.playerSeasonResult(index,1641807).line.points,0);
+ const noAppearance={filters:[{name:'league',value:'nba'},{name:'seasontype',value:'2'}],categories:[{name:'averages',
+  names:['gamesPlayed','avgPoints','avgRebounds','avgAssists'],statistics:[{teamId:'1',season:{year:2027},stats:[0,0,0,0]}]}]};
+ assert.deepEqual(b.basketballPlayerHistory(noAppearance,'NBA','2'),[]);
+ noAppearance.categories[0].statistics[0].stats=[1,0,0,0];
+ assert.equal(b.basketballPlayerHistory(noAppearance,'NBA','2')[0].values.avgPoints,'0');
  assert.deepEqual(stats.playerSeasonResult(index,1628269),{line:null,missing:false});
  assert.deepEqual(stats.playerSeasonResult(index,9876543),{line:null,missing:true});
  assert.deepEqual(stats.playerSeasonResult(null,9876543),{line:null,missing:false});

@@ -20,7 +20,10 @@ export function basketballPlayerHistory(raw:any,league:string,phase:string):Play
   const totalSlug=String(row.teamSlug||'').trim().replace(/\s+/g,' ');
   const total=teamId==='0'||(!teamId&&[String(year),row.season.displayName].some(season=>season&&totalSlug===season+' Totals'));
   const teamName=total?'合計':team(league,teamId)?.name||'球隊未提供';
-  return [{season:year,label:label(league,year),team:teamName,values:namedValues(category.names,row.stats)}];
+  const values=namedValues(category.names,row.stats);
+  // A provider may publish a zero-filled placeholder before the player's first appearance.
+  if(values.gamesPlayed!==undefined&&Number(values.gamesPlayed)===0)return [];
+  return [{season:year,label:label(league,year),team:teamName,values}];
  }).sort((a:PlayerRow,b:PlayerRow)=>b.season!-a.season!);
 }
 export function basketballPlayerGames(raw:any,league:string,season:number,phase:string):PlayerRow[]{
