@@ -129,6 +129,7 @@ export async function domesticFootballRecord(db:Database,league:FootballLeague){
     AND (n.captured_at>f.captured_at OR (n.captured_at=f.captured_at AND n.version>f.version)))
   ORDER BY f.start_time DESC LIMIT 500`).bind(league).all();
  let all=0,hits=0,featured=0,featuredHits=0;
+ const injury={paired:0,adjusted:0,corrected:0,spoiled:0,changed:0,missingRoster:0,missingRole:0,beforeHits:0,afterHits:0,partialTrial:{paired:0,corrected:0,spoiled:0}};
  for(const r of results){
   try{
    const a=JSON.parse(r.payload).analysis,p=a?.probabilities;
@@ -138,8 +139,33 @@ export async function domesticFootballRecord(db:Database,league:FootballLeague){
    if(![h,v].every(x=>Number.isInteger(x)&&x>=0))continue;
    const ps=[p.home,p.draw,p.away],hit=Number(ps.indexOf(Math.max(...ps))===(h>v?0:h===v?1:2));
    all++;hits+=hit;
+   // The afterShots stage already includes form and xG. Only the final injury tilt differs.
+   const before=a.domesticForecast.afterShots,absence=a.matchEvidence?.absences;
+   if(!absence||!Array.isArray(absence.home)||!Array.isArray(absence.away)){
+     injury.missingRoster++;
+   }else if(absence.method==='minutes'&&scorable(before)&&a.contextForecast?.injuryCoverage==='both'){
+     const captured=Date.parse(a.capturedAt),checked=Date.parse(absence.checkedAt);
+     if(checked<=captured&&captured-checked<=3600000){
+       if([...absence.home,...absence.away].some(player=>!player.role)){
+         injury.missingRole++;
+         const trial=a.domesticForecast.partialRoleTrial;
+         if(scorable(trial)){
+           const values=[trial.home,trial.draw,trial.away],outcome=h>v?0:h===v?1:2;
+           const trialHit=Number(values.indexOf(Math.max(...values))===outcome);
+           injury.partialTrial.paired++;injury.partialTrial.corrected+=Number(trialHit>hit);injury.partialTrial.spoiled+=Number(trialHit<hit);
+         }
+       }
+       else {
+         const prior=[before.home,before.draw,before.away],oldPick=prior.indexOf(Math.max(...prior)),newPick=ps.indexOf(Math.max(...ps));
+         const oldHit=Number(oldPick===(h>v?0:h===v?1:2));
+         injury.paired++;injury.beforeHits+=oldHit;injury.afterHits+=hit;
+         injury.adjusted+=Number(a.contextForecast.injuryShiftApplied===true);
+         injury.changed+=Number(oldPick!==newPick);injury.corrected+=Number(hit>oldHit);injury.spoiled+=Number(hit<oldHit);
+       }
+     }
+   }
    if(a.domesticForecast.featured===true){featured++;featuredHits+=hit;}
   }catch{/* Incomplete historical payloads cannot supply a verified pick. */}
  }
- return {all,hits,featured,featuredHits};
+ return {all,hits,featured,featuredHits,injury};
 }

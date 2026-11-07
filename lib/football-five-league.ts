@@ -5,6 +5,25 @@ export const domesticLeagues=['eng.1','esp.1','ita.1','ger.1','fra.1'] as const;
 export type DomesticLeague=typeof domesticLeagues[number];
 export const domesticLeague=(league:string):league is DomesticLeague=>domesticLeagues.some(code=>code===league);
 export const featuredThreshold=.60;
+export type DrawStudy={drawAlertEnabled:boolean;drawThreshold:number;drawPolicy?:string;annualThresholds?:Record<string,number>;annualWithoutShotsThresholds?:Record<string,number>};
+export function drawRiskThreshold(study:DrawStudy,kickoff:string,shotApplied:boolean){
+  if(!study.drawAlertEnabled)return;
+  if(study.drawPolicy!=='annual')return study.drawThreshold;
+  const bands=shotApplied?study.annualThresholds:study.annualWithoutShotsThresholds;
+  return bands?.[kickoff.slice(0,4)];
+}
+// When a role is unknown its possible load spans zero to one regular player.
+export function boundedInjuryShift(absences:import('./recent-opponents').MatchEvidence['absences']){
+  if(absences?.method!=='minutes'||!Array.isArray(absences.home)||!Array.isArray(absences.away))return;
+  function interval(players:NonNullable<typeof absences>['home']){
+    let known=0,unknown=0;
+    for(const p of players??[]){if(p.role)known+=p.weight;else unknown++;}
+    return {low:Math.min(1,known/4),high:Math.min(1,(known+unknown)/4)};
+  }
+  const home=interval(absences.home),away=interval(absences.away);
+  const low=away.low-home.high,high=away.high-home.low;
+  return .075*(low>0?low:high<0?high:0);
+}
 type Grid=NonNullable<FootballAnalysis['scoreDistribution']>;
 const day=86400000;
 

@@ -67,17 +67,37 @@ for(const league of domesticLeagues){
  const model=applyShots?'trial':'prior';
  const previous=records.filter(r=>r.start<from),ordered=previous.map(r=>r[model][1]).sort((a,b)=>a-b);
  const drawThreshold=ordered[Math.floor(.8*(ordered.length-1))];
+ // A rolling alternative uses only the preceding completed calendar year.
+ const years=[...new Set(records.map(r=>r.start.slice(0,4)))];
+ function priorYearBands(which){
+   return Object.fromEntries(years.flatMap(year=>{
+     const preceding=records.filter(r=>Number(r.start.slice(0,4))===Number(year)-1).map(r=>r[which][1]).sort((a,b)=>a-b);
+     return preceding.length>=200?[[year,preceding[Math.floor(.8*(preceding.length-1))]]]:[];
+   }));
+ }
+ const bands=priorYearBands(model),noShotBands=priorYearBands('prior');
+ function annualResults(which,thresholds){
+   return splits.map(s=>{
+     const matches=records.filter(r=>r.start>=s.from&&r.start<s.toExclusive);
+     const alerts=matches.filter(r=>r[which][1]>=thresholds[r.start.slice(0,4)]);
+     return {n:matches.length,draws:matches.filter(r=>r.y===1).length,alerts:alerts.length,alertDraws:alerts.filter(r=>r.y===1).length};
+   });
+ }
+ const annual=annualResults(model,bands),annualWithoutShots=annualResults('prior',noShotBands);
+ const passes=periods=>periods.every(p=>p.alerts>=50&&p.alertDraws/p.alerts>p.draws/p.n);
  const eligible=records.filter(r=>r.start>=from);
- function segment(rs){
+ function segment(rs,useAnnual=false){
   const picks=rs.filter(r=>Math.max(...r[model].slice(0,3))>=featuredThreshold);
-  const alerts=rs.filter(r=>r[model][1]>=drawThreshold);
+  const alerts=rs.filter(r=>r[model][1]>=(useAnnual?bands[r.start.slice(0,4)]:drawThreshold));
   return {all:stats(rs,model),featured:stats(picks,model),alerts:stats(alerts,model),shotGames:rs.filter(r=>r.hasShots).length};
  }
  const perPeriod=splits.map(s=>segment(eligible.filter(r=>r.start>=s.from&&r.start<s.toExclusive)));
+ const fixedPass=perPeriod.every(x=>x.alerts.n>=50&&x.alerts.draws/x.alerts.n>x.all.draws/x.all.n);
+ const drawPolicy=fixedPass?'fixed':passes(annual)&&passes(annualWithoutShots)?'annual':'off';
  results[league]={from,baseVersion:scoreLeague?market.version:strength.leagues[league]?.enabled?strength.version:external.version,applyShots,drawThreshold,
-  drawAlertEnabled:perPeriod.every(x=>x.alerts.n>=50&&x.alerts.draws/x.alerts.n>x.all.draws/x.all.n),
+  drawAlertEnabled:drawPolicy!=='off',drawPolicy,annual,annualWithoutShots,annualThresholds:bands,annualWithoutShotsThresholds:noShotBands,
   featuredEnabled:perPeriod.every(x=>x.featured.n>=50&&x.featured.hits/x.featured.n>x.all.hits/x.all.n),
-  splits,perPeriod,combined:segment(eligible)};
+  splits,perPeriod:drawPolicy==='annual'?splits.map(s=>segment(eligible.filter(r=>r.start>=s.from&&r.start<s.toExclusive),true)):perPeriod,combined:segment(eligible,drawPolicy==='annual')};
  console.log(league,applyShots,eligible.length,results[league].combined.featured.hits,results[league].combined.featured.n);
 }
 writeFileSync('data/football/five-league-verification.json',JSON.stringify(results,null,2)+'\n');

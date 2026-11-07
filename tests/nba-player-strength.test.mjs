@@ -93,3 +93,10 @@ test('recent margin and rated opposition reach the final player-adjusted probabi
  assert.equal(difficult.playerContext.calibrated,false);
  assert.deepEqual(difficult.playerContext.recentOpponentGames,{home:4,away:4});
 });
+test('籃球傷停對照只改缺陣折扣，固定分鐘上限、兩隊近期與同一模型',()=>{
+ const a=m.applyPlayerStrength(game,base,home,away,now),clear=team=>team.map(p=>({...p,status:'expected'}));
+ const before=m.applyPlayerStrength(game,base,clear(home),clear(away),now);
+ assert.ok(a.playerContext.availabilityComparison.reports>0);
+ assert.equal(a.playerContext.availabilityComparison.beforeHome,before.probabilities.home);
+ assert.equal(before.playerContext.availabilityComparison,undefined);
+});

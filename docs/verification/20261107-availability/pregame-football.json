@@ -1,0 +1,842 @@
+[
+  {
+    "league": "eng.1",
+    "id": "401878758",
+    "start": "2026-11-07T12:30:00.000Z",
+    "home": "里茲聯",
+    "away": "熱刺",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:03.674Z",
+    "source": "https://www.fotmob.com/match/5795511",
+    "checkedAt": "2026-11-07T10:28:01.808Z",
+    "players": 9,
+    "missingRoles": 4,
+    "base": {
+      "home": 0.3644440358331163,
+      "draw": 0.3049912479699079,
+      "away": 0.3305647161969752
+    },
+    "published": {
+      "home": 0.3644440358331163,
+      "draw": 0.3049912479699079,
+      "away": 0.3305647161969752
+    },
+    "candidate": {
+      "home": 0.3644440358331163,
+      "draw": 0.3049912479699079,
+      "away": 0.3305647161969752
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882812",
+    "start": "2026-11-07T13:00:00.000Z",
+    "home": "馬拉加",
+    "away": "桑坦德競技",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:02.357Z",
+    "source": "https://www.fotmob.com/match/5868125",
+    "checkedAt": "2026-11-07T10:27:57.435Z",
+    "players": 6,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.42812199126686173,
+      "draw": 0.24564101192161697,
+      "away": 0.3262369968115222
+    },
+    "published": {
+      "home": 0.42812199126686173,
+      "draw": 0.24564101192161697,
+      "away": 0.3262369968115222
+    },
+    "candidate": {
+      "home": 0.42812199126686173,
+      "draw": 0.24564101192161697,
+      "away": 0.3262369968115222
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874791",
+    "start": "2026-11-07T14:00:00.000Z",
+    "home": "卡利亞里",
+    "away": "弗洛西諾尼",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:03.863Z",
+    "source": "https://www.fotmob.com/match/5749741",
+    "checkedAt": "2026-11-07T10:28:01.770Z",
+    "players": 9,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.29161079625236336,
+      "draw": 0.28811330260845575,
+      "away": 0.42027590113918156
+    },
+    "published": {
+      "home": 0.29161079625236336,
+      "draw": 0.28811330260845575,
+      "away": 0.42027590113918156
+    },
+    "candidate": {
+      "home": 0.2765290859037912,
+      "draw": 0.28557332805012037,
+      "away": 0.4378975860460867
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874811",
+    "start": "2026-11-07T14:00:00.000Z",
+    "home": "都靈",
+    "away": "萊切",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:09.840Z",
+    "source": "https://www.fotmob.com/match/5749748",
+    "checkedAt": "2026-11-07T10:28:03.888Z",
+    "players": 6,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.48921735722100645,
+      "draw": 0.2731272685322951,
+      "away": 0.2376553742466994
+    },
+    "published": {
+      "home": 0.48921735722100645,
+      "draw": 0.2731272685322951,
+      "away": 0.2376553742466994
+    },
+    "candidate": {
+      "home": 0.5026746848471262,
+      "draw": 0.2698173916723539,
+      "away": 0.22750792348052237
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884737",
+    "start": "2026-11-07T14:30:00.000Z",
+    "home": "帕德博恩",
+    "away": "法蘭克福",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:19.445Z",
+    "source": "https://www.fotmob.com/match/5881221",
+    "checkedAt": "2026-11-07T10:28:17.140Z",
+    "players": 9,
+    "missingRoles": 5,
+    "base": {
+      "home": 0.37250526785281113,
+      "draw": 0.27111716813507686,
+      "away": 0.3563775640121132
+    },
+    "published": {
+      "home": 0.37250526785281113,
+      "draw": 0.27111716813507686,
+      "away": 0.3563775640121132
+    },
+    "candidate": {
+      "home": 0.37250526785281113,
+      "draw": 0.27111716813507686,
+      "away": 0.3563775640121132
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884740",
+    "start": "2026-11-07T14:30:00.000Z",
+    "home": "美因茨",
+    "away": "拜仁慕尼黑",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:09.866Z",
+    "source": "https://www.fotmob.com/match/5881220",
+    "checkedAt": "2026-11-07T10:28:04.755Z",
+    "players": 10,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.17036248459984693,
+      "draw": 0.1888480733200092,
+      "away": 0.6407894420801441
+    },
+    "published": {
+      "home": 0.17036248459984693,
+      "draw": 0.1888480733200092,
+      "away": 0.6407894420801441
+    },
+    "candidate": {
+      "home": 0.17036248459984693,
+      "draw": 0.1888480733200092,
+      "away": 0.6407894420801441
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884744",
+    "start": "2026-11-07T14:30:00.000Z",
+    "home": "RB萊比錫",
+    "away": "奧格斯堡",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:17.105Z",
+    "source": "https://www.fotmob.com/match/5881222",
+    "checkedAt": "2026-11-07T10:28:14.836Z",
+    "players": 10,
+    "missingRoles": 5,
+    "base": {
+      "home": 0.6524505568021823,
+      "draw": 0.1871980244014138,
+      "away": 0.16035141879640405
+    },
+    "published": {
+      "home": 0.6524505568021823,
+      "draw": 0.1871980244014138,
+      "away": 0.16035141879640405
+    },
+    "candidate": {
+      "home": 0.6524505568021823,
+      "draw": 0.1871980244014138,
+      "away": 0.16035141879640405
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884745",
+    "start": "2026-11-07T14:30:00.000Z",
+    "home": "多特蒙德",
+    "away": "艾禾斯堡",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:04.665Z",
+    "source": "https://www.fotmob.com/match/5881215",
+    "checkedAt": "2026-11-07T10:28:01.824Z",
+    "players": 7,
+    "missingRoles": 4,
+    "base": {
+      "home": 0.6712802981319129,
+      "draw": 0.18915078656131964,
+      "away": 0.13956891530676702
+    },
+    "published": {
+      "home": 0.6712802981319129,
+      "draw": 0.18915078656131964,
+      "away": 0.13956891530676702
+    },
+    "candidate": {
+      "home": 0.6712802981319129,
+      "draw": 0.18915078656131964,
+      "away": 0.13956891530676702
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401878760",
+    "start": "2026-11-07T15:00:00.000Z",
+    "home": "阿森納",
+    "away": "赫爾城",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:10.113Z",
+    "source": "https://www.fotmob.com/match/5795505",
+    "checkedAt": "2026-11-07T10:28:03.731Z",
+    "players": 10,
+    "missingRoles": 5,
+    "base": {
+      "home": 0.5926423914882115,
+      "draw": 0.2441574407136529,
+      "away": 0.16320016779813534
+    },
+    "published": {
+      "home": 0.5926423914882115,
+      "draw": 0.2441574407136529,
+      "away": 0.16320016779813534
+    },
+    "candidate": {
+      "home": 0.5926423914882115,
+      "draw": 0.2441574407136529,
+      "away": 0.16320016779813534
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401879241",
+    "start": "2026-11-07T15:00:00.000Z",
+    "home": "富勒姆",
+    "away": "紐卡索聯",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:10.910Z",
+    "source": "https://www.fotmob.com/match/5795509",
+    "checkedAt": "2026-11-07T10:28:10.143Z",
+    "players": 7,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.43879068751220407,
+      "draw": 0.2542778027689425,
+      "away": 0.306931509718854
+    },
+    "published": {
+      "home": 0.43879068751220407,
+      "draw": 0.2542778027689425,
+      "away": 0.306931509718854
+    },
+    "candidate": {
+      "home": 0.45788523633743394,
+      "draw": 0.2518576623356129,
+      "away": 0.2902571013269531
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882813",
+    "start": "2026-11-07T15:15:00.000Z",
+    "home": "西班牙人",
+    "away": "拉科魯尼亞",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:09.316Z",
+    "source": "https://www.fotmob.com/match/5868124",
+    "checkedAt": "2026-11-07T10:28:02.495Z",
+    "players": 7,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.40796302523353395,
+      "draw": 0.2783438332814024,
+      "away": 0.3136931414850641
+    },
+    "published": {
+      "home": 0.40796302523353395,
+      "draw": 0.2783438332814024,
+      "away": 0.3136931414850641
+    },
+    "candidate": {
+      "home": 0.40428538944196385,
+      "draw": 0.2786622905854418,
+      "away": 0.31705231997259475
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874974",
+    "start": "2026-11-07T17:00:00.000Z",
+    "home": "帕爾馬",
+    "away": "波隆那",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:15.450Z",
+    "source": "https://www.fotmob.com/match/5749747",
+    "checkedAt": "2026-11-07T10:28:14.710Z",
+    "players": 5,
+    "missingRoles": 0,
+    "base": {
+      "home": 0.2318742517818748,
+      "draw": 0.28336076110859815,
+      "away": 0.48476498710952753
+    },
+    "published": {
+      "home": 0.22934233654160394,
+      "draw": 0.2825175597608459,
+      "away": 0.4881401036975506
+    },
+    "candidate": {
+      "home": 0.22934233654160394,
+      "draw": 0.2825175597608459,
+      "away": 0.4881401036975506
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401878757",
+    "start": "2026-11-07T17:30:00.000Z",
+    "home": "諾丁漢森林",
+    "away": "曼城",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:11.469Z",
+    "source": "https://www.fotmob.com/match/5795513",
+    "checkedAt": "2026-11-07T10:28:10.937Z",
+    "players": 3,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.16635689226452594,
+      "draw": 0.24937022516861004,
+      "away": 0.5842728825668656
+    },
+    "published": {
+      "home": 0.16635689226452594,
+      "draw": 0.24937022516861004,
+      "away": 0.5842728825668656
+    },
+    "candidate": {
+      "home": 0.16635689226452594,
+      "draw": 0.24937022516861004,
+      "away": 0.5842728825668656
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882811",
+    "start": "2026-11-07T17:30:00.000Z",
+    "home": "奧薩蘇納",
+    "away": "畢爾包",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:10.356Z",
+    "source": "https://www.fotmob.com/match/5868126",
+    "checkedAt": "2026-11-07T10:28:09.349Z",
+    "players": 10,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.30989703781428657,
+      "draw": 0.25948943999474006,
+      "away": 0.4306135221909754
+    },
+    "published": {
+      "home": 0.30989703781428657,
+      "draw": 0.25948943999474006,
+      "away": 0.4306135221909754
+    },
+    "candidate": {
+      "home": 0.3201275242631784,
+      "draw": 0.2605831850247404,
+      "away": 0.41928929071208515
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884743",
+    "start": "2026-11-07T17:30:00.000Z",
+    "home": "斯圖加特",
+    "away": "不來梅",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:21.408Z",
+    "source": "https://www.fotmob.com/match/5881223",
+    "checkedAt": "2026-11-07T10:28:19.470Z",
+    "players": 15,
+    "missingRoles": 7,
+    "base": {
+      "home": 0.5598608481994849,
+      "draw": 0.21926753511002336,
+      "away": 0.2208716166904922
+    },
+    "published": {
+      "home": 0.5598608481994849,
+      "draw": 0.21926753511002336,
+      "away": 0.2208716166904922
+    },
+    "candidate": {
+      "home": 0.5598608481994849,
+      "draw": 0.21926753511002336,
+      "away": 0.2208716166904922
+    }
+  },
+  {
+    "league": "fra.1",
+    "id": "401876411",
+    "start": "2026-11-07T18:00:00.000Z",
+    "home": "歐塞爾",
+    "away": "巴黎FC",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:02.957Z",
+    "source": "https://www.fotmob.com/match/5802983",
+    "checkedAt": "2026-11-07T10:28:01.769Z",
+    "players": 7,
+    "missingRoles": 4,
+    "base": {
+      "home": 0.33174734444175175,
+      "draw": 0.2520500842536788,
+      "away": 0.41620257130457033
+    },
+    "published": {
+      "home": 0.33174734444175175,
+      "draw": 0.2520500842536788,
+      "away": 0.41620257130457033
+    },
+    "candidate": {
+      "home": 0.33174734444175175,
+      "draw": 0.2520500842536788,
+      "away": 0.41620257130457033
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874803",
+    "start": "2026-11-07T19:45:00.000Z",
+    "home": "羅馬",
+    "away": "薩索洛",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:18.144Z",
+    "source": "https://www.fotmob.com/match/5749740",
+    "checkedAt": "2026-11-07T10:28:15.478Z",
+    "players": 9,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.7382960302488906,
+      "draw": 0.17238176459362045,
+      "away": 0.08932220515748833
+    },
+    "published": {
+      "home": 0.7382960302488906,
+      "draw": 0.17238176459362045,
+      "away": 0.08932220515748833
+    },
+    "candidate": {
+      "home": 0.7382960302488906,
+      "draw": 0.17238176459362045,
+      "away": 0.08932220515748833
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882808",
+    "start": "2026-11-07T20:00:00.000Z",
+    "home": "瓦倫西亞",
+    "away": "皇家馬德里",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:11.276Z",
+    "source": "https://www.fotmob.com/match/5868129",
+    "checkedAt": "2026-11-07T10:28:10.384Z",
+    "players": 9,
+    "missingRoles": 5,
+    "base": {
+      "home": 0.22811346993588744,
+      "draw": 0.24480376818958716,
+      "away": 0.5270827618745274
+    },
+    "published": {
+      "home": 0.22811346993588744,
+      "draw": 0.24480376818958716,
+      "away": 0.5270827618745274
+    },
+    "candidate": {
+      "home": 0.22811346993588744,
+      "draw": 0.24480376818958716,
+      "away": 0.5270827618745274
+    }
+  },
+  {
+    "league": "fra.1",
+    "id": "401876407",
+    "start": "2026-11-07T20:05:00.000Z",
+    "home": "巴黎聖日耳曼",
+    "away": "特魯瓦",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:09.898Z",
+    "source": "https://www.fotmob.com/match/5802987",
+    "checkedAt": "2026-11-07T10:28:03.001Z",
+    "players": 6,
+    "missingRoles": 0,
+    "base": {
+      "home": 0.6508157633194506,
+      "draw": 0.21586874377059212,
+      "away": 0.133315492909957
+    },
+    "published": {
+      "home": 0.6242099531876444,
+      "draw": 0.22691125699467912,
+      "away": 0.14887878981767844
+    },
+    "candidate": {
+      "home": 0.6242099531876444,
+      "draw": 0.22691125699467912,
+      "away": 0.14887878981767844
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874810",
+    "start": "2026-11-08T11:30:00.000Z",
+    "home": "拿坡里",
+    "away": "拉齊奧",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:20.481Z",
+    "source": "https://www.fotmob.com/match/5749746",
+    "checkedAt": "2026-11-07T10:28:18.179Z",
+    "players": 12,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.32980601436673057,
+      "draw": 0.28218286397033504,
+      "away": 0.38801112166293555
+    },
+    "published": {
+      "home": 0.32980601436673057,
+      "draw": 0.28218286397033504,
+      "away": 0.38801112166293555
+    },
+    "candidate": {
+      "home": 0.30165050159146556,
+      "draw": 0.27953213455789805,
+      "away": 0.418817363850638
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882814",
+    "start": "2026-11-08T13:00:00.000Z",
+    "home": "埃爾切",
+    "away": "皇家貝提斯",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:16.021Z",
+    "source": "https://www.fotmob.com/match/5868123",
+    "checkedAt": "2026-11-07T10:28:14.785Z",
+    "players": 6,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.39052676798477653,
+      "draw": 0.25562246592320104,
+      "away": 0.35385076609202243
+    },
+    "published": {
+      "home": 0.39052676798477653,
+      "draw": 0.25562246592320104,
+      "away": 0.35385076609202243
+    },
+    "candidate": {
+      "home": 0.39052676798477653,
+      "draw": 0.25562246592320104,
+      "away": 0.35385076609202243
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401874800",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "蒙扎",
+    "away": "亞特蘭大",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:23.676Z",
+    "source": "https://www.fotmob.com/match/5749745",
+    "checkedAt": "2026-11-07T10:28:22.623Z",
+    "players": 11,
+    "missingRoles": 3,
+    "base": {
+      "home": 0.22838430664555767,
+      "draw": 0.2609885775519662,
+      "away": 0.5106271158024758
+    },
+    "published": {
+      "home": 0.22838430664555767,
+      "draw": 0.2609885775519662,
+      "away": 0.5106271158024758
+    },
+    "candidate": {
+      "home": 0.23377633879309803,
+      "draw": 0.26277108046390507,
+      "away": 0.5034525807429969
+    }
+  },
+  {
+    "league": "ita.1",
+    "id": "401875018",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "熱那亞",
+    "away": "AC米蘭",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:22.425Z",
+    "source": "https://www.fotmob.com/match/5749743",
+    "checkedAt": "2026-11-07T10:28:20.505Z",
+    "players": 9,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.228488082437881,
+      "draw": 0.2765517649312963,
+      "away": 0.4949601526308232
+    },
+    "published": {
+      "home": 0.228488082437881,
+      "draw": 0.2765517649312963,
+      "away": 0.4949601526308232
+    },
+    "candidate": {
+      "home": 0.23403956650156105,
+      "draw": 0.2783895093725828,
+      "away": 0.4875709241258558
+    }
+  },
+  {
+    "league": "fra.1",
+    "id": "401876406",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "雷恩",
+    "away": "里爾",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:15.081Z",
+    "source": "https://www.fotmob.com/match/5802988",
+    "checkedAt": "2026-11-07T10:28:14.782Z",
+    "players": 5,
+    "missingRoles": 1,
+    "base": {
+      "home": 0.4232773865375285,
+      "draw": 0.24633440857896666,
+      "away": 0.3303882048835056
+    },
+    "published": {
+      "home": 0.4232773865375285,
+      "draw": 0.24633440857896666,
+      "away": 0.3303882048835056
+    },
+    "candidate": {
+      "home": 0.44186611008640986,
+      "draw": 0.24464512079437298,
+      "away": 0.3134887691192155
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401878759",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "伊普斯維奇",
+    "away": "伯恩茅斯",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:18.508Z",
+    "source": "https://www.fotmob.com/match/5795510",
+    "checkedAt": "2026-11-07T10:28:17.015Z",
+    "players": 6,
+    "missingRoles": 3,
+    "base": {
+      "home": 0.3462197954964784,
+      "draw": 0.2369928493738023,
+      "away": 0.41678735512972115
+    },
+    "published": {
+      "home": 0.3462197954964784,
+      "draw": 0.2369928493738023,
+      "away": 0.41678735512972115
+    },
+    "candidate": {
+      "home": 0.3465597873515137,
+      "draw": 0.23701295231399477,
+      "away": 0.4164272603344926
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401879239",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "桑德蘭",
+    "away": "切爾西",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:21.821Z",
+    "source": "https://www.fotmob.com/match/5795514",
+    "checkedAt": "2026-11-07T10:28:18.537Z",
+    "players": 13,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.24965572103495676,
+      "draw": 0.25737738145620415,
+      "away": 0.4929668975088401
+    },
+    "published": {
+      "home": 0.24965572103495676,
+      "draw": 0.25737738145620415,
+      "away": 0.4929668975088401
+    },
+    "candidate": {
+      "home": 0.26150475869266554,
+      "draw": 0.260336070669977,
+      "away": 0.4781591706373582
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401879243",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "水晶宮",
+    "away": "利物浦",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:16.990Z",
+    "source": "https://www.fotmob.com/match/5795507",
+    "checkedAt": "2026-11-07T10:28:15.440Z",
+    "players": 9,
+    "missingRoles": 3,
+    "base": {
+      "home": 0.21345437925896224,
+      "draw": 0.22103476016845622,
+      "away": 0.5655108605725807
+    },
+    "published": {
+      "home": 0.21345437925896224,
+      "draw": 0.22103476016845622,
+      "away": 0.5655108605725807
+    },
+    "candidate": {
+      "home": 0.21345437925896224,
+      "draw": 0.22103476016845622,
+      "away": 0.5655108605725807
+    }
+  },
+  {
+    "league": "eng.1",
+    "id": "401879244",
+    "start": "2026-11-08T14:00:00.000Z",
+    "home": "布萊頓",
+    "away": "布倫特福德",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:15.388Z",
+    "source": "https://www.fotmob.com/match/5795506",
+    "checkedAt": "2026-11-07T10:28:14.783Z",
+    "players": 11,
+    "missingRoles": 7,
+    "base": {
+      "home": 0.6229596811819046,
+      "draw": 0.20387167716268823,
+      "away": 0.17316864165540838
+    },
+    "published": {
+      "home": 0.6229596811819046,
+      "draw": 0.20387167716268823,
+      "away": 0.17316864165540838
+    },
+    "candidate": {
+      "home": 0.6229596811819046,
+      "draw": 0.20387167716268823,
+      "away": 0.17316864165540838
+    }
+  },
+  {
+    "league": "ger.1",
+    "id": "401884738",
+    "start": "2026-11-08T14:30:00.000Z",
+    "home": "科隆",
+    "away": "勒沃庫森",
+    "version": "football-market-v4-20260928-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:22.360Z",
+    "source": "https://www.fotmob.com/match/5881216",
+    "checkedAt": "2026-11-07T10:28:21.431Z",
+    "players": 13,
+    "missingRoles": 5,
+    "base": {
+      "home": 0.26030568794028675,
+      "draw": 0.24073949847546103,
+      "away": 0.49895481358425214
+    },
+    "published": {
+      "home": 0.26030568794028675,
+      "draw": 0.24073949847546103,
+      "away": 0.49895481358425214
+    },
+    "candidate": {
+      "home": 0.26030568794028675,
+      "draw": 0.24073949847546103,
+      "away": 0.49895481358425214
+    }
+  },
+  {
+    "league": "esp.1",
+    "id": "401882810",
+    "start": "2026-11-08T15:15:00.000Z",
+    "home": "皇家社會",
+    "away": "巴列卡諾",
+    "version": "football-domestic-scores-v1-five-league-v1",
+    "capturedAt": "2026-11-07T10:28:18.771Z",
+    "source": "https://www.fotmob.com/match/5868127",
+    "checkedAt": "2026-11-07T10:28:16.071Z",
+    "players": 8,
+    "missingRoles": 2,
+    "base": {
+      "home": 0.5321594501178593,
+      "draw": 0.2153705212604695,
+      "away": 0.25247002862167334
+    },
+    "published": {
+      "home": 0.5321594501178593,
+      "draw": 0.2153705212604695,
+      "away": 0.25247002862167334
+    },
+    "candidate": {
+      "home": 0.5399987922192924,
+      "draw": 0.21375537201285233,
+      "away": 0.24624583576785508
+    }
+  }
+]

@@ -1,0 +1,56 @@
+[
+  {
+    "league": "ger.1",
+    "fotmob": 8232,
+    "espn": "10388",
+    "fotmobName": "Elversberg",
+    "espnName": "SV Elversberg",
+    "fotmobMatch": 5881215,
+    "espnMatch": "401884745"
+  },
+  {
+    "league": "ger.1",
+    "fotmob": 9905,
+    "espn": "2950",
+    "fotmobName": "Mainz 05",
+    "espnName": "Mainz",
+    "fotmobMatch": 5881220,
+    "espnMatch": "401884740"
+  },
+  {
+    "league": "ger.1",
+    "fotmob": 8406,
+    "espn": "3841",
+    "fotmobName": "Augsburg",
+    "espnName": "FC Augsburg",
+    "fotmobMatch": 5881222,
+    "espnMatch": "401884744"
+  },
+  {
+    "league": "ger.1",
+    "fotmob": 8460,
+    "espn": "3307",
+    "fotmobName": "Paderborn",
+    "espnName": "SC Paderborn 07",
+    "fotmobMatch": 5881221,
+    "espnMatch": "401884737"
+  },
+  {
+    "league": "fra.1",
+    "fotmob": 8583,
+    "espn": "172",
+    "fotmobName": "Auxerre",
+    "espnName": "AJ Auxerre",
+    "fotmobMatch": 5802983,
+    "espnMatch": "401876411"
+  },
+  {
+    "league": "esp.1",
+    "fotmob": 9783,
+    "espn": "90",
+    "fotmobName": "Deportivo A Coruña",
+    "espnName": "Deportivo",
+    "fotmobMatch": 5868124,
+    "espnMatch": "401882813"
+  }
+]

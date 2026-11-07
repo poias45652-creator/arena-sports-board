@@ -1,8 +1,9 @@
 import {loadFootballPlayerRole} from './football-player-role';
-import {tiltFootballGrid,shotTilts,featuredThreshold,type ShotEstimate,domesticLeague} from './football-five-league';
+import {tiltFootballGrid,shotTilts,featuredThreshold,drawRiskThreshold,boundedInjuryShift,type DrawStudy,type ShotEstimate,domesticLeague} from './football-five-league';
 import {footballTeamName,type FootballAnalysis,type FootballGame,type FootballLeague,type FootballContextForecast} from './football';
 import {reviewedFotmobTeamId} from './football-cup-xg-source';
 import {cachedMatchSource,matchSourceText} from './match-source-cache';
+import domesticTeamIds from '../data/football/domestic-injury-team-map.json';
 import contextAudit from '../data/football/context-calibration-20261107.json';
 import {availabilityAdvantage,formAdvantage,recentOpponents,pregameEvidence,type Absence,type MatchEvidence,type FinalResult} from './recent-opponents';
 
@@ -10,9 +11,9 @@ const leagues:Record<FootballLeague,number>={'eng.1':47,'esp.1':87,'ita.1':55,'g
 const daily=cachedMatchSource(async day=>JSON.parse(await matchSourceText('https://www.fotmob.com/api/data/matches?date='+day,4_000_000)),300000);
 const detail=cachedMatchSource(async id=>({data:JSON.parse(await matchSourceText('https://www.fotmob.com/api/data/matchDetails?matchId='+id,3_000_000)),checkedAt:new Date().toISOString()}),300000);
 const normalize=(s:string)=>footballTeamName(s).normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
-function sameTeam(team:FootballGame['home'],provider:{id:number;name:string}|undefined){
+export function sameInjuryTeam(league:FootballLeague,team:FootballGame['home'],provider:{id:number;name:string}|undefined){
   if(!provider)return false;
-  const reviewed=reviewedFotmobTeamId(provider.id);
+  const reviewed=reviewedFotmobTeamId(provider.id)??domesticTeamIds.find(t=>t.league===league&&t.fotmob===provider.id)?.espn;
   if(reviewed)return reviewed===team.id;
   const name=provider.name;
   return typeof name==='string'&&[team.englishName,team.name].some(n=>normalize(n)===normalize(name));
@@ -24,7 +25,7 @@ export async function footballAbsences(game:FootballGame):Promise<MatchEvidence[
     const schedule=await daily(new Date(kickoff).toISOString().slice(0,10).replaceAll('-',''));
     const matches=(schedule.leagues||[]).filter((l:any)=>leagueIds.includes(l.primaryId)||leagueIds.includes(l.id))
       .flatMap((l:any)=>l.matches||[]).filter((m:any)=>m.status?.started===false&&!m.status.cancelled&&Date.parse(m.status.utcTime)===kickoff&&
-        sameTeam(game.home,m.home)&&sameTeam(game.away,m.away));
+        sameInjuryTeam(game.league,game.home,m.home)&&sameInjuryTeam(game.league,game.away,m.away));
     if(matches.length!==1||!Number.isSafeInteger(matches[0].id))return null;
     const match=matches[0],{data,checkedAt}=await detail(String(match.id)),g=data.general,lineup=data.content?.lineup;
     if(!g||g.started!==false||String(g.matchId)!==String(match.id)||Date.parse(g.matchTimeUTCDate)!==kickoff||
@@ -52,7 +53,7 @@ export async function footballAbsences(game:FootballGame):Promise<MatchEvidence[
   }catch{return null;}
 }
 
-type DomesticContext={study:{featuredEnabled:boolean;drawAlertEnabled:boolean;drawThreshold:number;applyShots:boolean};
+type DomesticContext={study:DrawStudy&{featuredEnabled:boolean;applyShots:boolean};
   shots:ShotEstimate|null;scoreFallback?:boolean;form?:{rows:FinalResult[];home:string;away:string}};
 export function withFootballMatchContext(game:FootballGame,base:FootballAnalysis,history:FootballGame<string>[],absences:MatchEvidence['absences'],now=Date.now(),domestic?:DomesticContext):FootballAnalysis{
   const kickoff=Date.parse(game.start);
@@ -79,8 +80,14 @@ export function withFootballMatchContext(game:FootballGame,base:FootballAnalysis
   const afterInjuries=injuryShift?tiltFootballGrid(base.scoreDistribution,formShift+injuryShift,shots):afterShots;
   const published=afterInjuries?.probabilities??base.probabilities;
   const finalTop=Math.max(published.home,published.draw,published.away);
+  const drawThreshold=domestic&&drawRiskThreshold(domestic.study,game.start,!!shots);
+  const drawBeforeInjuries=(afterShots?.probabilities??base.probabilities).draw;
+  // Store the conservative alternative for prospective scoring only.
+  const trialShift=domestic&&missingRole?boundedInjuryShift(evidence.absences):undefined;
+  const trial=trialShift?tiltFootballGrid(base.scoreDistribution,formShift+trialShift,shots).probabilities:
+    trialShift===0?(afterShots?.probabilities??base.probabilities):undefined;
   const domesticForecast=domestic?{policy:'five-league-v1' as const,scoreFallback:!!domestic.scoreFallback,featured:domestic.study.featuredEnabled&&finalTop>=featuredThreshold,
-    drawRisk:domestic.study.drawAlertEnabled&&published.draw>=domestic.study.drawThreshold,shotApplied:!!shots,
+    drawRisk:drawThreshold!==undefined&&drawBeforeInjuries>=drawThreshold&&published.draw>=drawThreshold,shotApplied:!!shots,...(trial?{partialRoleTrial:trial}:{}),
     beforeShots:formGrid?.probabilities??base.probabilities,afterShots:afterShots?.probabilities??base.probabilities,
     ...(shots&&domestic.shots?{shotGames:{home:domestic.shots.homeGames,away:domestic.shots.awayGames}}:{})}:undefined;
   const version=domestic?base.version+'-five-league-v1':(marketStudy||formShift||injuryShift) ? base.version+'-recent-availability-v2' : base.version;

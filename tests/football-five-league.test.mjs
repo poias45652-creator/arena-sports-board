@@ -41,3 +41,32 @@ test('實績只採用實際保存的賽前分類，缺失比分與賽後快照�
  const db={prepare:()=>({bind:()=>({all:async()=>({results:[r,{...r,home_goals:null},{...r,captured_at:start}]})})})};
  const v=await domesticFootballRecord(db,'ita.1');assert.equal(v.all,1);assert.equal(v.hits,1);assert.equal(v.featured,Number(a.domesticForecast.featured));
 });
+test('年度和局門檻只用對應年份與射門來源；停用的備援無提示',async()=>{
+ const {drawRiskThreshold}=await import(moduleUrl('lib/football-five-league.ts'));
+ const study={drawPolicy:'annual',drawAlertEnabled:true,drawThreshold:.4,annualThresholds:{2026:.27},annualWithoutShotsThresholds:{2026:.30}};
+ assert.equal(drawRiskThreshold(study,start,true),.27);assert.equal(drawRiskThreshold(study,start,false),.30);
+ assert.equal(drawRiskThreshold(study,'2027-01-01',true),undefined);assert.equal(drawRiskThreshold({...study,drawAlertEnabled:false},start,true),undefined);
+});
+test('傷停對照使用含 xG 的同場快照，缺角色不列為完整樣本',async()=>{
+ const baseAnalysis=withFootballMatchContext(game,base,[],null,now,{study,shots:null});
+ const probs=baseAnalysis.probabilities,before={...probs,home:.2,draw:.25,away:.55};
+ const absences={method:'minutes',home:[],away:[{role:{games:4,starts:4,minutes:340}}],checkedAt:new Date(now).toISOString()};
+ const a={...baseAnalysis,contextForecast:{...baseAnalysis.contextForecast,injuryCoverage:'both',injuryShiftApplied:true},domesticForecast:{...baseAnalysis.domesticForecast,afterShots:before},matchEvidence:{absences}};
+ function row(a){return {payload:JSON.stringify({analysis:a}),captured_at:a.capturedAt,version:a.version,start_time:start,home_goals:1,away_goals:0};}
+ const db={prepare:()=>({bind:()=>({all:async()=>({results:[row(a),row({...a,matchEvidence:{absences:{...absences,away:[{}]}}})]})})})};
+ const {injury}=await domesticFootballRecord(db,'ita.1');assert.equal(injury.corrected,1);assert.equal(injury.paired,1);assert.equal(injury.missingRole,1);
+});
+test('不確定球員的重要性足以改變方向時，候選不偏向任何一隊',async()=>{
+ const {boundedInjuryShift}=await import(moduleUrl('lib/football-five-league.ts'));
+ const player={weight:1,role:{games:8,starts:8,minutes:720}};
+ assert.equal(boundedInjuryShift({method:'minutes',home:[{}],away:[player]}),0);
+ assert.equal(boundedInjuryShift({method:'minutes',home:[{}],away:[player,player]}),.075/4);
+ assert.equal(boundedInjuryShift({method:'minutes',home:null,away:[player]}),undefined);
+});
+test('德西法傷停對照有相同開球時間時仍必須符合球團身分',async()=>{
+ const {sameInjuryTeam}=await import(moduleUrl('lib/football-match-context.ts'));
+ const club={id:'3307',name:'帕德博恩',englishName:'SC Paderborn 07'};
+ assert.equal(sameInjuryTeam('ger.1',club,{id:8460,name:'Paderborn'}),true);
+ assert.equal(sameInjuryTeam('ger.1',{...club,id:'2950'},{id:8460,name:'Paderborn'}),false);
+ assert.equal(sameInjuryTeam('fra.1',club,{id:8460,name:'Paderborn'}),false);
+});
