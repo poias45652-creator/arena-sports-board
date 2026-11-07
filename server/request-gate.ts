@@ -1,6 +1,10 @@
 import {readSession,VIEWER_COOKIE} from '../lib/arena-session';
 export async function gateRequest(request: Request, db: any): Promise<Response | null> {
   const url=new URL(request.url),path=url.pathname;
+  const loginUrl=new URL('/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url);
+  if((path==='/'||path==='/regional-basketball/board')&&['NBL','KBL'].includes(url.searchParams.get('league')||'')){
+    loginUrl.searchParams.set('basketball',url.searchParams.toString());
+  }
   // Opening the site always starts on the brand homepage, regardless of session.
   // Explicit league/view links continue to use the authenticated match workspace.
   if ((request.method==='GET'||request.method==='HEAD')&&path==='/'&&!url.searchParams.has('league')&&!url.searchParams.has('view')) {
@@ -11,10 +15,10 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   if((request.headers.get('cookie')||'').split(';').some(s=>s.trim().startsWith(VIEWER_COOKIE+'='))&&path!=='/api/session'&&path!=='/login'){
     try{
       const session=await readSession(db,request.headers.get('cookie'));
-      if(!session)return path.startsWith('/api/')?Response.json({error:'測試帳號登入已失效，請重新登入'},{status:401,headers:{'Cache-Control':'private, no-store'}}):new Response(null,{status:307,headers:{Location:new URL('/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
+      if(!session)return path.startsWith('/api/')?Response.json({error:'測試帳號登入已失效，請重新登入'},{status:401,headers:{'Cache-Control':'private, no-store'}}):new Response(null,{status:307,headers:{Location:loginUrl.href,'Cache-Control':'private, no-store'}});
       const reading=request.method==='GET'||request.method==='HEAD';
-      const page=path==='/'||path==='/free-trial'||path==='/teams'||path.startsWith('/teams/')||path.startsWith('/players/');
-      const api=['/api/health','/api/free-trial','/api/daily-win-rate','/api/baseball','/api/international','/api/international-live','/api/international-team','/api/npb-player','/api/nba','/api/wnba','/api/football','/api/football-team','/api/football-player-photo','/api/team','/api/player','/api/sport-player','/api/viewer-analysis'].includes(path);
+      const page=path==='/'||path==='/regional-basketball/board'||path==='/free-trial'||path==='/teams'||path.startsWith('/teams/')||path.startsWith('/players/');
+      const api=['/api/health','/api/free-trial','/api/daily-win-rate','/api/baseball','/api/international','/api/international-live','/api/international-team','/api/npb-player','/api/nba','/api/wnba','/api/football','/api/football-team','/api/football-player-photo','/api/team','/api/player','/api/sport-player','/api/viewer-analysis'].includes(path)||/^\/api\/regional-basketball\/(?:data\/|(?:feed|detail|roster|player|history|standings|boxes|context)$)/.test(path);
       const custom=['settings','refresh','force','action'].some(k=>url.searchParams.has(k))||(url.searchParams.has('mode')&&url.searchParams.get('mode')!=='stored')||(url.searchParams.has('weights')&&url.searchParams.get('weights')!=='20,20,20,20,20'&&url.searchParams.get('weights')!=='0.2,0.2,0.2,0.2,0.2');
       const privateSource=path==='/api/baseball'&&url.searchParams.get('kind')==='super007';
       if(reading&&(page||api)&&!custom&&!privateSource)return null;
@@ -25,14 +29,14 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   }
   if (path === '/api/health' || path === '/api/session' || path === '/api/free-trial' || (path === '/api/daily-win-rate' && request.method === 'GET') ||
       (path === '/api/international-sync' && request.method === 'POST')) return null;
-  const protectedPage = path === '/' || path === '/ai-assistant' || path === '/admin' || path.startsWith('/admin/') ||
+  const protectedPage = path === '/' || path === '/regional-basketball/board' || path === '/ai-assistant' || path === '/admin' || path.startsWith('/admin/') ||
     path === '/teams' || path.startsWith('/teams/') || path.startsWith('/players/');
   if (!protectedPage && !path.startsWith('/api/')) return null;
   try {
     if (await readSession(db, request.headers.get('cookie'))) return null;
     return path.startsWith('/api/')
       ? Response.json({error:'請重新登入；帳號可能尚未授權、已停用或到期'}, {status:401,headers:{'Cache-Control':'private, no-store'}})
-      : new Response(null, {status:307,headers:{Location:new URL('/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
+      : new Response(null, {status:307,headers:{Location:loginUrl.href,'Cache-Control':'private, no-store'}});
   } catch {
     return Response.json({error:'登入服務暫時無法使用，請稍後重試'}, {status:503,headers:{'Cache-Control':'no-store'}});
   }

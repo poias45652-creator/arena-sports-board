@@ -1,0 +1,15 @@
+body:not(.profile-open)>.top{position:sticky;top:0;z-index:50;background:#081019f7;border-bottom:1px solid #8b6737}
+.top .frame{max-width:1432px;padding-inline:24px;width:100%}.topin{justify-content:flex-start;gap:12px}.topin .tools{margin-left:auto}.header-assistant{font-weight:700}.topin .brand{gap:11px}.topin .preview{order:4}#breadcrumb{font-size:.84rem;color:#a6b6c9}
+#game-cards,#scoreboard,#rankings,#boxscore{scroll-margin-top:77px}
+.nba-streak i{display:inline-grid;place-items:center;min-width:22px;height:23px;border-radius:4px;font-size:.65rem;font-style:normal;color:#d9ede7;background:#254139}.nba-streak i[data-result=L]{background:#4b323b;color:#f7c6cf}
+.xz-market-body{padding:1rem;border-top:1px solid #354353}.xz-market-body h4{font-size:.9rem;color:#f4cf8c;margin:.8rem 0}.xz-market-body p,.xz-market-body li,.xz-parlay p{font-size:.8rem;line-height:1.7;color:#aebfd3}.xz-market-body table{width:100%;min-width:0}.xz-market-body th,.xz-market-body td{text-align:center;font-size:.79rem;padding:.5rem}.xz-market-body .official{margin-top:.8rem}
+.xz-parlay{margin:1.2rem 0;padding:1rem;background:#101b29;border:1px solid #384a60;border-radius:10px}.xz-parlay summary{cursor:pointer}
+.xz-roster-link,.xz-data-source{display:block;margin:1rem 0 0;color:#dcc294;font-size:.78rem}.basketball-boxscore .xz-roster-link{width:fit-content}.basketball-player-card strong a:hover,.basketball-play-player a:hover,.xz-roster-link:hover{text-decoration:underline}
+.basketball-live-columns{align-items:start}.basketball-play header img{width:25px;height:25px;object-fit:contain}.basketball-game-strip img{width:40px;height:40px;object-fit:contain}.nba-filters img{width:24px;height:24px;object-fit:contain}.nba-board .nba-quarter-table{min-width:0}.basketball-team-comparison{width:min(100%,680px)}.basketball-player-card dd{margin:0}
+@media(max-width:720px){.top .frame{padding-inline:12px}.topin{gap:6px}.topin .tools{gap:5px}#breadcrumb,.topin .preview{display:none}.header-assistant,.topin .refresh,.topin .source{font-size:11px;padding:.45rem}.topin .brand img{width:31px;height:31px}}
+
+.header-assistant{display:inline-flex;align-items:center;gap:7px}.nba-board-meta{margin-bottom:1rem}.nba-date label input{color-scheme:dark}.nba-date>button[data-today]{width:auto;padding-inline:.65rem}#breadcrumb{order:-1}
+
+.xz-game-link{align-self:center;background:transparent;border:0;color:#dfc99c;padding:.4rem .8rem;font-size:.8rem}.nba-date .nba-today{width:auto}.nba-card .nba-team img[src*=kbl-]{scale:1.28}.nba-game-status{color:#b0bdcc}
+
+.sp-bio dd .sp-bio-note{display:block;margin-top:.2rem;color:#abbace;font-size:.76rem;line-height:1.45}.sp-bio dd a{font-size:.72rem;color:#e5c88d;white-space:nowrap}
