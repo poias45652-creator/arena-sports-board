@@ -17,9 +17,17 @@ body:not(.profile-open)>.top{position:sticky;top:0;z-index:50;background:#081019
 .basketball-scoreboard .nba-period-scores {
   table-layout: fixed;
   width: 100%;
-  min-width: calc(var(--score-columns) * 3rem);
+  min-width: calc(var(--score-columns) * 2.85rem);
 }
 .basketball-scoreboard .nba-period-scores :is(th, td) {
   text-align: center;
   padding-inline: .2rem;
+}
+
+@media (max-width: 420px) {
+  .basketball-scoreboard .nba-period-scores tbody td > span {
+    min-width: 0;
+    padding-inline: .15em;
+    font-size: 1.125rem;
+  }
 }
