@@ -1,5 +1,5 @@
 import {GET as super007GET} from '../super007/route';
-import {parseStandings} from '@/lib/standings';
+import {parseStandings, standingsScheduleUrl} from '@/lib/standings';
 import validation from '@/data/model-validation.json';
 import historicalOdds from '@/data/historical-odds.json';
 import {env} from "@/server/runtime";
@@ -42,8 +42,10 @@ export async function GET(request:Request){
   try {
     if(kind==='standings'){
       const data=await cached(`standings:${year}`,5*60000,async()=>{
-        const today=new Date().toISOString().slice(0,10),start=new Date(Date.now()-30*86400000).toISOString().slice(0,10);
-        const [standings,recent]=await Promise.all([sourceFetch(`https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=${year}&standingsTypes=regularSeason&hydrate=team`).then(r=>r.json()),sourceFetch(`https://statsapi.mlb.com/api/v1/schedule?sportId=1&gameType=R&startDate=${start}&endDate=${today}`).then(r=>r.json()).catch(()=>null)]);
+        const [standings,recent]=await Promise.all([
+          sourceFetch(`https://statsapi.mlb.com/api/v1/standings?leagueId=103,104&season=${year}&standingsTypes=regularSeason&hydrate=team`).then(r=>r.json()),
+          sourceFetch(standingsScheduleUrl(year)).then(r=>r.json()).catch(()=>null),
+        ]);
         return parseStandings(standings,recent,year);
       });return Response.json(data,{headers:{'Cache-Control':'no-store'}});
     }

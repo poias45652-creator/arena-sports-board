@@ -57,3 +57,39 @@ test('all four screenshot games calculate usable estimates without inventing mis
   assert.equal(winnerAnalysis(g,undefined,now,false).canEstimate,false);
  }
 });
+
+test('offseason standings request the entire regular season and keep each team’s verified last five',async()=>{
+ const {standingsScheduleUrl,parseStandings}=await import(moduleUrl('lib/standings.ts'));
+ const query=new URL(standingsScheduleUrl(2026)).searchParams;
+ assert.equal(query.get('season'),'2026');
+ assert.equal(query.get('gameType'),'R');
+ assert.ok(!query.has('startDate')&&!query.has('endDate'));
+ // Milwaukee’s final five from MLB’s 2026 regular-season schedule, in road/home order.
+ const games=[
+  [23,823410,158,4,143,1],[24,823411,158,5,143,1],[25,823735,138,4,158,8],
+  [26,823733,138,2,158,3],[27,823731,138,4,158,6],
+ ].map(([day,gamePk,away,awayScore,home,homeScore])=>({
+  gamePk,officialDate:`2026-09-${day}`,gameDate:`2026-09-${day}T19:00:00Z`,gameType:'R',season:'2026',
+  status:{abstractGameState:'Final',codedGameState:'F'},
+  teams:{away:{team:{id:away},score:awayScore},home:{team:{id:home},score:homeScore}},
+ }));
+ const last=games.at(-1);
+ const ineligible=[
+  {...last,gamePk:1,gameType:'D'},{...last,gamePk:2,season:'2025'},
+  {...last,gamePk:3,status:{abstractGameState:'Final',codedGameState:'C'}},
+  {...last,gamePk:4,status:{abstractGameState:'Live',codedGameState:'I'}},
+  {...last,gamePk:5,teams:{...last.teams,away:{team:{id:138}}}},
+ ];
+ const parsed=parseStandings(fixture.standings,{dates:[{games:[...games.toReversed(),last,...ineligible]}]},2026);
+ const brewers=parsed.rows.find(row=>row.id===158);
+ assert.deepEqual(brewers.lastFive.map(g=>[g.gameId,g.result,g.score,g.against]),[
+  [823410,'W',4,1],[823411,'W',5,1],[823735,'W',8,4],[823733,'W',3,2],[823731,'W',6,4],
+ ]);
+ assert.equal(parsed.recentAvailable,false); // The other teams’ schedules are incomplete.
+ for(const unavailable of [null,{dates:[]}]){
+  const result=parseStandings(fixture.standings,unavailable,2026);
+  assert.equal(result.rows.length,30);
+  assert.equal(result.recentAvailable,false);
+  assert.ok(result.rows.every(r=>r.lastFive.length===0));
+ }
+});
