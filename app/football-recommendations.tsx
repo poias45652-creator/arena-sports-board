@@ -23,7 +23,6 @@ export function FootballAnalysisNumbers({analysis,showScores=true}:{analysis:Rea
     <div className="football-probability-bar" aria-hidden="true"><span style={{width:p.home*100+'%'}}/><span style={{width:p.draw*100+'%'}}/><span style={{width:p.away*100+'%'}}/></div>
     <div className="football-goals"><div><span>模型大 2.5 球</span><b>{percent(p.over25)}</b></div><div><span>模型小 2.5 球</span><b>{percent(p.under25)}</b></div><div><span>雙方都進球</span><b>{percent(p.btts)}</b></div></div>
     {showScores&&scenarios.scores.length>0&&<div className="football-scores" data-score-mode={scenarios.mode}><span>三組比分{scenarios.mode==='attacking'?'情境':'預測'}<small>主：客</small></span>{scenarios.scores.map(s=><div key={`${s.home}:${s.away}`}><small className="football-score-label">{s.label}</small><b>{s.home} : {s.away}</b><small>{percent(s.probability)}</small></div>)}</div>}
-    {scenarios.mode==='attacking'&&<div className="football-margin-chances"><span>{scenarios.favourite==='home'?'主隊':'客隊'}贏2球以上 <b>{percent(scenarios.winBy2Plus!)}</b></span><span>贏3球以上 <b>{percent(scenarios.winBy3Plus!)}</b></span>{showScores&&<small>進攻、大勝為進取情境；百分比為各比分的模型機率。</small>}</div>}
   </>;
 }
 
