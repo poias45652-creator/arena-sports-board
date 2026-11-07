@@ -163,8 +163,6 @@ function FootballCard({game,report,now,unavailable,snapshot,oddsError,oddsErrorC
     <div className="football-match"><FootballTeamIdentity team={game.home} side="home" league={game.league} day={footballDay(game.start)}/><b>{game.homeScore!==null&&game.awayScore!==null?`${game.homeScore} : ${game.awayScore}`:'VS'}</b><FootballTeamIdentity team={game.away} side="away" league={game.league} day={footballDay(game.start)}/></div>
     {(game.venue||game.neutral)&&<p className="football-venue">{game.neutral?'中立場・':''}{game.venue}</p>}
     {a?<>
-      <div className="football-analysis-title"><strong>{a.probabilities&&a.probabilities.draw>Math.max(a.probabilities.home,a.probabilities.away)?'和局首選':a.lean?.replace('模型傾向','').replace('，保留觀望','')}</strong></div>
-      {a.domesticForecast&&<p className="px-4 text-sm">{a.selection?.pick?'七成精選':'一般分析'}{a.domesticForecast.drawRisk?'・和局風險較高':''}{a.selection?.source==='shots'&&a.selection.pick?'・射正與 Elo':a.domesticForecast.scoreFallback?'・比分備援':a.domesticForecast.shotApplied?'・近期射門品質已計入':a.external?.modelFamily==='score-market'?'・依近期比分計算':''}</p>}
       <FootballAnalysisNumbers analysis={a}/>
     </>:(eligible||retainFootballForecast(game,now))?<div className="football-analysis-pending" data-analysis-state={presentation.state} role="status">{presentation.state==='loading'&&<RefreshCw size={18} className="animate-spin"/>}<p>{presentation.message}</p>{activity&&presentation.state!=='loading'&&<small>正在重新檢查來源…</small>}</div>:null}
     {eligible&&<SportMarkets game={game} analysis={a} analysisState={presentation.state} analysisMessage={presentation.message} snapshot={snapshot} sourceLoading={oddsLoading} error={oddsError} errorCode={oddsErrorCode} sport="FOOTBALL" now={now}/>}

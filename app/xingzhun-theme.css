@@ -105,7 +105,7 @@
     linear-gradient(to bottom, rgb(2 10 18 / 38%), transparent 7rem, rgb(3 13 22 / 18%) 17rem),
     url('/brand/football-rain-goal-v1.webp') left top / max(100%, 24rem) auto no-repeat #04101a;
 }
-[data-football-view="analysis"] .football-card :is(.football-card-top, .football-match, .football-venue, .football-analysis-title, .football-probabilities) {
+[data-football-view="analysis"] .football-card :is(.football-card-top, .football-match, .football-venue, .football-probabilities) {
   text-shadow: 0 1px 3px #020910;
 }
 [data-football-view="analysis"] .football-goals > div,
