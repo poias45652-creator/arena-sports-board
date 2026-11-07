@@ -22,7 +22,8 @@ export function currentPregame(league:string,date:string,feed:any,archives:Prega
  const excludedKey=(g:{start:string;away:string;home:string})=>`${g.start}|${internationalTeam(g.away,league)}|${internationalTeam(g.home,league)}`;
  for(const a of archives)if(a.league===league&&a.date===date)for(const x of a.excludedFixtures||[])if(x.start.startsWith(date+' '))excluded.set(excludedKey(x),x);
  const key=(g:PregameGame)=>`${g.start}|${internationalTeam(g.away.team,league)}|${internationalTeam(g.home.team,league)}`;
- for(const archive of archives){if(archive?.league!==league||archive.date!==date)continue;for(const g of archive.games){const old=byFixture.get(key(g));if(!old||Date.parse(g.source.observedAt)>Date.parse(old.source.observedAt))byFixture.set(key(g),g);}}
+ const npbOffday=league==='NPB'&&feed.league===league&&feed.date===date&&feed.status==='ok'&&!feed.stale&&feed.noGames===true&&feed.games?.length===0;
+ for(const archive of archives){if(npbOffday||archive?.league!==league||archive.date!==date)continue;for(const g of archive.games){const old=byFixture.get(key(g));if(!old||Date.parse(g.source.observedAt)>Date.parse(old.source.observedAt))byFixture.set(key(g),g);}}
  // Carry verified series completion into the pregame archive, otherwise an
  // obsolete conditional fixture would reappear from storage after a restart.
  for(const retired of feed.retiredFixtures||[]){

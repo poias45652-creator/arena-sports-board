@@ -47,7 +47,9 @@ export default function InternationalMarkets({settings,league,schedule,standings
  const sourceGames=(data?.games||[]).map((g:any)=>({...g,oddsSource:true}));
  const currentFixtures=(league==='NPB'?announcedNpbGames(starters?.tables):league==='KBO'?scheduledKboGames(schedule?.tables):(schedule?.games||[]).map(scheduleGame).filter(Boolean)) as any[];
  const listed=mergePregameFixtures(currentFixtures,pregame,league,currentFixtures) as any[];
- const {games,days,automaticDay,targetDay}=selectInternationalBoardFixtures(listed,sourceGames,league,now,day,pregame?.excludedFixtures,hasOptions);
+ const {games:listedGames,days,automaticDay,targetDay}=selectInternationalBoardFixtures(listed,sourceGames,league,now,day,pregame?.excludedFixtures,hasOptions);
+ const verifiedOffday=noGames&&pregame?.date===targetDay&&!pregameNotice;
+ const games=league==='NPB'&&verifiedOffday?[]:listedGames;
  const allStarted=games.length>0&&games.every(g=>g.live||Date.parse(g.start.replaceAll('/','-').replace(' ','T')+'+08:00')<=now);
  const sourceNotice=pregameNotice?.date===targetDay?pregameNotice:null;
  const sourceMessage=sourceNotice&&<p role="status" className="text-sm text-amber-200">{sourceNotice.message}{sourceNotice.observedAt&&<> 資料擷取：<time dateTime={sourceNotice.observedAt}>{new Date(sourceNotice.observedAt).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}</time>（台灣）</>}</p>;
@@ -107,7 +109,7 @@ export default function InternationalMarkets({settings,league,schedule,standings
      <div className="international-match-teams">{(['away','home'] as const).map(side=><div key={side} className="international-match-team"><div className="international-match-name"><InternationalTeamLogo league={league} name={cleanTeam(g[side])} size={34}/><h2><InternationalTeamLink league={league} name={g[side]}>{cleanTeam(g[side])}</InternationalTeamLink><small>（{side==='home'?'主':'客'}）</small></h2><span><small>{analysis?.mode==='simulation'?'模擬勝率':'勝率'}</small>{started?'已開賽':analysis?.win?`${(analysis.win[side]*100).toFixed(1)}%`:hasModel?'—':'待分析'}</span></div><p>{gameRecord(g,side)}</p><p>預計先發：<strong>{league==='NPB'?<NpbPlayerLink links={starters?.playerLinks} team={g[side]} name={g.starters?.[side]||'尚未取得'}/>:g.starters?.[side]||'尚未取得'}</strong>　 本季防禦率 <strong>{displayPitcherStat(g.pregame?.[side],'era')}</strong>　 本季 WHIP <strong>{displayPitcherStat(g.pregame?.[side],'whip')}</strong></p></div>)}</div>
      <InternationalMarketAnalysis league={league} game={g} market={selected} onMarketChange={key=>setMarketTabs(old=>({...old,[g.id]:key}))} picks={picks} onPick={addPick} canPick={fresh&&!started} status={marketStatus} analysis={analysis} quotesFresh={fresh&&!started}/>
     </article>;})}
-    {!games.length&&<div className="panel p-5">{sourceMessage||(noGames?`${targetDay} ${league==='NPB'?'日職一軍':league}沒有安排賽事。`:(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`))}</div>}
+    {!games.length&&<div className="panel p-5">{sourceMessage||(verifiedOffday?`${targetDay} ${league==='NPB'?'日職一軍沒有安排正式賽事':league+'沒有安排賽事'}。`:(dataLoading?`正在取得 ${league} 賽程…`:`${targetDay||'目前'} 尚無可顯示的 ${league} 賽事，請切換日期或更新資料。`))}</div>}
    </div>
    <div className="arena-analysis-summary"><ParlayPane><aside className="panel space-y-4 p-5">
     <h3 className="text-lg font-black">串關組合</h3>

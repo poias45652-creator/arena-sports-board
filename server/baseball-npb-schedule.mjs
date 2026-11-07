@@ -7,6 +7,8 @@ const isDay=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(value)&&N
 const shift=(date,days)=>new Date(Date.parse(date+'T00:00:00Z')+days*86400000).toISOString().slice(0,10);
 const scheduleUrl=date=>`${ORIGIN}/npb/schedule/?date=${date}`;
 const csUrl=date=>`${ORIGIN}/npb/schedule/first/cs?date=${date}`;
+const weekdayOf=date=>'日月火水木金土'[new Date(date+'T00:00:00Z').getUTCDay()];
+const sportsnaviDayLabel=date=>`${Number(date.slice(5,7))}月${Number(date.slice(8))}日（${weekdayOf(date)}）`;
 const gameId=value=>typeof value==='string'&&/^\d+$/.test(value);
 const teamsOk=g=>TEAM_IDS.has(g.homeId)&&TEAM_IDS.has(g.awayId)&&g.homeId!==g.awayId;
 const BATTING_METRICS=Object.freeze(['AT_BATS','RUNS','HITS','RBIS','HOME_RUNS','WALKS','STRIKEOUTS']);
@@ -144,9 +146,9 @@ export function npbScheduleProof(page,date,diagnostics){
   const html=page.text,metas=[...html.matchAll(/<meta\b([^>]*)>/gi)].map(m=>attrs(m[1])).filter(a=>a.property==='og:url');
   if(metas.length!==1||metas[0].content!==page.url)return null;
   stage='heading';
-  const [year,month,day]=date.split('-').map(Number),weekday='日月火水木金土'[new Date(date+'T00:00:00Z').getUTCDay()],label=`${month}月${day}日（${weekday}）`;
-  const headings=blocks(html,'h2').filter(b=>hasClass(b.attrs,'bb-head01__title')&&/^\d+月\d+日[（(]/.test(plain(b.body)));
-  if(headings.length!==1||plain(headings[0].body)!==label)return null;
+  const year=Number(date.slice(0,4)),label=sportsnaviDayLabel(date);
+  const headings=sportsnaviDayHeadings(html);
+  if(headings.length!==1||headings[0]!==label)return null;
   stage='menu';
   const menu=byId(html,'nav','sch_menu'),selected=blocks(menu.body,'li').filter(b=>hasClass(b.attrs,'bb-menuWhite__item--current'));
   if(selected.length!==1||blocks(selected[0].body,'a').length!==1||blocks(selected[0].body,'a')[0].attrs.href!=='/npb/schedule/first/all')return null;
@@ -191,9 +193,46 @@ export function npbScheduleProof(page,date,diagnostics){
  }
 }
 
+export const npbOfficialCalendarUrl=date=>`https://npb.jp/games/${date.slice(0,4)}/schedule_${date.slice(5,7)}_detail.html`;
+
+function sportsnaviDayHeadings(html){
+ return blocks(html,'h2').filter(h=>hasClass(h.attrs,'bb-head01__title')).map(h=>plain(h.body)).filter(s=>/^\d+月\d+日[（(]/.test(s));
+}
+
+export function npbScheduleHasWrongDay(html,date){
+ return sportsnaviDayHeadings(html).some(label=>label!==sportsnaviDayLabel(date));
+}
+
+// The official monthly table marks an off day with a single dated row of four
+// blank cells. Missing rows, games without scores and unrecognised markup are unknown.
+export function npbOfficialOffday(page,date){
+ if(!isDay(date)||page?.url!==npbOfficialCalendarUrl(date)||!Number.isFinite(Date.parse(page.fetchedAt)))return null;
+ try{
+  const canonical=[...page.text.matchAll(/<meta\b([^>]*)>/gi)].map(m=>attrs(m[1])).filter(a=>a.property==='og:url');
+  if(canonical.length!==1||canonical[0].content!==page.url)return null;
+  const table=byId(page.text,'div','schedule_detail').body;
+  const headers=blocks(selectedBlock(table,'thead',()=>true).body,'th').map(h=>plain(h.body));
+  if(headers.join('|')!=='月日|対戦カード|球場・開始時間|備考|予告先発／責任投手')return null;
+  const rows=blocks(selectedBlock(table,'tbody',()=>true).body,'tr');
+  const [,month,day]=date.split('-'),id='date'+month+day;
+  const matches=rows.filter(row=>row.attrs.id===id);
+  if(matches.length!==1)return null;
+  const row=matches[0],next=rows[rows.indexOf(row)+1];
+  if(next&&!/^date\d{4}$/.test(next.attrs.id||''))return null;
+  const heads=blocks(row.body,'th'),cells=blocks(row.body,'td');
+  if(heads.length!==1||heads[0].attrs.rowspan!=='1'||plain(heads[0].body)!==`${Number(month)}/${Number(day)}（${weekdayOf(date)}）`)return null;
+  if(cells.length!==4||cells.some(cell=>!/^\s*(?:&nbsp;|&#160;|\u00a0)\s*$/i.test(cell.body)))return null;
+  return {schemaVersion:1,kind:'npb-verified-offday',league:'NPB',date,noGames:true,listedGames:[],
+   source:{provider:'npb-official',url:page.url,fetchedAt:page.fetchedAt}};
+ }catch{return null;}
+}
+
 export function isVerifiedNpbOffday(proof,date,now=Date.now()){
- const age=now-Date.parse(proof?.source?.fetchedAt);
- return isDay(date)&&proof?.schemaVersion===1&&proof.kind==='npb-verified-offday'&&proof.league==='NPB'&&proof.date===date&&proof.noGames===true&&Array.isArray(proof.listedGames)&&proof.listedGames.length===0&&proof.source?.provider==='sportsnavi'&&proof.source.url===scheduleUrl(date)&&Number.isFinite(age)&&age>=-60000&&age<=900000;
+ if(!isDay(date))return false;
+ const source=proof?.source,age=now-Date.parse(source?.fetchedAt);
+ const trusted=source?.provider==='sportsnavi'&&source.url===scheduleUrl(date)||
+  source?.provider==='npb-official'&&source.url===npbOfficialCalendarUrl(date);
+ return trusted&&proof?.schemaVersion===1&&proof.kind==='npb-verified-offday'&&proof.league==='NPB'&&proof.date===date&&proof.noGames===true&&Array.isArray(proof.listedGames)&&proof.listedGames.length===0&&Number.isFinite(age)&&age>=-60000&&age<=900000;
 }
 
 /** The existing retirement guards with a bounded explanation of the first
