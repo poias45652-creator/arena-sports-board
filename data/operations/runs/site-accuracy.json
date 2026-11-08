@@ -1,7 +1,1 @@
-{
-  "key": "site-accuracy",
-  "reportedAt": null,
-  "outcome": null,
-  "checked": null,
-  "issues": null
-}
+{"key":"site-accuracy","reportedAt":"2026-11-08T07:25:13.739Z","outcome":"partial","checked":1,"issues":2}
