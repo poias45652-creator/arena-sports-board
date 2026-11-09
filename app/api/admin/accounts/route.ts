@@ -1,3 +1,4 @@
+import {timingSafeEqual} from 'node:crypto';
 import {requestOrigin} from '@/lib/request-origin';
 import {isSiteAdmin} from '@/app/admin-access';
 import {getRawDb} from '@/db';
@@ -10,8 +11,17 @@ const validNote=(value:unknown):value is string=>typeof value==='string'&&value.
 const isAdminName=(name:string)=>[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(name.toLowerCase());
 const sameOrigin=(request:Request)=>request.headers.get('origin')===requestOrigin(request)&&request.headers.get('sec-fetch-site')!=='cross-site';
 async function readBody(request:Request){const raw=await request.text();if(raw.length>8192)throw Error();const body=JSON.parse(raw);if(!body||typeof body!=='object'||Array.isArray(body))throw Error();return body;}
-export async function GET(){
- if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
+// Only the combined membership console uses this server-to-server entry.
+function permissionBridge(request?:Request){
+ if(!request || new URL(request.url).pathname!=='/internal/sports-permissions')return false;
+ const key=process.env.XZ_PLATFORM_BRIDGE_KEY,header=request.headers.get('authorization');
+ if(!key||key.length<40||!header)return false;
+ const wanted=Buffer.from('Bearer '+key),given=Buffer.from(header);
+ return wanted.length===given.length && timingSafeEqual(wanted,given);
+}
+export async function GET(request:Request){
+ const bridge=permissionBridge(request);
+ if(!bridge && (request && new URL(request.url).pathname.startsWith('/internal/') || !await isSiteAdmin()))return reply({error:'僅限管理員'},403);
  try{
   const now=Date.now(),db=getRawDb();
   const result=await db.prepare("SELECT b.member_id AS memberId,b.username,COALESCE(n.note,'') AS note,l.last_login_at AS lastLogin,COALESCE(a.enabled,0) AS enabled,a.expires_at AS expiresAt,CASE WHEN a.member_id IS NULL THEN 'pending' WHEN a.enabled<>1 THEN 'disabled' WHEN a.expires_at IS NOT NULL AND a.expires_at<=? THEN 'expired' ELSE 'active' END AS accessState,CASE WHEN lower(b.username) IN (?,?) THEN 1 ELSE 0 END AS isAdmin,CASE WHEN b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) AND EXISTS (SELECT 1 FROM arena_sessions s WHERE s.member_id=b.member_id AND s.expires_at>?) THEN 1 ELSE 0 END AS signedIn FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id LEFT JOIN account_notes n ON n.member_id=b.member_id LEFT JOIN account_login_activity l ON l.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' ORDER BY (a.member_id IS NULL) DESC,b.verified_at DESC").bind(now,PLATFORM_ADMIN_USERNAME,'vrvtest01',now,now,now).all();
@@ -20,8 +30,9 @@ export async function GET(){
  }catch{return reply({error:'帳號清單暫時無法讀取'},503);}
 }
 export async function POST(request:Request){
- if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- if(!sameOrigin(request))return reply({error:'請從管理後台操作'},403);
+ const bridge=permissionBridge(request);
+ if(!bridge && (request && new URL(request.url).pathname.startsWith('/internal/') || !await isSiteAdmin()))return reply({error:'僅限管理員'},403);
+ if(!bridge&&!sameOrigin(request))return reply({error:'請從管理後台操作'},403);
  try{
   const body=await readBody(request),{username,expiresAt}=body,note=body.note??'';
   if(!validUsername(username)||!validExpiry(expiresAt)||!validNote(note))return reply({error:'請確認帳號、到期時間與備註（最多 1000 字）'},400);
@@ -51,8 +62,9 @@ export async function POST(request:Request){
  }catch{return reply({error:'開通失敗，請重新確認後再試'},400);}
 }
 export async function PATCH(request:Request){
- if(!await isSiteAdmin())return reply({error:'僅限管理員'},403);
- if(!sameOrigin(request))return reply({error:'請從管理後台操作'},403);
+ const bridge=permissionBridge(request);
+ if(!bridge && (request && new URL(request.url).pathname.startsWith('/internal/') || !await isSiteAdmin()))return reply({error:'僅限管理員'},403);
+ if(!bridge&&!sameOrigin(request))return reply({error:'請從管理後台操作'},403);
  try{
   const body=await readBody(request),{memberId,pendingUsername,enabled,expiresAt,note}=body;
   const grant='enabled' in body||'expiresAt' in body,hasNote='note' in body;

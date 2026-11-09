@@ -12,6 +12,6 @@ export default async function AdminAccountsPage() {
 
   return <main className="arena-shell min-h-screen text-slate-100">
     <header className="border-b border-white/8 bg-[#081522]/95"><div className="mx-auto flex min-h-16 max-w-[1440px] flex-wrap items-center gap-3 px-5 py-3"><a href={leaguePageHref('MLB')} className="header-action"><ArrowLeft className="size-4"/>返回賽事</a><a href="/admin?view=system" className="header-action">系統管理與設定</a><div className="flex items-center gap-2 font-black"><ShieldCheck className="size-5 text-[#ffd538]"/>星準・帳號授權管理</div><a className="header-action" href="/admin/schedules">排程管理</a><div className="ml-auto"><SessionAccount/></div></div></header>
-    <div className="mx-auto max-w-[1440px] space-y-5 px-5 py-8"><ViewerAccount/><Accounts/></div>
+    <div className="mx-auto max-w-[1440px] space-y-5 px-5 py-8"><a className="header-action" href="https://xingzhun-original-test.onrender.com/admin/members">整合會員授權（體育／百家樂）</a><ViewerAccount/><Accounts/></div>
   </main>;
 }

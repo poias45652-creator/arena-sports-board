@@ -264,3 +264,10 @@ CREATE TABLE IF NOT EXISTS regional_basketball_forecasts (
   CHECK (captured_at < start_time)
 );
 CREATE INDEX IF NOT EXISTS regional_basketball_forecast_day ON regional_basketball_forecasts(league,date);
+
+CREATE TABLE IF NOT EXISTS xz_portal_sessions (
+  token_hash text PRIMARY KEY,
+  member_id text NOT NULL REFERENCES tz_bindings(member_id) ON DELETE CASCADE,
+  expires_at bigint NOT NULL
+);
+CREATE INDEX IF NOT EXISTS xz_portal_sessions_expiry ON xz_portal_sessions(expires_at);
