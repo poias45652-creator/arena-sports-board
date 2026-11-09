@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {snapshot} from '../server/regional-basketball/archive.mjs';
-import {analysis, marketFor} from '../public/regional-basketball/analysis-ui.js';
+import {analysis, marketFor, reportFor} from '../public/regional-basketball/analysis-ui.js';
 import {marketCards} from '../public/regional-basketball/market-cards.js';
 import {settleSportGrid} from '../public/regional-basketball/market-math.mjs';
 
@@ -62,7 +62,7 @@ for (const [league, home, away] of [['NBL','MEL','BRI'], ['KBL','DB','SAM']]) {
     if (league === 'KBL') {
       assert.match(html, /歷史回算/);
       assert.doesNotMatch(html, /勝方命中|勝方未命中/);
-      const replay = () => marketCards(state, g, {ready:false}, market, market.quotes);
+      const replay = () => marketCards(state, g, reportFor(state,g), market, market.quotes);
       const before = replay();
       state.version++;
       state.all = state.all.map(row => row.date >= date ? {...row, homeScore:1, awayScore:199} : row);

@@ -39,7 +39,7 @@ function fromEspn(event){
   const periods=active?periodScores(home,away):[];
   const periodNumber=comp.status?.period||periods.length;
   return {id:String(event.id),date:starts.slice(0,10),time:starts.slice(11,16),home:teamCode(home.team),away:teamCode(away.team),homeName:home.team.displayName,awayName:away.team.displayName,
-    homeScore:active?number(home.score):null,awayScore:active?number(away.score):null,status,period:active&&periodNumber?labelPeriod(periodNumber):null,clock:status==="in_progress"?comp.status?.displayClock||null:null,
+    timeConfirmed:comp.status?.type?.name!=="STATUS_TIME_TBD"&&comp.timeValid!==false,homeScore:active?number(home.score):null,awayScore:active?number(away.score):null,status,period:active&&periodNumber?labelPeriod(periodNumber):null,clock:status==="in_progress"?comp.status?.displayClock||null:null,
     periods,venue:comp.venue?.fullName||null,url:event.links?.find(x=>x.rel?.includes("summary"))?.href || "https://www.espn.com/nbl/game/_/gameId/"+event.id,
     phase:Number(event.season?.type?.id??event.season?.type)||null,season:event.season?.year||null};
 }

@@ -15,16 +15,46 @@ export function injuries(s,g){
  const rows=s.context.injuries.filter(i=>i.league===s.league&&[g.home,g.away].includes(i.team)&&(Array.isArray(i.appliesToDates)?i.appliesToDates.includes(g.date):i.reportedAt&&Math.abs(stamp(g)-Date.parse(i.reportedAt))<7*86400000&&Date.parse(i.reportedAt)<=stamp(g)));
  const seen=new Set();return rows.filter(i=>{const k=i.team+':'+i.player.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
 }
+// A replay uses only earlier match days and league-default weights. Keep it out of the prediction ledger.
+function replay(s, g) {
+  const cacheKey = 'pregame-replay:' + s.league + ':' + key(g);
+  const memo = s.projections.get(cacheKey);
+  const tip = stamp(g);
+  if (memo?.revision === s.version && memo.tip === tip) return memo.value;
+  const game = {league: s.league, date: g.date, time: g.time, startsAt: g.startsAt, timeConfirmed: g.timeConfirmed,
+    home: g.home, away: g.away, neutral: g.neutral, status: 'scheduled'};
+  const model = analyzeGame({game, games: s.all.filter(row => row.date < g.date),
+    boxes: s.boxes.filter(row => row.date < g.date), asOf: tip - 1});
+  const value = {...model, replay: true};
+  s.projections.set(cacheKey, {revision: s.version, tip, value});
+  return value;
+}
+
 function ticketKey(s,g){return 'xz:pregame:v2:'+s.league+':'+key(g)}
 export function reportFor(s,g){
  const hw=weights(s,g.home),aw=weights(s,g.away),sig=hw.join(',')+'|'+aw.join(','),k=ticketKey(s,g);
- const saved=s.saved[k]||readStore(k,null)||s.frozen?.[key(g)];
- if((g.status!=='scheduled'&&g.status!=='fixture')||stamp(g)<=Date.now())return saved?.ready&&Date.parse(saved.asOf)<stamp(g)?{...saved,frozen:true}:{ready:false,reason:'此場開賽前未收錄模型預測。'};
+ const tip=stamp(g),now=Date.now();
+ if(!g.time||g.timeConfirmed===false||!Number.isFinite(tip)||['cancelled','postponed'].includes(g.status))
+   return {ready:false,reason:'對戰或開賽時間尚未確認'};
+ const scheduled=['scheduled','fixture'].includes(g.status);
+ const archive=s.archived?.[key(g)+'/'+tip]||s.frozen?.[key(g)];
+ const local=[s.saved[k],readStore(k,null)];
+ const validReport=r=>r?.ready&&!r.replay&&Date.parse(r.asOf)<tip&&Date.parse(r.asOf)<=now&&
+   (!r.startsAt||Date.parse(r.startsAt)===tip);
+ const standard=hw.every(v=>v===hw[0])&&aw.every(v=>v===aw[0]);
+ if(standard&&validReport(archive))return {...archive,frozen:true};
+ const stored=[...local,archive].find(validReport);
+ if(!scheduled||tip<=now){
+   if(stored)return {...stored,frozen:true};
+   if((scheduled||['final','in_progress'].includes(g.status))&&tip<=now)return replay(s,g);
+   return {ready:false,reason:'賽事狀態待確認'};
+ }
  const memo=s.projections.get(k);if(memo&&memo.sig===sig&&memo.rev===s.version&&Date.now()-memo.time<30000)return memo.value;
  const model=analyzeGame({game:{...g,league:s.league},games:s.all,gamesAsOf:s.asOf,boxes:s.boxes,homeWeights:hw,awayWeights:aw,injuries:injuries(s,g),rosters:s.rosters,asOf:Date.now()});
- if(model.ready){const frozen={...model,weightSignature:sig};s.saved[k]=frozen;writeStore(k,frozen);}
- s.projections.set(k,{sig,rev:s.version,time:Date.now(),value:model});
- return model;
+ if(model.ready&&Date.now()<tip){const frozen={...model,startsAt:new Date(tip).toISOString(),weightSignature:sig};s.saved[k]=frozen;writeStore(k,frozen);}
+ const value=!model.ready&&stored&&(stored.weightSignature??defaults.join(',')+'|'+defaults.join(','))===sig?{...stored,frozen:true}:model;
+ s.projections.set(k,{sig,rev:s.version,time:Date.now(),value});
+ return value;
 }
 function integerScore(r){
  if(r.homeProb===r.awayProb)return null;
@@ -47,11 +77,12 @@ export function marketFor(s,g){
 function numbers(r){
  if(!r.ready)return '<div class="nba-analysis-heading"><span>賽前預測</span></div><p class="basketball-empty">'+e(r.reason||'因分析資料不足無法分析')+'</p>';
  const sc=integerScore(r),h=Math.round(r.homeProb*1000)/10,a=100-h;
- return '<small class="nba-updated">分析更新 '+e(timeTW(r.asOf))+'</small><div class="nba-analysis-numbers"><div class="nba-analysis-heading"><span>賽前預測</span><small>'+(r.frozen?'賽前存檔':'效率模擬')+'</small></div><div class="nba-forecast-score"><span>預估比分<small>客：主</small></span><b>'+(sc?sc.away:'—')+'<i>:</i>'+(sc?sc.home:'—')+'</b></div><div class="nba-probabilities"><div><span>客勝</span><strong>'+num(a,1)+'%</strong></div><div><span>主勝</span><strong>'+num(h,1)+'%</strong></div></div><div class="nba-probability-bar"><i style="width:'+a+'%"></i><i style="width:'+h+'%"></i></div><div class="nba-estimates"><div><span>預估總分</span><b>'+(sc?sc.home+sc.away:num(r.total))+'</b></div><div><span>預估分差</span><b>'+(sc?(sc.home>sc.away?'主':'客')+' +'+Math.abs(sc.home-sc.away):'勝負未定')+'</b></div></div></div>';
+ const timing=r.replay?'採比賽日前的技術統計，不列入命中紀錄':'分析更新 '+e(timeTW(r.asOf));
+ return '<small class="nba-updated">'+timing+'</small><div class="nba-analysis-numbers"><div class="nba-analysis-heading"><span>賽前預測</span><small>'+(r.replay?'歷史回算':r.frozen?'賽前存檔':'效率模擬')+'</small></div><div class="nba-forecast-score"><span>預估比分<small>客：主</small></span><b>'+(sc?sc.away:'—')+'<i>:</i>'+(sc?sc.home:'—')+'</b></div><div class="nba-probabilities"><div><span>客勝</span><strong>'+num(a,1)+'%</strong></div><div><span>主勝</span><strong>'+num(h,1)+'%</strong></div></div><div class="nba-probability-bar"><i style="width:'+a+'%"></i><i style="width:'+h+'%"></i></div><div class="nba-estimates"><div><span>預估總分</span><b>'+(sc?sc.home+sc.away:num(r.total))+'</b></div><div><span>預估分差</span><b>'+(sc?(sc.home>sc.away?'主':'客')+' +'+Math.abs(sc.home-sc.away):'勝負未定')+'</b></div></div></div>';
 }
 function breakdown(s,g,r){
  const m=marketFor(s,g),quotes=m?.quotes||[],id=e(key(g));
- const graded=r.ready&&g.status==='final'&&r.homeProb!==r.awayProb&&g.homeScore!==g.awayScore;
+ const graded=r.ready&&!r.replay&&g.status==='final'&&r.homeProb!==r.awayProb&&g.homeScore!==g.awayScore;
  const result=graded?'<p>'+((r.homeProb>r.awayProb)===(g.homeScore>g.awayScore)?'勝方命中':'勝方未命中')+'</p>':'';
  const prices=marketCards(s,g,r,m,quotes);
  return '<details class="match-market-details sport-market-details" data-persist="market:'+id+'"><summary><strong>查看分析</strong><span>'+(quotes.length?quotes.length+' 種玩法':'盤口待確認')+'</span></summary>'+prices+(result?'<div class="xz-market-body">'+result+'</div>':'')+'</details>';

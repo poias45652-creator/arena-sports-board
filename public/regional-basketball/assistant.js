@@ -10,7 +10,7 @@ export function assistantPanel(s,mode='why',id=''){
  let answer='';
  if(mode==='why'){
    if(!r.ready)answer='因分析資料不足無法分析';
-   else {const pick=r.homeProb>r.awayProb?g.home:g.away;answer='模型估計'+name(s,pick)+'勝率 '+(Math.max(r.homeProb,r.awayProb)*100).toFixed(1)+'%。'+
+   else {const pick=r.homeProb>r.awayProb?g.home:g.away;answer=(r.replay?'依比賽日前資料回算，':'模型估計')+name(s,pick)+'勝率 '+(Math.max(r.homeProb,r.awayProb)*100).toFixed(1)+'%。'+
    '主隊近 '+r.homeMetrics.games+' 場每百回合得 '+r.homeMetrics.ortg.toFixed(1)+' 分、失 '+r.homeMetrics.drtg.toFixed(1)+' 分；客隊近 '+r.awayMetrics.games+' 場每百回合得 '+r.awayMetrics.ortg.toFixed(1)+' 分、失 '+r.awayMetrics.drtg.toFixed(1)+' 分。'+(r.opponentAdjusted?'已將近期對手強度納入比較。':'');}
  } else if(mode==='risk'){
   const rows=injuries(s,g);answer=rows.length?rows.map(i=>name(s,i.team)+' '+i.player+'（'+(i.status==='confirmed_out'?'確認缺陣':i.status==='fitness_test'?'賽前測試':'列入報告')+'）').join('、')+'。':'因分析資料不足無法分析';

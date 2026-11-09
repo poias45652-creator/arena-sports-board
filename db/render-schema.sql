@@ -257,3 +257,10 @@ CREATE INDEX IF NOT EXISTS yj_viewer_sessions_member ON yj_viewer_sessions(membe
 INSERT INTO yj_viewer_accounts (member_id,username,password_hash,updated_at)
 VALUES ('yj-viewer:aa3344','aa3344','',0)
 ON CONFLICT(member_id) DO NOTHING;
+
+CREATE TABLE IF NOT EXISTS regional_basketball_forecasts (
+  id text PRIMARY KEY, league text NOT NULL, date text NOT NULL, fixture_key text NOT NULL,
+  start_time text NOT NULL, captured_at text NOT NULL, payload text NOT NULL,
+  CHECK (captured_at < start_time)
+);
+CREATE INDEX IF NOT EXISTS regional_basketball_forecast_day ON regional_basketball_forecasts(league,date);

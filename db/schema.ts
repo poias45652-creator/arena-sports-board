@@ -59,3 +59,8 @@ export const baseballResearch=sqliteTable('baseball_research',{
  sourceUrl:text('source_url').notNull(),contentHash:text('content_hash').notNull(),
  payload:text('payload').notNull(),importedAt:text('imported_at').notNull(),batchId:text('batch_id').notNull()
 },t=>[index('baseball_research_section_league').on(t.section,t.league)]);
+
+export const regionalBasketballForecasts=sqliteTable('regional_basketball_forecasts',{
+ id:text('id').primaryKey(),league:text('league').notNull(),date:text('date').notNull(),fixtureKey:text('fixture_key').notNull(),
+ startTime:text('start_time').notNull(),capturedAt:text('captured_at').notNull(),payload:text('payload').notNull()
+},t=>[index('regional_basketball_forecast_day').on(t.league,t.date)]);

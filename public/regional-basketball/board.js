@@ -92,7 +92,7 @@ async function loadLeague(){
  const id=++token;++refreshToken;++detailsToken;++rankToken;
  s.busy=true;s.fallback=null;s.info=s.catalog[s.league];const lc=s.league.toLowerCase();
  s.seasonEnd=Number(s.info.season.slice(0,4))+(s.league==='WNBA'?0:1);s.rankSeason=s.rankSeason||s.seasonEnd;s.currentRanking=s.info.standings;s.ranking=s.currentRanking;s.rankLabel='已保存排名';s.rankNote='';s.rankSeries=[];s.rankBusy=false;s.detail=null;s.detailBusy=false;s.detailError=false;s.detailKey='';s.isLive=false;s.notice='';
- s.all=[...s.info.games];s.rosterTimes={};s.rosterTimestamps={};s.playerTimes={};s.peopleIndex={};s.playerFiles={};s.playerFileLoading=new Set();s.teamGames=[];s.extras={};s.aliases={};s.rankArchive={};s.detailIndex={};s.jumped=false;s.activeRosterSeason=s.info.season;s.rostersLoaded=false;s.rosters={};s.boxes=[];s.context={markets:[],injuries:[]};s.frozen={};s.busy=true;s.asOf=s.info.asOf?.length>10?s.info.asOf:'2026-11-07T00:00:00+08:00';s.archiveDate=s.all.some(g=>g.date===s.date);s.baseAsOf=s.asOf;s.baseRankAsOf=s.info.standingsThrough||s.asOf;s.projections.clear();s.teamCode=teamFor(s,s.teamCode)?s.teamCode:'';s.boxMore=false;s.version++;contextTime=0;historyTime=0;extraContext=null;
+ s.all=[...s.info.games];s.rosterTimes={};s.rosterTimestamps={};s.playerTimes={};s.peopleIndex={};s.playerFiles={};s.playerFileLoading=new Set();s.teamGames=[];s.extras={};s.aliases={};s.rankArchive={};s.detailIndex={};s.jumped=false;s.activeRosterSeason=s.info.season;s.rostersLoaded=false;s.rosters={};s.boxes=[];s.context={markets:[],injuries:[]};s.frozen={};s.archived={};s.busy=true;s.asOf=s.info.asOf?.length>10?s.info.asOf:'2026-11-07T00:00:00+08:00';s.archiveDate=s.all.some(g=>g.date===s.date);s.baseAsOf=s.asOf;s.baseRankAsOf=s.info.standingsThrough||s.asOf;s.projections.clear();s.teamCode=teamFor(s,s.teamCode)?s.teamCode:'';s.boxMore=false;s.version++;contextTime=0;historyTime=0;extraContext=null;
  setupShell();paint();
  const jobs=['/api/regional-basketball/data/'+lc+'-players.json','/api/regional-basketball/data/'+lc+'-boxes.json','/api/regional-basketball/data/context.json','/api/regional-basketball/data/pregame.json','/api/regional-basketball/data/'+lc+'-fallback.json','/api/regional-basketball/data/'+lc+'-index.json','/api/regional-basketball/data/'+lc+'-team-games.json','/api/regional-basketball/data/'+lc+'-detail-index.json','/api/regional-basketball/data/rankings-'+lc+'.json','/api/regional-basketball/data/'+lc+'-extra-players.json'];
  const res=await Promise.allSettled(jobs.map(cacheFetch));if(id!==token)return;
@@ -215,9 +215,18 @@ async function context(id){
  s.version++;if(s.view==='analysis')paint();
  }catch{}
 }
+async function loadForecasts(id,day){
+ try{
+  const rows=await getJson('/api/regional-basketball/data/forecasts/'+s.league+'/'+day+'.json');
+  if(id!==token||day!==s.date)return;
+  for(const {fixture,report} of rows)s.archived[fixture+'/'+Date.parse(report.startsAt)]=report;
+  if(rows.length){s.version++;paint();}
+ }catch{/* A saved local forecast or labelled replay remains available offline. */}
+}
 async function refresh(){
  if(s.reference||!s.fallback)return;
  const n=++refreshToken,id=token,day=s.date;s.busy=true;
+ loadForecasts(id,day);
  const fallback=s.fallback.feeds?.[day];
  if(fallback&&!s.isLive){s.asOf=fallback.asOf;s.archiveDate=true;}
  if(s.view==='standings')rank();if(s.teamCode){roster(s.teamCode);if(s.playerId)playerLog(s.playerId,s.teamCode);}
