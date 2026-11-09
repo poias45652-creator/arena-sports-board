@@ -1,4 +1,4 @@
-name: Daily CPBL NPB KBO refresh
+name: International baseball refresh and regional basketball forecasts
 on:
   schedule:
     # Taiwan 08:17, 14:17, 17:17, 23:17; independent of Render sleep.
@@ -9,6 +9,7 @@ on:
     paths:
       - '.github/workflows/international-daily.yml'
       - 'scripts/international-daily.mjs'
+      - 'server/regional-basketball/capture.mjs'
 permissions:
   contents: read
   id-token: write
@@ -32,3 +33,20 @@ jobs:
         run: sleep 240
       - name: Refresh today and tomorrow with retries
         run: node scripts/international-daily.mjs
+
+  basketball:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - name: Wait for the updated endpoint on deploy
+        if: github.event_name == 'push'
+        run: sleep 240
+      - name: Capture today's and tomorrow's KBL and NBL forecasts
+        run: node scripts/international-daily.mjs regional-basketball

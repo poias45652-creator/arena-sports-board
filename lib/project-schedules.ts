@@ -26,7 +26,7 @@ type Receipt = {
 };
 
 export const siteSchedules = [
-  {file: 'international-daily.yml', name: '台日韓職棒資料更新', timing: '每日 08:17、14:17、17:17、23:17'},
+  {file: 'international-daily.yml', name: '台日韓職棒更新、韓澳職籃賽前收錄', timing: '每日 08:17、14:17、17:17、23:17'},
   {file: 'nba-player-strength-sync.yml', name: 'NBA 球員實力資料更新', timing: '每 3 小時，第 15 分'},
   {file: 'wnba-player-strength-sync.yml', name: 'WNBA 球員實力資料更新', timing: '每 3 小時，第 35 分'},
   {file: 'football-fotmob-sync.yml', name: '足球 xG 資料更新', timing: '每日 04:25'},
