@@ -4,7 +4,7 @@ import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME} fro
 import {handleTzBinding} from './tz-binding-service';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 const response=(d:any,status=200,cookie?:string)=>Response.json(d,{status,headers:{'Cache-Control':'private, no-store','Vary':'Cookie',...(cookie?{'Set-Cookie':cookie}:{})}});
-export async function tzLogin(request:Request,db:any,secret:string|undefined,fetcher:typeof fetch=fetch,turnstileSecret?:string,requireTurnstile=false){
+export async function tzLogin(request:Request,db:any,secret:string|undefined,fetcher:typeof fetch=fetch,turnstileSecret?:string,requireTurnstile=false,tableOnlySession?:(member:string,user:string,expiry:number)=>Promise<string|null>){
  try{
  if(request.method==='GET'){const s=await readSession(db,request.headers.get('cookie'));return response(s?{signedIn:true,username:s.username,expiresAt:s.expiresAt,...(s.accessMode?{accessMode:s.accessMode}:{} )}:{signedIn:false});}
  if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return response({error:'請從網站登入頁操作'},403);
@@ -56,6 +56,10 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
    db.prepare('INSERT INTO account_notes (member_id,note,updated_at) SELECT claimed_member_id,note,updated_at FROM account_preapprovals WHERE username_key=? AND claimed_member_id=? AND claim_token=? ON CONFLICT(member_id) DO NOTHING').bind(usernameKey,member,claimToken)
   ]);
   access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
+ }
+ if(tableOnlySession && (!access || access.enabled!==1 || (access.expires_at!==null && access.expires_at<=Date.now()))){
+   const portal=await tableOnlySession(member,binding.username,binding.expires_at);
+   if(portal){const ok=response({signedIn:true,platforms:true,source},200,sessionCookie('',0));ok.headers.append('Set-Cookie',portal);return ok;}
  }
  if(!access)return response({code:'approval_required',error:'帳號驗證成功，尚未取得網站授權。請聯繫作者，由管理員開通後再登入。'},403,sessionCookie('',0));
  if(access.enabled!==1)return response({code:'access_disabled',error:'網站授權已停用，請聯繫作者。'},403,sessionCookie('',0));

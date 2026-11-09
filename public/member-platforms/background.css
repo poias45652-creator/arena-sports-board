@@ -1,0 +1,33 @@
+:root {
+  color-scheme: dark;
+  font: 16px/1.5 "Microsoft JhengHei", "PingFang TC", system-ui, sans-serif;
+  color: #ecf0f4;
+  background: #050b13;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+button, input { font: inherit; }
+button, a { touch-action: manipulation; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+:focus-visible { outline: 2px solid #ffde8d; outline-offset: 3px; }
+
+#member-portal {
+  position: relative; isolation: isolate; display: grid; justify-items: center; align-content: safe center;
+  min-height: 100vh; min-height: 100dvh;
+  padding: max(18px, env(safe-area-inset-top)) 16px max(18px, env(safe-area-inset-bottom));
+}
+.login-background, #member-portal::before { position: fixed; inset: 0; pointer-events: none; }
+.login-background { z-index: -2; background: #040913; overflow: hidden; }
+.login-background img { display: block; width: 100%; height: 100%; object-fit: cover; }
+#member-portal::before { content: ""; z-index: -1; background: rgb(3 10 18 / 18%); }
+@media (min-aspect-ratio: 1/1) {
+  .login-background::before { content: ""; position: absolute; inset: -24px; background: url('/brand/xingzhun-background-still-v1.webp') center/cover; filter: blur(24px); opacity: .22; }
+  .login-background img { position: relative; width: auto; margin: auto; object-fit: contain; mask-image: linear-gradient(to right,transparent,#000 15%,#000 85%,transparent); }
+}
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .login-background::before { display: none; }
+  .login-background img { width: 100%; object-fit: cover; object-position: center top; mask-image: none; }
+}
+@media(forced-colors: active) { .brand h1 { color: CanvasText; background: none; } }

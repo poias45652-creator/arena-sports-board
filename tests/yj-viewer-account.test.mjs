@@ -18,6 +18,7 @@ function routeModule(file,extra={}){
   '@/db':asModule('export const getRawDb=()=>globalThis.viewerDb;'),
   '@/server/runtime':asModule("export const env={TZ_BINDING_KEY:'test'};"),
   '@/lib/turnstile-settings':asModule('export const readTurnstileSettings=async()=>({enabled:false});'),
+  '@/lib/platform-access':moduleUrl('lib/platform-access.ts'),
   '@/lib/arena-session':moduleUrl('lib/arena-session.ts'),
   '@/lib/yj-viewer-account':moduleUrl('lib/yj-viewer-account.ts'),
   '@/lib/request-origin':moduleUrl('lib/request-origin.ts'),
