@@ -1,7 +1,7 @@
 {
   "key": "injury-settlement",
-  "reportedAt": null,
-  "outcome": null,
-  "checked": null,
-  "issues": null
+  "reportedAt": "2026-11-09T02:14:19Z",
+  "outcome": "partial",
+  "checked": 42,
+  "issues": 4
 }
