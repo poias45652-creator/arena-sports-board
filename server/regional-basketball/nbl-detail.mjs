@@ -1,3 +1,4 @@
+import {nblPhase} from '../../public/regional-basketball/nbl-phase.mjs';
 const calendar = 'https://schedule.nbl.com.au/api/calendar/';
 const matchSite = 'https://schedule.nbl.com.au/match?league=nbl&match=';
 const uuid = /^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i;
@@ -312,7 +313,7 @@ export function parseOfficialNblDetail(payload,options={}) {
   const plays=[...new Map(events.map(e=>[e.play.id,e.play])).values()];
   const status=({complete:'final',live:'in_progress',upcoming:'scheduled'})[m.phase]||m.match_status;
   const active=['final','in_progress'].includes(status);
-  const result={id,officialId:id,league:'NBL',phase:({regular:2,preseason:1,in_season:4,finals:3})[m.season?.season_type]??null,seasonYear:numeric(m.season?.year),
+  const result={id,officialId:id,league:'NBL',phase:nblPhase(m.season?.season_type,payload.roundLabel||m.round),seasonYear:numeric(m.season?.year),
     round:payload.roundLabel||m.round||null,date:time.slice(0,10),time:time.slice(11,16),home:teamCode(m.home_team),away:teamCode(m.away_team),homeName:m.home_team.name,awayName:m.away_team.name,
     homeScore:active?numeric(m.home_score):null,awayScore:active?numeric(m.away_score):null,status,
     period:active?label(periodNumber(m.current_period)):null,clock:status==='in_progress'?gameClock(m.clock):null,

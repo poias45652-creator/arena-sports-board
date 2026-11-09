@@ -48,5 +48,5 @@ jobs:
       - name: Wait for the updated endpoint on deploy
         if: github.event_name == 'push'
         run: sleep 240
-      - name: Capture today's and tomorrow's KBL and NBL forecasts
+      - name: Capture the next three Taiwan dates of KBL and NBL forecasts
         run: node scripts/international-daily.mjs regional-basketball

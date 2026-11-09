@@ -1,3 +1,4 @@
+import {nblPhase} from '../../public/regional-basketball/nbl-phase.mjs';
 const ESPN = "https://site.api.espn.com/apis/site/v2/sports/basketball/nbl";
 const STANDINGS = "https://site.api.espn.com/apis/v2/sports/basketball/nbl/standings";
 const CALENDAR = "https://schedule.nbl.com.au/api/calendar/schedule";
@@ -62,7 +63,7 @@ async function officialGames(from,to=from){
     const p=raw.match(/\b(Q[1-4]|OT\d*)\b/),t=raw.match(/\b\d{1,2}:\d{2}\b/);
     const status=({complete:"final",live:"in_progress",upcoming:"scheduled"})[g.phase]||g.phase;
     const active=status==="final" || status==="in_progress";
-    return {id:g.id,date:day,time:offsetTime(g.starts_at_ms).slice(11,16),home:g.home.team_code,away:g.away.team_code,homeName:g.home.name,awayName:g.away.name,homeScore:active?number(g.home_score):null,awayScore:active?number(g.away_score):null,status,period:p?.[0]||null,clock:status==="in_progress"?t?.[0]||null:null,periods:[],venue:g.venue_name||null,phase:g.season_type==="regular"&&!/^\d+$/.test(String(g.round_label))?(/ignite|cup/i.test(g.round_label)?4:3):({preseason:1,regular:2,in_season:4,finals:3})[g.season_type]||null,season:year+1,url:"https://www.nbl.com.au/games/"+g.match_slug};
+    return {id:g.id,date:day,time:offsetTime(g.starts_at_ms).slice(11,16),home:g.home.team_code,away:g.away.team_code,homeName:g.home.name,awayName:g.away.name,homeScore:active?number(g.home_score):null,awayScore:active?number(g.away_score):null,status,period:p?.[0]||null,clock:status==="in_progress"?t?.[0]||null:null,periods:[],venue:g.venue_name||null,round:g.round_label,phase:nblPhase(g.season_type,g.round_label),season:year+1,url:"https://www.nbl.com.au/games/"+g.match_slug};
   }).filter(g=>g.date>=from&&g.date<=to);
   }));
   return rows.flat();
@@ -78,6 +79,7 @@ function mergeSchedule(espn,official,from,to){
     if(!g){games.set(byMatch(o),{...o,officialId:o.id,source:"NBL"});continue;}
     g.officialId=o.id;g.officialUrl=o.url;g.venue=o.venue||g.venue;
     if(o.phase!=null)g.phase=o.phase;
+    if(o.round!=null)g.round=o.round;
     // ESPN's quarter splits and scoreboard represent one snapshot. Keep them together.
     if(o.status==="final" && g.status!=="final" || o.status==="in_progress" && g.status==="scheduled"){
       Object.assign(g,{status:o.status,homeScore:o.homeScore,awayScore:o.awayScore,period:o.period,clock:o.clock,periods:[],source:"NBL"});

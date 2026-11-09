@@ -23,7 +23,7 @@ function start(g) {
     (g.date && /^\d{2}:\d{2}(:\d{2})?$/.test(g.time) ?
       g.date+'T'+g.time+(g.time.length===5?':00':'')+'+08:00' : undefined));
 }
-function fixtureKey(g) {
+export function fixtureKey(g) {
   return JSON.stringify([start(g), teamCode(g.home), teamCode(g.away)]);
 }
 function weights(values=DEFAULT_WEIGHTS) {
@@ -53,15 +53,17 @@ function verifiedStats(s,points) {
     s.threeMade<=s.fgm && s.threeMade<=s.threeAttempted && s.threeAttempted<=s.fga &&
     s.oreb<=s.fga-s.fgm+s.fta-s.ftm && 2*s.fgm+s.threeMade+s.ftm===points;
 }
-function boxFor(g,boxes) {
-  const b=boxes.get(fixtureKey(g));
-  if (!b || !Number.isInteger(b.minutes)||b.minutes<40||(b.minutes-40)%5 || b.minutes>120 ||
+export function verifiedGameBox(g,b) {
+  if (!b || fixtureKey(g)!==fixtureKey(b) || !Number.isInteger(b.minutes)||b.minutes<40||(b.minutes-40)%5 || b.minutes>120 ||
       !verifiedStats(b.homeStats,g.homeScore)||!verifiedStats(b.awayStats,g.awayScore)) return null;
   const estimate = s => s.fga+.44*s.fta-s.oreb+s.turnovers;
   const possessions=(estimate(b.homeStats)+estimate(b.awayStats))/2;
   return possessions>0 ? {...b,possessions} : null;
 }
-function boxIndex(boxes,league) {
+function boxFor(g,boxes) {
+  return verifiedGameBox(g,boxes.get(fixtureKey(g)));
+}
+export function boxIndex(boxes,league) {
   const result=new Map();
   const signature=b=>JSON.stringify([b.minutes,...fields.flatMap(k=>[b.homeStats?.[k],b.awayStats?.[k]])]);
   for(const b of boxes) {

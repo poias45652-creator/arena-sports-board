@@ -1,4 +1,4 @@
-import {analyzeGame} from '../../public/regional-basketball/model.mjs';
+import {analyzeGame, verifiedGameBox} from '../../public/regional-basketball/model.mjs';
 import {snapshot} from './archive.mjs';
 import {getKblFeed, getKblHistory, getKblBox} from './kbl.mjs';
 import {getNblFeed, getNblHistory, getNblBox} from './nbl.mjs';
@@ -15,10 +15,10 @@ const sources = {
 };
 
 // Use the same league model and verified box-score rules as the match card.
-// Fetch only the recent boxes needed by the teams on the current and next Taiwan calendar days.
+// Fetch only the recent boxes needed by the teams for the next three Taiwan calendar dates.
 export async function captureLeague(league, save, source = sources[league]) {
-  const now = Date.now(), day = dayAt(now), tomorrow = dayAt(now + dayMs);
-  const feeds = await Promise.all([source.feed(day), source.feed(tomorrow)]);
+  const now = Date.now(), day = dayAt(now);
+  const feeds = await Promise.all([0, 1, 2].map(offset => source.feed(dayAt(now + offset * dayMs))));
   const targets = feeds.flatMap(f => f.games).filter(upcoming);
   const result = {league, eligible:targets.length, written:0, missing:[]};
   if (!targets.length) return result;
@@ -36,7 +36,7 @@ export async function captureLeague(league, save, source = sources[league]) {
   for (const team of new Set(targets.flatMap(g => [g.home, g.away]))) {
     for (const g of history.filter(g => g.home === team || g.away === team).slice(0, 20)) {
       const existing = known.get(fixture(g));
-      if (existing?.homeStats?.points !== g.homeScore || existing?.awayStats?.points !== g.awayScore)
+      if (!verifiedGameBox(g, existing))
         needed.set(fixture(g), g);
     }
   }
@@ -44,7 +44,7 @@ export async function captureLeague(league, save, source = sources[league]) {
   for (let i = 0; i < pending.length; i += 5) {
     await Promise.all(pending.slice(i, i + 5).map(async g => {
       const box = await source.box(g.officialId || g.id).catch(() => null);
-      if (box && fixture(box) === fixture(g)) known.set(fixture(g), box);
+      if (verifiedGameBox(g, box)) known.set(fixture(g), box);
     }));
   }
   const boxes = [...known.values()];

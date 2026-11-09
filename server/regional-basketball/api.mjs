@@ -1,3 +1,4 @@
+import {verifiedGameBox} from '../../public/regional-basketball/model.mjs';
 import {getKblFeed,getKblDetail,getKblHistory,getKblStandings,getKblBox} from './kbl.mjs';
 import {getNblFeed,getNblHistory,getNblStandings} from './nbl.mjs';
 import {rosterBase} from './nbl-seed.mjs';
@@ -65,8 +66,11 @@ export async function api(req,readAsset=async()=>null){
   if(kind==='boxes'){
    const ids=[...new Set((p.get('ids')||'').split(','))];if(ids.length>6||!ids.every(id=>idOK(l,id)))return json({error:'無效的賽事編號'},400);
    const res=await Promise.allSettled(ids.map(id=>run('box/'+id,86400,async()=>{
-    if(isK)return getKblBox(id);const d=await getNblDetail(id,{loadSnapshot});if(d.status!=='final'||!d.minutes)return null;
-    return {id,date:d.date,time:d.time,home:d.home,away:d.away,minutes:d.minutes,homeStats:d.teamStats.home,awayStats:d.teamStats.away};
+    if(isK)return getKblBox(id);
+    const d=await getNblDetail(id,{loadSnapshot});
+    const box={id,date:d.date,time:d.time,home:d.home,away:d.away,minutes:d.minutes,homeStats:d.teamStats?.home,awayStats:d.teamStats?.away};
+    if(d.status!=='final'||!verifiedGameBox(d,box))throw Error('澳籃完賽技術統計尚未齊全');
+    return box;
    })));return json({boxes:res.flatMap(r=>r.status==='fulfilled'&&r.value?[r.value]:[])},200,180);
   }
   if(kind==='context'){
