@@ -5,16 +5,14 @@ import ts from 'typescript';
 import {visibleTrial,taipeiDay,probabilityLabel} from '../public/ui/homepage-data.js';
 import {moduleUrl} from './profile-loader.mjs';
 const {GET}=await import(moduleUrl('app/welcome/route.ts'));
-const response=GET(),html=await response.text();
-const leagues=JSON.parse(html.match(/<script id="frontLeagueConfig" type="application\/json">(.*?)<\/script>/s)[1]);
+const {BASEBALL_LEAGUES,BASKETBALL_LEAGUES}=await import(moduleUrl('lib/sport-navigation.ts'));
+const {FOOTBALL_LEAGUES}=await import(moduleUrl('lib/football.ts'));
+const leagues=[...BASEBALL_LEAGUES.map(l=>({...l,sport:'baseball'})),...BASKETBALL_LEAGUES.map(l=>({...l,sport:'basketball'})),...FOOTBALL_LEAGUES.map(l=>({...l,sport:'football'}))];
 const now=Date.parse('2026-10-27T10:00:00Z');
 const sample=()=>({status:'ready',day:taipeiDay(now),updatedAt:new Date(now).toISOString(),game:{key:'NPB:real-123',id:'real-123',sport:'baseball',league:'NPB',leagueName:'日本職棒',start:'2026-10-27T10:30:00Z',away:'客隊名稱',home:'主隊名稱'},probabilities:{home:.634,away:.366},progress:{state:'scheduled',label:'未開賽',stale:false}});
-test('homepage league list matches the current front end and excludes backend-only competitions',()=>{
- assert.equal(response.status,200);assert.match(response.headers.get('content-type'),/text\/html/);
- assert.equal(leagues.length,14);assert.deepEqual(leagues.filter(l=>l.sport==='basketball').map(l=>l.code),['NBA','WNBA','NBL','KBL']);assert.deepEqual(leagues.filter(l=>l.sport==='baseball').map(l=>l.code),['MLB','NPB']);
- for(const text of ['CPBL','KBO','中職','韓職','中信兄弟','統一獅','道奇 vs 洋基','湖人 vs 勇士','__LEAGUE_COUNT__','__FRONT_LEAGUES__'])assert.ok(!html.includes(text),text);
- assert.match(html,/14 個熱門聯盟/);assert.doesNotMatch(html,/data-entry=|entryDialog|GPT 首頁設計預覽/);
- for(const path of ['/login','/free-trial','/game-life','/ai-assistant'])assert.ok(html.includes('href="'+path+'"'));
+test('the former landing URL opens the independent brand site',()=>{
+ const response=GET();assert.equal(response.status,307);
+ assert.equal(response.headers.get('location'),'https://xingzhun-sports-home.poias45652.chatgpt.site/');
 });
 test('reported CPBL fixture and any backend-only league never enter homepage results',()=>{
  for(const [league,home,away] of [['CPBL','中信兄弟','統一獅'],['KBO','三星獅','樂天巨人']]){const value=sample();Object.assign(value.game,{league,home,away});assert.equal(visibleTrial(value,leagues,now),null);}
@@ -33,17 +31,17 @@ test('real probabilities round correctly; missing or malformed model output rema
 let gateSource=ts.transpileModule(readFileSync('server/request-gate.ts','utf8'),{compilerOptions:{module:99,target:9}}).outputText;
 gateSource=gateSource.replace(/import.*?from ['"]\.\.\/lib\/arena-session['"];?/s,"const VIEWER_COOKIE='__Host-yj_viewer';const readSession=async db=>db.session;");
 const {gateRequest}=await import('data:text/javascript;base64,'+Buffer.from(gateSource).toString('base64'));
-test('root always opens homepage; explicit analysis remains authenticated',async()=>{
+test('root opens the member selector; explicit analysis remains authenticated',async()=>{
  const req=p=>new Request('https://arena-sports-board.onrender.com'+p);
- let r=await gateRequest(req('/'),{session:null});assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/welcome$/);
+ let r=await gateRequest(req('/'),{session:null});assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/platforms$/);
  r=await gateRequest(req('/?league=NBA'),{session:null});assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/login$/);
  assert.equal((await gateRequest(req('/api/nba'),{session:null})).status,401);
- assert.match((await gateRequest(req('/'),{session:{memberId:'existing'}})).headers.get('location'),/\/welcome$/);
+ assert.match((await gateRequest(req('/'),{session:{memberId:'existing'}})).headers.get('location'),/\/platforms$/);
  assert.equal(await gateRequest(req('/?league=MLB&view=analysis'),{session:{memberId:'existing'}}),null);
  for(const session of [null,{memberId:'viewer'}]){
   const r=await gateRequest(new Request('https://arena-sports-board.onrender.com/',{headers:{cookie:'__Host-yj_viewer=test'}}),{session});
-  assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/welcome$/);
+  assert.equal(r.status,307);assert.match(r.headers.get('location'),/\/platforms$/);
  }
- assert.match((await gateRequest(new Request('https://arena-sports-board.onrender.com/',{method:'HEAD'}),{})).headers.get('location'),/\/welcome$/);
+ assert.match((await gateRequest(new Request('https://arena-sports-board.onrender.com/',{method:'HEAD'}),{})).headers.get('location'),/\/platforms$/);
  assert.equal(await gateRequest(req('/welcome'),{session:null}),null);
 });

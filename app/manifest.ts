@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: '星準',
     description: '星準體育分析，即時比分與賽前分析。',
     id: '/',
-    start_url: '/welcome',
+    start_url: '/platforms',
     scope: '/',
     display: 'browser',
     lang: 'zh-Hant-TW',

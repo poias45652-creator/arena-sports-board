@@ -6,11 +6,13 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   if((path==='/'||path==='/regional-basketball/board')&&['NBL','KBL'].includes(url.searchParams.get('league')||'')){
     loginUrl.searchParams.set('basketball',url.searchParams.toString());
   }
-  // Opening the site always starts on the brand homepage, regardless of session.
+  // The member entry opens the platform selector; the public brand has a dedicated site.
   // Explicit league/view links continue to use the authenticated match workspace.
   if ((request.method==='GET'||request.method==='HEAD')&&path==='/'&&!url.searchParams.has('league')&&!url.searchParams.has('view')) {
-    return new Response(null,{status:307,headers:{Location:new URL('/welcome',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
+    return new Response(null,{status:307,headers:{Location:new URL('/platforms',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url).href,'Cache-Control':'private, no-store'}});
   }
+  // The member gateway checks both sports sessions and baccarat-only sessions.
+  if(/^\/api\/(?:metrix\/(?:system-state|panel-access|session\/(?:start|heartbeat|permissions|logout))|mt\/(?:public-roads|connection-event)|xingzhun\/audit\/(?:batch|export|snapshot|history))$/.test(path))return null;
   // Evaluate viewer restrictions before all public/machine-route exceptions.
   // Unknown routes and every mutation are denied by default.
   if((request.headers.get('cookie')||'').split(';').some(s=>s.trim().startsWith(VIEWER_COOKIE+'='))&&path!=='/api/session'&&path!=='/login'){
