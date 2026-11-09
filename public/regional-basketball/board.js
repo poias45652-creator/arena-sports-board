@@ -1,3 +1,5 @@
+import {nblPhase} from './nbl-phase.mjs';
+import {fixtureKey,boxIndex,verifiedGameBox} from './model.mjs';
 import {syncLocation,scrollBoardTop,publishRecommendations} from './shell-bridge.js';
 import {$,e,shift,today,validDay,key,stamp,timeTW,readStore,writeStore,getJson,tabBtn,teamFor,name,empty} from './shared.js';
 import {assistantPanel} from './assistant.js';
@@ -31,7 +33,9 @@ function merge(games,extra,overwrite=true){
  for(const g of extra||[]){if(!g.date||!g.home||!g.away)continue;const prev=merged.get(key(g));if(!overwrite&&prev)continue;
   if(prev?.status==='final'&&g.status!=='final')continue;
   if(prev?.status==='in_progress'&&(['scheduled','fixture'].includes(g.status)||g.status==='in_progress'&&g.homeScore+g.awayScore<prev.homeScore+prev.awayScore))continue;
-  merged.set(key(g),{...prev,...g});}
+  const row={...prev,...g};
+  if(s.league==='NBL'&&nblPhase(null,row.round)===1)row.phase=1;
+  merged.set(key(g),row);}
  return [...merged.values()].sort((a,b)=>stamp(a)-stamp(b));
 }
 function select(){
@@ -201,12 +205,29 @@ async function history(id){
   const h=await getJson(api('history',{from:shift(end,-85),to:shift(end,10)}),21000);if(id!==token)return;
   const changed=merge(s.all,h.games,false);s.all=changed.map(g=>{const hit=h.games.find(x=>key(x)===key(g));return hit&&(!g.id||(g.status!=='final'&&hit.status==='final'))?{...g,...hit}:g;});
   s.version++;select();
-  const known=new Set(s.boxes.map(key));const pending=s.all.filter(g=>g.status==='final'&&g.phase!==1&&g.id&&!known.has(key(g))).sort((a,b)=>stamp(b)-stamp(a)).slice(0,75);
-  for(let i=0;i<pending.length&&id===token;i+=5){
-   const item=await getJson(api('boxes',{ids:pending.slice(i,i+5).map(g=>g.officialId||g.id).join(',')}),22000);if(id!==token)return;s.boxes.push(...item.boxes);s.version++;
-  }
-  if(id===token)paint();
- }catch{}
+ }catch{/* Archived fixtures can still supply the IDs for missing boxes. */}
+ if(id!==token)return;
+ const known=boxIndex(s.boxes,s.league);
+ const teams=new Set(s.games.flatMap(g=>[g.home,g.away]));
+ const relevant=g=>teams.has(g.home)||teams.has(g.away);
+ const pending=s.all.filter(g=>g.status==='final'&&g.phase!==1&&(g.officialId||g.id)&&!verifiedGameBox(g,known.get(fixtureKey(g))))
+  .sort((a,b)=>Number(relevant(b))-Number(relevant(a))||stamp(b)-stamp(a)).slice(0,75);
+ paint();
+ for(let i=0;i<pending.length&&id===token;i+=5){
+  const batch=pending.slice(i,i+5);
+  try{
+   const item=await getJson(api('boxes',{ids:batch.map(g=>g.officialId||g.id).join(',')}),22000);
+   if(id!==token)return;
+   const repaired=new Map();
+   for(const box of item.boxes||[]){
+    if(batch.some(g=>verifiedGameBox(g,box)))repaired.set(fixtureKey(box),box);
+   }
+   if(repaired.size){
+    s.boxes=[...s.boxes.filter(b=>!repaired.has(fixtureKey(b))),...repaired.values()];
+    s.version++;paint();
+   }
+  }catch{/* Other batches may still be available. */}
+ }
 }
 async function context(id){
  if(Date.now()-contextTime<90000)return;contextTime=Date.now();try{
@@ -300,5 +321,5 @@ document.addEventListener('change',ev=>{const t=ev.target;if(t.id==='pick-day'){
 modal.addEventListener('click',ev=>{if(ev.target===modal)modal.close();});
 window.addEventListener('popstate',()=>{if(modal.open)modal.close();adoptRoute();loadLeague();});
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
-setInterval(()=>{if(!document.hidden&&s.fallback&&s.date===today()&&!modal.open&&['overview','live','analysis'].includes(s.view))refresh();},30000);
+setInterval(()=>{if(!document.hidden&&s.fallback&&(s.date===today()||s.view==='analysis'&&s.date>today())&&!modal.open&&['overview','live','analysis'].includes(s.view))refresh();},30000);
 try{s.catalog=await getJson('/api/regional-basketball/data/leagues.json');adoptRoute();await loadLeague();}catch(error){$('content').innerHTML=empty('聯盟資料暫時無法載入，請重新整理。');}
