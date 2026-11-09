@@ -19,8 +19,7 @@ export async function POST(request:Request){
       }
       return new Response(null,{status:303,headers:{...headers,Location:'/?league=MLB&view=analysis'}});
     }
-    const grant=user.canCheckTable?await tableAccess(user.username,platform):null;
-    if(!grant?.allowed)return new Response('尚未取得百家樂權限',{status:403,headers});
-    return new Response(`<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>進入百家樂</title><form method="post" action="https://xingzhun-original-test.onrender.com/member/enter"><input type="hidden" name="ticket" value="${grant.ticket}"><button>進入百家樂</button></form><script>document.forms[0].submit()</script></html>`,{headers});
+    if(!user.canCheckTable||!(await tableAccess(user.username)).allowed)return new Response('尚未取得百家樂權限',{status:403,headers});
+    return new Response(null,{status:303,headers:{...headers,Location:'/baccarat?platform='+platform}});
   }catch{return new Response('目前無法確認使用權限，請稍後重試。',{status:503,headers});}
 }

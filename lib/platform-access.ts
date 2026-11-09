@@ -34,9 +34,9 @@ export async function forgetPortal(db:Database,cookie:string|null){
 }
 export async function platformIdentity(db:Database,cookie:string|null){
   const sport=await readSession(db,cookie);
-  if(sport)return {username:String(sport.username),sports:true,canCheckTable:sport.memberId.startsWith('tz:')&&sport.accessMode!=='view_only'};
+  if(sport)return {memberId:sport.memberId,username:String(sport.username),sports:true,canCheckTable:sport.memberId.startsWith('tz:')&&sport.accessMode!=='view_only'};
   const v=portalToken(cookie);if(!v)return null;
   const now=Date.now();
-  const row=await db.prepare('SELECT b.username FROM xz_portal_sessions s JOIN tz_bindings b ON b.member_id=s.member_id WHERE s.token_hash=? AND s.expires_at>? AND b.expires_at>?').bind(await hash(v),now,now).first();
-  return row?{username:String(row.username),sports:false,canCheckTable:true}:null;
+  const row=await db.prepare('SELECT b.member_id,b.username FROM xz_portal_sessions s JOIN tz_bindings b ON b.member_id=s.member_id WHERE s.token_hash=? AND s.expires_at>? AND b.expires_at>?').bind(await hash(v),now,now).first();
+  return row?{memberId:String(row.member_id),username:String(row.username),sports:false,canCheckTable:true}:null;
 }
