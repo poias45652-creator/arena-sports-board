@@ -6,11 +6,48 @@
   selector.addEventListener('change',target);
   target();
   function updateStatus() {
-    byId('connection-status').textContent = navigator.onLine ? '系統連線正常' : '目前離線';
+    byId('connection-status').textContent = navigator.onLine ? '裝置已連網' : '目前離線';
   }
   window.addEventListener('online', updateStatus);
   window.addEventListener('offline', updateStatus);
   updateStatus();
+
+  const notice=byId('table-status');
+  if (notice) {
+    const retryLink=notice.querySelector('a');
+    async function recheck() {
+      notice.replaceChildren('正在確認百家樂權限…');
+      try {
+        const response=await fetch('/platforms?check=baccarat',{cache:'no-store'});
+        if(response.status===401){location.replace('/login?portal=1');return;}
+        if(!response.ok)throw Error();
+        const {allowed}=await response.json();
+        if(typeof allowed!=='boolean')throw Error();
+        const selected=selector.value;
+        for(const option of selector.options){
+          if(option.value==='SPORTS')continue;
+          option.disabled=!allowed;
+          option.textContent=option.dataset.label+(allowed?'':'（未開通）');
+        }
+        const preferred=new URLSearchParams(location.search).get('platform');
+        const available=Array.from(selector.options).filter(option=>!option.disabled);
+        const choice=available.find(option=>option.value===selected)||
+          available.find(option=>option.value===preferred)||available[0];
+        if(choice)selector.value=choice.value;
+        form.querySelector('button[type="submit"]').disabled=!choice;
+        target();
+        if(allowed)notice.remove();
+        else notice.textContent='此帳號尚未開通百家樂。';
+      } catch {
+        for(const option of selector.options){
+          if(option.value!=='SPORTS')option.textContent=option.dataset.label+'（無法確認）';
+        }
+        notice.replaceChildren('百家樂授權服務暫時未回應。',retryLink);
+      }
+    }
+    retryLink.addEventListener('click',event=>{event.preventDefault();void recheck();});
+    void recheck();
+  }
 
   function drawStarChart() {
     const ctx = byId('star-chart').getContext('2d');

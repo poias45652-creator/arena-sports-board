@@ -79,6 +79,21 @@ export async function migrate(pool = getPool()) {
     if(yj&&viewerHash&&/^scrypt:[a-f0-9]{32}:[a-f0-9]{128}$/.test(viewerHash)){
       await client.query("UPDATE yj_viewer_accounts SET password_hash=$1 WHERE member_id='yj-viewer:aa3344' AND password_hash='' AND updated_at=0",[viewerHash]);
     }
+    if (yj) {
+      await client.query('CREATE TABLE IF NOT EXISTS applied_data_migrations (name text PRIMARY KEY)');
+      const migration = await client.query("INSERT INTO applied_data_migrations(name) VALUES ('ofa-dual-access-20261110') ON CONFLICT DO NOTHING RETURNING name");
+      if (migration.rows.length) {
+        const granted = await client.query(`
+          INSERT INTO account_access(member_id, enabled, expires_at, updated_at)
+          SELECT member_id, 1, NULL, $2 FROM tz_bindings
+          WHERE member_id LIKE 'ofa:%' AND lower(username) = ANY($1::text[])
+          ON CONFLICT(member_id) DO UPDATE SET enabled=1,
+            expires_at=CASE WHEN account_access.expires_at > $2 THEN account_access.expires_at END,
+            updated_at=$2
+          RETURNING member_id`, [['dvp038','dvp03068','tzt05'],Date.now()]);
+        console.info('[platform-access] Sports grants for verified OFA bindings:',granted.rows.length);
+      }
+    }
     await client.query('COMMIT');
   } catch (error) { await client.query('ROLLBACK'); throw error; }
   finally { client.release(); }
