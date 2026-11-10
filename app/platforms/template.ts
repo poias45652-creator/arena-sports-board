@@ -8,7 +8,7 @@ export const pickerHtml = `<!doctype html>
   <link rel="icon" href="/brand/xingzhun-icon-192-v1.png">
   <link rel="stylesheet" href="/member-platforms/background.css">
   <link rel="stylesheet" href="/member-platforms/platform-picker.css">
-  <script defer src="/member-platforms/picker.js"></script>
+  <script defer src="/member-platforms/picker.js?v=20261110"></script>
 </head>
 <body>
   <main id="member-portal">
@@ -24,7 +24,7 @@ export const pickerHtml = `<!doctype html>
           <canvas id="star-chart" width="1120" height="1288"></canvas>
           <i class="xz-sky-sweep"></i>
         </div>
-        <div class="v103-status"><i aria-hidden="true"></i><span id="connection-status">系統連線正常</span></div>
+        <div class="v103-status"><i aria-hidden="true"></i><span id="connection-status">裝置已連網</span></div>
         <div class="xz-welcome-brand">
           <div class="xz-welcome-dial" aria-hidden="true">
             <i class="xz-dial-ticks"></i><i class="xz-dial-scan"></i><i class="xz-dial-orbit"></i>
@@ -35,7 +35,7 @@ export const pickerHtml = `<!doctype html>
         </div>
         <form class="v103-welcome-body" method="post" action="/platforms/launch" id="launch">
           <div class="metrix-platform-picker"><select name="platform" id="xz-platform" aria-label="選擇平台">PLATFORM_OPTIONS</select></div>
-          <button type="submit" class="v103-submit">進入系統 <b aria-hidden="true">→</b></button>
+          <button type="submit" class="v103-submit" SUBMIT_STATE>進入系統 <b aria-hidden="true">→</b></button>
           ACCESS_STATUS
         </form>
         <form method="post" action="/platforms/logout"><button class="gate-logout" type="submit">登出</button></form>

@@ -21,6 +21,7 @@ const db={prepare(q){const s=sql.prepare(q);let a=[];return {bind(...v){a=v;retu
 globalThis.renderTurnstileDb=db;
 globalThis.renderTurnstileAdmin=false;
 const imports={
+ "'@/lib/platform-access'":moduleUrl('lib/platform-access.ts'),
  "'@/lib/arena-session'":moduleUrl('lib/arena-session.ts'),
  "'@/lib/yj-viewer-account'":moduleUrl('lib/yj-viewer-account.ts'),
  "'@/lib/request-origin'":url(code('lib/request-origin.ts')),
