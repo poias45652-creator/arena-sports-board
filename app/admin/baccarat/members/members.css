@@ -72,3 +72,11 @@
   .member-search input {flex:1 1 190px;}
   .member-table td,.member-table th {padding:8px 4px;}
 }
+.member-sidebar {align-self:start;position:sticky;top:0;max-height:100dvh;overflow-y:auto;}
+.baccarat-admin-panel {display:block;width:100%;height:calc(100dvh - 110px);min-height:420px;border:0;}
+@media(max-width:760px){
+  .member-sidebar {position:static;max-height:none;}
+  .member-sidebar nav {display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));white-space:normal;}
+  .member-sidebar nav a {padding:5px 6px;}
+  .baccarat-admin-panel {height:72dvh;}
+}

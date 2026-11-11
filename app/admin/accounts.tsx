@@ -39,7 +39,11 @@ export function DirectApproval({onSaved,selectedUsername}:{onSaved:(username:str
 }
 export function AccountRow({account,onSaved,statusAvailable}:{account:Account;onSaved:(message:string)=>void;statusAvailable:boolean}){
  const [enabled,setEnabled]=useState(account.enabled===1),[until,setUntil]=useState(date(account.expiresAt)),[note,setNote]=useState(account.note||''),[busy,setBusy]=useState(false),[message,setMessage]=useState('');
- useEffect(()=>setNote(account.note||''),[account.note]);
+ const lastSavedNote=useRef(account.note||'');
+ useEffect(()=>{
+  const previous=lastSavedNote.current,next=account.note||'';
+  if(previous!==next){lastSavedNote.current=next;setNote(draft=>draft===previous?next:draft);}
+ },[account.note]);
  const [confirmDelete,setConfirmDelete]=useState(false);
  const expiryField=useRef<HTMLInputElement>(null);
  const pending=account.accessState==='pending',admin=account.isAdmin===1;
