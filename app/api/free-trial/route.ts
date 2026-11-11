@@ -1,3 +1,4 @@
+import {savedTrialHistory} from '@/lib/free-trial-history';
 import {domesticLeague} from '@/lib/football-five-league';
 import {trialDay,onTrialDay,dailyTrialPick,trialProbabilities,trialScorePredictions,trialResult,retainTrialProgress,type TrialProgress,type TrialData,type TrialFixture} from '@/lib/free-trial';
 import {GET as baseballSource} from '../baseball/route';
@@ -168,9 +169,47 @@ async function build(day:string):Promise<TrialData>{
  data.result=trialResult(data);
  return data;
 }
-export async function GET(){
+
+let historyCache:{until:number;history:TrialData[]}|undefined;
+let historyPending:Promise<TrialData[]>|undefined;
+async function buildHistory():Promise<TrialData[]>{
+ const db=getRawDb();
+ const rows=await db.prepare('SELECT day,fixture_key,fixture,forecast,progress FROM free_trial_daily ORDER BY day DESC LIMIT 1000').all<Saved&{day:string}>();
+ const history=savedTrialHistory(rows.results);
+ // Use saved forecasts only. Score refreshes never select or analyze another game.
+ await Promise.allSettled(history.map(async data=>{
+  const game=data.game!;
+  if(data.progress?.state==='final'||Date.parse(game.start)>Date.now())return;
+  let next:TrialProgress|undefined;
+  if(game.league==='MLB')next=await mlbProgress(game,data.day);
+  else{
+   const pool=await candidates(data.day,game.league);
+   next=pool.games.find(g=>g.key===game.key&&g.home===game.home&&g.away===game.away&&Date.parse(g.start)===Date.parse(game.start))?.progress;
+  }
+  if(!next)return;
+  const current=retainTrialProgress(data.progress,next);
+  if(!current||current.stale)return;
+  const rank=current.state==='final'?2:current.state==='live'||current.state==='suspended'?1:0;
+  await db.prepare('UPDATE free_trial_daily SET progress=?,progress_at=?,progress_rank=? WHERE day=? AND fixture_key=? AND progress_at<=? AND progress_rank<=?').bind(JSON.stringify(current),Date.parse(current.observedAt),rank,data.day,game.key,Date.parse(current.observedAt),rank).run();
+ }));
+ // Read the winning writes, including simultaneous daily/live updates.
+ const latest=await db.prepare('SELECT day,fixture_key,fixture,forecast,progress FROM free_trial_daily ORDER BY day DESC LIMIT 1000').all<Saved&{day:string}>();
+ return savedTrialHistory(latest.results);
+}
+async function historyResponse(){
+ try{
+  if(historyCache&&historyCache.until>Date.now())return Response.json({status:'ready',history:historyCache.history,updatedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});
+  if(!historyPending){const task=buildHistory();historyPending=task;task.finally(()=>{if(historyPending===task)historyPending=undefined;}).catch(()=>{});}
+  const history=await historyPending;historyCache={until:Date.now()+60000,history};
+  return Response.json({status:'ready',history,updatedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});
+ }catch{return Response.json({status:'unavailable',history:historyCache?.history||[],updatedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});}
+}
+
+export async function GET(request:Request){
+ if(request&&new URL(request.url).searchParams.get('history')==='1')return historyResponse();
  const day=trialDay();
  if(cached?.day===day&&cached.until>Date.now())return Response.json(cached.data,{headers:{'Cache-Control':'no-store'}});
  if(!pending||pending.day!==day){const task=build(day);pending={day,task};task.finally(()=>{if(pending?.task===task)pending=undefined;}).catch(()=>{});}
  try{const data=await pending.task;cached={day,until:Date.now()+60000,data};return Response.json(data,{headers:{'Cache-Control':'no-store'}});}catch{return Response.json({day,status:'unavailable',updatedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});}
 }
+
