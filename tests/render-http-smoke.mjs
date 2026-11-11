@@ -40,7 +40,9 @@ await request('/api/session',400,{method:'POST',headers:{origin,'content-type':'
 const accounts=await request('/api/admin/accounts',200,{headers:{cookie}});
 assert.equal((await accounts.json()).accounts.find(x=>x.memberId==='tz:2').accessState,'pending');
 const headers={cookie,origin,'content-type':'application/json'};
-const adminPage=await request('/admin/accounts',200,{headers:{cookie}});assert.match(await adminPage.text(),/直接開通帳號/);
+const legacy=await request('/admin/accounts',307,{headers:{cookie}});
+assert.equal(new URL(legacy.headers.get('location'),origin).pathname,'/admin/baccarat/members');
+const adminPage=await request('/admin/baccarat/members',200,{headers:{cookie}});assert.match(await adminPage.text(),/查詢／開通帳號/);
 await request('/api/admin/accounts',200,{method:'PATCH',headers,body:JSON.stringify({memberId:'tz:2',note:'HTTP 備註測試'})});
 const noted=(await (await request('/api/admin/accounts',200,{headers:{cookie}})).json()).accounts.find(x=>x.memberId==='tz:2');assert.equal(noted.note,'HTTP 備註測試');assert.equal(noted.accessState,'pending');
 await request('/api/admin/accounts',403,{method:'PATCH',headers:{...headers,origin:'https://attacker.test'},body:JSON.stringify({memberId:'tz:2',enabled:true,expiresAt:null})});
@@ -65,7 +67,7 @@ assert.equal((await ofaLogin.json()).source, 'ofa');
 const ofaCookie = ofaLogin.headers.getSetCookie().find(value => value.startsWith('__Host-arena_tz='))?.split(';')[0];
 assert.ok(ofaCookie);
 const ofa = {headers: {cookie: ofaCookie}};
-for (const path of ['/admin/accounts', '/admin?view=system']) {
+for (const path of ['/admin/baccarat/members', '/admin?view=system']) {
   const html = await (await request(path, 200, ofa)).text();
   const link = [...html.matchAll(/<a\b([^>]*)>([\s\S]*?)<\/a>/g)]
     .find(([, , contents]) => contents.replace(/<[^>]+>/g, '') === '返回賽事');

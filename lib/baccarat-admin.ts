@@ -41,5 +41,5 @@ export function sportsAdminDocument(document:string) {
     .replaceAll('<strong>星準管理後台</strong>','<strong>星準體育後台</strong>')
     .replaceAll('牌靴 METRIX','星準百家樂')
     .replaceAll('METRIX ADMIN','星準體育管理後台')
-    .replace('<nav class="nav">','<nav class="nav"><a class="nav-item" href="/admin">返回體育後台</a><a class="nav-item" href="/admin/accounts">體育帳號管理</a>');
+    .replace('<nav class="nav">','<nav class="nav"><a class="nav-item" href="/admin">返回體育後台</a>');
 }
