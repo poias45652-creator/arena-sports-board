@@ -54,6 +54,11 @@ for (const [league, home, away] of [['NBL','MEL','BRI'], ['KBL','DB','SAM']]) {
     assert.match(html,/存檔盤口/);
     const noTz=analysis({...state,tzMarkets:[]});
     assert.doesNotMatch(noTz,/sport-market-option|PandaBet|PinnacleSports/);
+    assert.match(noTz,/近期攻防分析/);
+    assert.match(noTz,/進攻效率（每百回合）/);
+    assert.match(noTz,/三分命中率/);
+    assert.doesNotMatch(noTz,/盤口待確認/);
+    assert.match(noTz, /沒有已核實的賽前盤口存檔/);
     assert.doesNotMatch(html,/模型依據|對手平均淨分|技術統計場數|盤口來源|來源 ↗/);
     for(const card of [html,noTz]){
       assert.doesNotMatch(card,/TZ|來源|傷停與出賽狀態|尚無已核實的傷停名單|缺陣與替補調整|確認缺陣|查看本場比分與球員數據|data-open-game/);
