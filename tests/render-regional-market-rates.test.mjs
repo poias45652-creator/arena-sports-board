@@ -54,6 +54,11 @@ for (const [league, home, away] of [['NBL','MEL','BRI'], ['KBL','DB','SAM']]) {
     assert.match(html,/存檔盤口/);
     const noTz=analysis({...state,tzMarkets:[]});
     assert.doesNotMatch(noTz,/sport-market-option|PandaBet|PinnacleSports/);
+    assert.match(noTz,/近期攻防分析/);
+    assert.match(noTz,/進攻效率（每百回合）/);
+    assert.match(noTz,/三分命中率/);
+    assert.doesNotMatch(noTz,/盤口待確認/);
+    assert.match(noTz, /沒有已核實的賽前盤口存檔/);
     assert.doesNotMatch(html,/模型依據|對手平均淨分|技術統計場數|盤口來源|來源 ↗/);
     for(const card of [html,noTz]){
       assert.doesNotMatch(card,/TZ|來源|傷停與出賽狀態|尚無已核實的傷停名單|缺陣與替補調整|確認缺陣|查看本場比分與球員數據|data-open-game/);
@@ -106,4 +111,22 @@ test('closed, stale, unconfirmed, crossed and non-TZ quotes never replace the pr
   assert.equal(pick([{...m,checkedAt:m.startsAt}]),null);
   for(const label of ['澳洲女子國家籃球聯賽','韓國女子籃球聯賽'])assert.deepEqual(regionalTzMarkets(capture(label,'16:30','MEL','BRI')),[]);
   assert.deepEqual(regionalTzMarkets(capture('KBL','16:30','MEL','BRI')),[]);
+});
+
+// Production pairing audit: 2026-11-11, event 25188782. Quote values below are synthetic.
+test('reported Phoenix vs 伊拉瓦拉籃球 resolves the source alias and renders priced markets',t=>{
+  t.mock.method(Date,'now',()=>Date.parse('2026-11-11T07:53:46.133Z'));
+  const snap=capture('NBL','16:30','東南墨爾本鳳凰','伊拉瓦拉籃球');
+  snap.fetchedAt=new Date(Date.now()).toISOString();
+  snap.sportGames[0].start='2026/11/11 16:30:00';
+  const [m]=regionalTzMarkets(snap);
+  assert.ok(m);assert.equal(m.home,'SEM');assert.equal(m.away,'ILL');
+  assert.equal(m.quotes.length,3);
+  const g={date:'2026-11-11',time:'16:30',home:'SEM',away:'ILL',status:'scheduled'};
+  const s={league:'NBL',info:catalog.NBL,tzMarkets:[m]};
+  assert.equal(marketFor(s,g),m);
+  const html=marketCards(s,g,{ready:false},m,m.quotes);
+  assert.equal((html.match(/class="sport-market-option"/g)||[]).length,6);
+  assert.doesNotMatch(html,/暫無可配對/);
+  assert.deepEqual(regionalTzMarkets({...snap,sportGames:[{...snap.sportGames[0],league:'KBL'}]}),[]);
 });

@@ -5,7 +5,7 @@ export const regionalTeams:Record<RegionalLeague,Record<string,string[]>>={
   ADL:['阿德雷德36人','阿德萊德36人','阿得雷德36人','Adelaide 36ers'],
   BRI:['布里斯本子彈','布里斯班子彈','Brisbane Bullets'],
   CNS:['凱恩斯太攀蛇','開恩茲太攀蛇','肯因茲太攀蛇','Cairns Taipans'],
-  ILL:['伊拉瓦拉老鷹','伊拉瓦拉鷹','伊拉瓦拉飛鷹','Illawarra Hawks'],
+  ILL:['伊拉瓦拉籃球','伊拉瓦拉老鷹','伊拉瓦拉鷹','伊拉瓦拉飛鷹','Illawarra Hawks'],
   MEL:['墨爾本聯隊','墨爾本聯','墨爾本聯合','Melbourne United'],
   NZL:['紐西蘭破壞者','新西蘭破壞者','New Zealand Breakers'],
   PER:['伯斯野貓','珀斯野貓','柏斯野貓','Perth Wildcats'],
