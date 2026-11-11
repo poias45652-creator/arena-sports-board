@@ -42,6 +42,19 @@ assert.equal((await accounts.json()).accounts.find(x=>x.memberId==='tz:2').acces
 const headers={cookie,origin,'content-type':'application/json'};
 const legacy=await request('/admin/accounts',307,{headers:{cookie}});
 assert.equal(new URL(legacy.headers.get('location'),origin).pathname,'/admin/baccarat/members');
+for(const section of ['members','dashboard','users','permissions','settings','logs']){
+ const target='/admin/baccarat/'+section;
+ const via=await request('/baccarat/admin?section='+section+'&native=1',303,{headers:{cookie}});
+ assert.equal(via.headers.get('location'),target);
+ const html=await (await request(target,200,{headers:{cookie}})).text();
+ for(const shared of ['/admin/baccarat/members','/admin/baccarat/users','/admin/leagues','/admin/regional-basketball','/admin/schedules'])assert.ok(html.includes('href="'+shared+'"'),section+' missing '+shared);
+ if(section!=='members')assert.ok(html.includes('範例管理內容')&&html.includes('/api/admin/baccarat/dashboard-data'),target);
+}
+const guestEntry=await request('/baccarat/admin?section=logs',303);
+assert.equal(new URL(guestEntry.headers.get('location'),origin).searchParams.get('admin'),'/admin/baccarat/logs');
+const nativeEntry=await request('/baccarat/admin?section=users&native=1',303);
+assert.equal(nativeEntry.headers.get('location'),'https://xingzhun-original-test.onrender.com/admin/users?local=1');
+await request('/baccarat/admin?section=unknown',404);
 const adminPage=await request('/admin/baccarat/members',200,{headers:{cookie}});assert.match(await adminPage.text(),/查詢／開通帳號/);
 await request('/api/admin/accounts',200,{method:'PATCH',headers,body:JSON.stringify({memberId:'tz:2',note:'HTTP 備註測試'})});
 const noted=(await (await request('/api/admin/accounts',200,{headers:{cookie}})).json()).accounts.find(x=>x.memberId==='tz:2');assert.equal(noted.note,'HTTP 備註測試');assert.equal(noted.accessState,'pending');

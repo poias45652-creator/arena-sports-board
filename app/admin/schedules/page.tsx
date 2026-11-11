@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import {redirect} from 'next/navigation';
 import {adminIdentity} from '../../admin-access';
 import {projectScheduleReport,scheduleProjectUrl} from '@/lib/project-schedules';
@@ -16,7 +17,7 @@ export default async function ProjectSchedules(){
  const {tasks,workflows,synced}=await projectScheduleReport();
  const background=baseballBackgroundStatus();
  return <main className="arena-shell min-h-screen px-5 py-8 text-slate-100"><div className="mx-auto max-w-6xl space-y-6">
-  <nav className="flex flex-wrap gap-3"><a className="header-action" href="/admin?view=system">返回系統管理</a><a className="header-action" href={scheduleProjectUrl} target="_blank" rel="noreferrer">開啟排程專案與完整報告</a></nav>
+  <nav className="flex flex-wrap gap-3"><Link prefetch={false} className="header-action" href="/admin?view=system">返回系統管理</Link><a className="header-action" href={scheduleProjectUrl} target="_blank" rel="noreferrer">開啟排程專案與完整報告</a></nav>
   <header><h1 className="text-2xl font-bold">星準排程管理</h1><p className="mt-2 text-slate-300">專案登記 {tasks.length} 項。時間以台灣時間顯示，個別排程另列時區。</p></header>
   <section className="panel p-5"><h2 className="text-lg font-bold">專案任務</h2>
    <p className="my-2 text-sm text-slate-300">{synced?'設定核對時間':'設定來源暫時無法讀取，顯示部署時的登記資料'}　{time(tasks.map(t=>t.asOf).sort()[0])}</p>

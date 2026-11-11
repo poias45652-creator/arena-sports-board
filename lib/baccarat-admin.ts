@@ -1,11 +1,6 @@
 import {createHmac} from 'node:crypto';
 
 const service='https://xingzhun-original-test.onrender.com';
-export const baccaratSections={
-  members:'會員授權',dashboard:'百家樂主控台',users:'會員與代理分組',
-  permissions:'會員模組權限',settings:'系統與功能總開關',logs:'操作紀錄',
-} as const;
-
 const endpoints:Record<string,RegExp>={
   GET:/^(?:platform-members|dashboard-data|users|permissions|settings|logs|agents)$/,
   POST:/^(?:platform-members\/(?:sports|baccarat)|users|agents|settings|users\/\d+\/(?:status|extend|permissions))$/,
@@ -26,20 +21,14 @@ export async function baccaratAdminRequest(actor:string,method:string,path:strin
       'Content-Type':'application/json','Origin':service},...(body?{body}:{})});
 }
 
-// The six server-rendered views use shared templates. Mount their navigation and
-// AJAX calls under the sports admin, keeping the sports session on this origin.
-export function sportsAdminDocument(document:string) {
-  return document
-    .replaceAll('https://arena-sports-board.onrender.com/admin?view=system','/admin')
-    .replaceAll('href="/admin/', 'href="/admin/baccarat/')
+// Upstream scripts bind to their logout element on initialization. Hide its
+// entire original sidebar so only the parent workspace handles navigation.
+export function baccaratPanelDocument(document:string) {
+  const panelStyle='<style>html,body{display:block;min-height:0;padding:0;background:#070f14}.admin-app{display:block;width:100%;min-height:0;border:0;border-radius:0;box-shadow:none}.admin-app>.sidebar{display:none}.admin-app>.content{padding:0}</style>';
+  return document.replace('</head>',panelStyle+'</head>')
     .replaceAll('/api/admin/logout','/platforms/logout')
-    .replaceAll('/api/admin/', '/api/admin/baccarat/')
-    .replaceAll("location.replace('/admin')","location.replace('/login?admin=1')")
-    .replaceAll("location.assign('/admin')","location.assign('/login?admin=1')")
-    .replaceAll('<div class="mark">M</div>','<div class="mark">星</div>')
-    .replaceAll('<strong>牌靴 METRIX</strong><small>ADMIN CONTROL CENTER</small>','<strong>星準體育後台</strong><small>百家樂管理</small>')
-    .replaceAll('<strong>星準管理後台</strong>','<strong>星準體育後台</strong>')
+    .replaceAll('/api/admin/','/api/admin/baccarat/')
+    .replaceAll('href="/admin/','target="_parent" href="/admin/baccarat/')
     .replaceAll('牌靴 METRIX','星準百家樂')
-    .replaceAll('METRIX ADMIN','星準體育管理後台')
-    .replace('<nav class="nav">','<nav class="nav"><a class="nav-item" href="/admin">返回體育後台</a>');
+    .replaceAll('METRIX ADMIN','星準管理後台');
 }
