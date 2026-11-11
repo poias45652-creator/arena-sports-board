@@ -8,6 +8,11 @@ async function launch(){
   if(!response.ok)throw Error(data.message||'目前無法連線，請稍後再試。');
   const url=new URL(data.gameUrl);
   if(url.protocol!=='https:'||!['gsa.ofalive99.net','gs1.ofalive99.net'].includes(url.hostname)||url.username||url.password||url.port)throw Error('遊戲入口無效，請稍後重試。');
+  const requestedRoom = new URLSearchParams(window.location.search).get('room');
+      if (requestedRoom && /^BAV(?:0[1235](?:_LIVE)?|03A(?:_LIVE)?|0[6789]|10)$/.test(requestedRoom)) {
+        url.searchParams.set('game', requestedRoom);
+      }
+  if(new URLSearchParams(location.search).get('view')==='game') { location.replace(url.href); return; }
   frame.src=url.href;open.href=url.href;open.hidden=false;player.hidden=false;status.textContent='已取得遊戲授權。若畫面顯示登入到期，請按「重新連接」。';
   player.scrollIntoView({block:'start'});
  }catch(error){status.textContent=error.name==='TimeoutError'?'連線逾時，請稍後重新連接。':error.message;}
