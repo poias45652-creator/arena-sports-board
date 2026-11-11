@@ -1,5 +1,7 @@
 import {getRawDb} from '@/db';
 import {platformIdentity,tableAccess} from '@/lib/platform-access';
+import {isSiteAdmin} from '@/app/admin-access';
+import {adminHome} from '@/lib/admin-navigation';
 import {pickerHtml} from './template';
 export const dynamic='force-dynamic';
 const headers={'Cache-Control':'private, no-store',Vary:'Cookie','Content-Type':'text/html; charset=utf-8'};
@@ -24,6 +26,7 @@ export async function GET(request:Request) {
     const selected=choices.find(([id,,allowed])=>allowed&&id===preferred)?.[0]||choices.find(c=>c[2])?.[0];
     const options=choices.map(([id,label,allowed])=>`<option value="${id}" data-label="${label}"${id===selected?' selected':''}${allowed?'':' disabled'}>${label}${allowed?'':unavailable&&id!=='SPORTS'?'（確認中）':'（未開通）'}</option>`).join('');
     const status=unavailable?'<p id="table-status" role="status">正在確認百家樂權限… <a href="/platforms">重新確認</a></p>':'';
-    return new Response(pickerHtml.replace('PLATFORM_OPTIONS',options).replace('SUBMIT_STATE',selected?'':'disabled').replace('ACCESS_STATUS',status),{headers});
+    const adminLink=user.sports&&await isSiteAdmin()?`<a class="portal-admin-home" href="${adminHome}">管理後台</a>`:'';
+    return new Response(pickerHtml.replace('ADMIN_HOME_LINK',adminLink).replace('PLATFORM_OPTIONS',options).replace('SUBMIT_STATE',selected?'':'disabled').replace('ACCESS_STATUS',status),{headers});
   }catch{return new Response('登入狀態暫時無法驗證，請稍後再試。',{status:503,headers});}
 }

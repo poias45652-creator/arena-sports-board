@@ -2,13 +2,13 @@
 import {Activity,type ReactNode} from 'react';
 import Link from 'next/link';
 import {usePathname} from 'next/navigation';
-import {adminLinks} from '@/lib/admin-navigation';
+import {adminLinks,adminHome} from '@/lib/admin-navigation';
 import ViewerAccount from './viewer-account';
 import MemberConsole from './baccarat/members/console';
 
 export default function AdminWorkspace({children,viewer}:{children:ReactNode;viewer:boolean}) {
   const path=usePathname();
-  const members=path==='/admin/baccarat/members';
+  const members=path===adminHome;
   return <div className="membership">
     <div className="member-shell">
       <aside className="member-sidebar">

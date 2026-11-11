@@ -8,11 +8,11 @@ let output='';child.stdout.on('data',b=>output+=b);child.stderr.on('data',b=>out
 try{
  let ready=false;for(let i=0;i<80;i++){if(child.exitCode!==null)throw Error(output);try{if((await fetch(origin+'/api/health')).ok){ready=true;break;}}catch{}await delay(250);}
  assert.ok(ready,'server ready');
- for(const [path,auth,expected] of [['/api/football',false,401],['/api/football?kind=validation',false,401],['/api/football?kind=validation',true,400],['/api/admin/football-validation',false,401],['/api/admin/football-validation',true,200],['/admin',true,200],['/api/football?league=invalid',true,400],['/api/football?date=2026-02-30',true,400],['/api/football?kind=analysis&game=abc',true,400],['/?league=FOOTBALL',true,200]]){
+ for(const [path,auth,expected] of [['/api/football',false,401],['/api/football?kind=validation',false,401],['/api/football?kind=validation',true,400],['/api/admin/football-validation',false,401],['/api/admin/football-validation',true,200],['/admin/system',true,200],['/api/football?league=invalid',true,400],['/api/football?date=2026-02-30',true,400],['/api/football?kind=analysis&game=abc',true,400],['/?league=FOOTBALL',true,200]]){
   const r=await fetch(origin+path,{headers:auth?{cookie}:{}});assert.equal(r.status,expected,path);
   if(path==='/api/admin/football-validation'&&auth){const d=await r.json();assert.equal(d.validation.historyGames,11033);assert.equal(d.externalValidation.historyGames,23810);assert.equal(d.marketValidation.leagues['ger.1'].enabled,true);assert.equal(d.marketValidation.leagues['ita.1'].enabled,true);assert.equal(d.live.available,true);assert.equal(Number(d.live.counts.snapshots),0);}
   if(path.startsWith('/?')){const html=await r.text();assert.match(html,/足球/);assert.doesNotMatch(html,/第二輪比分模型驗收|外部資料補強與模型驗收|原版本回測與上線後驗證|分析方式與資料範圍/);}
-  if(path==='/admin'){const html=await r.text();assert.match(html,/足球模型與回測管理/);assert.match(html,/外部資料補強與模型驗收/);assert.match(html,/德甲、義甲：第二輪比分模型驗收/);assert.match(html,/原版本回測與上線後驗證/);assert.match(html,/分析方式與資料範圍/);assert.match(html,/查看聯賽/);assert.match(html,/賽事近況與資料診斷/);}
+  if(path==='/admin/system'){const html=await r.text();assert.match(html,/足球模型與回測管理/);assert.match(html,/外部資料補強與模型驗收/);assert.match(html,/德甲、義甲：第二輪比分模型驗收/);assert.match(html,/原版本回測與上線後驗證/);assert.match(html,/分析方式與資料範圍/);assert.match(html,/查看聯賽/);assert.match(html,/賽事近況與資料診斷/);}
  }
  const memberHeaders={cookie:'__Host-arena_tz='+'e'.repeat(64)};
  for(const [path,expected]of [['/api/football-team?league=invalid&team=579',400],['/api/football-team?league=uefa.nations&team=abc',400],['/teams/football/uefa.nations/579?date=2026-09-29',200],['/teams/football/invalid/579',404],['/teams/football/uefa.nations/abc',404]]){

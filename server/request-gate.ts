@@ -2,7 +2,7 @@ import {readSession,VIEWER_COOKIE} from '../lib/arena-session';
 export async function gateRequest(request: Request, db: any): Promise<Response | null> {
   const url=new URL(request.url),path=url.pathname;
   const loginUrl=new URL('/login',process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||request.url);
-  if(path==='/admin'||path.startsWith('/admin/'))loginUrl.searchParams.set('admin',path);
+  if(path==='/admin'||path.startsWith('/admin/'))loginUrl.searchParams.set('admin',path==='/admin'&&url.searchParams.get('view')==='system'?'/admin/system':path);
   if((path==='/'||path==='/regional-basketball/board')&&['NBL','KBL'].includes(url.searchParams.get('league')||'')){
     loginUrl.searchParams.set('basketball',url.searchParams.toString());
   }

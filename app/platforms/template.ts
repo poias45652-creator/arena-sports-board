@@ -36,6 +36,7 @@ export const pickerHtml = `<!doctype html>
         <form class="v103-welcome-body" method="post" action="/platforms/launch" id="launch">
           <div class="metrix-platform-picker"><select name="platform" id="xz-platform" aria-label="選擇平台">PLATFORM_OPTIONS</select></div>
           <button type="submit" class="v103-submit" SUBMIT_STATE>進入系統 <b aria-hidden="true">→</b></button>
+          ADMIN_HOME_LINK
           ACCESS_STATUS
         </form>
         <form method="post" action="/platforms/logout"><button class="gate-logout" type="submit">登出</button></form>
