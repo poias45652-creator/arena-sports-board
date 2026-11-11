@@ -80,12 +80,19 @@ function numbers(r){
  const timing=r.replay?'採比賽日前的技術統計，不列入命中紀錄':'分析更新 '+e(timeTW(r.asOf));
  return '<small class="nba-updated">'+timing+'</small><div class="nba-analysis-numbers"><div class="nba-analysis-heading"><span>賽前預測</span><small>'+(r.replay?'歷史回算':r.frozen?'賽前存檔':'效率模擬')+'</small></div><div class="nba-forecast-score"><span>預估比分<small>客：主</small></span><b>'+(sc?sc.away:'—')+'<i>:</i>'+(sc?sc.home:'—')+'</b></div><div class="nba-probabilities"><div><span>客勝</span><strong>'+num(a,1)+'%</strong></div><div><span>主勝</span><strong>'+num(h,1)+'%</strong></div></div><div class="nba-probability-bar"><i style="width:'+a+'%"></i><i style="width:'+h+'%"></i></div><div class="nba-estimates"><div><span>預估總分</span><b>'+(sc?sc.home+sc.away:num(r.total))+'</b></div><div><span>預估分差</span><b>'+(sc?(sc.home>sc.away?'主':'客')+' +'+Math.abs(sc.home-sc.away):'勝負未定')+'</b></div></div></div>';
 }
+export function modelBreakdown(s,g,r){
+ if(!r.ready||!r.homeMetrics||!r.awayMetrics)return '';
+ const h=r.homeMetrics,a=r.awayMetrics;
+ const value=(m,k,percent=false)=>Number.isFinite(m[k])?num(m[k]*(percent?100:1),1)+(percent?'%':''):'—';
+ const rows=[['分析場數','games'],['場均得分','pointsFor'],['場均失分','pointsAgainst'],['進攻效率（每百回合）','ortg'],['防守效率（每百回合）','drtg'],['三分命中率','threePct',true],['節奏（每 40 分鐘回合）','pace']];
+ return '<div class="xz-market-body"><h4>近期攻防分析</h4><table aria-label="近期攻防比較"><thead><tr><th>指標</th><th>'+e(name(s,g.away))+'（客）</th><th>'+e(name(s,g.home))+'（主）</th></tr></thead><tbody>'+rows.map(([label,k,pct])=>'<tr><th scope="row">'+label+'</th><td>'+value(a,k,pct)+'</td><td>'+value(h,k,pct)+'</td></tr>').join('')+'</tbody></table><p>依各隊近期正式賽技術統計計算；進攻效率越高越好，防守效率越低越好。</p></div>';
+}
 function breakdown(s,g,r){
  const m=marketFor(s,g),quotes=m?.quotes||[],id=e(key(g));
  const graded=r.ready&&!r.replay&&g.status==='final'&&r.homeProb!==r.awayProb&&g.homeScore!==g.awayScore;
  const result=graded?'<p>'+((r.homeProb>r.awayProb)===(g.homeScore>g.awayScore)?'勝方命中':'勝方未命中')+'</p>':'';
  const prices=marketCards(s,g,r,m,quotes);
- return '<details class="match-market-details sport-market-details" data-persist="market:'+id+'"><summary><strong>查看分析</strong><span>'+(quotes.length?quotes.length+' 種玩法':'盤口待確認')+'</span></summary>'+prices+(result?'<div class="xz-market-body">'+result+'</div>':'')+'</details>';
+ return '<details class="match-market-details sport-market-details" data-persist="market:'+id+'"><summary><strong>查看分析</strong><span>'+(quotes.length?quotes.length+' 種玩法':r.ready?'攻防分析':'資料待更新')+'</span></summary>'+modelBreakdown(s,g,r)+prices+(result?'<div class="xz-market-body">'+result+'</div>':'')+'</details>';
 }
 export function analysis(s){
  if(!s.visible.length)return noGames(s);
