@@ -1,0 +1,32 @@
+import Link from 'next/link';
+import { leaguePageHref } from '@/lib/sport-navigation';
+import '../../football.css';
+import '../../nba.css';
+import {baccaratSections} from '@/lib/admin-navigation';
+import BasketballDiagnostics from '../basketball-diagnostics';
+import { ArrowLeft, ShieldCheck } from 'lucide-react';
+import BackgroundRefresh from '../background-refresh';
+import { adminIdentity } from '../../admin-access';
+import SessionAccount from '../../session-account';
+import AdminTools from '../tools';
+import SectionBoundary from '../section-boundary';
+import TurnstileSettings from '../turnstile-settings';
+import ResearchPanel from '../research-panel';
+import CpblMarketStatus from '../cpbl-market-status';
+import PregameImports from '../pregame-imports';
+import InternationalMarketStatus from '../international-market-status';
+import InternationalData from '../international-data';
+import TwtoolsReference from '../twtools-reference';
+import InternationalValidation from '../international-validation';
+import FootballModelAdmin from '../football-model';
+import ModelSettingsNotes from '../model-settings-notes';
+import AiAssistantSettings from '../ai-assistant-settings';
+export const dynamic = 'force-dynamic';
+export default async function SportsSettingsPage() {
+  const identity=await adminIdentity();
+  if (!identity) return <main className="mx-auto max-w-3xl space-y-4 px-5 py-10"><h1 className="text-2xl font-bold">僅限管理者存取</h1><p>目前登入的帳號沒有後台權限。</p><a className="underline" href="/login">使用管理員帳號登入</a><p><a href={leaguePageHref('MLB')} className="underline">返回前台</a></p></main>;
+  return <main className="arena-shell min-h-screen text-slate-100">
+    <header className="border-b border-white/8 bg-[#081522]/95"><div className="mx-auto flex min-h-16 max-w-[1440px] flex-wrap items-center gap-3 px-5 py-3"><a href={leaguePageHref('MLB')} className="header-action"><ArrowLeft className="size-4"/>返回賽事</a><div className="flex items-center gap-2 font-black"><ShieldCheck className="size-5 text-[#ffd538]"/>星準・管理後台</div><Link prefetch={false} className="header-action" href="/admin/schedules">排程管理</Link><div className="ml-auto"><SessionAccount/></div></div></header>
+    <div className="mx-auto max-w-[1440px] space-y-5 px-5 py-8"><div className="admin-title"><div><p className="league-eyebrow">系統管理</p><h1>帳號與資料管理</h1></div><span>管理員</span></div><section className="panel p-5"><h2 className="text-lg font-bold">帳號授權管理</h2><p className="mt-1 text-sm text-slate-400">在同一份會員名單查詢體育與百家樂授權、管理期限與備註。</p><Link prefetch={false} href="/admin/baccarat/members" className="header-action mt-3 inline-flex">體育與百家樂會員授權</Link></section><section className="panel p-5"><h2 className="text-lg font-bold">百家樂管理</h2><nav className="mt-3 flex flex-wrap gap-3" aria-label="百家樂管理">{Object.entries(baccaratSections).filter(([section])=>section!=='members').map(([section,label])=><Link prefetch={false} key={section} href={`/admin/baccarat/${section}`} className="header-action">{label}</Link>)}</nav></section><section className="panel p-5"><h2 className="text-lg font-bold">後台聯盟賽事與分析</h2><p className="mt-1 text-sm text-slate-400">CPBL、KBO 賽事與分析；澳韓籃攻防數據與盤口查核。</p><nav className="mt-3 flex flex-wrap gap-3" aria-label="後台聯盟入口">{[['CPBL','中華職棒'],['KBO','韓國職棒']].map(([code,name])=><Link prefetch={false} key={code} className="header-action" href={`/admin/leagues?league=${code}`}>{code} {name}</Link>)}<Link prefetch={false} className="header-action" href="/admin/regional-basketball?league=NBL&view=analysis">澳洲職籃查核</Link><Link prefetch={false} className="header-action" href="/admin/regional-basketball?league=KBL&view=analysis">韓國職籃查核</Link></nav></section><SectionBoundary><AiAssistantSettings/></SectionBoundary><ModelSettingsNotes/><SectionBoundary><BackgroundRefresh/></SectionBoundary><SectionBoundary><TurnstileSettings/></SectionBoundary><SectionBoundary><CpblMarketStatus/></SectionBoundary><SectionBoundary><InternationalMarketStatus league="NPB"/></SectionBoundary><SectionBoundary><InternationalMarketStatus league="KBO"/></SectionBoundary><SectionBoundary><InternationalValidation/></SectionBoundary><SectionBoundary><FootballModelAdmin/></SectionBoundary><SectionBoundary><BasketballDiagnostics/></SectionBoundary><SectionBoundary><PregameImports/></SectionBoundary><SectionBoundary><TwtoolsReference/></SectionBoundary><SectionBoundary><InternationalData/></SectionBoundary><SectionBoundary><ResearchPanel/></SectionBoundary><AdminTools/></div>
+  </main>;
+}

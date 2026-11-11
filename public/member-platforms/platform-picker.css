@@ -359,3 +359,5 @@
   #xz-gate { width: min(100%, 650px); }
   #xz-gate .xz-welcome-card { width: 100%; }
 }
+
+.portal-admin-home {display:block;margin:8px auto 0;text-align:center;color:#f1ce79;text-decoration:underline;text-underline-offset:3px;}
