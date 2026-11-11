@@ -1,0 +1,74 @@
+.membership {
+  min-height: 100vh;
+  padding: clamp(12px, 2.5vw, 32px);
+  background: radial-gradient(ellipse at top, #102632, #061219 75%);
+  color: #f1f3ef;
+  color-scheme: dark;
+  --primary: #e5ba62;
+  --primary-foreground: #17120a;
+  --background: #0a161e;
+  --foreground: #edf3f1;
+  --input: #384750;
+  --accent: #23323a;
+  --accent-foreground: #fff4d8;
+}
+.member-shell {
+  display: grid;
+  grid-template-columns: 214px minmax(0,1fr);
+  max-width: 1360px;
+  margin: auto;
+  min-height: calc(100vh - 64px);
+  background: #070f14;
+  border: 1px solid #66502b;
+  border-radius: 18px;
+  overflow: clip;
+}
+.member-sidebar {padding: 24px 16px; background: #0a1720; border-right: 1px solid #303d42;}
+.member-brand {display:flex;align-items:center;gap:12px;font-size:18px;letter-spacing:.06em;margin-bottom:28px;}
+.member-brand span {display:grid;place-items:center;width:42px;height:42px;border:1px solid #a78540;border-radius:11px;color:#f0c675;font-size:23px;}
+.member-sidebar nav {display:grid;gap:4px;}
+.member-sidebar nav a,.member-sidebar form button {padding:10px 12px;border-radius:8px;font-size:14px;}
+.member-sidebar a:hover,.member-sidebar form button:hover {background:#13232b;}
+.member-sidebar a[aria-current] {color:#f1c774;background:#28291f;box-shadow:inset 0 0 0 1px #65532e;}
+.member-sidebar form {margin-top:24px;}
+.member-content {min-width:0;padding:clamp(16px,2.5vw,32px);}
+.member-content header h1 {font-size:clamp(24px,2.2vw,34px);font-weight:750;}
+.member-content header p,.member-footnote,.member-empty {color:#aab9bf;font-size:14px;margin-top:6px;}
+.member-tools,.member-detail {background:#0c1920;border:1px solid #424235;border-radius:12px;padding:clamp(12px,2vw,20px);margin:22px 0;}
+.member-tools label {display:block;font-size:14px;font-weight:650;margin-bottom:8px;}
+.member-search,.member-heading {display:flex;gap:12px;align-items:center;}
+.member-search input {background:#071219;}
+.member-heading {justify-content:space-between;flex-wrap:wrap;}
+.member-heading h2 {font-weight:700;font-size:18px;overflow-wrap:anywhere;}
+.member-products {display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:18px;margin-top:18px;}
+.member-products h3 {font-weight:700;color:#edc778;margin-bottom:10px;}
+.member-fields,.member-products form,.member-products fieldset>div>div {padding:14px;border:1px solid #34434a;border-radius:10px;background:#0b171e;}
+.member-products section,.member-products fieldset,.member-fields {min-width:0;}
+.member-tabs {display:flex;gap:6px;flex-wrap:wrap;margin:14px 0;}
+.member-tabs button {background:#0d1a21;border:1px solid #35434b;border-radius:7px;padding:6px 10px;font-size:14px;}
+.member-tabs button[aria-pressed="true"] {border-color:#aa8849;background:#302b1e;color:#ffda86;}
+.member-tabs span {font-variant-numeric:tabular-nums;margin-left:3px;}
+.member-table-wrap {overflow-x:auto;}
+.member-table {width:100%;border-collapse:collapse;text-align:left;font-size:14px;}
+.member-table th,.member-table td {padding:10px 8px;border-bottom:1px solid #243139;}
+.member-table thead th {background:#0f1e26;color:#b8c7cd;font-size:13px;}
+.member-table tbody th {overflow-wrap:anywhere;}
+.member-table td:last-child {text-align:right;}
+.member-table button {color:#f1d18b;border-color:#715f39;}
+.member-footnote,.member-viewer {margin-top:20px;}
+.member-viewer summary {padding:10px 0;cursor:pointer;}
+.membership :focus-visible {outline:2px solid #e7be6d;outline-offset:3px;}
+.member-detail:focus {outline:none;}
+@media(max-width:1080px){.member-products {grid-template-columns:1fr;}}
+@media(max-width:760px){
+  .membership {padding:8px;}
+  .member-shell {grid-template-columns:minmax(0,1fr);}
+  .member-sidebar {border-right:0;border-bottom:1px solid #34414a;padding:12px;}
+  .member-brand {margin-bottom:10px;}
+  .member-sidebar nav {display:flex;overflow-x:auto;white-space:nowrap;}
+  .member-sidebar form {margin:4px 0 0;}
+  .member-content {padding:14px;}
+  .member-search {flex-wrap:wrap;}
+  .member-search input {flex:1 1 190px;}
+  .member-table td,.member-table th {padding:8px 4px;}
+}
