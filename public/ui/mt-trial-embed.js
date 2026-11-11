@@ -28,10 +28,6 @@
       if (url.protocol !== 'https:' || url.username || url.password || url.port ||
           !['gs1.ofalive99.net', 'gsa.ofalive99.net'].includes(url.hostname) ||
           !url.searchParams.get('token')) throw new Error('invalid game URL');
-      const requestedRoom = new URLSearchParams(window.location.search).get('room');
-      if (requestedRoom && /^BAV(?:0[1235](?:_LIVE)?|03A(?:_LIVE)?|0[6789]|10)$/.test(requestedRoom)) {
-        url.searchParams.set('game', requestedRoom);
-      }
       status.textContent = '正在開啟 MT 牌桌…';
       window.location.replace(url.href);
     } catch {
