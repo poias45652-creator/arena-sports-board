@@ -3,7 +3,7 @@ import {leaguePageHref} from './sport-navigation';
 export const adminHome='/admin/baccarat/members';
 
 export const baccaratSections={
-  members:'會員授權', dashboard:'百家樂主控台', users:'百家樂會員資料',
+  members:'會員管理', dashboard:'百家樂主控台',
   permissions:'百家樂模組權限', settings:'百家樂系統設定', logs:'操作紀錄',
 } as const;
 export type BaccaratSection=keyof typeof baccaratSections;

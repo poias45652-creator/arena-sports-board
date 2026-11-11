@@ -80,3 +80,20 @@
   .member-sidebar nav a {padding:5px 6px;}
   .baccarat-admin-panel {height:72dvh;}
 }
+.member-quick,.member-agent-form,.member-chips {display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.member-agent-form {align-items:end;}
+.member-create fieldset,.member-facts {display:grid;grid-template-columns:repeat(auto-fit,minmax(min(180px,100%),1fr));gap:12px;}
+.member-create {margin-top:14px;} .member-create fieldset>div {grid-column:1/-1;}
+.member-agents,.member-profile {border:1px solid #38443e;border-radius:10px;padding:14px;margin:12px 0;background:#0b171d;}
+.member-agents summary,.member-delete summary {cursor:pointer;color:#e6c47e;font-weight:650;}
+.member-group-grid {display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(min(245px,100%),1fr));margin-top:10px;}
+.member-group {background:#0b1d26;border:1px solid #28434d;border-radius:7px;padding:9px;min-width:0;}
+.member-chips {max-height:150px;overflow:auto;} .member-chips button {padding:4px 9px;border-radius:5px;background:#102a35;overflow-wrap:anywhere;}
+.member-text-btn {color:#f3cb76;padding:5px 0;text-decoration:underline;text-underline-offset:3px;}
+.member-facts {font-size:13px;margin:10px 0;grid-template-columns:repeat(auto-fit,minmax(min(130px,100%),1fr));}
+.member-facts dt,.member-table th small {display:block;color:#9fb2b9;font-size:12px;}
+.member-facts dd,.member-inline-detail {overflow-wrap:anywhere;}
+.member-profile select {padding:5px;border:1px solid #40505a;border-radius:5px;}
+.member-delete {margin-top:14px;} .member-delete summary {color:#e9a3a2;}
+.member-table td.member-inline-detail {text-align:left;background:#0a1921;}
+.member-feedback {padding:9px 12px;border-left:2px solid #d3af65;color:#f0d294;}

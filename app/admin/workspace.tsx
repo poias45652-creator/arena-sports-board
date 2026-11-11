@@ -18,8 +18,8 @@ export default function AdminWorkspace({children,viewer}:{children:ReactNode;vie
       </aside>
       <div className="member-content">
         <Activity mode={members?'visible':'hidden'}>
-          <main aria-label="會員授權">
-            <header><h1>會員授權</h1><p>體育與百家樂可分別開通，百家樂授權適用於 DG 與 MT。</p></header>
+          <main aria-label="會員管理">
+            <header><h1>會員管理</h1><p>體育與百家樂可分別開通，百家樂授權適用於 DG 與 MT。</p></header>
             <div id="member-console"><MemberConsole/></div>
             {viewer&&<details className="member-viewer"><summary>唯讀測試帳號設定</summary><ViewerAccount/></details>}
           </main>
