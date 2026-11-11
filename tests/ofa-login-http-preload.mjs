@@ -13,6 +13,8 @@ globalThis.fetch = async (input, init) => {
     const mac=createHmac('sha256',process.env.XZ_PLATFORM_BRIDGE_KEY).update(message).digest('hex');
     if(!['vrv01','render-test-admin'].includes(actor)||req.headers.get('x-xz-admin-signature')!==mac)return new Response(null,{status:403});
     if(url.pathname==='/api/health')return Response.json({ok:true,activeRelays:3});
+    if(url.pathname==='/api/admin/users')return Response.json({ok:true,users:[],stats:{total:0}});
+    if(url.pathname==='/api/admin/agents')return Response.json({ok:true,groups:[]});
     if(url.pathname==='/api/admin/platform-members')return Response.json({available:{sports:true,baccarat:true},members:[]});
     if(url.pathname.startsWith('/api/admin/'))return Response.json({ok:true});
     return new Response('<html><head></head><body><main class="admin-app"><aside class="sidebar"><nav class="nav">原百家導覽</nav><button id="logout">登出</button></aside><section class="content"><h1>範例管理內容</h1><p id="result"></p><a href="/api/health">服務狀態</a></section></main><script>fetch("/api/admin/dashboard-data").then(r=>r.json()).then(d=>document.querySelector("#result").textContent=d.ok?"資料已載入":"讀取失敗")</script></body></html>',{headers:{'content-type':'text/html'}});

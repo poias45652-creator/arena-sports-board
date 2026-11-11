@@ -45,9 +45,14 @@ assert.equal(new URL(legacy.headers.get('location'),origin).pathname,'/admin/bac
 for(const section of ['members','dashboard','users','permissions','settings','logs']){
  const target='/admin/baccarat/'+section;
  const via=await request('/baccarat/admin?section='+section+'&native=1',303,{headers:{cookie}});
- assert.equal(via.headers.get('location'),section==='dashboard'?'/admin/baccarat/members':target);
+ assert.equal(via.headers.get('location'),section==='dashboard'||section==='users'?'/admin/baccarat/members':target);
+ if(section==='users'){
+  const old=await request(target,307,{headers:{cookie}});
+  assert.equal(new URL(old.headers.get('location'),origin).pathname,'/admin/baccarat/members');continue;
+ }
  const html=await (await request(target,200,{headers:{cookie}})).text();
- for(const shared of ['/admin/baccarat/members','/admin/baccarat/users','/admin/leagues','/admin/regional-basketball','/admin/schedules'])assert.ok(html.includes('href="'+shared+'"'),section+' missing '+shared);
+ assert.ok(!html.includes('href="/admin/baccarat/users"'));
+ for(const shared of ['/admin/baccarat/members','/admin/leagues','/admin/regional-basketball','/admin/schedules'])assert.ok(html.includes('href="'+shared+'"'),section+' missing '+shared);
  if(section!=='members')assert.ok(html.includes('範例管理內容')&&html.includes('/api/admin/baccarat/dashboard-data')&&html.includes('/api/admin/baccarat/health'),target);
 }
 const relayHealth=await request('/api/admin/baccarat/health',200,{headers:{cookie}});
@@ -56,7 +61,7 @@ await request('/api/admin/baccarat/health',401);
 const guestEntry=await request('/baccarat/admin?section=logs',303);
 assert.equal(new URL(guestEntry.headers.get('location'),origin).searchParams.get('admin'),'/admin/baccarat/logs');
 const nativeEntry=await request('/baccarat/admin?section=users&native=1',303);
-assert.equal(new URL(nativeEntry.headers.get('location'),origin).searchParams.get('admin'),'/admin/baccarat/users');
+assert.equal(new URL(nativeEntry.headers.get('location'),origin).searchParams.get('admin'),'/admin/baccarat/members');
 for(const bookmark of ['/baccarat/admin','/baccarat/admin?section=dashboard','/baccarat/admin?section=members&native=1']){
  const guest=await request(bookmark,303);
  assert.equal(new URL(guest.headers.get('location'),origin).searchParams.get('admin'),'/admin/baccarat/members');

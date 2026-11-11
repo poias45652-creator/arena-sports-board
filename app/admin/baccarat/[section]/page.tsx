@@ -1,11 +1,12 @@
-import {notFound} from 'next/navigation';
+import {notFound,redirect} from 'next/navigation';
 import {sportsAdministrator} from '@/app/admin-access';
-import {baccaratSections,isBaccaratSection} from '@/lib/admin-navigation';
+import {adminHome,baccaratSections,isBaccaratSection} from '@/lib/admin-navigation';
 import {baccaratAdminRequest,baccaratPanelDocument} from '@/lib/baccarat-admin';
 
 export const dynamic='force-dynamic';
 export default async function BaccaratSectionPage({params}:{params:Promise<{section:string}>}) {
   const {section}=await params;
+  if(section==='users')redirect(adminHome);
   if (!isBaccaratSection(section)||section==='members') notFound();
   const actor=await sportsAdministrator();
   if (!actor) return <p>僅限管理員存取。</p>;
