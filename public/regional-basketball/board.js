@@ -7,7 +7,7 @@ import {overview,liveCenter} from './live-ui.js';
 import {teamProfile,playerProfile,teams,standings} from './profiles.js';
 import {analysis,weightsForm,storeWeights,singleGameRecommendations} from './analysis-ui.js';
 const nav={overview:'概覽',live:'即時比分',analysis:'賽前分析',standings:'戰績排名',teams:'球隊一覽'};
-const s={projections:new Map(),saved:{},version:0,boxSide:'away',boxMore:false,playPeriod:'all',playLimit:60,filter:'all',asyncId:0,detailBusy:false};
+const s={admin:document.body.dataset.admin==='true',projections:new Map(),saved:{},version:0,boxSide:'away',boxMore:false,playPeriod:'all',playLimit:60,filter:'all',asyncId:0,detailBusy:false};
 const memo=new Map(),cacheFetch=(url)=>{if(!memo.has(url))memo.set(url,getJson(url).catch(err=>{memo.delete(url);throw err}));return memo.get(url);};
 const api=(kind,params={})=>'/api/regional-basketball/'+kind+'?'+new URLSearchParams({league:s.league,...params});
 let token=0,refreshToken=0,detailsToken=0,rankToken=0,contextTime=0,historyTime=0,extraContext=null;
@@ -21,7 +21,7 @@ function adoptRoute(){
  s.rankSeason=Number(p.get('season'))||null;s.phase=[1,2,3].includes(Number(p.get('phase')))?Number(p.get('phase')):2;s.filter='all';
 }
 function route(){
- const p=new URLSearchParams({league:s.league,view:s.view});if(s.date!==today())p.set('date',s.date);if(s.selected&&['live','analysis'].includes(s.view))p.set('game',s.selected);
+ const p=new URLSearchParams({league:s.league,view:s.view});if(s.admin)p.set('admin','1');if(s.date!==today())p.set('date',s.date);if(s.selected&&['live','analysis'].includes(s.view))p.set('game',s.selected);
  if(s.teamCode){p.set('team',s.teamCode);p.set('section',s.teamView);if(s.playerId)p.set('player',s.playerId);}
  if(s.playerId){if(s.playerTab!=='overview')p.set('tab',s.playerTab);if(s.playerYear)p.set('year',s.playerYear);if(s.playerRecord)p.set('range',s.playerRecord);}
  if(s.teamCode&&!s.playerId){if(s.teamYear)p.set('teamYear',s.teamYear);if(s.teamPhase!=2)p.set('teamPhase',s.teamPhase);if(s.venue&&s.venue!=='all')p.set('venue',s.venue);if(s.teamLimit>0)p.set('limit',s.teamLimit);}

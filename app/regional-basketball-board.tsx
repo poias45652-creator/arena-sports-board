@@ -7,9 +7,9 @@ import {useSource} from './use-source';
 import type {SuperSnapshot} from '@/lib/super007';
 
 type Picks={active:boolean;date:string;rows:{label:string}[]};
-export default function RegionalBasketballBoard({league,onViewChange}:{league:'NBL'|'KBL';onViewChange:(view:string)=>void}){
+export default function RegionalBasketballBoard({league,onViewChange,admin=false}:{admin?:boolean;league:'NBL'|'KBL';onViewChange:(view:string)=>void}){
   const frame=useRef<HTMLIFrameElement>(null),pane=useId(),workspace=useSuperWorkspace();
-  const [src]=useState(()=>'/regional-basketball/board'+window.location.search+window.location.hash);
+  const [src]=useState(()=>'/regional-basketball/board?'+new URLSearchParams({...Object.fromEntries(new URLSearchParams(window.location.search)),league,view:new URLSearchParams(window.location.search).get('view')||'analysis',admin:admin?'1':'0'})+window.location.hash);
   const [height,setHeight]=useState(640),[picks,setPicks]=useState<Picks>({active:false,date:'',rows:[]});
   const odds=useSource<SuperSnapshot>('member-odds',60000);
   const sendOdds=()=>{
@@ -32,14 +32,14 @@ export default function RegionalBasketballBoard({league,onViewChange}:{league:'N
         const p=new URLSearchParams(search),view=p.get('view')||'';
         if(p.get('league')!==league||!FRONT_VIEWS.some(v=>v===view))return;
         const hash=typeof event.data.hash==='string'&&event.data.hash.startsWith('#')?event.data.hash:'';
-        if(location.search+location.hash!==search+hash)window.history.pushState(null,'','/'+search+hash);
+        if(location.search+location.hash!==search+hash)window.history.pushState(null,'',(admin?'/admin/regional-basketball':'/')+search+hash);
         onViewChange(view);
       }
     };
     window.addEventListener('message',receive);window.addEventListener('popstate',back);
     window.addEventListener('arena-refresh-all',refresh);window.addEventListener('regional-basketball-assistant',assistant);
     return()=>{window.removeEventListener('message',receive);window.removeEventListener('popstate',back);window.removeEventListener('arena-refresh-all',refresh);window.removeEventListener('regional-basketball-assistant',assistant);};
-  },[league,onViewChange]);
+  },[league,onViewChange,admin]);
   return <div data-super-league={league}>
     <iframe onLoad={sendOdds} ref={frame} title={league==='NBL'?'澳洲職籃賽事與球員':'韓國職籃賽事與球員'} src={src} style={{display:'block',width:'100%',height,border:0,scrollMarginTop:'5rem'}}/>
     {picks.active&&<span hidden data-super-parlay={pane}/>}

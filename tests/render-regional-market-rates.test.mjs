@@ -51,13 +51,16 @@ for (const [league, home, away] of [['NBL','MEL','BRI'], ['KBL','DB','SAM']]) {
     assert.deepEqual(rows[0], rows[1].toReversed());
     assert.deepEqual(rows[2], rows[3].toReversed());
     assert.match(html,/主讓 -7.5 @0.928/); assert.match(html,/客受讓 \+7.5 @0.915/);
-    assert.match(html,/存檔盤口/);
+    assert.doesNotMatch(html,/存檔盤口|・查核/);
+    assert.match(analysis({...state,admin:true}),/存檔盤口・查核/);
     const noTz=analysis({...state,tzMarkets:[]});
     assert.doesNotMatch(noTz,/sport-market-option|PandaBet|PinnacleSports/);
-    assert.match(noTz,/近期攻防分析/);
-    assert.match(noTz,/進攻效率（每百回合）/);
-    assert.match(noTz,/三分命中率/);
-    assert.doesNotMatch(noTz,/盤口待確認/);
+    assert.doesNotMatch(noTz,/近期攻防分析|・查核/);
+    const adminHtml=analysis({...state,tzMarkets:[],admin:true});
+    assert.match(adminHtml,/近期攻防分析/);
+    assert.match(adminHtml,/進攻效率（每百回合）/);
+    assert.match(adminHtml,/三分命中率/);
+    assert.doesNotMatch(adminHtml,/盤口待確認/);
     assert.match(noTz, /沒有已核實的賽前盤口存檔/);
     assert.doesNotMatch(html,/模型依據|對手平均淨分|技術統計場數|盤口來源|來源 ↗/);
     for(const card of [html,noTz]){
