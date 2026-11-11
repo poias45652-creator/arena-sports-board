@@ -205,7 +205,7 @@ async function historyResponse(){
  }catch{return Response.json({status:'unavailable',history:historyCache?.history||[],updatedAt:new Date().toISOString()},{headers:{'Cache-Control':'no-store'}});}
 }
 
-export async function GET(request?:Request){
+export async function GET(request:Request){
  if(request&&new URL(request.url).searchParams.get('history')==='1')return historyResponse();
  const day=trialDay();
  if(cached?.day===day&&cached.until>Date.now())return Response.json(cached.data,{headers:{'Cache-Control':'no-store'}});
