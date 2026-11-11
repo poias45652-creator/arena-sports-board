@@ -2,7 +2,7 @@ import {createHmac} from 'node:crypto';
 
 const service='https://xingzhun-original-test.onrender.com';
 const endpoints:Record<string,RegExp>={
-  GET:/^(?:platform-members|dashboard-data|users|permissions|settings|logs|agents)$/,
+  GET:/^(?:health|platform-members|dashboard-data|users|permissions|settings|logs|agents)$/,
   POST:/^(?:platform-members\/(?:sports|baccarat)|users|agents|settings|users\/\d+\/(?:status|extend|permissions))$/,
   PATCH:/^(?:users\/\d+\/agent|agents\/\d+)$/,
   DELETE:/^users\/\d+$/,
@@ -28,6 +28,7 @@ export function baccaratPanelDocument(document:string) {
   return document.replace('</head>',panelStyle+'</head>')
     .replaceAll('/api/admin/logout','/platforms/logout')
     .replaceAll('/api/admin/','/api/admin/baccarat/')
+    .replaceAll('/api/health','/api/admin/baccarat/health')
     .replaceAll('href="/admin/','target="_parent" href="/admin/baccarat/')
     .replaceAll('牌靴 METRIX','星準百家樂')
     .replaceAll('METRIX ADMIN','星準管理後台');
