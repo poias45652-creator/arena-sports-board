@@ -25,7 +25,8 @@ async function handle(request:Request,context:{params:Promise<{path:string[]}>})
   }
   try{
     const query=new URL(request.url).search;
-    const response=await baccaratAdminRequest(actor,method,'/api/admin/'+path+query,body);
+    const upstream=path==='health'?'/api/health':'/api/admin/'+path;
+    const response=await baccaratAdminRequest(actor,method,upstream+query,body);
     if(response.headers.get('content-type')?.includes('application/json')){
       return new Response(await response.text(),{status:response.status,headers});
     }
