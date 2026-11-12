@@ -271,7 +271,17 @@ async def staging_sample():
     except FileExistsError:
         return
     async with ClientSession(cookie_jar=DummyCookieJar(),timeout=ClientTimeout(total=85)) as client:
-        for slot in (5,2):
+        # The issuer stage can be checked even when the staging web app is waking.
+        if not any(getattr(s,"slot",None)==5 for s in sessions.values()):
+            ctx=await browser.new_context()
+            try:
+                await staging.grant(ctx,5,allowed)
+                print("[MT sample] independent slot 5 grant succeeded",flush=True)
+            except Exception as e:
+                print("[MT sample] independent slot 5 grant ended",type(e).__name__,flush=True)
+            finally:
+                await ctx.close()
+        for slot in (2,):
             ticket=secrets.token_hex(16)
             try:
                 async with client.post("http://127.0.0.1:"+os.getenv("PORT","10000")+"/staging/session",
@@ -287,6 +297,14 @@ async def staging_sample():
         try:
             async with client.get("https://gs1.ofalive99.net/",allow_redirects=False,timeout=ClientTimeout(total=10)) as r:
                 body=await r.content.read(98304)
+                from refusal import Visible
+                page=Visible()
+                decoded=body.decode("utf-8","replace")
+                page.feed(decoded)
+                public_text=" ".join(" ".join(page.chunks).split())
+                public_text=re.sub(r'https?://\S+|[\w.-]+@[\w.-]+|[a-zA-Z0-9_-]{26,}|(?:[\da-fA-F:]{2,}:){2,}[\da-fA-F:]+|(?:\d{1,3}\.){3}\d{1,3}',"[redacted]",public_text)
+                print("[MT sample] public notice",json.dumps(public_text[:450],ensure_ascii=False),flush=True)
+                print("[MT sample] public page indicators",[word for word in ("region","country","blacklist","whitelist","location","blocked","restrict","geoip","geoblock","territor","forbidden","maintenance","地區","地区","區域","区域","IP限制","您的IP","Banned") if word.lower() in decoded.lower()],flush=True)
                 print("[MT sample] unsigned public root",r.status,json.dumps(signals(body,{k.lower():v for k,v in r.headers.items()}),ensure_ascii=False),flush=True)
         except Exception as e:
             print("[MT sample] public root unavailable",type(e).__name__,flush=True)

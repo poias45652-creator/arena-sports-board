@@ -163,13 +163,24 @@ def install(app, Screen, sessions, same_ip, allowed):
 
         async def load_entry(self, url, room):
             self.page.on("websocket", lambda socket: observe_game(socket, self.ready, self.lost))
-            shell = await self.page.goto(PARENT+"/mt-trial/renderer", wait_until="domcontentloaded", timeout=16000)
-            if not shell or shell.status != 200:
-                raise RuntimeError("missing_trial_shell")
+            self.stage = "trial shell"
+            for delay in (0, 2, 5):
+                if delay: await asyncio.sleep(delay)
+                shell = await self.page.goto(PARENT+"/mt-trial/renderer", wait_until="domcontentloaded", timeout=12000)
+                if shell and shell.status == 200 and await self.page.locator('iframe[title="MT 原廠牌桌"]').count() == 1:
+                    break
+                status = shell.status if shell else 0
+                print("[MT trial] trial shell unavailable", status, flush=True)
+                if status not in (200, 502, 503, 504):
+                    raise RuntimeError("trial_shell_unavailable")
+            else:
+                raise RuntimeError("trial_shell_unavailable")
+            self.stage = "OFA authorization"
             url = await grant(self.context, self.slot, allowed)
             print("[MT trial] OFA issued grant for slot", self.slot, flush=True)
             # The original staging site's real document embeds the signed URL directly.
             # Keep the browser's normal origin, referrer, frame policy and single game socket.
+            self.stage = "MT game document"
             def table_document(response):
                 return (response.request.is_navigation_request()
                         and response.request.frame.parent_frame == self.page.main_frame
@@ -181,6 +192,7 @@ def install(app, Screen, sessions, same_ip, allowed):
             if response.status >= 400:
                 await report_refusal(response)
                 raise RuntimeError("provider_http_"+str(response.status))
+            self.stage = "MT table connection"
             await asyncio.wait_for(self.ready.wait(), 28)
             if self.lost.is_set():
                 raise RuntimeError("mt_disconnected")
@@ -231,8 +243,9 @@ def install(app, Screen, sessions, same_ip, allowed):
                 return web.json_response({"id":trial.id})
             except Exception as exc:
                 detail = str(exc)
-                reason = detail if re.fullmatch(r"(?:provider_http_\d{3}|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|mt_disconnected)", detail) else "table_not_ready"
-                print("[MT trial]", reason, flush=True)
+                reason = detail if re.fullmatch(r"(?:provider_http_\d{3}|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|trial_shell_unavailable|mt_disconnected)", detail) else "table_not_ready"
+                if reason == "table_not_ready" and trial.stage == "trial shell": reason = "trial_shell_unavailable"
+                print("[MT trial]", reason, "at", trial.stage, type(exc).__name__, flush=True)
                 await trial.close()
                 raise web.HTTPServiceUnavailable(text=reason)
 
