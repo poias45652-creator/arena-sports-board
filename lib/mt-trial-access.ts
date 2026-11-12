@@ -43,11 +43,16 @@ export async function guestTrial(request:Request, start:boolean) {
     const {gameUrl} = await response.json();
     // Open the isolated table before consuming an unused guest's first minute.
     // No upstream token is sent to the visitor, including table navigations.
-    try { await prepareScreen(ip,gameUrl,current); }
-    catch { return reply({message:'MT 試玩牌桌暫時無法接通，請稍後再試。'},503); }
+    const toolsOnly=request.headers.get('x-mt-view')==='watch';
+    if(!toolsOnly) {
+      try { await prepareScreen(ip,gameUrl,current); }
+      catch { return reply({toolsAvailable:true,message:current.state==='unused'
+        ?'原廠真人牌桌目前無法接通，本次尚未開始計時。你也可以選擇只試用星準牌路工具。'
+        :'原廠真人牌桌目前無法接通，可繼續使用星準牌路工具。'},503); }
+    }
     const lease = await ledger(ip,true);
     if (lease.state !== 'active') return reply({...lease,message:expired},410);
-    await prepareScreen(ip,gameUrl,lease);
+    if(!toolsOnly)await prepareScreen(ip,gameUrl,lease);
     return reply({...lease,gameOrigin:new URL(gameUrl).origin});
   } catch {
     return reply({message:'暫時無法核對試玩時間，請稍後再試。'},503);
