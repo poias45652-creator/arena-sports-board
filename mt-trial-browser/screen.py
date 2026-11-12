@@ -258,6 +258,47 @@ async def live(request):
     return ws
 
 
+
+async def confirm_configured_trials():
+    from aiohttp import ClientSession, ClientTimeout
+    if delegate.IS_SPARE or os.environ.get("RENDER_EXTERNAL_URL","").rstrip("/") != delegate.PRIMARY:
+        return
+    try:
+        with open("/tmp/mt-recheck-20261112-0951", "x"):
+            pass
+    except FileExistsError:
+        return
+    expected = {2:"dvp777",3:"dvp776",4:"dvp778",5:"dvp772"}
+    configs = staging.credentials()
+    if any(configs.get(slot,("",))[0] != name for slot,name in expected.items()):
+        print("[MT acceptance] account mapping mismatch", flush=True)
+        return
+    await asyncio.sleep(2)
+    fields = [os.environ.get(k) for k in ("OFA_MT_TRIAL_PASSWORD_5","dvp772","DVP772") if os.environ.get(k)]
+    print("[MT acceptance] slot5 saved fields",len(fields),"conflict",len(set(fields))>1,
+          "outer whitespace",configs[5][1]!=configs[5][1].strip(), flush=True)
+    base = "http://127.0.0.1:"+str(int(os.getenv("PORT","10000")))
+    async with ClientSession(timeout=ClientTimeout(total=80)) as client:
+        for slot in (5,2,3,4):
+            ticket = secrets.token_hex(16)
+            try:
+                async with client.post(base+"/staging/session",headers={"Authorization":"Bearer "+staging.SCREEN_KEY},
+                    json={"action":"open","slot":slot,"ticket":ticket,"ip":"127.0.0.1"},allow_redirects=False) as result:
+                    if result.status == 200:
+                        payload = await result.json()
+                        active = sessions.get(payload.get("id"))
+                        ok = bool(active and active.ticket == ticket and active.ready.is_set() and active.jpeg and not active.lost.is_set())
+                        print("[MT acceptance] slot",slot,"table ready",ok,flush=True)
+                        if active and active.ticket == ticket:
+                            await active.close()
+                    else:
+                        reason = await result.text()
+                        safe = reason if re.fullmatch(r"(?:provider_http_\d{3}|provider_region_restricted|ofa_(?:login|grant)_422|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|trial_shell_unavailable|table_not_ready|busy)",reason) else "unavailable"
+                        print("[MT acceptance] slot",slot,"open",result.status,safe,flush=True)
+            except Exception as err:
+                print("[MT acceptance] slot",slot,type(err).__name__,flush=True)
+            await asyncio.sleep(8)
+
 async def lifecycle(app):
     global browser
     if len(key)<32: raise RuntimeError("missing relay authentication")
@@ -270,8 +311,11 @@ async def lifecycle(app):
                 await asyncio.sleep(.25)
                 await asyncio.gather(*(s.close() for s in list(sessions.values()) if s.end<=time.monotonic()),return_exceptions=True)
         task=asyncio.create_task(cleanup())
+        qa=asyncio.create_task(confirm_configured_trials())
         try: yield
         finally:
+            qa.cancel()
+            await asyncio.gather(qa,return_exceptions=True)
             task.cancel()
             await asyncio.gather(task,return_exceptions=True)
             await asyncio.gather(*(s.close() for s in list(sessions.values())),return_exceptions=True)
