@@ -258,44 +258,6 @@ async def live(request):
     return ws
 
 
-async def verify_member_grants():
-    # One-off staging verification. Submit the configured credential only to our exact HTTPS member entry.
-    print("[MT membership check] verification starting",flush=True)
-    if delegate.IS_SPARE or staging.PARENT != "https://xingzhun-original-test.onrender.com":
-        print("[MT membership check] unexpected target",flush=True)
-        return
-    if len(staging.SCREEN_KEY)<32:
-        print("[MT membership check] staging verification key unavailable",flush=True)
-        return
-    from aiohttp import ClientSession, ClientTimeout
-    try:
-        with open("/tmp/mt-members-check-20261112", "x"):
-            pass
-    except FileExistsError:
-        return
-    url = staging.PARENT+"/mt-trial/member"
-    for slot in (3,4):
-        if slot == 4:
-            await asyncio.sleep(20)
-        credential = staging.credentials().get(slot)
-        if not credential or credential[0] != {2:"dvp777",3:"dvp776",4:"dvp778",5:"dvp772"}[slot]:
-            print("[MT membership check]",slot,"not configured",flush=True)
-            continue
-        try:
-            async with ClientSession(timeout=ClientTimeout(total=24)) as client:
-                async with client.post(url,headers={"Origin":staging.PARENT},
-                    data={"username":credential[0],"password":credential[1]},allow_redirects=False) as res:
-                    success = res.status == 303 and res.headers.get("Location") == "/mt-trial/member/play" and "__Host-xz-mt-trial-member" in res.cookies
-                    print("[MT membership check]",slot,"login status",res.status,"trial cookie issued",success,flush=True)
-                if not success and res.status == 502:
-                    print("[MT membership check]",slot,"OFA could not verify at member entry",flush=True)
-                if success:
-                    async with client.get(url+"/play",allow_redirects=False) as res:
-                        print("[MT membership check]",slot,"authenticated member page",res.status,flush=True)
-        except Exception as exc:
-            print("[MT membership check]",slot,type(exc).__name__,flush=True)
-
-
 async def lifecycle(app):
     global browser
     if len(key)<32: raise RuntimeError("missing relay authentication")
@@ -308,11 +270,8 @@ async def lifecycle(app):
                 await asyncio.sleep(.25)
                 await asyncio.gather(*(s.close() for s in list(sessions.values()) if s.end<=time.monotonic()),return_exceptions=True)
         task=asyncio.create_task(cleanup())
-        verification=asyncio.create_task(verify_member_grants())
         try: yield
         finally:
-            verification.cancel()
-            await asyncio.gather(verification,return_exceptions=True)
             task.cancel()
             await asyncio.gather(task,return_exceptions=True)
             await asyncio.gather(*(s.close() for s in list(sessions.values())),return_exceptions=True)
