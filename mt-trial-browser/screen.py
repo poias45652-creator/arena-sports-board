@@ -144,6 +144,15 @@ class Screen:
         self.stage = "navigate"
         response=await self.page.goto(urlunsplit(u._replace(query=urlencode(query))),wait_until="commit",timeout=22000)
         print("[MT screen] navigation HTTP", response.status if response else 0, flush=True)
+        if response and response.status==403:
+            try:
+                html=(await asyncio.wait_for(response.text(),3))[:65536].lower()
+                if any(x in html for x in ("not available in your country","block access from your country","restricted region","country is blocked")): reason="regional restriction"
+                elif any(x in html for x in ("verify you are human","cf-chl-","challenge-platform","checking your browser")): reason="browser verification"
+                elif "access denied" in html: reason="access denied"
+                else: reason="unspecified"
+                print("[MT screen] provider refusal:",reason,flush=True)
+            except Exception: pass
         if not response or response.status>=400 or urlsplit(self.page.url).hostname not in HOSTS:
             raise RuntimeError("upstream page unavailable")
         self.room=room
