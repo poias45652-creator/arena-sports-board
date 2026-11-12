@@ -136,8 +136,6 @@ async def grant(context, slot, allowed):
                     for value in (password, account, device, bearer):
                         if value: rejection = rejection.replace(value.encode(), b"[redacted]")
                     summary = signals(rejection, result.headers)
-                    ref = result.headers.get("cf-ray","")
-                    if re.fullmatch(r"[a-zA-Z0-9-]{6,60}",ref): summary["support_ref"] = ref
                 except Exception:
                     summary = {"body":"unavailable"}
                 print("[MT trial] issuer refusal", slot, stage, result.status, json.dumps(summary,ensure_ascii=False), flush=True)

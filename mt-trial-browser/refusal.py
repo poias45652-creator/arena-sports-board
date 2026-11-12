@@ -19,8 +19,6 @@ class Visible(HTMLParser):
     def handle_data(self,data):
         if not self.hidden: self.chunks.append(data)
 
-ZH_TERMS += ("帳密錯誤","賬密錯誤","帳密","帳戶","賬號","帳戶名稱","帳號密碼","登入資訊","登入資料","請聯繫客服","請聯絡客服","輸入錯誤","資訊有誤","資料有誤","登錄信息","密码有误","驗證","驗證碼","裝置","設備","登入錯誤","登錄錯誤","密碼","用戶名","或密码","賬密","不一致","未註冊","已鎖定","失敗","登入","登錄","異常","帳號名稱","錯誤次數","密碼錯","帳密有誤")
-
 def visible_words(value):
     words=re.findall(r"[a-z]+|[\u3400-\u9fff]+",value.lower())
     safe=[]
