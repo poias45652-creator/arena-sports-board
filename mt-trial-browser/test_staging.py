@@ -38,3 +38,21 @@ class SessionSignalTests(unittest.TestCase):
                 "OFA_MT_TRIAL_ACCOUNT_4":"MT_SCREEN_KEY","MT_SCREEN_KEY":"fixture service key"}
         with patch.dict(os.environ,values,clear=True):
             self.assertEqual(staging.credentials(),{2:("dvp777","fixture alias"),3:("dvp776","fixture explicit")})
+
+class RefusalSignalTests(unittest.TestCase):
+    def test_region_requires_specific_visible_notice(self):
+        from refusal import signals
+        sample = b"<title>Access Restricted</title><p>Due to the location from which you are accessing this page, the service is restricted.</p>"
+        generic = b"<p>Access Restricted</p><script>not available in your country</script>"
+        headers = {"content-type": "text/html"}
+        self.assertTrue(signals(sample, headers)["region_notice"])
+        self.assertNotIn("region_notice", signals(generic, headers))
+
+    def test_issuer_never_logs_echoed_payload(self):
+        from refusal import signals
+        payload = {"message": "Incorrect password", "data": {"token": "secret123"},
+                   "errors": {"private_field": "secret123", "password": ["Invalid password"]}}
+        result = signals(json.dumps(payload).encode(), {"content-type": "application/json"})
+        self.assertEqual(result["fields"], ["password"])
+        self.assertNotIn("secret123", str(result))
+        self.assertNotIn("private_field", str(result))

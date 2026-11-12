@@ -9,7 +9,7 @@ import time
 from urllib.parse import urlsplit
 
 from aiohttp import web
-from refusal import signals
+from refusal import is_region_notice, signals
 
 PARENT = "https://xingzhun-original-test.onrender.com"
 ISSUER = "https://www.ofa1188.net"
@@ -59,6 +59,16 @@ async def report_refusal(response):
     except Exception:
         body = None
     summary = signals(body, headers)
+    if not body:
+        # A cross-origin navigation may release its network body before Playwright reads it.
+        try:
+            frame = response.request.frame
+            if frame.url == response.url:
+                text = await frame.locator("body").inner_text(timeout=1200)
+                if frame.url == response.url and is_region_notice(text):
+                    summary["region_notice"] = True
+        except Exception:
+            pass
     parsed = urlsplit(response.url)
     path = parsed.path or "/"
     summary["entry_path"] = path if re.fullmatch(r"/(?:(?:game|html5|h5|desktop|mobile|live|en|tw|zh|v[12])/){0,4}(?:index\.(?:html?|php)|login/?)?",path,re.I) else "other"
@@ -128,6 +138,8 @@ async def grant(context, slot, allowed):
                 except Exception:
                     summary = {"body":"unavailable"}
                 print("[MT trial] issuer refusal", slot, stage, result.status, json.dumps(summary,ensure_ascii=False), flush=True)
+                if result.status == 422:
+                    raise RuntimeError("ofa_login_422" if bearer is None else "ofa_grant_422")
                 raise RuntimeError("ofa_http_"+str(result.status))
             data = await result.json()
             if str(data.get("code")) != "200":
@@ -190,7 +202,9 @@ def install(app, Screen, sessions, same_ip, allowed):
                 await self.page.locator("iframe").evaluate("(frame, url) => { frame.src = url; }", url)
             response = await loaded.value
             if response.status >= 400:
-                await report_refusal(response)
+                summary = await report_refusal(response)
+                if response.status == 403 and summary.get("region_notice"):
+                    raise RuntimeError("provider_region_restricted")
                 raise RuntimeError("provider_http_"+str(response.status))
             self.stage = "MT table connection"
             await asyncio.wait_for(self.ready.wait(), 28)
@@ -243,7 +257,7 @@ def install(app, Screen, sessions, same_ip, allowed):
                 return web.json_response({"id":trial.id})
             except Exception as exc:
                 detail = str(exc)
-                reason = detail if re.fullmatch(r"(?:provider_http_\d{3}|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|trial_shell_unavailable|mt_disconnected)", detail) else "table_not_ready"
+                reason = detail if re.fullmatch(r"(?:provider_http_\d{3}|provider_region_restricted|ofa_(?:login|grant)_422|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|trial_shell_unavailable|mt_disconnected)", detail) else "table_not_ready"
                 if reason == "table_not_ready" and trial.stage == "trial shell": reason = "trial_shell_unavailable"
                 print("[MT trial]", reason, "at", trial.stage, type(exc).__name__, flush=True)
                 await trial.close()

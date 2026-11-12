@@ -28,6 +28,15 @@ def visible_words(value):
             safe.extend(t for t in ZH_TERMS if t in word)
     return " ".join(safe[:40])
 
+def is_region_notice(text):
+    words = " ".join(text.lower().split())
+    return any(marker in words for marker in (
+        "due to the location from which you are accessing this page, the service is restricted",
+        "not available in your country", "block access from your country",
+        "您所在的地區受到限制", "您所在的地区受到限制"
+    ))
+
+
 def signals(body,headers):
     mime=headers.get("content-type","").split(";")[0].lower()
     mime=mime if mime in {"text/html","application/json","text/plain","application/xml","text/xml"} else "other"
@@ -59,6 +68,7 @@ def signals(body,headers):
         try: parser.feed(decoded)
         except ValueError: pass
         visible=" ".join(parser.chunks)
+    if is_region_notice(visible): result["region_notice"] = True
     result["words"]=visible_words(visible)
     m=re.search(r"(?:error(?:\s+code)?\s*[:#]?\s*|cf-error-code[^>]*>\s*)(1[0-9]{3})\b",visible+" "+decoded[:12000],re.I)
     if m:result["edge_error"]=m[1]
