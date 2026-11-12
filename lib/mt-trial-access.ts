@@ -7,7 +7,23 @@ const headers = {'Cache-Control':'private, no-store','Referrer-Policy':'no-refer
 const config = () => ({enabled:process.env.OFA_MT_TRIAL_ENABLED,password:process.env.OFA_MT_TRIAL_PASSWORD});
 const ledger = createTrialLedger({query:(sql,args) => getPool().query(sql,args)});
 const reply = (data:object, status=200) => Response.json(data,{status,headers});
-const expired = '這個 IP 的 3 分鐘試玩已結束。';
+const screenOrigin='https://xingzhun-mt-trial-screen.onrender.com';
+type Lease=Awaited<ReturnType<typeof ledger>>;
+async function prepareScreen(ip:string,url:string,lease:Lease,room:string|null=null,lobby=false){
+  const key=process.env.MT_SCREEN_KEY;
+  if(!key)throw Error('Missing screen configuration');
+  const active=lease.state==='active';
+  const response=await fetch(screenOrigin+'/sessions',{method:'POST',headers:{
+    Authorization:'Bearer '+key,'Content-Type':'application/json'
+  },body:JSON.stringify({ip,url,room,lobby,active,remaining:active?Math.min(600,(lease.expiresAt!-lease.serverNow)/1000):600,expiresAt:active?lease.expiresAt:null}),
+    signal:AbortSignal.timeout(40000),cache:'no-store',redirect:'error'});
+  if(!response.ok)throw Error('Screen unavailable');
+  const {id}=await response.json();
+  if(typeof id!=='string'||!/^[a-f0-9]{48}$/.test(id))throw Error('Invalid screen');
+  return screenOrigin+'/s/'+id;
+}
+
+const expired = '這個 IP 的試玩已結束，結束後 24 小時可再次試玩。';
 
 export async function guestTrial(request:Request, start:boolean) {
   if (start && (request.method !== 'POST' || request.headers.get('origin') !== requestOrigin(request) ||
@@ -18,15 +34,20 @@ export async function guestTrial(request:Request, start:boolean) {
     const current = await ledger(ip,false);
     if (current.state === 'expired') return reply({...current,message:expired},410);
     if (!start) return reply(current);
-    if (request.headers.get('x-mt-trial') !== 'ip-180') return reply({message:'試玩頁已更新，請重新整理後開始。'},426);
+    if (request.headers.get('x-mt-trial') !== 'ip-600') return reply({message:'試玩頁已更新，請重新整理後開始。'},426);
     if (!mtTrialConfigured(config())) return reply({message:'MT 試玩尚未啟用。'},503);
     // Do not consume an unused IP when the upstream grant fails. Recheck the
     // database after slow logins so a request cannot finish beyond its deadline.
     const response = await launchMtTrial(request,config());
     if (!response.ok) return response;
     const {gameUrl} = await response.json();
+    // Open the isolated table before consuming an unused guest's first minute.
+    // No upstream token is sent to the visitor, including table navigations.
+    try { await prepareScreen(ip,gameUrl,current); }
+    catch { return reply({message:'MT 試玩牌桌暫時無法接通，請稍後再試。'},503); }
     const lease = await ledger(ip,true);
     if (lease.state !== 'active') return reply({...lease,message:expired},410);
+    await prepareScreen(ip,gameUrl,lease);
     return reply({...lease,gameOrigin:new URL(gameUrl).origin});
   } catch {
     return reply({message:'暫時無法核對試玩時間，請稍後再試。'},503);
@@ -59,6 +80,8 @@ export async function guestTable(request:Request) {
   if(room && !/^BAV(?:0[1235](?:_LIVE)?|03A(?:_LIVE)?|0[6789]|10)$/.test(room))return reply({message:'桌號無效。'},400);
   const grant=await activeGameGrant(request);
   if(grant instanceof Response)return grant;
-  if(room) grant.url.searchParams.set('game',room);
-  return new Response(null,{status:302,headers:{...headers,Location:grant.url.href}});
+  try {
+    const screen=await prepareScreen(grant.ip,grant.url.href,grant.lease,room,!room);
+    return new Response(null,{status:302,headers:{...headers,Location:screen}});
+  } catch {return reply({message:'MT 試玩牌桌暫時無法接通，請稍後再試。'},503);}
 }

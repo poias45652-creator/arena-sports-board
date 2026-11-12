@@ -1,0 +1,10 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MT 測試牌桌</title><style>
+*{box-sizing:border-box}body{margin:0;background:#0b1524;color:#f9e4af;font:16px system-ui;height:100dvh;display:grid;place-items:center}img{max-width:100%;max-height:100%;width:auto;height:auto;display:block;touch-action:manipulation;user-select:none}p{position:absolute;background:#102529;padding:10px;border-radius:8px}p:empty{display:none}</style>
+<img width="1024" height="640" alt="MT 原廠試玩牌桌" draggable="false"><p role="status">正在連接 MT 牌桌…</p><script>
+const img=document.querySelector('img'),msg=document.querySelector('p');
+let source='',alive=true;const ws=new WebSocket('wss://'+location.host+location.pathname+'/live');ws.binaryType='blob';
+ws.onmessage=e=>{if(!alive)return;const prev=source;source=URL.createObjectURL(e.data);img.src=source;if(prev)URL.revokeObjectURL(prev);msg.textContent='';};
+ws.onclose=()=>{alive=false;img.removeAttribute('src');img.hidden=true;msg.textContent='牌桌連線已關閉。請回星準查看剩餘時間。';if(source)URL.revokeObjectURL(source);};
+const send=(e,type)=>{if(ws.readyState!==WebSocket.OPEN)return;const r=img.getBoundingClientRect();ws.send(JSON.stringify({type,x:(e.clientX-r.left)/r.width,y:(e.clientY-r.top)/r.height,delta:type==='wheel'?e.deltaY:0}));};
+img.addEventListener('click',e=>send(e,'click'));img.addEventListener('wheel',e=>{e.preventDefault();send(e,'wheel')},{passive:false});window.addEventListener('pagehide',()=>ws.close());
+</script></html>
