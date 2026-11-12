@@ -260,7 +260,12 @@ async def live(request):
 
 async def verify_member_grants():
     # One-off staging verification. Submit the configured credential only to our exact HTTPS member entry.
-    if os.getenv("RENDER_SERVICE_ID") != "srv-dbqhkp5bedkc73dl4fc0" or time.time() > 1794478500:
+    print("[MT membership check] verification starting",flush=True)
+    if delegate.IS_SPARE or staging.PARENT != "https://xingzhun-original-test.onrender.com":
+        print("[MT membership check] unexpected target",flush=True)
+        return
+    if len(staging.SCREEN_KEY)<32:
+        print("[MT membership check] staging verification key unavailable",flush=True)
         return
     from aiohttp import ClientSession, ClientTimeout
     try:
@@ -271,7 +276,7 @@ async def verify_member_grants():
     url = staging.PARENT+"/mt-trial/member"
     for slot in (2,3,4,5):
         credential = staging.credentials().get(slot)
-        if not credential:
+        if not credential or credential[0] != {2:"dvp777",3:"dvp776",4:"dvp778",5:"dvp772"}[slot]:
             print("[MT membership check]",slot,"not configured",flush=True)
             continue
         try:
