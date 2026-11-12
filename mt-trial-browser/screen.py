@@ -12,6 +12,7 @@ from pathlib import Path
 from urllib.parse import parse_qsl, urlsplit
 
 from aiohttp import web, WSMsgType
+import staging
 from playwright.async_api import async_playwright
 
 WIDTH, HEIGHT = 1024, 640
@@ -64,9 +65,10 @@ async def start_session(request):
         deadline=min(deadline,time.monotonic()+expires/1000-time.time())
         if deadline<=time.monotonic(): raise web.HTTPGone()
     async with lock:
-        session = next((s for s in sessions.values() if s.ip == ip and s.end > time.monotonic()), None)
+        legacy = [s for s in sessions.values() if not hasattr(s, "ticket")]
+        session = next((s for s in legacy if s.ip == ip and s.end > time.monotonic()), None)
         if not session:
-            if len(sessions) >= MAX_SESSIONS:
+            if len(legacy) >= MAX_SESSIONS:
                 raise web.HTTPServiceUnavailable(text="busy")
             session = Screen(ip, deadline if active else time.monotonic()+630)
             sessions[session.id] = session
@@ -130,16 +132,19 @@ class Screen:
         self.context.on("page", lambda p: asyncio.create_task(p.close()) if p != self.page else None)
         self.cdp = await self.context.new_cdp_session(self.page)
         self.cdp.on("Page.screencastFrame", self.frame)
-        self.stage = "first-party shell"
-        response=await self.page.goto(site+"/mt-trial/renderer",wait_until="domcontentloaded",timeout=18000)
-        if not response or response.status!=200: raise RuntimeError("missing renderer shell")
-        await self.goto(url, room)
+        await self.load_entry(url, room)
         self.stage = "capture"
         await self.cdp.send("Page.startScreencast",{"format":"jpeg","quality":74,"maxWidth":WIDTH,"maxHeight":HEIGHT,"everyNthFrame":2})
         image = await self.cdp.send("Page.captureScreenshot",{"format":"jpeg","quality":74})
         self.jpeg = base64.b64decode(image["data"])
         self.stage = "ready"
         print("[MT screen] first frame ready", flush=True)
+
+    async def load_entry(self, url, room):
+        self.stage = "first-party shell"
+        response=await self.page.goto(site+"/mt-trial/renderer",wait_until="domcontentloaded",timeout=18000)
+        if not response or response.status!=200: raise RuntimeError("missing renderer shell")
+        await self.goto(url, room)
 
     async def goto(self,url,room):
         from urllib.parse import urlunsplit
@@ -209,7 +214,7 @@ async def live(request):
     await ws.prepare(request)
     async def send_frames():
         last=-1
-        while not s.closed and s.end>time.monotonic():
+        while not s.closed and s.end>time.monotonic() and not (hasattr(s,"lost") and s.lost.is_set()):
             if s.jpeg and last!=s.seq:
                 last=s.seq
                 await ws.send_bytes(s.jpeg)
@@ -224,6 +229,13 @@ async def live(request):
             if message.type!=WSMsgType.TEXT: return
             try:
                 e=json.loads(message.data)
+                if not isinstance(e,dict): continue
+                if hasattr(s, "painted"):
+                    if e.get("type") == "displayed" and s.jpeg:
+                        s.painted = True
+                        await ws.send_json({"displayed":True})
+                        continue
+                    if not s.enabled or s.lost.is_set(): continue
                 x,y=e["x"],e["y"]
                 if type(x) not in (int,float) or type(y) not in (int,float) or not (0<=x<=1 and 0<=y<=1): continue
                 if e.get("type")=="click":
@@ -267,7 +279,8 @@ async def lifecycle(app):
 app=web.Application(client_max_size=8192)
 async def response_headers(request,response):
     response.headers.update({"Cache-Control":"private, no-store","Referrer-Policy":"no-referrer","X-Content-Type-Options":"nosniff",
-        "Content-Security-Policy":f"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'self' wss://{urlsplit(origin).netloc}; frame-ancestors {site} {brand} https://chatgpt.com; base-uri 'none'; form-action 'none'"})
+        "Content-Security-Policy":f"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'self' wss://{urlsplit(origin).netloc}; frame-ancestors {site} {brand} {staging.PARENT} https://chatgpt.com; base-uri 'none'; form-action 'none'"})
+staging.install(app, Screen, sessions, same_ip, allowed)
 app.on_response_prepare.append(response_headers)
 app.cleanup_ctx.append(lifecycle)
 async def health(request): return web.json_response({"ready":bool(browser and browser.is_connected())})
@@ -277,3 +290,4 @@ app.router.add_get("/s/{id:[a-f0-9]+}",view)
 app.router.add_get("/s/{id:[a-f0-9]+}/live",live)
 if __name__=="__main__":
     web.run_app(app,port=int(os.environ.get("PORT","10000")),access_log=None)
+
