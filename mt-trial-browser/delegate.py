@@ -17,13 +17,17 @@ seen = {}
 sampled = False
 
 
-def valid_claim(claim, slot, ticket, key):
+def valid_claim(claim, slot, ticket, key, device="Desktop"):
     if not isinstance(claim, dict) or not isinstance(ticket, str) or not re.fullmatch(r"[a-f0-9]{32}", ticket):
         return False
     end, signature = claim.get("end"), claim.get("sig")
     if type(end) != int or not 0 < end - time.time() <= 100 or not isinstance(signature, str) or not re.fullmatch(r"[a-f0-9]{64}",signature):
         return False
-    payload = f"mt-spare-v1|{ticket}|{slot}|{end}".encode()
+    if device not in ("Mobile", "Desktop"):
+        return False
+    # Existing screen clients sign desktop requests with the original format.
+    prefix = "mt-spare-mobile-v1" if device == "Mobile" else "mt-spare-v1"
+    payload = f"{prefix}|{ticket}|{slot}|{end}".encode()
     return len(key) >= 32 and hmac.compare_digest(hmac.new(key.encode(), payload, hashlib.sha256).hexdigest(), signature)
 
 
@@ -31,7 +35,8 @@ def register_issuer(app, get_browser, staging, allowed):
     async def issue(request):
         data = await request.json()
         slot, ticket, claim = data.get("slot"), data.get("ticket"), data.get("claim")
-        if type(slot) != int or not valid_claim(claim, slot, ticket, staging.SCREEN_KEY) or slot not in staging.credentials():
+        device = data.get("device", "Desktop")
+        if type(slot) != int or not valid_claim(claim, slot, ticket, staging.SCREEN_KEY, device) or slot not in staging.credentials():
             raise web.HTTPForbidden()
         now = time.time()
         for old in [t for t, end in seen.items() if end <= now]:
@@ -41,7 +46,7 @@ def register_issuer(app, get_browser, staging, allowed):
         seen[ticket] = claim["end"]
         ctx = await get_browser().new_context()
         try:
-            url = await staging.grant(ctx, slot, allowed)
+            url = await staging.grant(ctx, slot, allowed, game_device=device)
             print("[MT trial] alternate launch granted for slot",slot,flush=True)
             return web.json_response({"url":url},headers={"Cache-Control":"no-store"})
         except RuntimeError as exc:
