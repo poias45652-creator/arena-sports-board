@@ -119,7 +119,7 @@ def observe_game(socket, ready, lost):
     socket.on("close", lambda *_: lost.set())
 
 
-async def grant(context, slot, allowed, game_device="Desktop"):
+async def grant(context, slot, allowed):
     account, password = credentials()[slot]
     device = hmac.new(SCREEN_KEY.encode(), ("ofa-device:"+account).encode(), hashlib.sha256).hexdigest()[:32]
     async def post(path, payload, bearer=None):
@@ -152,7 +152,7 @@ async def grant(context, slot, allowed, game_device="Desktop"):
     auth = login.get("data") or {}
     if str(auth.get("username","")).lower() != account or not isinstance(auth.get("token"), str) or not auth["token"]:
         raise RuntimeError("ofa_login")
-    response = await post("/api/v2/game/MTLI/login", {"game_return_url":ISSUER, "game_kind":"LIVE", "game_device":game_device, "game_money":""}, auth["token"])
+    response = await post("/api/v2/game/MTLI/login", {"game_return_url":ISSUER, "game_kind":"LIVE", "game_device":"Desktop", "game_money":""}, auth["token"])
     for part in (response.get("data"), response.get("raw")):
         urls = [part.get("game_url"),part.get("url")] if isinstance(part,dict) else [part]
         for url in urls:
