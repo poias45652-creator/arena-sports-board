@@ -15,13 +15,22 @@ ISSUER = "https://www.ofa1188.net"
 SCREEN_KEY = os.getenv("MT_TRIAL_STAGE_KEY", "")
 
 
+def slot_password(name, suffix):
+    password = os.getenv("OFA_MT_TRIAL_PASSWORD"+suffix)
+    if password or not re.fullmatch(r"dvp[0-9]{2,12}",name):
+        return password
+    # Operators may store a trial password under its exact OFA account name.
+    # Only the numbered OFA trial accounts can reference such a field.
+    return os.getenv(name) or os.getenv(name.upper())
+
+
 def credentials():
     result = {}
     seen = set()
     for n in range(1, 6):
         suffix = "" if n == 1 else "_" + str(n)
         name = os.getenv("OFA_MT_TRIAL_ACCOUNT" + suffix, "dvp0322" if n == 1 else "").strip().lower()
-        password = os.getenv("OFA_MT_TRIAL_PASSWORD" + suffix)
+        password = slot_password(name,suffix)
         if name and password and name not in seen:
             seen.add(name)
             result[n] = (name, password)
@@ -33,11 +42,9 @@ def account_status():
     for slot in range(1, 6):
         suffix = "" if slot == 1 else "_" + str(slot)
         account = os.getenv("OFA_MT_TRIAL_ACCOUNT"+suffix, "dvp0322" if slot == 1 else "").strip()
-        password = os.getenv("OFA_MT_TRIAL_PASSWORD"+suffix)
+        password = slot_password(account.lower(),suffix)
         status[slot] = ("active" if slot in credentials() else "missing account" if not account
                         else "missing password" if not password else "duplicate account")
-        if account and not password and (account in os.environ or account.upper() in os.environ):
-            status[slot] += " (account-named variable exists)"
     return status
 
 

@@ -30,3 +30,11 @@ class SessionSignalTests(unittest.TestCase):
                 "OFA_MT_TRIAL_ACCOUNT_4":"missing"}
         with patch.dict(os.environ,values,clear=True):
             self.assertEqual(list(staging.credentials()),[1,3])
+
+    def test_account_named_fields_are_isolated_and_numbered_fields_win(self):
+        values={"OFA_MT_TRIAL_ACCOUNT_2":"dvp777","dvp777":"fixture alias",
+                "OFA_MT_TRIAL_ACCOUNT_3":"dvp776","DVP776":"fixture alias",
+                "OFA_MT_TRIAL_PASSWORD_3":"fixture explicit",
+                "OFA_MT_TRIAL_ACCOUNT_4":"MT_SCREEN_KEY","MT_SCREEN_KEY":"fixture service key"}
+        with patch.dict(os.environ,values,clear=True):
+            self.assertEqual(staging.credentials(),{2:("dvp777","fixture alias"),3:("dvp776","fixture explicit")})
