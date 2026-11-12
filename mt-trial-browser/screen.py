@@ -90,7 +90,7 @@ async def start_session(request):
     except Exception as exc:
         # Never log provider URLs or tokens. Browser errors can embed both.
         error = re.search(r"net::[A-Z_]+",str(exc))
-        print("[MT screen] failed", session.stage, type(exc).__name__, error[0] if error else "", flush=True)
+        print("[MT screen] failed", session.stage, type(exc).__name__, error[0] if error else (str(exc) if str(exc).startswith("provider_") else ""), flush=True)
         await session.close()
         raise web.HTTPServiceUnavailable(text="table unavailable")
 
@@ -166,7 +166,7 @@ class Screen:
                 print("[MT screen] provider refusal:",reason,flush=True)
             except Exception: pass
         if not response or response.status>=400 or urlsplit(response.url).hostname not in HOSTS:
-            raise RuntimeError("upstream page unavailable")
+            raise RuntimeError("provider_http_"+str(response.status) if response else "provider_no_response")
         self.room=room
 
     async def frame(self,event):
