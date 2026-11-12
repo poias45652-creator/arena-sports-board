@@ -117,7 +117,8 @@ class Screen:
         async def route(req):
             u = urlsplit(req.request.url)
             shell_url=site+"/mt-trial/renderer"
-            if req.request.url==shell_url: return await req.continue_()
+            if req.request.url==shell_url or (getattr(self, "ticket", None) and req.request.url==staging.PARENT+"/mt-trial/renderer"):
+                return await req.continue_()
             if req.request.is_navigation_request() and u.hostname not in HOSTS and req.request.frame == self.page.main_frame:
                 return await req.abort()
             if u.scheme in ("http", "https"):
@@ -290,6 +291,6 @@ app.router.add_post("/sessions",start_session)
 app.router.add_get("/s/{id:[a-f0-9]+}",view)
 app.router.add_get("/s/{id:[a-f0-9]+}/live",live)
 if __name__=="__main__":
-    print("[MT screen] staging trial protocol 2 registered", flush=True)
+    print("[MT screen] staging trial protocol 2 registered; configured slots:", list(staging.credentials()), flush=True)
     web.run_app(app,port=int(os.environ.get("PORT","10000")),access_log=None)
 

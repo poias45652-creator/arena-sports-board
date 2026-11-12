@@ -109,8 +109,23 @@ def install(app, Screen, sessions, same_ip, allowed):
 
         async def load_entry(self, url, room):
             self.page.on("websocket", lambda socket: observe_game(socket, self.ready, self.lost))
+            shell = await self.page.goto(PARENT+"/mt-trial/renderer", wait_until="domcontentloaded", timeout=16000)
+            if not shell or shell.status != 200:
+                raise RuntimeError("missing_trial_shell")
             url = await grant(self.context, self.slot, allowed)
-            await self.goto(url, None)
+            print("[MT trial] OFA issued grant for slot", self.slot, flush=True)
+            # The original staging site's real document embeds the signed URL directly.
+            # Keep the browser's normal origin, referrer, frame policy and single game socket.
+            def table_document(response):
+                return (response.request.is_navigation_request()
+                        and response.request.frame.parent_frame == self.page.main_frame
+                        and urlsplit(response.url).hostname in {"gs1.ofalive99.net","gsa.ofalive99.net"}
+                        and not 300 <= response.status < 400)
+            async with self.page.expect_response(table_document, timeout=20000) as loaded:
+                await self.page.locator("iframe").evaluate("(frame, url) => { frame.src = url; }", url)
+            response = await loaded.value
+            if response.status >= 400:
+                raise RuntimeError("provider_http_"+str(response.status))
             await asyncio.wait_for(self.ready.wait(), 28)
             if self.lost.is_set():
                 raise RuntimeError("mt_disconnected")
