@@ -114,6 +114,8 @@ class Screen:
         self.page = await self.context.new_page()
         async def route(req):
             u = urlsplit(req.request.url)
+            shell_url=site+"/mt-trial/renderer"
+            if req.request.url==shell_url: return await req.continue_()
             if req.request.is_navigation_request() and u.hostname not in HOSTS and req.request.frame == self.page.main_frame:
                 return await req.abort()
             if u.scheme in ("http", "https"):
@@ -128,6 +130,9 @@ class Screen:
         self.context.on("page", lambda p: asyncio.create_task(p.close()) if p != self.page else None)
         self.cdp = await self.context.new_cdp_session(self.page)
         self.cdp.on("Page.screencastFrame", self.frame)
+        self.stage = "first-party shell"
+        response=await self.page.goto(site+"/mt-trial/renderer",wait_until="domcontentloaded",timeout=18000)
+        if not response or response.status!=200: raise RuntimeError("missing renderer shell")
         await self.goto(url, room)
         self.stage = "capture"
         await self.cdp.send("Page.startScreencast",{"format":"jpeg","quality":74,"maxWidth":WIDTH,"maxHeight":HEIGHT,"everyNthFrame":2})
@@ -137,12 +142,19 @@ class Screen:
         print("[MT screen] first frame ready", flush=True)
 
     async def goto(self,url,room):
-        from urllib.parse import urlencode,urlunsplit
+        from urllib.parse import urlunsplit
         u=urlsplit(url)
-        query=[(k,v) for k,v in parse_qsl(u.query) if k.lower()!="game"]
-        if room: query.append(("game",room))
-        self.stage = "navigate"
-        response=await self.page.goto(urlunsplit(u._replace(query=urlencode(query))),wait_until="commit",timeout=22000)
+        # Preserve the signed launch URL byte-for-byte unless a table change is requested.
+        if room:
+            params=[pair for pair in u.query.split("&") if pair.split("=",1)[0].lower()!="game"]
+            url=urlunsplit(u._replace(query="&".join([*params,"game="+room])))
+        self.stage = "native iframe"
+        def is_table_document(r):
+            return (r.request.is_navigation_request() and urlsplit(r.url).hostname in HOSTS
+                    and not 300<=r.status<400)
+        async with self.page.expect_response(is_table_document,timeout=20000) as event:
+            await self.page.locator("iframe").evaluate("(f,src)=>{f.src=src}",url)
+        response=await event.value
         print("[MT screen] navigation HTTP", response.status if response else 0, flush=True)
         if response and response.status==403:
             try:
@@ -153,7 +165,7 @@ class Screen:
                 else: reason="unspecified"
                 print("[MT screen] provider refusal:",reason,flush=True)
             except Exception: pass
-        if not response or response.status>=400 or urlsplit(self.page.url).hostname not in HOSTS:
+        if not response or response.status>=400 or urlsplit(response.url).hostname not in HOSTS:
             raise RuntimeError("upstream page unavailable")
         self.room=room
 
