@@ -119,10 +119,9 @@ def observe_game(socket, ready, lost):
     socket.on("close", lambda *_: lost.set())
 
 
-async def grant(context, slot, allowed, device=None):
+async def grant(context, slot, allowed):
     account, password = credentials()[slot]
-    if device is None:
-        device = hmac.new(SCREEN_KEY.encode(), ("ofa-device:"+account).encode(), hashlib.sha256).hexdigest()[:32]
+    device = hmac.new(SCREEN_KEY.encode(), ("ofa-device:"+account).encode(), hashlib.sha256).hexdigest()[:32]
     async def post(path, payload, bearer=None):
         headers = {"Accept":"application/json"}
         if bearer:
@@ -193,17 +192,7 @@ def install(app, Screen, sessions, same_ip, allowed):
             if delegate.IS_SPARE:
                 url = await delegate.request_entry(self.context,self.slot,self.ticket,self.claim,allowed)
             else:
-                device = None
-                if self.slot == 5 and self.ticket == globals().get("comparison_ticket"):
-                    from pathlib import Path
-                    if self.page.url != PARENT + "/mt-trial/renderer":
-                        raise RuntimeError("unexpected_trial_origin")
-                    source = Path(__file__).with_name("original-device.js").read_text()
-                    device = await self.page.evaluate("async () => {" + source + "\nreturn await OriginalOFA.ofaDeviceId();}")
-                    if not re.fullmatch(r"[a-f0-9]{32}",device or ""):
-                        raise RuntimeError("invalid_issuer_device")
-                    print("[MT comparison] original OFA device prepared",flush=True)
-                url = await grant(self.context, self.slot, allowed, device)
+                url = await grant(self.context, self.slot, allowed)
             print("[MT trial] OFA issued grant for slot", self.slot, flush=True)
             # The original staging site's real document embeds the signed URL directly.
             # Keep the browser's normal origin, referrer, frame policy and single game socket.
