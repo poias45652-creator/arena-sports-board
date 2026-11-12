@@ -288,3 +288,4 @@ CREATE TABLE IF NOT EXISTS mt_guest_ip_trials (
 ALTER TABLE mt_guest_ip_trials ADD COLUMN IF NOT EXISTS retry_ready boolean NOT NULL DEFAULT false;
 CREATE TABLE IF NOT EXISTS mt_guest_trial_retests (token_hash text PRIMARY KEY, claimed_by text);
 INSERT INTO mt_guest_trial_retests (token_hash) VALUES ('5838064037ed3dc9693616ad302515a3e588b85902ca114ccfaa12bf99efb0ed') ON CONFLICT DO NOTHING;
+INSERT INTO mt_guest_trial_retests (token_hash) VALUES ('f84f836cc8fdfa0c1f36b5ea536e08c5d08708f17af30b08526c4c54fbedbb40') ON CONFLICT DO NOTHING;
