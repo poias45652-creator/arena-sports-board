@@ -13,6 +13,7 @@ from urllib.parse import parse_qsl, urlsplit
 
 from aiohttp import web, WSMsgType
 import staging
+import delegate
 from playwright.async_api import async_playwright
 
 WIDTH, HEIGHT = 1024, 640
@@ -23,7 +24,7 @@ html = Path(__file__).with_name("player.html").read_text()
 sessions = {}
 lock = asyncio.Lock()
 browser = None
-key = os.environ.get("MT_SCREEN_KEY", "")
+key = staging.SCREEN_KEY if delegate.IS_SPARE else os.environ.get("MT_SCREEN_KEY", "")
 origin = os.environ.get("RENDER_EXTERNAL_URL", "").rstrip("/")
 site = "https://arena-sports-board.onrender.com"
 brand = "https://xingzhun-sports-home.poias45652.chatgpt.site"
@@ -279,15 +280,23 @@ async def lifecycle(app):
 
 app=web.Application(client_max_size=8192)
 async def response_headers(request,response):
+    if delegate.IS_SPARE and request.path in ("/","/mt-trial","/mt-trial/renderer"):
+        return
     response.headers.update({"Cache-Control":"private, no-store","Referrer-Policy":"no-referrer","X-Content-Type-Options":"nosniff",
-        "Content-Security-Policy":f"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'self' wss://{urlsplit(origin).netloc}; frame-ancestors {site} {brand} {staging.PARENT} https://chatgpt.com; base-uri 'none'; form-action 'none'"})
+        "Content-Security-Policy":f"default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src blob:; connect-src 'self' wss://{urlsplit(origin).netloc}; frame-ancestors {site} {brand} {staging.PARENT} https://xingzhun-original-test.onrender.com {delegate.SPARE} https://chatgpt.com; base-uri 'none'; form-action 'none'"})
 staging.install(app, Screen, sessions, same_ip, allowed)
 app.on_response_prepare.append(response_headers)
 app.cleanup_ctx.append(lifecycle)
 async def health(request):
     return web.json_response({"ready":bool(browser and browser.is_connected()),"trialProtocol":2})
-app.router.add_get("/",health)
-app.router.add_post("/sessions",start_session)
+if delegate.IS_SPARE:
+    from spare_site import install
+    install(app)
+    app.router.add_get("/health",health)
+else:
+    delegate.register_issuer(app,lambda:browser,staging,allowed)
+    app.router.add_get("/",health)
+    app.router.add_post("/sessions",start_session)
 app.router.add_get("/s/{id:[a-f0-9]+}",view)
 app.router.add_get("/s/{id:[a-f0-9]+}/live",live)
 if __name__=="__main__":

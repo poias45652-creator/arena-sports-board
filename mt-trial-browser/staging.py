@@ -10,10 +10,11 @@ from urllib.parse import urlsplit
 
 from aiohttp import web
 from refusal import is_region_notice, signals
+import delegate
 
-PARENT = "https://xingzhun-original-test.onrender.com"
+PARENT = delegate.SPARE if delegate.IS_SPARE else "https://xingzhun-original-test.onrender.com"
 ISSUER = "https://www.ofa1188.net"
-SCREEN_KEY = os.getenv("MT_TRIAL_STAGE_KEY", "")
+SCREEN_KEY = os.getenv("MT_TRIAL_ALTERNATE_KEY" if delegate.IS_SPARE else "MT_TRIAL_STAGE_KEY", "")
 
 
 def slot_password(name, suffix):
@@ -188,7 +189,10 @@ def install(app, Screen, sessions, same_ip, allowed):
             else:
                 raise RuntimeError("trial_shell_unavailable")
             self.stage = "OFA authorization"
-            url = await grant(self.context, self.slot, allowed)
+            if delegate.IS_SPARE:
+                url = await delegate.request_entry(self.context,self.slot,self.ticket,self.claim,allowed)
+            else:
+                url = await grant(self.context, self.slot, allowed)
             print("[MT trial] OFA issued grant for slot", self.slot, flush=True)
             # The original staging site's real document embeds the signed URL directly.
             # Keep the browser's normal origin, referrer, frame policy and single game socket.
@@ -203,6 +207,8 @@ def install(app, Screen, sessions, same_ip, allowed):
             response = await loaded.value
             if response.status >= 400:
                 summary = await report_refusal(response)
+                if delegate.IS_SPARE and response.status == 403:
+                    await delegate.sample_public_notice()
                 if response.status == 403 and summary.get("region_notice"):
                     raise RuntimeError("provider_region_restricted")
                 raise RuntimeError("provider_http_"+str(response.status))
@@ -236,7 +242,7 @@ def install(app, Screen, sessions, same_ip, allowed):
                 trial.end = min(trial.end,deadline) if trial.enabled else deadline
                 trial.enabled = True
                 return web.json_response({"ok":True})
-            if action != "open" or slot not in credentials():
+            if action != "open" or slot not in (range(1,6) if delegate.IS_SPARE else credentials()):
                 raise web.HTTPBadRequest()
             if not trial:
                 for s in list(sessions.values()):
@@ -245,6 +251,7 @@ def install(app, Screen, sessions, same_ip, allowed):
                             raise web.HTTPConflict(text="busy")
                         await s.close()
                 trial = Trial(ip,ticket,slot)
+                trial.claim = body.get("claim")
                 sessions[trial.id] = trial
         async with trial.setup:
             try:
