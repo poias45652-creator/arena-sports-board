@@ -2,7 +2,7 @@ const brand = 'https://xingzhun-sports-home.poias45652.chatgpt.site';
 // Immutable assets built from the original MT workspace. SRI pins the exact code
 // that may run on the trial origin. Launch credentials never reach the asset host.
 const assets = {
-  js:{file:'mt-native-f917531096953d4a.js',integrity:'sha384-p3CXvu4ts1x0lGfRH0O6mJlTbrl5abvm4fUGG27Q3/Dok9aUGLyORzUtuOQJzXAi'},
+  js:{file:'mt-native-b6ad46973a48bfc0.js',integrity:'sha384-zB7v/+KzaOg2MfuiiL8dI0iAZr4RGNxdNp8LMHeF4K2oyTUxkYk//4hOuqbBJLTG'},
   css:{file:'mt-native-63b84b803feb4e7a.css',integrity:'sha384-Bovic5U8efRHeslOEFcd9IX7QC1j8X8OTPusNJ1HWeq3XbjV3gDIdXHyIkjHxHRe'}
 };
 export function mtTrialWorkspace(embedded:boolean) {
