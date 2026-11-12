@@ -48,6 +48,7 @@ def allowed(url):
 async def start_session(request):
     if not hmac.compare_digest(request.headers.get("Authorization", ""), "Bearer " + key):
         raise web.HTTPForbidden()
+    print("[MT screen] authorized request", flush=True)
     data = await request.json()
     ip = same_ip(data.get("ip"))
     url, room = data.get("url", ""), data.get("room")
@@ -86,7 +87,10 @@ async def start_session(request):
         return web.json_response({"id":session.id})
     except web.HTTPException:
         raise
-    except Exception:
+    except Exception as exc:
+        # Never log provider URLs or tokens. Browser errors can embed both.
+        error = re.search(r"net::[A-Z_]+",str(exc))
+        print("[MT screen] failed", session.stage, type(exc).__name__, error[0] if error else "", flush=True)
         await session.close()
         raise web.HTTPServiceUnavailable(text="table unavailable")
 
@@ -98,17 +102,19 @@ class Screen:
         self.setup = asyncio.Lock()
         self.context = self.page = self.cdp = self.viewer = self.room = None
         self.closed = False
+        self.stage = "new"
         self.seq = 0
         self.condition = asyncio.Condition()
         self.jpeg = None
 
     async def open(self, url, room):
+        self.stage = "create context"
         self.context = await browser.new_context(viewport={"width":WIDTH, "height":HEIGHT},
             locale="zh-TW", accept_downloads=False, service_workers="block")
         self.page = await self.context.new_page()
         async def route(req):
             u = urlsplit(req.request.url)
-            if req.request.is_navigation_request() and req.request.frame == self.page.main_frame and u.hostname not in HOSTS:
+            if req.request.is_navigation_request() and u.hostname not in HOSTS and req.request.frame == self.page.main_frame:
                 return await req.abort()
             if u.scheme in ("http", "https"):
                 host = (u.hostname or "").lower()
@@ -123,15 +129,21 @@ class Screen:
         self.cdp = await self.context.new_cdp_session(self.page)
         self.cdp.on("Page.screencastFrame", self.frame)
         await self.goto(url, room)
+        self.stage = "capture"
         await self.cdp.send("Page.startScreencast",{"format":"jpeg","quality":74,"maxWidth":WIDTH,"maxHeight":HEIGHT,"everyNthFrame":2})
-        self.jpeg = await self.page.screenshot(type="jpeg", quality=74, timeout=9000)
+        image = await self.cdp.send("Page.captureScreenshot",{"format":"jpeg","quality":74})
+        self.jpeg = base64.b64decode(image["data"])
+        self.stage = "ready"
+        print("[MT screen] first frame ready", flush=True)
 
     async def goto(self,url,room):
         from urllib.parse import urlencode,urlunsplit
         u=urlsplit(url)
         query=[(k,v) for k,v in parse_qsl(u.query) if k.lower()!="game"]
         if room: query.append(("game",room))
-        response=await self.page.goto(urlunsplit(u._replace(query=urlencode(query))),wait_until="domcontentloaded",timeout=24000)
+        self.stage = "navigate"
+        response=await self.page.goto(urlunsplit(u._replace(query=urlencode(query))),wait_until="commit",timeout=22000)
+        print("[MT screen] navigation HTTP", response.status if response else 0, flush=True)
         if not response or response.status>=400 or urlsplit(self.page.url).hostname not in HOSTS:
             raise RuntimeError("upstream page unavailable")
         self.room=room
