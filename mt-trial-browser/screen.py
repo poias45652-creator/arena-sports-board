@@ -11,7 +11,7 @@ import time
 from pathlib import Path
 from urllib.parse import parse_qsl, urlsplit
 
-from aiohttp import web, WSMsgType
+from aiohttp import ClientError, ClientSession, ClientTimeout, web, WSMsgType
 import staging
 import delegate
 from playwright.async_api import async_playwright
@@ -54,6 +54,12 @@ async def start_session(request):
     data = await request.json()
     ip = same_ip(data.get("ip"))
     url, room = data.get("url", ""), data.get("room")
+    subject = data.get("subject") if request.path == "/v2/sessions" else None
+    if request.path == "/v2/sessions" and (not isinstance(subject,str) or not re.fullmatch(r"[a-f0-9]{64}",subject)):
+        raise web.HTTPBadRequest()
+    owner = data.get("account") if subject else None
+    if subject and (not isinstance(owner,str) or not re.fullmatch(r"[a-f0-9]{8}(?:-[a-f0-9]{4}){3}-[a-f0-9]{12}",owner)):
+        raise web.HTTPBadRequest()
     seconds = data.get("remaining")
     if not ip or not allowed(url) or (room is not None and not ROOM.fullmatch(room)) or type(seconds) not in (float, int) or not 0 < seconds <= 600:
         raise web.HTTPBadRequest()
@@ -67,11 +73,16 @@ async def start_session(request):
         if deadline<=time.monotonic(): raise web.HTTPGone()
     async with lock:
         legacy = [s for s in sessions.values() if not hasattr(s, "ticket")]
-        session = next((s for s in legacy if s.ip == ip and s.end > time.monotonic()), None)
+        session = next((s for s in legacy if s.subject == subject and s.ip == ip and s.end > time.monotonic()), None)
+        if subject:
+            for other in legacy:
+                if other.owner == owner and (other.subject != subject or other.ip != ip):
+                    await other.close()
         if not session:
-            if len(legacy) >= MAX_SESSIONS:
+            if sum(not s.closed for s in legacy) >= MAX_SESSIONS:
                 raise web.HTTPServiceUnavailable(text="busy")
             session = Screen(ip, deadline if active else time.monotonic()+630)
+            session.owner, session.subject = owner, subject
             sessions[session.id] = session
         if active:
             session.end = min(session.end, deadline)
@@ -100,6 +111,7 @@ async def start_session(request):
 
 class Screen:
     def __init__(self, ip, deadline):
+        self.owner = self.subject = None
         self.ip, self.end = ip, deadline
         self.id = secrets.token_hex(24)
         self.setup = asyncio.Lock()
@@ -202,14 +214,28 @@ def get_session(request):
     return s
 
 
+async def account_active(s):
+    if not s.subject:
+        return True
+    try:
+        async with ClientSession(timeout=ClientTimeout(total=4)) as client:
+            async with client.post(site+"/mt-trial/screen-access",headers={"Authorization":"Bearer "+key},
+                                   json={"subject":s.subject},allow_redirects=False) as result:
+                return result.status == 204
+    except (OSError, asyncio.TimeoutError, ClientError):
+        return False
+
+
 async def view(request):
-    get_session(request)
+    s=get_session(request)
+    if not await account_active(s): raise web.HTTPForbidden()
     return web.Response(text=html,content_type="text/html")
 
 
 async def live(request):
     s=get_session(request)
     if request.headers.get("Origin")!=origin: raise web.HTTPForbidden()
+    if not await account_active(s): raise web.HTTPForbidden()
     ws=web.WebSocketResponse(max_msg_size=512,heartbeat=20)
     if s.viewer: await s.viewer.close(code=1001)
     s.viewer=ws
@@ -248,7 +274,14 @@ async def live(request):
                         await s.page.mouse.move(x*(WIDTH-1),y*(HEIGHT-1))
                         await s.page.mouse.wheel(0,max(-640,min(640,delta)))
             except (KeyError,ValueError,TypeError): continue
+    async def check_account():
+        while not s.closed:
+            await asyncio.sleep(5)
+            if not await account_active(s):
+                await s.close()
+                return
     tasks=[asyncio.create_task(f()) for f in (send_frames,inputs)]
+    if s.subject: tasks.append(asyncio.create_task(check_account()))
     try: await asyncio.wait(tasks,return_when=asyncio.FIRST_COMPLETED)
     finally:
         for task in tasks: task.cancel()
@@ -297,6 +330,7 @@ else:
     delegate.register_issuer(app,lambda:browser,staging,allowed)
     app.router.add_get("/",health)
     app.router.add_post("/sessions",start_session)
+    app.router.add_post("/v2/sessions",start_session)
 app.router.add_get("/s/{id:[a-f0-9]+}",view)
 app.router.add_get("/s/{id:[a-f0-9]+}/live",live)
 if __name__=="__main__":
