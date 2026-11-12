@@ -148,13 +148,13 @@ class Screen:
         if room:
             params=[pair for pair in u.query.split("&") if pair.split("=",1)[0].lower()!="game"]
             url=urlunsplit(u._replace(query="&".join([*params,"game="+room])))
-        self.stage = "native iframe"
+        self.stage = "native top-level"
         def is_table_document(r):
             return (r.request.is_navigation_request() and urlsplit(r.url).hostname in HOSTS
                     and not 300<=r.status<400)
-        async with self.page.expect_response(is_table_document,timeout=20000) as event:
-            await self.page.locator("iframe").evaluate("(f,src)=>{f.src=src}",url)
-        response=await event.value
+        # Navigate the isolated browser directly to the native MT page.
+        # Users still receive only the pixel stream, never the launch URL.
+        response=await self.page.goto(url,wait_until="domcontentloaded",timeout=20000)
         print("[MT screen] navigation HTTP", response.status if response else 0, flush=True)
         if response and response.status==403:
             try:
