@@ -3,7 +3,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends chromium fonts-
  && pip install --no-cache-dir aiohttp==3.13.2 playwright==1.56.0 \
  && useradd --create-home --uid 10001 player
 WORKDIR /app
-COPY screen.py staging.py player.html ./
+COPY screen.py staging.py refusal.py player.html ./
 USER player
 ENTRYPOINT ["/usr/bin/tini","--"]
 CMD ["python","screen.py"]

@@ -257,6 +257,41 @@ async def live(request):
     return ws
 
 
+async def staging_sample():
+    # Sample only this staging service on the one diagnostic revision.
+    if os.getenv("RENDER_SERVICE_ID") != "srv-dbqhkp5bedkc73dl4fc0" or time.time() >= 1794475200:
+        return
+    from aiohttp import ClientSession, ClientTimeout, DummyCookieJar
+    from refusal import signals
+    import json
+    await asyncio.sleep(8)
+    try:
+        with open("/tmp/mt-stage-sample-r1","x"):
+            pass
+    except FileExistsError:
+        return
+    async with ClientSession(cookie_jar=DummyCookieJar(),timeout=ClientTimeout(total=85)) as client:
+        for slot in (5,2):
+            ticket=secrets.token_hex(16)
+            try:
+                async with client.post("http://127.0.0.1:"+os.getenv("PORT","10000")+"/staging/session",
+                    headers={"Authorization":"Bearer "+staging.SCREEN_KEY},
+                    json={"ip":"192.0.2.183","ticket":ticket,"slot":slot,"action":"open"}) as r:
+                    print("[MT sample] normal entry", slot, r.status, flush=True)
+            except Exception as e:
+                print("[MT sample] entry unavailable",slot,type(e).__name__,flush=True)
+            finally:
+                for s in list(sessions.values()):
+                    if getattr(s,"ticket",None)==ticket:
+                        await s.close()
+        try:
+            async with client.get("https://gs1.ofalive99.net/",allow_redirects=False,timeout=ClientTimeout(total=10)) as r:
+                body=await r.content.read(98304)
+                print("[MT sample] unsigned public root",r.status,json.dumps(signals(body,{k.lower():v for k,v in r.headers.items()}),ensure_ascii=False),flush=True)
+        except Exception as e:
+            print("[MT sample] public root unavailable",type(e).__name__,flush=True)
+
+
 async def lifecycle(app):
     global browser
     if len(key)<32: raise RuntimeError("missing relay authentication")
@@ -269,8 +304,11 @@ async def lifecycle(app):
                 await asyncio.sleep(.25)
                 await asyncio.gather(*(s.close() for s in list(sessions.values()) if s.end<=time.monotonic()),return_exceptions=True)
         task=asyncio.create_task(cleanup())
+        sample=asyncio.create_task(staging_sample())
         try: yield
         finally:
+            sample.cancel()
+            await asyncio.gather(sample,return_exceptions=True)
             task.cancel()
             await asyncio.gather(task,return_exceptions=True)
             await asyncio.gather(*(s.close() for s in list(sessions.values())),return_exceptions=True)
