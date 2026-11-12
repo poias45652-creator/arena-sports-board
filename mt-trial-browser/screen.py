@@ -258,6 +258,35 @@ async def live(request):
     return ws
 
 
+async def verify_member_grants():
+    # One-off staging verification. Submit the configured credential only to our exact HTTPS member entry.
+    if os.getenv("RENDER_SERVICE_ID") != "srv-dbqhkp5bedkc73dl4fc0" or time.time() > 1794478500:
+        return
+    from aiohttp import ClientSession, ClientTimeout
+    try:
+        with open("/tmp/mt-members-check-20261112", "x"):
+            pass
+    except FileExistsError:
+        return
+    url = staging.PARENT+"/mt-trial/member"
+    for slot in (2,3,4,5):
+        credential = staging.credentials().get(slot)
+        if not credential:
+            print("[MT membership check]",slot,"not configured",flush=True)
+            continue
+        try:
+            async with ClientSession(timeout=ClientTimeout(total=24)) as client:
+                async with client.post(url,headers={"Origin":staging.PARENT},
+                    data={"username":credential[0],"password":credential[1]},allow_redirects=False) as res:
+                    success = res.status == 303 and res.headers.get("Location") == "/mt-trial/member/play" and "__Host-xz-mt-trial-member" in res.cookies
+                    print("[MT membership check]",slot,"login status",res.status,"trial cookie issued",success,flush=True)
+                if success:
+                    async with client.get(url+"/play",allow_redirects=False) as res:
+                        print("[MT membership check]",slot,"authenticated member page",res.status,flush=True)
+        except Exception as exc:
+            print("[MT membership check]",slot,type(exc).__name__,flush=True)
+
+
 async def lifecycle(app):
     global browser
     if len(key)<32: raise RuntimeError("missing relay authentication")
@@ -270,8 +299,11 @@ async def lifecycle(app):
                 await asyncio.sleep(.25)
                 await asyncio.gather(*(s.close() for s in list(sessions.values()) if s.end<=time.monotonic()),return_exceptions=True)
         task=asyncio.create_task(cleanup())
+        verification=asyncio.create_task(verify_member_grants())
         try: yield
         finally:
+            verification.cancel()
+            await asyncio.gather(verification,return_exceptions=True)
             task.cancel()
             await asyncio.gather(task,return_exceptions=True)
             await asyncio.gather(*(s.close() for s in list(sessions.values())),return_exceptions=True)
