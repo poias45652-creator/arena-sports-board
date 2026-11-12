@@ -1,6 +1,7 @@
 import {randomBytes} from 'node:crypto';
 import {getPool} from '../../../server/database.mjs';
-import {canonicalGuestIp,createRetestClaim} from '../../../lib/mt-trial-limit';
+import {createRetestClaim} from '../../../lib/mt-trial-limit';
+import {trialIdentity} from '../../../lib/mt-trial-accounts';
 import {requestOrigin} from '../../../lib/request-origin';
 
 export const dynamic='force-dynamic';
@@ -21,12 +22,12 @@ export async function POST(request:Request) {
   const sameForm=site==='same-origin' && (!origin||origin==='null');
   if(site==='cross-site'||(origin!==requestOrigin(request)&&!sameForm))
     return page('<p>請從專用連結開啟。</p>',403);
-  const ip=canonicalGuestIp(request.headers);
-  if(!ip)return page('<p>暫時無法辨識連線。</p>',503);
   if(!request.headers.get('content-type')?.startsWith('application/x-www-form-urlencoded')||Number(request.headers.get('content-length'))>256)return page('<p>連結格式無效。</p>',400);
   try {
+    const user=await trialIdentity(getPool(),request);
+    if(!user)return page('<p>請先登入試玩帳號，再開啟這個連結。</p><a href="/mt-trial">登入試玩</a>',401);
     const code=new URLSearchParams(await request.text()).get('code')||'';
-    if(!await claim(ip,code))return page('<h1>此連結已失效</h1><a href="/mt-trial">查看試玩資格</a>',410);
+    if(!await claim(user.id,code))return page('<h1>此連結已失效</h1><a href="/mt-trial">查看試玩資格</a>',410);
     return new Response(null,{status:303,headers:{...headers,Location:'/mt-trial'}});
   } catch{return page('<p>暫時無法開放，請稍後再試。</p>',503);}
 }

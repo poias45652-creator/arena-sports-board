@@ -17,15 +17,17 @@ export function canonicalGuestIp(headers: Headers): string | null {
 }
 
 type Executor = {query(sql: string, values?: any[]): Promise<{rows: any[]}>};
-function guestKey(db: Executor) {
+// Existing rows for IP-based visits have a different HMAC domain. Only new account IDs
+// can address an account lease, so unrelated visitors behind the same IP remain independent.
+function accountKey(db: Executor) {
   let secret: Promise<string> | undefined;
-  return async (address: string) => {
+  return async (accountId: string) => {
     secret ??= db.query('SELECT secret FROM mt_guest_ip_secret WHERE singleton')
       .then(result => {
         if (!result.rows[0]?.secret) throw Error('Missing MT guest key');
         return String(result.rows[0].secret);
       }).catch(error => { secret = undefined; throw error; });
-    return createHmac('sha256', await secret).update('mt-guest-ip\0' + address).digest('hex');
+    return createHmac('sha256', await secret).update('mt-trial-account\0' + accountId).digest('hex');
   }
 }
 
@@ -33,21 +35,21 @@ export const TRIAL_SECONDS = 600;
 export const COOLDOWN_SECONDS = 86400;
 
 export function createTrialLedger(db: Executor) {
-  const key = guestKey(db);
-  return async (address: string, start: boolean) => {
-    const ipKey = await key(address);
+  const key = accountKey(db);
+  return async (accountId: string, start: boolean) => {
+    const leaseKey = await key(accountId);
     if (start) {
       await db.query(`INSERT INTO mt_guest_ip_trials (ip_key, expires_at)
         VALUES ($1, statement_timestamp() + $2 * interval '1 second')
         ON CONFLICT (ip_key) DO UPDATE
         SET expires_at=EXCLUDED.expires_at, retry_ready=false
         WHERE mt_guest_ip_trials.retry_ready OR
-          mt_guest_ip_trials.expires_at + $3 * interval '1 second' <= statement_timestamp()`, [ipKey, TRIAL_SECONDS, COOLDOWN_SECONDS]);
+          mt_guest_ip_trials.expires_at + $3 * interval '1 second' <= statement_timestamp()`, [leaseKey, TRIAL_SECONDS, COOLDOWN_SECONDS]);
     }
     const {rows} = await db.query(`SELECT
       floor(extract(epoch from statement_timestamp()) * 1000)::bigint AS now,
       (SELECT ceil(extract(epoch from expires_at) * 1000)::bigint
-       FROM mt_guest_ip_trials WHERE ip_key=$1 AND NOT retry_ready) AS expires`, [ipKey]);
+       FROM mt_guest_ip_trials WHERE ip_key=$1 AND NOT retry_ready) AS expires`, [leaseKey]);
     const serverNow = Number(rows[0].now);
     const end = rows[0].expires == null ? null : Number(rows[0].expires);
     if (!Number.isSafeInteger(serverNow) || (end !== null && !Number.isSafeInteger(end))) throw Error('Invalid trial clock');
@@ -58,10 +60,10 @@ export function createTrialLedger(db: Executor) {
 }
 
 export function createRetestClaim(db: Executor) {
-  const key = guestKey(db);
-  return async (address: string, code: string) => {
+  const key = accountKey(db);
+  return async (accountId: string, code: string) => {
     if (!/^[a-f0-9]{64}$/.test(code)) return false;
-    const args = [createHash('sha256').update(code).digest('hex'), await key(address)];
+    const args = [createHash('sha256').update(code).digest('hex'), await key(accountId)];
     const {rows} = await db.query(`WITH claimed AS (
       UPDATE mt_guest_trial_retests SET claimed_by=$2
       WHERE token_hash=$1 AND claimed_by IS NULL RETURNING claimed_by

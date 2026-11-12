@@ -1,9 +1,8 @@
-import {activeGameGrant} from '@/lib/mt-trial-access';
-import {canonicalGuestIp} from '@/lib/mt-trial-limit';
+import {activeGameGrant,currentTrialUser} from '@/lib/mt-trial-access';
 import {requestOrigin} from '@/lib/request-origin';
 
 export const dynamic='force-dynamic';
-type Channel={ip:string;until:number;socket:WebSocket;stop:()=>void};
+type Channel={session:string;until:number;socket:WebSocket;stop:()=>void};
 const channels=new Map<string,Channel>();
 const pending=new Set<string>();
 const rooms=/^BAV(?:0[1235](?:_LIVE)?|03A(?:_LIVE)?|0[6789]|10)$/;
@@ -45,7 +44,7 @@ export async function GET(request:Request) {
     if(!token)return new Response(null,{status:503,headers:cache});
     const duration=grant.lease.expiresAt!-grant.lease.serverNow;
     if(duration<=0)return new Response(null,{status:410,headers:cache});
-    if(request.signal.aborted || [...channels.values()].filter(c=>c.ip===grant.ip).length>=4)return new Response(null,{status:429,headers:cache});
+    if(request.signal.aborted || [...channels.values()].filter(c=>c.session===grant.user.session).length>=4)return new Response(null,{status:429,headers:cache});
     const socket=new WebSocket('wss://a1.ofalive99.net/game/ws');
     let stop=()=>{};
     const stream=new ReadableStream<Uint8Array>({
@@ -53,14 +52,21 @@ export async function GET(request:Request) {
         const encoder=new TextEncoder();
         let closed=false;
         const timer=setTimeout(()=>stop(),duration);
+        let checking=false;
+        const authTimer=setInterval(async()=>{
+          if(checking||closed)return;
+          checking=true;
+          try{if((await currentTrialUser(request))?.session!==grant.user.session)stop();}catch{stop();}
+          finally{checking=false;}
+        },5000);
         stop=()=>{
           if(closed)return;
-          closed=true;clearTimeout(timer);channels.delete(id);
+          closed=true;clearTimeout(timer);clearInterval(authTimer);channels.delete(id);
           request.signal.removeEventListener('abort',stop);
           try{socket.close();}catch{}
           try{controller.close();}catch{}
         };
-        channels.set(id,{ip:grant.ip,until:performance.now()+duration,socket,stop});
+        channels.set(id,{session:grant.user.session,until:performance.now()+duration,socket,stop});
         request.signal.addEventListener('abort',stop,{once:true});
         socket.onclose=stop;socket.onerror=stop;
         socket.onopen=()=>{
@@ -86,7 +92,7 @@ export async function GET(request:Request) {
 export async function POST(request:Request) {
   if(request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return new Response(null,{status:403});
   const channel=channels.get(idOf(request));
-  if(!channel||channel.ip!==canonicalGuestIp(request.headers))return new Response(null,{status:403});
+  if(!channel||channel.session!==(await currentTrialUser(request))?.session)return new Response(null,{status:403});
   if(performance.now()>=channel.until){channel.stop();return new Response(null,{status:410});}
   if(!request.headers.get('content-type')?.startsWith('application/json')||Number(request.headers.get('content-length'))>4096)return new Response(null,{status:400});
   try {

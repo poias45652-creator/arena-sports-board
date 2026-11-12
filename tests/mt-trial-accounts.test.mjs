@@ -1,0 +1,51 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {PGlite} from '@electric-sql/pglite';
+import {moduleUrl} from './profile-loader.mjs';
+const {issueTrialAccount,trialLogin,trialIdentity,logoutTrial}=await import(moduleUrl('lib/mt-trial-accounts.ts'));
+const {createTrialLedger}=await import(moduleUrl('lib/mt-trial-limit.ts'));
+const {readSession}=await import(moduleUrl('lib/arena-session.ts'));
+const {createDatabase}=await import('../server/database.mjs');
+const origin='https://arena.example', wifi='192.0.2.7', vpn='203.0.113.10';
+process.env.APP_ORIGIN=origin;
+const request=(ip,cookie='',body={},from=origin)=>new Request(origin+'/mt-trial/session',{method:'POST',headers:{origin:from,'cf-connecting-ip':ip,cookie,'content-type':'application/json'},body:JSON.stringify(body)});
+test('personal trials are separate from member login and follow the account through VPN, cookie loss and re-login',async()=>{
+  const db=new PGlite();
+  try{
+    const schema=await readFile(new URL('../db/render-schema.sql',import.meta.url),'utf8');
+    await db.exec('BEGIN;'+schema+'COMMIT; SET search_path TO yj_platform_v1,pg_catalog');
+    const a=await issueTrialAccount(db),b=await issueTrialAccount(db);
+    const open=async account=>{
+      const res=await trialLogin(db,request(wifi,'',account),{enabled:false});
+      assert.equal(res.status,200);const line=res.headers.get('set-cookie');
+      assert.match(line,/HttpOnly; SameSite=None; Partitioned/);return line.split(';')[0];
+    };
+    assert.equal((await trialLogin(db,request(wifi,'',a,'https://other.test'),{enabled:false})).status,403);
+    assert.equal((await trialLogin(db,request(wifi,'',a),{enabled:true})).status,403);
+    assert.equal(await trialIdentity(db,request(wifi,'',a)),null);
+    const first=await open(a),second=await open(b);
+    const user=await trialIdentity(db,request(wifi,first));
+    assert.deepEqual(await trialIdentity(db,request(vpn,first)),user);
+    assert.equal(await readSession(createDatabase(db),first),null);
+    const neighbor=await trialIdentity(db,request(wifi,second));
+    assert.notEqual(user.id,neighbor.id);
+    const ledger=createTrialLedger(db);
+    assert.equal((await ledger(user.id,false)).state,'unused');
+    const lease=await ledger(user.id,true);
+    assert.equal((await ledger((await trialIdentity(db,request(vpn,first))).id,true)).expiresAt,lease.expiresAt);
+    assert.equal((await ledger(neighbor.id,false)).state,'unused');
+    await db.query("UPDATE mt_guest_ip_trials SET expires_at=now()-interval '5 minutes'");
+    await logoutTrial(db,request(vpn,first));
+    assert.equal(await trialIdentity(db,request(vpn,first)),null);
+    await db.query('UPDATE mt_trial_accounts SET next_login_at=NULL');
+    const newCookie=await open(a);
+    assert.notEqual(first,newCookie);
+    const after=await ledger((await trialIdentity(db,request(vpn,newCookie))).id,true);
+    assert.equal(after.state,'expired');assert.equal(after.unlockAt-after.expiresAt,86400000);
+    await db.query('UPDATE mt_trial_accounts SET enabled=false WHERE id=$1',[user.id]);
+    assert.equal(await trialIdentity(db,request(wifi,newCookie)),null);
+    assert.equal((await trialLogin(db,request(wifi,'',a),{enabled:false})).status,401);
+    assert.ok(await trialIdentity(db,request(wifi,second)));
+  }finally{await db.close();}
+});

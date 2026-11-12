@@ -4,6 +4,7 @@ import Link from 'next/link';
 import {usePathname} from 'next/navigation';
 import {adminLinks,adminHome} from '@/lib/admin-navigation';
 import ViewerAccount from './viewer-account';
+import MtTrialAccounts from './mt-trial-accounts';
 import MemberConsole from './baccarat/members/console';
 
 export default function AdminWorkspace({children,viewer}:{children:ReactNode;viewer:boolean}) {
@@ -21,6 +22,7 @@ export default function AdminWorkspace({children,viewer}:{children:ReactNode;vie
           <main aria-label="會員管理">
             <header><h1>會員管理</h1><p>體育與百家樂可分別開通，百家樂授權適用於 DG 與 MT。</p></header>
             <div id="member-console"><MemberConsole/></div>
+            <MtTrialAccounts/>
             {viewer&&<details className="member-viewer"><summary>唯讀測試帳號設定</summary><ViewerAccount/></details>}
           </main>
         </Activity>
