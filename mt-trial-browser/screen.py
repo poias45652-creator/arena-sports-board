@@ -274,7 +274,9 @@ async def verify_member_grants():
     except FileExistsError:
         return
     url = staging.PARENT+"/mt-trial/member"
-    for slot in (2,3,4,5):
+    for slot in (3,4):
+        if slot == 4:
+            await asyncio.sleep(20)
         credential = staging.credentials().get(slot)
         if not credential or credential[0] != {2:"dvp777",3:"dvp776",4:"dvp778",5:"dvp772"}[slot]:
             print("[MT membership check]",slot,"not configured",flush=True)
@@ -285,6 +287,8 @@ async def verify_member_grants():
                     data={"username":credential[0],"password":credential[1]},allow_redirects=False) as res:
                     success = res.status == 303 and res.headers.get("Location") == "/mt-trial/member/play" and "__Host-xz-mt-trial-member" in res.cookies
                     print("[MT membership check]",slot,"login status",res.status,"trial cookie issued",success,flush=True)
+                if not success and res.status == 502:
+                    print("[MT membership check]",slot,"OFA could not verify at member entry",flush=True)
                 if success:
                     async with client.get(url+"/play",allow_redirects=False) as res:
                         print("[MT membership check]",slot,"authenticated member page",res.status,flush=True)
