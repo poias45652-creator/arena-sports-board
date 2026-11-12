@@ -57,6 +57,11 @@ async def start_session(request):
     # Absolute expiry survives slow setup and retries for an already-active lease.
     deadline = time.monotonic() + seconds
     active = data.get("active") is True
+    if active:
+        expires=data.get("expiresAt")
+        if type(expires) not in (int,float) or not math.isfinite(expires): raise web.HTTPBadRequest()
+        deadline=min(deadline,time.monotonic()+expires/1000-time.time())
+        if deadline<=time.monotonic(): raise web.HTTPGone()
     async with lock:
         session = next((s for s in sessions.values() if s.ip == ip and s.end > time.monotonic()), None)
         if not session:

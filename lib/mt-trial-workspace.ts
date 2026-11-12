@@ -2,7 +2,7 @@ const brand = 'https://xingzhun-sports-home.poias45652.chatgpt.site';
 // Immutable assets built from the original MT workspace. SRI pins the exact code
 // that may run on the trial origin. Launch credentials never reach the asset host.
 const assets = {
-  js:{file:'mt-native-eb7ad5f688b54b63.js',integrity:'sha384-rV0KFiNE+/Ty2LGh11pzYMSIFDd9YIcu5JwyNhzwxeLKKAZ2lWI1WmfW0E7ngh9O'},
+  js:{file:'mt-native-f917531096953d4a.js',integrity:'sha384-p3CXvu4ts1x0lGfRH0O6mJlTbrl5abvm4fUGG27Q3/Dok9aUGLyORzUtuOQJzXAi'},
   css:{file:'mt-native-63b84b803feb4e7a.css',integrity:'sha384-Bovic5U8efRHeslOEFcd9IX7QC1j8X8OTPusNJ1HWeq3XbjV3gDIdXHyIkjHxHRe'}
 };
 export function mtTrialWorkspace(embedded:boolean) {
@@ -13,6 +13,6 @@ export function mtTrialWorkspace(embedded:boolean) {
   return new Response(html,{headers:{
     'Content-Type':'text/html; charset=utf-8','Cache-Control':'private, no-store','Referrer-Policy':'no-referrer','X-Content-Type-Options':'nosniff',
     ...(!embedded?{'X-Frame-Options':'DENY'}:{}),
-    'Content-Security-Policy':`default-src 'none'; script-src '${assets.js.integrity}'; style-src 'unsafe-inline' ${brand}/native/; img-src data:; connect-src 'self' ${brand}/api/mt-trial/public-roads; frame-src 'self' https://gs1.ofalive99.net https://gsa.ofalive99.net; base-uri 'none'; form-action 'none'; frame-ancestors ${embedded?brand+' https://chatgpt.com':"'none'"}`
+    'Content-Security-Policy':`default-src 'none'; script-src '${assets.js.integrity}'; style-src 'unsafe-inline' ${brand}/native/; img-src data:; connect-src 'self' ${brand}/api/mt-trial/public-roads; frame-src 'self' https://xingzhun-mt-trial-screen.onrender.com; base-uri 'none'; form-action 'none'; frame-ancestors ${embedded?brand+' https://chatgpt.com':"'none'"}`
   }});
 }
