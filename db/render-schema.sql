@@ -271,3 +271,16 @@ CREATE TABLE IF NOT EXISTS xz_portal_sessions (
   expires_at bigint NOT NULL
 );
 CREATE INDEX IF NOT EXISTS xz_portal_sessions_expiry ON xz_portal_sessions(expires_at);
+
+-- This one-time guest trial is separate from all member and admin identities.
+CREATE TABLE IF NOT EXISTS mt_guest_ip_secret (
+  singleton boolean PRIMARY KEY CHECK (singleton),
+  secret text NOT NULL
+);
+INSERT INTO mt_guest_ip_secret (singleton, secret) VALUES (true, gen_random_uuid()::text)
+  ON CONFLICT (singleton) DO NOTHING;
+
+CREATE TABLE IF NOT EXISTS mt_guest_ip_trials (
+  ip_key text PRIMARY KEY,
+  expires_at timestamptz NOT NULL
+);

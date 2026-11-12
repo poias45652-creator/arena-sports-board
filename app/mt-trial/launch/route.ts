@@ -1,3 +1,3 @@
-import {launchMtTrial} from '@/lib/mt-trial';
-export const dynamic='force-dynamic';
-export function POST(request:Request){return launchMtTrial(request,{enabled:process.env.OFA_MT_TRIAL_ENABLED,password:process.env.OFA_MT_TRIAL_PASSWORD});}
+import {guestTrial} from '@/lib/mt-trial-access';
+export const dynamic = 'force-dynamic';
+export const POST = (request:Request) => guestTrial(request,true);
