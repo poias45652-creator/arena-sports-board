@@ -258,45 +258,6 @@ async def live(request):
     return ws
 
 
-async def check_dvp772():
-    from aiohttp import ClientSession, ClientTimeout
-    if time.time() >= 1794480958 or delegate.IS_SPARE or os.environ.get("RENDER_EXTERNAL_URL","").rstrip("/") != delegate.PRIMARY:
-        return
-    try:
-        with open("/tmp/mt-dvp772-1840-updated", "x"):
-            pass
-    except FileExistsError:
-        return
-    expected = {5:"dvp772"}
-    configs = staging.credentials()
-    if any(configs.get(slot,("",))[0] != name for slot,name in expected.items()):
-        print("[MT 1840 credential check] account mapping mismatch", flush=True)
-        return
-    await asyncio.sleep(2)
-    source = next((name for name in ("OFA_MT_TRIAL_PASSWORD_5","dvp772","DVP772") if os.getenv(name)), "missing")
-    names = [n for n in ("OFA_MT_TRIAL_PASSWORD_5","dvp772","DVP772") if os.getenv(n)]
-    print("[MT 1840 credential check] using field", source, "configured", ",".join(names), "conflicting", len({os.getenv(n) for n in names}) > 1, "outer whitespace", configs[5][1] != configs[5][1].strip(), flush=True)
-    base = "http://127.0.0.1:"+str(int(os.getenv("PORT","10000")))
-    async with ClientSession(timeout=ClientTimeout(total=80)) as client:
-        for slot in (5,):
-            ticket = secrets.token_hex(16)
-            try:
-                async with client.post(base+"/staging/session",headers={"Authorization":"Bearer "+staging.SCREEN_KEY},
-                    json={"action":"open","slot":slot,"ticket":ticket,"ip":"127.0.0.1"},allow_redirects=False) as result:
-                    if result.status == 200:
-                        payload = await result.json()
-                        active = sessions.get(payload.get("id"))
-                        ok = bool(active and active.ticket == ticket and active.ready.is_set() and active.jpeg and not active.lost.is_set())
-                        print("[MT 1840 credential check] slot",slot,"table ready",ok,flush=True)
-                        if active and active.ticket == ticket:
-                            await active.close()
-                    else:
-                        reason = await result.text()
-                        safe = reason if re.fullmatch(r"(?:provider_http_\d{3}|provider_region_restricted|ofa_(?:login|grant)_422|ofa_http_\d{3}|ofa_refused|ofa_login|ofa_no_grant|trial_shell_unavailable|table_not_ready|busy)",reason) else "unavailable"
-                        print("[MT 1840 credential check] slot",slot,"open",result.status,safe,flush=True)
-            except Exception as err:
-                print("[MT 1840 credential check] slot",slot,type(err).__name__,flush=True)
-
 async def lifecycle(app):
     global browser
     if len(key)<32: raise RuntimeError("missing relay authentication")
@@ -309,11 +270,8 @@ async def lifecycle(app):
                 await asyncio.sleep(.25)
                 await asyncio.gather(*(s.close() for s in list(sessions.values()) if s.end<=time.monotonic()),return_exceptions=True)
         task=asyncio.create_task(cleanup())
-        qa=asyncio.create_task(check_dvp772())
         try: yield
         finally:
-            qa.cancel()
-            await asyncio.gather(qa,return_exceptions=True)
             task.cancel()
             await asyncio.gather(task,return_exceptions=True)
             await asyncio.gather(*(s.close() for s in list(sessions.values())),return_exceptions=True)
