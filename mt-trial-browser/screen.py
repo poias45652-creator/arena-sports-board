@@ -283,11 +283,13 @@ async def response_headers(request,response):
 staging.install(app, Screen, sessions, same_ip, allowed)
 app.on_response_prepare.append(response_headers)
 app.cleanup_ctx.append(lifecycle)
-async def health(request): return web.json_response({"ready":bool(browser and browser.is_connected())})
+async def health(request):
+    return web.json_response({"ready":bool(browser and browser.is_connected()),"trialProtocol":2})
 app.router.add_get("/",health)
 app.router.add_post("/sessions",start_session)
 app.router.add_get("/s/{id:[a-f0-9]+}",view)
 app.router.add_get("/s/{id:[a-f0-9]+}/live",live)
 if __name__=="__main__":
+    print("[MT screen] staging trial protocol 2 registered", flush=True)
     web.run_app(app,port=int(os.environ.get("PORT","10000")),access_log=None)
 
