@@ -18,3 +18,17 @@ export const adminLinks=[
   {href:'/admin/schedules',label:'排程管理'},
   {href:leaguePageHref('MLB'),label:'返回賽事'},
 ];
+
+export function loginLandingPage(
+  query: URLSearchParams,
+  session: { source?: string; isAdmin?: boolean; platforms?: boolean },
+): string | null {
+  const adminTarget = query.get('admin');
+  if (adminTarget !== null) {
+    if (session.isAdmin !== true) return '/platforms';
+    return /^\/admin(?:\/(?:accounts|leagues|regional-basketball|schedules|system|baccarat\/(?:members|settings|permissions|users|dashboard|logs)))$/.test(adminTarget) ? adminTarget : adminHome;
+  }
+  if (session.source === 'ofa' && session.isAdmin === true && query.get('portal') !== '1') return adminHome;
+  if (session.platforms || query.get('portal') === '1' || !query.has('basketball')) return '/platforms';
+  return null;
+}

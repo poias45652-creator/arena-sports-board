@@ -219,3 +219,18 @@ test('account administration still rejects non-admin callers and cross-site chan
   assert.equal((await accounts.DELETE(adminRequest('DELETE',{},'https://other.test'))).status,403);
  }finally{delete globalThis.addedAdminAllowed;}
 });
+
+test('login sends ordinary OFA members to the picker and reserves admin destinations for administrators',async()=>{
+ const code=ts.transpileModule(readFileSync('lib/admin-navigation.ts','utf8'),{compilerOptions:{module:99,target:9}}).outputText;
+ const navigation=await import(url(code.replace("'./sport-navigation'",JSON.stringify(url("export const leaguePageHref = () => '/';")))));
+ const land=(query,session)=>navigation.loginLandingPage(new URLSearchParams(query),session);
+ const member={source:'ofa',isAdmin:false},admin={source:'ofa',isAdmin:true};
+ for(const query of ['', 'portal=1', 'admin=1', 'admin=/admin/accounts'])assert.equal(land(query,member),'/platforms');
+ assert.equal(land('basketball=league%3DKBL',member),null);
+ assert.equal(land('admin=1',{platforms:true,source:'ofa'}),'/platforms');
+ assert.equal(land('',admin),navigation.adminHome);
+ assert.equal(land('portal=1',admin),'/platforms');
+ assert.equal(land('admin=/admin/accounts',admin),'/admin/accounts');
+ assert.equal(land('admin=https://example.invalid',admin),navigation.adminHome);
+ assert.equal(land('',{source:'tz',isAdmin:true}),'/platforms');
+});

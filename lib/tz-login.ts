@@ -45,7 +45,8 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  await db.prepare("INSERT INTO tz_bindings (member_id,source_user_id,username,device_id,encrypted_token,expires_at,verified_at,game_url) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET username=excluded.username,device_id=excluded.device_id,encrypted_token=excluded.encrypted_token,expires_at=excluded.expires_at,verified_at=excluded.verified_at,game_url=excluded.game_url").bind(member,binding.source_user_id,binding.username,binding.device_id,encrypted,binding.expires_at,binding.verified_at,source==='ofa'?'https://sp1788.net/#/Games':'https://hr9988.net/#/Games').run();
  // Preserve the existing primary administrator, using only the verified identity.
  // Never overwrite an explicit grant, restriction or expiry.
- if((source==='tz'&&[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(binding.username.toLowerCase()))||ofaAdmin)await db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) VALUES (?,1,NULL,?) ON CONFLICT(member_id) DO NOTHING').bind(member,Date.now()).run();
+ const isAdmin=ofaAdmin||(source==='tz'&&[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(binding.username.toLowerCase()));
+ if(isAdmin)await db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) VALUES (?,1,NULL,?) ON CONFLICT(member_id) DO NOTHING').bind(member,Date.now()).run();
  let access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
  if(!access&&(source==='tz'||ofaMember)){
   // Consume an administrator's username grant only after upstream verification.
@@ -75,7 +76,7 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  db.prepare('INSERT INTO account_login_activity (member_id,last_login_at) SELECT s.member_id,? FROM arena_sessions s JOIN tz_bindings b ON b.member_id=s.member_id JOIN account_access a ON a.member_id=s.member_id WHERE s.token_hash=? AND s.expires_at>? AND b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) ON CONFLICT(member_id) DO UPDATE SET last_login_at=excluded.last_login_at').bind(signedInAt,sessionHash,signedInAt,signedInAt,signedInAt)
  ]);
  if(!await readSession(db,sessionCookie(session,1)))return response({error:'帳號使用權已變更，請聯絡管理員'},403,sessionCookie('',0));
- return response({signedIn:true,username:binding.username,source},200,sessionCookie(session,Math.floor((expires-now)/1000)));
+ return response({signedIn:true,username:binding.username,source,isAdmin},200,sessionCookie(session,Math.floor((expires-now)/1000)));
  }finally{await db.batch([db.prepare('DELETE FROM tz_bindings WHERE member_id=?').bind(candidate),db.prepare('DELETE FROM tz_binding_attempts WHERE member_id=?').bind(candidate)]);}
  }catch{return response({error:'登入服務暫時無法完成，請稍後再試'},503);}
 }

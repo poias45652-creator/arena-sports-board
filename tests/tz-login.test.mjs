@@ -188,7 +188,8 @@ test('primary administrator bootstrap requires upstream verification and cannot 
  assert.equal((await tzLogin(ownerRequest(),d,secret,source)).status,502);
  assert.equal(d.sql.prepare('SELECT COUNT(*) AS n FROM account_access').get().n,0);
  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
- assert.equal((await tzLogin(ownerRequest(),d,secret,ownerSource)).status,200);
+ const signed=await tzLogin(ownerRequest(),d,secret,ownerSource);
+ assert.equal(signed.status,200);assert.equal((await signed.json()).isAdmin,true);
  assert.equal(d.sql.prepare('SELECT enabled FROM account_access WHERE member_id=?').get('tz:456').enabled,1);
  globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
  for(const grant of [{enabled:false,expiresAt:null},{enabled:true,expiresAt:Date.now()+3600000}]){
@@ -259,7 +260,8 @@ for(const name of ['dvp060','dvp552']) test(`${name} claims ordinary sports memb
   assert.equal(d.sql.prepare('SELECT claimed_member_id FROM account_preapprovals').get().claimed_member_id,null);
   d.sql.prepare('DELETE FROM tz_binding_attempts').run();
   const signed=await sign(verify);
-  assert.equal(signed.status,200);assert.equal((await signed.json()).source,'ofa');
+  assert.equal(signed.status,200);
+  const session=await signed.json();assert.equal(session.source,'ofa');assert.equal(session.isAdmin,false);
   assert.equal((await readSession(d,signed.headers.get('set-cookie'))).memberId,id);
   assert.equal(d.sql.prepare('SELECT claimed_member_id FROM account_preapprovals').get().claimed_member_id,id);
   const rows=(await (await adminRoute.GET()).json()).accounts.filter(a=>a.username===name);
