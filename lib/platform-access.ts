@@ -1,6 +1,6 @@
 import {randomBytes} from 'node:crypto';
 import type {Database} from '../db';
-import {hash,readSession,OFA_MEMBER_USERNAME} from './arena-session';
+import {hash,readSession,OFA_MEMBER_USERNAMES} from './arena-session';
 
 const NATIVE='https://xingzhun-original-test.onrender.com';
 const PORTAL_COOKIE='__Host-xz_portal';
@@ -10,7 +10,7 @@ function portalToken(cookie:string|null){
   const v=parts.length===1?parts[0].slice(PORTAL_COOKIE.length+1):'';
   return /^[a-f0-9]{64}$/.test(v)?v:null;
 }
-const ofaTableMembers = new Set(['dvp038', 'dvp03068', 'tzt05', OFA_MEMBER_USERNAME]);
+const ofaTableMembers = new Set(['dvp038', 'dvp03068', 'tzt05', ...OFA_MEMBER_USERNAMES]);
 function supportsTableLogin(memberId:string, username:string) {
   const ofaAccount = ofaTableMembers.has(username.toLowerCase());
   return ofaAccount ? memberId.startsWith('ofa:') : memberId.startsWith('tz:');
