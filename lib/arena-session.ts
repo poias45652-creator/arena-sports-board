@@ -1,3 +1,5 @@
+// This regular member authenticates through OFA and still needs explicit product grants.
+export const OFA_MEMBER_USERNAME='dvp060';
 export const SESSION_COOKIE='__Host-arena_tz';
 export const PLATFORM_ADMIN_USERNAME=(process.env.PLATFORM_ADMIN_USERNAME||'').trim().toLowerCase();
 export async function hash(value:string){return [...new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(value)))].map(n=>n.toString(16).padStart(2,'0')).join('');}
