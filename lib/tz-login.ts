@@ -1,6 +1,6 @@
 import {requestOrigin} from './request-origin';
 import {verifyTurnstile} from './turnstile';
-import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME,OFA_MEMBER_USERNAME} from './arena-session';
+import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME,OFA_MEMBER_USERNAMES} from './arena-session';
 import {handleTzBinding} from './tz-binding-service';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 const response=(d:any,status=200,cookie?:string)=>Response.json(d,{status,headers:{'Cache-Control':'private, no-store','Vary':'Cookie',...(cookie?{'Set-Cookie':cookie}:{})}});
@@ -23,7 +23,7 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  const username=input.username.trim();
  const usernameKey=username.toLowerCase();
  const ofaAdmin=['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(usernameKey);
- const ofaMember=usernameKey===OFA_MEMBER_USERNAME;
+ const ofaMember=OFA_MEMBER_USERNAMES.includes(usernameKey);
  const source=ofaAdmin||ofaMember?'ofa':'tz';
  const now=Date.now();const throttle='login-rate:'+await hash(source+':'+username.toLowerCase());
  const allowed=await db.prepare('INSERT INTO tz_binding_attempts (member_id,allowed_at,operation_id) VALUES (?,?,?) ON CONFLICT(member_id) DO UPDATE SET allowed_at=excluded.allowed_at WHERE tz_binding_attempts.allowed_at<=? RETURNING member_id').bind(throttle,now+30000,'login',now).first();
