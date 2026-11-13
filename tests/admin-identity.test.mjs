@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';import ts from 'typescript';import{readFileSync}from'node:fs';
 const url=c=>'data:text/javascript;base64,'+Buffer.from(c).toString('base64');
-const mocks={"'./chatgpt-auth'":url('export async function getChatGPTUser(){return globalThis.adminTestUser}'),"'next/headers'":url("export async function headers(){return new Headers({cookie:'test',username:'render-test-admin'})}"),"'@/db'":url('export function getRawDb(){return {}}'),"'@/lib/arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export async function readSession(){if(globalThis.adminTestFail)throw new Error();return globalThis.adminTestSession}")};
+const mocks={"'./chatgpt-auth'":url('export async function getChatGPTUser(){return globalThis.adminTestUser}'),"'next/headers'":url("export async function headers(){return new Headers({cookie:'test',username:'render-test-admin'})}"),"'@/db'":url('export function getRawDb(){return {}}'),"'@/lib/arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const OFA_MEMBER_USERNAME='dvp060';export async function readSession(){if(globalThis.adminTestFail)throw new Error();return globalThis.adminTestSession}")};
 let source=ts.transpileModule(readFileSync('app/admin-access.ts','utf8'),{compilerOptions:{module:99,target:9}}).outputText;for(const[k,v]of Object.entries(mocks))source=source.replace(k,JSON.stringify(v));
 const {adminIdentity}=await import(url(source));
 test('only the verified configured platform administrator authorizes administration',async()=>{
@@ -10,6 +10,7 @@ test('only the verified configured platform administrator authorizes administrat
  globalThis.adminTestSession={memberId:'tz:admin',username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),'tz');
  globalThis.adminTestSession={memberId:'ofa:member',username:'RENDER-TEST-ADMIN'};assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession={memberId:'ofa:admin',username:'dvp0322'};assert.equal(await adminIdentity(),'ofa');
+ globalThis.adminTestSession={memberId:'ofa:member',username:'dvp060'};assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession={memberId:'tz:member',username:'dvp0322'};assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession=null;assert.equal(await adminIdentity(),null);
  globalThis.adminTestSession={memberId:'tz:admin',username:'render-test-admin'};globalThis.adminTestFail=true;assert.equal(await adminIdentity(),null);
@@ -31,7 +32,7 @@ test('OFA administrators require a verified OFA session, including dvp03068 and 
 
 test('OFA routing, verified identity checks and access bootstrap use the same explicit administrators',()=>{
  const expected=['dvp0322','dvp038','dvp03068','tzt05','vrv01'];
- for(const [file,count] of [['app/admin-access.ts',1],['lib/tz-login.ts',4]]){
+ for(const [file,count] of [['app/admin-access.ts',1],['lib/tz-login.ts',1]]){
   const parsed=ts.createSourceFile(file,readFileSync(file,'utf8'),ts.ScriptTarget.Latest,true);
   const lists=[];
   function visit(node){
@@ -47,7 +48,7 @@ test('OFA routing, verified identity checks and access bootstrap use the same ex
 const routingMocks={
  "'./request-origin'":url("export const requestOrigin=r=>new URL(r.url).origin;"),
  "'./turnstile'":url("export async function verifyTurnstile(){return false;}"),
- "'./arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const hash=async v=>v;export const sessionToken=()=>null;export const sessionCookie=()=>'';export async function readSession(){return null;}"),
+ "'./arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const OFA_MEMBER_USERNAME='dvp060';export const hash=async v=>v;export const sessionToken=()=>null;export const sessionCookie=()=>'';export async function readSession(){return null;}"),
  "'./tz-binding-service'":url("export async function handleTzBinding(request,memberId){globalThis.ofaRoutingCalls.push({memberId,username:(await request.json()).username});return Response.json({message:'synthetic upstream rejection'},{status:422});}"),
  "'./tz-credentials'":url("export const credentialKey=async()=>{throw new Error('must not grant access');};export const decryptToken=credentialKey;export const encryptToken=credentialKey;")
 };
@@ -125,7 +126,7 @@ test('new administrators use their requested provider and failed verification ne
 // Isolate database authorization from upstream transport and token encryption.
 // All identities, grants and credentials in this harness are synthetic.
 const grantMocks={...routingMocks,
- "'./arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const hash=async v=>v;export const sessionToken=()=>null;export const sessionCookie=(v,age)=>'test='+v+'; Max-Age='+age;export async function readSession(db){return db.sessionIssued?{memberId:db.member,username:db.username}:null;}"),
+ "'./arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const OFA_MEMBER_USERNAME='dvp060';export const hash=async v=>v;export const sessionToken=()=>null;export const sessionCookie=(v,age)=>'test='+v+'; Max-Age='+age;export async function readSession(db){return db.sessionIssued?{memberId:db.member,username:db.username}:null;}"),
  "'./tz-binding-service'":url("export async function handleTzBinding(request,candidate,getDb){const db=getDb(),{username}=await request.json();db.username=username;db.member=(candidate.startsWith('ofa-')?'ofa:':'tz:')+'synthetic-id';return Response.json({ok:true});}"),
  "'./tz-credentials'":url("export const credentialKey=async()=>null;export const decryptToken=async()=> 'synthetic-token';export const encryptToken=async()=> 'synthetic-ciphertext';")
 };
@@ -174,7 +175,7 @@ const accountMocks={
  "'@/lib/request-origin'":routingMocks["'./request-origin'"],
  "'@/app/admin-access'":url('export async function isSiteAdmin(){return globalThis.addedAdminAllowed===true}'),
  "'@/db'":url('export function getRawDb(){return globalThis.addedAdminDb}'),
- "'@/lib/arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';")
+ "'@/lib/arena-session'":url("export const PLATFORM_ADMIN_USERNAME='render-test-admin';export const OFA_MEMBER_USERNAME='dvp060';")
 };
 let accountSource=ts.transpileModule(readFileSync('app/api/admin/accounts/route.ts','utf8'),{compilerOptions:{module:99,target:9}}).outputText;
 for(const[k,v]of Object.entries(accountMocks))accountSource=accountSource.replace(k,JSON.stringify(v));

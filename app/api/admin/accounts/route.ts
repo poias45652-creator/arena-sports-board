@@ -2,13 +2,16 @@ import {timingSafeEqual} from 'node:crypto';
 import {requestOrigin} from '@/lib/request-origin';
 import {isSiteAdmin} from '@/app/admin-access';
 import {getRawDb} from '@/db';
-import {PLATFORM_ADMIN_USERNAME} from '@/lib/arena-session';
+import {PLATFORM_ADMIN_USERNAME,OFA_MEMBER_USERNAME} from '@/lib/arena-session';
 export const dynamic='force-dynamic';
 const reply=(data:any,status=200)=>Response.json(data,{status,headers:{'Cache-Control':'private, no-store'}});
 const validExpiry=(value:unknown)=>value===null||(Number.isSafeInteger(value)&&Number(value)>0&&Number(value)<4102444800000);
 const validUsername=(value:unknown):value is string=>typeof value==='string'&&value.trim().length>0&&value.length<=128&&!/[\s\x00-\x1f\x7f]/.test(value.trim());
 const validNote=(value:unknown):value is string=>typeof value==='string'&&value.length<=1000&&!value.includes('\0');
 const isAdminName=(name:string)=>[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(name.toLowerCase());
+// Only the verified bound identity for the configured provider is manageable.
+const managedBinding="((b.member_id LIKE 'tz:%' AND lower(b.username)<>?) OR (b.member_id LIKE 'ofa:%' AND lower(b.username)=?))";
+const managedName=(memberId:string,name:string)=>memberId.startsWith(name.toLowerCase()===OFA_MEMBER_USERNAME?'ofa:':'tz:');
 const sameOrigin=(request:Request)=>request.headers.get('origin')===requestOrigin(request)&&request.headers.get('sec-fetch-site')!=='cross-site';
 async function readBody(request:Request){const raw=await request.text();if(raw.length>8192)throw Error();const body=JSON.parse(raw);if(!body||typeof body!=='object'||Array.isArray(body))throw Error();return body;}
 // Only the combined membership console uses this server-to-server entry.
@@ -24,8 +27,8 @@ export async function GET(request:Request){
  if(!bridge && (request && new URL(request.url).pathname.startsWith('/internal/') || !await isSiteAdmin()))return reply({error:'僅限管理員'},403);
  try{
   const now=Date.now(),db=getRawDb();
-  const result=await db.prepare("SELECT b.member_id AS memberId,b.username,COALESCE(n.note,'') AS note,l.last_login_at AS lastLogin,COALESCE(a.enabled,0) AS enabled,a.expires_at AS expiresAt,CASE WHEN a.member_id IS NULL THEN 'pending' WHEN a.enabled<>1 THEN 'disabled' WHEN a.expires_at IS NOT NULL AND a.expires_at<=? THEN 'expired' ELSE 'active' END AS accessState,CASE WHEN lower(b.username) IN (?,?) THEN 1 ELSE 0 END AS isAdmin,CASE WHEN b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) AND EXISTS (SELECT 1 FROM arena_sessions s WHERE s.member_id=b.member_id AND s.expires_at>?) THEN 1 ELSE 0 END AS signedIn FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id LEFT JOIN account_notes n ON n.member_id=b.member_id LEFT JOIN account_login_activity l ON l.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' ORDER BY (a.member_id IS NULL) DESC,b.verified_at DESC").bind(now,PLATFORM_ADMIN_USERNAME,'vrvtest01',now,now,now).all();
-  const preapproved=await db.prepare("SELECT username,note,enabled,expires_at AS expiresAt,CASE WHEN enabled<>1 THEN 'disabled' WHEN expires_at IS NOT NULL AND expires_at<=? THEN 'expired' ELSE 'active' END AS accessState FROM account_preapprovals WHERE claimed_member_id IS NULL AND NOT EXISTS (SELECT 1 FROM tz_bindings b WHERE b.member_id LIKE 'tz:%' AND lower(b.username)=account_preapprovals.username_key) ORDER BY updated_at DESC").bind(now).all();
+  const result=await db.prepare("SELECT b.member_id AS memberId,b.username,COALESCE(n.note,'') AS note,l.last_login_at AS lastLogin,COALESCE(a.enabled,0) AS enabled,a.expires_at AS expiresAt,CASE WHEN a.member_id IS NULL THEN 'pending' WHEN a.enabled<>1 THEN 'disabled' WHEN a.expires_at IS NOT NULL AND a.expires_at<=? THEN 'expired' ELSE 'active' END AS accessState,CASE WHEN lower(b.username) IN (?,?) THEN 1 ELSE 0 END AS isAdmin,CASE WHEN b.expires_at>? AND a.enabled=1 AND (a.expires_at IS NULL OR a.expires_at>?) AND EXISTS (SELECT 1 FROM arena_sessions s WHERE s.member_id=b.member_id AND s.expires_at>?) THEN 1 ELSE 0 END AS signedIn FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id LEFT JOIN account_notes n ON n.member_id=b.member_id LEFT JOIN account_login_activity l ON l.member_id=b.member_id WHERE "+managedBinding+" ORDER BY (a.member_id IS NULL) DESC,b.verified_at DESC").bind(now,PLATFORM_ADMIN_USERNAME,'vrvtest01',now,now,now,OFA_MEMBER_USERNAME,OFA_MEMBER_USERNAME).all();
+  const preapproved=await db.prepare("SELECT username,note,enabled,expires_at AS expiresAt,CASE WHEN enabled<>1 THEN 'disabled' WHEN expires_at IS NOT NULL AND expires_at<=? THEN 'expired' ELSE 'active' END AS accessState FROM account_preapprovals WHERE claimed_member_id IS NULL AND NOT EXISTS (SELECT 1 FROM tz_bindings b WHERE "+managedBinding+" AND lower(b.username)=account_preapprovals.username_key) ORDER BY updated_at DESC").bind(now,OFA_MEMBER_USERNAME,OFA_MEMBER_USERNAME).all();
   return reply({accounts:[...result.results,...preapproved.results.map((row:any)=>({...row,memberId:null,lastLogin:null,isAdmin:0,signedIn:0}))]});
  }catch{return reply({error:'帳號清單暫時無法讀取'},503);}
 }
@@ -41,7 +44,7 @@ export async function POST(request:Request){
   if(key==='aa3344')return reply({error:'aa3344 為唯讀測試帳號，請使用上方測試帳號設定'},409);
   if(['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(key))return reply({error:'此帳號請使用既有管理員登入方式'},409);
   if(isAdminName(name)&&expiresAt!==null)return reply({error:'管理員須保留無期限使用權'},409);
-  const db=getRawDb(),found=await db.prepare("SELECT b.member_id AS memberId,b.username,a.enabled,a.expires_at AS expiresAt FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id WHERE b.member_id LIKE 'tz:%' AND lower(b.username)=?").bind(key).all();
+  const db=getRawDb(),found=await db.prepare("SELECT b.member_id AS memberId,b.username,a.enabled,a.expires_at AS expiresAt FROM tz_bindings b LEFT JOIN account_access a ON a.member_id=b.member_id WHERE "+managedBinding+" AND lower(b.username)=?").bind(OFA_MEMBER_USERNAME,OFA_MEMBER_USERNAME,key).all();
   if(found.results.length>1)return reply({error:'找到多筆同名帳號，請從名單選擇要開通的帳號'},409);
   const account=found.results[0] as {memberId:string;username:string;enabled:number|null;expiresAt:number|null}|undefined;
   if(account){
@@ -77,9 +80,9 @@ export async function PATCH(request:Request){
    const saved=grant?await db.prepare('UPDATE account_preapprovals SET enabled=?,expires_at=?,note=CASE WHEN ?=1 THEN ? ELSE note END,updated_at=? WHERE username_key=? AND claimed_member_id IS NULL RETURNING username').bind(enabled?1:0,expiresAt,hasNote?1:0,hasNote?note.trim():'',now,key).first():await db.prepare('UPDATE account_preapprovals SET note=?,updated_at=? WHERE username_key=? AND claimed_member_id IS NULL RETURNING username').bind(note.trim(),now,key).first();
    return saved?reply({ok:true}):reply({error:'帳號狀態已更新，請重新載入名單後操作'},409);
   }
-  if(typeof memberId!=='string'||!memberId.startsWith('tz:')||memberId.length>200)return reply({error:'帳號格式不正確'},400);
+  if(typeof memberId!=='string'||!/^(tz|ofa):/.test(memberId)||memberId.length>200)return reply({error:'帳號格式不正確'},400);
   const account=await db.prepare('SELECT member_id,username FROM tz_bindings WHERE member_id=?').bind(memberId).first<{member_id:string;username:string}>();
-  if(!account||!account.member_id.startsWith('tz:'))return reply({error:'找不到帳號'},404);
+  if(!account||!managedName(account.member_id,account.username))return reply({error:'找不到帳號'},404);
   if(isAdminName(account.username)&&grant&&(!enabled||expiresAt!==null))return reply({error:'管理員須保留無期限使用權'},409);
   const statements=[];
   if(grant)statements.push(
@@ -104,9 +107,9 @@ export async function DELETE(request:Request){
    const removed=await db.prepare('DELETE FROM account_preapprovals WHERE username_key=? AND username=? AND claimed_member_id IS NULL RETURNING username').bind(pendingUsername.trim().toLowerCase(),confirmUsername).first();
    return removed?reply({ok:true}):reply({error:'帳號狀態已更新，請重新載入後確認'},409);
   }
-  if(typeof memberId!=='string'||!memberId.startsWith('tz:')||memberId.length>200)return reply({error:'請確認要刪除的帳號'},400);
+  if(typeof memberId!=='string'||!/^(tz|ofa):/.test(memberId)||memberId.length>200)return reply({error:'請確認要刪除的帳號'},400);
   const account=await db.prepare('SELECT username FROM tz_bindings WHERE member_id=?').bind(memberId).first<{username:string}>();
-  if(!account)return reply({error:'帳號已不存在，請重新載入'},404);
+  if(!account||!managedName(memberId,account.username))return reply({error:'帳號已不存在，請重新載入'},404);
   if(isAdminName(account.username))return reply({error:'不能刪除管理員帳號'},409);
   if(account.username!==confirmUsername)return reply({error:'帳號資料已變更，請重新載入後確認'},409);
   await db.batch([

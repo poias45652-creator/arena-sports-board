@@ -239,3 +239,33 @@ test('failed deletion rolls back all credential and authorization changes',async
  assert.equal((await readSession(d,cookie)).memberId,'tz:123');
  assert.equal(d.sql.prepare('SELECT enabled FROM account_access').get().enabled,1);
 });
+
+test('dvp060 claims its ordinary sports membership only after OFA verifies its credentials',async()=>{
+ const d=db({approved:false}), name='dvp060',id='ofa:123';
+ globalThis.accountTestAdmin=true;globalThis.accountTestDb=d;
+ const body=(url,data,method='POST')=>new Request('https://site.test'+url,{method,headers:{origin:'https://site.test','Content-Type':'application/json'},body:JSON.stringify(data)});
+ const sign=fetcher=>tzLogin(body('/api/session',{username:' DVP060 ',password:'fixture'}),d,secret,fetcher);
+ const verify=async url=>{
+  assert.equal(url,'https://www.ofa1188.net/api/v1/login');
+  const payload=await (await source()).json();payload.data.username=name;
+  return Response.json(payload);
+ };
+ try{
+  assert.equal((await sign(verify)).status,403,'upstream identity alone cannot grant sports');
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  d.sql.prepare('DELETE FROM tz_bindings WHERE member_id=?').run(id);
+  assert.equal((await adminRoute.POST(body('/api/admin/accounts',{username:name,expiresAt:null}))).status,200);
+  assert.equal((await sign(async()=>new Response(null,{status:401}))).status,422);
+  assert.equal(d.sql.prepare('SELECT claimed_member_id FROM account_preapprovals').get().claimed_member_id,null);
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  const signed=await sign(verify);
+  assert.equal(signed.status,200);assert.equal((await signed.json()).source,'ofa');
+  assert.equal((await readSession(d,signed.headers.get('set-cookie'))).memberId,id);
+  assert.equal(d.sql.prepare('SELECT claimed_member_id FROM account_preapprovals').get().claimed_member_id,id);
+  const rows=(await (await adminRoute.GET()).json()).accounts.filter(a=>a.username===name);
+  assert.equal(rows.length,1);assert.equal(rows[0].memberId,id);assert.equal(rows[0].isAdmin,0);assert.equal(rows[0].accessState,'active');
+  assert.equal((await adminRoute.PATCH(body('/api/admin/accounts',{memberId:id,enabled:false,expiresAt:null},'PATCH'))).status,200);
+  d.sql.prepare('DELETE FROM tz_binding_attempts').run();
+  assert.equal((await (await sign(verify)).json()).code,'access_disabled');
+ }finally{d.sql.close();delete globalThis.accountTestDb;delete globalThis.accountTestAdmin;}
+});

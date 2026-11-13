@@ -75,11 +75,11 @@ test('OFA table access is scoped to the requested verified identities and uses t
   try {
     const cookie=sessionCookie('c'.repeat(64),60);
     const origin=process.env.APP_ORIGIN||process.env.RENDER_EXTERNAL_URL||'https://arena-sports-board.onrender.com';
-    for (const username of ['dvp038','DVP03068','tzt05','tzt050','other']) {
+    for (const username of ['dvp038','DVP03068','tzt05','DVP060','dvp0600','tzt050','other']) {
       const memberId='ofa:7';
       const token=await encryptToken('ofa-fixture',memberId,await credentialKey(process.env.TZ_BINDING_KEY));
       const db={prepare:sql=>({bind:()=>({first:async()=>sql.startsWith('SELECT encrypted_token')?{encrypted_token:token}:{memberId,username}})})};
-      const allowed=['dvp038','DVP03068','tzt05'].includes(username);
+      const allowed=['dvp038','DVP03068','tzt05','DVP060'].includes(username);
       const user=await platformIdentity(db,cookie);
       assert.equal(user.sports,true);
       assert.equal(user.canCheckTable,allowed);

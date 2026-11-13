@@ -1,6 +1,6 @@
 import {requestOrigin} from './request-origin';
 import {verifyTurnstile} from './turnstile';
-import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME} from './arena-session';
+import {hash,sessionToken,sessionCookie,readSession,PLATFORM_ADMIN_USERNAME,OFA_MEMBER_USERNAME} from './arena-session';
 import {handleTzBinding} from './tz-binding-service';
 import {credentialKey,decryptToken,encryptToken} from './tz-credentials';
 const response=(d:any,status=200,cookie?:string)=>Response.json(d,{status,headers:{'Cache-Control':'private, no-store','Vary':'Cookie',...(cookie?{'Set-Cookie':cookie}:{})}});
@@ -15,14 +15,16 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  const reader=request.body?.getReader();if(!reader)return response({error:'請輸入帳密'},400);let text='',size=0;const decoder=new TextDecoder();for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>4096){await reader.cancel();return response({error:'輸入過長'},413);}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();
  let input:any;try{input=JSON.parse(text);}catch{return response({error:'輸入格式有誤'},400);}text='';
  if(input.source!==undefined)return response({error:'登入來源由系統判定'},400);
- const source=['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(String(input.username||'').trim().toLowerCase())?'ofa':'tz';
  if(typeof input.username!=='string'||typeof input.password!=='string'||!input.username.trim()||!input.password||input.username.length>128||input.password.length>256)return response({error:'請輸入有效帳號密碼'},400);
  if(requireTurnstile){
   if(!turnstileSecret)return response({error:'登入驗證服務尚未設定，請聯絡管理員'},503);
   if(!await verifyTurnstile(input.turnstileToken,turnstileSecret,fetcher))return response({error:'安全驗證失敗或已過期，請重新驗證'},403);
  }
  const username=input.username.trim();
- if(source==='ofa'&&!['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(username.toLowerCase()))return response({error:'此帳號未開放 OFA 管理員登入'},403);
+ const usernameKey=username.toLowerCase();
+ const ofaAdmin=['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(usernameKey);
+ const ofaMember=usernameKey===OFA_MEMBER_USERNAME;
+ const source=ofaAdmin||ofaMember?'ofa':'tz';
  const now=Date.now();const throttle='login-rate:'+await hash(source+':'+username.toLowerCase());
  const allowed=await db.prepare('INSERT INTO tz_binding_attempts (member_id,allowed_at,operation_id) VALUES (?,?,?) ON CONFLICT(member_id) DO UPDATE SET allowed_at=excluded.allowed_at WHERE tz_binding_attempts.allowed_at<=? RETURNING member_id').bind(throttle,now+30000,'login',now).first();
  if(!allowed)return response({error:'請等 30 秒後再試'},429);
@@ -34,8 +36,8 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  const binding=await db.prepare('SELECT * FROM tz_bindings WHERE member_id=?').bind(candidate).first();if(!binding)throw new Error();
  // The local viewing account must never inherit an upstream membership.
  if(binding.username.trim().toLowerCase()==='aa3344')return response({error:'請使用 YJ 測試帳號密碼登入'},403);
- // Identity comes only from tz's authenticated server response, never submitted username.
- if(source==='ofa'&&!['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(binding.username.toLowerCase()))return response({error:'此帳號未開放 OFA 管理員登入'},403);
+ // Bind grants only to the exact upstream-verified name and provider.
+ if(binding.username.toLowerCase()!==usernameKey)return response({error:'登入帳號與驗證結果不符'},403);
  const member=source+':'+String(binding.source_user_id),key=await credentialKey(secret);
  const token=await decryptToken(binding.encrypted_token,candidate,key),encrypted=await encryptToken(token,member,key);
  // Keep a verified account visible to administrators even before it is approved.
@@ -43,13 +45,13 @@ export async function tzLogin(request:Request,db:any,secret:string|undefined,fet
  await db.prepare("INSERT INTO tz_bindings (member_id,source_user_id,username,device_id,encrypted_token,expires_at,verified_at,game_url) VALUES (?,?,?,?,?,?,?,?) ON CONFLICT(member_id) DO UPDATE SET username=excluded.username,device_id=excluded.device_id,encrypted_token=excluded.encrypted_token,expires_at=excluded.expires_at,verified_at=excluded.verified_at,game_url=excluded.game_url").bind(member,binding.source_user_id,binding.username,binding.device_id,encrypted,binding.expires_at,binding.verified_at,source==='ofa'?'https://sp1788.net/#/Games':'https://hr9988.net/#/Games').run();
  // Preserve the existing primary administrator, using only the verified identity.
  // Never overwrite an explicit grant, restriction or expiry.
- if((source==='tz'&&[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(binding.username.toLowerCase()))||(source==='ofa'&&['dvp0322','dvp038','dvp03068','tzt05','vrv01'].includes(binding.username.toLowerCase())))await db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) VALUES (?,1,NULL,?) ON CONFLICT(member_id) DO NOTHING').bind(member,Date.now()).run();
+ if((source==='tz'&&[PLATFORM_ADMIN_USERNAME,'vrvtest01'].filter(Boolean).includes(binding.username.toLowerCase()))||ofaAdmin)await db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) VALUES (?,1,NULL,?) ON CONFLICT(member_id) DO NOTHING').bind(member,Date.now()).run();
  let access=await db.prepare('SELECT enabled,expires_at FROM account_access WHERE member_id=?').bind(member).first();
- if(!access&&source==='tz'){
+ if(!access&&(source==='tz'||ofaMember)){
   // Consume an administrator's username grant only after upstream verification.
   // Claim and grant are atomic; a claimed name cannot authorize a different ID,
   // and an existing restriction is never replaced by a preapproval.
-  const claimedAt=Date.now(),claimToken=crypto.randomUUID(),usernameKey=binding.username.trim().toLowerCase();
+  const claimedAt=Date.now(),claimToken=crypto.randomUUID();
   await db.batch([
    db.prepare('UPDATE account_preapprovals SET claimed_member_id=?,updated_at=?,claim_token=? WHERE username_key=? AND claimed_member_id IS NULL AND NOT EXISTS (SELECT 1 FROM account_access WHERE member_id=?)').bind(member,claimedAt,claimToken,usernameKey,member),
    db.prepare('INSERT INTO account_access (member_id,enabled,expires_at,updated_at) SELECT claimed_member_id,enabled,expires_at,updated_at FROM account_preapprovals WHERE username_key=? AND claimed_member_id=? AND claim_token=? ON CONFLICT(member_id) DO NOTHING').bind(usernameKey,member,claimToken),
