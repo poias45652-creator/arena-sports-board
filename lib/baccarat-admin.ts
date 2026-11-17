@@ -18,7 +18,8 @@ export async function baccaratAdminRequest(actor:string,method:string,path:strin
   const signature=createHmac('sha256',key).update(['xz-sports-admin-v1',time,actor,method,path,body].join('\n')).digest('hex');
   return fetch(service+path,{method,cache:'no-store',redirect:'manual',signal:AbortSignal.timeout(18000),
     headers:{'x-xz-admin-time':time,'x-xz-admin-actor':actor,'x-xz-admin-signature':signature,
-      'Content-Type':'application/json','Origin':service},...(body?{body}:{})});
+      'Content-Type':'application/json','Origin':service,
+      ...(path==='/api/admin/mt-road-observations' && method==='POST'?{'X-MT-Publisher':'1'}:{})},...(body?{body}:{})});
 }
 
 // Upstream scripts bind to their logout element on initialization. Hide its
