@@ -7,7 +7,7 @@ const reply=(data:unknown,status:number)=>Response.json(data,{status,headers:{'C
 export async function openBaccaratGame(request:Request,db:Database,fetcher=fetch) {
   if(request.method!=='POST'||request.headers.get('origin')!==requestOrigin(request)||request.headers.get('sec-fetch-site')==='cross-site')return reply({message:'請從星準會員入口操作'},403);
   try{
-    const {platform,transport,device}=await request.json().catch(()=>({}));
+    const {platform}=await request.json().catch(()=>({}));
     if(platform!=='DG'&&platform!=='MT')return reply({message:'無效的平台'},400);
     const member=await platformIdentity(db,request.headers.get('cookie'));
     if(!member)return reply({message:'星準登入已到期，請回會員入口登入'},401);
@@ -21,14 +21,6 @@ export async function openBaccaratGame(request:Request,db:Database,fetcher=fetch
     const launch=ofa
       ? {game_return_url:issuer,game_kind:'LIVE',game_device:'Desktop',game_money:''}
       : {game_return_url:'https://www.tz6868.cc',game_kind:'',game_type:'',game_device:'Desktop',...(platform==='MT'?{device:'Desktop'}:{})};
-    if(platform==='MT'&&transport==='browser'){
-      // Restore the original package's authenticated browser launch. The same
-      // member, module and token-expiry checks above still apply. The credential
-      // is returned only to its signed-in owner, never to a shared feed/cache.
-      const browserIssuer=ofa?issuer:'https://www.tz6868.cc';
-      return reply({browserLaunch:{url:browserIssuer+'/api/v2/game/MTLI/login',token,
-        body:{...launch,...(ofa?{game_device:device==='Mobile'?'Mobile':'Desktop'}:{})}}},200);
-    }
     const r=await fetcher(issuer+'/api/v2/game/'+(platform==='DG'?'DGLI':'MTLI')+'/login',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(launch),cache:'no-store',redirect:'error',signal:AbortSignal.timeout(18000)});
     const data=await r.json().catch(()=>null);
     if(r.status===401||Number(data?.code)===401)return reply({message:'平台授權已失效，請回會員入口登入'},401);
@@ -43,4 +35,3 @@ export async function openBaccaratGame(request:Request,db:Database,fetcher=fetch
     return reply({message:platform+' 尚未提供有效的遊戲網址'},502);
   }catch{return reply({message:'目前無法取得遊戲授權，請稍後再試'},503);}
 }
-
