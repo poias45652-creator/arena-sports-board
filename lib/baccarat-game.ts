@@ -27,7 +27,7 @@ export async function openBaccaratGame(request:Request,db:Database,fetcher=fetch
       // is returned only to its signed-in owner, never to a shared feed/cache.
       const browserIssuer=ofa?issuer:'https://www.tz6868.cc';
       return reply({browserLaunch:{url:browserIssuer+'/api/v2/game/MTLI/login',token,
-        body:{...launch,...(ofa?{game_device:device==='Mobile'?'Mobile':'Desktop'}:{})}}});
+        body:{...launch,...(ofa?{game_device:device==='Mobile'?'Mobile':'Desktop'}:{})}}},200);
     }
     const r=await fetcher(issuer+'/api/v2/game/'+(platform==='DG'?'DGLI':'MTLI')+'/login',{method:'POST',headers:{Authorization:'Bearer '+token,'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(launch),cache:'no-store',redirect:'error',signal:AbortSignal.timeout(18000)});
     const data=await r.json().catch(()=>null);
