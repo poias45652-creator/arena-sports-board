@@ -18,6 +18,9 @@ const body=$('body');
 const images=id=>`<img class="football-team-logo" alt="" decoding="async" referrerpolicy="no-referrer" src="${crests[id]}">`;
 document.addEventListener('error',e=>{if(e.target instanceof HTMLImageElement&&e.target.classList.contains('football-team-logo'))e.target.hidden=true;},true);
 function team(id,side,day){const href='/teams/football/hkg.1/'+id+(day?'?date='+day:'');return `<div class="football-team"><small>${side}</small><a class="football-team-identity football-team-link" href="${href}" aria-label="查看${name(id)}球隊數據">${images(id)}<h3>${name(id)}</h3></a></div>`;}
+function pitchButton(g){
+ return `<button type="button" class="football-primary" data-pitch="${esc(g.id)}" data-day="${esc(g.day)}">查看即時球場</button>`;
+}
 function card(g){
   if(g.state!=='scheduled')return finishedCard(g);
   const m={id:g.id,home:g.home.id,away:g.away.id};
@@ -25,6 +28,7 @@ function card(g){
   return `<article class="football-card" id="match-${g.id}" aria-label="${name(m.home)}對${name(m.away)}">
     <div class="football-card-top"><span>未開賽</span><time datetime="${g.timeConfirmed?g.start:g.day}">${matchTime(g)}</time></div>
     <div class="football-match">${team(m.home,'主隊',g.day)}<b>VS</b>${team(m.away,'客隊',g.day)}</div><p class="football-venue">${esc(g.venue)}</p>
+    ${pitchButton(g)}
     ${predictionPanel(m,kickoff)}
   </article>`;
 }
@@ -43,7 +47,7 @@ function navigate(next,game='',day=hongKongDay()){
  view=next;date=day;selectedGame=game;filter='all';render();window.scrollTo(0,0);
 }
 function finishedCard(g){
- return `<article class="football-card"><div class="football-card-top"><span>${esc(g.statusLabel)}</span><time datetime="${g.timeConfirmed?g.start:g.day}">${matchTime(g)}</time></div><div class="football-match">${teamKnown(g.home,'主隊',g.day,g.season)}<b>${g.homeScore??'—'} : ${g.awayScore??'—'}</b>${teamKnown(g.away,'客隊',g.day,g.season)}</div><p class="football-venue">${esc(g.venue)}</p></article>`;
+ return `<article class="football-card"><div class="football-card-top"><span>${esc(g.statusLabel)}</span><time datetime="${g.timeConfirmed?g.start:g.day}">${matchTime(g)}</time></div><div class="football-match">${teamKnown(g.home,'主隊',g.day,g.season)}<b>${g.homeScore??'—'} : ${g.awayScore??'—'}</b>${teamKnown(g.away,'客隊',g.day,g.season)}</div><p class="football-venue">${esc(g.venue)}</p>${pitchButton(g)}</article>`;
 }
 function teamKnown(t,side,day,season){
  return `<div class="football-team"><small>${side}</small><a class="football-team-identity football-team-link" href="/teams/football/hkg.1/${t.id}?date=${day}&amp;season=${season}">${crests[t.id]?images(t.id):''}<h3>${t.name}</h3></a></div>`;
@@ -98,6 +102,7 @@ function render(preserveScores=false){
 }
 document.addEventListener('click',e=>{
  const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.pitch){navigate('scores',b.dataset.pitch,b.dataset.day);return;}
  if(b.dataset.view){navigate(b.dataset.view);return;}
  if(b.dataset.filter){filter=b.dataset.filter;render();return;}
  if(b.hasAttribute('data-retry')){loadDate(date,true);return;}

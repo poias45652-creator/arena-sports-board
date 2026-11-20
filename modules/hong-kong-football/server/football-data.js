@@ -135,7 +135,22 @@ function eventClock(raw){
   const [min,added='0']=value.split('+');
   return {clock:value+'′',order:Number(min)*100+Number(added)};
 }
-function detail(game,updatedAt,liveSource){
+function detail(game,updatedAt,liveSource,pitchFeed){
+  const official=liveSource?.match;
+  if(official && (game.state!=='final'||official.state==='final')){
+    const pair=official.homeScore!=null&&official.awayScore!=null;
+    game={...game,state:official.state,statusName:official.state==='final'?'STATUS_FULL_TIME':'STATUS_IN_PROGRESS',
+      statusLabel:official.status,homeScore:pair?official.homeScore:game.homeScore,awayScore:pair?official.awayScore:game.awayScore};
+  }
+  if(game.state==='final' && pitchFeed?.state!=='final')pitchFeed=null;
+  if(pitchFeed && !pitchFeed.delayed && ['pending','unknown','scheduled','live'].includes(game.state)){
+    const final=pitchFeed.state==='final';
+    const hasPair=pitchFeed.homeScore!=null&&pitchFeed.awayScore!=null;
+    const usePair=hasPair&&(final||game.homeScore==null||game.awayScore==null||Date.parse(pitchFeed.sourceStamp)>Date.parse(liveSource?.checkedAt||updatedAt));
+    game={...game,state:pitchFeed.state,statusName:final?'STATUS_FULL_TIME':'STATUS_IN_PROGRESS',
+      statusLabel:final?'已完場':pitchFeed.clock==='中場休息'?pitchFeed.clock:'進行中',
+      homeScore:usePair?pitchFeed.homeScore:game.homeScore,awayScore:usePair?pitchFeed.awayScore:game.awayScore};
+  }
   const source=game.sourceKey?(game.season===currentSeason?matchData[game.sourceKey]:archiveSheets[game.sourceKey]):liveSource;
   function player(id,name,team,extra={}){
     const p=game.season===currentSeason?athleteIndex.get(athleteKey(team,id)):playerYears.get(String(id))?.find(p=>p.season===game.season&&p.team===team);
@@ -167,8 +182,24 @@ function detail(game,updatedAt,liveSource){
     const recorded=provided.get(label);
     provided.set(label,{label,home:recorded?.home??total(game.home),away:recorded?.away??total(game.away)});
   }
-  const stats=source?expectedStats.map(label=>({key:label,label,home:provided.get(label)?.home??'—',away:provided.get(label)?.away??'—'})):[];
-  return {game,fetchedAt:updatedAt,attendance:source?.attendance??null,stats,events,commentary,
+  for(const stat of pitchFeed?.stats||[]){
+    const official=provided.get(stat.label);
+    if(!official||game.state!=='final')provided.set(stat.label,stat);
+    if(!expectedStats.includes(stat.label))expectedStats.push(stat.label);
+  }
+  const stats=source||provided.size?expectedStats.map(label=>({key:label,label,home:provided.get(label)?.home??'—',away:provided.get(label)?.away??'—'})):[];
+  const officialActions=events.map(e=>({id:e.id,type:e.type,label:e.label,clock:e.clock,teamId:e.teamId,order:e.order}));
+  const extras=(pitchFeed?.events||[]).filter(item=>!officialActions.some(e=>e.clock===item.clock&&e.teamId===item.teamId&&e.label===item.label));
+  const actions=[...officialActions,...extras].sort((a,b)=>b.order-a.order);
+  const pitch={delayed:pitchFeed?.delayed||false,clock:pitchFeed?.clock||'',actions:actions.slice(0,10),updatedAt:pitchFeed?.sourceStamp||null,notice:pitchFeed?.notice||null};
+  const eventOrder=new Map(events.map(e=>[e.id,e.order]));
+  for(const item of extras){
+    eventOrder.set('pitch-'+item.id,item.order);
+    const team=item.teamId===game.home.id?game.home:game.away;
+    commentary.push({id:'pitch-'+item.id,clock:item.clock,text:team.name+'・'+item.label});
+  }
+  if(extras.length)commentary.sort((a,b)=>eventOrder.get(b.id)-eventOrder.get(a.id));
+  return {game,pitch,fetchedAt:updatedAt,attendance:source?.attendance??null,stats,events,commentary,
     lineups:[game.away,game.home].map(team=>({team,formation:source?.formations?.[team.id]||null,players:(source?.lineups?.[team.id]||[]).map(p=>player(p.hkfaId,p.name,team.id,{
       number:p.number,starter:p.starter,goals:(source?.goals||[]).filter(e=>e.team===team.id&&e.hkfaId===p.hkfaId&&!e.ownGoal&&e.type!=='ownGoal').length,
       subbedIn:(source?.substitutions||[]).some(e=>e.team===team.id&&e.inId===p.hkfaId),subbedOut:(source?.substitutions||[]).some(e=>e.team===team.id&&e.outId===p.hkfaId)}))}))};
@@ -190,7 +221,7 @@ export function recordedMatchSheet(game){
 export function incomingDetailGame(id,feed,now){
   return mergeSeason(seasonGames(currentSeason),feed,now).find(g=>g.id===id);
 }
-export function dataResponse(url,feed=null,now=Date.now(),liveSource=null,playerFeed=null){
+export function dataResponse(url,feed=null,now=Date.now(),liveSource=null,playerFeed=null,pitchFeed=null){
   const q=url.searchParams,kind=q.get('kind'),id=q.get('team'),year=Number(q.get('season')||currentSeason);
   if(url.pathname==='/api/sport-player'){
     let history=playerYears.get(q.get('id'))||[];
@@ -223,7 +254,7 @@ export function dataResponse(url,feed=null,now=Date.now(),liveSource=null,player
   const season=date?(Number(date.slice(0,4))-(Number(date.slice(5,7))<7?1:0)):currentSeason;
   const games=schedule(season),byDay=date?games.filter(g=>g.day===date):selectMatchweek(games,now);
   if(kind==='detail'){
-    const g=byDay.find(g=>g.id===q.get('game'))||games.find(g=>g.id===q.get('game'));return g?Response.json(detail(g,timeFor(season),liveSource)):Response.json({error:'找不到這場賽事'},{status:404});
+    const g=byDay.find(g=>g.id===q.get('game'))||games.find(g=>g.id===q.get('game'));return g?Response.json(detail(g,timeFor(season),liveSource,pitchFeed)):Response.json({error:'找不到這場賽事'},{status:404});
   }
   if(kind==='board'){
     const history=q.get('training')==='1'?[...(pastSeasons[season-1]?seasonGames(season-1):[]),...games].filter(g=>g.state==='final'&&!g.awarded).map(({id,season,league,start,state,statusName,neutral,home,away,homeScore,awayScore})=>({id,season,league,start,state,statusName,neutral,home:{id:home.id},away:{id:away.id},homeScore,awayScore})):undefined;

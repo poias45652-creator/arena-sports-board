@@ -1,3 +1,4 @@
+import {espnPitchActions,type FootballPitchReading} from './football-pitch';
 import {footballPhotoUrl} from './football-photo-policy';
 import {footballDay,footballTeamName,parseFootballEvents,type FootballGame,type FootballLeague,type FootballTeam} from './football';
 import {footballCommentaryNames,footballCommentaryText,type FootballCommentaryText} from './football-commentary';
@@ -11,7 +12,7 @@ const number=(value:unknown)=>value===null||value===undefined||value===''?null:N
 const stat=(rows:any[],key:string)=>number(rows.find(s=>s.name===key)?.value??rows.find(s=>s.name===key)?.displayValue);
 export type FootballLivePlayer={id:string;name:string;number:string;position:string;starter:boolean;photo:string;goals:number|null;assists:number|null;subbedIn:boolean;subbedOut:boolean};
 export type FootballLiveEvent={id:string;type:string;label:string;clock:string;period:number;seconds:number;teamId:string|null;players:FootballLivePlayer[];text:string;sourceText?:string};
-export type FootballDetail={game:FootballGame;fetchedAt:string;attendance:number|null;stats:{key:string;label:string;away:string;home:string}[];lineups:{team:FootballTeam;formation:string;players:FootballLivePlayer[]}[];events:FootballLiveEvent[];commentary:({id:string;clock:string}&FootballCommentaryText)[]};
+export type FootballDetail={pitch:FootballPitchReading;game:FootballGame;fetchedAt:string;attendance:number|null;stats:{key:string;label:string;away:string;home:string}[];lineups:{team:FootballTeam;formation:string;players:FootballLivePlayer[]}[];events:FootballLiveEvent[];commentary:({id:string;clock:string}&FootballCommentaryText)[]};
 const eventLabels:Record<string,string>={'kickoff':'比賽開始','goal':'進球','own-goal':'烏龍球','penalty---scored':'十二碼進球','penalty---missed':'十二碼未進','yellow-card':'黃牌','red-card':'紅牌','yellow-red-card':'兩黃一紅','substitution':'換人','halftime':'中場休息','half-time':'中場休息','start-2nd-half':'下半場開始','end-regular-time':'正規時間結束','end-match':'比賽結束','full-time':'比賽結束','start-delay':'比賽暫停','end-delay':'比賽恢復','var':'VAR 判決'};
 const statLabels=[['possessionPct','控球率'],['totalShots','射門'],['shotsOnTarget','射正'],['wonCorners','角球'],['offsides','越位'],['foulsCommitted','犯規'],['yellowCards','黃牌'],['redCards','紅牌'],['saves','撲救'],['accuratePasses','成功傳球'],['totalPasses','傳球'],['blockedShots','封阻射門'],['interceptions','攔截']] as const;
 export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:string):FootballDetail{
@@ -49,7 +50,10 @@ export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:stri
    players:(e.participants||[]).map((p:any)=>players.get(teamId+':'+String(p.athlete?.id))||player(p,teamId||'')),...translate(e.text||e.shortText)}];
  }).sort((a:FootballLiveEvent,b:FootballLiveEvent)=>b.period-a.period||b.seconds-a.seconds||Number(b.id)-Number(a.id));
  const commentary=(raw.commentary||[]).map((e:any,i:number)=>({id:String(e.sequence??i),clock:clean(e.time?.displayValue)||'—',...translate(e.text)})).filter((e:any)=>e.text).reverse();
- return {game,fetchedAt,attendance:number(raw.gameInfo?.attendance),stats,lineups,events,commentary};
+ const status=h.competitions?.[0]?.status||h.status;
+ const pitch={clock:game.state==='live'&&game.statusName!=='STATUS_HALFTIME'?clean(status?.displayClock):'',
+   updatedAt:fetchedAt,actions:espnPitchActions(raw.commentary||[],events,game.home,game.away,raw.keyEvents||[])};
+ return {game,pitch,fetchedAt,attendance:number(raw.gameInfo?.attendance),stats,lineups,events,commentary};
 }
 
 export type FootballStanding={team:FootballTeam;rank:number|null;games:number|null;wins:number|null;losses:number|null;draws:number|null;scored:number|null;conceded:number|null;difference:number|null;points:number|null;deductions:number|null;form:('W'|'D'|'L')[]|null};

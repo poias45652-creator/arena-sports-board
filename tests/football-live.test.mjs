@@ -68,3 +68,14 @@ test('future results and wrong seasons cannot leak into recent form',()=>{
  const table=parseFootballStandings(read('uefa.champions-standings'),'uefa.champions',2026,stamp),d=attachFootballStandingForm(table,[read('champions-schedule')],Date.parse('2026-01-01T00:00:00Z'));
  assert.ok(d.groups.every(g=>g.rows.every(r=>r.form.length===0)));
 });
+
+test('pitch uses measured shot endpoints and rotates the away team into the home-left layout',()=>{
+ const goal=raw.commentary.find(row=>row.play?.id==='53627826');
+ const recorded={...raw,commentary:[goal],keyEvents:[]};
+ const d=parseFootballDetail(recorded,game,stamp);
+ const e=d.pitch.actions[0];
+ assert.equal(e.label,'進球');assert.equal(e.teamId,game.away.id);
+ assert.equal(e.clock,"90'+3'");assert.equal(e.point.x,14);assert.equal(e.end.x,0);
+ const missing={...goal,play:{...goal.play,fieldPositionX:null,fieldPosition2X:120}};
+ assert.equal(parseFootballDetail({...recorded,commentary:[missing]},game,stamp).pitch.actions[0].point,undefined);
+});
