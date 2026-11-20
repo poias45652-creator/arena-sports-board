@@ -1,3 +1,4 @@
+import {collectedMatch} from '@/server/live-match-collector.mjs';
 import {footballDay,isFootballLeague,validFootballDay} from '@/lib/football';
 import {footballGameAnalysis,footballSchedule,nextFootballDay} from '@/lib/football-source';
 import {getRawDb} from '@/db';
@@ -27,6 +28,8 @@ export async function GET(request:Request){
     }
     if(kind==='detail'){
       if(!/^\d{1,12}$/.test(game))return Response.json({error:'無效賽事編號'},{status:400,headers});
+      const captured=collectedMatch(league,game,day,5000);
+      if(captured)return Response.json(await withTipsmeLive(captured),{headers});
       const schedule=await footballSchedule(league,day),match=schedule.games.find(g=>g.id===game);
       if(!match)return Response.json({error:'本日找不到此賽事，請更新賽程'},{status:404,headers});
       return Response.json(await withTipsmeLive(await footballDetail(match)),{headers});

@@ -1,3 +1,4 @@
+import {collectedByUniqueId} from '@/server/live-match-collector.mjs';
 import {api} from '@/server/regional-basketball/api.mjs';
 import {archiveEntry,snapshot} from '@/server/regional-basketball/archive.mjs';
 import {getRawDb} from '@/db';
@@ -16,6 +17,13 @@ export async function GET(request:Request,{params}:{params:Promise<{path:string[
     }
     const data=await archiveEntry(path.join('/'));
     if(data)return new Response(new Uint8Array(data),{headers:{...privateHeaders,'Content-Type':'application/json; charset=utf-8','Content-Encoding':'gzip'}});
-  }else if(path.length===1)return api(request,snapshot);
+  }else if(path.length===1){
+    const params=new URL(request.url).searchParams,league=params.get('league'),id=params.get('id');
+    if(path[0]==='detail'&&id&&(league==='KBL'||league==='NBL')){
+      const detail=collectedByUniqueId(league,id);
+      if(detail)return Response.json(detail,{headers:privateHeaders});
+    }
+    return api(request,snapshot);
+  }
   return Response.json({error:'查無此資料'},{status:404,headers:privateHeaders});
 }

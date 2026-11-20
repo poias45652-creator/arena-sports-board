@@ -1,3 +1,4 @@
+import {matchCollectionStatus} from '@/server/live-match-collector.mjs';
 import footballCupAdjustmentRuntime from '@/data/football/cup-adjustment-runtime.json';
 import {scheduleRevision,scheduleCatalog} from '@/lib/project-schedules';
 import {getRawDb} from '@/db';
@@ -6,6 +7,10 @@ export const dynamic = 'force-dynamic';
 export async function GET(request:Request) {
   try {
     await getRawDb().prepare('SELECT COUNT(*) AS count FROM account_access').first();
+    if(new URL(request.url).searchParams.get('check')==='live-matches'){
+      const matches=matchCollectionStatus(),baseball=baseballBackgroundStatus();
+      return Response.json({enabled:matches.enabled&&baseball.enabled,leagues:[...matches.leagues,...baseball.leagues.map((l:{league:string;status:string;succeededAt?:string|null;checkedAt?:string|null;nextCheckAt?:string|null})=>({league:l.league,status:l.status,lastSuccessAt:l.succeededAt??null,nextCheckAt:l.nextCheckAt??null}))]}, {headers:{'Cache-Control':'no-store'}});
+    }
     if(new URL(request.url).searchParams.get('check')==='schedules'){
       const {tasks,synced}=await scheduleCatalog();
       return Response.json({ok:synced,revision:scheduleRevision,registered:tasks.length,enabled:tasks.filter(t=>t.enabled).length},{status:synced?200:503,headers:{'Cache-Control':'no-store'}});

@@ -1,3 +1,4 @@
+import {collectedByUniqueId} from '@/server/live-match-collector.mjs';
 import {GET as super007GET} from '../super007/route';
 import {parseStandings, standingsScheduleUrl} from '@/lib/standings';
 import validation from '@/data/model-validation.json';
@@ -12,7 +13,7 @@ import {coversTeams,coversUrl,parseCoversHistory} from '@/lib/covers';
 import {fangraphsUrl,parseFanGraphs,type FanGraphsKind} from '@/lib/fangraphs';
 import {getPitcherHistory} from '@/lib/pitcher-history';
 import {parsePitcherRates,type PitcherRates} from '@/lib/pitcher-era';
-import {parseLiveGame,mergeLiveGame} from '@/lib/live-game';
+import {loadMlbLiveGame} from '@/lib/mlb-live-source';
 import {parseLineups,parseBullpen} from '@/lib/rotowire';
 import { validateCollectorSnapshot } from '@/lib/pinnacle';
 import { parseRuns } from '@/lib/markets';
@@ -31,12 +32,7 @@ async function cached(key:string,ttl:number,fetcher:()=>Promise<unknown>){
 }
 async function sourceFetch(url:string){const r=await fetch(url,{signal:AbortSignal.timeout(25000)});if(!r.ok)throw new Error(`來源回覆 ${r.status}`);return r;}
 async function gameDetail(gamePk:number){
-  return cached('game:'+gamePk,10000,async()=>{
-    const response=await fetch(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/feed/live`,{signal:AbortSignal.timeout(8000)});
-    if(!response.ok)throw new Error('詳細資料暫時無法取得');
-    const text=await response.text();if(text.length>8000000)throw new Error('比賽資料超出上限');
-    return parseLiveGame(JSON.parse(text),gamePk);
-  }) as Promise<ReturnType<typeof parseLiveGame>>;
+  return cached('game:'+gamePk,10000,()=>loadMlbLiveGame(gamePk));
 }
 export async function GET(request:Request){
   const url=new URL(request.url),kind=url.searchParams.get('kind')||'',year=new Date().getUTCFullYear();
@@ -132,7 +128,7 @@ export async function GET(request:Request){
     if(kind==='game'){
       const id=url.searchParams.get('gamePk')||'';
       if(!/^[1-9][0-9]{0,8}$/.test(id))return Response.json({error:'無效的比賽編號'},{status:400});
-      return Response.json(await gameDetail(Number(id)),{headers:{'Cache-Control':'no-store'}});
+      return Response.json(collectedByUniqueId('MLB',id)||await gameDetail(Number(id)),{headers:{'Cache-Control':'no-store'}});
     }
     if(kind==='scores'){
       const requestedDay=url.searchParams.get('date');

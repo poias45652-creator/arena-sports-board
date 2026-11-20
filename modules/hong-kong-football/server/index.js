@@ -1,3 +1,4 @@
+import {collectedMatch} from '../../../server/live-match-collector.mjs';
 import {firstPaintFeed} from './season-sync.js';
 import {recentPitchFeed} from './pitch-feed.js';
 import {recentOfficialDetail} from './hkfa-events.js';
@@ -36,7 +37,7 @@ export default {
       let feed=shouldSync?await firstPaintFeed(request,ctx):null;
       const now=Date.now();
       const game=season===2026&&q.get('kind')==='detail'?incomingDetailGame(q.get('game'),feed,now):null;
-      const [liveSource,pitchFeed]=game?await Promise.all([recentOfficialDetail(game,now),recentPitchFeed(game,now)]):[null,null];
+      const [liveSource,pitchFeed]=game?await Promise.all([collectedMatch('hkg.1',game.id,game.day)||recentOfficialDetail(game,now),recentPitchFeed(game,now)]):[null,null];
       let playerFeed=null;
       if(season===2026){
         const team=q.get('team'),id=q.get('id');
