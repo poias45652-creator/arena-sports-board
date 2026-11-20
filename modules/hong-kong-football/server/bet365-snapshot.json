@@ -1,0 +1,119 @@
+[
+  {
+    "home": "LM",
+    "away": "ND",
+    "kickoff": 1795176000000,
+    "status": "priced",
+    "scope": "public",
+    "checkedAt": "2026-11-20T07:18:36.354Z",
+    "sourceUrl": "https://www.totalcorner.com/euro-asian/lee-man-fc-vs-north-district/204669492",
+    "markets": [
+      {
+        "name": "1X2",
+        "prices": [
+          1.1,
+          3,
+          1.6
+        ]
+      },
+      {
+        "name": "Spread",
+        "lines": [
+          {
+            "line": -0.25,
+            "first": 1,
+            "second": 0.8
+          }
+        ]
+      },
+      {
+        "name": "Totals",
+        "lines": [
+          {
+            "line": 3.5,
+            "first": 0.98,
+            "second": 0.83
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "home": "TP",
+    "away": "KC",
+    "kickoff": 1795244400000,
+    "status": "priced",
+    "scope": "public",
+    "checkedAt": "2026-11-20T07:18:36.229Z",
+    "sourceUrl": "https://www.totalcorner.com/euro-asian/tai-po-vs-kitchee/204710174",
+    "markets": [
+      {
+        "name": "1X2",
+        "prices": [
+          3.33,
+          3.5,
+          0.5
+        ]
+      },
+      {
+        "name": "Spread",
+        "lines": [
+          {
+            "line": 1,
+            "first": 0.98,
+            "second": 0.83
+          }
+        ]
+      },
+      {
+        "name": "Totals",
+        "lines": [
+          {
+            "line": 3.5,
+            "first": 0.9,
+            "second": 0.9
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "home": "SO",
+    "away": "BR",
+    "kickoff": 1795244400000,
+    "status": "priced",
+    "scope": "public",
+    "checkedAt": "2026-11-20T07:18:36.249Z",
+    "sourceUrl": "https://www.totalcorner.com/euro-asian/southern-district-vs-hk-rangers-fc/204710175",
+    "markets": [
+      {
+        "name": "1X2",
+        "prices": [
+          0.73,
+          3,
+          2.5
+        ]
+      },
+      {
+        "name": "Spread",
+        "lines": [
+          {
+            "line": -0.75,
+            "first": 0.98,
+            "second": 0.83
+          }
+        ]
+      },
+      {
+        "name": "Totals",
+        "lines": [
+          {
+            "line": 3.25,
+            "first": 0.88,
+            "second": 0.93
+          }
+        ]
+      }
+    ]
+  }
+]

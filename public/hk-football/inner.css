@@ -1,0 +1,25 @@
+.football-board a.football-team-link{text-decoration:none;color:inherit}
+body:has(#inner-page:not([hidden])){background:#091220}
+#inner-page .football-team-dashboard,#inner-page .sp-page{min-height:100vh}
+#inner-page .team-page-nav,#inner-page .sp-nav{position:relative}
+#inner-page .xz-card-badge img{object-fit:contain}
+#inner-page .football-comparison-team{text-decoration:none}
+#inner-page .team-identity button{margin-left:auto}
+#inner-page select,#inner-page input{font:inherit}
+#inner-page .team-filter,#inner-page select,#inner-page .football-player-search{min-width:0}
+#inner-page .team-section-title{font-size:1.15rem}
+#inner-page .team-calendar-scroll{overflow-x:auto}
+#inner-page .team-metrics>div,#inner-page .panel{min-width:0}
+.football-board .hk-match-link{display:block;margin:.55rem 1rem 1rem;padding:.55rem .7rem;border:1px solid #53645d;border-radius:7px;background:#0c211d;color:#f3dda5;text-decoration:none;font-weight:700;font-size:.9rem}
+.football-model-dialog{max-width:min(620px,96vw)}
+.football-board .football-date [data-next-matchday]{white-space:nowrap}
+.hk-empty-note{color:#cad3d9}
+@media(max-width:600px){#inner-page .team-page-container{max-width:100%;padding-inline:10px}#inner-page .team-detail-grid{grid-template-columns:minmax(0,1fr)}#inner-page .team-identity{flex-wrap:wrap}#inner-page .team-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+.hk-h2h{list-style:none;padding:0;margin:.3rem 0 1rem}
+.hk-h2h li{border-bottom:1px solid #364a50}
+.hk-h2h a{display:grid;grid-template-columns:auto minmax(0,1fr) auto minmax(0,1fr);gap:.55rem;align-items:center;padding:.55rem 0;color:#e7f1f5;text-decoration:none}
+.hk-h2h time{color:#c3d1db;font-variant-numeric:tabular-nums}
+.hk-h2h b{white-space:nowrap;color:#ffda85}
+.hk-h2h a:hover,.results-list a:hover{text-decoration:underline;color:#ffda85}
+.hk-h2h a:focus-visible{outline:2px solid #ffda85;outline-offset:2px}

@@ -1,0 +1,16 @@
+.game-strip-picker { width:100%; min-width:0; max-width:100%; }
+.game-strip-controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:.75rem 0; color:#b2c0d1; font-size:.8rem; line-height:1.6; }
+.game-strip-controls>div { display:flex; flex-shrink:0; gap:.5rem; }
+.game-strip-controls button { display:grid; place-items:center; width:44px; height:44px; border:1px solid #718198; border-radius:8px; background:#142438; color:#ffe39b; cursor:pointer; }
+.game-strip-controls button:hover:not(:disabled) { border-color:#ffd538; background:#263b50; }
+.game-strip-controls button:disabled { opacity:.35; cursor:default; }
+.game-strip-controls button:focus-visible,.game-strip-scroll:focus-visible { outline:2px solid #ffd538; outline-offset:3px; }
+.game-strip-picker>.game-strip-scroll { width:100%; min-width:0; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; scrollbar-color:#ffd538 #17263a; cursor:grab; }
+.game-strip-scroll>button { user-select:none; }
+.game-strip-scroll img { -webkit-user-drag:none; user-select:none; }
+.game-strip-picker>.game-strip-scroll[data-dragging=true] { scroll-snap-type:none; scroll-behavior:auto; cursor:grabbing; }
+.game-strip-scroll[data-dragging=true]>button { cursor:grabbing; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar { display:block; height:10px; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar-thumb { background:#ffd538; border-radius:8px; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar-track { background:#17263a; border-radius:8px; }
+.basketball-live-center,.football-live-center { min-width:0; max-width:100%; }

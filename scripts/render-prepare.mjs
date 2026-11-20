@@ -12,3 +12,5 @@ for(const file of files){
  await mkdir(dirname(target),{recursive:true});await rename(source,target);count++;
 }
 if(count)console.log(`Backed up ${count} obsolete Render files in .render-legacy-backup. No account data changed.`);
+
+await import('./build-hong-kong-football.mjs');

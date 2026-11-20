@@ -1,0 +1,828 @@
+/* 星準足球內頁 · arena-sports-board 1d646e06 */
+.football-team-dashboard .panel { border:1px solid rgba(255,255,255,.08); border-radius:1rem; background:#0e1b2a; }
+.football-team-dashboard .league-tabs { width:100%; flex-wrap:wrap; justify-content:flex-start; height:auto!important; padding:0; margin-bottom:1.25rem; border-radius:0; background:transparent; border:0; gap:.5rem; }
+.football-team-dashboard .league-tabs [data-slot=tabs-trigger] { flex:none; min-height:3rem; border-radius:.5rem; padding:.65rem .9rem; font-size:1rem; color:#fff; background:rgba(11,20,32,.85); box-shadow:none!important; border:1px solid rgba(255,255,255,.5); }
+.football-team-dashboard .league-tabs [data-slot=tabs-trigger][data-state=active] { background:rgba(255,213,56,.12); color:#ffd538; border-color:#ffd538; }
+@media(max-width:640px) {
+.football-team-dashboard .league-tabs { gap:1rem; }
+.football-team-dashboard .league-tabs [data-slot=tabs-trigger] { font-size:.875rem; }
+}
+.football-team-dashboard .league-tabs { overflow-x:auto; justify-content:flex-start; flex-shrink:0; }
+.football-team-dashboard .team-page-nav { max-width:1440px; margin:auto; display:flex; align-items:center; justify-content:space-between; padding:1.25rem 1.5rem; font-size:.875rem; border-bottom:1px solid #263243; }
+.football-team-dashboard .team-page-nav a:hover { color:#ffd538; }
+.football-team-dashboard .team-page-container { max-width:1320px; margin:auto; padding:1.5rem; }
+.football-team-dashboard .team-identity { display:flex; gap:1.25rem; align-items:center; padding:1.5rem 0 2rem; border-top:4px solid #ffd538; }
+.football-team-dashboard .team-identity h1 { font-size:clamp(1.5rem,3vw,2rem); font-weight:800; }
+.football-team-dashboard .team-identity>button { margin-left:auto; }
+.football-team-dashboard .team-filters { display:flex; gap:1.25rem; flex-wrap:wrap; padding:1.25rem; margin-bottom:1.5rem; }
+.football-team-dashboard .team-filter { display:flex; flex-direction:column; gap:.5rem; min-width:150px; flex:1; }
+.football-team-dashboard .team-filter>span { color:#9aaabd; font-size:.875rem; }
+.football-team-dashboard .team-filter [data-slot=select-trigger] { width:100%; }
+.football-team-dashboard .team-metrics { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1rem; margin:1.5rem 0; padding:1.25rem; background:#091320; border:2px solid #475b75; border-radius:.75rem; box-shadow:0 8px 24px #0005; }
+.football-team-dashboard .team-metrics>div { min-width:0; padding:1rem; background:#17283d; border:1px solid #61758f; border-top:3px solid #ffd538; border-radius:.5rem; }
+.football-team-dashboard .team-metrics span, .football-team-dashboard .team-metrics small { display:block; color:#c2d0e1; font-size:.875rem; }
+.football-team-dashboard .team-metrics small { color:#acbfd5; }
+.football-team-dashboard .team-metrics strong { display:block; color:#fff; font-size:1.5rem; font-weight:800; font-variant-numeric:tabular-nums; margin:.6rem 0; }
+.football-team-dashboard .team-detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; }
+.football-team-dashboard .team-section-title { font-size:1.125rem; font-weight:750; padding-left:.6rem; border-left:3px solid #ffd538; margin-bottom:1.5rem; }
+.football-team-dashboard .team-comparison { margin:1.5rem 0; }
+.football-team-dashboard .team-comparison>div:first-child, .football-team-dashboard .team-comparison>div:last-child, .football-team-dashboard .team-opponent>div:first-child { display:flex; justify-content:space-between; gap:1rem; font-size:.875rem; }
+.football-team-dashboard .team-comparison small, .football-team-dashboard .team-opponent small { color:#91a2b6; font-size:.875rem; }
+.football-team-dashboard .comparison-bars, .football-team-dashboard .opponent-bar { display:flex; height:8px; overflow:hidden; margin:.6rem 0; background:#263447; border-radius:2px; }
+.football-team-dashboard .comparison-bars span:first-child { background:#ffd538; }
+.football-team-dashboard .comparison-bars span:last-child { background:#64748b; }
+.football-team-dashboard .team-opponent { margin:1.25rem 0; }
+.football-team-dashboard .team-opponent a:hover { color:#ffd538; }
+.football-team-dashboard .team-footnote { font-size:.875rem; color:#94a3b8; margin:1rem 0; line-height:1.65; }
+.football-team-dashboard .team-calendar-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.5rem; }
+.football-team-dashboard .team-calendar-heading h2 { margin-bottom:0; }
+.football-team-dashboard .team-calendar-scroll { overflow-x:auto; }
+.football-team-dashboard .team-calendar { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:.4rem; min-width:770px; }
+.football-team-dashboard .calendar-weekday { padding:.5rem; text-align:center; color:#9aaabd; }
+.football-team-dashboard .calendar-day { padding:.65rem; min-height:125px; border:1px solid #2a384b; border-radius:.4rem; }
+.football-team-dashboard .calendar-day>b { font-size:.875rem; }
+.football-team-dashboard .calendar-today { border-color:#ffd538; background:#ffd53808; }
+.football-team-dashboard .calendar-today>b { color:#ffd538; }
+.football-team-dashboard .calendar-game { display:flex; flex-direction:column; gap:.2rem; margin:.5rem 0; font-size:.875rem; }
+.football-team-dashboard .calendar-game strong { color:#ffd538; font-variant-numeric:tabular-nums; }
+.football-team-dashboard .calendar-game small { color:#8e9eaf; font-size:.75rem; }
+@media(max-width:1000px) {
+.football-team-dashboard .team-metrics { grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media(max-width:640px) {
+.football-team-dashboard .team-page-container { padding:1rem; }
+.football-team-dashboard .team-detail-grid { grid-template-columns:minmax(0,1fr); }
+.football-team-dashboard .team-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.football-team-dashboard .team-filters { gap:.75rem; }
+.football-team-dashboard .team-filter { min-width:120px; }
+.football-team-dashboard .team-identity { gap:.75rem; flex-wrap:wrap; }
+.football-team-dashboard .team-calendar-heading>div { flex-wrap:wrap; }
+.football-team-dashboard .team-identity img { width:48px; height:48px; }
+}
+
+/* 球隊與球員獨立頁 */
+.football-team-dashboard { position:relative; isolation:isolate; min-height:100vh; background:#080f19; color:#e8eef5; }
+.football-team-dashboard::before { content:""; position:fixed; inset:0; pointer-events:none; z-index:-1; background:linear-gradient(rgba(8,15,25,.38),rgba(8,15,25,.62)),url('/hk-football/brand/football-stadium-v1.webp') center bottom/cover no-repeat; }
+@media(max-width:800px){ .football-team-dashboard::before{background-position:85% bottom} }
+.football-team-dashboard .team-page-nav { background:#0b1420; }
+.football-team-dashboard .team-identity > img{object-fit:contain}
+.football-team-dashboard .league-tabs { display:flex; }
+.football-team-dashboard .league-tabs button[aria-pressed="true"] {background:rgba(255,213,56,.12);color:#ffd538;border-color:#ffd538}
+:is(.football-team-dashboard,.sp-page,.football-live-center,.football-standings) a { color:inherit; text-decoration:none; }
+:is(.football-team-dashboard,.sp-page,.football-live-center,.football-standings) button { color:inherit; }
+.arena-shell.xz-theme .football-team-dashboard .panel { background:#101b2a; border-color:#263243; border-radius:.625rem;box-shadow:none; }
+.arena-shell.xz-theme .football-team-dashboard .panel::after { content:none; }
+
+/* 球隊資料、趨勢、賽程與名單 */
+.football-team-dashboard {
+  padding: 0 0 40px;
+}
+.football-team-dashboard .team-page-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.football-team-dashboard .team-identity > img {
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.football-team-dashboard .league-eyebrow,
+.football-team-english {
+  font-size: 14px;
+  color: #a6b8ca;
+}
+.football-team-english {
+  margin-top: 4px;
+  font-size: 13px;
+}
+.football-team-dashboard .team-identity > div {
+  min-width: 0;
+}
+.football-team-dashboard .team-identity h1 {
+  overflow-wrap: anywhere;
+}
+.football-dashboard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  border: 1px solid #53647a;
+  border-radius: 7px;
+  background: #0e1826df;
+  padding: 8px 13px;
+  color: #e8eef5;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.football-dashboard-button:hover {
+  border-color: #ffd538;
+}
+.football-dashboard-button:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+.football-dashboard-button[aria-pressed="true"] {
+  border-color: #ffd538;
+  background: #ffd53820;
+  color: #ffd538;
+}
+.football-dashboard-filters {
+  margin-top: 24px;
+}
+.football-dashboard-filters select,
+.football-match-controls select,
+.football-player-search {
+  width: 100%;
+  min-height: 38px;
+  border: 1px solid #334255;
+  border-radius: 6px;
+  background: #0e1a29;
+  color: #e8eef5;
+  padding: 7px 12px;
+  font-size: 14px;
+  color-scheme: dark;
+}
+.football-dashboard-filters select {
+  cursor: pointer;
+}
+.football-team-dashboard .team-metrics > div:first-child strong {
+  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
+  white-space: nowrap;
+}
+.football-team-dashboard .team-metrics strong {
+  white-space: nowrap;
+}
+.football-dashboard-panel {
+  padding: 20px;
+  min-width: 0;
+}
+.football-dashboard-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 240px;
+  color: #b4c6dc;
+}
+.football-comparison-team {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.football-comparison-team img,
+.football-fixture-opponent img {
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.football-team-dashboard .team-comparison > div:first-child span {
+  color: #d6e0ed;
+}
+.football-team-dashboard .team-comparison > div:last-child {
+  align-items: center;
+}
+.football-empty-bar {
+  width: 100%;
+  background: #263447 !important;
+}
+.football-win {
+  background: #199568;
+}
+.football-draw {
+  background: #8290a3;
+}
+.football-loss {
+  background: #d95668;
+}
+.football-extra-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.football-extra-metrics > div {
+  padding: 20px;
+}
+.football-extra-metrics span {
+  display: block;
+  color: #a6b8ca;
+  font-size: 13px;
+}
+.football-extra-metrics strong {
+  display: block;
+  margin-top: 8px;
+  font-size: 26px;
+  color: #f1f5f9;
+}
+.football-trend-options {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.football-trend-chart {
+  height: 340px;
+  width: 100%;
+  aspect-ratio: auto;
+  min-width: 0;
+}
+.football-table-scroll {
+  overflow-x: auto;
+}
+.football-month-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 480px;
+  margin-top: 18px;
+}
+.football-month-table th,
+.football-month-table td {
+  padding: 12px 10px;
+  text-align: right;
+  border-bottom: 1px solid #2b3d52;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.football-month-table th:first-child {
+  text-align: left;
+}
+.football-month-table thead {
+  color: #9fb1c6;
+}
+.football-roster-filters {
+  padding: 0;
+  margin-top: 0;
+}
+.football-player-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.football-player-search input {
+  min-width: 0;
+  width: 100%;
+  background: transparent;
+  outline: none;
+}
+.football-player-search:focus-within {
+  outline: 2px solid #ffd538;
+  outline-offset: 3px;
+}
+.football-player-portrait {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  color: #7c91aa;
+}
+.football-player-card .football-player-portrait img {
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+.football-player-photo-frame {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+}
+.football-player-card h3 a:hover {
+  color: #ffd538;
+}
+.football-player-statline {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+  border-top: 1px solid #2b3d52;
+  margin-top: 14px;
+  padding-top: 12px;
+}
+.football-player-statline dt {
+  font-size: 12px;
+  color: #9aaabd;
+}
+.football-player-statline dd {
+  margin-top: 3px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.football-match-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.football-match-controls select {
+  width: auto;
+  min-width: 125px;
+}
+.football-match-group + .football-match-group {
+  margin-top: 26px;
+}
+.football-match-group > h3 {
+  font-size: 14px;
+  color: #9fb1c6;
+  margin-bottom: 12px;
+}
+.football-fixture-row {
+  display: grid;
+  grid-template-columns: 160px 46px minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid #2b3d52;
+}
+.football-fixture-date {
+  font-size: 13px;
+  color: #c2d0e1;
+}
+.football-fixture-date time {
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.football-fixture-date small {
+  display: block;
+  margin-top: 4px;
+  color: #91a6c0;
+  font-size: 11px;
+}
+.football-fixture-venue {
+  font-size: 12px;
+  color: #9fb1c6;
+}
+.football-fixture-opponent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 14px;
+}
+.football-fixture-opponent strong {
+  overflow-wrap: anywhere;
+}
+.football-fixture-opponent:hover {
+  color: #ffd538;
+}
+.football-fixture-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: flex-end;
+}
+.football-fixture-result b {
+  font-size: 19px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.football-fixture-result small {
+  font-size: 11px;
+  color: #91a6c0;
+  max-width: 80px;
+}
+.football-fixture-compact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 12px;
+  padding: 10px 0 0;
+  border: 0;
+}
+.football-fixture-compact .football-fixture-date {
+  font-size: 11px;
+}
+.football-fixture-compact .football-fixture-opponent {
+  font-size: 12px;
+}
+.football-fixture-compact .football-fixture-venue {
+  font-size: 10px;
+}
+.football-fixture-compact .football-fixture-result b {
+  font-size: 15px;
+}
+.football-logo-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+@media (max-width: 760px) {
+  .football-dashboard-panel {
+    padding: 18px;
+  }
+  .football-extra-metrics {
+    gap: 12px;
+  }
+  .football-extra-metrics > div {
+    padding: 16px;
+  }
+  .football-fixture-row {
+    grid-template-columns: 120px 35px minmax(0, 1fr) auto;
+    gap: 9px;
+  }
+  .football-fixture-date {
+    font-size: 11px;
+  }
+  .football-team-dashboard .team-metrics > div:first-child strong {
+    font-size: 1.2rem;
+  }
+}
+@media (max-width: 640px) {
+  .football-team-dashboard .team-page-nav {
+    padding: 18px 16px;
+  }
+  .football-team-dashboard .team-identity {
+    padding: 20px 0 24px;
+  }
+  .football-team-dashboard .team-identity > img {
+    width: 56px;
+    height: 56px;
+  }
+  .football-team-dashboard .team-identity > div {
+    flex: 1;
+  }
+  .football-team-dashboard .team-identity > button {
+    margin-left: 0;
+  }
+  .football-team-dashboard .team-metrics {
+    gap: 10px;
+    padding: 12px;
+  }
+  .football-team-dashboard .team-metrics > div {
+    padding: 13px 12px;
+  }
+  .football-team-dashboard .team-metrics span,
+  .football-team-dashboard .team-metrics small {
+    font-size: 12px;
+  }
+  .football-extra-metrics {
+    gap: 8px;
+  }
+  .football-extra-metrics > div {
+    padding: 14px 10px;
+  }
+  .football-extra-metrics strong {
+    font-size: 22px;
+  }
+  .football-extra-metrics span {
+    font-size: 11px;
+  }
+  .football-fixture-row:not(.football-fixture-compact) {
+    grid-template-columns: 38px minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .football-fixture-row:not(.football-fixture-compact) .football-fixture-date {
+    grid-column: 1/-1;
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .football-fixture-date small {
+    margin-top: 0;
+  }
+  .football-fixture-result b {
+    font-size: 17px;
+  }
+  .football-match-controls {
+    flex-wrap: wrap;
+  }
+  .football-trend-chart {
+    height: 300px;
+  }
+  .football-roster-filters .team-filter {
+    min-width: 100%;
+  }
+  .football-player-statline {
+    gap: 3px;
+  }
+  .football-player-card p {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .football-team-dashboard .animate-spin {
+    animation: none;
+  }
+}
+
+/* 球隊空狀態與更新時間 */
+.football-profile-result { display:inline-grid;place-items:center;width:27px;height:27px;border-radius:5px;font-size:12px;font-weight:800;background:#33465c;color:#dce6f2;flex-shrink:0; }
+.football-profile-result[data-result="勝"] { background:#145742;color:#8cf2c8; }
+.football-profile-result[data-result="負"] { background:#572b38;color:#f9a5b9; }
+.football-profile-footer { color:#95a9c0;font-size:12px;margin-top:22px;text-align:right; }
+.football-profile-empty { padding:12px 0;color:#95a9c0;font-size:13px; }
+.football-profile-loading { display:flex;align-items:center;justify-content:center;gap:12px;min-height:220px;color:#b4c6dc; }
+
+/* 球員卡與資料頁 */
+.xz-player-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:30px 24px;padding:24px 4px;align-items:start}
+.xz-player-card{--card-ink:#36230d;position:relative;isolation:isolate;display:block;width:100%;max-width:330px;margin:0 auto;color:var(--card-ink);text-decoration:none;border:2px solid #e9c97f;border-radius:32px 32px 70px 70px / 32px 32px 35px 35px;clip-path:polygon(10% 0,40% 0,50% 1.8%,60% 0,90% 0,94% 4%,100% 6%,100% 93%,95% 97%,50% 100%,5% 97%,0 93%,0 6%,6% 4%);background:linear-gradient(155deg,transparent 0 33%,#fff2bf55 33.4% 34%,transparent 34.4% 37%,#fff5ce80 37.5% 38.2%,transparent 39%),repeating-linear-gradient(140deg,#dba45b00 0 9px,#ffedba25 10px 11px),linear-gradient(150deg,#fff1b8 0%,#d99a4f 35%,#efc47d 53%,#bc7f3d 100%);box-shadow:inset 0 0 0 5px #66401b25,inset 0 0 25px #fff0b95c,0 14px 28px #0004;transition:transform .2s,box-shadow .2s;container-type:inline-size;overflow:hidden}
+.xz-player-card:before{content:'';position:absolute;z-index:-1;inset:8px;border:1px solid #fff3c687;border-radius:24px 24px 29px 29px;pointer-events:none}
+a.xz-player-card:hover,.xz-player-card--expand:hover{transform:translateY(-5px);box-shadow:inset 0 0 0 5px #66401b25,0 20px 36px #0006,0 0 22px #e5b85c30}
+a.xz-player-card:active,.xz-player-card--expand:active{transform:translateY(-1px) scale(.99)}
+.xz-player-card:focus-visible,.xz-player-card summary:focus-visible{outline:3px solid #fff4b9;outline-offset:5px}
+.xz-card-top{position:absolute;z-index:2;inset:25px 20px auto;display:flex;justify-content:space-between;align-items:start;gap:8px;pointer-events:none}
+.xz-card-number{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:88px;text-shadow:0 1px 0 #ffe8ae}
+.xz-card-number small{font-size:10px;letter-spacing:2px;font-weight:800}
+.xz-card-number strong{font-size:42px;font-weight:950;line-height:1.05;letter-spacing:-2px;font-variant-numeric:tabular-nums}
+.xz-card-number>span{font-size:13px;font-weight:800;margin-top:6px;line-height:1.3}
+.xz-card-league{max-width:100px;font-size:10px;font-weight:850;letter-spacing:.6px;border:1px solid #593a1a7a;border-radius:3px;padding:3px 5px;background:#ffe6aa96;overflow-wrap:anywhere}
+.xz-card-photo{position:relative;display:flex;align-items:end;justify-content:center;width:100%;height:255px;height:74cqw;margin-top:22px;overflow:hidden}
+.xz-card-photo>img{display:block;object-fit:contain;object-position:center bottom;width:94%;height:94%;max-width:100%;margin-left:15%;filter:drop-shadow(0 6px 7px #4b2d1526)}
+.xz-card-photo--framed{width:100px;height:100px;margin:118px auto 59px;overflow:hidden;transform:scale(1.55);transform-origin:center}
+.xz-card-photo--framed>img{margin:0;filter:none}
+.xz-card-photo--missing{flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#66441f;padding-top:45px}
+.xz-card-photo--missing svg{width:96px;height:96px;stroke-width:1.1}
+.xz-card-photo--missing>span{font-size:12px}
+.xz-card-copy{position:relative;z-index:3;margin-top:-8px;padding:12px 18px 28px;text-align:center;background:linear-gradient(180deg,#edc17caa,#ecc281 18%,#d79e58);border-top:1px solid #fff3cb99}
+.xz-card-copy h3{margin:0;color:#30200c;font-size:clamp(18px,7.5cqw,24px);font-weight:950;line-height:1.15;letter-spacing:-.5px;overflow-wrap:anywhere;min-height:2.3em;display:flex;align-items:center;justify-content:center}
+.xz-card-team{font-size:12px;font-weight:700;margin:7px 0 12px;min-height:1.4em;line-height:1.4;color:#5b3b1d;overflow-wrap:anywhere}
+.xz-card-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 5px;margin:0;padding:12px 0;border-top:1px solid #764b274d;border-bottom:1px solid #764b274d}
+.xz-card-stats-note{margin:0;padding:16px 0;border-block:1px solid #764b274d;color:#583b21;font-size:12px;font-weight:700}
+.xz-card-stats dt{font-size:11px;font-weight:800;line-height:1.3;color:#65401b}
+.xz-card-stats dd{margin:4px 0 0;font-size:22px;line-height:1.1;font-weight:900;font-variant-numeric:tabular-nums;color:#30200c;overflow-wrap:anywhere}
+.xz-card-bio{font-size:11px;line-height:1.6;margin:10px 0;color:#583b21;min-height:1.6em;overflow-wrap:anywhere}
+.xz-card-footer{display:flex;align-items:center;justify-content:space-between;gap:5px;font-size:10px;font-weight:800;padding-top:10px;color:#4d331b;min-height:32px}
+.xz-card-badge{display:flex;align-items:center;min-width:24px}.xz-card-badge img{width:26px;height:26px;object-fit:contain}
+.xz-player-card summary{list-style:none;cursor:pointer}.xz-player-card summary::-webkit-details-marker{display:none}
+.xz-card-details{padding:12px 18px 24px;background:#edc17c;color:#36230d;border-top:1px solid #764b274d}
+.xz-card-details dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;font-size:12px;margin:0}.xz-card-details dd{font-weight:800;margin:3px 0 0}
+.xz-profile-card{width:min(100%,330px);margin:22px auto}
+@media(min-width:1100px){.xz-player-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:560px){.xz-player-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 10px;padding:18px 0}.xz-card-top{inset:17px 11px auto}.xz-card-number strong{font-size:30px}.xz-card-number>span{font-size:10px;max-width:55px}.xz-card-league{font-size:8px;max-width:62px}.xz-card-copy{padding:9px 9px 14px}.xz-card-copy h3{font-size:17px}.xz-card-team{font-size:10px;min-height:2.8em}.xz-card-stats dt{font-size:10px}.xz-card-stats dd{font-size:18px}.xz-card-footer{flex-wrap:wrap;justify-content:center}.xz-card-footer>span:last-child{width:100%}.xz-card-bio{font-size:10px}.xz-card-photo--framed{margin:75px auto 29px;transform:scale(1)}}
+@media(max-width:350px){.xz-player-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.xz-player-card{transition:none}a.xz-player-card:hover,.xz-player-card--expand:hover{transform:none}}
+
+
+.sp-page{min-height:100vh;color:#eef2f7}.sp-nav{position:relative!important;display:flex;justify-content:space-between;padding:20px max(20px,calc((100vw - 1100px)/2));background:#07101be8;border-bottom:1px solid #b98c42}.sp-inner{max-width:1140px;margin:auto;padding:28px 20px 64px}.sp-heading{display:flex;align-items:center;gap:24px;border-top:3px solid #e2ba66;padding:30px 0}.sp-photo{width:140px;height:160px;flex:0 0 140px;position:relative;background:#101c2aa8;border:1px solid #c79b4f;border-radius:14px;overflow:hidden;display:grid;place-items:center}.sp-photo>svg{width:55px;height:55px;color:#8896aa}.sp-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;background:#0c1725}.sp-identity{min-width:0;flex:1}.sp-identity h1{font-size:clamp(24px,4vw,42px);font-weight:750;margin:8px 0;overflow-wrap:anywhere}.sp-identity p{color:#b5c2d3;margin:8px 0}.sp-identity a{color:#f0ce83}.sp-refresh,.sp-tabs button,.sp-panel button{border:1px solid #9b7c48;border-radius:10px;padding:12px 18px;background:#111f2de8;display:inline-flex;align-items:center;gap:7px;color:#edf2f8;cursor:pointer}.sp-refresh:disabled{opacity:.6}.sp-filters,.sp-panel{border:1px solid #8d713c;border-radius:16px;background:#0d1928f5;padding:24px;margin-bottom:24px;min-width:0}.sp-filters{display:grid;grid-template-columns:1fr 1fr;gap:20px}.sp-filters label{display:grid;gap:10px;color:#aebdd1}.sp-filters select,.sp-competition{width:100%;min-width:0;padding:13px 14px;background:#172638;border:1px solid #57677c;border-radius:9px;color:#eef2f7}.sp-tabs{display:flex;gap:14px;margin:28px 0}.sp-tabs button[aria-pressed=true]{color:#f5d48a;background:#77632c66;border-color:#f0c96e}.sp-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:24px}.sp-metrics>div{background:#15263bf2;border:1px solid #7e8c9d;border-top:4px solid #dfb969;border-radius:13px;padding:24px;display:flex;flex-direction:column;gap:12px;min-width:0}.sp-metrics span,.sp-metrics small{color:#b8c5d7}.sp-metrics strong{font-size:38px}.sp-metrics small{line-height:1.6;font-size:13px}.sp-panel h2{font-weight:700;font-size:22px;margin:0 0 20px}.sp-bio{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}.sp-bio>div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #334257}.sp-bio dt{color:#a6b6ca}.sp-bio dd{text-align:right}.sp-scroll{max-width:100%;overflow:auto;overscroll-behavior-x:contain}.sp-scroll table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;white-space:nowrap}.sp-scroll th,.sp-scroll td{padding:14px 16px;border-bottom:1px solid #33465d;text-align:right}.sp-scroll th:first-child,.sp-scroll td:nth-child(2){text-align:left}.sp-scroll thead{background:#1a2b40;color:#b5c5d9}.sp-scroll tbody tr:nth-child(even){background:#19283970}.sp-empty,.sp-caption{color:#a9b8cb;line-height:1.7}.sp-caption{font-size:13px;margin:16px 0}.sp-caption a{color:#e7c785;text-decoration:underline}.sp-panel button{margin-left:12px}.sp-page button:focus-visible,.sp-page a:focus-visible,.sp-page select:focus-visible{outline:2px solid #f3d28d;outline-offset:3px}@media(max-width:600px){.sp-inner{padding:20px 16px 40px}.sp-heading{gap:15px;flex-wrap:wrap;padding:24px 0}.sp-photo{width:92px;height:116px;flex-basis:92px}.sp-identity h1{font-size:25px}.sp-identity p{font-size:14px}.sp-refresh{margin-left:auto;padding:10px 16px}.sp-filters,.sp-panel{padding:18px}.sp-filters{gap:14px}.sp-tabs{gap:9px}.sp-tabs button{flex:1;justify-content:center;padding:12px 7px}.sp-metrics{grid-template-columns:1fr 1fr;gap:14px}.sp-metrics>div{padding:18px 14px}.sp-metrics strong{font-size:32px}.sp-bio{grid-template-columns:1fr}.sp-scroll th,.sp-scroll td{padding:12px}.sp-nav{padding:16px 20px}.sp-identity{flex-basis:calc(100% - 110px)}}
+
+/* 比分看板、模型設定與積分榜 */
+.football-standings { background:#0c1b2bef;border:1px solid #30465e;border-radius:12px;padding:22px;min-width:0 }
+.football-game-strip { display:flex;overflow-x:auto;gap:14px;padding:4px 0 14px;margin:14px 0 28px;scroll-snap-type:x proximity;scrollbar-color:#98a8ba #1d2e3e }
+.football-game-strip>button { flex:0 0 270px;scroll-snap-align:start;border:1px solid #364d66;border-radius:9px;background:#102133;padding:18px;text-align:center }
+.football-game-strip>button[aria-pressed=true] { border-color:#ffda37;background:#1a2d3a }
+.football-game-strip>button>span, .football-game-strip time { color:#9aaabd;font-size:13px }
+.football-game-strip>button>div { display:flex;align-items:center;justify-content:center;gap:14px;margin:16px 0 }
+.football-game-strip img { object-fit:contain;width:36px;height:40px }
+.football-game-strip b { font-size:28px;font-variant-numeric:tabular-nums;white-space:nowrap }
+.football-game-strip strong { font-size:16px;display:block }
+.football-game-strip strong small { display:block;margin:4px 0 12px;font-size:15px;color:#f1f5f9 }
+.football-game-strip .football-live { color:#ff8198;font-weight:900 }
+.football-score-layout { display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:18px;align-items:stretch;margin:24px 0 }
+.football-scoreboard, .football-match-info { position:relative;border:1px solid #364d66;border-radius:10px;min-width:0;padding:32px 20px 20px }
+.football-section-ribbon { display:table;position:relative;margin:-46px auto 25px;padding:11px 18px;background:#ffda37;color:#071421;border-radius:8px;font-size:18px;font-weight:900;box-shadow:0 0 22px #ffda3738;white-space:nowrap }
+.football-score-teams { display:grid;grid-template-columns:minmax(0,1fr) 120px minmax(0,1fr);gap:18px;align-items:center;text-align:center }
+.football-score-teams .football-team { display:flex;flex-direction:column }
+.football-score-teams .football-team>small { order:2;color:#8fa2ba;margin:8px 0;font-size:13px }
+.football-score-teams .football-team-identity { display:flex;flex-direction:column;gap:12px;justify-content:center }
+.football-score-teams .football-team-logo { width:96px;height:96px;object-fit:contain }
+.football-score-teams h3 { font-size:19px;font-weight:800;overflow-wrap:anywhere }
+.football-score-teams>div>b { font-size:42px;color:#ffda37;font-variant-numeric:tabular-nums }
+.football-score-vs { font-size:58px;font-weight:950;font-style:italic;color:#e9f5ff;text-shadow:-3px 0 13px #ff431e,3px 2px 15px #1b89ff;transform:skew(-8deg) }
+.football-score-vs strong { display:block;font-size:13px;color:#ff647d;text-shadow:none;letter-spacing:3px }
+.football-match-status { display:inline-block;background:#ffda3716;color:#ffda37;padding:5px 9px;border-radius:4px;font-size:13px }
+.football-match-info dl>div { margin:15px 0 }
+.football-match-info dt { display:flex;align-items:center;gap:8px;color:#93a6bc;font-size:12px }
+.football-match-info dd { margin:6px 0 0 24px;font-size:14px }
+.football-match-info>button { display:flex;gap:5px;align-items:center;color:#c4d5e8;font-size:12px }
+.football-match-info>small { display:block;color:#8ba0b8;font-size:10px;margin-top:10px }
+.football-detail-loading { display:flex;align-items:center;gap:12px;padding:30px;color:#a9bdd4 }
+.football-live-columns { display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start }
+.football-stat-panel, .football-lineups, .football-events { min-width:0;border:1px solid #344b64;border-radius:9px;overflow:hidden;margin-top:20px;background:#0d1d2d }
+.football-live-columns h3 { padding:18px 20px;font-size:19px;font-weight:900;border-bottom:1px solid #344b64 }
+.football-stat-teams { display:flex;justify-content:space-between;gap:12px;background:#23364b;padding:13px 16px;font-size:14px;font-weight:800 }
+.football-stat-teams>span, .football-lineups header>span, .football-event header>span { display:flex;align-items:center;gap:9px }
+.football-stat-teams img, .football-lineups header img, .football-event header img, .football-standings img { width:30px;height:30px;object-fit:contain;flex-shrink:0 }
+.football-stat-panel table { width:100%;border-collapse:collapse }
+.football-stat-panel td, .football-stat-panel th { padding:17px 20px;border-bottom:1px solid #43556a;font-size:14px }
+.football-stat-panel th { text-align:center;font-weight:500 }
+.football-stat-panel td { width:25%;font-variant-numeric:tabular-nums }
+.football-stat-panel td:last-child { text-align:right }
+.football-stat-panel tr:last-child>* { border:0 }
+.football-lineups header, .football-event header { display:flex;align-items:center;justify-content:space-between;gap:12px;background:#23364b;padding:14px 15px;font-size:16px;font-weight:800 }
+.football-lineups header small, .football-event time { font-size:12px;font-weight:400;color:#9aadc4;white-space:nowrap }
+.football-lineup-players { padding:10px 12px;display:grid;gap:8px }
+.football-lineup-player { display:flex;gap:12px;align-items:center;border:1px solid #30465e;border-radius:8px;padding:10px;background:#102234 }
+.football-lineup-player>div { min-width:0;flex:1 }
+.football-lineup-player strong { font-size:14px;overflow-wrap:anywhere }
+.football-lineup-player small { display:block;color:#93a8c0;font-size:12px;margin-top:4px }
+.football-lineup-player>span:last-child { font-size:11px;color:#ffda37 }
+.football-player-photo { position:relative;display:inline-flex;width:54px;height:54px;align-items:center;justify-content:center;flex:0 0 54px;overflow:hidden;color:#78a9e5 }
+.football-player-photo img { width:100%;height:100%;object-fit:contain }
+.football-player-photo>b { position:absolute;font-size:12px;color:#eef5ff;top:19px }
+.football-substitutes summary { cursor:pointer;font-size:13px;padding:14px 18px;color:#bfcee0 }
+.football-panel-empty { padding:25px 18px;color:#9baec5;font-size:14px }
+.football-event-tabs, .football-event-filters { display:flex;gap:8px;padding:12px 14px;flex-wrap:wrap }
+.football-event-filters { padding-top:0 }
+.football-event-tabs button, .football-event-filters button { border:1px solid #42546b;border-radius:20px;padding:6px 12px;font-size:12px;color:#a8bdd4 }
+.football-event-tabs button[aria-pressed=true], .football-event-filters button[aria-pressed=true] { background:#ffda3720;color:#ffda37;border-color:#ffda37 }
+.football-event>div { padding:17px 18px }
+.football-event-type { font-size:14px;font-weight:500 }
+.football-event-type.is-goal { color:#ffda37;font-weight:900 }
+.football-event-player { display:flex;align-items:center;gap:12px;margin-top:10px;font-size:16px;overflow-wrap:anywhere }
+.football-event details { font-size:12px;color:#a6b8ce;line-height:1.8;margin-top:9px }
+.football-event summary { cursor:pointer }
+.football-event details p { margin-top:8px }
+.football-load-more { display:block;width:calc(100% - 28px);margin:14px;border:1px solid #445b76;border-radius:7px;padding:12px;font-size:13px;color:#ffda37 }
+.football-commentary { display:flex;gap:16px;padding:18px;border-top:1px solid #32485e;font-size:13px;line-height:1.7 }
+.football-commentary time { min-width:35px;color:#ffda37 }
+.football-commentary-note { font-size:12px;color:#a0b2c8;padding:0 15px 15px }
+.football-standings>header { display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap }
+.football-standings h2 { font-weight:900;border-left:3px solid #ffda37;padding-left:12px;font-size:20px }
+.football-standings>header p { font-size:13px;color:#9cafc5;margin-top:12px }
+.football-standings>header>div:last-child { display:flex;gap:10px;align-items:center }
+.football-standings label { font-size:13px;color:#b7c8dd }
+.football-standings select { background:#14263a;color:#e5eef9;border:1px solid #43576f;border-radius:5px;padding:8px;margin-left:6px;color-scheme:dark }
+.football-standings>header button { border:1px solid #43576f;border-radius:5px;padding:10px }
+.football-standing-group h3 { margin:24px 0 8px;color:#a9bed8;font-size:14px }
+.football-table-scroll { overflow-x:auto;max-width:100%;scrollbar-color:#98a8ba #1d2e3e }
+.football-standings table { width:100%;min-width:1080px;border-collapse:collapse;text-align:left;font-size:14px }
+.football-standings td, .football-standings th { padding:17px 14px;border-bottom:1px solid #43556a;white-space:nowrap;font-variant-numeric:tabular-nums }
+.football-standings thead th { font-size:13px;font-weight:600;color:#91a6bf }
+.football-standings tbody th { min-width:205px }
+.football-standings th a { display:flex;align-items:center;gap:10px }
+.football-rank { display:inline-block;border-radius:4px;background:#213348;padding:2px 8px }
+.football-standings tr:first-child .football-rank { color:#ffda37;background:#05c3a418 }
+.football-record { font-size:13px }
+.football-record b { color:#6fe3bf;font-weight:400 }
+.football-record em { color:#ff8c9e;font-style:normal }
+.football-record-bar { width:138px;height:4px;background:#25384d;border-radius:5px;margin-top:8px }
+.football-record-bar i { display:block;height:100%;background:#ffda37;border-radius:5px }
+.football-points { font-weight:900;color:#ffda37 }
+.football-form { display:flex;gap:5px }
+.football-form span { padding:2px 5px;border-radius:3px;font-size:12px }
+.form-W { color:#76ebc9;background:#00b18d24 }
+.form-L { color:#ff819b;background:#f43e6a22 }
+.form-D { color:#c2cede;background:#9eb2d322 }
+.football-standings-note { display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:11px;color:#90a6bf;margin-top:18px }
+.football-overview-stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin:20px 0 }
+.football-overview-stats>div { border:1px solid #324a64;border-radius:10px;padding:20px;background:#102235 }
+.football-overview-stats span { color:#a2b6ce;font-size:13px }
+.football-overview-stats strong { display:block;color:#ffda37;font-size:32px;margin-top:5px }
+.football-overview-links { display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 }
+.football-overview-links button { display:flex;gap:8px;align-items:center;border:1px solid #455c76;padding:11px 14px;border-radius:6px;font-size:13px }
+.football-model-dialog { width:min(540px,calc(100vw - 28px));max-height:calc(100dvh - 32px);overflow:auto;margin:auto;border:1px solid #49617b;border-radius:12px;padding:22px;background:#0d1c2b;color:#eef4fc;box-shadow:0 30px 100px #0009 }
+.football-model-dialog::backdrop { background:#020811bd;backdrop-filter:blur(4px) }
+.football-model-dialog header { display:flex;align-items:center;justify-content:space-between }
+.football-model-dialog h2 { font-size:21px;font-weight:900 }
+.football-model-dialog header button { padding:8px }
+.football-model-dialog p { font-size:13px;line-height:1.7;color:#9aafc8;margin:12px 0 }
+.football-model-select { display:block;font-size:12px;margin:15px 0 }
+.football-model-select select { display:block;width:100%;border:1px solid #a9bbd0;border-radius:8px;padding:12px;background:#091522;color:#eff5fb;font-size:15px;font-weight:800;color-scheme:dark }
+.football-model-tabs { display:flex;border:1px solid #b1bfd0;border-radius:18px;overflow:hidden }
+.football-model-tabs button { flex:1;padding:7px 3px;font-size:12px;border-right:1px solid #b1bfd0;white-space:nowrap }
+.football-model-tabs button:last-child { border:0 }
+.football-model-tabs button[aria-pressed=true] { background:#00c3b0;color:#061a26;font-weight:800 }
+.football-model-sliders { display:grid;gap:24px;margin:20px 0 }
+.football-model-sliders label>span { display:flex;justify-content:space-between;font-size:14px }
+.football-model-sliders output { color:#ffda37;font-variant-numeric:tabular-nums }
+.football-model-sliders input { width:100%;margin-top:17px;accent-color:#ffda37;cursor:pointer }
+.football-model-sliders .is-disabled { opacity:.45 }
+.football-model-sliders input:disabled { cursor:default }
+.football-model-dialog footer { display:flex;justify-content:flex-end;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px }
+.football-model-dialog footer button { font-size:12px;color:#ffda37;padding:8px 0 }
+.football-model-dialog footer .football-model-apply { border-radius:22px;padding:9px 20px;background:#ffda37;color:#0b1723;font-weight:800 }
+.football-model-dialog footer button:hover { filter:brightness(1.1) }
+@media(max-width:1000px) {
+.football-live-columns { grid-template-columns:minmax(0,1fr) }
+.football-score-layout { grid-template-columns:minmax(0,1fr) 215px }
+.football-score-teams { grid-template-columns:minmax(0,1fr) 80px minmax(0,1fr);gap:8px }
+.football-score-vs { font-size:44px }
+.football-score-teams .football-team-logo { width:72px;height:72px }
+.football-score-teams h3 { font-size:16px }
+}
+@media(max-width:650px) {
+.football-standings { padding:14px 10px;border-radius:9px }
+.football-game-strip>button { flex-basis:230px;padding:16px }
+.football-score-layout { grid-template-columns:minmax(0,1fr);gap:30px;margin-top:30px }
+.football-scoreboard { padding:28px 9px 12px }
+.football-section-ribbon { font-size:15px;padding:9px 13px;margin-top:-43px }
+.football-score-teams { grid-template-columns:minmax(0,1fr) 48px minmax(0,1fr);gap:5px }
+.football-score-teams .football-team-logo { width:66px;height:66px }
+.football-score-teams h3 { font-size:14px }
+.football-score-teams>div>b { font-size:34px }
+.football-score-vs { font-size:32px }
+.football-match-info { padding:28px 15px 15px }
+.football-match-info dl { display:grid;grid-template-columns:1fr 1fr;gap:6px }
+.football-match-info dl>div { margin:8px 0 }
+.football-match-info dd { font-size:12px;margin-left:0 }
+.football-live-columns { gap:0 }
+.football-live-columns h3 { font-size:16px;padding:15px }
+.football-stat-panel td, .football-stat-panel th { padding:15px 12px;font-size:13px }
+.football-stat-teams { padding:12px 9px;font-size:12px }
+.football-stat-teams img { width:24px;height:24px }
+.football-lineup-player { gap:8px;padding:8px }
+.football-lineup-player strong { font-size:13px }
+.football-lineup-player small { font-size:11px }
+.football-lineup-player>span:last-child { font-size:10px }
+.football-overview-stats { grid-template-columns:repeat(2,minmax(0,1fr));gap:10px }
+.football-overview-stats>div { padding:15px }
+.football-overview-stats strong { font-size:27px }
+.football-model-dialog { padding:17px }
+.football-model-tabs button { font-size:11px }
+.football-model-sliders { gap:19px }
+.football-model-dialog footer { gap:13px }
+.football-standings table { min-width:1000px }
+.football-standings td, .football-standings th { padding:14px 10px }
+.football-standings tbody th { min-width:180px }
+}
+.football-score-teams .football-team-logo { background:transparent;border-radius:0 }
+.football-model-sliders input { appearance:none;height:4px;border:0;border-radius:4px;background:#7f93ad }
+.football-model-sliders input::-webkit-slider-thumb { appearance:none;width:18px;height:18px;background:#ffda37;border:2px solid #f8edaa;border-radius:50% }
+.football-model-sliders input::-moz-range-thumb { width:15px;height:15px;background:#ffda37;border:2px solid #f8edaa;border-radius:50% }
+.football-model-sliders input:disabled::-webkit-slider-thumb { background:#8b9cb1;border-color:#bac7d8 }
+.football-empty[data-live-empty-day] { background: linear-gradient(90deg, #06101d26, #06101d59 52%, #06101d14 85%),
+              url('/brand/football-players-tunnel-v1.webp') 66% 52% / cover no-repeat,
+              #0e1b2b; }
+.football-empty[data-live-empty-day] p { color: #d1dce9; }
+.football-empty[data-live-empty-day] :is(h3, p) { text-shadow: 0 1px 4px #050b12; }
+@media (max-width: 650px) {
+.football-empty[data-live-empty-day] { background-image: linear-gradient(90deg, #06101d38, #06101d88 56%, #06101d3d),
+                      url('/brand/football-players-tunnel-v1.webp'); }
+}
+.arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-live-matchday] { --matchday-chart-height: clamp(620px, 49vw, 900px);
+  background-color: #041225;
+  background-image:
+    linear-gradient(to bottom, #041225, transparent 8%, transparent 87%, #041225),
+    url('/brand/football-matchday-chart-v1.webp');
+  background-size: 100% var(--matchday-chart-height), 100% var(--matchday-chart-height);
+  background-position: center top;
+  background-repeat: repeat-y; }
+[data-live-matchday] .football-game-strip > button { --crowd-position: 0%;
+  color: #f7f9fc;
+  background-color: #102133;
+  background-image:
+    linear-gradient(to bottom, #030b1840, #030b183d 35%, #030b1894 76%, #030b18bf),
+    url('/brand/football-matchday-crowd-v1.webp');
+  background-size: cover, 500% auto;
+  background-position: center, var(--crowd-position) 48%;
+  background-repeat: no-repeat;
+  text-shadow: 0 1px 3px #020812; }
+[data-live-matchday] .football-game-strip > :nth-child(5n + 2) { --crowd-position: 25%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n + 3) { --crowd-position: 50%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n + 4) { --crowd-position: 75%; }
+[data-live-matchday] .football-game-strip > :nth-child(5n) { --crowd-position: 100%; }
+[data-live-matchday] .football-game-strip > button[aria-pressed="true"] { border-color: #ffdb43;
+  box-shadow: inset 0 0 0 1px #ffdb4380; }
+[data-live-matchday] .football-game-strip > button > span:not(.football-live), [data-live-matchday] .football-game-strip time { color: #e0e8f2; }
+[data-live-matchday] :is(.football-stat-panel, .football-lineups, .football-events) { background-color: rgb(8 24 43 / 40%); }
+[data-live-matchday] :is(.football-stat-teams, .football-lineups header, .football-event header, .football-lineup-player) { background-color: rgb(26 45 66 / 68%); }
+[data-live-matchday] :is(.football-scoreboard, .football-match-info) { background-color: #07162959; }
+@media (max-width: 650px) {
+.arena-shell.xz-theme[data-sport="football"] .football-content-panel[data-live-matchday] { background-size: 100% var(--matchday-chart-height), auto var(--matchday-chart-height);
+    background-position: center top, 78% top; }
+}
+
+/* 橫向賽事選擇器 */
+.game-strip-picker { width:100%; min-width:0; max-width:100%; }
+.game-strip-controls { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin:.75rem 0; color:#b2c0d1; font-size:.8rem; line-height:1.6; }
+.game-strip-controls>div { display:flex; flex-shrink:0; gap:.5rem; }
+.game-strip-controls button { display:grid; place-items:center; width:44px; height:44px; border:1px solid #718198; border-radius:8px; background:#142438; color:#ffe39b; cursor:pointer; }
+.game-strip-controls button:hover:not(:disabled) { border-color:#ffd538; background:#263b50; }
+.game-strip-controls button:disabled { opacity:.35; cursor:default; }
+.game-strip-controls button:focus-visible, .game-strip-scroll:focus-visible { outline:2px solid #ffd538; outline-offset:3px; }
+.game-strip-picker>.game-strip-scroll { width:100%; min-width:0; max-width:100%; overflow-x:auto; overscroll-behavior-x:contain; scrollbar-width:thin; scrollbar-color:#ffd538 #17263a; cursor:grab; }
+.game-strip-scroll>button { user-select:none; }
+.game-strip-scroll img { -webkit-user-drag:none; user-select:none; }
+.game-strip-picker>.game-strip-scroll[data-dragging=true] { scroll-snap-type:none; scroll-behavior:auto; cursor:grabbing; }
+.game-strip-scroll[data-dragging=true]>button { cursor:grabbing; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar { display:block; height:10px; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar-thumb { background:#ffd538; border-radius:8px; }
+.game-strip-picker>.game-strip-scroll::-webkit-scrollbar-track { background:#17263a; border-radius:8px; }
+.football-live-center { min-width:0; max-width:100%; }
+
+/* 聯賽排名 */
+section.sport-standings { min-width:0;
+  --standings-ink:#f1f5fb;
+  --standings-gold:#ffe1a0; }
+section.sport-standings :is(.nba-updated, header p, header label, .standings-meta, .football-standings-note) { color:#bfd0df; font-size:.8125rem; }
+section.sport-standings h3 { display:flex; align-items:center; gap:.65rem; margin-bottom:.75rem;
+  color:#ffe2a1; font-size:1.375rem; font-weight:800; letter-spacing:.04em; }
+section.sport-standings h3::after { content:""; height:1px; flex:1; background:linear-gradient(to right,#a78a50,transparent 75%); }
+section.sport-standings table { color:var(--standings-ink); background:rgb(5 17 33 / 68%);
+  font-size:1rem; font-weight:600; font-variant-numeric:lining-nums tabular-nums; }
+section.sport-standings table thead th { color:#dbe7f2; background:#14283c; border-bottom:1px solid #697582;
+  font-size:.875rem; font-weight:700; }
+section.sport-standings thead th:nth-child(2) { text-align:left; }
+section.sport-standings tbody tr:nth-child(even) { background:rgb(30 51 72 / 60%); }
+section.sport-standings tbody tr:focus-within { background:#203a50; }
+section.sport-standings tbody td { font-family:Arial,"Microsoft JhengHei",system-ui,sans-serif; }
+section.sport-standings tbody :is(a, button, [data-stat="球隊"]) { color:#f8fafc; font-family:var(--font-sans); font-size:1.125rem; font-weight:750; }
+section.sport-standings tbody :is(a, button):is(:hover, :focus-visible) { color:#ffe2a1; text-decoration:underline; }
+section.sport-standings tbody :is(.standings-key-stat, [data-stat="勝率"]) { color:var(--standings-gold); background:rgb(199 158 76 / 9%); font-size:1.1875rem; font-weight:800; }
+section.sport-standings .standings-rank { display:inline-grid; place-items:center; min-width:2rem; min-height:2rem;
+  color:#dce7f1; font-weight:700; }
+section.sport-standings .standings-rank:is([data-place="1"], [data-place="2"], [data-place="3"]) { border:1px solid #9d8356; border-radius:.4rem; color:#ffdf95; background:#292b2d; }
+section.sport-standings .standings-rank[data-place="1"] { color:#211a0c; background:#f3d18a; }
+section.sport-standings :is(.record-line, .football-record) { font-size:1rem; }
+section.sport-standings .football-record b { font-weight:700; }
+section.sport-standings .football-form span { min-width:1.5rem; text-align:center; font-size:.875rem; }

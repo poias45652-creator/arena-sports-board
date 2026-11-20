@@ -1,0 +1,4 @@
+body.embedded-board, html:has(body.embedded-board){background:transparent;min-height:0}
+body.embedded-board::before{display:none}
+.embedded-board main.football-board{margin:0;padding:0;width:100%;max-width:none}
+.football-heading[hidden]{display:none}

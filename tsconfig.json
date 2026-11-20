@@ -50,6 +50,7 @@
     "vite.config.ts",
     "drizzle.config.ts",
     "tests",
-    "examples"
+    "examples",
+    "modules/hong-kong-football/ui"
   ]
 }

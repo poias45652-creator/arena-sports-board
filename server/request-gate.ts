@@ -6,6 +6,11 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   if((path==='/'||path==='/regional-basketball/board')&&['NBL','KBL'].includes(url.searchParams.get('league')||'')){
     loginUrl.searchParams.set('basketball',url.searchParams.toString());
   }
+  const hongKongBoard=path==='/hong-kong/board';
+  if ((path==='/' && url.searchParams.get('league')==='FOOTBALL' && url.searchParams.get('competition')==='hkg.1') || hongKongBoard || /^\/(teams|players)\/football\/hkg\.1\/[A-Z0-9]+$/.test(path)){
+    const destination=hongKongBoard?'/?league=FOOTBALL&competition=hkg.1&view=analysis':path+url.search;
+    loginUrl.searchParams.set('football',destination);
+  }
   // The member entry opens the platform selector; the public brand has a dedicated site.
   // Explicit league/view links continue to use the authenticated match workspace.
   if ((request.method==='GET'||request.method==='HEAD')&&path==='/'&&!url.searchParams.has('league')&&!url.searchParams.has('view')) {
@@ -20,9 +25,10 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
       const session=await readSession(db,request.headers.get('cookie'));
       if(!session)return path.startsWith('/api/')?Response.json({error:'測試帳號登入已失效，請重新登入'},{status:401,headers:{'Cache-Control':'private, no-store'}}):new Response(null,{status:307,headers:{Location:loginUrl.href,'Cache-Control':'private, no-store'}});
       const reading=request.method==='GET'||request.method==='HEAD';
-      const page=path==='/'||path==='/regional-basketball/board'||path==='/free-trial'||path==='/teams'||path.startsWith('/teams/')||path.startsWith('/players/');
-      const api=['/api/health','/api/free-trial','/api/daily-win-rate','/api/baseball','/api/international','/api/international-live','/api/international-team','/api/npb-player','/api/nba','/api/wnba','/api/football','/api/football-team','/api/football-player-photo','/api/team','/api/player','/api/sport-player','/api/viewer-analysis'].includes(path)||/^\/api\/regional-basketball\/(?:data\/|(?:feed|detail|roster|player|history|standings|boxes|context)$)/.test(path);
-      const custom=['settings','refresh','force','action'].some(k=>url.searchParams.has(k))||(url.searchParams.has('mode')&&url.searchParams.get('mode')!=='stored')||(url.searchParams.has('weights')&&url.searchParams.get('weights')!=='20,20,20,20,20'&&url.searchParams.get('weights')!=='0.2,0.2,0.2,0.2,0.2');
+      const page=hongKongBoard||path==='/'||path==='/regional-basketball/board'||path==='/free-trial'||path==='/teams'||path.startsWith('/teams/')||path.startsWith('/players/');
+      const hkApi=/^\/api\/hong-kong\/(?:football(?:\/odds)?|football-team|sport-player)$/.test(path);
+      const api=hkApi||['/api/health','/api/free-trial','/api/daily-win-rate','/api/baseball','/api/international','/api/international-live','/api/international-team','/api/npb-player','/api/nba','/api/wnba','/api/football','/api/football-team','/api/football-player-photo','/api/team','/api/player','/api/sport-player','/api/viewer-analysis'].includes(path)||/^\/api\/regional-basketball\/(?:data\/|(?:feed|detail|roster|player|history|standings|boxes|context)$)/.test(path);
+      const custom=['settings','refresh','force','action'].some(k=>url.searchParams.has(k)&&!(hkApi&&path.endsWith('/football-team')&&k==='action'&&url.searchParams.get(k)==='roster'))||(url.searchParams.has('mode')&&url.searchParams.get('mode')!=='stored')||(url.searchParams.has('weights')&&url.searchParams.get('weights')!=='20,20,20,20,20'&&url.searchParams.get('weights')!=='0.2,0.2,0.2,0.2,0.2');
       const privateSource=path==='/api/baseball'&&url.searchParams.get('kind')==='super007';
       if(reading&&(page||api)&&!custom&&!privateSource)return null;
       // Viewing never exchanges or refreshes upstream membership credentials.
@@ -32,7 +38,7 @@ export async function gateRequest(request: Request, db: any): Promise<Response |
   }
   if (path === '/api/health' || path === '/api/session' || path === '/api/free-trial' || (path === '/api/daily-win-rate' && request.method === 'GET') ||
       (path === '/api/international-sync' && request.method === 'POST')) return null;
-  const protectedPage = path === '/' || path === '/regional-basketball/board' || path === '/ai-assistant' || path === '/admin' || path.startsWith('/admin/') ||
+  const protectedPage = hongKongBoard || path === '/' || path === '/regional-basketball/board' || path === '/ai-assistant' || path === '/admin' || path.startsWith('/admin/') ||
     path === '/teams' || path.startsWith('/teams/') || path.startsWith('/players/');
   if (!protectedPage && !path.startsWith('/api/')) return null;
   try {

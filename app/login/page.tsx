@@ -8,6 +8,11 @@ import './cover.css';
 import {useLoginViewport} from './use-login-viewport';
 import {Input} from '@/components/ui/input';
 function memberDestination(){
+ const football=new URLSearchParams(window.location.search).get('football');
+ if(football && football.startsWith('/') && !football.startsWith('//')){
+   const target=new URL(football,window.location.origin);
+   if(target.origin===window.location.origin && ((target.pathname==='/' && target.searchParams.get('league')==='FOOTBALL' && target.searchParams.get('competition')==='hkg.1') || /^\/(teams|players)\/football\/hkg\.1\/[A-Z0-9]+$/.test(target.pathname)))return target.pathname+target.search;
+ }
  const saved=new URLSearchParams(window.location.search).get('basketball')||'';
  const params=new URLSearchParams(saved);
  return ['NBL','KBL'].includes(params.get('league')||'')?'/?'+params.toString():'/?league=MLB&view=analysis';

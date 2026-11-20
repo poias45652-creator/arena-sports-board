@@ -1,4 +1,6 @@
 'use client';
+import FootballCompetitionNav from './football-competition-nav';
+import HongKongFootballBoard from './hong-kong-football-board';
 import {useViewOnly} from './view-only-boundary';
 import {useEffect,useRef,useState} from 'react';
 import {ArrowLeft,ArrowRight,CalendarDays,RefreshCw} from 'lucide-react';
@@ -32,6 +34,17 @@ async function request(url:string,signal:AbortSignal){
   const d=await r.json();if(!r.ok)throw Error(d.error||'資料更新失敗');return d;
 }
 export default function FootballBoard(){
+  const [isHongKong,setIsHongKong]=useState<boolean|null>(null);
+  useEffect(()=>{
+    const sync=()=>setIsHongKong(new URLSearchParams(location.search).get('competition')==='hkg.1');
+    sync();
+    window.addEventListener('popstate',sync);
+    return ()=>window.removeEventListener('popstate',sync);
+  },[]);
+  if(isHongKong===null)return null;
+  return isHongKong?<HongKongFootballBoard/>:<InternationalFootballBoard/>;
+}
+function InternationalFootballBoard(){
   const viewOnly=useViewOnly();
   const odds=useSource<any>('member-odds',60000);
   const [league,setLeague]=useState<FootballLeague>('eng.1'),[day,setDay]=useState(footballDay);
@@ -131,7 +144,7 @@ export default function FootballBoard(){
   const unavailable=!!error||stale||(!current&&!loading);
   return <section className="football-board" data-super-league="FOOTBALL" aria-label="足球分析">
     <div className="football-heading"><div><h1>{selected.name}</h1><p>五大聯賽、歐冠、歐霸與歐國聯・賽程、比分與賽前機率</p></div><span className="football-model-tag">90分鐘分析</span></div>
-    <nav className="football-leagues" aria-label="足球聯賽">{FOOTBALL_LEAGUES.map(l=><button type="button" key={l.code} onClick={()=>setLeague(l.code)} aria-pressed={l.code===league}>{l.name}</button>)}</nav>
+    <FootballCompetitionNav selected={league} onSelect={setLeague}/>
     <nav className="football-page-tabs" aria-label="足球頁面">{FOOTBALL_VIEWS.map(([id,label])=><button type="button" key={id} aria-pressed={view===id} onClick={()=>setView(id)}>{label}</button>)}</nav>
     {view!=='standings'&&<div
       className="football-content-panel"

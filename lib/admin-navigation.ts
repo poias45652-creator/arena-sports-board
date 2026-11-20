@@ -29,6 +29,6 @@ export function loginLandingPage(
     return /^\/admin(?:\/(?:accounts|leagues|regional-basketball|schedules|system|baccarat\/(?:members|settings|permissions|users|dashboard|logs)))$/.test(adminTarget) ? adminTarget : adminHome;
   }
   if (session.source === 'ofa' && session.isAdmin === true && query.get('portal') !== '1') return adminHome;
-  if (session.platforms || query.get('portal') === '1' || !query.has('basketball')) return '/platforms';
+  if (session.platforms || query.get('portal') === '1' || (!query.has('basketball') && !query.has('football'))) return '/platforms';
   return null;
 }

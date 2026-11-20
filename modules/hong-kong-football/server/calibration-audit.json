@@ -1,0 +1,36 @@
+{
+  "asOf": "2026-11-19",
+  "family": "calibrated",
+  "approved": false,
+  "samples": {
+    "training": 180,
+    "selection": 103,
+    "holdout": 105,
+    "recent": 33
+  },
+  "required": {
+    "training": 180,
+    "selection": 80,
+    "holdout": 80,
+    "recent": 60
+  },
+  "issues": [
+    "holdout_logloss_not_improved",
+    "recent_sample_small",
+    "recent_bttsBrier_worse"
+  ],
+  "recentBttsBrier": {
+    "baseline": 0.241,
+    "candidate": 0.2439,
+    "maximumIncrease": 0.002
+  },
+  "holdoutLogLoss": {
+    "baseline": 0.9773,
+    "candidate": 0.9782
+  },
+  "recentLogLoss": {
+    "baseline": 0.8725,
+    "candidate": 0.8336
+  },
+  "message": "2025/26 保留測試 105 場。本季有 33 場可回測，啟用門檻為 60 場；雙方進球的機率誤差也高於基礎模型。目前沿用近期進失球模型。"
+}
