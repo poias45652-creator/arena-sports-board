@@ -1,14 +1,15 @@
 import {mountBoard,unmountBoard} from './inner.js';
 import {predictionPanel,refreshMarkets} from './market.js';
 import {teams} from './league.js';
-import {groupMatchDays,matchDayTitle,matchTime} from './match-days.js';
+import {groupMatchDays,hongKongDay,initialMatchDay,matchDayTitle,matchTime} from './match-days.js';
 import {crests} from './team-crests.js';
 
 const $=id=>document.getElementById(id);
 const name=id=>teams[id][0];
 const query=new URLSearchParams(location.search);
 let view=({live:'scores',scores:'scores',overview:'overview',standings:'standings',analysis:'analysis'})[query.get('view')]||'analysis';
-let date=/^\d{4}-\d{2}-\d{2}$/.test(query.get('date')||'')?query.get('date'):'',filter='all',selectedGame=query.get('game')||'';
+let today=hongKongDay();
+let date=initialMatchDay(query,today),filter='all',selectedGame=query.get('game')||'';
 let board=null, boardKey=null, loadingKey=null, errorKey=null, lastRequest=0, requestSequence=0;
 const shortDay=day=>day.slice(5).replace('-','/');
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -32,7 +33,8 @@ function filtersMarkup(){
 }
 function syncUrl(){
  const u=new URL(location.href); u.searchParams.set('view',view==='scores'?'live':view);
- if(date)u.searchParams.set('date',date);else u.searchParams.delete('date');
+ if(date && (date!==today || selectedGame))u.searchParams.set('date',date);else u.searchParams.delete('date');
+ if(date==='')u.searchParams.set('range','round');else u.searchParams.delete('range');
  if(selectedGame && view==='scores')u.searchParams.set('game',selectedGame);else u.searchParams.delete('game');
  history.replaceState(null,'',u);
  if(window.parent!==window)window.parent.postMessage({type:'hk-football-route',search:u.search},location.origin);
@@ -96,15 +98,29 @@ document.addEventListener('click',e=>{
  if(b.dataset.filter){filter=b.dataset.filter;render();return;}
  if(b.hasAttribute('data-retry')){loadDate(date,true);return;}
  if(b.id==='prev'||b.id==='next'){
-   const d=new Date((date||(boardKey===date&&board?.games[0]?.day)||new Date(Date.now()+8*3600000).toISOString().slice(0,10))+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+(b.id==='next'?1:-1));date=d.toISOString().slice(0,10);
+   const d=new Date((date||(boardKey===date&&board?.games[0]?.day)||hongKongDay())+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+(b.id==='next'?1:-1));date=d.toISOString().slice(0,10);
  } else if(b.id==='round'||b.hasAttribute('data-reset'))date='';else return;
  selectedGame='';filter='all';render();
 });
-$('date').addEventListener('change',e=>{date=e.target.value;selectedGame='';filter='all';render();});
+$('date').addEventListener('change',e=>{date=e.target.value||hongKongDay();selectedGame='';filter='all';render();});
+let midnightTimer;
+function followLocalDay(){
+ clearTimeout(midnightTimer);
+ const now=new Date(),previous=today;
+ today=hongKongDay(now);
+ if(previous!==today && date===previous){
+   date=today;selectedGame='';filter='all';render();
+ }
+ const midnight=Date.parse(today+'T00:00:00+08:00')+86400000;
+ midnightTimer=setTimeout(followLocalDay,midnight-now.getTime());
+}
 function refreshVisibleBoard(){
- if(document.visibilityState==='visible' && view!=='standings' && Date.now()-lastRequest>=(board?.games.some(g=>g.state==='live'||g.timeConfirmed&&Math.abs(Date.now()-Date.parse(g.start))<3*3600000)?45000:300000))loadDate(date,true);
+ if(document.visibilityState!=='visible')return;
+ followLocalDay();
+ if(view!=='standings' && Date.now()-lastRequest>=(board?.games.some(g=>g.state==='live'||g.timeConfirmed&&Math.abs(Date.now()-Date.parse(g.start))<3*3600000)?45000:300000))loadDate(date,true);
 }
 window.addEventListener('online',()=>{if(view!=='standings')loadDate(date,true);});
 document.addEventListener('visibilitychange',refreshVisibleBoard);
 setInterval(refreshVisibleBoard,60000);
+followLocalDay();
 render();

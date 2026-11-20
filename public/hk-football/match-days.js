@@ -5,6 +5,14 @@ const localClock = new Intl.DateTimeFormat('zh-TW', {
   timeZone:'Asia/Hong_Kong',hour:'2-digit',minute:'2-digit',hourCycle:'h23'
 });
 
+export function hongKongDay(value = new Date()) {
+  return new Date(value.valueOf()+8*3600000).toISOString().slice(0,10);
+}
+export function initialMatchDay(query, today = hongKongDay()) {
+  const day = query.get('date');
+  if (day && /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Date.parse(day)) && new Date(day).toISOString().slice(0,10) === day) return day;
+  return query.get('range') === 'round' ? '' : today;
+}
 export function matchDayTitle(day) {
   return dayTitle.format(new Date(day+'T12:00:00+08:00'));
 }
@@ -14,7 +22,7 @@ export function matchTime(game) {
 export function groupMatchDays(games) {
   const byDay = new Map();
   for (const game of games) {
-    const day = game.day || new Date(Date.parse(game.start)+8*3600000).toISOString().slice(0,10);
+    const day = game.day || hongKongDay(new Date(game.start));
     if (!byDay.has(day)) byDay.set(day,[]);
     byDay.get(day).push(game);
   }
