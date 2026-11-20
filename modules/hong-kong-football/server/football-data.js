@@ -2,6 +2,7 @@ import {otherCompetitions,archiveSheets,players,playerHistory,pastSeasons,matchD
 import calibrationAudit from './calibration-audit.json' with {type:'json'};
 import {mergeSeason,selectMatchweek} from './season-sync.js';
 import {teams, fixtures, results, tableOrder} from '../../../public/hk-football/league.js';
+import {hongKongDay} from '../../../public/hk-football/match-days.js';
 
 const league='hkg.1', currentSeason=2026, fetchedAt='2026-11-19T23:00:00+08:00';
 const columns=[['APP','出場'],['G','進球'],['A','助攻'],['MIN','上陣分鐘'],['YC','黃牌'],['RC','紅牌']];
@@ -217,7 +218,9 @@ export function dataResponse(url,feed=null,now=Date.now(),liveSource=null,player
   }
   if(kind==='models')return Response.json(catalog);
   if(kind==='standings')return Response.json(table(year,schedule(year),timeFor(year)));
-  const date=q.get('date'), season=date?(Number(date.slice(0,4))-(Number(date.slice(5,7))<7?1:0)):currentSeason;
+  const defaultToToday=kind==='board' && q.get('range')!=='round';
+  const date=q.get('date') || (defaultToToday?hongKongDay(new Date(now)):null);
+  const season=date?(Number(date.slice(0,4))-(Number(date.slice(5,7))<7?1:0)):currentSeason;
   const games=schedule(season),byDay=date?games.filter(g=>g.day===date):selectMatchweek(games,now);
   if(kind==='detail'){
     const g=byDay.find(g=>g.id===q.get('game'))||games.find(g=>g.id===q.get('game'));return g?Response.json(detail(g,timeFor(season),liveSource)):Response.json({error:'找不到這場賽事'},{status:404});

@@ -11,7 +11,7 @@ export function hongKongDay(value = new Date()) {
 export function initialMatchDay(query, today = hongKongDay()) {
   const day = query.get('date');
   if (day && /^\d{4}-\d{2}-\d{2}$/.test(day) && Number.isFinite(Date.parse(day)) && new Date(day).toISOString().slice(0,10) === day) return day;
-  return query.get('range') === 'round' ? '' : today;
+  return today;
 }
 export function matchDayTitle(day) {
   return dayTitle.format(new Date(day+'T12:00:00+08:00'));

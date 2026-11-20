@@ -15,7 +15,7 @@ export default function HongKongFootballBoard(){
       if(e.data?.type==='hk-football-route' && typeof e.data.search==='string'){
         const board=new URLSearchParams(e.data.search);
         const next=new URLSearchParams({league:'FOOTBALL',competition:'hkg.1'});
-        for(const key of ['view','date','range','game'])if(board.has(key))next.set(key,board.get(key)!);
+        for(const key of ['view','date','game'])if(board.has(key))next.set(key,board.get(key)!);
         history.replaceState(null,'','/?'+next);
       }
     }

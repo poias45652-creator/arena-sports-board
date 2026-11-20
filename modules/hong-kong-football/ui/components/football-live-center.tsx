@@ -10,11 +10,11 @@ import GameStrip from './game-strip';
 export const footballTime=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
 export function FootballBadge({id}:{id:string}){const [failed,setFailed]=useState('');const src=footballLogo(id);return src&&failed!==src?<img src={src} alt="" width={34} height={34} loading="lazy" onError={()=>setFailed(src)}/>:<span className="football-badge-fallback">⚽</span>;}
 function PlayerPhoto({player}:{player:FootballLivePlayer}){const [failed,setFailed]=useState('');return <span className="football-player-photo">{player.photo&&failed!==player.photo?<img src={player.photo} alt="" width={54} height={54} loading="lazy" onError={()=>setFailed(player.photo)}/>:<><Shirt size={40}/><b>{player.number||'—'}</b></>}</span>;}
-export function FootballGameStrip({games,selected,onSelect}:{games:FootballGame[];selected:string;onSelect:(id:string)=>void}){
+export function FootballGameStrip({games,selected,onSelect}:{games:FootballGame[];selected:string;onSelect:(id:string,day:string)=>void}){
  return <>{groupMatchDays(games).map(({day,games:matches})=><section className="football-day-group" key={day} aria-labelledby={'day-'+day}>
    <h3 className="football-day-heading" id={'day-'+day}><time dateTime={day}>{matchDayTitle(day)}</time><small>{matches.length} 場</small></h3>
    <GameStrip className="football-game-strip" count={matches.length} resetKey={day} label={matchDayTitle(day)+'賽事'}>
-     {matches.map(g=><button type="button" key={g.id} aria-pressed={selected===g.id} onClick={()=>onSelect(g.id)}>
+     {matches.map(g=><button type="button" key={g.id} aria-pressed={selected===g.id} onClick={()=>onSelect(g.id,day)}>
        <span className={g.state==='live'?'football-live':''}>{g.statusLabel}</span>
        <div><FootballBadge id={g.away.id}/><b>{g.awayScore??'—'} : {g.homeScore??'—'}</b><FootballBadge id={g.home.id}/></div>
        <strong>{g.away.name}<small>對 {g.home.name}</small></strong><time dateTime={g.timeConfirmed?g.start:day}>{matchTime(g)}</time>
@@ -22,9 +22,9 @@ export function FootballGameStrip({games,selected,onSelect}:{games:FootballGame[
    </GameStrip>
  </section>)}</>;
 }
-export default function FootballLiveCenter({games,initialGameId=''}:{games:FootballGame[];initialGameId?:string}){
+export default function FootballLiveCenter({games,initialGameId='',onSelectMatch}:{games:FootballGame[];initialGameId?:string;onSelectMatch?:(id:string,day:string)=>void}){
  const [selected,setSelected]=useState(initialGameId);const game=games.find(g=>g.id===selected)||games[0];
- return <div className="football-live-center"><FootballGameStrip games={games} selected={game?.id||''} onSelect={setSelected}/>{game&&<FootballMatchDetail key={`${game.league}:${game.id}:${game.start}`} game={game}/>}</div>;
+ return <div className="football-live-center"><FootballGameStrip games={games} selected={game?.id||''} onSelect={onSelectMatch||setSelected}/>{game&&<FootballMatchDetail key={`${game.league}:${game.id}:${game.start}`} game={game}/>}</div>;
 }
 function PregamePrediction({game}:{game:FootballGame}){
  const host=useRef<HTMLDivElement>(null);

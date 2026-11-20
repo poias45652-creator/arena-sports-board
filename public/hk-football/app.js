@@ -34,12 +34,14 @@ function filtersMarkup(){
 function syncUrl(){
  const u=new URL(location.href); u.searchParams.set('view',view==='scores'?'live':view);
  if(date && (date!==today || selectedGame))u.searchParams.set('date',date);else u.searchParams.delete('date');
- if(date==='')u.searchParams.set('range','round');else u.searchParams.delete('range');
+ u.searchParams.delete('range');
  if(selectedGame && view==='scores')u.searchParams.set('game',selectedGame);else u.searchParams.delete('game');
  history.replaceState(null,'',u);
  if(window.parent!==window)window.parent.postMessage({type:'hk-football-route',search:u.search},location.origin);
 }
-function navigate(next,game=''){ view=next;selectedGame=game;filter='all';render();window.scrollTo(0,0); }
+function navigate(next,game='',day=hongKongDay()){
+ view=next;date=day;selectedGame=game;filter='all';render();window.scrollTo(0,0);
+}
 function finishedCard(g){
  return `<article class="football-card"><div class="football-card-top"><span>${esc(g.statusLabel)}</span><time datetime="${g.timeConfirmed?g.start:g.day}">${matchTime(g)}</time></div><div class="football-match">${teamKnown(g.home,'主隊',g.day,g.season)}<b>${g.homeScore??'—'} : ${g.awayScore??'—'}</b>${teamKnown(g.away,'客隊',g.day,g.season)}</div><p class="football-venue">${esc(g.venue)}</p></article>`;
 }
@@ -50,7 +52,9 @@ async function loadDate(day,force=false){
  if(loadingKey===day||(!force&&(boardKey===day||errorKey===day)))return;
  loadingKey=day;errorKey=null;lastRequest=Date.now();const seq=++requestSequence;
  try{
-   const res=await fetch('/api/hong-kong/football?'+new URLSearchParams({kind:'board',date:day}),{cache:'no-store'});
+   const params=new URLSearchParams({kind:'board'});
+   if(day)params.set('date',day);else params.set('range','round');
+   const res=await fetch('/api/hong-kong/football?'+params,{cache:'no-store'});
    if(!res.ok)throw Error();const updated=await res.json();
    if(seq!==requestSequence||day!==date)return;
    board=updated;boardKey=day;

@@ -11,7 +11,7 @@ const {gateRequest}=await import(moduleUrl('server/request-gate.ts'));
 const {loginLandingPage}=await import(moduleUrl('lib/admin-navigation.ts'));
 const query=async path=>dataResponse(new URL('/api/'+path,origin)).json();
 
-test('Hong Kong opens on the UTC+8 match day unless a date or the full round was requested',()=>{
+test('Hong Kong opens on the UTC+8 match day even from a previous round view',()=>{
   const before=hongKongDay(new Date('2026-12-31T15:59:59Z'));
   const after=hongKongDay(new Date('2026-12-31T16:00:00Z'));
   assert.equal(before,'2026-12-31');
@@ -20,7 +20,20 @@ test('Hong Kong opens on the UTC+8 match day unless a date or the full round was
   assert.equal(day('view=analysis'),after);
   assert.equal(day('date=2027-02-30'),after);
   assert.equal(day('date=2026-11-20'),'2026-11-20');
-  assert.equal(day('range=round'),'');
+  assert.equal(day('view=live&range=round'),after);
+});
+
+test('Hong Kong score requests after kickoff include only today unless the full round is selected',async()=>{
+  const at=Date.parse('2026-11-20T20:06:00+08:00');
+  const games=async(search,clock=at)=>(await dataResponse(new URL('/api/football?kind=board'+search,origin),null,clock).json()).games;
+  for(const search of ['','&date=']){
+    const list=await games(search);
+    assert.deepEqual(list.map(g=>[g.day,g.home.id,g.away.id]),[['2026-11-20','LM','ND']]);
+  }
+  assert.deepEqual(await games('',Date.parse('2026-11-19T20:06:00+08:00')),[]);
+  assert.deepEqual((await games('',Date.parse('2026-11-21T00:00:00+08:00'))).map(g=>g.day),['2026-11-21','2026-11-21']);
+  const roundDays=new Set((await games('&range=round')).map(g=>g.day));
+  assert.deepEqual([...roundDays].sort(),['2026-11-20','2026-11-21','2026-11-22']);
 });
 
 test('Hong Kong roster and photo links resolve on the member site',async()=>{
