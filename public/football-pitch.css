@@ -48,3 +48,7 @@
 }
 @keyframes xz-attack-step{0%{opacity:.25;translate:-.45rem 0}75%,100%{opacity:1;translate:0 0}}
 @keyframes xz-control-pulse{0%{box-shadow:0 0 0 0 #fff9}100%{box-shadow:0 0 0 1rem #fff0}}
+
+@media(max-width:600px){
+  .xz-action.measured{left:.5rem!important;right:auto;top:auto!important;bottom:.35rem!important;transform:none;max-width:calc(100% - 1rem);display:flex;align-items:center;flex-wrap:wrap;gap:.3rem .5rem}
+}

@@ -54,7 +54,10 @@ export function createMatchCollector(adapters,{now=Date.now,concurrency=4,record
     const {adapter,fixture}=job, result=await adapter.detail(fixture);
     if(!result)throw Error('Missing match detail');
     record(adapter.league,fixture.id,fixture.day,result);
-    health.get(adapter.league).lastMatchAt=stamp();
+    const status=health.get(adapter.league);
+    status.lastMatchAt=stamp();
+    const play=result.pitch?.actions?.find(action=>action.occurredAt);
+    if(play&&(!status.lastPitchEventAt||Date.parse(play.occurredAt)>Date.parse(status.lastPitchEventAt)))status.lastPitchEventAt=play.occurredAt;
     if(job.finishing){
       if(!fixture.final)return 0;
       const final=result.final===true||result.game?.state==='final'||result.match?.state==='final'||

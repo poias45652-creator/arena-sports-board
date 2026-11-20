@@ -5,6 +5,7 @@ import {gunzipSync} from 'node:zlib';
 import {moduleUrl} from './profile-loader.mjs';
 const {parseFootballDetail,parseFootballStandings,attachFootballStandingForm}=await import(moduleUrl('lib/football-live.ts'));
 const {parseFootballEvents,FOOTBALL_LEAGUES}=await import(moduleUrl('lib/football.ts'));
+const {espnPitchActions:pitchActions}=await import(moduleUrl('lib/football-pitch.ts'));
 const {footballTeamName}=await import(moduleUrl('lib/football.ts'));
 const {footballCommentaryText,footballCommentaryNames}=await import(moduleUrl('lib/football-commentary.ts'));
 const read=name=>JSON.parse(readFileSync('tests/fixtures/football-live/'+name+'.json','utf8'));
@@ -96,4 +97,41 @@ test('Tipsme live snapshots bind the league, kickoff and both sides before updat
  assert.equal(applyTipsmeLive(native,[row,row],checked),native);
  const final={...native,game:{...game,state:'final'}};
  assert.equal(applyTipsmeLive(final,[row],checked),final);
+});
+
+test('Bayern–Cologne pitch follows consecutive measured passes, including multiple passes in one minute',()=>{
+ const {home,away}=game;
+ const recorded=(id,seconds,x,y,endX,endY)=>({id,type:{type:'pass'},period:{number:1},valid:true,
+   clock:{value:seconds,displayValue:"1'"},team:{$ref:'http://sports.core.api.espn.com/v2/sports/soccer/leagues/ger.1/seasons/2026/teams/122?lang=en&region=us'},
+   wallclock:new Date(Date.parse('2026-11-20T19:30:17Z')+seconds*1000).toISOString(),fieldPositionX:x,fieldPositionY:y,fieldPosition2X:endX,fieldPosition2Y:endY});
+ const a=recorded('55408241',2,28.6,55.9,28.2,48.1),b=recorded('55408242',5,28.2,48.1,72.9,18.1);
+ const transform=rows=>pitchActions([],[],{...home,id:'132'},{...away,id:'122'},[],undefined,rows);
+ assert.deepEqual(transform([a,b,b]).map(e=>[e.id,e.label,e.teamId]),[[b.id,'傳球','122'],[a.id,'傳球','122']]);
+ assert.equal(transform([a])[0].id,a.id);
+ assert.deepEqual(transform([a,b])[0].point,transform([a])[0].end);
+ assert.deepEqual(transform([b])[0].end,{x:100-72.9,y:100-18.1});
+ assert.deepEqual(transform([{...a,valid:false},{...b,team:{$ref:'https://example.org/teams/123'}}]),[]);
+ assert.equal(transform([{...b,fieldPositionX:null}])[0].end,undefined);
+});
+
+test('live play reader follows the last page, coalesces viewers and recovers after an upstream failure',async t=>{
+ const {liveFootballPlays}=await import(moduleUrl('lib/football-play-feed.ts'));
+ let now=100000,stage=1;
+ t.mock.method(Date,'now',()=>now);
+ const requests=[];
+ t.mock.method(globalThis,'fetch',async input=>{
+   const url=new URL(input),page=Number(url.searchParams.get('page'));
+   requests.push(page);
+   if(stage===3)throw Error('feed offline');
+   const pageCount=stage===1?8:9;
+   const ids=page===8?['1','2']:page===9?(stage===4?['3','5']:['3','4']):['0'];
+   return Response.json({$ref:url.origin+url.pathname,pageCount,pageIndex:page,items:ids.map(id=>({id}))});
+ });
+ const game={league:'ger.1',id:'401884736'};
+ const [a,b]=await Promise.all([liveFootballPlays(game),liveFootballPlays(game)]);
+ assert.deepEqual(a,b);assert.deepEqual(requests,[1,8]);assert.deepEqual(a.map(x=>x.id),['1','2']);
+ now+=5000;stage=2;const rollover=await liveFootballPlays(game);
+ assert.deepEqual(requests,[1,8,8,9]);assert.deepEqual(rollover.map(x=>x.id),['1','2','3','4']);
+ now+=5000;stage=3;assert.deepEqual(await liveFootballPlays(game),rollover);
+ now+=11000;stage=4;assert.deepEqual((await liveFootballPlays(game)).map(x=>x.id),['3','5']);
 });

@@ -1,4 +1,4 @@
-import {espnPitchActions,type FootballPitchReading} from './football-pitch';
+import {espnPitchActions,type CorePitchPlay,type FootballPitchReading} from './football-pitch';
 import {footballPhotoUrl} from './football-photo-policy';
 import {footballDay,footballTeamName,parseFootballEvents,type FootballGame,type FootballLeague,type FootballTeam} from './football';
 import {footballCommentaryNames,footballCommentaryText,type FootballCommentaryText} from './football-commentary';
@@ -15,7 +15,7 @@ export type FootballLiveEvent={id:string;type:string;label:string;clock:string;p
 export type FootballDetail={pitch:FootballPitchReading;game:FootballGame;fetchedAt:string;attendance:number|null;stats:{key:string;label:string;away:string;home:string}[];lineups:{team:FootballTeam;formation:string;players:FootballLivePlayer[]}[];events:FootballLiveEvent[];commentary:({id:string;clock:string}&FootballCommentaryText)[]};
 const eventLabels:Record<string,string>={'kickoff':'比賽開始','goal':'進球','own-goal':'烏龍球','penalty---scored':'十二碼進球','penalty---missed':'十二碼未進','yellow-card':'黃牌','red-card':'紅牌','yellow-red-card':'兩黃一紅','substitution':'換人','halftime':'中場休息','half-time':'中場休息','start-2nd-half':'下半場開始','end-regular-time':'正規時間結束','end-match':'比賽結束','full-time':'比賽結束','start-delay':'比賽暫停','end-delay':'比賽恢復','var':'VAR 判決'};
 const statLabels=[['possessionPct','控球率'],['totalShots','射門'],['shotsOnTarget','射正'],['wonCorners','角球'],['offsides','越位'],['foulsCommitted','犯規'],['yellowCards','黃牌'],['redCards','紅牌'],['saves','撲救'],['accuratePasses','成功傳球'],['totalPasses','傳球'],['blockedShots','封阻射門'],['interceptions','攔截']] as const;
-export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:string):FootballDetail{
+export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:string,tracking:CorePitchPlay[]=[]):FootballDetail{
  const h=raw?.header;if(h?.league?.slug!==expected.league||String(h.id)!==expected.id)throw Error('比賽明細聯賽或賽事不符');
  const game=parseFootballEvents({events:[h]},expected.league)[0];
  if(!game||game.home.id!==expected.home.id||game.away.id!==expected.away.id||game.start!==expected.start||footballDay(game.start)!==footballDay(expected.start))throw Error('比賽明細球隊或日期不符');
@@ -52,7 +52,7 @@ export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:stri
  const commentary=(raw.commentary||[]).map((e:any,i:number)=>({id:String(e.sequence??i),clock:clean(e.time?.displayValue)||'—',...translate(e.text)})).filter((e:any)=>e.text).reverse();
  const status=h.competitions?.[0]?.status||h.status;
  const pitch={clock:game.state==='live'&&game.statusName!=='STATUS_HALFTIME'?clean(status?.displayClock):'',
-   updatedAt:fetchedAt,actions:espnPitchActions(raw.commentary||[],events,game.home,game.away,raw.keyEvents||[],text=>{const translated=translate(text);return translated.sourceText?null:translated.text;})};
+   updatedAt:fetchedAt,actions:espnPitchActions(raw.commentary||[],events,game.home,game.away,raw.keyEvents||[],text=>{const translated=translate(text);return translated.sourceText?null:translated.text;},tracking)};
  return {game,pitch,fetchedAt,attendance:number(raw.gameInfo?.attendance),stats,lineups,events,commentary};
 }
 
