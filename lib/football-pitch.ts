@@ -4,7 +4,7 @@ export type FootballPitchReading={clock:string;actions:PitchAction[];updatedAt?:
 
 const actionLabels:Record<string,string>={
   'goal-kick':'球門球','corner-awarded':'角球','throw-in':'界外球','free-kick':'自由球',
-  'foul':'犯規','handball':'手球','offside':'越位','shot-on-target':'射正','shot-off-target':'射偏',
+  'ball_safe':'安全控球','possession':'控球','attack':'進攻','dangerous-attack':'危險進攻','foul':'犯規','handball':'手球','offside':'越位','shot-on-target':'射正','shot-off-target':'射偏',
   'shot-blocked':'射門被擋','goal':'進球','own-goal':'烏龍球','yellow-card':'黃牌','red-card':'紅牌',
   'yellow-red-card':'兩黃一紅','substitution':'換人','penalty---scored':'十二碼進球','penalty---missed':'十二碼未進'
 };
@@ -34,8 +34,13 @@ export function espnPitchActions(rows:Comment[],events:KeyEvent[],home:Side,away
     if(!label||!id)continue;
     const team=[home,away].find(t=>p?.team?.id?String(p?.team.id)===t.id:t.englishName===p?.team?.displayName);
     const coordinates=team&&point(p?.fieldPositionX,p?.fieldPositionY,team.id===away.id);
+    const previous=plays.get(id)?.item;
+    const sameTeam=previous && (!team||team.id===previous.teamId);
+    const priorPoint=sameTeam?previous.point:undefined;
+    const priorEnd=sameTeam&&(!coordinates||(priorPoint?.x===coordinates.x&&priorPoint?.y===coordinates.y))?previous.end:undefined;
     plays.set(id,{period:p?.period?.number??inferredPeriod(row.time.displayValue),order:row.time.value??0,sequence:row.sequence,item:{id,type,label,clock:row.time.displayValue,
-      teamId:team?.id??null,point:coordinates,end:coordinates?point(p?.fieldPosition2X,p?.fieldPosition2Y,team?.id===away.id):undefined}});
+      teamId:team?.id??previous?.teamId??null,point:coordinates??priorPoint,
+      end:(coordinates?point(p?.fieldPosition2X,p?.fieldPosition2Y,team?.id===away.id):undefined)??priorEnd}});
   }
   return [...plays.values()].sort((a,b)=>b.period-a.period||clockOrder(b.item.clock)-clockOrder(a.item.clock)||b.order-a.order||(b.sequence??0)-(a.sequence??0)||Number(b.item.id)-Number(a.item.id)).slice(0,10).map(v=>v.item);
 }

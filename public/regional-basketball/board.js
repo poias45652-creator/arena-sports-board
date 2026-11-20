@@ -73,7 +73,10 @@ function paint(){
  const body=s.playerId?playerProfile(s):s.teamCode?teamProfile(s):views[s.view](s);
  const pane=$('content'),open=new Set([...pane.querySelectorAll('details[open][data-persist]')].map(x=>x.dataset.persist));
  const scrolls=new Map([...pane.querySelectorAll('[data-scroll]')].map(x=>[x.dataset.scroll,x.scrollLeft]));
+ const previousEvent=pane.querySelector('[data-court-event]')?.dataset.courtEvent;
  pane.innerHTML=toolbar()+(!s.teamCode&&s.notice?'<div class="message" role="status">'+e(s.notice)+'</div>':'')+body;
+ const play=pane.querySelector('[data-court-event]');
+ if(play?.dataset.courtEvent && !s.detailError && play.dataset.courtEvent!==previousEvent) play.classList.add('is-new');
  const showPicks=s.view==='analysis'&&!s.teamCode&&!s.playerId&&s.visible.length>0;
  publishRecommendations(s.date,showPicks,showPicks?singleGameRecommendations(s):[]);
  for(const el of pane.querySelectorAll('details[data-persist]'))el.open=open.has(el.dataset.persist);

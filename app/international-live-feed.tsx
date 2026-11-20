@@ -8,6 +8,7 @@ import {BaseDiamond,CountLights} from './live-scoreboard';
 import InternationalTeamLogo from './international-team-logo';
 import {internationalTeam} from '@/lib/international-teams';
 
+import {currentTextPlay} from '@/lib/international-play-text';
 import InternationalLiveRecords from './international-live-records';
 import type {InternationalLiveGame as Game} from '@/lib/international-live-display';
 
@@ -29,6 +30,9 @@ function SelectedGame({game,stale,onRefresh,loading,onDetails}:{game:Game;stale:
  const count=stale||game.status!=='live'?{balls:null,strikes:null,outs:null}:{balls:game.balls,strikes:game.strikes,outs:game.outs};
  const pitcher=game.currentPitcher;
  const batter=game.currentBatter;
+ const lastPitch=currentTextPlay(game,stale)?.pitches.at(-1);
+ const pitch=lastPitch?{id:[game.key,game.inning,game.half,batter?.id||batter?.name,lastPitch.id,lastPitch.number].join(':'),
+  label:'第 '+lastPitch.number+' 球 · '+(/[㐀-鿿]/u.test(lastPitch.description)?lastPitch.description:'投球回報')}:undefined;
  return <div className="live-selected" aria-label="所選賽事詳細比分">
   <div className="live-detail-toolbar">{onDetails&&<Button variant="outline" onClick={onDetails}>投打紀錄與先發近況</Button>}<span>{game.date}</span><span>{gameLabel(game,stale)}</span><Button variant="outline" onClick={onRefresh} disabled={loading}><RefreshCw className={loading?'animate-spin':''}/>更新場況</Button></div>
   {stale&&<p className="live-data-notice">目前顯示上次取得的資料，最新場況等待來源更新。</p>}
@@ -36,7 +40,7 @@ function SelectedGame({game,stale,onRefresh,loading,onDetails}:{game:Game;stale:
    {(['away','home'] as const).map(side=><div className={`live-team-score live-team-${side}`} key={side}><InternationalTeamLogo league={game.league} name={game[side].name} size={80}/><h4>{game[side].name}</h4><span className="live-side-label">{side==='away'?'客隊':'主隊'}</span><strong>{game.status==='pregame'?'—':score(game[side].score)}</strong><small>預告先發：{game.starters[side]?.name||'尚未提供'}</small></div>)}
    <InternationalInningBoard game={game}/>
   </div><p className="live-board-footnote">R 得分 · H 安打 · E 失誤<span>更新 {stamp(game.source.fetchedAt,true)}（台灣）</span></p></section>
-  <aside className="panel live-field-panel" aria-label="即時壘包與投打狀態"><h3 className="live-section-ribbon">{gameLabel(game,stale)}</h3><BaseDiamond bases={bases}/>{game.status==='live'&&!stale?<><div className="live-field-players"><p><span>投手</span>{pitcher?.name||'尚未提供'}</p><p><span>打者</span>{batter?.name||'尚未提供'}</p></div><div className="live-field-bottom"><CountLights count={count}/><div className="live-pitch-total"><span>用球數</span><strong>{pitcher?.pitchCount??'—'}</strong></div></div></>:<p className="live-empty">{game.status==='final'?'本場已結束，可查看逐局比分。':'開賽後顯示即時場況。'}</p>}</aside></div>
+  <aside className="panel live-field-panel" aria-label="即時壘包與投打狀態"><h3 className="live-section-ribbon">{gameLabel(game,stale)}</h3><BaseDiamond bases={bases} pitch={pitch}/>{game.status==='live'&&!stale?<><div className="live-field-players"><p><span>投手</span>{pitcher?.name||'尚未提供'}</p><p><span>打者</span>{batter?.name||'尚未提供'}</p></div><div className="live-field-bottom"><CountLights count={count}/><div className="live-pitch-total"><span>用球數</span><strong>{pitcher?.pitchCount??'—'}</strong></div></div></>:<p className="live-empty">{game.status==='final'?'本場已結束，可查看逐局比分。':'開賽後顯示即時場況。'}</p>}</aside></div>
   <InternationalLiveRecords key={game.key} game={game} stale={stale}/>
  </div>;
 }

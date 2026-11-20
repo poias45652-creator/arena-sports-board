@@ -1,4 +1,5 @@
 'use client';
+import '../public/regional-basketball/court.css';
 import GameStrip from './game-strip';
 import {useEffect,useState} from 'react';
 import {ChevronLeft,ChevronRight,RefreshCw,UserRound} from 'lucide-react';
@@ -23,12 +24,12 @@ export function CountLights({count,compact=false}:{count:LiveCount;compact?:bool
  ] as const).map(([letter,label,value,max,tone])=><div key={letter} aria-label={`${label} ${value??'未知'}`}><b aria-hidden="true">{letter}</b><span className="live-count-dots" aria-hidden="true">{Array.from({length:max},(_,i)=><i key={i} className={value!==null&&i<value?`lit ${tone}`:''}/>)}</span><span className="live-count-number" aria-hidden="true">{value??'—'}</span></div>)}</div>;
 }
 
-export function BaseDiamond({bases,compact=false}:{bases:LiveBases;compact?:boolean}){
+export function BaseDiamond({bases,compact=false,pitch}:{bases:LiveBases;compact?:boolean;pitch?:{id:string;label:string}}){
  const label=bases?(['first','second','third'] as const).map((b,i)=>`${i+1} 壘${bases[b]?'有人':'無人'}`).join('，'):'壘包資料尚未提供';
- return <div className={`live-diamond${compact?' live-diamond-small':''}`} role="img" aria-label={label}>
+ return <div className={`live-diamond${compact?' live-diamond-small':''}`} role="img" aria-label={pitch?label+"，"+pitch.label:label}>
   <div className="live-basepath"/>
   {(['first','second','third'] as const).map((base,i)=><span key={base} className={`live-base live-base-${base}${bases?.[base]?' occupied':''}${!bases?' unknown':''}`} title={`${i+1} 壘${!bases?'未知':bases[base]?'有人':'無人'}`}/>)}
-  <span className="live-homeplate"/>{!compact&&<span className="live-diamond-caption">{!bases?'場況待更新':Object.values(bases).some(Boolean)?'壘上有人':'壘上無人'}</span>}
+  <span className="live-homeplate"/>{pitch&&<span className="xz-pitch-report" title="投球示意" key={pitch.id}><i aria-hidden="true"/><b>{pitch.label}</b></span>}{!compact&&<span className="live-diamond-caption">{!bases?'場況待更新':Object.values(bases).some(Boolean)?'壘上有人':'壘上無人'}</span>}
  </div>;
 }
 
@@ -75,6 +76,8 @@ function SelectedGame({game,now,scheduleFetchedAt}:{game:any;now:number;schedule
  const currentCount:LiveCount=currentOK?{balls:line?.balls??null,strikes:line?.strikes??null,outs:line?.outs??null}:noCount;
  const plays=data?.plays||[],activePlay=data?.currentPlay;
  const currentPlay=currentOK&&activePlay&&activePlay.batter.id===batter?.id&&activePlay.inning===line?.currentInning&&!activePlay.complete?activePlay:null;
+ const lastPitch=currentPlay?.pitches.at(-1);
+ const pitch=lastPitch?{id:currentPlay!.id+':'+lastPitch.id,label:(lastPitch.number?'第 '+lastPitch.number+' 球 · ':'')+pitchCallZh(lastPitch.call,'投球回報')}:undefined;
  const scoring=plays.filter(p=>p.scoring),innings=[...new Set(plays.map(p=>p.inning))].sort((a,b)=>a-b);
  const latestInning=plays.at(-1)?.inning;
  const shown=plays.filter(p=>inning==='all'||p.inning===(inning==='latest'?latestInning:Number(inning)));
@@ -90,7 +93,7 @@ function SelectedGame({game,now,scheduleFetchedAt}:{game:any;now:number;schedule
    {(['away','home'] as const).map(side=><div className={`live-team-score live-team-${side}`} key={side}><TeamLogo id={game.teams?.[side]?.team?.id} size={80}/><h4>{teamZh(game.teams?.[side]?.team)}</h4><span className="live-side-label">{side==='away'?'客隊':'主隊'}</span><strong>{stat(line?.teams?.[side]?.runs??game.teams?.[side]?.score)}</strong><small>{game.teams?.[side]?.leagueRecord?`${game.teams[side].leagueRecord.wins} 勝－${game.teams[side].leagueRecord.losses} 敗`:'戰績尚未提供'}</small></div>)}
    <InningBoard game={game} line={line} state={state}/>
   </div><p className="live-board-footnote">R 得分 · H 安打 · E 失誤<span>更新 {clock(currentStamp)}（台灣）</span></p></section>
-  <aside className="panel live-field-panel" aria-label="即時壘包與投打狀態"><h3 className="live-section-ribbon">{gameDetailZh(detailedGame)}</h3><BaseDiamond bases={bases}/>{live?<><div className="live-field-players"><p><span>投手</span>{currentOK?<PlayerLink id={pitcher?.id} season={game.season} gameType={game.gameType}>{pitcher?.fullName||'尚未提供'}</PlayerLink>:'等待更新'}</p><p><span>打者</span>{currentOK?<PlayerLink id={batter?.id} season={game.season} gameType={game.gameType}>{batter?.fullName||'尚未提供'}</PlayerLink>:'等待更新'}</p></div><div className="live-field-bottom"><CountLights count={currentCount}/><div className="live-pitch-total"><span>用球數</span><strong>{currentOK?stat(pitchingCount):'—'}</strong></div></div></>:<p className="live-empty">{final?'本場已結束，可查看各局紀錄。':'開賽後顯示即時場況。'}</p>}</aside></div>
+  <aside className="panel live-field-panel" aria-label="即時壘包與投打狀態"><h3 className="live-section-ribbon">{gameDetailZh(detailedGame)}</h3><BaseDiamond bases={bases} pitch={pitch}/>{live?<><div className="live-field-players"><p><span>投手</span>{currentOK?<PlayerLink id={pitcher?.id} season={game.season} gameType={game.gameType}>{pitcher?.fullName||'尚未提供'}</PlayerLink>:'等待更新'}</p><p><span>打者</span>{currentOK?<PlayerLink id={batter?.id} season={game.season} gameType={game.gameType}>{batter?.fullName||'尚未提供'}</PlayerLink>:'等待更新'}</p></div><div className="live-field-bottom"><CountLights count={currentCount}/><div className="live-pitch-total"><span>用球數</span><strong>{currentOK?stat(pitchingCount):'—'}</strong></div></div></>:<p className="live-empty">{final?'本場已結束，可查看各局紀錄。':'開賽後顯示即時場況。'}</p>}</aside></div>
   <div className="live-record-layout"><section className="panel live-current-panel" aria-label="當前打者與得分紀錄"><div className="live-panel-tabs" role="group" aria-label="切換打者與得分紀錄"><button type="button" aria-pressed={panel==='player'} onClick={()=>setPanel('player')}>當前打者 <small>NOW PLAYER</small></button><button type="button" aria-pressed={panel==='scoring'} onClick={()=>setPanel('scoring')}>得分紀錄 <small>SCORING</small></button></div>
    {panel==='player'?<div className="live-now-player">{currentOK&&batter?<><div className="live-now-identity"><PlayerPhoto key={batter.id} id={batter.id}/><div><p className="live-side-label">{line.isTopInning?'客隊進攻':'主隊進攻'}</p><h3><PlayerLink id={batter.id} season={game.season} gameType={game.gameType}>{batter.fullName}</PlayerLink></h3><p>對戰投手：<PlayerLink id={pitcher?.id} season={game.season} gameType={game.gameType}>{pitcher?.fullName||'尚未提供'}</PlayerLink></p></div></div><div className="live-batter-stats">{[['打數',batterStats?.atBats],['安打',batterStats?.hits],['全壘打',batterStats?.homeRuns],['打點',batterStats?.rbi]].map(([label,value])=><div key={label}><span>{label}</span><strong>{stat(value)}</strong></div>)}</div><h4 className="live-subheading">本打席逐球紀錄</h4>{currentPlay?<PitchList play={currentPlay}/>:<p className="live-empty">等待本打席的投球資料。</p>}</>:<p className="live-empty">{final?'比賽已結束，請查看得分與各局紀錄。':live?'正在同步當前打者…':'比賽尚未開始。'}</p>}</div>:<div className="live-scoring-list">{scoring.map(p=><div key={p.id}><p className="live-scoring-inning">{p.inning} 局{p.half==='top'?'上':'下'}</p><PlayCard play={p} game={game}/></div>)}{!scoring.length&&<p className="live-empty">{!data?.playsAvailable?'正在等待得分紀錄…':'目前沒有得分紀錄。'}</p>}</div>}
   </section><section className="panel live-all-plays" aria-label="各局文字紀錄"><h3 className="live-record-title">各局紀錄 <small>ALL PLAYS</small></h3><div className="live-inning-filter" role="group" aria-label="篩選局數">{[['latest','最新局'],['all','全部'],...innings.map(i=>[String(i),`${i} 局`])].map(([value,label])=><button type="button" key={value} aria-pressed={inning===value} onClick={()=>setInning(value)}>{label}</button>)}</div>

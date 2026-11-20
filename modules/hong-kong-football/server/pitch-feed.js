@@ -8,7 +8,7 @@ const clubs = {
 };
 const eventNames = {corner:'角球','goal-kick':'球門球','throw-in':'界外球','free-kick':'自由球',
   goal:'進球','own-goal':'烏龍球','yellow-card':'黃牌','red-card':'紅牌','second-yellow':'兩黃一紅',
-  substitution:'換人', offside:'越位',penalty:'十二碼',shot:'射門',save:'撲救',foul:'犯規'};
+  attack:'進攻','dangerous-attack':'危險進攻',possession:'控球',substitution:'換人', offside:'越位',penalty:'十二碼',shot:'射門',save:'撲救',foul:'犯規'};
 function pageObjects(html) {
   if (html.length > 3000000) throw Error('賽事資料過大');
   const chunks = [];
@@ -167,16 +167,16 @@ export async function recentPitchFeed(game,now) {
   },previous=>previous?{...previous,delayed:true,notice:null}:null);
 }
 
-// A change in totals confirms a restart, but does not give its exact second or position.
+// Only report an unambiguous increase between consecutive snapshots. Totals do not locate the ball.
 export function kickUpdate(prev,next,game,now){
-  if(!prev || next.state!=='live' || prev.state!=='live')return null;
+  if(!prev || next.delayed || prev.delayed || next.state!=='live' || prev.state!=='live' || next.clock==='中場休息')return null;
   const stamp=Date.parse(next.sourceStamp), prior=Date.parse(prev.sourceStamp);
   if(!Number.isFinite(stamp)||!Number.isFinite(prior)||stamp<prior||now-stamp>60000||stamp-now>10000)return null;
   if(next.events[0]?.id!==prev.events[0]?.id)return null;
   if(stamp===prior)return prev.notice&&now-prev.notice.at<35000?prev.notice:null;
   if(stamp-prior>60000)return null;
   const changes=[];
-  for(const [label,type] of [['球門球','goal-kick'],['界外球','throw-in']]){
+  for(const [label,type] of [['球門球','goal-kick'],['界外球','throw-in'],['進攻','attack'],['危險進攻','dangerous-attack']]){
     const a=prev.stats.find(s=>s.label===label),b=next.stats.find(s=>s.label===label);
     if(!a||!b)continue;
     for(const side of ['home','away']){
@@ -185,5 +185,8 @@ export function kickUpdate(prev,next,game,now){
     }
   }
   if(!changes.length)return prev.notice&&now-prev.notice.at<35000?prev.notice:null;
+  // Some scoreboards count a dangerous attack in both totals.
+  if(changes.length===2 && changes[0].type==='attack' && changes[1].type==='dangerous-attack' &&
+     changes[0].teamId===changes[1].teamId && changes.every(change=>change.delta===1))return changes[1];
   return changes.length===1&&changes[0].delta===1?changes[0]:null;
 }

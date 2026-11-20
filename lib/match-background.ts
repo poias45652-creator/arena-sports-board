@@ -10,6 +10,7 @@ import {snapshot} from '../server/regional-basketball/archive.mjs';
 import {createMatchCollector,currentCollector,registerCollector} from '../server/live-match-collector.mjs';
 import {readSeasonFeed} from '../modules/hong-kong-football/server/season-sync.js';
 import {dataResponse} from '../modules/hong-kong-football/server/football-data.js';
+import {recentPitchFeed} from '../modules/hong-kong-football/server/pitch-feed.js';
 import {recentOfficialDetail} from '../modules/hong-kong-football/server/hkfa-events.js';
 
 type Fixture<T>={id:string;day:string;game:T;live:boolean;final:boolean};
@@ -67,9 +68,13 @@ export function startMatchBackground(){
   const sources=[
     ...FOOTBALL_LEAGUES.map(({code})=>byDay(code,10000,day=>footballSchedule(code,day),game=>footballDetail(game))),
     byDay('hkg.1',12000,hkBoard,async game=>{
-      const sheet=await recentOfficialDetail(game,Date.now());
-      if(!sheet?.match||!sheet.checkedAt||Date.now()-Date.parse(sheet.checkedAt)>45000)throw Error('HKFA match unavailable');
-      return sheet;
+      const now=Date.now();
+      const [official,pitch]=await Promise.allSettled([recentOfficialDetail(game,now),recentPitchFeed(game,now)]);
+      const sheet=official.status==='fulfilled'?official.value:null;
+      const pitchFeed=pitch.status==='fulfilled'?pitch.value:null;
+      const freshSheet=sheet?.match && Math.abs(now-Date.parse(sheet.checkedAt))<=45000?sheet:null;
+      if(!freshSheet&&(!pitchFeed||pitchFeed.delayed))throw Error('港超場況暫時無法取得');
+      return {sheet:freshSheet,pitchFeed,final:freshSheet?.match?.state==='final'||pitchFeed?.state==='final'};
     }),
     byDay('NBA',10000,nbaSchedule,game=>basketballDetail(game,'NBA')),
     byDay('WNBA',10000,wnbaSchedule,game=>basketballDetail(game,'WNBA')),

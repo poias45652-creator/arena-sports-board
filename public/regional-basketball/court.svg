@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 150" preserveAspectRatio="none" fill="none" stroke="#f1d6a9" stroke-width=".9" opacity=".78">
+  <rect x="2" y="2" width="276" height="146"/><path d="M140 2v146"/><circle cx="140" cy="75" r="18"/>
+  <g id="half"><path d="M2 50h58v50H2m0-92h24a69 69 0 0 1 0 134H2"/><circle cx="60" cy="75" r="18"/><path d="M11 66v18"/><circle cx="15" cy="75" r="3"/></g>
+  <use href="#half" transform="rotate(180 140 75)"/>
+</svg>

@@ -111,3 +111,16 @@ test('HK pitch binds both clubs, kickoff and competition and keeps missing stats
   assert.equal(kickUpdate({...prev,sourceStamp:'2026-11-20T12:40:00Z'},feed,game,now),null);
   assert.equal(kickUpdate(prev,{...feed,events:[]},game,now),null);
 });
+
+test('successive public attack totals animate one team once, excluding pauses, corrections and ambiguities',async()=>{
+  const {kickUpdate}=await import('../modules/hong-kong-football/server/pitch-feed.js');
+  const now=Date.parse('2026-11-20T12:43:28Z'), game={home:{id:'LM'},away:{id:'ND'}};
+  const snap=(time,home,away,threat)=>({sourceStamp:new Date(time).toISOString(),events:[],state:'live',clock:'43′',
+    stats:[{label:'進攻',home,away},{label:'危險進攻',home:0,away:threat}]});
+  const prior=snap(now-6000,22,18,5),next=snap(now,22,19,6);
+  const report=kickUpdate(prior,next,game,now);
+  assert.equal(report.type,'dangerous-attack');assert.equal(report.teamId,'ND');assert.equal(report.point,undefined);
+  assert.equal(kickUpdate({...next,notice:report},next,game,now+1000).id,report.id);
+  for(const invalid of [snap(now,23,19,6),snap(now,22,17,5),{...next,delayed:true},{...next,clock:'中場休息'}])
+    assert.equal(kickUpdate(prior,invalid,game,now),null);
+});

@@ -5,6 +5,8 @@ import {nbaPeriod,type NbaGame} from '@/lib/nba';
 import {basketballPlayText,type BasketballDetail,type BasketballLeague,type BoxPlayer} from '@/lib/basketball-live';
 import {NbaMatch,NbaQuarters,nbaTime} from './nba-match';
 import {nbaRequest} from './nba-request';
+import {courtAction} from '../public/regional-basketball/court-action.js';
+import '../public/regional-basketball/court.css';
 import GameStrip from './game-strip';
 function PlayerPhoto({player}:{player:BoxPlayer}){
  const [failed,setFailed]=useState(false);
@@ -36,8 +38,15 @@ function GameDetails({league,game,day}:{league:BasketballLeague;game:NbaGame;day
  },[league,game.id,game.state,day,revision]);
  const detail=data?.game,shown=detail||game,players=data?.teams.find(t=>t.team.id===team)?.players||[],allPlayers=data?.teams.flatMap(t=>t.players)||[];
  const periods=[...new Set(data?.plays.map(p=>p.period)||[])].sort((a,b)=>a-b),plays=(data?.plays||[]).filter(p=>!period||p.period===period);
+ const latest=data?.plays[0];
+ const side=latest?.teamId===shown.home.id?'home':latest?.teamId===shown.away.id?'away':undefined;
  const teamStats=[['fieldGoalsMade-fieldGoalsAttempted','投籃'],['threePointFieldGoalsMade-threePointFieldGoalsAttempted','三分'],['freeThrowsMade-freeThrowsAttempted','罰球'],['totalRebounds','籃板'],['assists','助攻'],['totalTurnovers','失誤']];
  return <section className="basketball-detail" aria-label="比賽詳細資料"><div className="basketball-scoreboard"><h2>比分看板 <small>SCOREBOARD</small></h2><div className="basketball-score-meta"><span>{shown.state==='live'?'LIVE・':''}{shown.statusLabel}</span><span>{data?`更新 ${nbaTime(data.fetchedAt)}`:'正在取得明細'}{error?'・更新暫停':''}</span><button type="button" disabled={loading} aria-label="更新比賽明細" onClick={()=>setRevision(v=>v+1)}><RefreshCw size={16} className={loading?'animate-spin':''}/></button></div><NbaMatch game={shown}/><NbaQuarters game={shown}/>{data?.venue&&<p className="basketball-venue">{data.venue}</p>}</div>
+  {shown.state==='live'&&<section className="xz-court" data-side={side} aria-label="即時籃球場">
+    <div key={latest?.id} className={'xz-court-play'+(latest&&!error?' is-new':'')} aria-live="polite" aria-atomic="true">
+      <small>{error?'更新暫停':latest?nbaPeriod(latest.period)+' '+latest.clock:'即時籃球場'}</small>
+      <b>{latest?courtAction(latest.text,latest.scoring):'等待回合資料'}</b>{side&&<span>{shown[side].name}</span>}
+    </div></section>}
   {error&&<p className="nba-alert" role="alert">{error}{data?'；以下保留上次成功更新的紀錄。':''}<button type="button" onClick={()=>setRevision(v=>v+1)}>重試</button></p>}
   {loading&&!data&&<p className="nba-empty" role="status">正在取得球員成績與逐球紀錄…</p>}
   {data&&<><section className="basketball-team-comparison" aria-label="球隊數據比較"><h3>球隊數據</h3><div><span>{game.away.code}</span><span>項目</span><span>{game.home.code}</span></div>{teamStats.map(([key,label])=><div key={key}><b>{data.teams.find(t=>t.team.id===game.away.id)?.stats[key]??'—'}</b><span>{label}</span><b>{data.teams.find(t=>t.team.id===game.home.id)?.stats[key]??'—'}</b></div>)}</section><div className="basketball-live-columns"><section className="basketball-boxscore"><h3>球員數據 <small>BOX SCORE</small></h3><div className="nba-filters" role="group" aria-label="球員球隊">{[game.away,game.home].map(t=><button type="button" key={t.id} aria-pressed={team===t.id} onClick={()=>setTeam(t.id)}><img src={t.logo} alt="" width={24} height={24}/>{t.name}</button>)}</div>{players.length?players.map(p=><PlayerCard key={p.id} player={p}/>):<p className="basketball-empty">{shown.state==='scheduled'?'開賽後顯示球員本場成績':'來源尚未提供本場球員成績'}</p>}</section><section className="basketball-playbyplay"><h3>逐球紀錄 <small>PLAY BY PLAY</small></h3><div className="nba-filters" role="group" aria-label="逐球節次"><button type="button" aria-pressed={period===0} onClick={()=>{setPeriod(0);setLimit(60);}}>全部</button>{periods.map(p=><button type="button" key={p} aria-pressed={period===p} onClick={()=>{setPeriod(p);setLimit(60);}}>{nbaPeriod(p)}</button>)}</div><p className="basketball-play-order">最新紀錄在上・{plays.length} 筆</p>{plays.slice(0,limit).map(p=>{const t=[game.away,game.home].find(t=>t.id===p.teamId),player=allPlayers.find(a=>a.id===p.playerIds[0]);return <article className="basketball-play" key={p.id} data-scoring={p.scoring}><header><span>{t&&<img src={t.logo} alt="" width={25} height={25}/>}<b>{t?.name||'比賽紀錄'}</b></span><time>{nbaPeriod(p.period)} {p.clock}</time></header><div>{player&&<div className="basketball-play-player"><PlayerPhoto player={player}/><strong>{player.name}</strong></div>}<p>{basketballPlayText(p.text)}</p><small>{p.awayScore??'—'} : {p.homeScore??'—'}{p.scoring?'・得分':''}</small></div></article>;})}{!plays.length&&<p className="basketball-empty">{shown.state==='scheduled'?'開賽後顯示逐球紀錄':'來源尚未提供逐球紀錄'}</p>}{plays.length>limit&&<button className="basketball-load-more" type="button" onClick={()=>setLimit(v=>v+60)}>載入較早紀錄（尚有 {plays.length-limit} 筆）</button>}</section></div></>}
