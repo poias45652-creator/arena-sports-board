@@ -1,6 +1,6 @@
 'use client';
 import {useEffect,useRef,useState,type CSSProperties} from 'react';
-import type {FootballPitchReading,PitchAction} from '../lib/football-pitch';
+import {newPitchFrames,type FootballPitchReading,type PitchAction} from '../lib/football-pitch';
 
 type Side={id:string;name:string};
 type PitchGame={state:string;statusLabel:string;home:Side;away:Side;homeScore:number|null;awayScore:number|null};
@@ -43,18 +43,15 @@ export default function FootballPitch({game,reading,stats=[],logo,unavailable}:P
   const clock=live?(reading?.clock||game.statusLabel):game.statusLabel;
   const paused=/中場|半場休息/.test(clock);
   const showPlay=live&&!paused&&!reading?.delayed&&!unavailable;
-  const previous=useRef<string|undefined>(undefined);
+  const previous=useRef<PitchAction|undefined>(undefined);
   const [frame,setFrame]=useState<PitchAction>();
   // Each poll may contain several real touches. Play a short batch in match order.
   const head=latest?.id;
   useEffect(()=>{
     const last=previous.current;
-    previous.current=showPlay?head:undefined;
+    previous.current=showPlay?latest:undefined;
     if(!showPlay||!latest){setFrame(undefined);return;}
-    const index=actions.findIndex(action=>action.id===last);
-    const batch=index>0?actions.slice(0,Math.min(index,4)).reverse():[latest];
-    const newest=Date.parse(latest.occurredAt||'');
-    const recent=batch.filter(action=>action===latest||(action.occurredAt&&newest-Date.parse(action.occurredAt)<15000));
+    const recent=newPitchFrames(actions,last);
     setFrame(recent[0]);
     const timers=recent.slice(1).map((action,i)=>setTimeout(()=>setFrame(action),(i+1)*900));
     timers.push(setTimeout(()=>setFrame(undefined),25000));

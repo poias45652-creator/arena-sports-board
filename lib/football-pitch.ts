@@ -2,6 +2,20 @@ export type PitchPoint={x:number;y:number};
 export type PitchAction={id:string;label:string;clock:string;teamId:string|null;type:string;point?:PitchPoint;end?:PitchPoint;occurredAt?:string};
 export type FootballPitchReading={clock:string;actions:PitchAction[];updatedAt?:string|null;delayed?:boolean};
 
+export function newPitchFrames(actions:PitchAction[],previous?:PitchAction):PitchAction[]{
+  const latest=actions[0];
+  if(!latest)return [];
+  if(!previous||previous.id===latest.id)return [latest];
+  const seen=actions.findIndex(action=>action.id===previous.id);
+  const lastTime=Date.parse(previous.occurredAt||'');
+  const newest=Date.parse(latest.occurredAt||'');
+  // Providers can publish enough touches in one batch to push the prior ID out of the window.
+  const candidates=seen>=0?actions.slice(0,seen):actions.filter(action=>Date.parse(action.occurredAt||'')>lastTime);
+  const frames=candidates.slice(0,8).filter(action=>action===latest||
+    (action.occurredAt&&newest-Date.parse(action.occurredAt)<20000));
+  return frames.length?frames.reverse():[latest];
+}
+
 const actionLabels:Record<string,string>={
   pass:'傳球',cross:'傳中','ball-touch':'觸球','take-on':'盤帶過人',clear:'解圍',out:'出界',
   tackle:'鏟球','attempted-tackle':'嘗試鏟球',interception:'攔截','blocked-pass':'阻截傳球',

@@ -5,7 +5,7 @@ import {gunzipSync} from 'node:zlib';
 import {moduleUrl} from './profile-loader.mjs';
 const {parseFootballDetail,parseFootballStandings,attachFootballStandingForm}=await import(moduleUrl('lib/football-live.ts'));
 const {parseFootballEvents,FOOTBALL_LEAGUES}=await import(moduleUrl('lib/football.ts'));
-const {espnPitchActions:pitchActions}=await import(moduleUrl('lib/football-pitch.ts'));
+const {espnPitchActions:pitchActions,newPitchFrames}=await import(moduleUrl('lib/football-pitch.ts'));
 const {footballTeamName}=await import(moduleUrl('lib/football.ts'));
 const {footballCommentaryText,footballCommentaryNames}=await import(moduleUrl('lib/football-commentary.ts'));
 const read=name=>JSON.parse(readFileSync('tests/fixtures/football-live/'+name+'.json','utf8'));
@@ -134,4 +134,13 @@ test('live play reader follows the last page, coalesces viewers and recovers aft
  assert.deepEqual(requests,[1,8,8,9]);assert.deepEqual(rollover.map(x=>x.id),['1','2','3','4']);
  now+=5000;stage=3;assert.deepEqual(await liveFootballPlays(game),rollover);
  now+=11000;stage=4;assert.deepEqual((await liveFootballPlays(game)).map(x=>x.id),['3','5']);
+});
+
+
+test('newly published bursts still animate in chronological order after the previous play leaves the list',()=>{
+ const play=n=>({id:String(n),occurredAt:new Date(1795203000000+n*1000).toISOString()});
+ const batch=[play(25),play(22),play(20),play(3)];
+ assert.deepEqual(newPitchFrames(batch,play(4)).map(p=>p.id),['20','22','25']);
+ assert.deepEqual(newPitchFrames(batch,play(22)).map(p=>p.id),['25']);
+ assert.deepEqual(newPitchFrames(batch).map(p=>p.id),['25']);
 });
