@@ -146,12 +146,14 @@ function detail(game,updatedAt,liveSource,pitchFeed){
   if(pitchFeed && !pitchFeed.delayed && ['pending','unknown','scheduled','live'].includes(game.state)){
     const final=pitchFeed.state==='final';
     const hasPair=pitchFeed.homeScore!=null&&pitchFeed.awayScore!=null;
-    const usePair=hasPair&&(final||game.homeScore==null||game.awayScore==null||Date.parse(pitchFeed.sourceStamp)>Date.parse(liveSource?.checkedAt||updatedAt));
+    const advanced=hasPair && pitchFeed.homeScore>=game.homeScore && pitchFeed.awayScore>=game.awayScore &&
+      (pitchFeed.homeScore>game.homeScore||pitchFeed.awayScore>game.awayScore);
+    const usePair=hasPair&&(final||advanced||game.homeScore==null||game.awayScore==null||Date.parse(pitchFeed.sourceStamp)>Date.parse(liveSource?.checkedAt||updatedAt));
     game={...game,state:pitchFeed.state,statusName:final?'STATUS_FULL_TIME':'STATUS_IN_PROGRESS',
       statusLabel:final?'已完場':pitchFeed.clock==='中場休息'?pitchFeed.clock:'進行中',
       homeScore:usePair?pitchFeed.homeScore:game.homeScore,awayScore:usePair?pitchFeed.awayScore:game.awayScore};
   }
-  const source=game.sourceKey?(game.season===currentSeason?matchData[game.sourceKey]:archiveSheets[game.sourceKey]):liveSource;
+  const source=(!liveSource||game.state==='final')&&game.sourceKey?(game.season===currentSeason?matchData[game.sourceKey]:archiveSheets[game.sourceKey]):liveSource;
   function player(id,name,team,extra={}){
     const p=game.season===currentSeason?athleteIndex.get(athleteKey(team,id)):playerYears.get(String(id))?.find(p=>p.season===game.season&&p.team===team);
     const identity=playerYears.get(String(id))?.find(r=>r.season===currentSeason);
@@ -159,11 +161,11 @@ function detail(game,updatedAt,liveSource,pitchFeed){
   }
   const events=[];
   for(const [key,type,label] of [['goals','goal','進球'],['cards','card','牌'],['substitutions','substitution','換人']]){
-    for(const [i,e] of (source?.[key]||[]).entries()){
+    for(const e of source?.[key]||[]){
       const title=type==='card'?(e.type==='red'?'紅牌':e.type==='secondYellow'?'兩黃一紅':'黃牌'):type==='goal'?(e.type==='ownGoal'||e.ownGoal?'烏龍球':e.penalty?'十二碼進球':'進球'):label;
       const involved=type==='substitution'?[player(e.inId,e.in+'（入）',e.team),player(e.outId,e.out+'（出）',e.team)]:[player(e.hkfaId,e.name,e.playerTeam||e.team)];
       if(type==='goal'&&e.assistId&&e.assistName)involved.push(player(e.assistId,e.assistName+'（助攻）',e.team));
-      events.push({id:key+i,teamId:e.team,...eventClock(e.minute),type,label:title,players:involved});
+      events.push({id:[key,e.team,e.minute,e.type,e.hkfaId||e.inId||e.name,e.outId||''].join(':'),teamId:e.team,...eventClock(e.minute),type,label:title,players:involved});
     }
   }
   events.sort((a,b)=>b.order-a.order);
@@ -184,14 +186,14 @@ function detail(game,updatedAt,liveSource,pitchFeed){
   }
   for(const stat of pitchFeed?.stats||[]){
     const official=provided.get(stat.label);
-    if(!official||game.state!=='final')provided.set(stat.label,stat);
+    if(!official||(!pitchFeed.delayed&&game.state!=='final'))provided.set(stat.label,stat);
     if(!expectedStats.includes(stat.label))expectedStats.push(stat.label);
   }
   const stats=source||provided.size?expectedStats.map(label=>({key:label,label,home:provided.get(label)?.home??'—',away:provided.get(label)?.away??'—'})):[];
   const officialActions=events.map(e=>({id:e.id,type:e.type,label:e.label,clock:e.clock,teamId:e.teamId,order:e.order}));
   const extras=(pitchFeed?.events||[]).filter(item=>!officialActions.some(e=>e.clock===item.clock&&e.teamId===item.teamId&&e.label===item.label));
   const actions=[...officialActions,...extras].sort((a,b)=>b.order-a.order);
-  const pitch={delayed:pitchFeed?.delayed||false,clock:pitchFeed?.clock||'',actions:actions.slice(0,10),updatedAt:pitchFeed?.sourceStamp||null,notice:pitchFeed?.notice||null};
+  const pitch={delayed:pitchFeed?.delayed||false,clock:pitchFeed?.clock||'',actions:actions.slice(0,10),updatedAt:pitchFeed?.sourceStamp||liveSource?.checkedAt||null,notice:pitchFeed?.notice||null};
   const eventOrder=new Map(events.map(e=>[e.id,e.order]));
   for(const item of extras){
     eventOrder.set('pitch-'+item.id,item.order);
@@ -199,7 +201,7 @@ function detail(game,updatedAt,liveSource,pitchFeed){
     commentary.push({id:'pitch-'+item.id,clock:item.clock,text:team.name+'・'+item.label});
   }
   if(extras.length)commentary.sort((a,b)=>eventOrder.get(b.id)-eventOrder.get(a.id));
-  return {game,pitch,fetchedAt:updatedAt,attendance:source?.attendance??null,stats,events,commentary,
+  return {game,pitch,fetchedAt:[updatedAt,liveSource?.checkedAt,pitchFeed?.sourceStamp].filter(t=>Number.isFinite(Date.parse(t))).sort((a,b)=>Date.parse(b)-Date.parse(a))[0]||updatedAt,attendance:source?.attendance??null,stats,events,commentary,
     lineups:[game.away,game.home].map(team=>({team,formation:source?.formations?.[team.id]||null,players:(source?.lineups?.[team.id]||[]).map(p=>player(p.hkfaId,p.name,team.id,{
       number:p.number,starter:p.starter,goals:(source?.goals||[]).filter(e=>e.team===team.id&&e.hkfaId===p.hkfaId&&!e.ownGoal&&e.type!=='ownGoal').length,
       subbedIn:(source?.substitutions||[]).some(e=>e.team===team.id&&e.inId===p.hkfaId),subbedOut:(source?.substitutions||[]).some(e=>e.team===team.id&&e.outId===p.hkfaId)}))}))};

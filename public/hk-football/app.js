@@ -126,10 +126,10 @@ function followLocalDay(){
 function refreshVisibleBoard(){
  if(document.visibilityState!=='visible')return;
  followLocalDay();
- if(view!=='standings' && Date.now()-lastRequest>=(board?.games.some(g=>g.state==='live'||g.timeConfirmed&&Math.abs(Date.now()-Date.parse(g.start))<3*3600000)?45000:300000))loadDate(date,true);
+ if(view!=='standings' && Date.now()-lastRequest>=(board?.games.some(g=>g.state==='live'||g.timeConfirmed&&Math.abs(Date.now()-Date.parse(g.start))<3*3600000)?15000:300000))loadDate(date,true);
 }
 window.addEventListener('online',()=>{if(view!=='standings')loadDate(date,true);});
 document.addEventListener('visibilitychange',refreshVisibleBoard);
-setInterval(refreshVisibleBoard,60000);
+setInterval(refreshVisibleBoard,15000);
 followLocalDay();
 render();

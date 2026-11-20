@@ -5,7 +5,7 @@ import snapshotRows from './schedule-snapshot.json' with {type:'json'};
 export const snapshotFeed={rows:snapshotRows,checkedAt:'2026-11-19T21:18:00Z',source:'snapshot'};
 const interval=5*60*1000;
 function ttl(rows,now){
-  return rows.some(r=>r.state==='live'||(r.state==='pre'&&r.time&&Math.abs(now-Date.parse(r.dateISO+'T'+r.time+':00+08:00'))<3*3600000))?45000:interval;
+  return rows.some(r=>r.state==='live'||(r.state==='pre'&&r.time&&Math.abs(now-Date.parse(r.dateISO+'T'+r.time+':00+08:00'))<3*3600000))?15000:interval;
 }
 
 let lastGood, nextCheck=0, pending;
@@ -99,7 +99,7 @@ export function mergeSeason(games, feed, now){
     if(!Object.hasOwn(status,state))state='unknown';
     const hasScore=state==='final'||state==='live';
     const scoresChanged=base.state==='final'&&row&&(row.hg!==base.homeScore||row.ag!==base.awayScore);
-    return {...base,day,start,state,timeConfirmed:confirmed,officialId:row?.officialId||null,week:row?.week||null,statusLabel:state==='live'?(feed?.source==='cached'?'上次確認進行中':row.officialStatus||status.live[1]):status[state][1],statusName:status[state][0],
+    return {...base,day,start,state,timeConfirmed:confirmed,officialId:row?.officialId||null,week:row?.week||null,round:row?.round||null,statusLabel:state==='live'?(feed?.source==='cached'?'上次確認進行中':row.officialStatus||status.live[1]):status[state][1],statusName:status[state][0],
       venue:row?.venue||base.venue,homeScore:hasScore?(row?.hg??base.homeScore):null,awayScore:hasScore?(row?.ag??base.awayScore):null,
       sourceKey:scoresChanged?null:base.sourceKey,sourceUrl:'/?league=FOOTBALL&competition=hkg.1&view=live&date='+day+'&game='+encodeURIComponent(base.id)};
   }).sort((a,b)=>a.start.localeCompare(b.start));

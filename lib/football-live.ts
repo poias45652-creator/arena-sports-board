@@ -52,7 +52,7 @@ export function parseFootballDetail(raw:any,expected:FootballGame,fetchedAt:stri
  const commentary=(raw.commentary||[]).map((e:any,i:number)=>({id:String(e.sequence??i),clock:clean(e.time?.displayValue)||'—',...translate(e.text)})).filter((e:any)=>e.text).reverse();
  const status=h.competitions?.[0]?.status||h.status;
  const pitch={clock:game.state==='live'&&game.statusName!=='STATUS_HALFTIME'?clean(status?.displayClock):'',
-   updatedAt:fetchedAt,actions:espnPitchActions(raw.commentary||[],events,game.home,game.away,raw.keyEvents||[])};
+   updatedAt:fetchedAt,actions:espnPitchActions(raw.commentary||[],events,game.home,game.away,raw.keyEvents||[],text=>{const translated=translate(text);return translated.sourceText?null:translated.text;})};
  return {game,pitch,fetchedAt,attendance:number(raw.gameInfo?.attendance),stats,lineups,events,commentary};
 }
 

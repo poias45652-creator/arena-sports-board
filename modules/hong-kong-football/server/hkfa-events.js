@@ -129,13 +129,13 @@ export function parseHkfaEvents(html,expected={}){
 }
 export async function fetchHkfaEvents(expected,{fetcher=fetch,signal}={}){
   const id=integer(expected.id);if(!id)throw bad();
-  const response=await fetcher('https://www.hkfa.com/competitions/result/'+id+'/detail',{headers:{Accept:'text/html','Accept-Language':'zh-HK'},signal});
+  const response=await fetcher('https://www.hkfa.com/competitions/result/'+id+'/detail',{cache:'no-store',headers:{Accept:'text/html','Accept-Language':'zh-HK'},signal});
   if(!response.ok)throw bad();return parseHkfaEvents(await response.text(),expected);
 }
 
 const detailCache=new Map();
 export async function recentOfficialDetail(game, now){
-  if(!game?.officialId||game.sourceKey||game.state==='cancelled'||Date.parse(game.start)-now>3*3600000)return null;
+  if(!game?.officialId||(game.state==='final'&&game.sourceKey)||game.state==='cancelled'||Date.parse(game.start)-now>3*3600000)return null;
   const key=game.officialId+'-'+game.day,prev=detailCache.get(key);
   if(prev?.pending)return prev.pending;
   if(prev?.until>now)return prev.data;
@@ -144,7 +144,7 @@ export async function recentOfficialDetail(game, now){
       const data=await fetchHkfaEvents({id:game.officialId,home:game.home.id,away:game.away.id,dateISO:game.day},{signal:AbortSignal.timeout(6500)});
       data.checkedAt=new Date(now).toISOString();
       const complete=game.state==='final'&&Array.isArray(data.goals)&&data.goals.length===game.homeScore+game.awayScore&&Object.keys(data.lineups||{}).length===2;
-      detailCache.set(key,{data,until:now+(complete?3600000:45000)});
+      detailCache.set(key,{data,until:now+(complete?3600000:game.state==='final'?45000:10000)});
       return data;
     }catch{
       const data=prev?.data||null;detailCache.set(key,{data,until:now+30000});return data;

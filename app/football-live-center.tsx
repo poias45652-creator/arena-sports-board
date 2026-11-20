@@ -1,9 +1,10 @@
 'use client';
-import {useEffect,useState} from 'react';
+import {useState} from 'react';
 import {Clock,MapPin,RefreshCw,Shirt,Users} from 'lucide-react';
 import {footballDay,type FootballGame} from '@/lib/football';
-import {footballLogo,type FootballDetail,type FootballLivePlayer} from '@/lib/football-live';
+import {footballLogo,type FootballLivePlayer} from '@/lib/football-live';
 import FootballTeamIdentity from './football-team';
+import {useFootballMatchDetail} from './use-football-match-detail';
 import FootballPitch from './football-pitch';
 import GameStrip from './game-strip';
 export const footballTime=(value:string)=>new Date(value).toLocaleString('zh-TW',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
@@ -15,19 +16,12 @@ export default function FootballLiveCenter({games,initialGameId=''}:{games:Footb
  return <div className="football-live-center"><FootballGameStrip games={games} selected={game?.id||''} onSelect={setSelected}/>{game&&<FootballMatchDetail key={`${game.league}:${game.id}:${game.start}`} game={game}/>}</div>;
 }
 function FootballMatchDetail({game}:{game:FootballGame}){
- const [detail,setDetail]=useState<FootballDetail|null>(null),[error,setError]=useState(''),[loading,setLoading]=useState(true),[reload,setReload]=useState(0),[eventTab,setEventTab]=useState('key'),[eventFilter,setEventFilter]=useState('all'),[limit,setLimit]=useState(30);
- useEffect(()=>{const c=new AbortController();let timer:ReturnType<typeof setTimeout>,busy=false;let nextInterval=game.state==='live'?10000:60000;
-  async function update(){if(busy||c.signal.aborted||document.visibilityState==='hidden')return;busy=true;clearTimeout(timer);
-   try{const r=await fetch(`/api/football?kind=detail&league=${game.league}&date=${footballDay(game.start)}&game=${game.id}`,{cache:'no-store',signal:AbortSignal.any([c.signal,AbortSignal.timeout(25000)])});if(r.status===401){window.location.assign('/login');return;}const d=await r.json();if(!r.ok)throw Error(d.error||'賽事明細暫時無法更新');if(!c.signal.aborted){setDetail(d);setError('');nextInterval=d.game?.state==='live'?10000:60000;}}
-   catch(e){if(!c.signal.aborted)setError(e instanceof Error?e.message:'賽事明細暫時無法更新');}
-   finally{busy=false;if(!c.signal.aborted){setLoading(false);timer=setTimeout(()=>void update(),nextInterval);}}
-  }void update();const resume=()=>{if(document.visibilityState==='visible')void update();};document.addEventListener('visibilitychange',resume);window.addEventListener('online',resume);
-  return()=>{c.abort();clearTimeout(timer);document.removeEventListener('visibilitychange',resume);window.removeEventListener('online',resume);};
- },[game.id,game.league,game.start,game.state,reload]);
+ const [reload,setReload]=useState(0),[eventTab,setEventTab]=useState('key'),[eventFilter,setEventFilter]=useState('all'),[limit,setLimit]=useState(30);
+ const {detail,error,loading}=useFootballMatchDetail(`/api/football?kind=detail&league=${game.league}&date=${footballDay(game.start)}&game=${game.id}`,game.state,game.start,game.timeConfirmed,reload);
  const current=detail?.game||game,events=detail?.events.filter(e=>eventFilter==='all'||eventFilter==='goals'&&/goal|penalty.*scored/.test(e.type)||eventFilter==='cards'&&/card/.test(e.type)||eventFilter==='substitution'&&e.type==='substitution')||[];
  return <div className="football-match-detail">
   <div className="football-score-layout"><section className="football-scoreboard"><h3 className="football-section-ribbon">比分看板 SCOREBOARD</h3><div className="football-score-teams"><div><FootballTeamIdentity team={current.away} side="away" league={game.league} day={footballDay(game.start)}/><b>{current.awayScore??'—'}</b></div><div className="football-score-vs"><span>VS</span>{current.state==='live'&&<strong>LIVE</strong>}</div><div><FootballTeamIdentity team={current.home} side="home" league={game.league} day={footballDay(game.start)}/><b>{current.homeScore??'—'}</b></div></div></section>
-  <aside className="football-match-info"><h3 className="football-section-ribbon">即時場況</h3><strong className="football-match-status">{current.statusLabel}</strong><dl><div><dt><Clock size={16}/>比賽時間</dt><dd>{current.timeConfirmed?footballTime(current.start)+'（台灣）':'開賽時間待定'}</dd></div><div><dt><MapPin size={16}/>球場</dt><dd>{current.venue||'尚未公布'}</dd></div><div><dt><Users size={16}/>觀眾</dt><dd>{detail?.attendance!==null&&detail?.attendance!==undefined?detail.attendance.toLocaleString()+' 人':'尚未提供'}</dd></div></dl><button type="button" onClick={()=>setReload(v=>v+1)} aria-label="更新足球比賽明細"><RefreshCw size={14}/>更新</button><small>{detail?'更新 '+footballTime(detail.fetchedAt):'正在同步'}{current.state==='live'?'・每 10 秒更新':''}</small></aside></div>
+  <aside className="football-match-info"><h3 className="football-section-ribbon">即時場況</h3><strong className="football-match-status">{current.statusLabel}</strong><dl><div><dt><Clock size={16}/>比賽時間</dt><dd>{current.timeConfirmed?footballTime(current.start)+'（台灣）':'開賽時間待定'}</dd></div><div><dt><MapPin size={16}/>球場</dt><dd>{current.venue||'尚未公布'}</dd></div><div><dt><Users size={16}/>觀眾</dt><dd>{detail?.attendance!==null&&detail?.attendance!==undefined?detail.attendance.toLocaleString()+' 人':'尚未提供'}</dd></div></dl><button type="button" onClick={()=>setReload(v=>v+1)} aria-label="更新足球比賽明細"><RefreshCw size={14}/>更新</button><small>{detail?'更新 '+footballTime(detail.fetchedAt):'正在同步'}{current.state==='live'?'・每 5 秒檢查':''}</small></aside></div>
   <FootballPitch game={current} reading={detail?.pitch} stats={detail?.stats} logo={footballLogo} unavailable={!!error}/>
   {error&&<div className="football-alert" role="alert">{error}{detail?'，目前保留上次取得的資料。':''}<button onClick={()=>setReload(v=>v+1)}>重試</button></div>}
   {loading&&!detail&&<p className="football-detail-loading" role="status"><RefreshCw className="animate-spin" size={18}/>正在取得技術統計、先發與賽事紀錄…</p>}

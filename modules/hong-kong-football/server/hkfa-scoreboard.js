@@ -119,7 +119,7 @@ export function parseHkfaScoreboard(html) {
 }
 
 async function fetchPage(url, { fetcher = fetch, signal } = {}) {
-  const res = await fetcher(url, { headers: { Accept:'text/html', 'Accept-Language':'zh-HK' },signal });
+  const res = await fetcher(url, { cache:'no-store', headers: { Accept:'text/html', 'Accept-Language':'zh-HK' },signal });
   if (!res.ok) throw new Error('足總頁面連線失敗');
   return parseHkfaScoreboard(await res.text());
 }

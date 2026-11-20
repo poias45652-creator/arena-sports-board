@@ -7,6 +7,7 @@ import {createFootballRouteTrace} from '@/lib/football-route-observability';
 import {footballDetail,footballStandings} from '@/lib/football-live-source';
 import {footballModelCatalog} from '@/lib/football-model-catalog';
 import {customFootballSettings,parseFootballSettings,validateFootballSettings} from '@/lib/football-model-weights';
+import {withTipsmeLive} from '@/server/tipsme-football.mjs';
 export const dynamic='force-dynamic';
 const savedResults=new Map<string,number>();
 export async function GET(request:Request){
@@ -28,7 +29,7 @@ export async function GET(request:Request){
       if(!/^\d{1,12}$/.test(game))return Response.json({error:'無效賽事編號'},{status:400,headers});
       const schedule=await footballSchedule(league,day),match=schedule.games.find(g=>g.id===game);
       if(!match)return Response.json({error:'本日找不到此賽事，請更新賽程'},{status:404,headers});
-      return Response.json(await footballDetail(match),{headers});
+      return Response.json(await withTipsmeLive(await footballDetail(match)),{headers});
     }
     if(kind==='next'){trace.stage('next');const data=await nextFootballDay(league,day);trace.stage('response');return Response.json(data,{headers});}
     if(kind==='analysis'){

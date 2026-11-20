@@ -1,4 +1,5 @@
 'use client';
+import {useEffect,useRef,useState} from 'react';
 import type {FootballPitchReading,PitchAction} from '../lib/football-pitch';
 
 type Side={id:string;name:string};
@@ -27,11 +28,33 @@ function Field({action,side}:{action?:PitchAction;side?:'home'|'away'}){
     </g>}
   </svg>;
 }
+function matchMinute(label?:string){
+  const parts=/^(\d+)(?:['′’]?\+(\d+))?/.exec(label||'');
+  return parts?Number(parts[1])+Number(parts[2]||0):null;
+}
 export default function FootballPitch({game,reading,stats=[],logo,unavailable}:Props){
   const live=game.state==='live', actions=reading?.actions||[];
-  const action=live?(reading?.notice||actions[0]):game.state==='final'?actions[0]:undefined;
-  const side=action?.teamId===game.home.id?'home':action?.teamId===game.away.id?'away':undefined;
+  const latest=actions[0];
   const clock=live?(reading?.clock||game.statusLabel):game.statusLabel;
+  const nowMinute=matchMinute(reading?.clock),lastMinute=matchMinute(latest?.clock);
+  const previous=useRef<string|undefined>(undefined);
+  const [newEvent,setNewEvent]=useState('');
+  const currentMinute=nowMinute!==null&&lastMinute!==null&&Math.abs(nowMinute-lastMinute)<=1;
+  useEffect(()=>{
+    if(!latest)return;
+    const changed=previous.current!==undefined&&previous.current!==latest.id;
+    previous.current=latest.id;
+    if(!currentMinute&&!(changed&&nowMinute===null))return;
+    setNewEvent(latest.id);
+    const timer=setTimeout(()=>setNewEvent(''),25000);
+    return ()=>{clearTimeout(timer);setNewEvent('');};
+  },[latest?.id,currentMinute,nowMinute===null]);
+  const paused=/中場|半場休息/.test(clock);
+  const showPlay=live&&!paused&&!reading?.delayed&&!unavailable;
+  const action=showPlay?(reading?.notice||(newEvent===latest?.id?latest:undefined)):game.state==='final'?latest:undefined;
+  const side=action?.teamId===game.home.id?'home':action?.teamId===game.away.id?'away':undefined;
+  const stamp=Date.parse(reading?.updatedAt||'');
+  const syncTime=Number.isFinite(stamp)?new Date(stamp).toLocaleTimeString('zh-TW',{timeZone:'Asia/Taipei',hour12:false}):'';
   const zone=side&&action&&!action.point&&['corner','corner-awarded','goal-kick'].includes(action.type);
   const total=(label:string,team:'home'|'away')=>stats.find(row=>row.label===label)?.[team]??'—';
   const team=(which:'home'|'away')=>{
@@ -39,12 +62,12 @@ export default function FootballPitch({game,reading,stats=[],logo,unavailable}:P
     return <div className={'xz-field-team xz-'+which}>{src&&<img src={src} alt="" width="28" height="28"/>}<div><small>{which==='home'?'主隊':'客隊'}</small><strong>{t.name}</strong></div></div>;
   };
   return <section className="xz-pitch" aria-label="即時球場">
-    <header><h3>即時球場</h3><span>{unavailable?'更新暫停':reading?.delayed?'上次回報 '+clock:clock}</span></header>
+    <header><h3>即時球場</h3>{live&&syncTime&&<small className="xz-sync">資料時間 {syncTime}</small>}<span>{unavailable?'更新暫停':reading?.delayed?'上次回報 '+clock:clock}</span></header>
     <div className="xz-turf"><Field action={action} side={side}/>
       <div className={'xz-action'+(action?.point?' measured':side?' '+side:'')}
         style={action?.point?{left:`clamp(3.8rem, ${2+.96*action.point.x}%, calc(100% - 3.8rem))`,top:action.point.y>50?'8%':undefined}:undefined} aria-live="polite" aria-atomic="true">
         {action?<><small>{action.clock}{zone?' · 區域示意':action.point?' · 事件位置':''}</small><b>{action.label}</b>{side&&<span>{game[side].name}</span>}</>
-        :<b>{live?'等待場上事件':game.state==='scheduled'?'等待開賽':game.statusLabel}</b>}
+        :<b>{live?(paused?clock:unavailable||reading?.delayed?'等待場況更新':'等待下一筆場況'):game.state==='scheduled'?'等待開賽':game.statusLabel}</b>}
       </div>
     </div>
     <div className="xz-field-score">{team('home')}<b aria-label="主隊對客隊比分">{game.homeScore??'—'} : {game.awayScore??'—'}</b>{team('away')}</div>

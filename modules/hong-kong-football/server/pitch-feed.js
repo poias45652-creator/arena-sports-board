@@ -100,14 +100,18 @@ export function parsePitchFeed(html,path,game) {
 }
 
 const cache=new Map();
-async function cached(key,ttl,read) {
+async function cached(key,ttl,read,onMiss=()=>null) {
   const old=cache.get(key);
   if(old?.pending) return old.pending;
   if(old && old.expires>Date.now()) return old.data;
-  const pending=read(old?.data).then(data=>{cache.set(key,{data,expires:Date.now()+(data?ttl:15000)});return data;})
-    .catch(()=>{cache.set(key,{data:null,expires:Date.now()+10000});return null;});
+  const previous=old?.data;
+  const pending=read(previous).catch(()=>null).then(value=>{
+    const data=value??onMiss(previous);
+    cache.set(key,{data,expires:Date.now()+(value?ttl:10000)});
+    return data;
+  });
   if(cache.size>50)cache.delete(cache.keys().next().value);
-  cache.set(key,{pending});
+  cache.set(key,{pending,data:previous});
   return pending;
 }
 async function publicPage(path) {
@@ -115,27 +119,44 @@ async function publicPage(path) {
   if(!res.ok)throw Error('港超場況暫未更新');
   return res.text();
 }
+function phaseOrder(row) {
+  if(row.state==='final')return Infinity;
+  return row.clock==='中場休息'?4599:minuteOf(row.clock)?.order??0;
+}
 export async function recentPitchFeed(game,now) {
   if(!game?.timeConfirmed || ['cancelled','postponed'].includes(game.state)) return null;
   const age=now-Date.parse(game.start);
   if(age<0 || age>5*3600000) return null;
   const key=game.day+':'+game.home.id+':'+game.away.id;
-  return cached('match:'+key,12000,async previous=>{
-    const path=await cached('fixture:'+key,3*3600000,async()=>resolvePitchFixture(
-      await publicPage('/en/league/hong-kong-premier-league/'+competition+'/matches'),game));
+  return cached('match:'+key,5000,async previous=>{
+    const path=await cached('fixture:'+key,3*3600000,async()=>{
+      const base='/en/league/hong-kong-premier-league/'+competition+'/matches';
+      const html=await publicPage(base), current=resolvePitchFixture(html,game);
+      if(current||!game.round)return current;
+      const links=html.matchAll(/href="([^"]+)"/g);
+      for(const [,href] of links){
+        if(!href.startsWith(base+'?'))continue;
+        const url=new URL(href.replaceAll('&amp;','&'),origin);
+        if(url.searchParams.get('round')===String(game.round))return resolvePitchFixture(await publicPage(url.pathname+url.search),game);
+      }
+      return null;
+    });
     if(!path)return null;
     const [plays,stats]=await Promise.allSettled(['commentary','statistics'].map(async tab=>
       parsePitchFeed(await publicPage(path+'/'+tab),path,game)));
     const a=plays.status==='fulfilled'?plays.value:null,b=stats.status==='fulfilled'?stats.value:null;
     if(!a&&!b)return null;
     // A delayed tab must not reintroduce an older score or match phase.
-    const rows=[a,b].filter(Boolean).sort((x,y)=>Number(y.state==='final')-Number(x.state==='final') ||
-      (y.clock==='中場休息'?4599:minuteOf(y.clock)?.order??0)-(x.clock==='中場休息'?4599:minuteOf(x.clock)?.order??0) ||
+    const rows=[a,b].filter(Boolean).sort((x,y)=>phaseOrder(y)-phaseOrder(x) ||
       (Date.parse(y.sourceStamp)||0)-(Date.parse(x.sourceStamp)||0));
     const latest=rows[0], merged=new Map(), events=new Map();
     const stamp=Date.parse(latest.sourceStamp);
+    if(previous && phaseOrder(previous)>phaseOrder(latest))return {...previous,delayed:previous.state!=='final',notice:null};
     const delayed=latest.state==='live'&&latest.clock!=='中場休息'&&Number.isFinite(stamp)&&now-stamp>3*60000;
     if(Number.isFinite(stamp)&&stamp-now>60000)return null;
+    // A partial response can omit a whole tab. Retain its verified totals and recent events.
+    for(const stat of previous?.stats||[])merged.set(stat.label,stat);
+    for(const item of (!a||!b)?previous?.events||[]:[])events.set(item.id,item);
     for(const item of rows.reverse()){
       for(const stat of item.stats)merged.set(stat.label,stat);
       for(const e of item.events)events.set(e.id,e);
@@ -143,7 +164,7 @@ export async function recentPitchFeed(game,now) {
     const result={...latest,delayed,stats:[...merged.values()],events:[...events.values()].sort((x,y)=>y.order-x.order)};
     result.notice=kickUpdate(previous,result,game,now);
     return result;
-  });
+  },previous=>previous?{...previous,delayed:true,notice:null}:null);
 }
 
 // A change in totals confirms a restart, but does not give its exact second or position.

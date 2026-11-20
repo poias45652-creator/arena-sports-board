@@ -14,11 +14,11 @@ function point(x:unknown,y:unknown,away:boolean):PitchPoint|undefined {
 }
 
 export type SourcePlay={id?:string;type?:{type?:string};team?:{id?:string;displayName?:string};period?:{number?:number};fieldPositionX?:number;fieldPositionY?:number;fieldPosition2X?:number;fieldPosition2Y?:number};
-type Comment={sequence?:number;time?:{value?:number;displayValue?:string};play?:SourcePlay};
+type Comment={text?:string;sequence?:number;time?:{value?:number;displayValue?:string};play?:SourcePlay};
 type KeyEvent={id:string;type:string;clock:string;seconds:number;period:number;label:string;teamId:string|null};
 type Side={id:string;englishName:string};
-export function espnPitchActions(rows:Comment[],events:KeyEvent[],home:Side,away:Side,sourceEvents:SourcePlay[]=[]):PitchAction[]{
-  const plays=new Map<string,{period:number;order:number;item:PitchAction}>();
+export function espnPitchActions(rows:Comment[],events:KeyEvent[],home:Side,away:Side,sourceEvents:SourcePlay[]=[],describe?:(text:string)=>string|null):PitchAction[]{
+  const plays=new Map<string,{period:number;order:number;sequence?:number;item:PitchAction}>();
   const originals=new Map(sourceEvents.map(play=>[String(play.id),play]));
   for(const e of events){
     const p=originals.get(e.id);
@@ -27,17 +27,25 @@ export function espnPitchActions(rows:Comment[],events:KeyEvent[],home:Side,away
       point:measured,end:p&&measured?point(p.fieldPosition2X,p.fieldPosition2Y,e.teamId===away.id):undefined}});
   }
   for(const row of rows){
-    const p=row.play,id=p?.id,type=p?.type?.type;
-    if(!id||!p||!type||!actionLabels[type]||!row.time?.displayValue)continue;
-    const team=[home,away].find(t=>p.team?.id?String(p.team.id)===t.id:t.englishName===p.team?.displayName);
-    const coordinates=team&&point(p.fieldPositionX,p.fieldPositionY,team.id===away.id);
-    plays.set(id,{period:p.period?.number??0,order:row.time.value??0,item:{id,type,label:actionLabels[type],clock:row.time.displayValue,
-      teamId:team?.id??null,point:coordinates,end:coordinates?point(p.fieldPosition2X,p.fieldPosition2Y,team?.id===away.id):undefined}});
+    if(!row.time?.displayValue)continue;
+    const p=row.play,type=p?.type?.type||'commentary';
+    const id=p?.id?String(p.id):row.sequence!=null?'comment:'+row.sequence:null;
+    const label=actionLabels[type]|| (row.text && describe?.(row.text));
+    if(!label||!id)continue;
+    const team=[home,away].find(t=>p?.team?.id?String(p?.team.id)===t.id:t.englishName===p?.team?.displayName);
+    const coordinates=team&&point(p?.fieldPositionX,p?.fieldPositionY,team.id===away.id);
+    plays.set(id,{period:p?.period?.number??inferredPeriod(row.time.displayValue),order:row.time.value??0,sequence:row.sequence,item:{id,type,label,clock:row.time.displayValue,
+      teamId:team?.id??null,point:coordinates,end:coordinates?point(p?.fieldPosition2X,p?.fieldPosition2Y,team?.id===away.id):undefined}});
   }
-  return [...plays.values()].sort((a,b)=>b.period-a.period||clockOrder(b.item.clock)-clockOrder(a.item.clock)||b.order-a.order||Number(b.item.id)-Number(a.item.id)).slice(0,10).map(v=>v.item);
+  return [...plays.values()].sort((a,b)=>b.period-a.period||clockOrder(b.item.clock)-clockOrder(a.item.clock)||b.order-a.order||(b.sequence??0)-(a.sequence??0)||Number(b.item.id)-Number(a.item.id)).slice(0,10).map(v=>v.item);
 }
 
 function clockOrder(clock:string){
   const match=/^(\d+)(?:['′’]?\+(\d+))?/.exec(clock);
   return match?Number(match[1])*100+Number(match[2]||0):0;
+}
+
+function inferredPeriod(clock:string){
+  const minute=parseInt(clock,10);
+  return minute<=45?1:minute<=90?2:minute<=105?3:4;
 }

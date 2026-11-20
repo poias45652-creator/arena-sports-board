@@ -79,3 +79,21 @@ test('pitch uses measured shot endpoints and rotates the away team into the home
  const missing={...goal,play:{...goal.play,fieldPositionX:null,fieldPosition2X:120}};
  assert.equal(parseFootballDetail({...recorded,commentary:[missing]},game,stamp).pitch.actions[0].point,undefined);
 });
+
+test('Tipsme live snapshots bind the league, kickoff and both sides before updating the pitch',async()=>{
+ const {applyTipsmeLive}=await import('../server/tipsme-football.mjs');
+ const start='2026-11-20T12:00:00Z',checked='2026-11-20T13:16:00Z';
+ const game={league:'hkg.1',start,state:'live',statusLabel:'進行中',home:{id:'LM',name:'理文',englishName:'LEE MAN'},away:{id:'ND',name:'高力北區',englishName:'NORTH DISTRICT'},homeScore:0,awayScore:0};
+ const native={game,pitch:{clock:'37′',actions:[{id:'old-card'}]},stats:[{key:'yc',label:'黃牌',home:2,away:2}]};
+ const row={status:'live',kickoffUtc:start,competition:{name:'Hong Kong Premier League'},home:{name:'Lee Man FC'},away:{name:'Golik North District'},minute:'61',score:{current:'1-0'},corners:'7-2',homeCards:{yellow:3},awayCards:{yellow:3}};
+ const next=applyTipsmeLive(native,[row],checked);
+ assert.deepEqual([next.game.homeScore,next.game.awayScore,next.pitch.clock],[1,0,'61′']);
+ assert.equal(next.pitch.actions,native.pitch.actions);
+ assert.deepEqual(next.stats.map(s=>[s.label,s.home,s.away]),[['黃牌',3,3],['角球',7,2]]);
+ for(const bad of [{minute:'32'},{away:row.home},{competition:{name:'FA Cup'}},{kickoffUtc:'2026-11-21T12:00:00Z'}]){
+   assert.equal(applyTipsmeLive(native,[{...row,...bad}],checked),native);
+ }
+ assert.equal(applyTipsmeLive(native,[row,row],checked),native);
+ const final={...native,game:{...game,state:'final'}};
+ assert.equal(applyTipsmeLive(final,[row],checked),final);
+});

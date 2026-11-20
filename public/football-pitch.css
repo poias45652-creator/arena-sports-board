@@ -13,3 +13,6 @@
 .xz-recent{border-top:1px solid #345149;display:flex;flex-wrap:wrap;gap:.35rem 1rem;font-size:.85rem}.xz-recent>strong{color:#b3d0bd}.xz-recent time{color:#ffe196;font-variant-numeric:tabular-nums}
 
 .xz-action.measured[style*="top"]{bottom:auto}
+
+.xz-pitch .xz-sync{margin-inline-start:auto;font-size:.75rem;color:#c4d5cd;font-variant-numeric:tabular-nums}
+.xz-action b{overflow-wrap:anywhere}
