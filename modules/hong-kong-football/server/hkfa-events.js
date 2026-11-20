@@ -1,3 +1,4 @@
+import {officialState} from './hkfa-scoreboard.js';
 const clubs = {'東方':'EA','至尊沙田':'ST','冠忠南區':'SO','港會':'HK','標準流浪':'BR','傑志':'KC','高力北區':'ND','大埔':'TP','理文':'LM','和富九龍城':'KL','東區':'ED'};
 const bad=()=>new Error('足總賽事明細目前無法核實');
 const integer=value=>typeof value==='number'&&Number.isInteger(value)&&value>=0?value:typeof value==='string'&&/^\d{1,8}$/.test(value)?Number(value):null;
@@ -90,7 +91,8 @@ export function parseHkfaEvents(html,expected={}){
     }
     if(players.length)lineups[team]=players;
   }
-  const confirmed=/完場|上半場|下半場|半場|中場|進行中/.test(data.matchStatus||'');
+  const state=officialState(String(data.matchStatus||''),data.match_status);
+  const confirmed=state==='live'||state==='final';
   const hasEvents=confirmed&&Array.isArray(data.MatchEvents);
   const events={goals:[],cards:[],substitutions:[]};
   for(const e of (hasEvents?data.MatchEvents:[])){
@@ -121,7 +123,8 @@ export function parseHkfaEvents(html,expected={}){
     if(confirmed&&h!=null&&a!=null)stats.push({label,home:h,away:a});
   }
   const attendance=integer(data.match_attendance);
-  return {url:'https://www.hkfa.com/competitions/result/'+id+'/detail',venue:data.Venue?.VenueName||'',attendance:confirmed&&attendance>0?attendance:null,lineups,stats,
+  const match=confirmed?{state,status:data.matchStatus,homeScore:integer(data.home_score),awayScore:integer(data.guest_score)}:null;
+  return {match,url:'https://www.hkfa.com/competitions/result/'+id+'/detail',venue:data.Venue?.VenueName||'',attendance:confirmed&&attendance>0?attendance:null,lineups,stats,
     ...Object.fromEntries(Object.entries(events).map(([k,v])=>[k,hasEvents?v:null]))};
 }
 export async function fetchHkfaEvents(expected,{fetcher=fetch,signal}={}){
@@ -139,6 +142,7 @@ export async function recentOfficialDetail(game, now){
   const pending=(async()=>{
     try{
       const data=await fetchHkfaEvents({id:game.officialId,home:game.home.id,away:game.away.id,dateISO:game.day},{signal:AbortSignal.timeout(6500)});
+      data.checkedAt=new Date(now).toISOString();
       const complete=game.state==='final'&&Array.isArray(data.goals)&&data.goals.length===game.homeScore+game.awayScore&&Object.keys(data.lineups||{}).length===2;
       detailCache.set(key,{data,until:now+(complete?3600000:45000)});
       return data;

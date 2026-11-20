@@ -69,7 +69,7 @@ function prop(text, name, aliases) {
   return value === undefined ? aliases.get(result) : value;
 }
 
-function officialState(label, code) {
+export function officialState(label, code) {
   if (/^(?:完場|全場完|全場完場|全場結束|FT|Full Time)$/i.test(label)) return 'final';
   if (/延期|改期|postponed/i.test(label)) return 'postponed';
   if (/取消|cancelled|canceled/i.test(label)) return 'cancelled';

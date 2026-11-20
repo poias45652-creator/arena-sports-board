@@ -77,3 +77,37 @@ test('Hong Kong shares the sports member gate and read-only access',async()=>{
   const request=new Request(origin+'/api/hong-kong/football-team?action=roster&team=LM');
   assert.equal((await gateRequest(request,{})).status,401);
 });
+
+test('HK pitch binds both clubs, kickoff and competition and keeps missing stats unknown',async()=>{
+  const {parsePitchFeed,resolvePitchFixture,kickUpdate}=await import('../modules/hong-kong-football/server/pitch-feed.js');
+  const {snapshotFeed}=await import('../modules/hong-kong-football/server/season-sync.js');
+  const {incomingDetailGame}=await import('../modules/hong-kong-football/server/football-data.js');
+  const now=Date.parse('2026-11-20T12:43:28Z'), game=incomingDetailGame('lm-nd',snapshotFeed,now);
+  const id='k82rekhgk537rep',href='/en/match/lee-man-north-district/'+id;
+  const row={id,href,kickoffIso:'2026-11-20T12:00:00Z',home:{id:'k82rekhyvnerepz',score:0},away:{id:'dj2ryohy5kdq1zp',score:0}};
+  const page=(...parts)=>'<script>self.__next_f.push('+JSON.stringify([1,'ab:'+JSON.stringify(parts)+'\n'])+')</script>';
+  assert.equal(resolvePitchFixture(page(row),game),href);
+  assert.equal(resolvePitchFixture(page({...row,away:row.home}),game),null);
+  assert.equal(resolvePitchFixture(page(row,{...row,id:'abc',href:'/en/match/other/abc'}),game),null);
+  const head={...row,competitionId:'e4wyrn4hj1q86pv',matchId:id,statusKind:'live',minuteLabel:'43′'};
+  const stats={matchId:id,extendedStats:{fetched_at:'2026-11-20T12:43:26Z',sap_stats:{rows:[{key:'goal_kicks',home:5,away:5}]}},
+    period:'all',groups:[{statistics:[{id:'corner_kicks',homeValue:'4',awayValue:'2'}]}]};
+  const momentum={matchId:id,momentum:{markers:[{id:'corner-2-37-5',kind:'corner',side:'away',minute:37}]}};
+  const feed=parsePitchFeed(page(head,momentum,stats),href,game);
+  assert.equal(parsePitchFeed(page({...head,competitionId:'other'},momentum,stats),href,game),null);
+  assert.equal(parsePitchFeed(page({...head,kickoffIso:'2026-11-21T12:00:00Z'},stats),href,game),null);
+  const half=parsePitchFeed(page({...head,statusKind:'halftime',statusLabel:'Half-Time',minuteLabel:'$undefined'},stats),href,game);
+  assert.equal(half.clock,'中場休息');
+  assert.equal(feed.clock,'43′');assert.equal(feed.events[0].teamId,'ND');assert.equal(feed.events[0].label,'角球');
+  assert.equal(feed.events[0].point,undefined);
+  const url=new URL('/api/football?kind=detail&date=2026-11-20&game=lm-nd',origin);
+  const d=await dataResponse(url,snapshotFeed,now,null,null,feed).json();
+  assert.equal(d.game.state,'live');assert.equal(d.pitch.actions[0].clock,'37′');
+  assert.equal(d.stats.find(r=>r.label==='角球').away,'2');assert.equal(d.stats.find(r=>r.label==='射門').home,'—');
+  assert.ok(d.commentary.some(e=>e.text==='高力北區・角球'));
+  const prev={...feed,sourceStamp:'2026-11-20T12:43:10Z',stats:[{label:'球門球',home:'5',away:'4'}]};
+  const kick=kickUpdate(prev,feed,game,now);
+  assert.equal(kick.teamId,'ND');assert.equal(kick.clock,'統計更新');assert.equal(kick.label,'球門球 +1');
+  assert.equal(kickUpdate({...prev,sourceStamp:'2026-11-20T12:40:00Z'},feed,game,now),null);
+  assert.equal(kickUpdate(prev,{...feed,events:[]},game,now),null);
+});
