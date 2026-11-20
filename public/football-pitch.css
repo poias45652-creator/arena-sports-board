@@ -52,3 +52,7 @@
 @media(max-width:600px){
   .xz-action.measured{left:.5rem!important;right:auto;top:auto!important;bottom:.35rem!important;transform:none;max-width:calc(100% - 1rem);display:flex;align-items:center;flex-wrap:wrap;gap:.3rem .5rem}
 }
+
+.xz-last-position{position:absolute;top:.35rem;left:.55rem;background:#153425e6;color:#fff;padding:.1rem .35rem;border-radius:3px}
+.xz-recent small{color:#b3d0bd;font-variant-numeric:tabular-nums}
+.xz-sync>span{display:block;text-align:right}

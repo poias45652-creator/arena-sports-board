@@ -34,7 +34,13 @@ export function liveFootballPlays(game:Game):Promise<CorePitchPlay[]>{
       const lastPage=Math.max(1,first.pageCount);
       const last=lastPage===page?first:await readPage(path,lastPage,signal);
       // At rollover, retain the previous page's tail until the new page fills up.
-      if(lastPage!==page)before=lastPage===page+1?first.items.slice(-10):[];
+      if(lastPage!==page){
+        if(lastPage===page+1)before=first.items;
+        else if(lastPage>1&&last.items.length<pageSize){
+          // A viewer can join immediately after rollover, before the collector has a previous page.
+          before=(await readPage(path,lastPage-1,signal).catch(()=>null))?.items??[];
+        }else before=[];
+      }
       items=[...before,...last.items].slice(-pageSize);
       page=lastPage;
     }catch{

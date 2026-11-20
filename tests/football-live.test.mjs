@@ -129,11 +129,11 @@ test('live play reader follows the last page, coalesces viewers and recovers aft
  });
  const game={league:'ger.1',id:'401884736'};
  const [a,b]=await Promise.all([liveFootballPlays(game),liveFootballPlays(game)]);
- assert.deepEqual(a,b);assert.deepEqual(requests,[1,8]);assert.deepEqual(a.map(x=>x.id),['1','2']);
+ assert.deepEqual(a,b);assert.deepEqual(requests,[1,8,7]);assert.deepEqual(a.map(x=>x.id),['0','1','2']);
  now+=5000;stage=2;const rollover=await liveFootballPlays(game);
- assert.deepEqual(requests,[1,8,8,9]);assert.deepEqual(rollover.map(x=>x.id),['1','2','3','4']);
+ assert.deepEqual(requests,[1,8,7,8,9]);assert.deepEqual(rollover.map(x=>x.id),['1','2','3','4']);
  now+=5000;stage=3;assert.deepEqual(await liveFootballPlays(game),rollover);
- now+=11000;stage=4;assert.deepEqual((await liveFootballPlays(game)).map(x=>x.id),['3','5']);
+ now+=11000;stage=4;assert.deepEqual((await liveFootballPlays(game)).map(x=>x.id),['1','2','3','5']);
 });
 
 
@@ -143,4 +143,43 @@ test('newly published bursts still animate in chronological order after the prev
  assert.deepEqual(newPitchFrames(batch,play(4)).map(p=>p.id),['20','22','25']);
  assert.deepEqual(newPitchFrames(batch,play(22)).map(p=>p.id),['25']);
  assert.deepEqual(newPitchFrames(batch).map(p=>p.id),['25']);
+});
+
+test('停在 45 分鐘補時時，43 分鐘三次真實傳球逐筆顯示，跨過 25 秒仍保有球位',async t=>{
+ const {createPitchPlayback,pitchPlaybackActions}=await import(moduleUrl('lib/football-pitch.ts'));
+ const start=Date.parse('2026-11-20T20:15:51Z');
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:start});
+ const touch=(id,stamp,x,y)=>({id,label:'傳球',type:'pass',clock:"43'",teamId:'122',occurredAt:'2026-11-20T'+stamp+'Z',point:{x,y}});
+ const passes=[touch('55409633','20:13:11',69.8,50.1),touch('55409632','20:13:10',63.1,69.3),touch('55409631','20:13:04',68.2,74.1)];
+ const headline={id:'headline',clock:"45'+1'",label:'補時'};
+ const displays=[];
+ const player=createPitchPlayback((action,moving)=>displays.push([action.id,moving,action.point]));
+ const update=rows=>player.update(pitchPlaybackActions([headline,...rows]));
+ update(passes);
+ for(let i=0;i<8;i++){t.mock.timers.tick(4500);update(passes);}
+ assert.deepEqual(displays.filter(row=>row[1]).map(row=>row[0]),passes.map(a=>a.id).reverse());
+ assert.deepEqual(displays.at(-1),[passes[0].id,false,passes[0].point]);
+ const later={...touch('55409826','20:16:59',15.5,48.6),clock:"45'+2'",teamId:'132'};
+ t.mock.timers.setTime(Date.parse('2026-11-20T20:18:00Z'));
+ update([later,...passes]);update(passes);
+ assert.deepEqual(displays.at(-1),[later.id,true,later.point]);
+ t.mock.timers.tick(4500);player.stop();
+ assert.deepEqual(displays.at(-1),[later.id,false,later.point]);
+});
+
+test('每批超過八筆的逐球依時序播放，下一次輪詢可在播放中接續',async t=>{
+ const {createPitchPlayback}=await import(moduleUrl('lib/football-pitch.ts'));
+ const start=Date.parse('2026-11-20T20:18:00Z');
+ t.mock.timers.enable({apis:['setTimeout','Date'],now:start});
+ const play=n=>({id:String(n),clock:"45'",occurredAt:new Date(start-60000+n*1000).toISOString()});
+ const moving=[];
+ const player=createPitchPlayback((a,active)=>{if(active)moving.push(a.id);});
+ player.update([play(0)]);
+ const batch=Array.from({length:18},(_,i)=>play(17-i));
+ player.update(batch);
+ for(let i=0;i<6;i++)t.mock.timers.tick(5000);
+ player.update([play(19),play(18),...batch]);
+ for(let i=0;i<20;i++)t.mock.timers.tick(5000);
+ assert.deepEqual(moving,Array.from({length:20},(_,i)=>String(i)));
+ player.stop();
 });

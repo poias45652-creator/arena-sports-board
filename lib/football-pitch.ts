@@ -4,16 +4,85 @@ export type FootballPitchReading={clock:string;actions:PitchAction[];updatedAt?:
 
 export function newPitchFrames(actions:PitchAction[],previous?:PitchAction):PitchAction[]{
   const latest=actions[0];
-  if(!latest)return [];
-  if(!previous||previous.id===latest.id)return [latest];
+  if(!latest||latest.id===previous?.id)return [];
+  if(!previous)return [latest];
   const seen=actions.findIndex(action=>action.id===previous.id);
+  if(seen>=0)return actions.slice(0,seen).reverse();
+  // A whole batch may have arrived between polls. Discard older snapshots.
   const lastTime=Date.parse(previous.occurredAt||'');
-  const newest=Date.parse(latest.occurredAt||'');
-  // Providers can publish enough touches in one batch to push the prior ID out of the window.
-  const candidates=seen>=0?actions.slice(0,seen):actions.filter(action=>Date.parse(action.occurredAt||'')>lastTime);
-  const frames=candidates.slice(0,8).filter(action=>action===latest||
-    (action.occurredAt&&newest-Date.parse(action.occurredAt)<20000));
-  return frames.length?frames.reverse():[latest];
+  return actions.filter(action=>{
+    const time=Date.parse(action.occurredAt||'');
+    if(Number.isFinite(time)&&Number.isFinite(lastTime)){
+      return time>lastTime||(time===lastTime&&Number(action.id)>Number(previous.id));
+    }
+    return clockOrder(action.clock)>clockOrder(previous.clock);
+  }).reverse();
+}
+
+export function pitchPlaybackActions(actions:PitchAction[],now=Date.now()){
+  // The summary and coordinate feeds can publish at different times. A newer commentary
+  // headline must not hide measured touches arriving underneath it on subsequent polls.
+  const touches=actions.filter(action=>action.occurredAt);
+  const lag=now-Date.parse(touches[0]?.occurredAt||'');
+  if(!touches.length)return actions;
+  const minute=(action:PitchAction)=>{
+    const order=clockOrder(action.clock);
+    return Math.floor(order/100)+order%100;
+  };
+  // A stopped tracking feed can fall behind newer, independently confirmed match events.
+  return lag>180000&&minute(actions[0])-minute(touches[0])>3?actions:touches;
+}
+
+export function createPitchPlayback(publish:(action:PitchAction,moving:boolean)=>void){
+  let cursor:PitchAction|undefined;
+  let queue:PitchAction[]=[];
+  let timer:ReturnType<typeof setTimeout>|undefined;
+  let current:PitchAction|undefined;
+  const seen=new Set<string>();
+  function next(){
+    const action=queue.shift();
+    if(!action){
+      timer=undefined;
+      if(current)publish(current,false);
+      return;
+    }
+    current=action;
+    publish(action,true);
+    const gap=Date.parse(queue[0]?.occurredAt||'')-Date.parse(action.occurredAt||'');
+    const delay=Math.max(900,Math.min(Number.isFinite(gap)?gap:1500,4500,45000/Math.max(queue.length,1)));
+    timer=setTimeout(next,delay);
+  }
+  function stop(){
+    clearTimeout(timer);
+    timer=undefined;
+    queue=[];
+    current=cursor??current;
+    if(current)publish(current,false);
+  }
+  return {stop,update(actions:PitchAction[]){
+    const latest=actions[0];
+    if(!latest||seen.has(latest.id))return;
+    const time=Date.parse(latest.occurredAt||'');
+    const age=Date.now()-time;
+    const initial=!cursor;
+    // On opening a live match, show a short run of real touches from its most recent batch.
+    const frames=initial&&age>=0&&age<=180000
+      ?actions.slice(0,6).filter(a=>time-Date.parse(a.occurredAt||'')<=12000).reverse()
+      :newPitchFrames(actions,cursor);
+    const fresh=frames.filter(a=>!seen.has(a.id));
+    if(!fresh.length)return;
+    cursor=latest;
+    for(const a of actions)seen.add(a.id);
+    while(seen.size>160)seen.delete(seen.values().next().value!);
+    if(initial&&age>180000){
+      stop();
+      current=latest;
+      publish(latest,false);
+      return;
+    }
+    queue=[...queue,...fresh].slice(-40);
+    if(timer===undefined)next();
+  }};
 }
 
 const actionLabels:Record<string,string>={
@@ -75,7 +144,7 @@ export function espnPitchActions(rows:Comment[],events:KeyEvent[],home:Side,away
     plays.set(id,{period,order:seconds,item:{id,type,teamId,clock,label:actionLabels[type],point:start??prior?.point,
       end:end??(!start?prior?.end:undefined),occurredAt}});
   }
-  return [...plays.values()].sort((a,b)=>b.period-a.period||clockOrder(b.item.clock)-clockOrder(a.item.clock)||b.order-a.order||(b.sequence??0)-(a.sequence??0)||Number(b.item.id)-Number(a.item.id)).slice(0,10).map(v=>v.item);
+  return [...plays.values()].sort((a,b)=>b.period-a.period||clockOrder(b.item.clock)-clockOrder(a.item.clock)||b.order-a.order||(b.sequence??0)-(a.sequence??0)||Number(b.item.id)-Number(a.item.id)).slice(0,tracking.length?40:10).map(v=>v.item);
 }
 
 function clockOrder(clock:string){
