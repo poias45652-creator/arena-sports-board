@@ -21,7 +21,7 @@ export async function GET(request:Request){
   }
   if(kind==='detail'){
    const id=p.get('game')||'';if(!/^\d{1,12}$/.test(id))return Response.json({error:'賽事編號錯誤'},{status:400,headers});
-   const captured=collectedMatch('NBA',id,day);
+   const captured=collectedMatch('NBA',id,day,5000);
    if(captured)return Response.json(captured,{headers});
    const schedule=await nbaSchedule(day),game=schedule.games.find(g=>g.id===id);
    if(!game)return Response.json({error:'本日查無此賽事'},{status:404,headers});

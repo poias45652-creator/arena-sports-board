@@ -13,9 +13,9 @@ const allowedDay=d=>/^\d{4}-\d{2}-\d{2}$/.test(d||'')&&Number.isFinite(Date.pars
 const idOK=(l,id)=>l==='KBL'?/^S\d+G\d+N\d+$/.test(id||''):/^(?:\d{7,12}|[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.test(id||'');
 async function cached(key,ttl,fn){
  const old=active.get(key),now=Date.now();if(old&&old.expires>now)return old.promise;
- const entry={expires:now+ttl*1000};entry.promise=Promise.resolve().then(fn).catch(err=>{if(active.get(key)===entry)active.delete(key);throw err;});
+ const entry={expires:Infinity};entry.promise=Promise.resolve().then(fn).then(value=>{entry.expires=Date.now()+(key.includes('/detail/')&&value?.status==='final'?300:ttl)*1000;return value;}).catch(err=>{if(active.get(key)===entry)active.delete(key);throw err;});
  active.set(key,entry);
- if(active.size>270)for(const [k,v] of active){if(v.expires<=now||active.size>350)active.delete(k);}
+ if(active.size>270)for(const [k,v] of active){if(v.expires<=now||active.size>350&&Number.isFinite(v.expires))active.delete(k);}
  return entry.promise;
 }
 const sourceNote={NBL:'NBL／ESPN',KBL:'KBL 官方'};
@@ -31,7 +31,7 @@ export async function api(req,readAsset=async()=>null){
  const isK=l==='KBL',run=(key,ttl,fn)=>cached(l+'/'+key,ttl,fn);
  try{
   if(kind==='feed'&&allowedDay(day))return json(await run('feed/'+day,15,()=>isK?getKblFeed(day):getNblFeed(day)),200,10);
-  if(kind==='detail'&&idOK(l,id))return json(await run('detail/'+id,18,async()=>{
+  if(kind==='detail'&&idOK(l,id))return json(await run('detail/'+id,4,async()=>{
    if(!isK)return getNblDetail(id,{loadSnapshot});
    const [live,backup]=await Promise.allSettled([getKblDetail(id),loadSnapshot(id)]);
    if(!live.value&&!backup.value)throw Error('韓職單場資料暫無回應');
@@ -39,6 +39,7 @@ export async function api(req,readAsset=async()=>null){
    const a=live.value,b=backup.value;
    if(b&&a.home===b.home&&a.away===b.away){
     if(a.status!=='final'&&b.status==='final')return b;
+    if(a.status==='in_progress'&&b.status==='in_progress'&&Date.parse(a.asOf)>Date.parse(b.asOf))return a;
     if(a.status===b.status&&a.homeScore+a.awayScore<b.homeScore+b.awayScore)return b;
     if(a.homeScore===b.homeScore&&a.awayScore===b.awayScore&&(a.plays?.length||0)<(b.plays?.length||0))return b;
    }

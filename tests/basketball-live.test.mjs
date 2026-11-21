@@ -49,3 +49,30 @@ test('live source coalesces requests and uses the requested league and standings
  globalThis.fetch=async url=>{requests.push(url);const league=url.includes('/wnba/')?'WNBA':'NBA';return Response.json(fixture(league,url.includes('summary')?'summary':'standings-regular'));};
  try{for(const league of ['NBA','WNBA']){const game=(league==='NBA'?n.parseNbaEvents:w.parseWnbaEvents)(fixture(league,'schedule'))[0];const rows=await Promise.all([source.basketballDetail(game,league),source.basketballDetail(game,league)]);assert.deepEqual(rows[0],rows[1]);const table=await source.basketballStandings(league,league==='NBA'?2027:2026,2);assert.equal(table.league,league);}assert.equal(requests.length,4);assert.ok(requests.filter(u=>u.includes('standings')).every(u=>u.includes('seasontype=2')));}finally{globalThis.fetch=native;}
 });
+
+const {courtPlayback}=await import('../public/regional-basketball/live-court.js');
+const {courtAction}=await import('../public/regional-basketball/court-action.js');
+test('Atlanta 8:46 turnover preserves source time and location, and invalid coordinates stay absent',()=>{
+ const game=n.parseNbaEvents(fixture('NBA','schedule'))[0],raw=fixture('NBA','summary');
+ const text='Dyson Daniels bad pass\nturnover (Brandon Miller steals)';
+ const play={id:'40190930542',sequenceNumber:'42',period:{number:1},clock:{displayValue:'8:46'},team:{id:game.home.id},
+  text,wallclock:'2026-11-21T00:17:44Z',coordinate:{x:28,y:19},pointsAttempted:0,homeScore:11,awayScore:5};
+ raw.plays=[play,{...play,id:'missing',coordinate:{x:-214748340,y:-214748365}}];
+ const [p,missing]=m.parseBasketballDetail(raw,game,'NBA').plays;
+ assert.equal(p.occurredAt,play.wallclock);assert.equal(p.point.x,24.25*100/94);assert.equal(p.point.y,56);
+ assert.equal(missing.point,undefined);assert.equal(courtAction(p.text,false,p),'傳球失誤');
+ assert.equal(m.basketballPlayText(text),'Dyson Daniels 傳球失誤 (Brandon Miller 抄截)');
+ assert.equal(courtAction('Dyson Daniels misses shot',false,{attempt:3}),'三分未中');
+ assert.equal(courtAction('兩分球・上籃 命中',true,{type:'2pt',made:true}),'上籃命中');
+ assert.equal(courtAction('KANG SUNG WOOK・進攻籃板',false,{action:'209'}),'進攻籃板');
+});
+test('basketball court presents same-clock plays in order, handles corrections, gaps and teardown',()=>{
+ let task=null;
+ const shown=[],court=courtPlayback((p,fresh)=>{if(fresh)shown.push(p.id);},fn=>{task=fn;return 1;},()=>{task=null;});
+ const rows=[1,2,3,4,5].map(i=>({id:i,sequence:i,clock:i<4?'8:46':'7:54',period:1}));
+ court.update([rows[0]]);court.update([rows[3],rows[2],rows[1],rows[0]]);assert.deepEqual(shown,[1,2]);
+ court.update([rows[3],rows[2],rows[1],rows[0]]);task();task();assert.deepEqual(shown,[1,2,3,4]);
+ court.update([rows[0]]);court.update([]);assert.deepEqual(shown,[1,2,3,4]);
+ court.update([{...rows[4],period:2,clock:'12:00'}]);assert.deepEqual(shown,[1,2,3,4,5]);
+ court.destroy();assert.equal(task,null);
+});

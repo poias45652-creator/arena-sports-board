@@ -76,9 +76,9 @@ export function startMatchBackground(){
       if(!freshSheet&&(!pitchFeed||pitchFeed.delayed))throw Error('港超場況暫時無法取得');
       return {sheet:freshSheet,pitchFeed,final:freshSheet?.match?.state==='final'||pitchFeed?.state==='final'};
     }),
-    byDay('NBA',10000,nbaSchedule,game=>basketballDetail(game,'NBA')),
-    byDay('WNBA',10000,wnbaSchedule,game=>basketballDetail(game,'WNBA')),
-    ...(['KBL','NBL'] as const).map(league=>byDay(league,18000,
+    byDay('NBA',5000,nbaSchedule,game=>basketballDetail(game,'NBA')),
+    byDay('WNBA',5000,wnbaSchedule,game=>basketballDetail(game,'WNBA')),
+    ...(['KBL','NBL'] as const).map(league=>byDay(league,5000,
       day=>regionalMatchResponse(league,'feed',{date:day}),game=>regionalMatchResponse(league,'detail',{id:String(game.id)}))),
     byDay('MLB',10000,mlbGames,game=>loadMlbLiveGame(Number(game.id)))
   ];
