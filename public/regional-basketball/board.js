@@ -3,7 +3,7 @@ import {fixtureKey,boxIndex,verifiedGameBox} from './model.mjs';
 import {syncLocation,scrollBoardTop,publishRecommendations} from './shell-bridge.js';
 import {$,e,shift,today,validDay,key,stamp,timeTW,readStore,writeStore,getJson,tabBtn,teamFor,name,empty} from './shared.js';
 import {assistantPanel} from './assistant.js';
-import {overview,liveCenter} from './live-ui.js';
+import {overview,liveCenter,regionalCourtModel} from './live-ui.js';
 import {teamProfile,playerProfile,teams,standings} from './profiles.js';
 import {analysis,weightsForm,storeWeights,singleGameRecommendations} from './analysis-ui.js';
 const nav={overview:'概覽',live:'即時比分',analysis:'賽前分析',standings:'戰績排名',teams:'球隊一覽'};
@@ -11,6 +11,8 @@ const s={admin:document.body.dataset.admin==='true',projections:new Map(),saved:
 const memo=new Map(),cacheFetch=(url)=>{if(!memo.has(url))memo.set(url,getJson(url).catch(err=>{memo.delete(url);throw err}));return memo.get(url);};
 const api=(kind,params={})=>'/api/regional-basketball/'+kind+'?'+new URLSearchParams({league:s.league,...params});
 let token=0,refreshToken=0,detailsToken=0,rankToken=0,contextTime=0,historyTime=0,extraContext=null;
+import {mountCourt} from './live-court.js';
+let court=null;
 const modal=$('modal');
 function adoptRoute(){
  const p=new URLSearchParams(location.search);s.league=p.get('league')==='KBL'?'KBL':'NBL';s.reference=false;const route=p.get('view');s.view=route==='games'?'live':Object.hasOwn(nav,route)?route:'overview';
@@ -28,11 +30,11 @@ function route(){
  if(s.view==='standings'){if(s.rankSeason!==s.seasonEnd)p.set('season',s.rankSeason);if(s.phase!==2)p.set('phase',s.phase);}
  const url=location.pathname+'?'+p;if(location.pathname+location.search!==url){window.history.replaceState({},'',url);syncLocation();}
 }
-function merge(games,extra,overwrite=true){
+function merge(games,extra,overwrite=true,fresh=false){
  const merged=new Map(games.map(g=>[key(g),g]));
  for(const g of extra||[]){if(!g.date||!g.home||!g.away)continue;const prev=merged.get(key(g));if(!overwrite&&prev)continue;
   if(prev?.status==='final'&&g.status!=='final')continue;
-  if(prev?.status==='in_progress'&&(['scheduled','fixture'].includes(g.status)||g.status==='in_progress'&&g.homeScore+g.awayScore<prev.homeScore+prev.awayScore))continue;
+  if(prev?.status==='in_progress'&&(['scheduled','fixture'].includes(g.status)||!fresh&&g.status==='in_progress'&&g.homeScore+g.awayScore<prev.homeScore+prev.awayScore))continue;
   const row={...prev,...g};
   if(s.league==='NBL'&&nblPhase(null,row.round)===1)row.phase=1;
   merged.set(key(g),row);}
@@ -73,10 +75,14 @@ function paint(){
  const body=s.playerId?playerProfile(s):s.teamCode?teamProfile(s):views[s.view](s);
  const pane=$('content'),open=new Set([...pane.querySelectorAll('details[open][data-persist]')].map(x=>x.dataset.persist));
  const scrolls=new Map([...pane.querySelectorAll('[data-scroll]')].map(x=>[x.dataset.scroll,x.scrollLeft]));
- const previousEvent=pane.querySelector('[data-court-event]')?.dataset.courtEvent;
  pane.innerHTML=toolbar()+(!s.teamCode&&s.notice?'<div class="message" role="status">'+e(s.notice)+'</div>':'')+body;
- const play=pane.querySelector('[data-court-event]');
- if(play?.dataset.courtEvent && !s.detailError && play.dataset.courtEvent!==previousEvent) play.classList.add('is-new');
+ const floor=pane.querySelector('.xz-court'),courtKey=s.game&&s.league+'/'+key(s.game);
+ if(court&&(!floor||court.key!==courtKey)){court.handle.destroy();court=null;}
+ if(floor){
+  if(court)floor.replaceWith(court.root);
+  else court={key:courtKey,root:floor,handle:mountCourt(floor)};
+  court.handle.update(regionalCourtModel(s));
+ }
  const showPicks=s.view==='analysis'&&!s.teamCode&&!s.playerId&&s.visible.length>0;
  publishRecommendations(s.date,showPicks,showPicks?singleGameRecommendations(s):[]);
  for(const el of pane.querySelectorAll('details[data-persist]'))el.open=open.has(el.dataset.persist);
@@ -124,6 +130,10 @@ function betterDetail(a,b){
  if(!a)return b;if(!b)return a;
  if(a.status!==b.status&&[a.status,b.status].includes('final'))return a.status==='final'?a:b;
  if(a.status==='final'&&a.quality?.scoreVerified!==b.quality?.scoreVerified&&[a.quality?.scoreVerified,b.quality?.scoreVerified].includes(true))return a.quality?.scoreVerified?a:b;
+ if(a.status==='in_progress'&&b.status==='in_progress'){
+  const delta=Date.parse(b.sourceUpdatedAt||b.asOf)-Date.parse(a.sourceUpdatedAt||a.asOf);
+  if(Number.isFinite(delta)&&delta!==0)return delta>0?b:a;
+ }
  const score=v=>(v.homeScore??0)+(v.awayScore??0);
  if(score(a)!==score(b))return score(a)>score(b)?a:b;
  return (b.plays?.length||0)>=(a.plays?.length||0)?b:a;
@@ -134,13 +144,13 @@ function loadDetail(force=false){
  const dk=key(g),entry=s.detailIndex?.[dk],ids=[entry?.id,g.officialId,g.id].filter(Boolean);
  if(!ids.length||s.detailKey===dk&&(s.detailBusy||(!force&&s.detail)))return;
  const old=s.detailKey===dk?s.detail:null;
- s.detailKey=dk;s.detail=old||ids.map(id=>s.fallback?.details?.[id]).find(Boolean)||null;s.detailBusy=true;s.detailError=false;const n=++detailsToken;
+ s.detailKey=dk;s.detail=old||ids.map(id=>s.fallback?.details?.[id]).find(Boolean)||null;s.detailBusy=true;const n=++detailsToken;
  const jobs=[getJson(api('detail',{id:ids[0]}),19000)];
  if(entry)jobs.push(cacheFetch('/api/regional-basketball/data/details/'+s.league.toLowerCase()+'/'+encodeURIComponent(entry.id)+'.json').then(decodeDetail));
  Promise.allSettled(jobs.map(job=>job.then(d=>{
   if(n!==detailsToken||key(s.game||{})!==dk||d.home!==g.home||d.away!==g.away||(d.date&&d.date!==g.date))return;
-  s.detail=betterDetail(s.detail,{...d,date:d.date||g.date});paint();
- }))).then(()=>{if(n!==detailsToken)return;s.detailBusy=false;s.detailError=!s.detail;paint();});
+  s.detail=betterDetail(s.detail,{...d,date:d.date||g.date});paint();return true;
+ }))).then(results=>{if(n!==detailsToken)return;s.detailBusy=false;s.detailError=results[0].status!=='fulfilled'||results[0].value!==true;paint();});
 }
 function adoptRank(online,stage){
  const rows=online?.standings||[],cached=stage?.rows||[];
@@ -258,7 +268,7 @@ async function refresh(){
  try{
  const f=await getJson(api('feed',{date:day}),22000);if(n!==refreshToken||id!==token||day!==s.date)return;
  if(!Array.isArray(f.games)||f.date!==day)throw Error('日期不符');
- s.all=merge(s.all,f.games.map(g=>({...g,officialId:g.officialId||s.detailIndex?.[key(g)]?.id||s.all.find(x=>key(x)===key(g))?.officialId})));s.busy=false;s.isLive=true;s.archiveDate=false;s.asOf=f.asOf;s.notice='';
+ s.all=merge(s.all,f.games.map(g=>({...g,officialId:g.officialId||s.detailIndex?.[key(g)]?.id||s.all.find(x=>key(x)===key(g))?.officialId})),true,true);s.busy=false;s.isLive=true;s.archiveDate=false;s.asOf=f.asOf;s.notice='';
  if(f.standings?.length){s.currentRanking=f.standings;if(s.rankSeason===s.seasonEnd&&s.phase===2)s.ranking=adoptRank({standings:f.standings},s.rankArchive?.[s.rankSeason]?.[2]);}
  s.version++;select();loadDetail(true);paint();
  }catch{
@@ -323,6 +333,9 @@ document.addEventListener('change',ev=>{const t=ev.target;if(t.id==='pick-day'){
 });
 modal.addEventListener('click',ev=>{if(ev.target===modal)modal.close();});
 window.addEventListener('popstate',()=>{if(modal.open)modal.close();adoptRoute();loadLeague();});
-document.addEventListener('visibilitychange',()=>{if(!document.hidden)refresh();});
+function pollCourt(){if(!document.hidden&&!modal.open&&s.view==='live'&&s.game?.status==='in_progress')loadDetail(true);}
+setInterval(pollCourt,5000);
+window.addEventListener('online',pollCourt);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden){pollCourt();refresh();}});
 setInterval(()=>{if(!document.hidden&&s.fallback&&(s.date===today()||s.view==='analysis'&&s.date>today())&&!modal.open&&['overview','live','analysis'].includes(s.view))refresh();},30000);
 try{s.catalog=await getJson('/api/regional-basketball/data/leagues.json');adoptRoute();await loadLeague();}catch(error){$('content').innerHTML=empty('聯盟資料暫時無法載入，請重新整理。');}

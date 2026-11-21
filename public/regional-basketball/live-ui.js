@@ -1,6 +1,5 @@
 import {e,num,logo,teamFor,name,teamButton,smallDate,stateName,status,empty,tabBtn,panelHeading} from './shared.js';
 import {matchup,quarters,periodName,gameLabel,gameTime,teamAnchor} from './match.js';
-import {courtAction} from './court-action.js';
 import {rosterPlayer} from './player-profile.js';
 function miniCard(s,g){
  const live=g.status==='in_progress'&&s.isLive;
@@ -61,21 +60,21 @@ function eventRows(s,g,d,pre){
  (rows.length?rows.slice(0,s.playLimit).map(x=>{const club=x.team||x.teamCode,actor=x.actorType==='coach'?null:person(s,club,x),t=teamFor(s,club),scoring=x.points>0||x.scoring===true;
  return '<article class="basketball-play" data-scoring="'+scoring+'"><header><span>'+logo(t)+'<b>'+e(t?.name||'比賽紀錄')+'</b></span><time>'+e(periodName(x.period)+' '+(x.clock||''))+'</time></header><div>'+(actor?'<div class="basketball-play-player">'+portrait(s,actor)+'<strong>'+playerLabel(s,actor,x,club)+'</strong></div>':'')+'<p>'+e(x.text)+'</p><small>'+num(x.awayScore)+' : '+num(x.homeScore)+(scoring?'・得分':'')+'</small></div></article>';}).join(''):'<p class="basketball-empty">'+(pre?'開賽後顯示逐球紀錄':s.detailBusy?'正在讀取逐球紀錄…':'暫無本場逐球紀錄')+'</p>')+(rows.length>s.playLimit?'<button class="basketball-load-more" data-moreplays>再看 60 筆</button>':'')+'</section>';
 }
-function liveCourt(s,g,detail){
- if(g.status!=='in_progress'||!s.isLive)return '';
- const play=detail.plays?.[0],club=play?.team||play?.teamCode;
- const side=club&&club===g.home?'home':club&&club===g.away?'away':'';
- const event=play?JSON.stringify([s.league,g.id,g.date,play.id,play.period,play.clock,club,play.text,play.homeScore,play.awayScore]):'';
- const time=play?[periodName(play.period),play.clock].filter(Boolean).join(' '):'即時籃球場';
- return '<section class="xz-court" aria-label="即時籃球場" data-side="'+side+'"><div class="xz-court-play" data-court-event="'+e(event)+'" aria-live="polite" aria-atomic="true">'+
-   '<small>'+e(s.detailError?'更新暫停':time)+'</small><b>'+e(play?courtAction(play.text,play.points>0||play.scoring===true):'等待回合資料')+'</b>'+
-   (side?'<span>'+e(name(s,club))+'</span>':'')+'</div></section>';
+function liveDetails(s){
+ const board=s.game,d=s.detail?.home===board.home&&s.detail?.away===board.away&&s.detail?.date===board.date?s.detail:{};
+ const fresh=d.status==='in_progress'&&Date.parse(d.asOf)>=Date.parse(s.asOf);
+ const aligned=(fresh||['home','away'].every(k=>Number.isFinite(d[k+'Score'])&&d[k+'Score']>=(board[k+'Score']??0)))&&!(board.status==='final'&&d.status!=='final');
+ return {d,g:aligned?{...board,...d,venue:d.venue||board.venue}:board,aligned};
+}
+export function regionalCourtModel(s){
+ const {d,g}=liveDetails(s);
+ return {home:g.home,away:g.away,homeName:name(s,g.home),awayName:name(s,g.away),period:g.period,clock:g.clock,
+  fetchedAt:d.asOf,plays:d.plays,error:s.detailError};
 }
 export function liveCenter(s){
  if(!s.game)return noGames(s);
- const board=s.game,d=s.detail?.home===board.home&&s.detail?.away===board.away&&s.detail?.date===board.date?s.detail:{};
- const aligned=['home','away'].every(k=>Number.isFinite(d[k+'Score'])&&d[k+'Score']>=(board[k+'Score']??0));
- const g=aligned?{...board,...d,venue:d.venue||board.venue}:board, pre=['fixture','scheduled'].includes(g.status);
+ const {g,d,aligned}=liveDetails(s),pre=['fixture','scheduled'].includes(g.status);
+ const court=g.status==='in_progress'&&(s.isLive||d.plays?.length)?'<section class="xz-court" aria-label="即時籃球場"></section>':'';
  const ps=aligned&&d.periods?.length?d.periods:g.periods||[];
- return '<div class="basketball-live-center">'+strip(s)+'<section class="basketball-detail" id="scoreboard" aria-label="比賽詳細資料"><div class="basketball-scoreboard"><h2>比分看板 <small>SCOREBOARD</small></h2><div class="basketball-score-meta"><span>'+gameLabel(s,g)+'</span><span>'+gameTime(g)+'（台灣）</span><button data-detailrefresh aria-label="更新比賽明細">⟳</button></div>'+matchup(s,g)+quarters(s,g,ps)+(g.venue?'<p class="basketball-venue">'+e(g.venue)+'</p>':'')+'</div>'+liveCourt(s,g,d)+compare(s,g,d)+'<div class="basketball-live-columns">'+box(s,g,d,pre)+eventRows(s,g,d,pre)+'</div></section></div>';
+ return '<div class="basketball-live-center">'+strip(s)+'<section class="basketball-detail" id="scoreboard" aria-label="比賽詳細資料"><div class="basketball-scoreboard"><h2>比分看板 <small>SCOREBOARD</small></h2><div class="basketball-score-meta"><span>'+gameLabel(s,g)+'</span><span>'+gameTime(g)+'（台灣）</span><button data-detailrefresh aria-label="更新比賽明細">⟳</button></div>'+matchup(s,g)+quarters(s,g,ps)+(g.venue?'<p class="basketball-venue">'+e(g.venue)+'</p>':'')+'</div>'+court+compare(s,g,d)+'<div class="basketball-live-columns">'+box(s,g,d,pre)+eventRows(s,g,d,pre)+'</div></section></div>';
 }

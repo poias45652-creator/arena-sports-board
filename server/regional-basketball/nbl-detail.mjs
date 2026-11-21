@@ -245,7 +245,8 @@ function makePlay(raw,index,teamFor,people) {
   const id=raw.eventId || raw.external_id || [label(n),raw.action_id??index,raw.timestamp??index].join('/');
   return {
     order:[n||0,clockOrder,String(raw.timestamp||''),numeric(raw.action_id)??index,index],
-    play:{id,actionId:raw.action_id??null,period:label(n),clock:time,team,playerId:pid,name:personName,playerName:personName,
+    play:{id,point:[raw.coordinates?.x,raw.coordinates?.y].every(v=>Number.isFinite(v)&&v>=0&&v<=100)?{x:raw.coordinates.x,y:raw.coordinates.y}:undefined,
+      occurredAt:raw.timestamp&&Number.isFinite(Date.parse(utcStamp(raw.timestamp)))?utcStamp(raw.timestamp):undefined,actionId:raw.action_id??null,period:label(n),clock:time,team,playerId:pid,name:personName,playerName:personName,
       type:raw.action_type||null,subType:raw.sub_type||null,made:shotValue(raw.action_type) && typeof raw.success==='boolean' ? raw.success : null,
       text:[personName,[type,sub].filter(Boolean).join('・'),result].filter(Boolean).join(' '),
       homeScore:numeric(raw.score_1),awayScore:numeric(raw.score_2)}
@@ -374,7 +375,7 @@ export async function getNblDetail(id,options={}) {
   const officialId=await resolveNblOfficialId(id,options);
   const fetcher=options.fetcher||fetch;
   const [online,offline]=await Promise.allSettled([
-    fetchJson(calendar+'match?league=nbl&match='+officialId,fetcher,8).then(raw=>parseOfficialNblDetail(raw)),
+    fetchJson(calendar+'match?league=nbl&match='+officialId,fetcher,4).then(raw=>parseOfficialNblDetail(raw)),
     options.loadSnapshot ? options.loadSnapshot(officialId) : Promise.resolve(options.baseline||null)
   ]);
   const live=online.status==='fulfilled' && online.value?.officialId===officialId ? online.value : null;

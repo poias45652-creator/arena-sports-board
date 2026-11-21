@@ -14,3 +14,22 @@
   .xz-pitch-report i{pointer-events:none;position:absolute;left:calc(50% - 4px);top:48%;width:8px;height:8px;border-radius:50%;background:#fff6d6;opacity:0;animation:xz-pitch-throw .85s ease-in}
 }
 @keyframes xz-pitch-throw{0%{opacity:0;transform:scale(.6)}18%{opacity:1}85%{opacity:1;transform:translateY(39px) scale(1)}100%{opacity:0;transform:translateY(41px)}}
+
+.xz-court:has(.xz-court-floor){display:block;min-height:0;background:#26231c}
+.xz-court-header,.xz-court-sync{display:flex;align-items:center;justify-content:space-between;padding:.4rem .8rem;color:#f5dcaa;font-size:.8rem;font-variant-numeric:tabular-nums}
+.xz-court-floor{position:relative;height:clamp(135px,20vw,230px);background:#775036 url('/regional-basketball/court.svg') center/96% 89% no-repeat}
+.xz-court-map{position:absolute;inset:5.5% 2%;pointer-events:none}
+.xz-court-ball{position:absolute;width:16px;height:16px;transform:translate(-50%,-50%);border:2px solid #fff0c4;border-radius:50%;background:linear-gradient(0deg,transparent 43%,#5f2b13 44% 53%,transparent 54%),linear-gradient(58deg,#ffab42 43%,#5f2b13 44% 52%,#ffab42 53%);box-shadow:0 0 0 5px #ffe1a552,0 2px 6px #211306}
+.xz-court-ball[hidden]{display:none}
+.xz-court .xz-court-floor+.xz-court-play{display:flex;align-items:center;flex-wrap:wrap;gap:.25rem .8rem;margin:0;max-width:none;min-height:2.4rem;border-radius:0;background:#17271f}
+.xz-court .xz-court-play small{font-variant-numeric:tabular-nums}
+@media(prefers-reduced-motion:no-preference){.xz-court-ball.is-new{animation:xz-hoop-location .9s ease-out}}
+@keyframes xz-hoop-location{from{box-shadow:0 0 0 14px #ffebbd90}to{box-shadow:0 0 0 5px #ffe1a552}}
+.xz-court-location{position:absolute;left:50%;bottom:.5rem;max-width:94%;transform:translateX(-50%);padding:.25rem .65rem;border-radius:.3rem;background:#18291fee;color:#ffedca;font-size:.78rem;white-space:nowrap}
+.xz-court-ball.previous{opacity:.55}
+.xz-court-location[hidden],.xz-court-shot[hidden]{display:none}
+.xz-court-shot{display:none}
+@media(prefers-reduced-motion:no-preference){
+  .xz-court-shot.is-new:not([hidden]){display:block;position:absolute;width:11px;height:11px;border:1px solid #fff2d2;border-radius:50%;background:#ffae45;transform:translate(-50%,-50%);animation:xz-made-shot .85s ease-in-out both}
+}
+@keyframes xz-made-shot{0%{left:var(--origin-x);top:var(--origin-y);opacity:0}15%{opacity:1}85%{left:var(--rim-x);top:50%;opacity:1}100%{left:var(--rim-x);top:50%;opacity:0}}

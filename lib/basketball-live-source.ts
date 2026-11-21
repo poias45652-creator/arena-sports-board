@@ -9,7 +9,7 @@ async function source(url:string,ttl:number,league:BasketballLeague){
  pending.set(url,task);return task;
 }
 export function basketballSummary(game:Pick<NbaGame,'id'|'state'>,league:BasketballLeague){
- return source(`https://site.api.espn.com/apis/site/v2/sports/basketball/${league.toLowerCase()}/summary?event=${game.id}`,game.state==='final'?300000:8000,league);
+ return source(`https://site.api.espn.com/apis/site/v2/sports/basketball/${league.toLowerCase()}/summary?event=${game.id}`,game.state==='final'?300000:3500,league);
 }
 export async function basketballDetail(game:NbaGame,league:BasketballLeague){
  const row=await basketballSummary(game,league);

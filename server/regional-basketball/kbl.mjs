@@ -235,10 +235,15 @@ export async function getKblDetail(id) {
     const [info,teams,players,events]=await Promise.all([api(url(path)),api(url(path+'/team-record')).catch(()=>null),api(url(path+'/player-stat')).catch(()=>null),api(url(path+'/text-cast?quarterList='+periods)).catch(()=>null)]);
     if(info.game?.gmkey!==id) throw new Error('KBL 官方賽事識別碼不符');
     if(!info.game.isStarted) return normalizeKblDetail(info,teams,players,events);
-    if(!Array.isArray(teams)||!Array.isArray(players)||!Array.isArray(events)) throw new Error('KBL 官方比賽詳細資料不完整');
+    if(!Array.isArray(events)||Number(info.game.isEnded)===1&&(!Array.isArray(teams)||!Array.isArray(players))) throw new Error('KBL 官方比賽詳細資料不完整');
     return normalizeKblDetail(info,teams,players,events);
   }
   let detail=await snapshot('');
+  if(detail.status==='in_progress'&&detail.plays.length){
+    // The scoreboard, plays and individual box scores update independently.
+    if(!detail.sourceChecks.playByPlayScore)for(const play of detail.plays){play.homeScore=null;play.awayScore=null;}
+    return detail;
+  }
   if(detail.status==='scheduled' || Object.values(detail.sourceChecks).every(Boolean))return detail;
   // The KBL feeds are cached independently. Re-read them on the same fresh cache key before accepting an inconsistent score sheet.
   detail=await snapshot(String(Date.now()));

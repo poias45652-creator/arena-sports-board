@@ -20,7 +20,7 @@ export async function GET(request:Request,{params}:{params:Promise<{path:string[
   }else if(path.length===1){
     const params=new URL(request.url).searchParams,league=params.get('league'),id=params.get('id');
     if(path[0]==='detail'&&id&&(league==='KBL'||league==='NBL')){
-      const detail=collectedByUniqueId(league,id);
+      const detail=collectedByUniqueId(league,id,5000);
       if(detail)return Response.json(detail,{headers:privateHeaders});
     }
     return api(request,snapshot);

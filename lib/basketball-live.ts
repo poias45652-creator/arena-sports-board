@@ -3,7 +3,7 @@ import {parseWnbaEvents,wnbaTeam} from './wnba';
 export type BasketballLeague='NBA'|'WNBA';
 export type BoxPlayer={id:string;name:string;photo:string;jersey:string;position:string;starter:boolean;didNotPlay:boolean;stats:Record<string,string>};
 export type BoxTeam={team:NbaTeam;players:BoxPlayer[];stats:Record<string,string>};
-export type BasketballPlay={id:string;sequence:number;period:number;clock:string;text:string;teamId:string|null;playerIds:string[];homeScore:number|null;awayScore:number|null;scoring:boolean};
+export type BasketballPlay={id:string;sequence:number;period:number;clock:string;text:string;teamId:string|null;playerIds:string[];homeScore:number|null;awayScore:number|null;scoring:boolean;point?:{x:number;y:number};occurredAt?:string;attempt?:number};
 export type BasketballDetail={league:BasketballLeague;game:NbaGame;teams:BoxTeam[];plays:BasketballPlay[];venue:string;fetchedAt:string};
 const text=(v:unknown,max=200)=>typeof v==='string'?v.slice(0,max):'';
 const score=(v:unknown)=>v!==null&&v!==undefined&&v!==''&&Number.isInteger(Number(v))&&Number(v)>=0&&Number(v)<=300?Number(v):null;
@@ -40,7 +40,14 @@ export function parseBasketballDetail(raw:any,expected:NbaGame,league:Basketball
  for(const p of raw.plays||[]){const id=text(p.id,50),period=Number(p.period?.number),teamId=p.team?.id?String(p.team.id):null;
   if(!id||!Number.isInteger(period)||period<1||period>20||teamId&&!allowed.has(teamId))continue;
   const sequence=Number(p.sequenceNumber);if(!Number.isFinite(sequence))continue;
-  plays.set(id,{id,sequence,period,clock:text(p.clock?.displayValue,15),text:text(p.text,1000)||text(p.type?.text),teamId,playerIds:(p.participants||[]).map((a:any)=>String(a.athlete?.id||'')).filter((id:string)=>/^\d+$/.test(id)),homeScore:score(p.homeScore),awayScore:score(p.awayScore),scoring:p.scoringPlay===true});
+  // ESPN reports feet across the court and distance from the offensive rim.
+  // Defensive rebounds share the coordinates of the opponent’s preceding shot.
+  const {x,y}=p.coordinate||{};
+  const left=/defensive (?:team )?rebound/i.test(p.text||'')?teamId===game.away.id:teamId===game.home.id;
+  const point=teamId&&Number.isFinite(x)&&Number.isFinite(y)&&x>=0&&x<=50&&y>=-5&&y<=88?
+    {x:(left?5.25+y:94-5.25-y)*100/94,y:(left?x:50-x)*2}:undefined;
+  const occurredAt=typeof p.wallclock==='string'&&Number.isFinite(Date.parse(p.wallclock))?p.wallclock:undefined;
+  plays.set(id,{id,sequence,period,point,occurredAt,attempt:p.pointsAttempted,clock:text(p.clock?.displayValue,15),text:text(p.text,1000)||text(p.type?.text),teamId,playerIds:(p.participants||[]).map((a:any)=>String(a.athlete?.id||'')).filter((id:string)=>/^\d+$/.test(id)),homeScore:score(p.homeScore),awayScore:score(p.awayScore),scoring:p.scoringPlay===true});
  }
  return {league,game,teams,plays:[...plays.values()].sort((a,b)=>b.period-a.period||playClockSeconds(a.clock)-playClockSeconds(b.clock)||b.sequence-a.sequence),venue:text(raw.gameInfo?.venue?.fullName),fetchedAt};
 }
@@ -65,6 +72,6 @@ export function parseBasketballStandings(raw:any,league:BasketballLeague,season:
 }
 // Preserve source player names; translate action wording without inventing events.
 export function basketballPlayText(value:string){
- const phrases:[RegExp,string][]=[[/enters the game for/gi,'替換上場，換下'],[/offensive rebound/gi,'進攻籃板'],[/defensive rebound/gi,'防守籃板'],[/three point/gi,'三分'],[/free throw/gi,'罰球'],[/driving/gi,'切入'],[/turnaround/gi,'轉身'],[/pullup/gi,'急停'],[/jump shot|jumper/gi,'跳投'],[/layup/gi,'上籃'],[/dunk/gi,'灌籃'],[/hook shot/gi,'勾射'],[/floating/gi,'拋投'],[/makes/gi,'投進'],[/misses/gi,'未命中'],[/assists/gi,'助攻'],[/steals/gi,'抄截'],[/blocks/gi,'阻攻'],[/shooting foul/gi,'投籃犯規'],[/personal foul/gi,'個人犯規'],[/loose ball foul/gi,'爭球犯規'],[/offensive foul/gi,'進攻犯規'],[/technical foul/gi,'技術犯規'],[/bad pass/gi,'傳球失誤'],[/lost ball/gi,'掉球'],[/turnover/gi,'失誤'],[/traveling/gi,'走步'],[/full timeout/gi,'暫停'],[/timeout/gi,'暫停'],[/End of the (\d+)(?:st|nd|rd|th) Quarter/gi,'第 $1 節結束'],[/End of Game/gi,'比賽結束'],[/End of Period/gi,'本節結束'],[/(\d+)-foot/gi,'$1 呎']];
+ const phrases:[RegExp,string][]=[[/enters the game for/gi,'替換上場，換下'],[/offensive rebound/gi,'進攻籃板'],[/defensive rebound/gi,'防守籃板'],[/three point/gi,'三分'],[/free throw/gi,'罰球'],[/driving/gi,'切入'],[/turnaround/gi,'轉身'],[/pullup/gi,'急停'],[/jump shot|jumper/gi,'跳投'],[/layup/gi,'上籃'],[/dunk/gi,'灌籃'],[/hook shot/gi,'勾射'],[/floating/gi,'拋投'],[/makes/gi,'投進'],[/misses/gi,'未命中'],[/assists/gi,'助攻'],[/steals/gi,'抄截'],[/blocks/gi,'阻攻'],[/shooting foul/gi,'投籃犯規'],[/personal foul/gi,'個人犯規'],[/loose ball foul/gi,'爭球犯規'],[/offensive foul/gi,'進攻犯規'],[/technical foul/gi,'技術犯規'],[/bad pass\s+turnover/gi,'傳球失誤'],[/bad pass/gi,'傳球失誤'],[/lost ball/gi,'掉球'],[/turnover/gi,'失誤'],[/traveling/gi,'走步'],[/full timeout/gi,'暫停'],[/timeout/gi,'暫停'],[/End of the (\d+)(?:st|nd|rd|th) Quarter/gi,'第 $1 節結束'],[/End of Game/gi,'比賽結束'],[/End of Period/gi,'本節結束'],[/(\d+)-foot/gi,'$1 呎']];
  return phrases.reduce((result,[pattern,replacement])=>result.replace(pattern,replacement),value);
 }

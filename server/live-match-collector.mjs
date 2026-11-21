@@ -9,10 +9,10 @@ export function collectedMatch(league,id,day='',maxAge=12000){
   return row&&Date.now()-row.time<=maxAge?row.data:null;
 }
 // MLB and regional basketball expose provider-wide unique match IDs without a date in the detail URL.
-export function collectedByUniqueId(league,id){
+export function collectedByUniqueId(league,id,maxAge=12000){
   const today=new Date(Date.now()+8*3600000).toISOString().slice(0,10);
   const yesterday=new Date(Date.parse(today)-86400000).toISOString().slice(0,10);
-  return collectedMatch(league,id,today)||collectedMatch(league,id,yesterday);
+  return collectedMatch(league,id,today,maxAge)||collectedMatch(league,id,yesterday,maxAge);
 }
 export function saveCollectedMatch(league,id,day,data){
   const map=processState.results,k=JSON.stringify([league,String(id),day]);
@@ -58,6 +58,8 @@ export function createMatchCollector(adapters,{now=Date.now,concurrency=4,record
     status.lastMatchAt=stamp();
     const play=result.pitch?.actions?.find(action=>action.occurredAt);
     if(play&&(!status.lastPitchEventAt||Date.parse(play.occurredAt)>Date.parse(status.lastPitchEventAt)))status.lastPitchEventAt=play.occurredAt;
+    const courtEvent=result.plays?.find(p=>p.occurredAt);
+    if(courtEvent&&(!status.lastCourtEventAt||Date.parse(courtEvent.occurredAt)>Date.parse(status.lastCourtEventAt)))status.lastCourtEventAt=courtEvent.occurredAt;
     if(job.finishing){
       if(!fixture.final)return 0;
       const final=result.final===true||result.game?.state==='final'||result.match?.state==='final'||
